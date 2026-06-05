@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historica.kz — Онлайн-курс истории Казахстана / Қазақстан тарихы курсы</title>
+    <style>
+        /* ==========================================================================
+           1. DESIGN SYSTEM & CORE STYLES
+           ========================================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap');
+
+        :root {
+            /* Отредактированная палитра: Midnight Luxury & Gold */
+            --brand-gold: #E5C158;
+            --brand-gold-dark: #C5A037;
+            --brand-gold-light: #F6E6B4;
+            --bg-main: #0B0C0E;
+            --bg-surface-1: #131619;
+            --bg-surface-2: #1A1D23;
+            --bg-surface-3: #222730;
+            
+            --text-primary: #FFFFFF;
+            --text-secondary: #949A9F;
+            --text-muted: #626970;
+            
+            --state-success: #10B981;
+            --state-error: #EF4444;
+            --whatsapp-green: #25D366;
+            
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            
+            --blur-md: 16px;
+            --blur-lg: 24px;
+            
+            --easing-premium: cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-subtle: 0 4px 30px rgba(0, 0, 0, 0.2);
+            --shadow-glow: 0 0 40px rgba(229, 193, 88, 0.15);
+            
+            --transition-fast: 0.2s var(--easing-premium);
+            --transition-normal: 0.4s var(--easing-premium);
+            --transition-slow: 0.8s var(--easing-premium);
+        }
+
+        /* Глобальный сброс настроек */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.5;
+        }
+
+        /* Утилиты разметки */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+        }
+
+        .unselectable {
+            user-select: none;
+        }
+
+        /* Компоненты UI: Заголовки */
+        .section-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 72px auto;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-serif);
+            font-size: 3.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 span {
+            color: var(--brand-gold);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .section-header p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .section-header h2 { font-size: 2.2rem; }
+            .section-header p { font-size: 1rem; }
+            .section-header { margin-bottom: 48px; }
+        }
+
+        /* Компоненты UI: Кнопки */
+        .btn-base {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .btn-gold-action {
+            background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-dark));
+            color: #000000;
+            padding: 20px 42px;
+            box-shadow: 0 12px 30px rgba(229, 193, 88, 0.2);
+        }
+
+        .btn-gold-action:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(229, 193, 88, 0.35), var(--shadow-glow);
+            background: linear-gradient(135deg, var(--brand-gold-light), var(--brand-gold));
+        }
+
+        .btn-gold-action:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-whatsapp-action {
+            background-color: var(--whatsapp-green);
+            color: #FFFFFF;
+            padding: 18px 36px;
+            box-shadow: 0 10px 24px rgba(37, 211, 102, 0.15);
+        }
+
+        .btn-whatsapp-action:hover {
+            background-color: #20BA5A;
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp-action svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .btn-outline-action {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 18px 36px;
+        }
+
+        .btn-outline-action:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--brand-gold);
+            color: var(--brand-gold);
+        }
+
+        /* Декоративные размытые фоны */
+        .glow-orb {
+            position: absolute;
+            border-radius: var(--radius-full);
+            filter: blur(120px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        /* ==========================================================================
+           2. ШАПКА САЙТА (HEADER & NAVIGATION)
+           ========================================================================== */
+        .premium-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(11, 12, 14, 0.7);
+            backdrop-filter: blur(var(--blur-md));
+            -webkit-backdrop-filter: blur(var(--blur-md));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition-normal);
+        }
+
+        .premium-header.is-scrolled {
+            background: rgba(11, 12, 14, 0.92);
+            padding: 4px 0;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            transition: var(--transition-normal);
+        }
+
+        .premium-header.is-scrolled .nav-container {
+            padding: 14px 0;
+        }
+
+        .brand-identity {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            z-index: 1002;
+        }
+
+        .brand-logo-img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition-normal);
+        }
+
+        @media (max-width: 768px) {
+            .brand-logo-img { height: 34px; }
+        }
+
+        .navigation-dock {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .menu-links-list {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .menu-links-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .menu-links-list a:hover {
+            color: var(--text-primary);
+        }
+
+        .menu-links-list a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--brand-gold);
+            transition: var(--transition-normal);
+            transform: translateX(-50%);
+        }
+
+        .menu-links-list a:hover::after {
+            width: 100%;
+        }
+
+        /* Селектор переключения языков */
+        .language-capsule {
+            display: flex;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .lang-pill {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .lang-pill.is-active {
+            background: var(--brand-gold);
+            color: #000000;
+        }
+
+        /* Кнопка Мобильного Меню */
+        .burger-trigger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .burger-trigger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-primary);
+            border-radius: var(--radius-full);
+            transition: var(--transition-normal);
+        }
+
+        .burger-trigger.is-open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .burger-trigger.is-open span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .burger-trigger.is-open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        @media (max-width: 1024px) {
+            .navigation-dock { gap: 24px; }
+            .menu-links-list { gap: 24px; }
+        }
+
+        @media (max-width: 768px) {
+            .burger-trigger { display: flex; }
+            
+            .menu-links-list {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--bg-surface-1);
+                flex-direction: column;
+                padding: 120px 40px;
+                box-shadow: -10px 0 40px rgba(0,0,0,0.6);
+                transition: var(--transition-slow);
+                z-index: 1001;
+                gap: 32px;
+            }
+
+            .menu-links-list.is-active {
+                right: 0;
+            }
+        }
+
+        /* ==========================================================================
+           3. ГЛАВНЫЙ ЭКРАН (HERO BANNER)
+           ========================================================================== */
+        .hero-showcase {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 140px;
+            padding-bottom: 80px;
+            background: radial-gradient(circle at 80% 20%, rgba(26, 29, 35, 0.45) 0%, var(--bg-main) 100%), 
+                        url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+            overflow: hidden;
+        }
+
+        .hero-showcase::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 60%, var(--bg-main) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .hero-grid-control {
+            position: relative;
+            z-index: 10;
+            max-width: 840px;
+        }
+
+        .hero-announcement-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(229, 193, 88, 0.08);
+            border: 1px solid rgba(229, 193, 88, 0.2);
+            color: var(--brand-gold);
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 32px;
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 0 rgba(229, 193, 88, 0); }
+            50% { box-shadow: 0 0 15px rgba(229, 193, 88, 0.15); }
+        }
+
+        .hero-grid-control h1 {
+            font-family: var(--font-serif);
+            font-size: 4.8rem;
+            line-height: 1.1;
+            font-weight: 600;
+            margin-bottom: 28px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-grid-control h1 span {
+            color: var(--brand-gold);
+            display: block;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--brand-gold-light), var(--brand-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-grid-control p {
+            font-size: 1.35rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 48px;
+            font-weight: 400;
+            max-width: 720px;
+        }
+
+        .hero-button-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Информационная инфографика в Hero */
+        .hero-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 40px;
+            max-width: 700px;
+        }
+
+        .metric-card h3 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .metric-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-grid-control h1 { font-size: 3.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-showcase { padding-top: 120px; padding-bottom: 60px; }
+            .hero-grid-control h1 { font-size: 2.8rem; }
+            .hero-grid-control p { font-size: 1.1rem; margin-bottom: 36px; }
+            .hero-button-group { flex-direction: column; width: 100%; }
+            .hero-button-group .btn-base { width: 100%; }
+            .hero-metrics-grid { grid-template-columns: 1fr; gap: 24px; margin-top: 48px; padding-top: 32px; }
+            .metric-card h3 { font-size: 2.4rem; }
+        }
+
+        /* ==========================================================================
+           4. СЕКЦИЯ: ЦЕЛЕВАЯ АУДИТОРИЯ (TARGET AUDIENCE)
+           ========================================================================== */
+        .audience-workspace {
+            padding: 140px 0;
+            position: relative;
+            background: linear-gradient(to bottom, var(--bg-main), var(--bg-surface-1));
+        }
+
+        .audience-flex-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .audience-premium-card {
+            background-color: var(--bg-surface-2);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-lg);
+            padding: 56px 40px;
+            transition: var(--transition-normal);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .audience-premium-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-lg);
+            padding: 1px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.08), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .audience-premium-card:hover {
+            transform: translateY(-8px);
+            background-color: var(--bg-surface-3);
+            border-color: rgba(229, 193, 88, 0.2);
+            box-shadow: var(--shadow-subtle), var(--shadow-glow);
+        }
+
+        .audience-icon-bucket {
+            width: 56px;
+            height: 56px;
+            background: rgba(229, 193, 88, 0.06);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 36px;
+            color: var(--brand-gold);
+            border: 1px solid rgba(229, 193, 88, 0.12);
+            transition: var(--transition-normal);
+        }
+
+        .audience-premium-card:hover .audience-icon-bucket {
+            background: var(--brand-gold);
+            color: #000000;
+            transform: scale(1.05);
+        }
+
+        .audience-premium-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .audience-premium-card p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        @media (max-width: 1024px) {
+            .audience-flex-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .audience-workspace { padding: 80px 0; }
+            .audience-flex-grid { grid-template-columns: 1fr; gap: 20px; }
+            .audience-premium-card { padding: 40px 28px; }
+        }
+
+        /* ==========================================================================
+           5. СЕКЦИЯ: ИНТЕРАКТИВНАЯ ПРОГРАММА С ФИЛЬТРАЦИЕЙ
+           ========================================================================== */
+        .syllabus-workspace {
+            padding: 140px 0;
+            background-color: var(--bg-surface-1);
+            position: relative;
+        }
+
+        /* Навигационная панель фильтров программы */
+        .filter-nav-deck {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 64px;
+            flex-wrap: wrap;
+        }
+
+        .filter-pill-btn {
+            background: var(--bg-surface-2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            padding: 14px 28px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .filter-pill-btn:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+        }
+
+        .filter-pill-btn.is-active {
+            background: var(--brand-gold);
+            color: #000000;
+            border-color: var(--brand-gold);
+            font-weight: 700;
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Архитектура интерактивного таймлайна */
+        .timeline-spine {
+            max-width: 960px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-spine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 40px;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--brand-gold) 0%, rgba(229, 193, 88, 0.05) 100%);
+        }
+
+        .timeline-cluster {
+            position: relative;
+            padding-left: 100px;
+            margin-bottom: 48px;
+            transition: var(--transition-normal);
+        }
+
+        .timeline-cluster.is-hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .timeline-node-dot {
+            position: absolute;
+            left: 26px;
+            top: 4px;
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-full);
+            background-color: var(--bg-surface-1);
+            border: 3px solid var(--brand-gold);
+            z-index: 10;
+            transition: var(--transition-normal);
+        }
+
+        .timeline-cluster:hover .timeline-node-dot {
+            background-color: var(--brand-gold);
+            box-shadow: 0 0 20px var(--brand-gold);
+            transform: scale(1.1);
+        }
+
+        .cluster-content-shield {
+            background-color: var(--bg-surface-2);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .cluster-content-shield:hover {
+            border-color: rgba(229, 193, 88, 0.15);
+            background-color: var(--bg-surface-3);
+        }
+
+        .module-meta-index {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--brand-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .cluster-content-shield h3 {
+            font-family: var(--font-serif);
+            font-size: 1.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .cluster-content-shield p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            font-weight: 400;
+        }
+
+        /* Выпадающий аккордеон списка уроков */
+        .accordion-lessons-tray {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: 0;
+            padding-top: 0;
+            border-top: 1px solid transparent;
+            list-style: none;
+        }
+
+        .cluster-content-shield.is-expanded .accordion-lessons-tray {
+            max-height: 500px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .accordion-lessons-tray li {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .accordion-lessons-tray li:last-child {
+            margin-bottom: 0;
+        }
+
+        .accordion-lessons-tray li::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--brand-gold);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+
+        /* Индикатор раскрытия модуля */
+        .tray-toggle-icon {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tray-toggle-icon svg {
+            width: 16px;
+            height: 16px;
+            transition: var(--transition-normal);
+            fill: currentColor;
+        }
+
+        .cluster-content-shield.is-expanded .tray-toggle-icon svg {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            .syllabus-workspace { padding: 80px 0; }
+            .timeline-spine::before { left: 16px; }
+            .timeline-cluster { padding-left: 48px; margin-bottom: 32px; }
+            .timeline-node-dot { left: 2px; top: 8px; }
+            .cluster-content-shield { padding: 32px 24px; }
+            .cluster-content-shield h3 { font-size: 1.4rem; }
+            .filter-nav-deck { gap: 10px; margin-bottom: 40px; }
+            .filter-pill-btn { padding: 10px 20px; font-size: 0.8rem; }
+        }
+
+        /* ==========================================================================
+           6. СЕКЦИЯ: ТАРИФНЫЕ ПЛАНЫ С ИНТЕЛЛЕКТУАЛЬНЫМ КАЛЬКУЛЯТОРОМ
+           ========================================================================== */
+        .pricing-workspace {
+            padding: 140px 0;
+            background-color: var(--bg-main);
+            position: relative;
+        }
+
+        /* Переключатель калькулятора оплаты (Полная / В рассрочку) */
+        .pricing-billing-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 64px;
+        }
+
+        .billing-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        .billing-label.is-active {
+            color: var(--text-primary);
+        }
+
+        .switch-toggle-housing {
+            width: 64px;
+            height: 36px;
+            background-color: var(--bg-surface-3);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .switch-toggle-housing::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 4px;
+            width: 28px;
+            height: 28px;
+            background-color: var(--brand-gold);
+            border-radius: var(--radius-full);
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .switch-toggle-housing.is-split::after {
+            left: 30px;
+        }
+
+        .pricing-flex-container {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+
+        .pricing-tier-shield {
+            background-color: var(--bg-surface-2);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-lg);
+            padding: 64px 48px;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-normal);
+        }
+
+        .pricing-tier-shield::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-lg);
+            padding: 1px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.06), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .pricing-tier-shield.is-featured {
+            border: 2px solid var(--brand-gold);
+            background-color: #12151B;
+            transform: scale(1.02);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .pricing-tier-shield.is-featured::before {
+            display: none;
+        }
+
+        .featured-ribbon-badge {
+            position: absolute;
+            top: 28px;
+            right: 28px;
+            background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-dark));
+            color: #000000;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-tier-shield h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .tier-description-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .price-display-wrapper {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 48px;
+        }
+
+        .price-display-wrapper .numeric-val {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1;
+            transition: var(--transition-normal);
+        }
+
+        .price-display-wrapper .currency-symbol {
+            font-size: 2rem;
+            color: var(--brand-gold);
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        .price-display-wrapper .billing-period-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-left: 12px;
+            font-weight: 500;
+        }
+
+        .tier-perks-list {
+            list-style: none;
+            margin-bottom: 56px;
+            flex-grow: 1;
+        }
+
+        .tier-perks-list li {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            line-height: 1.4;
+        }
+
+        .tier-perks-list li svg {
+            width: 20px;
+            height: 20px;
+            color: var(--brand-gold);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .pricing-tier-shield .btn-base {
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-tier-shield.is-featured { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-workspace { padding: 80px 0; }
+            .pricing-tier-shield { padding: 48px 28px; }
+            .price-display-wrapper .numeric-val { font-size: 3.2rem; }
+            .pricing-billing-control { margin-bottom: 40px; }
+        }
+
+        /* ==========================================================================
+           7. ИНТЕГРИРОВАННАЯ ФОРМА ЗАЯВКИ С ВАЛИДАЦИЕЙ
+           ========================================================================== */
+        .lead-capture-space {
+            padding: 120px 0;
+            background-color: var(--bg-surface-1);
+            position: relative;
+        }
+
+        .form-card-wrapper {
+            background-color: var(--bg-surface-2);
+            max-width: 640px;
+            margin: 0 auto;
+            border-radius: var(--radius-lg);
+            padding: 64px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            box-shadow: var(--shadow-subtle);
+            position: relative;
+        }
+
+        .form-card-wrapper h3 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .form-card-wrapper p {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        .interactive-form-element {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .input-field-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-field-container label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .input-styled-object {
+            background-color: var(--bg-main);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 18px 24px;
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            font-size: 1rem;
+            transition: var(--transition-normal);
+            outline: none;
+        }
+
+        .input-styled-object:focus {
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 15px rgba(229, 193, 88, 0.1);
+        }
+
+        .input-field-container.has-error .input-styled-object {
+            border-color: var(--state-error);
+        }
+
+        .error-validation-msg {
+            font-size: 0.8rem;
+            color: var(--state-error);
+            margin-top: 6px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .input-field-container.has-error .error-validation-msg {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .lead-capture-space { padding: 80px 0; }
+            .form-card-wrapper { padding: 40px 24px; }
+            .form-card-wrapper h3 { font-size: 1.8rem; }
+        }
+
+        /* ==========================================================================
+           8. МОДАЛЬНЫЕ ОКНА И СЛУЖЕБНЫЕ КОМПОНЕНТЫ (UI NOTIFICATIONS)
+           ========================================================================== */
+        .toast-notification-hub {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .toast-instance {
+            background-color: var(--bg-surface-3);
+            color: var(--text-primary);
+            padding: 16px 28px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: var(--transition-normal);
+            border-left: 4px solid var(--brand-gold);
+            pointer-events: auto;
+        }
+
+        .toast-instance.is-visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-instance.is-success { border-left-color: var(--state-success); }
+        .toast-instance.is-error { border-left-color: var(--state-error); }
+
+        /* Полноэкранное всплывающее модальное окно */
+        .modal-overlay-shield {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(11, 12, 14, 0.85);
+            backdrop-filter: blur(var(--blur-lg));
+            -webkit-backdrop-filter: blur(var(--blur-lg));
+            z-index: 1500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-normal);
+            padding: 20px;
+        }
+
+        .modal-overlay-shield.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-viewport-box {
+            background-color: var(--bg-surface-2);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 540px;
+            padding: 56px 40px;
+            position: relative;
+            transform: scale(0.95);
+            transition: var(--transition-normal);
+        }
+
+        .modal-overlay-shield.is-open .modal-viewport-box {
+            transform: scale(1);
+        }
+
+        .modal-dismiss-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .modal-dismiss-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-dismiss-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* ==========================================================================
+           9. ПОДВАЛ (FOOTER)
+           ========================================================================== */
+        .premium-footer {
+            background-color: #07080A;
+            padding: 80px 0 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            position: relative;
+        }
+
+        .footer-structural-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .footer-copyright-info {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .footer-navigation-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .footer-navigation-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+        }
+
+        .footer-navigation-links a:hover {
+            color: var(--brand-gold);
+        }
+
+        .footer-legal-bar {
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-structural-grid { flex-direction: column; text-align: center; gap: 32px; }
+            .footer-navigation-links { flex-direction: column; gap: 20px; }
+            .footer-legal-bar { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-orb" style="top: 10%; right: -10%; width: 500px; height: 500px; background-color: var(--brand-gold);"></div>
+    <div class="glow-orb" style="top: 40%; left: -20%; width: 600px; height: 600px; background-color: rgba(229, 193, 88, 0.5);"></div>
+
+    <header class="premium-header" id="dynamic-header">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="brand-identity">
+                    <img src="https://historica.kz/assets/default/img/site_logo.png" alt="Historica" class="brand-logo-img">
+                </a>
+                <nav class="navigation-dock">
+                    <ul class="menu-links-list" id="responsive-menu">
+                        <li><a href="#about" id="lang-nav-about">Курс туралы</a></li>
+                        <li><a href="#program" id="lang-nav-program">Бағдарлама</a></li>
+                        <li><a href="#pricing" id="lang-nav-pricing">Тарифтер</a></li>
+                    </ul>
+                    <div class="language-capsule">
+                        <button class="lang-pill is-active" onclick="executeLanguagePivot('kk', this)">KK</button>
+                        <button class="lang-pill" onclick="executeLanguagePivot('ru', this)">RU</button>
+                    </div>
+                    <button class="burger-trigger" onclick="toggleMobileInterface()" id="burger-switch">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-showcase">
+        <div class="container">
+            <div class="hero-grid-control">
+                <div class="hero-announcement-tag" id="lang-hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <span>ҰБТ & Емтихандар 2026</span>
+                </div>
+                <h1 id="lang-hero-title">Қазақстан тарихын <span>терең меңгеріңіз</span></h1>
+                <p id="lang-hero-desc">ҰБТ-ға сапалы дайындық және тарихты шынайы түсінуге арналған авторлық премиум онлайн-курс. Тек құрғақ фактілер емес — тарихи логика мен талдау.</p>
+                
+                <div class="hero-button-group">
+                    <a href="#lead-form-section" class="btn-base btn-gold-action" id="lang-hero-cta">Тіркелу</a>
+                    <button onclick="invokeModalSystem('global')" class="btn-base btn-outline-action" id="lang-hero-secondary-cta">Консультация</button>
+                </div>
+
+                <div class="hero-metrics-grid">
+                    <div class="metric-card">
+                        <h3>1500+</h3>
+                        <p id="lang-stat1-lbl">Түлектер</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>96%</h3>
+                        <p id="lang-stat2-lbl">Жоғары балл</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>24/7</h3>
+                        <p id="lang-stat3-lbl">Қолдау</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="audience-workspace" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="lang-about-title">Бұл курс <span>кімге арналған?</span></h2>
+                <p id="lang-about-subtitle">Біз кез келген деңгейдегі оқушыға материалды жүйелі және қызықты түрде жеткіземіз.</p>
+            </div>
+            <div class="audience-flex-grid">
+                <div class="audience-premium-card">
+                    <div class="audience-icon-bucket">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+                    </div>
+                    <h3 id="lang-aud1-title">Мектеп түлектеріне</h3>
+                    <p id="lang-aud1-desc">ҰБТ-да Қазақстан тарихынан максималды балл жинап, мемлекеттік грантты жеңіп алғысы келетін болашақ студенттер үшін таптырмас құрал.</p>
+                </div>
+                <div class="audience-premium-card">
+                    <div class="audience-icon-bucket">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </div>
+                    <h3 id="lang-aud2-title">Олимпиадашыларға</h3>
+                    <p id="lang-aud2-desc">Тарихтың терең қатпарларын, сирек кездесет етін деректер мен тарихи тұлғалардың өмірбаянын зерттеп, білімін шыңдағысы келетіндерге.</p>
+                </div>
+                <div class="audience-premium-card">
+                    <div class="audience-icon-bucket">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                    </div>
+                    <h3 id="lang-aud3-title">Тарих сүйер қауымға</h3>
+                    <p id="lang-aud3-desc">Ұлы Даланың өткен тарихын, хандар мен батырлардың шешімдерін логикалық тұрғыдан түсініп, зерделегісі келетін барша жандарға.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="syllabus-workspace" id="program">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="lang-program-title">Курстың <span>толық бағдарламасы</span></h2>
+                <p id="lang-program-subtitle">Қазақстан тарихының барлық кезеңдерін қамтитын жүйелі академиялық жоспар.</p>
+            </div>
+
+            <div class="filter-nav-deck">
+                <button class="filter-pill-btn is-active" onclick="filterSyllabusTimeline('all', this)" id="lang-filter-all">Барлығы</button>
+                <button class="filter-pill-btn" onclick="filterSyllabusTimeline('early', this)" id="lang-filter-early">Ежелгі & Орта</button>
+                <button class="filter-pill-btn" onclick="filterSyllabusTimeline('modern', this)" id="lang-filter-modern">Жаңа & Қазіргі</button>
+            </div>
+            
+            <div class="timeline-spine">
+                <div class="timeline-cluster" data-era="early">
+                    <div class="timeline-node-dot"></div>
+                    <div class="cluster-content-shield" onclick="toggleAccordionTray(this)">
+                        <span class="module-meta-index" id="lang-mod1-tag">01 Модуль</span>
+                        <h3 id="lang-mod1-title">Ежелгі және орта ғасырлар тарихы</h3>
+                        <p id="lang-mod1-desc">Тас, қола және темір дәуірлерінен бастап, Қазақстан аумағындағы алғашқы мемлекеттік бірлестіктердің, сақ, ғұн және үйсін мәдениеттерінің қалыптасу хронологиясы.</p>
+                        <div class="tray-toggle-icon">
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                            <span class="tray-status-text">Сабақтар тізімі</span>
+                        </div>
+                        <ul class="accordion-lessons-tray">
+                            <li id="lang-mod1-l1">Ұлы даланың ежелгі қоныстанушылары</li>
+                            <li id="lang-mod1-l2">Сақ, ғұн, үйсін және қаңлы мемлекеттері</li>
+                            <li id="lang-mod1-l3">Ерте ортағасырлық қағанаттар кезеңі</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-cluster" data-era="early">
+                    <div class="timeline-node-dot"></div>
+                    <div class="cluster-content-shield" onclick="toggleAccordionTray(this)">
+                        <span class="module-meta-index" id="lang-mod2-tag">02 Модуль</span>
+                        <h3 id="lang-mod2-title">Қазақ хандығы және даму кезеңі</h3>
+                        <p id="lang-mod2-desc">Алтын Орданың ыдырауы, Керей мен Жәнібек хандардың тарихи рөлі, Қазақ хандығының ішкі-сыртқы саясаты және заңдар жинақтарын терең талдау.</p>
+                        <div class="tray-toggle-icon">
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                            <span class="tray-status-text">Сабақтар тізімі</span>
+                        </div>
+                        <ul class="accordion-lessons-tray">
+                            <li id="lang-mod2-l1">Қазақ хандығының құрылуы мен нығаюы</li>
+                            <li id="lang-mod2-l2">Хақназар, Тәуекел және Есім хандардың саясаты</li>
+                            <li id="lang-mod2-l3">Тәуке хан және «Жеті Жарғы» заңдар жинағы</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-cluster" data-era="modern">
+                    <div class="timeline-node-dot"></div>
+                    <div class="cluster-content-shield" onclick="toggleAccordionTray(this)">
+                        <span class="module-meta-index" id="lang-mod3-tag">03 Модуль</span>
+                        <h3 id="lang-mod3-title">Отарлау кезеңі және Ұлт-азаттық қозғалыстар</h3>
+                        <p id="lang-mod3-desc">Ресей империясының отарлау саясатына қарсы бағытталған Сырым Датұлы, Исатай-Махамбет және Кенесары хан бастаған ұлт-азаттық көтерілістердің мәні.</p>
+                        <div class="tray-toggle-icon">
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                            <span class="tray-status-text">Сабақтар тізімі</span>
+                        </div>
+                        <ul class="accordion-lessons-tray">
+                            <li id="lang-mod3-l1">Ресей империясының отаршылдық реформалары</li>
+                            <li id="lang-mod3-l2">Кенесары Қасымұлы бастаған жалпыұлттық көтеріліс</li>
+                            <li id="lang-mod3-l3">ХХ ғасыр басындағы Алаш қозғалысы және Алашорда</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-cluster" data-era="modern">
+                    <div class="timeline-node-dot"></div>
+                    <div class="cluster-content-shield" onclick="toggleAccordionTray(this)">
+                        <span class="module-meta-index" id="lang-mod4-tag">04 Модуль</span>
+                        <h3 id="lang-mod4-title">Кеңестік кезең және Тәуелсіз Қазақстан</h3>
+                        <p id="lang-mod4-desc">КСРО құрамындағы Қазақстан, ұжымдастыру трагедиясы, Ұлы Отан соғысы жылдары, Желтоқсан оқиғасы және Тәуелсіздік жылдарындағы жаңа тарих парақтары.</p>
+                        <div class="tray-toggle-icon">
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                            <span class="tray-status-text">Сабақтар тізімі</span>
+                        </div>
+                        <ul class="accordion-lessons-tray">
+                            <li id="lang-mod4-l1">Қазақстандағы тоталитарлық жүйе және ашаршылық</li>
+                            <li id="lang-mod4-l2">1986 жылғы Желтоқсан көтерілісінің тарихи маңызы</li>
+                            <li id="lang-mod4-l3">Егемендік алу және Тәуелсіз Қазақстанның қалыптасуы</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-workspace" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="lang-pricing-title">Ыңғайлы <span>оқу пакеттері</span></h2>
+                <p id="lang-pricing-subtitle">Өзіңізге сәйкес келетін дайындық форматын таңдап, қазірден бастап білім алыңыз.</p>
+            </div>
+
+            <div class="pricing-billing-control">
+                <span class="billing-label is-active" id="label-full-pay">Толық төлем</span>
+                <div class="switch-toggle-housing" id="calculator-toggle-switch" onclick="togglePricingCalculatorEngine()"></div>
+                <span class="billing-label" id="label-split-pay">Бөліп төлеу (Халык / Каспи)</span>
+            </div>
+
+            <div class="pricing-flex-container">
+                <div class="pricing-tier-shield">
+                    <h3 id="lang-tier1-title">Стандарт</h3>
+                    <p class="tier-description-text" id="lang-tier1-subtitle">Өз бетінше дайындалуға арналған базалық пакет</p>
+                    <div class="price-display-wrapper">
+                        <span class="numeric-val" id="price-val-tier1" data-full="19900" data-split="1660">19 900</span>
+                        <span class="currency-symbol">₸</span>
+                        <span class="billing-period-text" id="period-tier1">/ курс</span>
+                    </div>
+                    <ul class="tier-perks-list">
+                        <li>
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <span id="lang-t1-f1">Барлық бейнедәрістерге толық қолжетімділік</span>
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <span id="lang-t1-f2">Презентациялар мен авторлық конспектілер</span>
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <span id="lang-t1-f3">Әр тақырыптан кейінгі онлайн-тесттер</span>
+                        </li>
+                    </ul>
+                    <button onclick="invokeModalSystem('Стандарт')" class="btn-base btn-whatsapp-action">
+                        <span class="btn-text" id="lang-btn-register-1">Тіркелу</span>
+                    </button>
+                </div>
+
+                <div class="pricing-tier-shield is-featured">
+                    <div class="featured-ribbon-badge" id="lang-popular-tag">Танымал</div>
+                    <h3 id="lang-tier2-title">Pro Максимум</h3>
+                    <p class="tier-description-text" id="lang-tier2-subtitle">Куратормен бірге грантқа толық кепілдік дайындық</p>
+                    <div class="price-display-wrapper">
+                        <span class="numeric-val" id="price-val-tier2" data-full="29900" data-split="2490">29 900</span>
+                        <span class="currency-symbol">₸</span>
+                        <span class="billing-period-text" id="period-tier2">/ курс</span>
+                    </div>
+                    <ul class="tier-perks-list">
+                        <li>
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <span id="lang-t2-f1">Стандарт пакетінің барлық мүмкіндіктері</span>
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <span id="lang-t2-f2">Жеке кураторлық қолдау және қатемен жұмыс (24/7)</span>
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <span id="lang-t2-f3">Апта сайынғы ҰБТ форматындағы жабық сынама тестілеу</span>
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <span id="lang-t2-f4">Психологиялық мотивациялық тікелей эфирлер</span>
+                        </li>
+                    </ul>
+                    <button onclick="invokeModalSystem('Pro Максимум')" class="btn-base btn-whatsapp-action">
+                        <span class="btn-text" id="lang-btn-register-2">Тіркелу</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="lead-capture-space" id="lead-form-section">
+        <div class="container">
+            <div class="form-card-wrapper">
+                <h3 id="lang-form-title">Курсқа тіркелу</h3>
+                <p id="lang-form-subtitle">Деректерді толтырыңыз, менеджер сізбен ең қысқа уақытта байланысады</p>
+                <form class="interactive-form-element" id="landing-lead-form" onsubmit="handleFormSubmissionEngine(event, 'Form Checkout')">
+                    <div class="input-field-container">
+                        <label for="form-user-name" id="lang-lbl-name">Сіздің есіміңіз</label>
+                        <input type="text" id="form-user-name" class="input-styled-object" placeholder="Абылай" required>
+                        <span class="error-validation-msg" id="lang-err-name">Есімді толтыру міндетті</span>
+                    </div>
+                    <div class="input-field-container">
+                        <label for="form-user-phone" id="lang-lbl-phone">Телефон нөмірі (WhatsApp)</label>
+                        <input type="tel" id="form-user-phone" class="input-styled-object" placeholder="+7 (707) 123-4567" required>
+                        <span class="error-validation-msg" id="lang-err-phone">Қате телефон нөмірі</span>
+                    </div>
+                    <button type="submit" class="btn-base btn-gold-action" style="width:100%; margin-top:12px;">
+                        <span id="lang-form-submit-btn">Өтінімді жіберу</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="premium-footer">
+        <div class="container">
+            <div class="footer-structural-grid">
+                <div>
+                    <img src="https://historica.kz/assets/default/img/site_logo.png" alt="Historica" class="brand-logo-img" style="margin-bottom: 16px;">
+                    <div class="footer-copyright-info">
+                        &copy; 2026 Historica.kz. <span id="lang-footer-rights">Барлық құқықтар қорғалған.</span>
+                    </div>
+                </div>
+                <ul class="footer-navigation-links">
+                    <li><a href="#about" id="lang-foot-link1">Курс туралы</a></li>
+                    <li><a href="#program" id="lang-foot-link2">Бағдарлама</a></li>
+                    <li><a href="#pricing" id="lang-foot-link3">Тарифтер</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal-bar">
+                <span id="lang-legal-1">Қазақстан Республикасы, Астана қ.</span>
+                <span id="lang-legal-2">Байланыс: info@historica.kz</span>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay-shield" id="global-application-modal">
+        <div class="modal-viewport-box">
+            <button class="modal-dismiss-btn" onclick="dismissModalSystem()">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+            <h3 id="lang-modal-title" style="text-align:center; margin-bottom:12px; font-family:var(--font-serif); font-size:2rem;">Консультация алу</h3>
+            <p id="lang-modal-subtitle" style="text-align:center; color:var(--text-secondary); margin-bottom:32px;">Тариф таңдау және толық ақпарат алу үшін деректеріңізді қалдырыңыз</p>
+            <form class="interactive-form-element" id="modal-lead-form" onsubmit="handleFormSubmissionEngine(event, 'Modal Callback')">
+                <input type="hidden" id="modal-context-tier" value="General">
+                <div class="input-field-container">
+                    <label for="modal-user-name" id="lang-modal-lbl-name">Есіміңіз</label>
+                    <input type="text" id="modal-user-name" class="input-styled-object" required>
+                </div>
+                <div class="input-field-container">
+                    <label for="modal-user-phone" id="lang-modal-lbl-phone">Телефон нөмірі</label>
+                    <input type="tel" id="modal-user-phone" class="input-styled-object" placeholder="+7" required>
+                </div>
+                <button type="submit" class="btn-base btn-gold-action" style="width:100%; margin-top:12px;">
+                    <span id="lang-modal-submit-btn">Жіберу</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast-notification-hub" id="toast-hub"></div>
+
+    <script>
+        // Базовый объект конфигурации и локализации локали
+        const localizationEngineDictionary = {
+            kk: {
+                navAbout: "Курс туралы",
+                navProgram: "Бағдарлама",
+                navPricing: "Тарифтер",
+                heroBadge: "ҰБТ & Емтихандар 2026",
+                heroTitle: "Қазақстан тарихын <span>терең меңгеріңіз</span>",
+                heroDesc: "ҰБТ-ға сапалы дайындық және тарихты шынайы түсінуге арналған авторлық премиум онлайн-курс. Тек құрғақ фактілер емес — тарихи логика мен талдау.",
+                heroCta: "Тіркелу",
+                heroSecCta: "Консультация",
+                stat1Lbl: "Түлектер",
+                stat2Lbl: "Жоғары балл",
+                stat3Lbl: "Қолдау",
+                aboutTitle: "Бұл курс <span>кімге арналған?</span>",
+                aboutSubtitle: "Біз кез келген деңгейдегі оқушыға материалды жүйелі және қызықты түрде жеткіземіз.",
+                aud1Title: "Мектеп түлектеріне",
+                aud1Desc: "ҰБТ-да Қазақстан тарихынан максималды балл жинап, мемлекеттік грантты жеңіп алғысы келетін болашақ студенттер үшін таптырмас құрал.",
+                aud2Title: "Олимпиадашыларға",
+                aud2Desc: "Тарихтың терең қатпарларын, сирек кездесетін деректер мен тарихи тұлғалардың өмірбаянын зерттеп, білімін шыңдағысы келетіндерге.",
+                aud3Title: "Тарих сүйер қауымға",
+                aud3Desc: "Ұлы Даланың өткен тарихын, хандар мен батырлардың шешімдерін логикалық тұрғыдан түсініп, зерделегісі келетін барша жандарға.",
+                programTitle: "Курстың <span>толық бағдарламасы</span>",
+                programSubtitle: "Қазақстан тарихының барлық кезеңдерін қамтитын жүйелі академиялық жоспар.",
+                filterAll: "Барлығы",
+                filterEarly: "Ежелгі & Орта",
+                filterModern: "Жаңа & Қазіргі",
+                mod1Tag: "01 Модуль",
+                mod1Title: "Ежелгі және орта ғасырлар тарихы",
+                mod1Desc: "Тас, қола және темір дәуірлерінен бастап, Қазақстан аумағындағы алғашқы мемлекеттік бірлестіктердің, сақ, ғұн және үйсін мәдениеттерінің қалыптасу хронологиясы.",
+                mod1L1: "Ұлы даланың ежелгі қоныстанушылары",
+                mod1L2: "Сақ, ғұн, үйсін және қаңлы мемлекеттері",
+                mod1L3: "Ерте ортағасырлық қағанаттар кезеңі",
+                mod2Tag: "02 Модуль",
+                mod2Title: "Қазақ хандығы және даму кезеңі",
+                mod2Desc: "Алтын Орданың ыдырауы, Керей мен Жәнібек хандардың тарихи рөлі, Қазақ хандығының ішкі-сыртқы саясаты және заңдар жинақтарын терең талдау.",
+                mod2L1: "Қазақ хандығының құрылуы мен нығаюы",
+                mod2L2: "Хақназар, Тәуекел және Есім хандардың саясаты",
+                mod2L3: "Тәуке хан және «Жеті Жарғы» заңдар жинағы",
+                mod3Tag: "03 Модуль",
+                mod3Title: "Отарлау кезеңі және Ұлт-азаттық қозғалыстар",
+                mod3Desc: "Ресей империясының отарлау саясатына қарсы бағытталған Сырым Датұлы, Исатай-Махамбет және Кенесары хан бастаған ұлт-азаттық көтерілістердің мәні.",
+                mod3L1: "Ресей империясының отаршылдық реформалары",
+                mod3L2: "Кенесары Қасымұлы бастаған жалпыұлттық көтеріліс",
+                mod3L3: "ХХ ғасыр басындағы Алаш қозғалысы және Алашорда",
+                mod4Tag: "04 Модуль",
+                mod4Title: "Кеңестік кезең және Тәуелсіз Қазақстан",
+                mod4Desc: "КСРО құрамындағы Қазақстан, ұжымдастыру трагедиясы, Ұлы Отан соғысы жылдары, Желтоқсан оқиғасы және Тәуелсіздік жылдарындағы жаңа тарих парақтары.",
+                mod4L1: "Қазақстанндағы тоталитарлық жүйе және ашаршылық",
+                mod4L2: "1986 жылғы Желтоқсан көтерілісінің тарихи маңызы",
+                mod4L3: "Егемендік алу және Тәуелсіз Қазақстанның қалыптасуы",
+                pricingTitle: "Ыңғайлы <span>оқу пакеттері</span>",
+                pricingSubtitle: "Өзіңізге сәйкес келетін дайындық форматын таңдап, қазірден бастап білім алыңыз.",
+                labelFullPay: "Толық төлем",
+                labelSplitPay: "Бөліп төлеу (Халык / Каспи)",
+                tier1Title: "Стандарт",
+                tier1Subtitle: "Өз бетінше дайындалуға арналған базалық пакет",
+                t1F1: "Барлық бейнедәрістерге толық қолжетімділік",
+                t1F2: "Презентациялар мен авторлық конспектілер",
+                t1F3: "Әр тақырыптан кейінгі онлайн-тесттер",
+                tier2Title: "Pro Максимум",
+                tier2Subtitle: "Куратормен бірге грантқа толық кепілдік дайындық",
+                t2F1: "Стандарт пакетінің барлық мүмкіндіктері",
+                t2F2: "Жеке кураторлық қолдау және қатемен жұмыс (24/7)",
+                t2F3: "Апта сайынғы ҰБТ форматындағы жабық сынама тестілеу",
+                t2F4: "Психологиялық мотивациялық тікелей эфирлер",
+                popularTag: "Танымал",
+                btnRegister: "Тіркелу",
+                footerRights: "Барлық құқықтар қорғалған.",
+                formTitle: "Курсқа тіркелу",
+                formSubtitle: "Деректерді толтырыңыз, менеджер сізбен ең қысқа уақытта байланысады",
+                lblName: "Сіздің есіміңіз",
+                lblPhone: "Телефон нөмірі (WhatsApp)",
+                errName: "Есімді толтыру міндетті",
+                errPhone: "Қате телефон нөмірі",
+                formSubmitBtn: "Өтінімді жіберу",
+                modalTitle: "Консультация алу",
+                modalSubtitle: "Тариф таңдау және толық ақпарат алу үшін деректеріңізді қалдырыңыз",
+                toastSuccess: "Өтініміңіз сәтті қабылданды! WhatsApp-қа бағытталуда...",
+                toastError: "Форманы толтыруда қате кетті. Тексеріп қайта көріңіз.",
+                periodCourse: "/ курс",
+                periodMonth: "/ айына",
+                waGlobalMsg: "Сәлеметсіз бе, Historica! Мен Қазақстан тарихы курсы бойынша кеңес алып, тіркелгім келеді.",
+                waTierMsg: "Сәлеметсіз бе! Мен таңдаған тариф: "
+            },
+            ru: {
+                navAbout: "О курсе",
+                navProgram: "Программа",
+                navPricing: "Тарифы",
+                heroBadge: "ЕНТ & Экзамены 2026",
+                heroTitle: "Изучайте историю Казахстана <span>на максимум</span>",
+                heroDesc: "Авторский премиум онлайн-курс для качественной подготовки к ЕНТ и глубокого понимания истории. Не просто зубрежка дат — историческая логика и глубокий анализ.",
+                heroCta: "Записаться",
+                heroSecCta: "Консультация",
+                stat1Lbl: "Выпускников",
+                stat2Lbl: "Высокий балл",
+                stat3Lbl: "Поддержка",
+                aboutTitle: "Кому подходит <span>этот курс?</span>",
+                aboutSubtitle: "Мы преподносим сложный материал системно и увлекательно для любого уровня подготовки.",
+                aud1Title: "Выпускникам школ",
+                aud1Desc: "Для будущих студентов, которые хотят набрать максимальный балл на ЕНТ по истории Казахстана и выиграть государственный грант.",
+                aud2Title: "Олимпиадникам",
+                aud2Desc: "Для тех, кто хочет изучить скрытые исторические процессы, редкие архивные данные и укрепить свои академические знания.",
+                aud3Title: "Любителям истории",
+                aud3Desc: "Для всех, кто желает логически понимать прошлое Великой Степи, решения ханов, батыров и анализировать наследие предков.",
+                programTitle: "Полная <span>программа курса</span>",
+                programSubtitle: "Системный академический план обучения, охватывающий абсолютно все исторические вехи Казахстана.",
+                filterAll: "Все разделы",
+                filterEarly: "Древность & Средневековье",
+                filterModern: "Новое & Новейшее",
+                mod1Tag: "01 Модуль",
+                mod1Title: "Древняя и средневековая история",
+                mod1Desc: "Начиная от каменного, бронзового и железного веков, хронология формирования первых государственных объединений, культура саков, гуннов и усуней.",
+                mod1L1: "Древнейшие насельники Великой степи",
+                mod1L2: "Государства саков, гуннов, усуней и канглов",
+                mod1L3: "Период раннесредневековых каганатов",
+                mod2Tag: "02 Модуль",
+                mod2Title: "Казахское ханство и эпоха расцвета",
+                mod2Desc: "Распад Золотой Орды, историческая роль ханов Керея и Жанибека, внутренняя и внешняя политика Казахского ханства и глубокий разбор сводов законов.",
+                mod2L1: "Образование и укрепление Казахского ханства",
+                mod2L2: "Политика ханов Хакназара, Тауекеля и Есима",
+                mod2L3: "Тауке хан и свод законов «Жеты Жаргы»",
+                mod3Tag: "03 Модуль",
+                mod3Title: "Период колонизации и Национально-освободительные движения",
+                mod3Desc: "Анализ предпосылок и итогов восстаний под предводительством Сырыма Датова, Исатая-Махамбета и хана Кенесары против колониальной политики Российской империи.",
+                mod3L1: "Колониальные реформы Российской империи",
+                mod3L2: "Общенациональное восстание Кенесары Касымова",
+                mod3L3: "Движение Алаш и Алашорда в начале ХХ века",
+                mod4Tag: "04 Модуль",
+                mod4Title: "Советский период и Независимый Казахстан",
+                mod4Desc: "Казахстан в составе СССР, traгедия коллективизации, годы Великой Отечественной войны, Декабрьские события 1986 года и новейшие страницы Независимости.",
+                mod4L1: "Тоталитарная система и голод в Казахстане",
+                mod4L2: "Историческое значение Декабрьского восстания 1986 года",
+                mod4L3: "Обретение суверенитета и развитие Современного Казахстана",
+                pricingTitle: "Удобные <span>пакеты обучения</span>",
+                pricingSubtitle: "Выберите подходящий формат подготовки и начните обучение уже сегодня.",
+                labelFullPay: "Полная оплата",
+                labelSplitPay: "Рассрочка (Kaspi / Halyk)",
+                tier1Title: "Стандарт",
+                tier1Subtitle: "Базовый пакет для самостоятельной и уверенной подготовки",
+                t1F1: "Полный доступ ко всем видеолекциям курса",
+                t1F2: "Иллюстрированные презентации и авторские конспекты",
+                t1F3: "Онлайн-тестирование после каждой пройденной темы",
+                tier2Title: "Pro Максимум",
+                tier2Subtitle: "Гарантированная подготовка на грант вместе с личным куратором",
+                t2F1: "Все возможности тарифного пакета Стандарт",
+                t2F2: "Личный куратор и разбор сложных домашних заданий (24/7)",
+                t2F3: "Еженедельные закрытые пробные тесты в формате ЕНТ",
+                t2F4: "Интерактивные эфиры с психологической поддержкой",
+                popularTag: "Популярно",
+                btnRegister: "Записаться",
+                footerRights: "Все права защищены.",
+                formTitle: "Запись на курс",
+                formSubtitle: "Заполните форму, и наш эксперт свяжется с вами для верификации",
+                lblName: "Ваше имя",
+                lblPhone: "Номер телефона (WhatsApp)",
+                errName: "Поле обязательно к заполнению",
+                errPhone: "Некорректный номер телефона",
+                formSubmitBtn: "Отправить заявку",
+                modalTitle: "Получить консультацию",
+                modalSubtitle: "Оставьте контакты для выбора оптимального плана подготовки",
+                toastSuccess: "Заявка принята! Перенаправляем в WhatsApp...",
+                toastError: "Ошибка валидации. Проверьте введенные данные.",
+                periodCourse: "/ курс",
+                periodMonth: "/ мес",
+                waGlobalMsg: "Здравствуйте, Historica! Я хочу проконсультироваться и записаться на курс истории Казахстана.",
+                waTierMsg: "Здравствуйте! Меня интересует запись на курс по тарифу: "
+            }
+        };
+
+        const CONFIG_SYSTEM_PHONE = "77058486656"; // Целевой телефонный агрегатор
+        let activeInterfaceLanguage = "kk";
+        let statePricingIsSplit = false;
+
+        // Архитектура рендеринга языковых параметров
+        function refreshInterfaceLanguageDOM() {
+            const currentPackage = localizationEngineDictionary[activeInterfaceLanguage];
+
+            // Навигационный узел
+            document.getElementById("lang-nav-about").textContent = currentPackage.navAbout;
+            document.getElementById("lang-nav-program").textContent = currentPackage.navProgram;
+            document.getElementById("lang-nav-pricing").textContent = currentPackage.navPricing;
+
+            // Блок Hero
+            document.querySelector("#lang-hero-badge span").textContent = currentPackage.heroBadge;
+            document.getElementById("lang-hero-title").innerHTML = currentPackage.heroTitle;
+            document.getElementById("lang-hero-desc").textContent = currentPackage.heroDesc;
+            document.getElementById("lang-hero-cta").textContent = currentPackage.heroCta;
+            document.getElementById("lang-hero-secondary-cta").textContent = currentPackage.heroSecCta;
+            document.getElementById("lang-stat1-lbl").textContent = currentPackage.stat1Lbl;
+            document.getElementById("lang-stat2-lbl").textContent = currentPackage.stat2Lbl;
+            document.getElementById("lang-stat3-lbl").textContent = currentPackage.stat3Lbl;
+
+            // Раздел концепта
+            document.getElementById("lang-about-title").innerHTML = currentPackage.aboutTitle;
+            document.getElementById("lang-about-subtitle").textContent = currentPackage.aboutSubtitle;
+            document.getElementById("lang-aud1-title").textContent = currentPackage.aud1Title;
+            document.getElementById("lang-aud1-desc").textContent = currentPackage.aud1Desc;
+            document.getElementById("lang-aud2-title").textContent = currentPackage.aud2Title;
+            document.getElementById("lang-aud2-desc").textContent = currentPackage.aud2Desc;
+            document.getElementById("lang-aud3-title").textContent = currentPackage.aud3Title;
+            document.getElementById("lang-aud3-desc").textContent = currentPackage.aud3Desc;
+
+            // Раздел модулей программы
+            document.getElementById("lang-program-title").innerHTML = currentPackage.programTitle;
+            document.getElementById("lang-program-subtitle").textContent = currentPackage.programSubtitle;
+            document.getElementById("lang-filter-all").textContent = currentPackage.filterAll;
+            document.getElementById("lang-filter-early").textContent = currentPackage.filterEarly;
+            document.getElementById("lang-filter-modern").textContent = currentPackage.filterModern;
+            
+            // Вложенные модули
+            for(let i = 1; i <= 4; i++) {
+                document.getElementById(`lang-mod${i}-tag`).textContent = currentPackage[`mod${i}Tag`];
+                document.getElementById(`lang-mod${i}-title`).textContent = currentPackage[`mod${i}Title`];
+                document.getElementById(`lang-mod${i}-desc`).textContent = currentPackage[`mod${i}Desc`];
+                document.getElementById(`lang-mod${i}-l1`).textContent = currentPackage[`mod${i}L1`];
+                document.getElementById(`lang-mod${i}-l2`).textContent = currentPackage[`mod${i}L2`];
+                document.getElementById(`lang-mod${i}-l3`).textContent = currentPackage[`mod${i}L3`];
+            }
+
+            // Ценообразование
+            document.getElementById("lang-pricing-title").innerHTML = currentPackage.pricingTitle;
+            document.getElementById("lang-pricing-subtitle").textContent = currentPackage.pricingSubtitle;
+            document.getElementById("label-full-pay").textContent = currentPackage.labelFullPay;
+            document.getElementById("label-split-pay").textContent = currentPackage.labelSplitPay;
+            document.getElementById("lang-tier1-title").textContent = currentPackage.tier1Title;
+            document.getElementById("lang-tier1-subtitle").textContent = currentPackage.tier1Subtitle;
+            document.getElementById("lang-t1-f1").textContent = currentPackage.t1F1;
+            document.getElementById("lang-t1-f2").textContent = currentPackage.t1F2;
+            document.getElementById("lang-t1-f3").textContent = currentPackage.t1F3;
+            document.getElementById("lang-tier2-title").textContent = currentPackage.tier2Title;
+            document.getElementById("lang-tier2-subtitle").textContent = currentPackage.tier2Subtitle;
+            document.getElementById("lang-t2-f1").textContent = currentPackage.t2F1;
+            document.getElementById("lang-t2-f2").textContent = currentPackage.t2F2;
+            document.getElementById("lang-t2-f3").textContent = currentPackage.t2F3;
+            document.getElementById("lang-t2-f4").textContent = currentPackage.t2F4;
+            document.getElementById("lang-popular-tag").textContent = currentPackage.popularTag;
+            document.getElementById("lang-btn-register-1").textContent = currentPackage.btnRegister;
+            document.getElementById("lang-btn-register-2").textContent = currentPackage.btnRegister;
+
+            // Лид формы и футер
+            document.getElementById("lang-form-title").textContent = currentPackage.formTitle;
+            document.getElementById("lang-form-subtitle").textContent = currentPackage.formSubtitle;
+            document.getElementById("lang-lbl-name").textContent = currentPackage.lblName;
+            document.getElementById("lang-lbl-phone").textContent = currentPackage.lblPhone;
+            document.getElementById("lang-form-submit-btn").textContent = currentPackage.formSubmitBtn;
+            document.getElementById("lang-footer-rights").textContent = currentPackage.footerRights;
+            document.getElementById("lang-foot-link1").textContent = currentPackage.navAbout;
+            document.getElementById("lang-foot-link2").textContent = currentPackage.navProgram;
+            document.getElementById("lang-foot-link3").textContent = currentPackage.navPricing;
+            
+            // Компоненты модального окна
+            document.getElementById("lang-modal-title").textContent = currentPackage.modalTitle;
+            document.getElementById("lang-modal-subtitle").textContent = currentPackage.modalSubtitle;
+            document.getElementById("lang-modal-lbl-name").textContent = currentPackage.lblName;
+            document.getElementById("lang-modal-lbl-phone").textContent = currentPackage.lblPhone;
+            document.getElementById("lang-modal-submit-btn").textContent = currentPackage.formSubmitBtn;
+
+            refreshPricingDisplayValues();
+        }
+
+        function executeLanguagePivot(targetLangCode, buttonElement) {
+            activeInterfaceLanguage = targetLangCode;
+            document.querySelectorAll(".lang-pill").forEach(pill => pill.classList.remove("is-active"));
+            buttonElement.classList.add("is-active");
+            refreshInterfaceLanguageDOM();
+        }
+
+        // Логика работы аккордеона программы
+        function toggleAccordionTray(shieldElement) {
+            const isCurrentlyExpanded = shieldElement.classList.contains("is-expanded");
+            document.querySelectorAll(".cluster-content-shield").forEach(el => el.classList.remove("is-expanded"));
+            
+            if (!isCurrentlyExpanded) {
+                shieldElement.classList.add("is-expanded");
+            }
+        }
+
+        // Фильтрация интерактивного таймлайна
+        function filterSyllabusTimeline(targetEra, triggerBtn) {
+            document.querySelectorAll(".filter-pill-btn").forEach(btn => btn.classList.remove("is-active"));
+            triggerBtn.classList.add("is-active");
+
+            document.querySelectorAll(".timeline-cluster").forEach(cluster => {
+                if(targetEra === "all" || cluster.getAttribute("data-era") === targetEra) {
+                    cluster.classList.remove("is-hidden");
+                } else {
+                    cluster.classList.add("is-hidden");
+                }
+            });
+        }
+
+        // Интеллектуальный калькулятор стоимости пакетов обучения
+        function togglePricingCalculatorEngine() {
+            statePricingIsSplit = !statePricingIsSplit;
+            const switchObj = document.getElementById("calculator-toggle-switch");
+            
+            if(statePricingIsSplit) {
+                switchObj.classList.add("is-split");
+                document.getElementById("label-split-pay").classList.add("is-active");
+                document.getElementById("label-full-pay").classList.remove("is-active");
+            } else {
+                switchObj.classList.remove("is-split");
+                document.getElementById("label-full-pay").classList.add("is-active");
+                document.getElementById("label-split-pay").classList.remove("is-active");
+            }
+            refreshPricingDisplayValues();
+        }
+
+        function refreshPricingDisplayValues() {
+            const p1 = document.getElementById("price-val-tier1");
+            const p2 = document.getElementById("price-val-tier2");
+            const period1 = document.getElementById("period-tier1");
+            const period2 = document.getElementById("period-tier2");
+            const currentPackage = localizationEngineDictionary[activeInterfaceLanguage];
+
+            if(statePricingIsSplit) {
+                p1.textContent = Number(p1.getAttribute("data-split")).toLocaleString();
+                p2.textContent = Number(p2.getAttribute("data-split")).toLocaleString();
+                period1.textContent = currentPackage.periodMonth;
+                period2.textContent = currentPackage.periodMonth;
+            } else {
+                p1.textContent = Number(p1.getAttribute("data-full")).toLocaleString();
+                p2.textContent = Number(p2.getAttribute("data-full")).toLocaleString();
+                period1.textContent = currentPackage.periodCourse;
+                period2.textContent = currentPackage.periodCourse;
+            }
+        }
+
+        // Управление модальной системой сбора заявок
+        function invokeModalSystem(contextTierName) {
+            document.getElementById("modal-context-tier").value = contextTierName;
+            document.getElementById("global-application-modal").classList.add("is-open");
+        }
+
+        function dismissModalSystem() {
+            document.getElementById("global-application-modal").classList.remove("is-open");
+        }
+
+        // Фабрика вызова системных всплывающих уведомлений (Toasts)
+        function generateToastNotification(toastMessageText, statusTheme = "success") {
+            const hub = document.getElementById("toast-hub");
+            const instance = document.createElement("div");
+            instance.className = `toast-instance is-${statusTheme}`;
+            instance.textContent = toastMessageText;
+            
+            hub.appendChild(instance);
+            setTimeout(() => instance.classList.add("is-visible"), 50);
+
+            setTimeout(() => {
+                instance.classList.remove("is-visible");
+                setTimeout(() => instance.remove(), 400);
+            }, 4000);
+        }
+
+        // Продвинутая система валидации форм и редиректа в мессенджер
+        function handleFormSubmissionEngine(event, submissionTypeContext) {
+            event.preventDefault();
+            const currentPackage = localizationEngineDictionary[activeInterfaceLanguage];
+            let clientName = "";
+            let clientPhone = "";
+            let targetProductTier = "General Consultation";
+
+            if(submissionTypeContext === "Form Checkout") {
+                clientName = document.getElementById("form-user-name").value.trim();
+                clientPhone = document.getElementById("form-user-phone").value.trim();
+            } else {
+                clientName = document.getElementById("modal-user-name").value.trim();
+                clientPhone = document.getElementById("modal-user-phone").value.trim();
+                targetProductTier = document.getElementById("modal-context-tier").value;
+                dismissModalSystem();
+            }
+
+            if(clientName.length < 2 || clientPhone.length < 5) {
+                generateToastNotification(currentPackage.toastError, "error");
+                return false;
+            }
+
+            generateToastNotification(currentPackage.toastSuccess, "success");
+
+            // Формирование строки сообщения для менеджера в WhatsApp
+            const messageString = `${currentPackage.waTierMsg} [${targetProductTier}].\n👤 Клиент: ${clientName}\n📞 Контакт: ${clientPhone}\nИсточник: ${submissionTypeContext} (2026)`;
+            const secureRedirectUrl = `https://wa.me/${CONFIG_SYSTEM_PHONE}?text=${encodeURIComponent(messageString)}`;
+
+            setTimeout(() => {
+                window.open(secureRedirectUrl, '_blank');
+            }, 1200);
+
+            event.target.reset();
+        }
+
+        // Интерактивная анимация шапки при скролле
+        window.addEventListener("scroll", function() {
+            const headerObj = document.getElementById("dynamic-header");
+            if (window.scrollY > 60) {
+                headerObj.classList.add("is-scrolled");
+            } else {
+                headerObj.classList.remove("is-scrolled");
+            }
+        });
+
+        // Мобильный адаптивный интерфейс (Бургер-меню)
+        function toggleMobileInterface() {
+            document.getElementById("responsive-menu").classList.toggle("is-active");
+            document.getElementById("burger-switch").classList.toggle("is-open");
+        }
+
+        document.querySelectorAll("#responsive-menu a").forEach(link => {
+            link.addEventListener("click", () => {
+                document.getElementById("responsive-menu").classList.remove("is-active");
+                document.getElementById("burger-switch").classList.remove("is-open");
+            });
+        });
+
+        // Инициализация стартовых процессов при загрузке DOM
+        document.addEventListener("DOMContentLoaded", () => {
+            refreshInterfaceLanguageDOM();
+        });
+    </script>
+</body>
+</html>
