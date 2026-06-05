@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght=300;400;500;600;700;800;900&family=Inter:wght=300;400;500;600;700;800;900&display=swap');
         
         :root {
             font-family: 'Geist', 'Inter', sans-serif;
@@ -41,101 +41,102 @@
         }
     </style>
 </head>
-<body class="bg-slate-50/60 text-slate-800 min-h-full flex flex-col antialiased selection:bg-teal-500 selection:text-white custom-scroll">
+<body class="bg-slate-50/60 text-slate-800 min-h-full flex flex-col antialiased selection:bg-teal-500 selection:text-white">
 
-    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            
-            <div class="flex items-center space-x-3.5 cursor-pointer" onclick="goHome()">
-                <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-teal-400 p-2.5 rounded-xl shadow-md flex items-center justify-center">
-                    <i class="fa-solid fa-layer-group text-lg"></i>
+    <div id="main-content-wrapper" class="hidden flex flex-col min-h-screen">
+        <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                
+                <div class="flex items-center space-x-3.5 cursor-pointer" onclick="goHome()">
+                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-teal-400 p-2.5 rounded-xl shadow-md flex items-center justify-center">
+                        <i class="fa-solid fa-layer-group text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-lg font-black tracking-tight block text-slate-900">ҰБТ <span class="text-teal-600">PRO</span></span>
+                        <span class="text-[10px] text-slate-400 font-bold tracking-widest uppercase block">Интеллектуалды Платформа</span>
+                    </div>
                 </div>
-                <div>
-                    <span class="text-lg font-black tracking-tight block text-slate-900">ҰБТ <span class="text-teal-600">PRO</span></span>
-                    <span class="text-[10px] text-slate-400 font-bold tracking-widest uppercase block">Интеллектуалды Платформа</span>
-                </div>
-            </div>
-            
-            <div class="flex items-center space-x-3">
-                <button onclick="viewSavedResults()" id="btn-global-results" class="px-3 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-chart-line text-teal-600"></i> Менің нәтижелерім
-                </button>
-                <div id="quiz-tools" class="hidden flex items-center space-x-3">
-                    <div class="h-5 w-px bg-slate-200 mx-1"></div>
-                    <button onclick="toggleWidget('calculator')" class="p-2.5 text-slate-500 hover:text-teal-600 bg-slate-100 hover:bg-teal-50 rounded-xl transition">
-                        <i class="fa-solid fa-calculator text-sm"></i>
+                
+                <div class="flex items-center space-x-3">
+                    <button onclick="viewSavedResults()" id="btn-global-results" class="px-3 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-line text-teal-600"></i> Менің нәтижелерім
                     </button>
-                    <div class="flex items-center space-x-2 bg-rose-50 border border-rose-100 text-rose-700 px-3 py-2 rounded-xl font-mono font-bold text-xs shadow-sm">
-                        <i class="fa-regular fa-clock animate-pulse text-rose-500"></i>
-                        <span id="timer-text">30:00</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="flex-grow container mx-auto px-4 md:px-6 py-6 md:py-8 max-w-7xl flex flex-col justify-center">
-        
-        <div id="panel-start" class="block space-y-10 animate-pop">
-            <div class="text-center max-w-2xl mx-auto space-y-3">
-                <span class="inline-flex items-center gap-1.5 bg-slate-900 text-teal-400 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
-                    Жүйе дайын <i class="fa-solid fa-circle-check text-emerald-400 text-[8px]"></i>
-                </span>
-                <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">ҰБТ Сұрақтар Базасы</h1>
-                <p class="text-slate-500 text-sm md:text-base">Өзіңізге қажетті пәнді таңдап, қолжетімді сынақ нұсқаларын ашыңыз.</p>
-            </div>
-
-            <div id="subjects-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            </div>
-        </div>
-
-        <div id="panel-variants" class="hidden space-y-8 animate-pop max-w-3xl mx-auto w-full">
-            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
-                <div>
-                    <h2 id="variant-subject-title" class="text-xl font-black text-slate-900">Пән атауы</h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Төмендегі дайын нұсқалардың бірін таңдап, тестті бастаңыз</p>
-                </div>
-                <button onclick="goHome()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition">
-                    <i class="fa-solid fa-arrow-left mr-1.5"></i> Артқа
-                </button>
-            </div>
-
-            <div id="variants-list-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            </div>
-        </div>
-
-        <div id="panel-global-results" class="hidden space-y-6 animate-pop max-w-3xl mx-auto w-full">
-            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
-                <div>
-                    <h2 class="text-xl font-black text-slate-900">Mental health күнделігі</h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Сайтта аяқталған барлық тестілеу тарихы мен жетістіктеріңіз</p>
-                </div>
-                <button onclick="goHome()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition">
-                    Басты бетке
-                </button>
-            </div>
-
-            <div id="global-results-container" class="space-y-3">
-            </div>
-        </div>
-
-        <div id="panel-quiz" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
-            
-            <div class="order-last lg:order-first lg:col-span-3 space-y-6">
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 md:p-8">
-                    
-                    <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
-                        <div>
-                            <span id="quiz-subject-display" class="font-black text-sm md:text-base text-slate-900">...</span>
-                            <span id="quiz-progress-text" class="block text-[10px] md:text-[11px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Сұрақ: 1/20</span>
-                        </div>
-                        <button onclick="toggleBookmark()" class="text-slate-300 hover:text-amber-500 w-9 h-9 flex items-center justify-center rounded-xl bg-slate-50 transition text-xs md:text-sm">
-                            <i id="bookmark-icon" class="fa-regular fa-bookmark"></i>
+                    <div id="quiz-tools" class="hidden flex items-center space-x-3">
+                        <div class="h-5 w-px bg-slate-200 mx-1"></div>
+                        <button onclick="toggleWidget('calculator')" class="p-2.5 text-slate-500 hover:text-teal-600 bg-slate-100 hover:bg-teal-50 rounded-xl transition">
+                            <i class="fa-solid fa-calculator text-sm"></i>
                         </button>
+                        <div class="flex items-center space-x-2 bg-rose-50 border border-rose-100 text-rose-700 px-3 py-2 rounded-xl font-mono font-bold text-xs shadow-sm">
+                            <i class="fa-regular fa-clock animate-pulse text-rose-500"></i>
+                            <span id="timer-text">30:00</span>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </header>
 
-                    <div class="mb-6 md:mb-8 space-y-4">
-                        <p id="quiz-question-text" class="text-sm md:text-lg font-bold text-slate-900 leading-relaxed">
+        <main class="flex-grow container mx-auto px-6 py-8 max-w-7xl flex flex-col justify-center">
+            
+            <div id="panel-start" class="block space-y-10 animate-pop">
+                <div class="text-center max-w-2xl mx-auto space-y-3">
+                    <span class="inline-flex items-center gap-1.5 bg-slate-900 text-teal-400 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
+                        Жүйе дайын <i class="fa-solid fa-circle-check text-emerald-400 text-[8px]"></i>
+                    </span>
+                    <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">ҰБТ Сұрақтар Базасы</h1>
+                    <p class="text-slate-500 text-sm md:text-base">Өзіңізге қажетті пәнді таңдап, қолжетімді сынақ нұсқаларын ашыңыз.</p>
+                </div>
+
+                <div id="subjects-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                </div>
+            </div>
+
+            <div id="panel-variants" class="hidden space-y-8 animate-pop max-w-3xl mx-auto w-full">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                    <div>
+                        <h2 id="variant-subject-title" class="text-xl font-black text-slate-900">Пән атауы</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Төмендегі дайын нұсқалардың бірін таңдап, тестті бастаңыз</p>
+                    </div>
+                    <button onclick="goHome()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition">
+                        <i class="fa-solid fa-arrow-left mr-1.5"></i> Артқа
+                    </button>
+                </div>
+
+                <div id="variants-list-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                </div>
+            </div>
+
+            <div id="panel-global-results" class="hidden space-y-6 animate-pop max-w-3xl mx-auto w-full">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                    <div>
+                        <h2 class="text-xl font-black text-slate-900">Менің нәтижелерім күнделігі</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Сайтта аяқталған барлық тестілеу тарихы мен жетістіктеріңіз</p>
+                    </div>
+                    <button onclick="goHome()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition">
+                        Басты бетке
+                    </button>
+                </div>
+
+                <div id="global-results-container" class="space-y-3">
+                </div>
+            </div>
+
+            <div id="panel-quiz" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-8">
+                
+                <div class="lg:col-span-3 space-y-6">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 md:p-8">
+                        
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
+                            <div>
+                                <span id="quiz-subject-display" class="font-black text-base text-slate-900">...</span>
+                                <span id="quiz-progress-text" class="block text-[11px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Сұрақ: 1/20</span>
+                            </div>
+                            <button onclick="toggleBookmark()" class="text-slate-300 hover:text-amber-500 w-9 h-9 flex items-center justify-center rounded-xl bg-slate-50 transition text-sm">
+                                <i id="bookmark-icon" class="fa-regular fa-bookmark"></i>
+                            </button>
+                        </div>
+
+                    <div class="mb-8 space-y-4">
+                        <p id="quiz-question-text" class="text-base md:text-lg font-bold text-slate-900 leading-relaxed">
                             Жүктелуде...
                         </p>
                         <div id="quiz-image-container" class="hidden w-full max-w-md mx-auto overflow-hidden rounded-xl border border-slate-200 shadow-sm">
@@ -143,70 +144,93 @@
                         </div>
                     </div>
 
-                    <div id="quiz-options-container" class="space-y-3">
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center">
-                    <button onclick="navigateQuestion(-1)" id="btn-prev" class="px-4 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 transition text-xs shadow-sm">
-                        <i class="fa-solid fa-arrow-left mr-1"></i> Артқа
-                    </button>
-                    <button onclick="navigateQuestion(1)" id="btn-next" class="px-6 py-2.5 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition text-xs shadow-md">
-                        <span>Келесі</span> <i class="fa-solid fa-arrow-right ml-1"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="order-first lg:order-last space-y-4 flex flex-col">
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-4 md:p-5">
-                    <div class="border-b border-slate-100 pb-2.5 mb-3 flex justify-between items-center">
-                        <div>
-                            <h4 class="font-black text-xs md:text-sm text-slate-900">Тапсырмалар</h4>
-                            <span class="text-[10px] md:text-xs font-bold text-teal-600 block mt-0.5" id="answered-counter">0/0</span>
+                        <div id="quiz-options-container" class="space-y-3">
                         </div>
                     </div>
-                    
-                    <div id="questions-map" class="grid grid-cols-7 sm:grid-cols-10 lg:grid-cols-5 gap-1.5 max-h-[180px] lg:max-h-[280px] overflow-y-auto pr-1 custom-scroll">
-                    </div>
 
-                    <div class="mt-3.5 pt-2.5 border-t border-slate-100 flex flex-wrap gap-x-3 gap-y-1 text-[9px] font-bold text-slate-400 uppercase tracking-wider">
-                        <div class="flex items-center space-x-1"><span class="w-2.5 h-2.5 bg-teal-600 rounded-md block"></span> <span>Жауапты</span></div>
-                        <div class="flex items-center space-x-1"><span class="w-2.5 h-2.5 bg-amber-500 rounded-md block"></span> <span>Күмәнді</span></div>
-                        <div class="flex items-center space-x-1"><span class="w-2.5 h-2.5 bg-slate-100 border border-slate-200 rounded-md block"></span> <span>Бос</span></div>
+                    <div class="flex justify-between items-center">
+                        <button onclick="navigateQuestion(-1)" id="btn-prev" class="px-5 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 transition text-xs shadow-sm">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Артқа
+                        </button>
+                        <button onclick="navigateQuestion(1)" id="btn-next" class="px-7 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition text-xs shadow-md">
+                            <span>Келесі</span> <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
                     </div>
                 </div>
 
-                <button onclick="openConfirmModal()" class="w-full py-3 bg-rose-600 text-white text-xs font-bold rounded-xl hover:bg-rose-700 transition shadow-md flex items-center justify-center space-x-2 uppercase tracking-wider">
-                    <span>Тестті аяқтау</span>
-                </button>
+                <div class="space-y-6">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col h-fit">
+                        <div class="border-b border-slate-100 pb-3 mb-3">
+                            <h4 class="font-black text-sm text-slate-900">Тапсырмалар</h4>
+                            <span class="text-xs font-bold text-teal-600 block mt-0.5" id="answered-counter">0/0</span>
+                        </div>
+                        
+                        <div id="questions-map" class="grid grid-cols-5 gap-2 max-h-[240px] overflow-y-auto pr-1 custom-scroll">
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                            <div class="flex items-center space-x-1"><span class="w-2.5 h-2.5 bg-teal-600 rounded-md block"></span> <span>Жауапты</span></div>
+                            <div class="flex items-center space-x-1"><span class="w-2.5 h-2.5 bg-amber-500 rounded-md block"></span> <span>Күмәнді</span></div>
+                            <div class="flex items-center space-x-1"><span class="w-2.5 h-2.5 bg-slate-100 border border-slate-200 rounded-md block"></span> <span>Бос</span></div>
+                        </div>
+                    </div>
+
+                    <button onclick="openConfirmModal()" class="w-full py-3.5 bg-rose-600 text-white text-xs font-bold rounded-xl hover:bg-rose-700 transition shadow-md flex items-center justify-center space-x-2 uppercase tracking-wider">
+                        <span>Тестті аяқтау</span>
+                    </button>
+                </div>
             </div>
+
+            <div id="panel-result" class="hidden max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-200/60 p-6 md:p-8 space-y-6 animate-pop">
+                <div class="text-center">
+                    <h2 class="text-2xl font-black text-slate-900">Тест Нәтижесі</h2>
+                    <p class="text-slate-400 text-xs mt-0.5">Жинаған балыңыз бен қателермен жұмыс есебі</p>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div class="bg-slate-50 border border-slate-100 rounded-xl p-3"><span class="block text-xl font-black text-slate-900" id="res-score">0/0</span><span class="text-[9px] text-slate-400 font-bold uppercase">Балл</span></div>
+                    <div class="bg-slate-50 border border-slate-100 rounded-xl p-3"><span class="block text-xl font-black text-teal-600" id="res-percent">0%</span><span class="text-[9px] text-slate-400 font-bold uppercase">Пайыз</span></div>
+                    <div class="bg-slate-50 border border-slate-100 rounded-xl p-3"><span class="block text-xl font-black text-indigo-600" id="res-time">00:00</span><span class="text-[9px] text-slate-400 font-bold uppercase">Уақыт</span></div>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="font-bold text-sm text-slate-900"><i class="fa-solid fa-circle-exclamation text-rose-500 mr-1.5"></i> Қателерді талдау</h3>
+                    <div id="error-analysis-container" class="space-y-2.5 max-h-[280px] overflow-y-auto pr-1 custom-scroll"></div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 text-center">
+                    <button onclick="resetStorageAndGoHome()" class="px-6 py-3 bg-slate-950 text-white text-xs font-bold rounded-xl hover:bg-slate-800 transition">
+                        Басты бетке оралу
+                    </button>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="bg-white border-t border-slate-200 py-4 mt-8 text-center text-[11px] font-semibold text-slate-400">
+            <p>&copy; 2026 UBT PRO Systems.</p>
+        </footer>
+    </div>
+
+    <div id="auth-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-md flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 md:p-8 shadow-2xl text-center space-y-5 animate-pop border border-slate-100">
+            <div class="w-14 h-14 bg-teal-50 text-teal-600 border border-teal-100 rounded-2xl flex items-center justify-center mx-auto text-xl shadow-sm">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div>
+                <h3 class="font-black text-lg text-slate-900 tracking-tight">Жүйеге кіру</h3>
+                <p class="text-xs text-slate-400 mt-1">Жалғастыру үшін платформаға кіру кодын енгізіңіз</p>
+            </div>
+            <div class="space-y-3 text-left">
+                <label for="auth-code-input" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block px-0.5">Қолжетімділік коды</label>
+                <input id="auth-code-input" type="password" placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-mono text-center tracking-widest focus:outline-hidden focus:border-teal-500 focus:bg-white transition" onkeydown="if(event.key==='Enter') submitAuthCode()">
+                <p id="auth-error-msg" class="hidden text-[11px] text-rose-500 font-semibold text-center"><i class="fa-solid fa-circle-exclamation mr-1"></i> Қате код енгізілді!</p>
+            </div>
+            <button onclick="submitAuthCode()" class="w-full py-3 bg-slate-900 hover:bg-teal-600 text-white text-xs font-bold rounded-xl transition shadow-md uppercase tracking-wider">
+                Кіруді растау
+            </button>
         </div>
-
-        <div id="panel-result" class="hidden max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-200/60 p-6 md:p-8 space-y-6 animate-pop">
-            <div class="text-center">
-                <h2 class="text-2xl font-black text-slate-900">Тест Нәтижесі</h2>
-                <p class="text-slate-400 text-xs mt-0.5">Жинаған балыңыз бен қателермен жұмыс есебі</p>
-            </div>
-
-            <div class="grid grid-cols-3 gap-4 text-center">
-                <div class="bg-slate-50 border border-slate-100 rounded-xl p-3"><span class="block text-xl font-black text-slate-900" id="res-score">0/0</span><span class="text-[9px] text-slate-400 font-bold uppercase">Балл</span></div>
-                <div class="bg-slate-50 border border-slate-100 rounded-xl p-3"><span class="block text-xl font-black text-teal-600" id="res-percent">0%</span><span class="text-[9px] text-slate-400 font-bold uppercase">Пайыз</span></div>
-                <div class="bg-slate-50 border border-slate-100 rounded-xl p-3"><span class="block text-xl font-black text-indigo-600" id="res-time">00:00</span><span class="text-[9px] text-slate-400 font-bold uppercase">Уақыт</span></div>
-            </div>
-
-            <div class="space-y-3">
-                <h3 class="font-bold text-sm text-slate-900"><i class="fa-solid fa-circle-exclamation text-rose-500 mr-1.5"></i> Қателерді талдау</h3>
-                <div id="error-analysis-container" class="space-y-2.5 max-h-[280px] overflow-y-auto pr-1 custom-scroll"></div>
-            </div>
-
-            <div class="pt-4 border-t border-slate-100 text-center">
-                <button onclick="resetStorageAndGoHome()" class="px-6 py-3 bg-slate-950 text-white text-xs font-bold rounded-xl hover:bg-slate-800 transition">
-                    Басты бетке оралу
-                </button>
-            </div>
-        </div>
-
-    </main>
+    </div>
 
     <div id="confirm-modal" class="hidden fixed inset-0 bg-slate-950/40 backdrop-blur-xs flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl text-center space-y-4 animate-pop">
@@ -260,11 +284,42 @@
         </div>
     </div>
 
-    <footer class="bg-white border-t border-slate-200 py-4 mt-8 text-center text-[11px] font-semibold text-slate-400">
-        <p>&copy; 2026 UBT PRO Systems.</p>
-    </footer>
-
     <script>
+        // Инициализатор авторизации
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('page_access_granted') === 'true') {
+                grantAccess();
+            } else {
+                document.getElementById('auth-modal').classList.remove('hidden');
+                document.getElementById('auth-code-input').focus();
+            }
+        });
+
+        // Функция обработки нажатия кнопки «Войти»
+        function submitAuthCode() {
+            const inputField = document.getElementById('auth-code-input');
+            const errorMsg = document.getElementById('auth-error-msg');
+            
+            if (inputField.value === "23102008") {
+                sessionStorage.setItem('page_access_granted', 'true');
+                errorMsg.classList.add('hidden');
+                grantAccess();
+            } else {
+                errorMsg.classList.remove('hidden');
+                inputField.value = "";
+                inputField.focus();
+            }
+        }
+
+        // Функция открытия доступа к приложению
+        function grantAccess() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.getElementById('main-content-wrapper').classList.remove('hidden');
+            renderSubjectCards();
+            loadStateFromStorage();
+        }
+
+        // База данных вопросов
         const appDatabase = {
             history: {
                 title: "Қазақстан тарихы", icon: "fa-timeline", color: "amber",
@@ -278,22 +333,22 @@
                             { question: "Қазақ хандығының негізін қалаған хандарды анықтаңыз:", image: "", options: ["Тәуке мен Абылай", "Kерей мен Жәнібек", "Қасым мен Хақназар", "Әбілқайыр мен Жәңгір"], correct: 1 },
                             { question: "«Жеті жарғы» заңдар жинағын қабылдаған қазақ ханы:", image: "", options: ["Есім хан", "Тәуекел хан", "Тәуке хан", "Абылай хан"], correct: 2 },
                             { question: "Ежелгі үйсіндердің басшысының лауазымы қалай аталды?", image: "", options: ["Шаньюй", "Гуньмо", "Жабғу", "Қаған"], correct: 1 },
-                            { question: "Төмендегі суретте Орталық Азия сәулет өнерінің қай кесенесі бейнеленген?", image: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=600&auto=format&fit=crop", options: ["Айша бибі кесенесі", "Бабаджа қатын кесенесі", "Қожа Ахмет Ясауи кесенесі", "Жошы хан кесенесі"], correct: 2 },
+                            { question: "Төмендегі суретте Орталық Азия сәулет өнерінің қай кесенесі бейнеленген?", image: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=600&auto=format&fit=crop", options: ["Aйша бибі кесенесі", "Бабаджа қатын кесенесі", "Қожа Ахмет Ясауи кесенесі", "Жошы хан кесенесі"], correct: 2 },
                             { question: "Алтын адам ескерткіші қай қорымнан табылды?", image: "", options: ["Шілікті", "Бесшатыр", "Есік", "Берел"], correct: 2 },
                             { question: "Қазақстан аумағындағы ең алғашқы патриархаттық мемлекеттік бірлестік:", image: "", options: ["Үйсіндер", "Қаңлылар", "Ғұндар", "Сақтар"], correct: 3 },
-                            { question: "1723 жылғы қазақ тарихындағы ауыр кезең қалай аталады?", image: "", options: ["Ақтабан шұбырынды, Алкакөл сұлама", "Қалмақ қырылған", "Шаңды жорық", "Бұланты шайқасы"], correct: 0 },
+                            { question: "1723 жылғы қазақ тарихындағы ауыр кезең қалай аталады?", image: "", options: ["Ақтабан шұбырынды, Алқакөл сұлама", "Қалмақ қырылған", "Шаңды жорық", "Бұланты шайқасы"], correct: 0 },
                             { question: "Абылай ханды жалпы қазақ ханы ретінде қай жылы сайлады?", image: "", options: ["1740 ж.", "1771 ж.", "1781 ж.", "1765 ж."], correct: 1 },
-                            { question: "Kенесары Қасымұлы бастаған ұлт-азаттық көтеріліс қай жылдар аралығында болды?", image: "", options: ["1836-1838 жж.", "1824-1847 жж.", "1837-1847 жж.", "1847-1857 жж."], correct: 2 },
+                            { question: "Кенесары Қасымұлы бастаған ұлт-азаттық көтеріліс қай жылдар аралығында болды?", image: "", options: ["1836-1838 жж.", "1824-1847 жж.", "1837-1847 жж.", "1847-1857 жж."], correct: 2 },
                             { question: "Түрік қағанатының құрылған жылы:", image: "", options: ["552 жыл", "603 жыл", "751 жыл", "704 жыл"], correct: 0 },
                             { question: "Ұлы Жібек жолының Қазақстандағы басты орталықтарының бірі болған ежелгі қала:", image: "", options: ["Тараз", "Сауран", "Сығанақ", "Түркістан"], correct: 0 },
                             { question: "Қарлық қағанатының орталығы қай қала болды?", image: "", options: ["Суяб", "Баласағұн", "Янгикент", "Қойлық"], correct: 1 },
-                            { question: "1917 жылы құрылған «Алаш» partyясының төрағасы кім болды?", image: "", options: ["Мұстафа Шоқай", "Әлихан Бөкейханов", "Ахмет Байтұрсынұлы", "Міржақып Дулатұлы"], correct: 1 },
+                            { question: "1917 жылы құрылған «Алаш» партиясының төрағасы кім болды?", image: "", options: ["Мұстафа Шоқай", "Әлихан Бөкейханов", "Ахмет Байтұрсынұлы", "Міржақып Дулатұлы"], correct: 1 },
                             { question: "Қазақ КСР-інің тәуелсіздігі жарияланған тарихи күн:", image: "", options: ["1991 жыл 16 желтоқсан", "1990 жыл 25 қазан", "1991 жыл 25 қазан", "1992 жыл 16 желтоқсан"], correct: 0 },
                             { question: "Екінші дүниежүзілік соғыста Мәскеу үшін шайқаста ерекше көзге түскен дивизия:", image: "", options: ["316-атқыштар дивизиясы", "72-гвардиялық дивизия", "314-атқыштар дивизиясы", "29-дивизия"], correct: 0 },
                             { question: "Қазақ халқының тұңғыш ағартушы-ғалымы, саяхатшы:", image: "", options: ["Ыбырай Алтынсарин", "Шоқан Уәлиханов", "Абай Құнанбаев", "Шәкәрім Құдайбердіұлы"], correct: 1 },
-                            { question: "Аtлах шайқасы (Тараз маңында) қай жылы болды?", image: "", options: ["751 жылы", "552 жылы", "840 жылы", "940 жылы"], correct: 0 },
+                            { question: "Атлах шайқасы (Тараз маңында) қай жылы болды?", image: "", options: ["751 жылы", "552 жылы", "840 жылы", "940 жылы"], correct: 0 },
                             { question: "Шыңғыс ханның үлкен ұлына еншіге берілген Қазақстан аумағы кіретін ұлыс:", image: "", options: ["Шағатай ұлысы", "Үгедей ұлысы", "Жошы ұлысы", "Төле ұлысы"], correct: 2 },
-                            { question: "Қазақ КСР Ғылым академиясының тұңғыш prezidenti:", image: "", options: ["Қаныш Сәтбаев", "Әлкей Марғұлан", "Мұхтар Әуезов", "Евней Бөкетов"], correct: 0 },
+                            { question: "Қазақ КСР Ғылым академиясының тұңғыш президенті:", image: "", options: ["Қаныш Сәтбаев", "Әлкей Марғұлан", "Мұхтар Әуезов", "Евней Бөкетов"], correct: 0 },
                             { question: "Жәнібек пен Керей хандардың бөлініп көшкен мемлекеті:", image: "", options: ["Алтын Орда", "Әбілқайыр хандығы", "Моғолстан", "Ноғай Ордасы"], correct: 1 }
                         ]
                     },
@@ -309,14 +364,14 @@
                             { question: "Қазақстанның ежелгі қаласы Отырарды моңғолдар неше ай қоршауда ұстады?", image: "", options: ["3 ай", "5 ай", "6 ай", "1 жыл"], correct: 2 },
                             { question: "1836-1838 жылдардағы Ішкі Ордадағы көтерілістің жетекшілері:", image: "", options: ["Исатай мен Махамбет", "Кенесары мен Наурызбай", "Жанқожа мен Барақ", "Сырым Датұлы"], correct: 0 },
                             { question: "Қазақ халқының жоңғарларға қарсы алғашқы ірі жеңістерінің бірі:", image: "", options: ["Бұланты шайқасы", "Аңырақай шайқасы", "Орбулақ шайқасы", "Қалмаққырылған"], correct: 2 },
-                            { question: "Батыс Түрік қағанатының жазғы ордасы қалай аталды?", image: "", options: ["Suyaб", "Мыңбұлақ", "Баласағұн", "Тараз"], correct: 1 },
+                            { question: "Батыс Түрік қағанатының жазғы ордасы қалай аталды?", image: "", options: ["Суяб", "Мыңбұлақ", "Баласағұн", "Тараз"], correct: 1 },
                             { question: "Қазақ баспасөзінің қарлығашы болған «Қазақ» газетінің редакторы:", image: "", options: ["Әлихан Бөкейханов", "Ахмет Байтұрсынұлы", "Міржақып Дулатұлы", "Мұстафа Шоқай"], correct: 1 },
                             { question: "Киіз басу, тоқымашылық өнері кеңінен дамыған ежелгі дәуір кезеңі:", image: "", options: ["Қола дәуірі", "Энеолит", "Палеолит", "Мезолит"], correct: 0 },
                             { question: "1206 жылы Шыңғыс ханды ресми түрде ұлы хан деп жариялаған құрылтай қай өзен бойында өтті?", image: "", options: ["Онон", "Керулен", "Ертіс", "Орхон"], correct: 0 },
                             { question: "Ресей империясының Кіші жүзде хандық билікті жою туралы жарлығы шыққан жыл:", image: "", options: ["1822 ж.", "1824 ж.", "1867 ж.", "1868 ж."], correct: 1 },
                             { question: "Есім ханның тұсында қабылданған заңдар жинағы қалай аталады?", options: ["Қасым ханның қасқа жолы", "Есім ханның ескі жолы", "Жеті жарғы", "Әз Тәукенің заңдары"], correct: 1 },
-                            { question: "Тұңғыш бүкілқазақстандық құрылтай өткен Орынбор қаласында «Алашорда» үкіметі қай жылы құрылды?", image: "", options: ["1917 ж. желтоқсан", "1917 ж. шілде", "1918 ж. қаңтар", "1920 ж. тамыз"], correct: 0 },
-                            { question: "Түркістан автономиясының орталығы болған қала:", image: "", options: ["Қоқан", "Taшкент", "Шымкент", "Перовск"], correct: 0 },
+                            { question: "Tұңғыш бүкілқазақстандық құрылтай өткен Орынбор қаласында «Алашорда» үкіметі қай жылы құрылды?", image: "", options: ["1917 ж. желтоқсан", "1917 ж. шілде", "1918 ж. қаңтар", "1920 ж. тамыз"], correct: 0 },
+                            { question: "Түркістан автономиясының орталығы болған қала:", image: "", options: ["Қоқан", "Ташкент", "Шымкент", "Перовск"], correct: 0 },
                             { question: "Қазақ хандығының аумағын батыста Жайыққа, солтүстікте Есілге дейін кеңейткен хан:", image: "", options: ["Қасым хан", "Хақназар хан", "Тәуекел хан", "Шығай хан"], correct: 1 },
                             { question: "Берлинге ту тіккен қазақстандық батыр ұшқыш немесе жауынгер:", image: "", options: ["Рақымжан Қошқарбаев", "Бауыржан Момышұлы", "Талғат Бигелдинов", "Мәншүк Мәметова"], correct: 0 },
                             { question: "Ұлы Отан соғысы жылдарында екі мәрте Кеңес Одағының Батыры атағын алған қазақстандық ұшқыш:", image: "", options: ["Талғат Бигелдинов", "Нүркен Әбдіров", "Сергей Луганский", "Леонид Беда"], correct: 0 },
@@ -335,7 +390,7 @@
                             { question: "Егер санның 25%-ы 40-қа тең болса, ол санның өзі нешеге тең?", image: "", options: ["100", "120", "160", "200"], correct: 2 },
                             { question: "Заңдылықты анықтап, келесі санды табыңыз: 2, 5, 11, 23, ...", image: "", options: ["35", "47", "46", "51"], correct: 1 },
                             { question: "Әкесі 36 жаста, ал баласы 6 жаста. Неше жылдан кейін әкесінің жасы баласының жасынан 4 есе үлкен болады?", image: "", options: ["2 жылдан кейін", "4 жылдан кейін", "3 жылдан кейін", "5 жылдан кейін"], correct: 1 },
-                            { question: "Сыныпта 25 оқушы bar. Олардың 15-і футболға, 12-сі баскетболға қатысады, ал 5 оқушы екеуіне де қатысады. Спорт үйірмелеріне мүлдем қатыспайтын оқушылар саны қанша?", image: "", options: ["2", "3", "5", "4"], correct: 1 },
+                            { question: "Сыныпта 25 оқушы бар. Олардың 15-і футболға, 12-сі баскетболға қатысады, ал 5 оқушы екеуіне де қатысады. Спорт үйірмелеріне мүлдем қатыспайтын оқушылар саны қанша?", image: "", options: ["2", "3", "5", "4"], correct: 1 },
                             { question: "Екі санның қосындысы 24-ке, ал олардың айырмасы 6-ға тең. Осы сандардың көбейтіндісін табыңыз.", image: "", options: ["135", "120", "144", "105"], correct: 0 },
                             { question: "Үшбұрыштың қабырғалары 3:4:5 қатынасында. Егер оның периметрі 48 см болса, ең ұзын қабырғасын табыңыз.", image: "", options: ["16 см", "18 см", "20 см", "24 см"], correct: 2 },
                             { question: "Кітапханадағы кітаптардың 40%-ы көркем әдебиет, ал қалған 120 кітап — ғылыми әдебиет. Кітапханада барлығы неше кітап бар?", image: "", options: ["180", "200", "240", "300"], correct: 1 },
@@ -350,7 +405,7 @@
                             { question: "Дүкендегі тауардың бағасы алдымен 20%-ға қымбаттап, кейін қайтадан 20%-ға арзандады. Тауардың алғашқы бағасы қалай өзгерді?", image: "", options: ["Өзгерген жоқ", "4%-ға арзандады", "4%-ға қымбаттады", "2%-ға арзандады"], correct: 1 },
                             { question: "Ажар, Бақыт және Саян бірге 36 жаста. 4 жылдан кейін олардың жастарының қосындысы қанша болады?", image: "", options: ["40", "44", "48", "52"], correct: 2 },
                             { question: "Азаматтың 5 досы бар. Ол оларды бір-бірден немесе топпен қонаққа шақыра алады. Азамат достарын неше түрлі тәсілмен қонаққа шақыра алады (бос жиынды есептемегенде)?", image: "", options: ["25", "30", "31", "32"], correct: 2 },
-                            { question: "Егер текше пішінді қораптың қырын 2 есе арттырсақ, Оның көлемі неше есе артады?", image: "", options: ["2 есе", "4 есе", "6 есе", "8 есе"], correct: 3 },
+                            { question: "Егер текше пішінді қораптың қырын 2 есе арттырсақ, оның көлемі неше есе артады?", image: "", options: ["2 есе", "4 есе", "6 есе", "8 есе"], correct: 3 },
                             { question: "Сағат тілі 15:00-ді көрсетіп тұр. Сағаттық және минуттық тілдердің арасындағы бұрыш неше градус?", image: "", options: ["45°", "60°", "90°", "120°"], correct: 2 }
                         ]
                     }
@@ -358,6 +413,7 @@
             }
         };
 
+        // Состояние приложения
         let state = {
             currentPanel: 'start',
             activeSubjectKey: null,
@@ -370,20 +426,7 @@
 
         let timerInterval = null;
 
-        window.addEventListener('DOMContentLoaded', () => {
-            renderSubjectCards();
-            loadStateFromStorage();
-            checkGoogleBrowser(); // Проверка браузера при загрузке
-        });
-
-        // Функция проверки браузера Google Chrome
-        function checkGoogleBrowser() {
-            const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-            if (!isChrome) {
-                alert("НАЗАР АУДАРЫҢЫЗ!\nЖүйенің дұрыс және қатесіз жұмыс істеуі үшін тек Google Chrome браузерін қолдану ұсынылады.");
-            }
-        }
-
+        // Генерация карточек предметов
         function renderSubjectCards() {
             const container = document.getElementById('subjects-grid');
             container.innerHTML = '';
@@ -406,6 +449,7 @@
             });
         }
 
+        // Выбор вариантов
         function openSubjectVariants(subjectKey) {
             state.activeSubjectKey = subjectKey;
             switchPanel('variants');
@@ -447,6 +491,7 @@
             saveStateToStorage();
         }
 
+        // Запуск теста
         function startTest(variantIdx, resume = false) {
             state.activeVariantIdx = variantIdx;
             switchPanel('quiz');
@@ -462,6 +507,7 @@
             saveStateToStorage();
         }
 
+        // Рендеринг вопроса
         function loadQuestion() {
             const sub = appDatabase[state.activeSubjectKey];
             const variant = sub.variants[state.activeVariantIdx];
@@ -504,13 +550,14 @@
             renderQuestionsMap(variant.questions.length);
         }
 
+        // Карта вопросов
         function renderQuestionsMap(total) {
             const map = document.getElementById('questions-map');
             map.innerHTML = '';
 
             for (let i = 0; i < total; i++) {
                 const btn = document.createElement('button');
-                btn.className = `h-8 w-full md:h-9 rounded-lg md:rounded-xl border text-[11px] md:text-xs font-bold transition flex items-center justify-center cursor-pointer `;
+                btn.className = `aspect-square w-full rounded-xl border text-xs font-bold transition flex items-center justify-center cursor-pointer `;
                 
                 if (state.bookmarks[i]) {
                     btn.className += "bg-amber-500 text-white border-amber-500 shadow-sm";
@@ -532,6 +579,7 @@
             document.getElementById('answered-counter').innerText = `Орындалғаны: ${answered} / ${total}`;
         }
 
+        // Навигация
         function navigateQuestion(step) {
             const total = appDatabase[state.activeSubjectKey].variants[state.activeVariantIdx].questions.length;
             if (step === 1 && state.currentIndex === total - 1) { openConfirmModal(); return; }
@@ -546,24 +594,15 @@
             saveStateToStorage();
         }
 
+        // Таймер
         function startTimerLogic() {
             clearInterval(timerInterval);
             updateTimerDisplay();
-
             timerInterval = setInterval(() => {
-                if (state.currentPanel !== 'quiz') { 
-                    clearInterval(timerInterval); 
-                    return; 
-                }
-                
+                if (state.currentPanel !== 'quiz') { clearInterval(timerInterval); return; }
                 state.totalSeconds--;
                 saveStateToStorage();
-
-                if (state.totalSeconds <= 0) { 
-                    clearInterval(timerInterval); 
-                    confirmFinishQuiz(); 
-                }
-                
+                if (state.totalSeconds <= 0) { clearInterval(timerInterval); confirmFinishQuiz(); }
                 updateTimerDisplay();
             }, 1000);
         }
@@ -575,14 +614,12 @@
             document.getElementById('timer-text').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
         }
 
-        function openConfirmModal() { 
-            checkGoogleBrowser(); // Предупреждение о браузере перед выходом/завершением
-            document.getElementById('confirm-modal').classList.remove('hidden'); 
-        }
+        function openConfirmModal() { document.getElementById('confirm-modal').classList.remove('hidden'); }
         function closeConfirmModal() { document.getElementById('confirm-modal').classList.add('hidden'); }
         function openBlockedModal() { document.getElementById('blocked-modal').classList.remove('hidden'); }
         function closeBlockedModal() { document.getElementById('blocked-modal').classList.add('hidden'); }
 
+        // Завершение викторины
         function confirmFinishQuiz() {
             closeConfirmModal();
             clearInterval(timerInterval);
@@ -624,17 +661,16 @@
                 date: new Date().toLocaleDateString('kk-KZ') + ' ' + new Date().toLocaleTimeString('kk-KZ', {hour: '2-digit', minute:'2-digit'})
             });
             localStorage.setItem('ubt_global_history', JSON.stringify(historyLog));
-
             localStorage.removeItem('ubt_pro_state');
         }
 
+        // Просмотр истории
         function viewSavedResults() {
             switchPanel('global-results');
             const container = document.getElementById('global-results-container');
             container.innerHTML = '';
 
             const historyLog = JSON.parse(localStorage.getItem('ubt_global_history') || '[]');
-            
             if(historyLog.length === 0) {
                 container.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs font-medium">Әзірге ешқандай сақталған нәтиже жоқ.</div>`;
                 return;
@@ -663,6 +699,7 @@
             });
         }
 
+        // Смена панелей интерфейса
         function switchPanel(panelName) {
             state.currentPanel = panelName;
             ['start', 'variants', 'quiz', 'result', 'global-results'].forEach(p => {
@@ -680,26 +717,11 @@
             }
         }
 
-        // Обновленная функция goHome с проверкой пин-кода
-        function goHome() { 
-            // Запрашиваем код только если пользователь выходит непосредственно из активного режима тестирования
-            if (state.currentPanel === 'quiz') {
-                const userCode = prompt("Шығу үшін құпия кодты енгізіңіз (Введите код для выхода):");
-                if (userCode !== "23102008") {
-                    alert("Қате код! Тез арада тест тапсыруды жалғастырыңыз. (Неверный код!)");
-                    return; // Блокируем выход
-                }
-            }
-            
-            switchPanel('start'); 
-            localStorage.removeItem('ubt_pro_state'); 
-            renderSubjectCards(); 
-            clearInterval(timerInterval); 
-        }
-
+        function goHome() { switchPanel('start'); localStorage.removeItem('ubt_pro_state'); renderSubjectCards(); clearInterval(timerInterval); }
         function resetStorageAndGoHome() { localStorage.removeItem('ubt_pro_state'); location.reload(); }
         function saveStateToStorage() { localStorage.setItem('ubt_pro_state', JSON.stringify(state)); }
 
+        // Загрузка состояния из локального хранилища
         function loadStateFromStorage() {
             const saved = localStorage.getItem('ubt_pro_state');
             if (!saved) return;
@@ -718,6 +740,7 @@
             }
         }
 
+        // Функции калькулятора
         function toggleWidget(type) { document.getElementById(`widget-${type}`).classList.toggle('hidden'); }
         function pressCalc(v) { document.getElementById('calc-screen').value += v; }
         function clearCalc() { document.getElementById('calc-screen').value = ''; }
