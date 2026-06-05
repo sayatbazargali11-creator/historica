@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="kk" class="h-full">
 <head>
@@ -288,7 +287,7 @@
                             { question: "Түрік қағанатының құрылған жылы:", image: "", options: ["552 жыл", "603 жыл", "751 жыл", "704 жыл"], correct: 0 },
                             { question: "Ұлы Жібек жолының Қазақстандағы басты орталықтарының бірі болған ежелгі қала:", image: "", options: ["Тараз", "Сауран", "Сығанақ", "Түркістан"], correct: 0 },
                             { question: "Қарлық қағанатының орталығы қай қала болды?", image: "", options: ["Суяб", "Баласағұн", "Янгикент", "Қойлық"], correct: 1 },
-                            { question: "1917 жылы құрылған «Алаш» партиясының төрағасы кім болды?", image: "", options: ["Мұстафа Шоқай", "Әлихан Бөкейханов", "Ахмет Байтұрсынұлы", "Міржақып Дулатұлы"], correct: 1 },
+                            { question: "1917 жылы құрылған «Алаш» partyясының төрағасы кім болды?", image: "", options: ["Мұстафа Шоқай", "Әлихан Бөкейханов", "Ахмет Байтұрсынұлы", "Міржақып Дулатұлы"], correct: 1 },
                             { question: "Қазақ КСР-інің тәуелсіздігі жарияланған тарихи күн:", image: "", options: ["1991 жыл 16 желтоқсан", "1990 жыл 25 қазан", "1991 жыл 25 қазан", "1992 жыл 16 желтоқсан"], correct: 0 },
                             { question: "Екінші дүниежүзілік соғыста Мәскеу үшін шайқаста ерекше көзге түскен дивизия:", image: "", options: ["316-атқыштар дивизиясы", "72-гвардиялық дивизия", "314-атқыштар дивизиясы", "29-дивизия"], correct: 0 },
                             { question: "Қазақ халқының тұңғыш ағартушы-ғалымы, саяхатшы:", image: "", options: ["Ыбырай Алтынсарин", "Шоқан Уәлиханов", "Абай Құнанбаев", "Шәкәрім Құдайбердіұлы"], correct: 1 },
@@ -351,7 +350,7 @@
                             { question: "Дүкендегі тауардың бағасы алдымен 20%-ға қымбаттап, кейін қайтадан 20%-ға арзандады. Тауардың алғашқы бағасы қалай өзгерді?", image: "", options: ["Өзгерген жоқ", "4%-ға арзандады", "4%-ға қымбаттады", "2%-ға арзандады"], correct: 1 },
                             { question: "Ажар, Бақыт және Саян бірге 36 жаста. 4 жылдан кейін олардың жастарының қосындысы қанша болады?", image: "", options: ["40", "44", "48", "52"], correct: 2 },
                             { question: "Азаматтың 5 досы бар. Ол оларды бір-бірден немесе топпен қонаққа шақыра алады. Азамат достарын неше түрлі тәсілмен қонаққа шақыра алады (бос жиынды есептемегенде)?", image: "", options: ["25", "30", "31", "32"], correct: 2 },
-                            { question: "Егер текше пішінді қораптың қырын 2 есе арттырсақ, оның көлемі неше есе артады?", image: "", options: ["2 есе", "4 есе", "6 есе", "8 есе"], correct: 3 },
+                            { question: "Егер текше пішінді қораптың қырын 2 есе арттырсақ, Оның көлемі неше есе артады?", image: "", options: ["2 есе", "4 есе", "6 есе", "8 есе"], correct: 3 },
                             { question: "Сағат тілі 15:00-ді көрсетіп тұр. Сағаттық және минуттық тілдердің арасындағы бұрыш неше градус?", image: "", options: ["45°", "60°", "90°", "120°"], correct: 2 }
                         ]
                     }
@@ -374,7 +373,16 @@
         window.addEventListener('DOMContentLoaded', () => {
             renderSubjectCards();
             loadStateFromStorage();
+            checkGoogleBrowser(); // Проверка браузера при загрузке
         });
+
+        // Функция проверки браузера Google Chrome
+        function checkGoogleBrowser() {
+            const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            if (!isChrome) {
+                alert("НАЗАР АУДАРЫҢЫЗ!\nЖүйенің дұрыс және қатесіз жұмыс істеуі үшін тек Google Chrome браузерін қолдану ұсынылады.");
+            }
+        }
 
         function renderSubjectCards() {
             const container = document.getElementById('subjects-grid');
@@ -567,7 +575,10 @@
             document.getElementById('timer-text').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
         }
 
-        function openConfirmModal() { document.getElementById('confirm-modal').classList.remove('hidden'); }
+        function openConfirmModal() { 
+            checkGoogleBrowser(); // Предупреждение о браузере перед выходом/завершением
+            document.getElementById('confirm-modal').classList.remove('hidden'); 
+        }
         function closeConfirmModal() { document.getElementById('confirm-modal').classList.add('hidden'); }
         function openBlockedModal() { document.getElementById('blocked-modal').classList.remove('hidden'); }
         function closeBlockedModal() { document.getElementById('blocked-modal').classList.add('hidden'); }
@@ -669,7 +680,23 @@
             }
         }
 
-        function goHome() { switchPanel('start'); localStorage.removeItem('ubt_pro_state'); renderSubjectCards(); clearInterval(timerInterval); }
+        // Обновленная функция goHome с проверкой пин-кода
+        function goHome() { 
+            // Запрашиваем код только если пользователь выходит непосредственно из активного режима тестирования
+            if (state.currentPanel === 'quiz') {
+                const userCode = prompt("Шығу үшін құпия кодты енгізіңіз (Введите код для выхода):");
+                if (userCode !== "23102008") {
+                    alert("Қате код! Тез арада тест тапсыруды жалғастырыңыз. (Неверный код!)");
+                    return; // Блокируем выход
+                }
+            }
+            
+            switchPanel('start'); 
+            localStorage.removeItem('ubt_pro_state'); 
+            renderSubjectCards(); 
+            clearInterval(timerInterval); 
+        }
+
         function resetStorageAndGoHome() { localStorage.removeItem('ubt_pro_state'); location.reload(); }
         function saveStateToStorage() { localStorage.setItem('ubt_pro_state', JSON.stringify(state)); }
 
