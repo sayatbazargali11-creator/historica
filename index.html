@@ -2,1908 +2,2510 @@
 <html lang="kk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SAYAT_MATH — ҰБТ 2026 Премиум Онлайн Мектебі</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDUSER ONLINE — ҰБТ-ға кәсіби дайындық платформасы (Premium)</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <style>
         /* ==========================================================================
-           1. ГЛОБАЛЬДЫ СТИЛЬДЕР ЖӘНЕ АҚ ПРЕМИУМ МИНИМАЛИЗМ ПЕРЕМЕННЫЙЛАРЫ
+           1. ГЛОБАЛЬНЫЕ НАСТРОЙКИ И ПЕРЕМЕННЫЕ (CSS VARIABLES)
            ========================================================================== */
         :root {
-            --bg-pure: #ffffff;
-            --bg-subtle: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-dark-accent: #0f172a;
-            
-            --brand-primary: #0066ff;
-            --brand-primary-hover: #0052cc;
-            --brand-primary-light: rgba(0, 102, 255, 0.05);
-            --brand-secondary: #10b981;
-            --brand-secondary-light: rgba(16, 185, 129, 0.1);
-            --brand-gradient: linear-gradient(135deg, #0066ff 0%, #3b82f6 100%);
-            
-            --text-main: #1e293b;
+            --primary: #0052cc;
+            --primary-hover: #0043a4;
+            --secondary: #00bfa5;
+            --secondary-hover: #00a38d;
+            --orange: #ff6d00;
+            --orange-hover: #e56200;
+            --pink: #ff4081;
+            --purple: #7c4dff;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --light: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-main: #334155;
             --text-muted: #64748b;
-            --text-dark: #0f172a;
-            --text-white: #ffffff;
+            --white: #ffffff;
             
-            --border-light: #e2e8f0;
-            --border-active: #0066ff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             
-            --font-inter: 'Inter', sans-serif;
-            
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.02);
-            --shadow-md: 0 10px 30px -10px rgba(0,0,0,0.05);
-            --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.06);
-            --shadow-xl: 0 30px 60px -20px rgba(0,0,0,0.1);
-            --shadow-btn: 0 8px 24px -6px rgba(0, 102, 255, 0.3);
-            
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-fast: all 0.2s ease;
             --radius-sm: 8px;
             --radius-md: 16px;
             --radius-lg: 24px;
             --radius-xl: 32px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        html {
             scroll-behavior: smooth;
-            font-family: var(--font-inter);
-            background-color: var(--bg-pure);
-            color: var(--text-main);
-            overflow-x: hidden;
         }
 
         body {
-            position: relative;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: var(--text-main);
+            line-height: 1.7;
             overflow-x: hidden;
-            background: var(--bg-pure);
         }
 
-        /* Компоненттер контурлары */
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        button, input, select, textarea {
+            font-family: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
         .container {
             width: 100%;
-            max-width: 1240px;
+            max-width: 1440px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        .container--narrow {
-            max-width: 800px;
+        /* Компоненты скроллбара */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 8px;
         }
-
-        section {
-            position: relative;
-            overflow: hidden;
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: var(--radius-sm);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
         }
 
         /* ==========================================================================
-           2. ТИПОГРАФИКА МЕН СӘНДІ ДЕКОРАТИВТІ ЭЛЕМЕНТТЕР
+           2. ПОВТОРЯЕМЫЕ КОМПОНЕНТЫ И СТИЛИ ТЕКСТА
            ========================================================================== */
-        .section-tag {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--brand-primary);
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+        }
+
+        .section-badge {
             display: inline-block;
-            margin-bottom: 16px;
-            background: var(--brand-primary-light);
             padding: 6px 16px;
+            background: rgba(0, 82, 204, 0.1);
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 700;
             border-radius: 100px;
-            border: 1px solid rgba(0, 102, 255, 0.1);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .section-title {
-            font-size: clamp(28px, 4vw, 42px);
+            font-size: 2.5rem;
             font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -1px;
-            color: var(--text-dark);
-            margin-bottom: 16px;
+            color: var(--dark);
+            line-height: 1.3;
+            margin-bottom: 20px;
         }
 
         .section-subtitle {
-            font-size: clamp(15px, 2vw, 17px);
+            font-size: 1.1rem;
             color: var(--text-muted);
-            font-weight: 400;
-            line-height: 1.6;
-            max-width: 600px;
         }
 
-        .section-header-center {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 64px;
-        }
-
-        /* ==========================================================================
-           3. БАТЫРМАЛАР (PREMIUM EXCLUSIVE BUTTONS)
-           ========================================================================== */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            border-radius: var(--radius-md);
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            text-decoration: none;
+            padding: 14px 28px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
             border: none;
-            outline: none;
-            white-space: nowrap;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
             position: relative;
             overflow: hidden;
         }
 
-        .btn--primary {
-            background: var(--brand-gradient);
-            color: var(--text-white);
-            box-shadow: var(--shadow-btn);
-        }
-
-        .btn--primary::before {
+        .btn::after {
             content: '';
             position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.6s;
-        }
-
-        .btn--primary:hover::before {
-            left: 100%;
-        }
-
-        .btn--primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px -4px rgba(0, 102, 255, 0.45);
-        }
-
-        .btn--outline {
-            background: var(--bg-pure);
-            border: 1px solid var(--border-light);
-            color: var(--text-dark);
-        }
-
-        .btn--outline:hover {
-            border-color: var(--brand-primary);
-            color: var(--brand-primary);
-            background: var(--brand-primary-light);
-            transform: translateY(-2px);
-        }
-
-        .btn--dark {
-            background: var(--bg-dark-accent);
-            color: var(--text-white);
-        }
-
-        .btn--dark:hover {
-            background: #000000;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn--lg { padding: 18px 38px; font-size: 16px; border-radius: 14px; }
-        .btn--md { padding: 14px 28px; font-size: 14px; }
-        .btn--sm { padding: 10px 20px; font-size: 13px; border-radius: 10px; }
-        .btn--full { width: 100%; }
-
-        /* ==========================================================================
-           4. НАВИГАЦИЯ (GLASS-MORPHISM MINIMAL HEADER)
-           ========================================================================== */
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
-            transition: var(--transition-smooth);
-        }
-
-        .header--scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .header__container {
-            height: 84px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: var(--transition-smooth);
-        }
-
-        .header--scrolled .header__container {
-            height: 72px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--text-dark);
-            text-decoration: none;
-            letter-spacing: -1px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .logo span {
-            color: var(--brand-primary);
-        }
-
-        .logo__dot {
-            width: 6px;
-            height: 6px;
-            background: var(--brand-primary);
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
         }
 
-        .nav {
-            display: flex;
-            gap: 36px;
-            align-items: center;
+        .btn:active::after {
+            transform: translate(-50%, -50%) scale(1);
+            transition: 0s;
         }
 
-        .nav__link {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 500;
-            transition: var(--transition-fast);
-            position: relative;
-            padding: 6px 0;
-        }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        
+        .btn-secondary { background: var(--secondary); color: var(--white); }
+        .btn-secondary:hover { background: var(--secondary-hover); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-        .nav__link::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 2px;
-            background: var(--brand-primary);
-            transition: var(--transition-fast);
-        }
+        .btn-orange { background: var(--orange); color: var(--white); }
+        .btn-orange:hover { background: var(--orange-hover); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-        .nav__link:hover {
-            color: var(--text-dark);
-        }
+        .btn-outline { background: transparent; border: 2px solid var(--border-color); color: var(--dark); }
+        .btn-outline:hover { background: var(--border-color); }
 
-        .nav__link:hover::after {
-            width: 100%;
-        }
-
-        .header__right {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        .header__phone {
-            font-weight: 600;
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 15px;
-            transition: var(--transition-fast);
-        }
-
-        .header__phone:hover {
-            color: var(--brand-primary);
-        }
-
-        /* Ұялы телефонға арналған Бургер */
-        .burger {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 1100;
-            padding: 4px;
-        }
-
-        .burger span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background-color: var(--text-dark);
-            border-radius: 2px;
-            transition: var(--transition-smooth);
-        }
-
-        .burger--active span:nth-child(1) { transform: rotate(45deg) translate(6px, 5px); }
-        .burger--active span:nth-child(2) { opacity: 0; }
-        .burger--active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
-
-        /* ==========================================================================
-           5. БАСТЫ ЭКРАН (HERO LUXURY SECTION)
-           ========================================================================== */
-        .hero {
-            padding: 80px 0 120px 0;
-            background: radial-gradient(120% 120% at 50% 0%, #f8fafc 0%, #ffffff 100%);
-            position: relative;
-        }
-
-        .hero__grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 64px;
-            align-items: center;
-        }
-
-        .hero__heading {
-            font-size: clamp(36px, 5vw, 60px);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -2px;
-            margin-bottom: 24px;
-            color: var(--text-dark);
-        }
-
-        .hero__heading span {
-            background: linear-gradient(120deg, #0066ff, #3b82f6);
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero__description {
-            font-size: 18px;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 40px;
-            max-width: 540px;
+        /* ==========================================================================
+           3. ХЕДЕР И НАВИГАЦИЯ
+           ========================================================================== */
+        .main-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
         }
 
-        .hero__buttons {
+        .main-header.scrolled {
+            padding: 5px 0;
+            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span { color: var(--dark); }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+            position: relative;
+            padding: 8px 4px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .burger-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            padding: 5px;
+        }
+
+        /* Мобильное выпадающее меню */
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: -100%;
+            width: 100%;
+            height: calc(100vh - 80px);
+            background: var(--white);
+            z-index: 999;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-link {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        /* ==========================================================================
+           4. ГЕРОЙ-БЛОК (HERO SECTION)
+           ========================================================================== */
+        .hero-section {
+            padding: 80px 0;
+            background: radial-gradient(circle at 90% 10%, rgba(0, 82, 204, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 10% 80%, rgba(124, 77, 255, 0.04) 0%, transparent 40%);
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--dark);
+            line-height: 1.15;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-content h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 191, 165, 0.2);
+            z-index: -1;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 580px;
+        }
+
+        .hero-cta {
             display: flex;
             gap: 16px;
-            margin-bottom: 48px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
         }
 
-        .hero__metrics {
+        .hero-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            border-top: 1px solid var(--border-light);
+            gap: 32px;
+            border-top: 1px solid var(--border-color);
             padding-top: 32px;
         }
 
-        .metric-item__num {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--text-dark);
-            letter-spacing: -1px;
+        .stat-item h3 {
+            font-size: 2.3rem;
+            font-weight: 900;
+            color: var(--primary);
             margin-bottom: 4px;
-            display: flex;
-            align-items: center;
         }
 
-        .metric-item__num span {
-            color: var(--brand-primary);
-        }
-
-        .metric-item__lbl {
-            font-size: 13px;
+        .stat-item p {
+            font-size: 0.9rem;
+            font-weight: 600;
             color: var(--text-muted);
+            margin-bottom: 0;
             line-height: 1.4;
         }
 
-        /* Визуалды оң жақ блок */
-        .hero__visual {
+        .hero-image-wrapper {
             position: relative;
             display: flex;
             justify-content: center;
-            align-items: center;
         }
 
-        .hero__main-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-xl);
-            padding: 40px;
-            box-shadow: var(--shadow-xl);
+        .hero-illustration {
             width: 100%;
-            max-width: 460px;
+            max-width: 500px;
+            height: 480px;
+            background: linear-gradient(135deg, rgba(0, 82, 204, 0.05), rgba(124, 77, 255, 0.05));
+            border-radius: var(--radius-xl);
+            border: 2px dashed var(--border-color);
             position: relative;
-            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .floating-badge {
+        .hero-circle-deco {
             position: absolute;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0,82,204,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s infinite alternate;
+        }
+
+        .hero-badge-main {
+            z-index: 2;
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .hero-badge-main i {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: var(--white);
+            padding: 16px 24px;
             border-radius: var(--radius-md);
-            padding: 16px 20px;
             box-shadow: var(--shadow-lg);
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
             z-index: 3;
-            animation: float 6s ease-in-out infinite;
+            border-left: 5px solid var(--primary);
+            animation: float 5s ease-in-out infinite;
         }
 
-        .floating-badge--1 { top: -20px; left: -20px; animation-delay: 0s; }
-        .floating-badge--2 { bottom: 40px; right: -30px; animation-delay: 3s; }
+        .floating-card-1 { bottom: 40px; left: -30px; border-left-color: var(--secondary); }
+        .floating-card-2 { top: 40px; right: -30px; animation-delay: 2.5s; border-left-color: var(--orange); }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            100% { transform: scale(1.1); opacity: 1; }
         }
 
         /* ==========================================================================
-           6. ИНТЕРАКТИВТІ ПЛАТФОРМА АРТЫҚШЫЛЫҚТАРЫ (SLIDER)
+           5. ИНТЕРАКТИВНЫЕ ВИДЖЕТЫ (STORIES / ХАЙЛАЙТЫ КУРСА)
            ========================================================================== */
-        .benefits {
-            padding: 120px 0;
-            background: var(--bg-subtle);
-            border-top: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
+        .highlights-section {
+            padding: 40px 0 80px 0;
+            background: var(--white);
         }
 
-        .carousel {
-            position: relative;
-            width: 100%;
-        }
-
-        .carousel__viewport {
-            overflow: hidden;
-            width: 100%;
-            padding: 20px 0;
-        }
-
-        .carousel__track {
+        .stories-container {
             display: flex;
-            gap: 32px;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
-        .benefit-card {
-            flex: 0 0 calc(33.333% - 22.3px);
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition-smooth);
+        .story-circle {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 400px;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-            border-color: rgba(0, 102, 255, 0.15);
-        }
-
-        .benefit-card__icon-box {
-            width: 56px;
-            height: 56px;
-            background: var(--brand-primary-light);
-            border-radius: var(--radius-md);
-            display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 32px;
-            color: var(--brand-primary);
+            gap: 8px;
+            cursor: pointer;
+            width: 100px;
         }
 
-        .benefit-card__icon-box svg {
-            width: 26px;
-            height: 26px;
-        }
-
-        .benefit-card h3 {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 14px;
-            letter-spacing: -0.5px;
-        }
-
-        .benefit-card p {
-            color: var(--text-muted);
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .benefit-card__footer {
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px solid #f1f5f9;
-        }
-
-        .carousel__controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 24px;
-            margin-top: 48px;
-        }
-
-        .carousel__arrow {
-            width: 54px;
-            height: 54px;
+        .story-ring {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: var(--bg-pure);
-            border: 1px solid var(--border-light);
-            color: var(--text-dark);
-            cursor: pointer;
+            padding: 3px;
+            background: linear-gradient(45deg, var(--orange), var(--pink), var(--purple), var(--primary));
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition-smooth);
-            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
         }
 
-        .carousel__arrow:hover {
-            border-color: var(--brand-primary);
-            color: var(--brand-primary);
-            background: var(--brand-primary-light);
-            transform: scale(1.05);
+        .story-circle:hover .story-ring {
+            transform: scale(1.08);
         }
 
-        /* ==========================================================================
-           7. ТАРИФТЕР БӨЛІМІ (PREMIUM & ULTRA-DETAILED PRICING)
-           ========================================================================== */
-        .pricing {
-            padding: 120px 0;
-            background: var(--bg-pure);
-        }
-
-        /* Тарифтерді Ауыстырғыш (Теңшегіш) */
-        .pricing-toggle {
-            display: inline-flex;
+        .story-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
             align-items: center;
-            background: var(--bg-subtle);
-            padding: 6px;
-            border-radius: 100px;
-            border: 1px solid var(--border-light);
-            margin-bottom: 48px;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--dark-light);
         }
 
-        .pricing-toggle__btn {
-            background: none;
-            border: none;
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-muted);
-            border-radius: 100px;
-            cursor: pointer;
-            transition: var(--transition-fast);
+        .story-circle span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--dark);
+            text-align: center;
+            white-space: nowrap;
         }
 
-        .pricing-toggle__btn--active {
-            background: var(--bg-pure);
-            color: var(--text-dark);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .pricing-grid {
+        /* Текстовые виджеты преимуществ */
+        .features-grid-alt {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 32px;
-            align-items: stretch;
+            margin-top: 60px;
         }
 
-        .price-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: 48px 36px;
+        .feature-box-alt {
+            background: var(--light);
+            padding: 40px 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .feature-box-alt:hover {
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+            border-color: rgba(0, 82, 204, 0.2);
+        }
+
+        .feature-box-alt .icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-sm);
+            background: rgba(0, 82, 204, 0.08);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+
+        .feature-box-alt h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .feature-box-alt p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           6. БЛОК ДОСТИЖЕНИЙ (СТУДЕНТЫ)
+           ========================================================================== */
+        .results-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .slider-container {
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .results-track {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 20px 4px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        .results-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .student-card {
+            min-width: 300px;
+            flex: 0 0 calc(25% - 18px);
+            scroll-snap-align: start;
+            background: var(--dark);
+            border-radius: var(--radius-md);
+            padding: 40px 24px;
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            border: 2px solid transparent;
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
-            transition: var(--transition-smooth);
-            position: relative;
-            box-shadow: var(--shadow-sm);
         }
 
-        .price-card:hover {
-            transform: translateY(-10px);
+        .student-card:hover {
+            transform: translateY(-8px);
             box-shadow: var(--shadow-xl);
         }
 
-        /* Ерекше танымал тариф стилі */
-        .price-card--featured {
-            border-color: var(--brand-primary);
-            box-shadow: var(--shadow-lg);
-            background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(248,250,252,0.5) 100%);
-        }
+        .student-card.border-green { border-color: var(--secondary); }
+        .student-card.border-orange { border-color: var(--orange); }
+        .student-card.border-purple { border-color: var(--purple); }
+        .student-card.border-blue { border-color: var(--primary); }
 
-        .price-card--featured::before {
-            content: 'ТАҢДАУЛЫ ТАРИФ';
-            position: absolute;
-            top: -14px; left: 36px;
-            background: var(--brand-primary);
-            color: var(--text-white);
-            font-size: 11px;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 100px;
-            letter-spacing: 1px;
-            box-shadow: var(--shadow-btn);
-        }
-
-        .price-card__header {
-            margin-bottom: 28px;
-        }
-
-        .price-card__name {
-            font-size: 24px;
+        .card-badge {
+            font-size: 0.75rem;
             font-weight: 800;
-            color: var(--text-dark);
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .student-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--dark-light);
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: rgba(255, 255, 255, 0.25);
+            border: 4px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .student-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .student-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .student-score {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fdba74;
+            margin: 12px 0;
+            display: block;
+            letter-spacing: -1px;
+        }
+
+        .card-footer-text {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 20px;
+            margin-top: auto;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .slider-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .slider-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* ==========================================================================
+           7. ПРОФОРИЕНТАЦИОННЫЙ ТЕСТ И ТРЕНАЖЕР СЛИВОВ (ИНТЕРАКТИВ)
+           ========================================================================== */
+        .interactive-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .interactive-box {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 48px 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .int-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .int-title i { color: var(--primary); }
+        .int-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        /* Контейнер опросника */
+        .quiz-widget-box {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-opt-btn {
+            width: 100%;
+            text-align: left;
+            padding: 14px 20px;
+            background: var(--light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quiz-opt-btn:hover {
+            border-color: var(--primary);
+            background: rgba(0, 82, 204, 0.03);
+        }
+
+        .quiz-opt-btn.correct {
+            background: rgba(0, 191, 165, 0.1);
+            border-color: var(--secondary);
+            color: var(--secondary-hover);
+        }
+
+        .quiz-opt-btn.wrong {
+            background: rgba(255, 64, 129, 0.1);
+            border-color: var(--pink);
+            color: var(--pink);
+        }
+
+        .quiz-results-screen {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .quiz-results-screen i {
+            font-size: 3.5rem;
+            color: var(--secondary);
+            margin-bottom: 16px;
+        }
+
+        /* Виджет Сливов Базы */
+        .sliv-item {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .sliv-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .sliv-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+
+        .sliv-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .sliv-hint-box {
+            margin-top: 16px;
+            padding: 16px;
+            background: rgba(255, 109, 0, 0.05);
+            border-left: 4px solid var(--orange);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            display: none;
+        }
+
+        /* ==========================================================================
+           8. ТАРИФНЫЕ ПАКЕТЫ (ТАРИФЫ С ДИНАМИЧЕСКИМ РАСЧЕТОМ)
+           ========================================================================== */
+        .packages-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .discount-switcher {
+            display: flex;
+            background: var(--white);
+            padding: 6px;
+            border-radius: 100px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .discount-tab {
+            padding: 12px 28px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: none;
+            background: transparent;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-main);
+        }
+
+        .discount-tab.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .package-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 44px 28px;
+            box-shadow: var(--shadow-sm);
+            border-top: 8px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .package-card.p-prime { border-top-color: var(--primary); }
+        .package-card.p-ultra { border-top-color: var(--secondary); }
+        .package-card.p-upgrade { border-top-color: var(--orange); }
+        .package-card.p-flex { border-top-color: var(--pink); }
+
+        .package-badge {
+            position: absolute;
+            top: -16px;
+            right: 28px;
+            background: var(--dark);
+            color: var(--white);
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .package-name {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .package-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .package-features-list {
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .feature-item i {
+            color: var(--secondary);
+            font-size: 1rem;
+            margin-top: 2px;
+        }
+
+        .package-pricing {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+            text-align: center;
+        }
+
+        .old-price {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            display: block;
+            height: 26px;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .current-price {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: var(--dark);
+            display: block;
             margin-bottom: 8px;
             letter-spacing: -0.5px;
         }
 
-        .price-card__desc {
-            font-size: 14px;
+        .installment-price {
+            font-size: 0.85rem;
             color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .price-card__pricing {
-            padding: 24px 0;
-            border-top: 1px solid #f1f5f9;
-            border-bottom: 1px solid #f1f5f9;
-            margin-bottom: 32px;
-        }
-
-        .price-card__old {
-            font-size: 15px;
-            text-decoration: line-through;
-            color: var(--text-muted);
-            display: block;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
-
-        .price-card__main {
-            font-size: 42px;
-            font-weight: 900;
-            color: var(--text-dark);
-            letter-spacing: -1.5px;
-            line-height: 1;
-        }
-
-        .price-card__main small {
-            font-size: 14px;
-            color: var(--text-muted);
-            font-weight: 500;
-            letter-spacing: 0;
-        }
-
-        .price-card__sub-payment {
-            margin-top: 10px;
-            font-size: 13px;
-            color: var(--brand-primary);
             font-weight: 600;
-            background: var(--brand-primary-light);
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 6px;
+            margin-bottom: 24px;
+            display: block;
         }
 
-        .price-card__features-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-dark);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .price-card__list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-
-        .price-card__list li {
-            font-size: 14px;
-            color: #475569;
-            display: flex;
-            align-items: start;
-            gap: 12px;
-            line-height: 1.4;
-        }
-
-        .price-card__icon {
-            flex-shrink: 0;
-            width: 18px;
-            height: 18px;
-            margin-top: 1px;
-        }
-
-        .price-card__icon--check { color: var(--brand-secondary); }
-        .price-card__icon--cross { color: #ef4444; opacity: 0.4; }
-
-        .price-card .btn {
-            margin-top: auto;
+        .package-btn {
+            width: 100%;
         }
 
         /* ==========================================================================
-           8. ГРАНТ КАЛЬКУЛЯТОРЫ (ҰБТ SCORE SIMULATOR)
+           9. ПРЕПОДАВАТЕЛИ (TEAM & FILTER)
+           ========================================================================== */
+        .teachers-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--dark);
+            color: var(--white);
+            border-color: var(--dark);
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .teacher-card {
+            background: var(--light);
+            border-radius: var(--radius-md);
+            padding: 40px 24px;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            background: var(--white);
+        }
+
+        .teacher-exp {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--white);
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 100px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .teacher-photo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: var(--border-color);
+            margin: 16px auto 24px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--text-muted);
+            border: 4px solid var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .teacher-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .teacher-subject {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--white);
+            background: var(--primary);
+            padding: 6px 14px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+
+        .teacher-achievements {
+            text-align: left;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .achieve-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-main);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .achieve-item i {
+            color: var(--primary);
+            margin-top: 3px;
+        }
+
+        /* ==========================================================================
+           10. ИНТЕРАКТИВНЫЙ КУРСОВОЙ КАЛЬКУЛЯТОР С ЧЕКОМ
            ========================================================================== */
         .calculator-section {
-            padding: 120px 0;
-            background: var(--bg-subtle);
-            border-top: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
+            padding: 80px 0;
+            background: var(--light);
         }
 
         .calc-wrapper {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-xl);
-            padding: 56px;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius-lg);
             box-shadow: var(--shadow-lg);
-        }
-
-        .calc-grid {
+            padding: 48px;
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            gap: 56px;
-            align-items: center;
+            gap: 48px;
         }
 
-        .calc-sliders {
+        .calc-form {
             display: flex;
             flex-direction: column;
             gap: 28px;
         }
 
-        .slider-group {
+        .form-group {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        .slider-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .slider-info span:last-child {
-            color: var(--brand-primary);
-            font-size: 16px;
+        .form-group label {
+            font-size: 0.95rem;
             font-weight: 700;
+            color: var(--dark);
         }
 
-        .real-range {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 6px;
-            border-radius: 100px;
-            background: #e2e8f0;
+        .form-control {
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
+            background: var(--light);
             outline: none;
-            transition: var(--transition-fast);
+            transition: var(--transition);
+            font-weight: 600;
         }
 
-        .real-range::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--brand-primary);
-            border: 4px solid var(--bg-card);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        .form-control:focus {
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(0, 82, 204, 0.1);
+        }
+
+        .subjects-checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .checkbox-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: var(--transition-fast);
+            transition: var(--transition);
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: var(--white);
         }
 
-        .real-range::-webkit-slider-thumb:hover {
-            transform: scale(1.15);
-            background: var(--brand-primary-hover);
+        .checkbox-btn input {
+            display: none;
         }
 
-        .calc-display {
-            background: var(--bg-subtle);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: 48px 32px;
-            text-align: center;
+        .checkbox-btn.checked {
+            border-color: var(--primary);
+            background: rgba(0, 82, 204, 0.05);
+            color: var(--primary);
+        }
+
+        /* Визуальный чек калькулятора */
+        .calc-result-box {
+            background: var(--dark);
+            border-radius: var(--radius-md);
+            padding: 40px 32px;
+            color: var(--white);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .calc-display__lbl {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .calc-display__score {
-            font-size: 72px;
-            font-weight: 900;
-            color: var(--text-dark);
-            line-height: 1;
-            letter-spacing: -2px;
-            margin-bottom: 16px;
-        }
-
-        .calc-display__status {
-            font-size: 14px;
-            font-weight: 700;
-            padding: 8px 20px;
-            border-radius: 100px;
-            transition: var(--transition-smooth);
-        }
-
-        /* ==========================================================================
-           9. КЕРІ БАЙЛАНЫС ПЕН ТЕГІН КЕҢЕС АЛУ (PREMIUM INPUT FORM)
-           ========================================================================== */
-        .callback-section {
-            padding: 120px 0;
-            background: var(--bg-pure);
-        }
-
-        .callback-box {
-            background: var(--bg-dark-accent);
-            border-radius: var(--radius-xl);
-            padding: 64px;
-            color: var(--text-white);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: center;
+            justify-content: space-between;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-xl);
         }
 
-        .callback-box::before {
+        .calc-result-box::before {
             content: '';
             position: absolute;
-            top: -50%; right: -20%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .callback-box h2 {
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -1px;
-            margin-bottom: 16px;
-        }
-
-        .callback-box p {
-            font-size: 16px;
-            color: #94a3b8;
-            line-height: 1.6;
-        }
-
-        .interactive-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .field-group {
-            position: relative;
-        }
-
-        .field-group input {
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 18px 24px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-md);
-            color: var(--text-white);
-            font-size: 15px;
-            outline: none;
-            transition: var(--transition-smooth);
-            font-family: var(--font-inter);
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--orange));
         }
 
-        .field-group input:focus {
-            border-color: var(--brand-primary);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.25);
+        .receipt-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 12px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 8px;
         }
 
-        .field-group input::placeholder {
-            color: #64748b;
+        .receipt-line.total {
+            border-bottom: none;
+            margin-top: 20px;
+            color: var(--white);
+        }
+
+        .calc-price {
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: #fdba74;
+            margin: 8px 0;
+            letter-spacing: -1px;
+        }
+
+        .calc-bonus-badge {
+            background: rgba(0, 191, 165, 0.2);
+            color: var(--secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 24px;
+            border: 1px solid rgba(0, 191, 165, 0.3);
         }
 
         /* ==========================================================================
-           10. МӘТІНІ ТОЛЫҚ КӨРІНЕТІН FAQ АККОРДЕОНЫ (PERFECT ACCORDION)
+           11. СЕКЦИЯ FAQ (ВОПРОСЫ И ОТВЕТЫ С ПОИСКОМ)
            ========================================================================== */
-        .faq {
-            padding: 120px 0;
-            background: var(--bg-subtle);
-            border-top: 1px solid var(--border-light);
+        .faq-section {
+            padding: 80px 0;
+            background: var(--white);
         }
 
-        .accordion {
+        .faq-search-wrapper {
+            max-width: 600px;
+            margin: -20px auto 40px auto;
+            position: relative;
+        }
+
+        .faq-search-wrapper i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .faq-search-input {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            border-radius: 100px;
+            border: 1px solid var(--border-color);
+            background: var(--light);
+            outline: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .faq-search-input:focus {
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        .accordion__item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
+        .faq-item {
+            background: var(--light);
             border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
             overflow: hidden;
-            transition: var(--transition-smooth);
-            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
         }
 
-        .accordion__trigger {
+        .faq-trigger {
             width: 100%;
-            padding: 24px 32px;
-            background: none;
+            padding: 24px;
+            background: transparent;
             border: none;
             text-align: left;
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-dark);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--dark);
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
             gap: 20px;
-            font-family: var(--font-inter);
         }
 
-        .accordion__icon-indicator {
-            width: 28px;
-            height: 28px;
-            background: var(--bg-subtle);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
+        .faq-trigger i {
+            transition: var(--transition);
             color: var(--text-muted);
-            transition: var(--transition-smooth);
-            flex-shrink: 0;
         }
 
-        /* Түзетілген Жауап блогы - Мәтін сотовыйда да ешқашан жабылмайды */
-        .accordion__panel {
+        .faq-content {
+            padding: 0 24px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            color: var(--text-muted);
-            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-main);
+            font-size: 0.95rem;
             line-height: 1.6;
-            padding: 0 32px;
         }
 
-        .accordion__inner-text {
-            padding-bottom: 24px;
+        .faq-item.active {
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
         }
 
-        /* Белсенді күй стильдері */
-        .accordion__item--active {
-            border-color: var(--brand-primary);
-            box-shadow: var(--shadow-md);
+        .faq-item.active .faq-trigger i {
+            transform: rotate(180deg);
+            color: var(--primary);
         }
 
-        .accordion__item--active .accordion__icon-indicator {
-            transform: rotate(45deg);
-            background: var(--brand-primary);
-            color: var(--text-white);
+        .faq-item.active .faq-content {
+            padding: 0 24px 24px 24px;
+            max-height: 200px;
         }
 
         /* ==========================================================================
-           11. СӘНДІ МОДАЛЬДІ ТЕРЕЗЕ (HIGH-END MODAL WINDOW)
+           12. МОДАЛЬНЫЕ ОКНА И ЖИВЫЕ ТОСТЫ
            ========================================================================== */
-        .modal-mask {
+        .modal-overlay {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(15, 21, 32, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
             z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
-            padding: 24px;
+            transition: var(--transition);
         }
 
-        .modal-mask--visible {
+        .modal-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .luxury-modal {
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            width: 100%;
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--radius-lg);
             max-width: 480px;
-            padding: 48px;
-            box-shadow: var(--shadow-xl);
+            width: 100%;
+            padding: 40px;
             position: relative;
-            transform: scale(0.92) translateY(10px);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            text-align: center;
+            transform: scale(0.9);
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
         }
 
-        .modal-mask--visible .luxury-modal {
-            transform: scale(1) translateY(0);
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
         }
 
-        .modal-dismiss {
+        .modal-close {
             position: absolute;
-            top: 24px; right: 24px;
-            background: var(--bg-subtle);
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+            top: 24px;
+            right: 24px;
+            font-size: 1.2rem;
             cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--dark);
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .modal-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* Компонент уведомлений Live Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .live-toast {
+            background: var(--dark);
+            color: var(--white);
+            padding: 16px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 360px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .live-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--dark-light);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        .toast-body h5 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .toast-body p {
+            font-size: 0.75rem;
             color: var(--text-muted);
-            transition: var(--transition-fast);
-        }
-
-        .modal-dismiss:hover {
-            background: #e2e8f0;
-            color: var(--text-dark);
-        }
-
-        .success-checkmark {
-            width: 72px;
-            height: 72px;
-            background: var(--brand-secondary-light);
-            color: var(--brand-secondary);
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            margin-bottom: 24px;
-            animation: pulseCheck 2s infinite;
-        }
-
-        @keyframes pulseCheck {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            70% { box-shadow: 0 0 0 16px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+            margin: 0;
         }
 
         /* ==========================================================================
-           12. ПОДВАЛ МЕН ТҮЗЕТІЛГЕН СӘНДІ SVG ӘЛЕУМЕТТІК ЖЕЛІЛЕР БӨЛІМІ
+           13. ФУТЕР (FOOTER)
            ========================================================================== */
-        .footer {
-            background: var(--bg-subtle);
-            border-top: 1px solid var(--border-light);
-            padding: 80px 0 40px 0;
+        .main-footer {
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.65);
+            padding: 80px 0 30px 0;
+            border-top: 1px solid var(--dark-light);
         }
 
-        .footer__grid {
+        .footer-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: center;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 48px;
             margin-bottom: 60px;
         }
 
-        .footer__col-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 12px;
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 20px;
         }
 
-        .footer__phone {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--text-dark);
-            text-decoration: none;
-            letter-spacing: -0.5px;
+        .footer-brand .logo span { color: rgba(255, 255, 255, 0.5); }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            max-width: 320px;
+            line-height: 1.6;
         }
 
-        .footer__center {
-            text-align: center;
-        }
-
-        .footer__copyright {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .footer__socials-wrap {
+        .social-links {
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            gap: 12px;
         }
 
-        .social-container {
-            display: flex;
-            gap: 14px;
-        }
-
-        .social-pill {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
+        .social-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--dark-light);
+            color: var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition-smooth);
-            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
         }
 
-        .social-pill svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-muted);
-            transition: var(--transition-smooth);
-        }
-
-        /* Әлеуметтік желілердің Брендтік Түстері */
-        .social-pill--instagram:hover {
-            border-color: #e1306c;
-            background: rgba(225, 48, 108, 0.05);
+        .social-btn:hover {
+            background: var(--primary);
             transform: translateY(-3px);
         }
-        .social-pill--instagram:hover svg { fill: #e1306c; }
 
-        .social-pill--telegram:hover {
-            border-color: #0088cc;
-            background: rgba(0, 136, 204, 0.05);
-            transform: translateY(-3px);
+        .footer-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .social-pill--telegram:hover svg { fill: #0088cc; }
 
-        .social-pill--whatsapp:hover {
-            border-color: #25d366;
-            background: rgba(37, 211, 102, 0.05);
-            transform: translateY(-3px);
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
-        .social-pill--whatsapp:hover svg { fill: #25d366; }
+
+        .footer-link {
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+            padding-left: 6px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--dark-light);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
 
         /* ==========================================================================
-           13. КӘСИБИ АДАПТИВТІЛІК (RESPONSIVE ADAPTABILITY)
+           14. АДАПТИВНОСТЬ (RESPONSIVE MEDIA QUERIES)
            ========================================================================== */
-        @media (max-width: 1100px) {
-            .pricing-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; gap: 40px; }
-            .benefit-card { flex: 0 0 calc(50% - 16px); min-height: 380px; }
-            .hero__grid { grid-template-columns: 1fr; gap: 56px; text-align: center; }
-            .hero__description { margin-left: auto; margin-right: auto; }
-            .hero__buttons { justify-content: center; }
-            .hero__metrics { max-width: 600px; margin: 0 auto; }
-            .calc-grid { grid-template-columns: 1fr; gap: 48px; }
-            .callback-box { grid-template-columns: 1fr; gap: 40px; padding: 40px; }
+        @media (max-width: 1200px) {
+            .packages-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .teachers-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-content h1 { font-size: 3.2rem; }
+            .features-grid-alt { grid-template-columns: repeat(2, 1fr); }
+            .interactive-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .hero-content p { margin: 0 auto 32px auto; }
+            .hero-cta { justify-content: center; }
+            .hero-stats { max-width: 540px; margin: 32px auto 0 auto; }
+            .hero-image-wrapper { display: none; }
+            .calc-wrapper { grid-template-columns: 1fr; padding: 32px; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .burger { display: flex; }
-            
-            .nav {
-                position: fixed;
-                top: 0; right: -100%;
-                width: 80%; max-width: 340px;
-                height: 100vh;
-                background: var(--bg-pure);
-                box-shadow: -10px 0 40px rgba(0,0,0,0.05);
-                flex-direction: column;
-                justify-content: center;
-                gap: 32px;
-                padding: 48px;
-                z-index: 1050;
-                transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            }
-            
-            .nav--open { right: 0; }
-            .header__right .btn { display: none; }
-            
-            .benefit-card { flex: 0 0 100%; min-height: 340px; padding: 32px; }
-            .footer__grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-            .footer__socials-wrap { align-items: center; }
-            .calc-wrapper { padding: 32px 20px; }
-        }
-
-        @media (max-width: 480px) {
-            .container { padding: 0 16px; }
-            .hero__buttons { flex-direction: column; width: 100%; }
-            .hero__buttons .btn { width: 100%; }
-            .price-card { padding: 36px 20px; }
-            .accordion__trigger { padding: 20px; font-size: 15px; }
-            .accordion__panel { padding: 0 20px; }
-            .luxury-modal { padding: 36px 20px; }
+            .nav-menu { display: none; }
+            .burger-menu { display: block; }
+            .section-title { font-size: 2rem; }
+            .packages-grid { grid-template-columns: 1fr; }
+            .teachers-grid { grid-template-columns: 1fr; }
+            .features-grid-alt { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .calc-form .subjects-checkbox-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <header class="header" id="navbarHeader">
-        <div class="container header__container">
-            <a href="#" class="logo">
-                SAYAT_MATH<span>.</span>
-            </a>
-            <nav class="nav" id="navigationDrawer">
-                <a href="#benefits" class="nav__link">Артықшылықтар</a>
-                <a href="#pricing" class="nav__link">Тарифтер</a>
-                <a href="#calculator" class="nav__link">Калькулятор</a>
-                <a href="#faq" class="nav__link">Сұрақтар</a>
-            </nav>
-            <div class="header__right">
-                <a href="tel:+77471401404" class="header__phone">+7 (747) 140 14 04</a>
-                <a href="#callback" class="btn btn--primary btn--sm">Консультация</a>
-                <button class="burger" id="burgerMenuTrigger" aria-label="Мәзірді ашу">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+    <header class="main-header" id="header">
+        <div class="container">
+            <div class="header-wrapper">
+                <a href="#" class="logo">EDUSER <span>ONLINE</span></a>
+                
+                <nav class="nav-menu">
+                    <a href="#results" class="nav-link active">Нәтижелер</a>
+                    <a href="#interactive" class="nav-link">Демо-Тренажер</a>
+                    <a href="#packages" class="nav-link">Пакеттер</a>
+                    <a href="#teachers" class="nav-link">Ұстаздар</a>
+                    <a href="#calculator" class="nav-link">Калькулятор</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="btn btn-outline" style="padding: 10px 20px;" onclick="openModal('Платформаға кіру')">Кіру</button>
+                    <button class="btn btn-primary" style="padding: 10px 20px;" onclick="openModal('Тегін байқау сабағы')">Тегін байқау</button>
+                    <div class="burger-menu" id="burgerBtn"><i class="fa-solid fa-bars"></i></div>
+                </div>
             </div>
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container hero__grid">
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#results" class="mobile-link" onclick="toggleMobileMenu()">Нәтижелер</a>
+        <a href="#interactive" class="mobile-link" onclick="toggleMobileMenu()">Демо-Тренажер</a>
+        <a href="#packages" class="mobile-link" onclick="toggleMobileMenu()">Пакеттер</a>
+        <a href="#teachers" class="mobile-link" onclick="toggleMobileMenu()">Ұстаздар</a>
+        <a href="#calculator" class="mobile-link" onclick="toggleMobileMenu()">Калькулятор</a>
+        <a href="#faq" class="mobile-link" onclick="toggleMobileMenu()">FAQ</a>
+    </div>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="section-badge">Жаңа маусым 2026 дайындық</span>
+                    <h1>ҰБТ-дан <br><span>Грантқа</span> Жарық Жол</h1>
+                    <p>Қазақстанның ең үздік сарапшы ұстаздарынан интерактивті білім алып, арманыңдағы ЖОО-ға ең жоғары баллмен оқуға түс.</p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary animate__animated animate__pulse animate__infinite infinite" onclick="openModal('Орын брондау')">Орын брондау <i class="fa-solid fa-arrow-right"></i></button>
+                        <a href="#packages" class="btn btn-outline">Курстарды көру</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <h3>94%</h3>
+                            <p>Грантқа түскендер</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>15k+</h3>
+                            <p>Сәтті түлектер</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>130+</h3>
+                            <p>Рекордтық балл</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper">
+                    <div class="hero-illustration">
+                        <div class="hero-circle-deco"></div>
+                        <div class="hero-badge-main">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <h3 style="font-weight:800; font-size:1.4rem; color:var(--dark);">EDUSER APP</h3>
+                            <p style="font-size:0.85rem; color:var(--text-muted);">Интеллектуалды дайындық жүйесі</p>
+                        </div>
+                    </div>
+                    <div class="floating-card floating-card-1">
+                        <i class="fa-solid fa-circle-check" style="color: var(--secondary); font-size: 1.5rem;"></i>
+                        <div>
+                            <h4 style="font-weight: 800; font-size: 0.9rem;">Интерактивті тесттер</h4>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Ай сайын жаңа база</p>
+                        </div>
+                    </div>
+                    <div class="floating-card floating-card-2">
+                        <i class="fa-solid fa-bolt" style="color: var(--orange); font-size: 1.5rem;"></i>
+                        <div>
+                            <h4 style="font-weight: 800; font-size: 0.9rem;">Жеке куратор</h4>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">24/7 Кері байланыс</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="highlights-section">
+        <div class="container">
+            <div class="stories-container">
+                <div class="story-circle" onclick="openModal('Платформа вебинарлары мәліметі')">
+                    <div class="story-ring"><div class="story-inner"><i class="fa-solid fa-video"></i></div></div>
+                    <span>Тікелей эфир</span>
+                </div>
+                <div class="story-circle" onclick="openModal('EDUSER BOX сыйлықтары')">
+                    <div class="story-ring"><div class="story-inner"><i class="fa-solid fa-box-open"></i></div></div>
+                    <span>Eduser Box</span>
+                </div>
+                <div class="story-circle" onclick="openModal('Психологиялық көмек')">
+                    <div class="story-ring"><div class="story-inner"><i class="fa-solid fa-brain"></i></div></div>
+                    <span>Психолог қолдауы</span>
+                </div>
+                <div class="story-circle" onclick="openModal('Слив базасы мәліметі')">
+                    <div class="story-ring"><div class="story-inner"><i class="fa-solid fa-fire"></i></div></div>
+                    <span>Нағыз Сливтер</span>
+                </div>
+                <div class="story-circle" onclick="openModal('Кураторлық жүйе')">
+                    <div class="story-ring"><div class="story-inner"><i class="fa-solid fa-heart"></i></div></div>
+                    <span>Жылы кураторлар</span>
+                </div>
+            </div>
+
+            <div class="features-grid-alt">
+                <div class="feature-box-alt">
+                    <div class="icon-wrapper"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3>Ыңғайлы LMS Платформа</h3>
+                    <p>Барлық сабақтар, үй тапсырмалары және тест талдаулары кез келген құрылғыда қолжетімді бірыңғай жүйеде жинақталған.</p>
+                </div>
+                <div class="feature-box-alt">
+                    <div class="icon-wrapper"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>Прогресс Трекинг</h3>
+                    <p>Жасанды интеллект сіздің әлсіз тақырыптарыңызды анықтап, дәл сол бағыт бойынша жеке тапсырмалар генерациялайды.</p>
+                </div>
+                <div class="feature-box-alt">
+                    <div class="icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Грант Кепілдігі</h3>
+                    <p>Біздің барлық нұсқаулықтарды орындап, толық курсты аяқтаған оқушылардың мемлекеттік грантқа түсуіне 100% сенімдіміз.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="results-section" id="results">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Біздің Мақтаныштарымыз</span>
+                <h2 class="section-title">Біз туралы нәтижелер сөйлесін</h2>
+                <p class="section-subtitle">2025 жылғы нағыз ҰБТ-дан 120+ балл жинаған оқушылардың пайызы мен үлесі бойынша республикалық көшбасшы орнындамыз.</p>
+            </div>
+
+            <div class="slider-container">
+                <div class="results-track" id="resultsTrack">
+                    <div class="student-card border-green">
+                        <span class="card-badge">Жоғары Нәтиже</span>
+                        <div class="student-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+                        <h3 class="student-name">Абдулла Мейіржан</h3>
+                        <p class="student-meta">Информатика - Математика</p>
+                        <span class="student-score">121 БАЛЛ</span>
+                        <p class="card-footer-text">Келесі жылы осы жерде сенің есімің болады!</p>
+                    </div>
+                    <div class="student-card border-orange">
+                        <span class="card-badge">Рекорд</span>
+                        <div class="student-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+                        <h3 class="student-name">Тараттай Бексұлтан</h3>
+                        <p class="student-meta">Физика - Математика</p>
+                        <span class="student-score">129 БАЛЛ</span>
+                        <p class="card-footer-text">Келесі жылы осы жерде сенің есімің болады!</p>
+                    </div>
+                    <div class="student-card border-purple">
+                        <span class="card-badge">Үздік нәтиже</span>
+                        <div class="student-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+                        <h3 class="student-name">Бахытжан Дәулет</h3>
+                        <p class="student-meta">Химия - Biология</p>
+                        <span class="student-score">120 БАЛЛ</span>
+                        <p class="card-footer-text">Келесі жылы осы жерде сенің есімің болады!</p>
+                    </div>
+                    <div class="student-card border-blue">
+                        <span class="card-badge">Грант иегері</span>
+                        <div class="student-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+                        <h3 class="student-name">Убалиев Әділжан</h3>
+                        <p class="student-meta">География - Мат.сауаттылық</p>
+                        <span class="student-score">130 БАЛЛ</span>
+                        <p class="card-footer-text">Келесі жылы осы жерде сенің есімің болады!</p>
+                    </div>
+                    <div class="student-card border-green">
+                        <span class="card-badge">Жоғары Нәтиже</span>
+                        <div class="student-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+                        <h3 class="student-name">Болат Айгерім</h3>
+                        <p class="student-meta">Тарих - Адам.Қоғам.Құқық</p>
+                        <span class="student-score">122 БАЛЛ</span>
+                        <p class="card-footer-text">Келесі жылы осы жерде сенің есімің болады!</p>
+                    </div>
+                </div>
+
+                <div class="slider-nav">
+                    <button class="slider-btn" onclick="scrollSlider(-340)"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="slider-btn" onclick="scrollSlider(340)"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="interactive-section" id="interactive">
+        <div class="container">
+            <div class="interactive-grid">
+                
+                <div class="interactive-box">
+                    <div class="int-title"><i class="fa-solid fa-square-poll-horizontal"></i> Демо Экспресс-Тест</div>
+                    <p class="int-desc">Қазір біліміңді тексеріп көр. Сұраққа жауап бер және лезде нәтижесін біл!</p>
+                    
+                    <div class="quiz-widget-box" id="quizWidget">
+                        <div id="quizContent">
+                            <div class="quiz-question" id="quizQuestion">Сұрақ жүктелуде...</div>
+                            <div class="quiz-options" id="quizOptions"></div>
+                        </div>
+                        <div class="quiz-results-screen" id="quizResultScreen" style="display:none;">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <h4 style="font-size:1.3rem; font-weight:800; margin-bottom:8px;">Керемет нәтиже!</h4>
+                            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;" id="quizResultText"></p>
+                            <button class="btn btn-primary" onclick="resetQuiz()">Қайтадан тапсыру</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-box">
+                    <div class="int-title"><i class="fa-solid fa-fire-flame-curved"></i> Нағыз ҰБТ Слив Есептері</div>
+                    <p class="int-desc">Өткен айларда базада келген күрделі сұрақтардың авторлық талдауымен таныс болыңыз.</p>
+                    
+                    <div class="sliv-container">
+                        <div class="sliv-item">
+                            <div class="sliv-meta"><span>Математикалық Сауаттылық</span> <span>Қиындық: Жоғары</span></div>
+                            <div class="sliv-text">Егер А + В = 15, ал А * В = 56 болса, онда А² + В² мәнін табыңыз.</div>
+                            <div class="sliv-actions">
+                                <button class="btn btn-outline" style="padding: 8px 16px; font-size:0.8rem;" onclick="toggleSlivHint(1)">Шешу жолы керек</button>
+                                <button class="btn btn-primary" style="padding: 8px 16px; font-size:0.8rem;" onclick="openModal('Видеоталдау көру')"><i class="fa-solid fa-play"></i> Видеоталдау</button>
+                            </div>
+                            <div class="sliv-hint-box" id="slivHint1">Қысқаша көбейту формуласын қолданыңыз: (А + В)² = А² + 2АВ + В². Осыдан А² + В² = (А + В)² - 2АВ = 15² - 2*(56) = 225 - 112 = 113. Жауабы: 113.</div>
+                        </div>
+
+                        <div class="sliv-item">
+                            <div class="sliv-meta"><span>Қазақстан Тарихы</span> <span>Қиындық: Орташа</span></div>
+                            <div class="sliv-text">1916 жылғы ұлт-азаттық көтерілістің Торғай ошағының басшысын көрсетіңіз.</div>
+                            <div class="sliv-actions">
+                                <button class="btn btn-outline" style="padding: 8px 16px; font-size:0.8rem;" onclick="toggleSlivHint(2)">Жауапты көрсету</button>
+                                <button class="btn btn-primary" style="padding: 8px 16px; font-size:0.8rem;" onclick="openModal('Видеоталдау көру')"><i class="fa-solid fa-play"></i> Видеоталдау</button>
+                            </div>
+                            <div class="sliv-hint-box" id="slivHint2">Торғай ошағының басшысы — Амангелді Иманов. Сардарбек болып сайланған. Жауабы: Амангелді Иманов.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="packages-section" id="packages">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Тиімді Таңдау</span>
+                <h2 class="section-title">ҰБТ-ға дайындық курсының пакеттері</h2>
+                <p class="section-subtitle">Өзіңе ыңғайлы форматты таңдап, тиімді жеңілдіктермен білім ал.</p>
+            </div>
+
+            <div class="controls-wrapper">
+                <div class="discount-switcher">
+                    <button class="discount-tab active" onclick="changeDiscount(this, 0)">Негізгі баға</button>
+                    <button class="discount-tab" onclick="changeDiscount(this, 10)">-10% Жеңілдік</button>
+                    <button class="discount-tab" onclick="changeDiscount(this, 25)">-25% Жеңілдік</button>
+                    <button class="discount-tab" onclick="changeDiscount(this, 50)">-50% Жеңілдік</button>
+                </div>
+            </div>
+
+            <div class="packages-grid">
+                <div class="package-card p-prime">
+                    <div class="package-name">PRIME</div>
+                    <div class="package-desc">2 таңдаулы пән + міндетті пәндер толық жинақ</div>
+                    <ul class="package-features-list">
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Аптасына 3 рет негізгі сабақтар</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Жеке куратордың бақылауы</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Есептерді талдау вебинарлары</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> EDUSER BOX сыйлық жинағы</li>
+                    </ul>
+                    <div class="package-pricing">
+                        <span class="old-price" id="old-prime"></span>
+                        <span class="current-price" id="price-prime" data-base="279000">279 000 ₸</span>
+                        <span class="installment-price" id="inst-prime">Бөліп төлеу: 23 250 ₸ / айына</span>
+                        <button class="btn btn-primary package-btn" onclick="openModal('PRIME пакетіне жазылу')">Таңдау</button>
+                    </div>
+                </div>
+
+                <div class="package-card p-ultra">
+                    <div class="package-badge">Танымал</div>
+                    <div class="package-name">ULTRA MATH</div>
+                    <div class="package-desc">Математика + Геометрия тереңдетілген бағдарламасы</div>
+                    <ul class="package-features-list">
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Логикалық есептерді жылдам шешу әдістері</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Аптасына 4 рет қарқынды сабақ</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Слив есептер базасымен жұмыс</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Профориентациялық көмек</li>
+                    </ul>
+                    <div class="package-pricing">
+                        <span class="old-price" id="old-ultra"></span>
+                        <span class="current-price" id="price-ultra" data-base="219000">219 000 ₸</span>
+                        <span class="installment-price" id="inst-ultra">Бөліп төлеу: 18 250 ₸ / айына</span>
+                        <button class="btn btn-secondary package-btn" onclick="openModal('ULTRA MATH пакетіне жазылу')">Таңдау</button>
+                    </div>
+                </div>
+
+                <div class="package-card p-upgrade">
+                    <div class="package-name">UPGRADE</div>
+                    <div class="package-desc">1 таңдаулы пән бойынша эксперттік интенсив</div>
+                    <ul class="package-features-list">
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Нөлден бастап жоғары деңгейге дейін</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Тақырыптық конспектілер мен скрипттер</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Жеке қатемен жұмыс платформасы</li>
+                    </ul>
+                    <div class="package-pricing">
+                        <span class="old-price" id="old-upgrade"></span>
+                        <span class="current-price" id="price-upgrade" data-base="169000">169 000 ₸</span>
+                        <span class="installment-price" id="inst-upgrade">Бөліп төлеу: 14 080 ₸ / айына</span>
+                        <button class="btn btn-orange package-btn" onclick="openModal('UPGRADE пакетіне жазылу')">Таңдау</button>
+                    </div>
+                </div>
+
+                <div class="package-card p-flex">
+                    <div class="package-name">FLEX</div>
+                    <div class="package-desc">Икемді құрастырмалы дербес тариф жүйесі</div>
+                    <ul class="package-features-list">
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Өзіңе қажетті пәндерді ғана жинақтау</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Кез келген уақытта форматты өзгерту</li>
+                        <li class="feature-item"><i class="fa-solid fa-circle-check"></i> Психологиялық қолдау сессиялары</li>
+                    </ul>
+                    <div class="package-pricing">
+                        <span class="old-price" style="height:26px; display:block;"></span>
+                        <span class="current-price" style="font-size: 1.4rem; padding: 5px 0;">Жеке есептеледі</span>
+                        <span class="installment-price">Таңдалған пәндерге байланысты</span>
+                        <button class="btn btn-outline package-btn" style="border-color: var(--pink); color: var(--pink);" onclick="openModal('FLEX пакетіне жеке кеңес алу')">Кеңес алу</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="teachers-section" id="teachers">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Мықты Команда</span>
+                <h2 class="section-title">EDUSER ONLINE Ұстаздары</h2>
+                <p class="section-subtitle">Сені жоғары баллға жеткізетін, өз ісінің кәсіби шеберлері мен ҰБТ амбассадорлары.</p>
+            </div>
+
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterTeachers('all', this)">Барлық ұстаздар</button>
+                <button class="filter-btn" onclick="filterTeachers('math', this)">Математика / Физика</button>
+                <button class="filter-btn" onclick="filterTeachers('chemistry', this)">Химия / Биология</button>
+                <button class="filter-btn" onclick="filterTeachers('history', this)">Тарих / Құқық</button>
+            </div>
+
+            <div class="teachers-grid">
+                <div class="teacher-card" data-subject="math">
+                    <span class="teacher-exp">9 жыл тәжірибе</span>
+                    <div class="teacher-photo"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3 class="teacher-name">Қамбар Камелханұлы</h3>
+                    <span class="teacher-subject">Математика сарапшысы</span>
+                    <div class="teacher-achievements">
+                        <div class="achieve-item"><i class="fa-solid fa-award"></i> 5,000+ оқушыны дайындаған</div>
+                        <div class="achieve-item"><i class="fa-solid fa-graduation-cap"></i> Авторлық формулалар жинағының иегері</div>
+                    </div>
+                </div>
+
+                <div class="teacher-card" data-subject="math">
+                    <span class="teacher-exp">16 жыл тәжірибе</span>
+                    <div class="teacher-photo"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3 class="teacher-name">Айдос Әділбекұлы</h3>
+                    <span class="teacher-subject" style="background-color: var(--secondary);">Физика магистрі</span>
+                    <div class="teacher-achievements">
+                        <div class="achieve-item"><i class="fa-solid fa-award"></i> Республикалық олимпиадалардың төрешісі</div>
+                        <div class="achieve-item"><i class="fa-solid fa-graduation-cap"></i> ҰБТ құрастырушылар тобының мүшесі</div>
+                    </div>
+                </div>
+
+                <div class="teacher-card" data-subject="history">
+                    <span class="teacher-exp">12 жыл тәжірибе</span>
+                    <div class="teacher-photo"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3 class="teacher-name">Ерсұлтан Ерғалиұлы</h3>
+                    <span class="teacher-subject" style="background-color: var(--orange);">Қазақстан тарихы</span>
+                    <div class="teacher-achievements">
+                        <div class="achieve-item"><i class="fa-solid fa-award"></i> Түлектерінің орташа балы — 46/50</div>
+                        <div class="achieve-item"><i class="fa-solid fa-book-open"></i> Интерактивті картамен оқыту әдістемесі</div>
+                    </div>
+                </div>
+
+                <div class="teacher-card" data-subject="chemistry">
+                    <span class="teacher-exp">7 жыл тәжірибе</span>
+                    <div class="teacher-photo"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3 class="teacher-name">Аяжан Тұрдалы</h3>
+                    <span class="teacher-subject" style="background-color: var(--pink);">Химия / Биология</span>
+                    <div class="teacher-achievements">
+                        <div class="achieve-item"><i class="fa-solid fa-award"></i> 200+ оқушысы 130-дан жоғары жинады</div>
+                        <div class="achieve-item"><i class="fa-solid fa-flask"></i> Күрделі реакцияларды ассоциация арқылы түсіндіру</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="calculator-section" id="calculator">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Дербес есептеу</span>
+                <h2 class="section-title">Жеке тариф калькуляторы</h2>
+                <p class="section-subtitle">Қажетті пәндерді және дайындық айларын белгілеп, курсыңның нақты бағасын бірден біл.</p>
+            </div>
+
+            <div class="calc-wrapper">
+                <div class="calc-form">
+                    <div class="form-group">
+                        <label>Оқу мерзімін таңдаңыз (ай):</label>
+                        <select class="form-control" id="calcMonths" onchange="calculatePrice()">
+                            <option value="1">1 ай дайындық</option>
+                            <option value="3">3 айлық интенсив</option>
+                            <option value="6">6 айлық толық курс</option>
+                            <option value="9" selected>9 айлық академиялық курс</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Дайындалатын пәндерді белгілеңіз:</label>
+                        <div class="subjects-checkbox-grid">
+                            <label class="checkbox-btn checked">
+                                <input type="checkbox" value="15000" checked onchange="handleCheckbox(this)">
+                                <span>Математикалық сауаттылық</span>
+                            </label>
+                            <label class="checkbox-btn checked">
+                                <input type="checkbox" value="15000" checked onchange="handleCheckbox(this)">
+                                <span>Оқу сауаттылығы</span>
+                            </label>
+                            <label class="checkbox-btn">
+                                <input type="checkbox" value="20000" onchange="handleCheckbox(this)">
+                                <span>Математика (бейіндік)</span>
+                            </label>
+                            <label class="checkbox-btn">
+                                <input type="checkbox" value="20000" onchange="handleCheckbox(this)">
+                                <span>Физика</span>
+                            </label>
+                            <label class="checkbox-btn">
+                                <input type="checkbox" value="20000" onchange="handleCheckbox(this)">
+                                <span>Химия</span>
+                            </label>
+                            <label class="checkbox-btn">
+                                <input type="checkbox" value="20000" onchange="handleCheckbox(this)">
+                                <span>Биология</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calc-result-box">
+                    <div>
+                        <span style="font-size:0.9rem; font-weight:700; text-transform:uppercase; color:rgba(255,255,255,0.4);">Курс чегі</span>
+                        <div class="receipt-line" style="margin-top:16px;"><span>Пәндер саны:</span><span id="receiptSubjects">2 пән</span></div>
+                        <div class="receipt-line"><span>Ұзақтығы:</span><span id="receiptMonths">9 ай</span></div>
+                        <div class="receipt-line"><span>Жеңілдік мерзімі үшін:</span><span id="receiptDiscount">15%</span></div>
+                        
+                        <div class="receipt-line total"><span>Қорытынды баға:</span></div>
+                        <div class="calc-price" id="calcTotalPrice">0 ₸</div>
+                    </div>
+                    
+                    <div>
+                        <div class="calc-bonus-badge" id="calcBonus">Сыйлық: EDUSER Скрипттері тегін!</div>
+                        <button class="btn btn-secondary" style="width:100%;" onclick="openModal('Калькулятор тариф жазылу')">Орынды бекіту</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Сұрақ-Жауап</span>
+                <h2 class="section-title">Жиі қойылатын сұрақтар</h2>
+                <p class="section-subtitle">Платформа мен оқыту форматы туралы маңызды сұрақтарға бірден жауап алыңыз.</p>
+            </div>
+
+            <div class="faq-search-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="faq-search-input" id="faqSearch" placeholder="Сұрақты жазып іздеңіз..." oninput="filterFaq()">
+            </div>
+
+            <div class="faq-container" id="faqContainer">
+                <div class="faq-item">
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>Сабақтар қандай форматта өтеді?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        Сабақтар біздің арнайы заманауи LMS платформамызда тікелей эфир (вебинар) түрінде өтеді. Барлық эфирлердің жазбасы оқушының жеке кабинетінде ҰБТ аяқталғанша сақталады.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>Оқу ақысын бөліп төлеуге болады ма?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        Иә, бізде Kaspi, Halyk банктері арқылы 3, 6 немесе 12 айға ешқандай үстеме пайызысыз (0% бөліп төлеу) ресімдеу мүмкіндігі қарастырылған.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>Жеке куратор деген кім және ол не істейді?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        Жеке куратор — ҰБТ-дан жоғары балл жинаған, арнайы психологиялық және әдістемелік дайындықтан өткен тәлімгер. Ол оқушының үй тапсырмаларын тексереді, қатемен жұмыс жасайды және 24/7 сұрақтарға жауап береді.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>Егер маған курс мүлдем ұнамаса, ақшаны қайтаруға болады ма?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        Иә, оферта келісімшартына сәйкес, алғашқы 3 сабақ ішінде егер оқыту сапасы немесе форматы көңіліңізден шықпаса, біз ешқандай сұрақсыз қаражатты толық қайтарып береміз.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+            <div class="modal-header">
+                <h3 id="modalTitle">Консультация алу</h3>
+                <p>Мәліметтерді толтырыңыз, менеджер 15 минут ішінде хабарласады.</p>
+            </div>
+            <form onsubmit="handleFormSubmit(event)">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Есіміңіз:</label>
+                    <input type="text" class="form-control" required placeholder="Мысалы: Әлихан">
+                </div>
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label>Телефон нөміріңіз:</label>
+                    <input type="tel" class="form-control" id="modalPhone" required placeholder="+7 (700) 000-00-00">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Мәліметтерді жіберу</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">EDUSER <span>ONLINE</span></a>
+                    <p>ҰБТ-ға сапалы әрі заманауи үлгіде дайындайтын интеллектуалды EdTech білім беру платформасы.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
                 <div>
-                    <span class="section-tag">ҰБТ 2026 Онлайн Дайындық</span>
-                    <h1 class="hero__heading">
-                        Информатика мен Математикадан <span>Грантқа</span> жетелейміз
-                    </h1>
-                    <p class="hero__description">
-                        Авторлық интерактивті платформа, тұрақты бақылау марафондары және ҰБТ-да кездесетін нағыз есептер базасы.
-                    </p>
-                    <div class="hero__buttons">
-                        <a href="#pricing" class="btn btn--primary btn--lg">Курсқа жазылу</a>
-                        <a href="#calculator" class="btn btn--outline btn--lg">Балыңды есептеу</a>
-                    </div>
-                    <div class="hero__metrics">
-                        <div>
-                            <div class="metric-item__num">87<span>%</span></div>
-                            <div class="metric-item__lbl">Оқушыларымыз мемлекеттік грант иегері атанды</div>
-                        </div>
-                        <div>
-                            <div class="metric-item__num">+45<span>б</span></div>
-                            <div class="metric-item__lbl">Оқу барысындағы орташа балл өсімі мен прогресс</div>
-                        </div>
-                        <div>
-                            <div class="metric-item__num">4.9<span>/5</span></div>
-                            <div class="metric-item__lbl">Платформа мен кураторлардың жалпы рейтингі</div>
-                        </div>
+                    <h4 class="footer-title">Платформа</h4>
+                    <div class="footer-links">
+                        <a href="#results" class="footer-link">Байқау тестілері</a>
+                        <a href="#packages" class="footer-link">Курс пакеттері</a>
+                        <a href="#teachers" class="footer-link">Біздің ұстаздар</a>
                     </div>
                 </div>
-
-                <div class="hero__visual">
-                    <div class="floating-badge floating-badge--1">
-                        <span style="font-size:24px;">🚀</span>
-                        <div>
-                            <h4 style="font-size:14px; font-weight:700;">Интерактивті оқу</h4>
-                            <p style="font-size:12px; color:var(--text-muted);">Заманауи онлайн жүйе</p>
-                        </div>
+                <div>
+                    <h4 class="footer-title">Құқықтық ақпарат</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Ережелер мен шарттар</a>
+                        <a href="#" class="footer-link">Оферта келісімшарты</a>
+                        <a href="#" class="footer-link">Құпиялылық саясаты</a>
                     </div>
-                    <div class="hero__main-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-                            <span style="font-size:12px; font-weight:700; color:var(--brand-primary); letter-spacing:1px;">ЖАҢА АҒЫМ</span>
-                            <span style="width:8px; height:8px; background:var(--brand-secondary); border-radius:50%;"></span>
-                        </div>
-                        <h3 style="font-size:24px; font-weight:800; margin-bottom:12px; line-height:1.2;">Бүгін тіркеліп, алғашқы бонустарды ал!</h3>
-                        <p style="font-size:14px; color:var(--text-muted); margin-bottom:24px; line-height:1.5;">Орындар саны шектеулі. Топ жиналуына байланысты баға өсуі мүмкін.</p>
-                        <a href="#callback" class="btn btn--dark btn--full btn--md">Тегін кеңес алу</a>
-                    </div>
-                    <div class="floating-badge floating-badge--2">
-                        <span style="font-size:24px;">🎯</span>
-                        <div>
-                            <h4 style="font-size:14px; font-weight:700;">Автоматты тест</h4>
-                            <p style="font-size:12px; color:var(--text-muted);">Қатемен жұмыс істеу</p>
-                        </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">Байланыс</h4>
+                    <div class="footer-links">
+                        <span class="footer-link"><i class="fa-solid fa-phone"></i> +7 (777) 777-77-77</span>
+                        <span class="footer-link"><i class="fa-solid fa-envelope"></i> info@eduser.app</span>
+                        <span class="footer-link"><i class="fa-solid fa-location-dot"></i> Алматы қ., Абай даңғылы, 44</span>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section class="benefits" id="benefits">
-            <div class="container">
-                <div class="section-header-center">
-                    <span class="section-tag">ОҚУ ИННОВАЦИЯСЫ</span>
-                    <h2 class="section-title">Платформамыз қалай жұмыс істейді?</h2>
-                    <p class="section-subtitle">Біз жай ғана видео жазбалар бермейміз, біз нәтижеге бағытталған толық экожүйе құрдық.</p>
-                </div>
-
-                <div class="carousel">
-                    <div class="carousel__viewport">
-                        <div class="carousel__track" id="benefitsTrack">
-                            
-                            <div class="benefit-card">
-                                <div>
-                                    <div class="benefit-card__icon-box">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                                    </div>
-                                    <h3>Интерактивті Онлайн Платформа</h3>
-                                    <p>Сабақтар біздің арнайы заманауи интерактивті онлайн платформамызда өтеді. Ешқандай сыртқы бағдарламалардың қажеті жоқ, барлығы бір жерде ыңғайлы жинақталған.</p>
-                                </div>
-                                <div class="benefit-card__footer">
-                                    <span style="font-size:12px; font-weight:700; color:var(--brand-primary);">АВТОМАТТАНДЫРЫЛҒАН ЖҮЙЕ</span>
-                                </div>
-                            </div>
-
-                            <div class="benefit-card">
-                                <div>
-                                    <div class="benefit-card__icon-box">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-                                    </div>
-                                    <h3>Деңгейлік Үй Тапсырмасы</h3>
-                                    <p>Әр сабақтан кейін деңгейлік үй тапсырмасы мен автоматты тексерілетін тесттер болады. Жүйе сіздің қателеріңізді бірден тауып, олардың бейнеталдауын ұсынады.</p>
-                                </div>
-                                <div class="benefit-card__footer">
-                                    <span style="font-size:12px; font-weight:700; color:var(--brand-primary);">ҚАТЕМЕН ЖҮЙЕЛІ ЖҰМЫС</span>
-                                </div>
-                            </div>
-
-                            <div class="benefit-card">
-                                <div>
-                                    <div class="benefit-card__icon-box">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 014-4 4 4 0 014 4v2a4 4 0 01-4 4 4 4 0 01-4-4V7z"/></svg>
-                                    </div>
-                                    <h3>Жеке Кураторлық Бақылау</h3>
-                                    <p>Әрбір оқушыға жоғары балл жинаған жеке куратор бекітіледі. Ол сіздің үлгеріміңізді қадағалап, қиын тақырыптарды жеке түсіндіріп отырады.</p>
-                                </div>
-                                <div class="benefit-card__footer">
-                                    <span style="font-size:12px; font-weight:700; color:var(--brand-primary);">24/7 КЕРІ БАЙЛАНЫС</span>
-                                </div>
-                            </div>
-                            
-
-                            <div class="benefit-card">
-    <div>
-        <div class="benefit-card__icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <h3>Апталық Марафондар</h3>
-        <p>Оқушылар арасында тұрақты түрде жарыстар мен марафондар өтіп тұрады. Бұл сіздің қызығушылығыңызды арттырып, емтихан алдындағы стрессті жеңуге көмектеседі.</p>
-    </div>
-    <div class="benefit-card__footer">
-        <span style="font-size:12px; font-weight:700; color:var(--brand-primary);">ЖОҒАРЫ МОТИВАЦИЯ</span>
-    </div>
-</div>
-
-<div class="benefit-card">
-    <div>
-        <div class="benefit-card__icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        </div>
-        <h3>Нағыз ҰБТ Сұрақтары</h3>
-        <p>Платформада өткен жылдардағы және биылғы тесттерде кездесетін ең өзекті, нақты ҰБТ есептері жинақталған. Тек қажетті әрі пайдалы материалдармен ғана жұмыс істейсіз.</p>
-    </div>
-    <div class="benefit-card__footer">
-        <span style="font-size:12px; font-weight:700; color:var(--brand-primary);">100% ӨЗЕКТІ БАЗА</span>
-    </div>
-</div>
-
-<div class="benefit-card">
-    <div>
-        <div class="benefit-card__icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        </div>
-        <h3>Ақылды Аналитика</h3>
-        <p>Жеке кабинетте сіздің қай тақырыптардан қате жіберіп жатқаныңызды көрсететін AI-аналитика бар. Жүйе сізге әлсіз тұстарыңызды дамытуға арналған арнайы тапсырмалар дайындайды.</p>
-    </div>
-    <div class="benefit-card__footer">
-        <span style="font-size:12px; font-weight:700; color:var(--brand-primary);">НӘТИЖЕНІ СЕНІМДІ БАҚЫЛАУ</span>
-    </div>
-</div>
-
-                        </div>
-                    </div>
-                    <div class="carousel__controls">
-                        <button class="carousel__arrow" id="sliderLeftBtn">←</button>
-                        <button class="carousel__arrow" id="sliderRightBtn">→</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="pricing" id="pricing">
-            <div class="container">
-                <div class="section-header-center">
-                    <span class="section-tag">ОҚУ ПАКЕТТЕРІ</span>
-                    <h2 class="section-title">Ыңғайлы оқу пакеттері</h2>
-                    <p class="section-subtitle">Өзіңізге ыңғайлы дайындық форматын таңдап, грантқа алғашқы қадамыңызды жасаңыз.</p>
-                    
-                    <div style="margin-top:32px;">
-                        <div class="pricing-toggle">
-                            <button class="pricing-toggle__btn pricing-toggle__btn--active" id="toggleMonthly">Бөліп төлеумен</button>
-                            <button class="pricing-toggle__btn" id="toggleFull">Толық төлем</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pricing-grid">
-                    
-                    <div class="price-card">
-                        <div class="price-card__header">
-                            <h3 class="price-card__name">Smart</h3>
-                            <p class="price-card__desc">Өз бетінше дайындалып, жоғары базалық білім алғысы келетіндерге арналған.</p>
-                        </div>
-                        <div class="price-card__pricing">
-                            <span class="price-card__old">30 000 KZT</span>
-                            <div class="price-card__main" id="priceSmart">18 333 KZT <small>/ айына</small></div>
-                            <div class="price-card__sub-payment">Kaspi Red арқылы бөліп төлеу</div>
-                        </div>
-                        <div class="price-card__features-title">Пакетке не кіреді:</div>
-                        <ul class="price-card__list">
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <span>Математика толық бейіндік курс</span>
-                            </li>
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <span>Информатика жаңа 2026 базасы</span>
-                            </li>
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <span>Аптасына 3 рет тікелей вебинар</span>
-                            </li>
-                            <li>
-                                <svg class="price-card__icon price-card__icon--cross" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                <span style="color:#94a3b8; text-decoration:line-through;">Жеке куратор қолдауы мен тексеріс</span>
-                            </li>
-                        </ul>
-                        <a href="#callback" class="btn btn--outline btn--full btn--md">Таңдау</a>
-                    </div>
-
-                    <div class="price-card price-card--featured">
-                        <div class="price-card__header">
-                            <h3 class="price-card__name">Junior PRO</h3>
-                            <p class="price-card__desc">Максималды нәтиже мен кураторлық толық сүйемелдеуі бар ең таңдаулы пакет.</p>
-                        </div>
-                        <div class="price-card__pricing">
-                            <span class="price-card__old">35 000 KZT</span>
-                            <div class="price-card__main" style="color:var(--brand-primary);" id="pricePro">16 666 KZT <small>/ айына</small></div>
-                            <div class="price-card__sub-payment" style="background:rgba(16, 185, 129, 0.1); color:var(--brand-secondary);">Ең тиімді шарттармен</div>
-                        </div>
-                        <div class="price-card__features-title">Пакетке не кіреді:</div>
-                        <ul class="price-card__list">
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <strong>Математика + Информатика толық</strong>
-                            </li>
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <span>Барлық 5 ҰБТ пәніне тегін рұқсат</span>
-                            </li>
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <span>Жеке кураторлық тұрақты бақылау</span>
-                            </li>
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <span>Ата-анаға апталық үлгерім есебі</span>
-                            </li>
-                        </ul>
-                        <a href="#callback" class="btn btn--primary btn--full btn--md">Жазылу</a>
-                    </div>
-
-                    <div class="price-card">
-                        <div class="price-card__header">
-                            <h3 class="price-card__name">Пакет</h3>
-                            <p class="price-card__desc">Теориялық базаны жылдам қайталап, формулаларды жаттауға арналған жинақ.</p>
-                        </div>
-                        <div class="price-card__pricing">
-                            <span class="price-card__old">25 000 KZT</span>
-                            <div class="price-card__main" id="priceBundle">7 500 KZT <small>/ бір реттік</small></div>
-                            <div class="price-card__sub-payment" style="background:#f1f5f9; color:var(--text-muted);">Бөліп төлеусіз</div>
-                        </div>
-                        <div class="price-card__features-title">Пакетке не кіреді:</div>
-                        <ul class="price-card__list">
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <span>Барлық формулалар жинағы (PDF)</span>
-                            </li>
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <span>Өткен жылдардағы есептер базасы</span>
-                            </li>
-                            <li>
-                                <svg class="price-card__icon price-card__icon--check" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
-                                <span>Экспресс-тесттер мен сұрақтар жинағы</span>
-                            </li>
-                            <li>
-                                <svg class="price-card__icon price-card__icon--cross" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                <span style="color:#94a3b8; text-decoration:line-through;">Тікелей эфирлер мен вебинарлар</span>
-                            </li>
-                        </ul>
-                        <a href="#callback" class="btn btn--outline btn--full btn--md">Сатып алу</a>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <section class="calculator-section" id="calculator">
-            <div class="container">
-                <div class="section-header-center">
-                    <span class="section-tag">ИНТЕЛЛЕКТУАЛДЫ ЕСЕПТЕУ</span>
-                    <h2 class="section-title">ҰБТ Балл Калькуляторы</h2>
-                    <p class="section-subtitle">Пәндер бойынша болжамды балдарыңызды белгілеп, грантқа түсу мүмкіндігіңізді бірден анықтаңыз.</p>
-                </div>
-
-                <div class="calc-wrapper">
-                    <div class="calc-grid">
-                        <div class="calc-sliders">
-                            <div class="slider-group">
-                                <div class="slider-info"><span>Математика (Бейіндік)</span><span id="labelMath">25 б</span></div>
-                                <input type="range" class="real-range" id="inputMath" min="0" max="50" value="25">
-                            </div>
-                            <div class="slider-group">
-                                <div class="slider-info"><span>Информатика (Бейіндік)</span><span id="labelInfo">25 б</span></div>
-                                <input type="range" class="real-range" id="inputInfo" min="0" max="50" value="25">
-                            </div>
-                            <div class="slider-group">
-                                <div class="slider-info"><span>Қазақстан Тарихы</span><span id="labelHistory">10 б</span></div>
-                                <input type="range" class="real-range" id="inputHistory" min="0" max="20" value="10">
-                            </div>
-                            <div class="slider-group">
-                                <div class="slider-info"><span>Математикалық Сауаттылық</span><span id="labelMatLit">5 б</span></div>
-                                <input type="range" class="real-range" id="inputMatLit" min="0" max="10" value="5">
-                            </div>
-                            <div class="slider-group">
-                                <div class="slider-info"><span>Оқу Сауаттылығы</span><span id="labelReadLit">5 б</span></div>
-                                <input type="range" class="real-range" id="inputReadLit" min="0" max="10" value="5">
-                            </div>
-                        </div>
-
-                        <div class="calc-display">
-                            <span class="calc-display__lbl">СІЗДІҢ ЖАЛПЫ БАЛЫҢЫЗ</span>
-                            <div class="calc-display__score" id="totalScoreText">70</div>
-                            <div class="calc-display__status" id="statusBadgeText">Орташа деңгей</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="callback-section" id="callback">
-            <div class="container">
-                <div class="callback-box">
-                    <div>
-                        <h2>Курс жайлы сұрақтарың бар ма?</h2>
-                        <p>Деректеріңді қалдыр, біз саған хабарласып, тегін деңгей анықтау тестіне тіркейміз және барлық сұрақтарға толық жауап береміз.</p>
-                        <div style="margin-top:32px; display:flex; gap:16px; flex-direction:column;">
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-size:20px;">⚡</span>
-                                <span style="font-size:14px; color:#94a3b8;">15 минут ішінде жылдам кері байланыс</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-size:20px;">🎁</span>
-                                <span style="font-size:14px; color:#94a3b8;">Тіркелгені үшін формулалар жинағы сыйлыққа</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <form class="interactive-form" id="consultationForm">
-                            <div class="field-group">
-                                <input type="text" id="userNameField" placeholder="Аты-жөніңіз" required>
-                            </div>
-                            <div class="field-group">
-                                <input type="tel" id="userPhoneField" placeholder="Телефон нөміріңіз" required>
-                            </div>
-                            <button type="submit" class="btn btn--primary btn--lg btn--full">Тегін кеңес алу</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="faq" id="faq">
-            <div class="container container--narrow">
-                <div class="section-header-center">
-                    <span class="section-tag">КӨМЕК ОРТАЛЫҒЫ</span>
-                    <h2 class="section-title">Жиі қойылатын сұрақтар</h2>
-                    <p class="section-subtitle">Оқу процесі мен төлемдерге қатысты ең көп қойылатын сұрақтардың жауаптары.</p>
-                </div>
-
-                <div class="accordion">
-                    
-                    <div class="accordion__item">
-                        <button class="accordion__trigger">
-                            <span>Сабақтар қай форматта өтеді?</span>
-                            <span class="accordion__icon-indicator">+</span>
-                        </button>
-                        <div class="accordion__panel">
-                            <div class="accordion__inner-text">
-                                Сабақтар біздің арнайы заманауи интерактивті онлайн платформамызда өтеді. Әр сабақтан кейін деңгейлік үй тапсырмасы мен автоматты тексерілетін тесттер болады. Платформа кез келген құрылғыда (телефон, планшет, компьютер) мінсіз жұмыс істейді.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion__item">
-                        <button class="accordion__trigger">
-                            <span>Егер мен тікелей эфирді өткізіп алсам не болады?</span>
-                            <span class="accordion__icon-indicator">+</span>
-                        </button>
-                        <div class="accordion__panel">
-                            <div class="accordion__inner-text">
-                                Ешқандай уайымдаудың қажеті жоқ. Әрбір өткен тікелей эфир мен вебинар автоматты түрде бейнежазбаға сақталып, сіздің жеке кабинетіңізге жүктеледі. Оларды ҰБТ-2026 емтихандары толық аяқталғанша кез келген уақытта қайталап көре аласыз.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion__item">
-                        <button class="accordion__trigger">
-                            <span>Kaspi Red немесе Бөліп төлеу қарастырылған ба?</span>
-                            <span class="accordion__icon-indicator">+</span>
-                        </button>
-                        <div class="accordion__panel">
-                            <div class="accordion__inner-text">
-                                Иә, біз оқушыларымыз бен ата-аналарға барынша қолайлы жағдай жасаймыз. Курс ақысын Kaspi Red немесе Kaspi Бөліп төлеу (Рассрочка) жүйелері арқылы 3, 6 немесе 12 айға ешқандай үстеме пайызысыз және артық төлемсіз бөліп төлеуге толық мүмкіндік бар.
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div class="modal-mask" id="premiumSuccessModal">
-        <div class="luxury-modal">
-            <button class="modal-dismiss" id="closeModalTrigger">✕</button>
-            <div class="success-checkmark">✓</div>
-            <h3 style="font-size:24px; font-weight:800; color:var(--text-dark); margin-bottom:12px;" id="dynamicModalTitle">Өтініш қабылданды!</h3>
-            <p style="color:var(--text-muted); font-size:15px; line-height:1.6; margin-bottom:32px;">Сіздің деректеріңіз кураторлар базасына сәтті енгізілді. Біз сізге жақын арада хабарласып, тегін деңгей анықтау тестіне нұсқаулық жолдаймыз.</p>
-            <button class="btn btn--primary btn--md btn--full" id="modalConfirmBtn">Жақсы</button>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="container footer__grid">
-            <div>
-                <div class="footer__col-title">БАЙЛАНЫС ОРТАЛЫҒЫ</div>
-                <a href="tel:+77471401404" class="footer__phone">+7 (747) 140 14 04</a>
-            </div>
-            <div class="footer__center">
-                <div style="font-weight:700; color:var(--text-dark); margin-bottom:6px;">SAYAT_MATH</div>
-                <p class="footer__copyright">&copy; 2026 SAYAT_MATH Онлайн Мектебі. Барлық құқықтар қорғалған.</p>
-            </div>
-            <div class="footer__socials-wrap">
-                <div class="footer__col-title">ӘЛЕУМЕТТІК ЖЕЛІЛЕР</div>
-                <div class="social-container">
-                    <a href="https://instagram.com" target="_blank" class="social-pill social-pill--instagram" aria-label="Instagram парақшамыз">
-                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.073-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-                    </a>
-                    <a href="https://telegram.org" target="_blank" class="social-pill social-pill--telegram" aria-label="Telegram каналымыз">
-                        <svg viewBox="0 0 24 24"><path d="M23.91 3.79c-.14-.72-.62-1.24-1.29-1.37-1.12-.22-2.31.18-3.41.59L3.08 9.07c-1.14.43-1.29 1.14-.38 1.76l4.98 1.63 1.61 5.21c.29.93.97.94 1.44.15l2.45-3.82 5.3 4.1c.82.64 1.57.29 1.83-.71l3.82-18c.27-1.18-.08-1.42-.22-1.6z"/></svg>
-                    </a>
-                    <a href="https://whatsapp.com" target="_blank" class="social-pill social-pill--whatsapp" aria-label="WhatsApp чатымыз">
-                        <svg viewBox="0 0 24 24"><path d="M12.004 0C5.374 0 0 5.373 0 12.001c0 2.118.553 4.106 1.517 5.84L0 24l6.335-1.662c1.746.953 3.71 1.5 5.669 1.5 6.63 0 12.004-5.375 12.004-12.003C24.008 5.373 18.634 0 12.004 0zm6.953 17.15c-.245.688-1.22 1.259-1.68 1.32-.42.056-.967.081-1.57-.116-.36-.118-.83-.27-1.43-.513-2.557-1.04-4.2-3.653-4.328-3.823-.127-.17-.1.354-1.01-1.357-.7-.91-1.01-1.91-1.01-1.94 0-.03.1-.17.14-.24.04-.07.08-.14.12-.2.03-.04.11-.14.14-.19.04-.05.07-.11.1-.16.03-.05.05-.12.05-.17 0-.06-.03-.15-.05-.24s-.47-1.16-.65-1.58c-.17-.41-.35-.35-.48-.36h-.41c-.14 0-.37.05-.57.26-.2.22-.78.76-.78 1.86s.8 2.16.91 2.31c.11.15 1.57 2.4 3.8 3.36.53.23.95.37 1.28.47.53.17 1.02.14 1.41.09.43-.06 1.33-.54 1.52-1.06.19-.52.19-.97.13-1.06-.06-.09-.23-.14-.49-.27z"/></svg>
-                    </a>
-                </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EDUSER ONLINE. Барлық құқықтар қорғалған.</p>
+                <p>Платформаны дамытушы: IT-EdTech Team</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // --- 1. Адаптивное Мобильное Бургер Меню ---
+        const burgerBtn = document.getElementById('burgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        burgerBtn.addEventListener('click', toggleMobileMenu);
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            const icon = burgerBtn.querySelector('i');
+            if(mobileMenu.classList.contains('active')) {
+                icon.className = 'fa-solid fa-xmark';
+            } else {
+                icon.className = 'fa-solid fa-bars';
+            }
+        }
+
+        // --- 2. Обработка скролла шапки ---
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- 3. Слайдер результатов (горизонтальный скролл) ---
+        function scrollSlider(amount) {
+            const track = document.getElementById('resultsTrack');
+            track.scrollBy({ left: amount, behavior: 'smooth' });
+        }
+
+        // --- 4. Динамический расчет скидок в тарифах ---
+        function changeDiscount(button, percent) {
+            document.querySelectorAll('.discount-tab').forEach(tab => tab.classList.remove('active'));
+            button.classList.add('active');
+
+            const packages = ['prime', 'ultra', 'upgrade'];
+            
+            packages.forEach(pkg => {
+                const priceEl = document.getElementById(`price-${pkg}`);
+                const oldPriceEl = document.getElementById(`old-${pkg}`);
+                const instEl = document.getElementById(`inst-${pkg}`);
+                
+                const basePrice = parseInt(priceEl.getAttribute('data-base'));
+                
+                if (percent === 0) {
+                    oldPriceEl.innerText = '';
+                    priceEl.innerText = basePrice.toLocaleString('ru-RU') + " ₸";
+                    instEl.innerText = `Бөліп төлеу: ${Math.round(basePrice / 12).toLocaleString('ru-RU')} ₸ / айына`;
+                } else {
+                    const discounted = basePrice * (1 - percent / 100);
+                    oldPriceEl.innerText = basePrice.toLocaleString('ru-RU') + " ₸";
+                    priceEl.innerText = discounted.toLocaleString('ru-RU') + " ₸";
+                    instEl.innerText = `Бөліп төлеу: ${Math.round(discounted / 12).toLocaleString('ru-RU')} ₸ / айына`;
+                }
+            });
+        }
+
+        // --- 5. Фильтрация карточек преподавателей ---
+        function filterTeachers(subject, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.teacher-card').forEach(card => {
+                if (subject === 'all' || card.getAttribute('data-subject') === subject) {
+                    card.style.display = 'block';
+                    card.classList.add('animate__animated', 'animate__fadeIn');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // --- 6. Логика чекбоксов и калькулятора ---
+        function handleCheckbox(checkbox) {
+            const label = checkbox.parentElement;
+            if (checkbox.checked) {
+                label.classList.add('checked');
+            } else {
+                label.classList.remove('checked');
+            }
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            const months = parseInt(document.getElementById('calcMonths').value);
+            let pricePerMonth = 0;
+            let checkedCount = 0;
+
+            document.querySelectorAll('.subjects-checkbox-grid input:checked').forEach(input => {
+                pricePerMonth += parseInt(input.value);
+                checkedCount++;
+            });
+
+            let discountPercent = 0;
+            if (months === 3) discountPercent = 5;
+            if (months === 6) discountPercent = 10;
+            if (months === 9) discountPercent = 15;
+
+            let totalPrice = pricePerMonth * months;
+            if(discountPercent > 0) {
+                totalPrice = totalPrice * (1 - discountPercent / 100);
+            }
+            
+            // Обновление чека
+            document.getElementById('calcTotalPrice').innerText = Math.round(totalPrice).toLocaleString('ru-RU') + " ₸";
+            document.getElementById('receiptSubjects').innerText = `${checkedCount} пән`;
+            document.getElementById('receiptMonths').innerText = `${months} ай`;
+            document.getElementById('receiptDiscount').innerText = discountPercent > 0 ? `${discountPercent}%` : '0%';
+
+            // Смена бонусов
+            const bonusBadge = document.getElementById('calcBonus');
+            if(totalPrice > 100000) {
+                bonusBadge.innerText = "Сыйлық: EDUSER BOX курьермен тегін!";
+                bonusBadge.style.background = "rgba(0, 191, 165, 0.2)";
+            } else {
+                bonusBadge.innerText = "Сыйлық: Тақырыптық скрипттер (PDF)";
+                bonusBadge.style.background = "rgba(255, 109, 0, 0.15)";
+            }
+        }
+
+        // --- 7. Интерактивный Демо Тест-Тренажер ---
+        const quizData = [
+            {
+                question: "Пропорцияның белгісіз мүшесін табыңыз: X / 4 = 9 / 12",
+                options: ["2", "3", "4", "6"],
+                correct: 1
+            },
+            {
+                question: "Шоқан Уәлиханов қай жылы Қашқарияға саяхат жасады?",
+                options: ["1856 ж.", "1858 ж.", "1860 ж.", "1864 ж."],
+                correct: 1
+            }
+        ];
+
+        let currentQuizIndex = 0;
+
+        function loadQuizQuestion() {
+            if(currentQuizIndex >= quizData.length) {
+                document.getElementById('quizContent').style.display = 'none';
+                document.getElementById('quizResultScreen').style.display = 'block';
+                document.getElementById('quizResultText').innerText = "Сіз барлық сұрақтарға сәтті жауап бердіңіз. Толық дайындықты бастау үшін орын брондаңыз!";
+                return;
+            }
+
+            const currentData = quizData[currentQuizIndex];
+            document.getElementById('quizQuestion').innerText = currentData.question;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+
+            currentData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-opt-btn';
+                btn.innerText = opt;
+                btn.onclick = () => handleQuizAnswer(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleQuizAnswer(selectedIdx, clickedBtn) {
+            const correctIdx = quizData[currentQuizIndex].correct;
+            const allButtons = document.querySelectorAll('.quiz-opt-btn');
+            
+            allButtons.forEach(btn => btn.disabled = true);
+
+            if(selectedIdx === correctIdx) {
+                clickedBtn.classList.add('correct');
+            } else {
+                clickedBtn.classList.add('wrong');
+                allButtons[correctIdx].classList.add('correct');
+            }
+
+            setTimeout(() => {
+                currentQuizIndex++;
+                loadQuizQuestion();
+            }, 1800);
+        }
+
+        function resetQuiz() {
+            currentQuizIndex = 0;
+            document.getElementById('quizContent').style.display = 'block';
+            document.getElementById('quizResultScreen').style.display = 'none';
+            loadQuizQuestion();
+        }
+
+        // --- 8. Раскрытие подсказок в Сливах ---
+        function toggleSlivHint(id) {
+            const hintBox = document.getElementById(`slivHint${id}`);
+            if(hintBox.style.display === 'block') {
+                hintBox.style.display = 'none';
+            } else {
+                hintBox.style.display = 'block';
+                hintBox.classList.add('animate__animated', 'animate__fadeIn');
+            }
+        }
+
+        // --- 9. FAQ Аккордеон ---
+        function toggleFaq(button) {
+            const currentItem = button.parentElement;
+            const isActive = currentItem.classList.contains('active');
+            
+            document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+            
+            if(!isActive) {
+                currentItem.classList.add('active');
+            }
+        }
+
+        // Живой поиск по FAQ
+        function filterFaq() {
+            const query = document.getElementById('faqSearch').value.toLowerCase();
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const text = item.querySelector('.faq-trigger span').innerText.toLowerCase();
+                if(text.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // --- 10. Управление Модальными Окнами ---
+        function openModal(title) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert('Өтінішіңіз сәтті қабылданды! Менеджер 15 минут ішінде хабарласады.');
+            closeModal();
+        }
+
+        // Простая маска ввода телефона
+        document.getElementById('modalPhone').addEventListener('input', function (e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+            e.target.value = !x[2] ? x[1] : '+' + x[1] + ' (' + x[2] + (x[3] ? ') ' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+        });
+
+        // --- 11. Система Живых Уведомлений (Social Proof) ---
+        const cities = ['Алматы', 'Астана', 'Шымкент', 'Ақтөбе', 'Қарағанды', 'Тараз', 'Орал', 'Атырау'];
+        const names = ['Аружан', 'Нұрсұлтан', 'Диас', 'Мадина', 'Әлішер', 'Айша', 'Санжар', 'Гүлнұр'];
+        const types = ['белсенді жазылды', 'тегін байқау сабағын алды', 'калькулятормен тариф есептеді', 'орын брондады'];
+
+        function showLiveToast() {
+            const container = document.getElementById('toastContainer');
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            const randomType = types[Math.floor(Math.random() * types.length)];
+
+            const toast = document.createElement('div');
+            toast.className = 'live-toast';
+            toast.innerHTML = `
+                <div class="toast-avatar"><i class="fa-solid fa-bolt"></i></div>
+                <div class="toast-body">
+                    <h5>${randomName} (${randomCity})</h5>
+                    <p>Қазір ғана ${randomType}</p>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 100);
+
+            // Удаление через 4 секунды
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 500);
+            }, 4000);
+        }
+
+        // Запуск уведомлений с интервалом
+        setInterval(showLiveToast, 9000);
+
+        // Инициализация при старте
         document.addEventListener('DOMContentLoaded', () => {
-
-            /* --- 1. ШАПКА СКРОЛЛ ЭФФЕКТІСІ --- */
-            const navbar = document.getElementById('navbarHeader');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('header--scrolled');
-                } else {
-                    navbar.classList.remove('header--scrolled');
-                }
-            });
-
-            /* --- 2. ҰЯЛЫ ТЕЛЕФОН БУРГЕР МӘЗІРІ --- */
-            const burgerBtn = document.getElementById('burgerMenuTrigger');
-            const navDrawer = document.getElementById('navigationDrawer');
-            const links = document.querySelectorAll('.nav__link');
-
-            burgerBtn.addEventListener('click', () => {
-                burgerBtn.classList.toggle('burger--active');
-                navDrawer.classList.toggle('nav--open');
-            });
-
-            links.forEach(l => {
-                l.addEventListener('click', () => {
-                    burgerBtn.classList.remove('burger--active');
-                    navDrawer.classList.remove('nav--open');
-                });
-            });
-
-            /* --- 3. ПРЕМИУМ СЛАЙДЕР (ИНТЕРАКТИВТІ ПЛАТФОРМА) --- */
-            const track = document.getElementById('benefitsTrack');
-            const leftBtn = document.getElementById('sliderLeftBtn');
-            const rightBtn = document.getElementById('sliderRightBtn');
-            let slideIndex = 0;
-
-            function updateSliderPosition() {
-                const card = document.querySelector('.benefit-card');
-                if(!card) return;
-                const gap = 32;
-                const moveAmount = card.offsetWidth + gap;
-                track.style.transform = `translateX(-${slideIndex * moveAmount}px)`;
-            }
-
-            rightBtn.addEventListener('click', () => {
-                const totalCards = document.querySelectorAll('.benefit-card').length;
-                let visibleCount = 3;
-                if(window.innerWidth <= 1100) visibleCount = 2;
-                if(window.innerWidth <= 768) visibleCount = 1;
-
-                if (slideIndex < totalCards - visibleCount) {
-                    slideIndex++;
-                } else {
-                    slideIndex = 0;
-                }
-                updateSliderPosition();
-            });
-
-            leftBtn.addEventListener('click', () => {
-                const totalCards = document.querySelectorAll('.benefit-card').length;
-                let visibleCount = 3;
-                if(window.innerWidth <= 1100) visibleCount = 2;
-                if(window.innerWidth <= 768) visibleCount = 1;
-
-                if (slideIndex > 0) {
-                    slideIndex--;
-                } else {
-                    slideIndex = totalCards - visibleCount;
-                }
-                updateSliderPosition();
-            });
-
-            window.addEventListener('resize', updateSliderPosition);
-
-            /* --- 4. ТАРИФ БАҒАЛАРЫН АУЫСТЫРҒЫШ (TOGGLE SWITCH) --- */
-            const btnMonthly = document.getElementById('toggleMonthly');
-            const btnFull = document.getElementById('toggleFull');
-            
-            const priceSmart = document.getElementById('priceSmart');
-            const pricePro = document.getElementById('pricePro');
-            const priceBundle = document.getElementById('priceBundle');
-
-            btnMonthly.addEventListener('click', () => {
-                btnMonthly.classList.add('pricing-toggle__btn--active');
-                btnFull.classList.remove('pricing-toggle__btn--active');
-                
-                priceSmart.innerHTML = '18 333 KZT <small>/ айына</small>';
-                pricePro.innerHTML = '16 666 KZT <small>/ айына</small>';
-                priceBundle.innerHTML = '7 500 KZT <small>/ бір реттік</small>';
-            });
-
-            btnFull.addEventListener('click', () => {
-                btnFull.classList.add('pricing-toggle__btn--active');
-                btnMonthly.classList.remove('pricing-toggle__btn--active');
-                
-                priceSmart.innerHTML = '55 000 KZT <small>/ толық курс</small>';
-                pricePro.innerHTML = '99 990 KZT <small>/ толық курс</small>';
-                priceBundle.innerHTML = '7 500 KZT <small>/ толық пакет</small>';
-            });
-
-            /* --- 5. ЖАҢАРТЫЛҒАН ҰБТ КАЛЬКУЛЯТОРЫ --- */
-            const subjects = ['Math', 'Info', 'History', 'MatLit', 'ReadLit'];
-            
-            function calculateTotal() {
-                let currentSum = 0;
-                subjects.forEach(sub => {
-                    const value = parseInt(document.getElementById('input' + sub).value);
-                    document.getElementById('label' + sub).innerText = value + ' б';
-                    currentSum += value;
-                });
-
-                document.getElementById('totalScoreText').innerText = currentSum;
-                const badge = document.getElementById('statusBadgeText');
-
-                if (currentSum >= 125) {
-                    badge.innerText = "Грант 100% (Жоғары Елітті Деңгей)";
-                    badge.style.background = "rgba(16, 185, 129, 0.1)";
-                    badge.style.color = "var(--brand-secondary)";
-                } else if (currentSum >= 90) {
-                    badge.innerText = "Грантқа Мүмкіндік Жоғары (Орташа)";
-                    badge.style.background = "rgba(0, 102, 255, 0.08)";
-                    badge.style.color = "var(--brand-primary)";
-                } else {
-                    badge.innerText = "Ақылы немесе Көп Дайындық Керек";
-                    badge.style.background = "rgba(239, 68, 68, 0.08)";
-                    badge.style.color = "#ef4444";
-                }
-            }
-
-            subjects.forEach(sub => {
-                document.getElementById('input' + sub).addEventListener('input', calculateTotal);
-            });
-            calculateTotal();
-
-            /* --- 6. ТҮЗЕТІЛГЕН АҚЫЛДЫ FAQ АККОРДЕОНЫ (МӘТІН ТОЛЫҚ СЫЯДЫ) --- */
-            const triggers = document.querySelectorAll('.accordion__trigger');
-            
-            triggers.forEach(trigger => {
-                trigger.addEventListener('click', () => {
-                    const item = trigger.parentElement;
-                    const panel = item.querySelector('.accordion__panel');
-                    const isOpen = item.classList.contains('accordion__item--active');
-
-                    // Барлық ашық блоктарды жабу
-                    document.querySelectorAll('.accordion__item').forEach(i => {
-                        i.classList.remove('accordion__item--active');
-                        i.querySelector('.accordion__panel').style.maxHeight = null;
-                    });
-
-                    // Егер жабық болса, дәл осыны ашу
-                    if (!isOpen) {
-                        item.classList.add('accordion__item--active');
-                        // Динамикалық scrollHeight мәтіннің толық көрінуін қамтамасыз етеді
-                        panel.style.maxHeight = panel.scrollHeight + "px";
-                    }
-                });
-            });
-
-            /* --- 7. ПРЕМИУМ МОДАЛЬДІ ТЕРЕЗЕ БАСҚАРУЫ (ФОРМА ТАПСЫРУ) --- */
-            const cForm = document.getElementById('consultationForm');
-            const mMask = document.getElementById('premiumSuccessModal');
-            const mClose = document.getElementById('closeModalTrigger');
-            const mConfirm = document.getElementById('modalConfirmBtn');
-            const mTitle = document.getElementById('dynamicModalTitle');
-
-            cForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const userName = document.getElementById('userNameField').value;
-                
-                // Пайдаланушының атын модальға жіберу
-                mTitle.innerText = `Рахмет, ${userName}!`;
-                
-                // Модальді ашу
-                mMask.classList.add('modal-mask--visible');
-                cForm.reset();
-            });
-
-            const hideModal = () => mMask.classList.remove('modal-mask--visible');
-            
-            mClose.addEventListener('click', hideModal);
-            mConfirm.addEventListener('click', hideModal);
-            mMask.addEventListener('click', (e) => {
-                if (e.target === mMask) hideModal();
-            });
+            calculatePrice();
+            loadQuizQuestion();
+            setTimeout(showLiveToast, 3000);
         });
     </script>
 </body>
