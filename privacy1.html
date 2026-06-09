@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Политика конфиденциальности — Historica.kz</title>
+    <style>
+        /* --- ЦВЕТОВАЯ ПАЛИТРА И СИСТЕМНЫЕ ПЕРЕМЕННЫЕ (PREMIUM ORANGE & WHITE) --- */
+        :root {
+            --bg-main: #ffffff;
+            --bg-body: #fcfcfd;
+            --text-primary: #0b0f19;
+            --text-secondary: #434b5a;
+            --text-muted: #808a9d;
+            
+            --accent-orange: #ff5a1f;
+            --accent-orange-hover: #e0440e;
+            --accent-orange-light: rgba(255, 90, 31, 0.08);
+            --accent-dark: #110d0a;
+            
+            --orange-gradient: linear-gradient(135deg, #ff7e40 0%, #ff4500 100%);
+            --dark-gradient: linear-gradient(135deg, #1f1610 0%, #090604 100%);
+            --soft-orange-radial: radial-gradient(circle, rgba(255,90,31,0.06) 0%, rgba(255,255,255,0) 70%);
+            
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(17, 13, 10, 0.06);
+            --glass-card-bg: rgba(255, 255, 255, 0.7);
+            
+            --shadow-sm: 0 2px 8px rgba(17, 13, 10, 0.02), 0 4px 16px rgba(17, 13, 10, 0.02);
+            --shadow-md: 0 12px 32px rgba(17, 13, 10, 0.05), 0 4px 12px rgba(17, 13, 10, 0.03);
+            
+            --radius-sm: 12px;
+            --radius-md: 24px;
+            
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.25s ease;
+        }
+
+        /* --- БАЗОВЫЙ СБРОС --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* --- ШАПКА САЙТА (HEADER) --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--accent-dark);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        /* --- КОНТЕНТ ПОЛИТИКИ --- */
+        .policy-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 180px 24px 120px 24px;
+            position: relative;
+        }
+
+        .blur-sphere {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            color: var(--accent-dark);
+            margin-bottom: 16px;
+        }
+
+        .last-updated {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+        }
+
+        .policy-card {
+            background: var(--glass-card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            line-height: 1.7;
+        }
+
+        .policy-card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent-dark);
+            margin-top: 32px;
+            margin-bottom: 14px;
+        }
+
+        .policy-card h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .policy-card p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .policy-card ul {
+            list-style: none;
+            margin-bottom: 16px;
+            padding-left: 8px;
+        }
+
+        .policy-card ul li {
+            position: relative;
+            padding-left: 24px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .policy-card ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 18px;
+            top: -2px;
+        }
+
+        /* КНОПКА НАВЕРХ */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 52px;
+            height: 52px;
+            background: var(--orange-gradient);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- ПОДВАЛ (FOOTER) --- */
+        footer {
+            background: #090604;
+            color: #ffffff;
+            padding: 80px 24px 40px 24px;
+        }
+
+        .footer-main {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 40px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-info p {
+            color: var(--text-muted);
+            margin-top: 14px;
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 280px;
+        }
+
+        .footer-links-col h4 {
+            font-size: 15px;
+            margin-bottom: 20px;
+            color: #f8fafc;
+            font-weight: 600;
+        }
+
+        .footer-links-col ul {
+            list-style: none;
+        }
+
+        .footer-links-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition-fast);
+        }
+
+        .footer-links-col ul li a:hover {
+            color: var(--accent-orange);
+        }
+
+        .footer-meta {
+            max-width: 1240px;
+            margin: 32px auto 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #52525b;
+            font-size: 13px;
+        }
+
+        /* --- АДАПТИВНОСТЬ ПОД ТЕЛЕФОНЫ (ВНЕ 3 ЛИНИЙ) --- */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 16px;
+                padding: 16px 12px;
+            }
+
+            /* Меню выстроено в 3 строчки по 2 пункта в каждой */
+            .nav-links {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                display: block;
+                font-size: 13px;
+                font-weight: 700;
+                padding: 10px 4px;
+                background: rgba(17, 13, 10, 0.03);
+                border: 1px solid rgba(17, 13, 10, 0.05);
+                border-radius: 8px;
+                color: var(--text-secondary);
+            }
+
+            .policy-container {
+                padding-top: 260px;
+            }
+
+            .policy-card {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-meta {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="back-to-top" id="backToTopBtn">↑</button>
+
+    <div class="blur-sphere" style="top: 0; left: 10%; width: 500px; height: 500px; background: var(--soft-orange-radial);"></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="index1.html" class="logo"><img src="https://historica.kz/assets/default/img/site_logo.png" style="width:130px; height:auto;" alt="Historica Logo"></a>
+            <ul class="nav-links">
+                <li><a href="index1.html#features">Преимущества</a></li>
+                <li><a href="index1.html#roadmap">План подготовки</a></li>
+                <li><a href="index1.html#courses">Курсы</a></li>
+                <li><a href="index1.html#process">Обучение</a></li>
+                <li><a href="index1.html#reviews">Отзывы</a></li>
+                <li><a href="index1.html#faq">FAQ</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="policy-container">
+        <h1>Политика конфиденциальности</h1>
+        <p class="last-updated">Последнее обновление: 9 июня 2026 г.</p>
+
+        <div class="policy-card">
+            <h2>1. Общие положения</h2>
+            <p>Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональной информации пользователей образовательной платформы Historica.kz. Мы уважаем вашу конфиденциальность и стремимся максимально защитить ваши личные данные.</p>
+
+            <h2>2. Какие данные мы собираем</h2>
+            <p>Мы собираем только те данные, которые необходимы для предоставления качественных услуг и полноценного функционирования личного кабинета:</p>
+            <ul>
+                <li>Имя и фамилия пользователя;</li>
+                <li>Адрес электронной почты (для авторизации и отправки уведомлений);</li>
+                <li>Номер телефона (для подтверждения профиля и связи кураторов);</li>
+                <li>Информация о прогрессе обучения (результаты пройденных тестов и симуляций ЕНТ);</li>
+                <li>Технические данные (IP-адрес, файлы cookies, данные об устройстве для оптимизации отображения сайта).</li>
+            </ul>
+
+            <h2>3. Цели обработки персональных данных</h2>
+            <p>Ваши личные данные используются исключительно в следующих целях:</p>
+            <ul>
+                <li>Создание, персонализация и управление вашим аккаунтом на платформе;</li>
+                <li>Предоставление доступа к видеоурокам, интерактивным конспектам и тренажерам;</li>
+                <li>Обеспечение оперативной обратной связи от преподавателей и службы заботы;</li>
+                <li>Анализ вашей успеваемости для корректировки индивидуального плана подготовки;</li>
+                <li>Улучшение интерфейса сайта и работы мобильного приложения.</li>
+            </ul>
+
+            <h2>4. Защита данных и передача третьим лицам</h2>
+            <p>Historica.kz применяет современные протоколы шифрования данных (SSL) для предотвращения несанкционированного доступа. Мы ни при каких обстоятельствах не продаем, не обмениваем и не передаем ваши персональные данные третьим лицам, за исключением случаев, предусмотренных действующим законодательством Республики Казахстан.</p>
+
+            <h2>5. Права пользователя</h2>
+            <p>Вы имеете полное право в любой момент запросить информацию о том, какие именно ваши данные хранятся в нашей системе, а также потребовать их изменения, исправления или полного удаления из базы данных Historica.kz через настройки личного кабинета или обратившись в техническую поддержку.</p>
+
+            <h2>6. Изменения в Политике конфиденциальности</h2>
+            <p>Мы оставляем за собой право вносить изменения в данный документ для поддержания его актуальности. В случае изменения условий мы обновим дату публикации в верхней части страницы. Рекомендуем периодически проверять данную страницу.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-main">
+            <div class="footer-info">
+                <a href="index1.html" class="logo" style="color:#ffffff;">Historica<span>.kz</span></a>
+                <p>Современная высокотехнологичная платформа для глубокой, системной и результативной подготовки к ЕНТ.</p>
+            </div>
+            <div class="footer-links-col">
+                <h4>Разделы</h4>
+                <ul>
+                    <li><a href="index1.html#features">Преимущества</a></li>
+                    <li><a href="index1.html#roadmap">План подготовки</a></li>
+                    <li><a href="index1.html#courses">Наши курсы</a></li>
+                    <li><a href="index1.html#process">Процесс обучения</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Помощь</h4>
+                <ul>
+                    <li><a href="index1.html#faq">FAQ</a></li>
+                    <li><a href="#">Техническая поддержка</a></li>
+                    <li><a href="privacy.html">Политика конфиденциальности</a></li>
+                    <li><a href="#">Публичная оферта</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Контакты</h4>
+                <ul>
+                    <li><a href="mailto:info@historica.kz">info@historica.kz</a></li>
+                    <li><a href="tel:+77777777777">+7 (777) 777-77-77</a></li>
+                    <li><p style="color: var(--text-muted); font-size:14px; margin-top:8px;">г. Алматы, пр. Аль-Фараби 71</p></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-meta">
+            <p>&copy; 2026 Historica.kz. Все права защищены. Подготовка к ЕНТ нового поколения.</p>
+            <div class="socials">
+                <a href="#">Instagram</a>
+                <a href="#">Telegram</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Код плавной кнопки «Наверх»
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
