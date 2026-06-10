@@ -14,7 +14,6 @@
            1. ДИЗАЙН-СИСТЕМА И ПЕРЕМЕННЫЕ (СВЕТЛАЯ И ТЕМНАЯ ТЕМА)
            ========================================================================== */
         :root {
-            /* Светлая тема по умолчанию */
             --primary: #FF7A00;
             --primary-light: #FFF0E0;
             --primary-hover: #E56E00;
@@ -24,13 +23,11 @@
             --card-bg: #FFFFFF;
             --modal-bg: #FFFFFF;
             
-            /* Цветовая палитра текста */
             --text-main: #1A1A1A;
             --text-muted: #666666;
             --text-ghost: #999999;
             --text-on-primary: #FFFFFF;
             
-            /* Границы, тени и системные цвета */
             --border: #EEEEEE;
             --border-hover: #D8D8D8;
             --border-focus: #FF7A00;
@@ -46,17 +43,14 @@
             --warning: #FFCC00;
             --info: #007AFF;
             
-            /* Элитные тени уровня Linear SaaS */
             --shadow-sm: 0px 1px 2px rgba(0, 0, 0, 0.02), 0px 4px 12px rgba(0, 0, 0, 0.03);
             --shadow-md: 0px 4px 12px rgba(0, 0, 0, 0.05), 0px 16px 40px rgba(0, 0, 0, 0.04);
             --shadow-lg: 0px 12px 24px rgba(0, 0, 0, 0.08), 0px 32px 64px rgba(0, 0, 0, 0.08);
             
-            /* Настройки разметки */
             --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             --sidebar-width: 280px;
         }
 
-        /* Селектор темной темы */
         [data-theme="dark"] {
             --primary: #FF8A1F;
             --primary-light: #2C1A08;
@@ -212,7 +206,6 @@
             color: var(--danger);
         }
 
-        /* Метки приоритетов */
         .badge-priority {
             font-size: 11px;
             font-weight: 600;
@@ -466,10 +459,6 @@
             width: 100%;
         }
 
-        .search-box input::placeholder {
-            color: var(--text-ghost);
-        }
-
         .search-hint {
             font-size: 11px;
             color: var(--text-ghost);
@@ -510,18 +499,6 @@
             margin-bottom: 32px;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero-banner::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 200px;
-            background: linear-gradient(90deg, transparent, var(--primary-light));
-            opacity: 0.3;
-            pointer-events: none;
         }
 
         .hero-text h1 {
@@ -615,7 +592,6 @@
             transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Панель фильтров */
         .filter-bar {
             display: flex;
             align-items: center;
@@ -641,10 +617,6 @@
             outline: none;
             cursor: pointer;
             transition: var(--transition);
-        }
-
-        .select-custom:hover {
-            border-color: var(--border-hover);
         }
 
         /* ==========================================================================
@@ -990,7 +962,6 @@
             gap: 12px;
         }
 
-        /* Стили для Кастомного окна Подтверждения (Confirm Modal) */
         .confirm-surface {
             max-width: 400px;
             text-align: center;
@@ -1120,65 +1091,55 @@
                 transform: translateX(-100%);
                 box-shadow: none;
             }
-
             .sidebar.is-mobile-open {
                 transform: translateX(0);
                 box-shadow: var(--shadow-lg);
             }
-
             .main-wrapper {
                 margin-left: 0;
             }
-
             .topbar {
                 padding: 0 20px;
             }
-
             .menu-toggle {
                 display: block;
             }
-
             .search-hint {
                 display: none;
             }
-
             .content-container {
                 padding: 24px 20px;
             }
-
             .hero-banner {
                 flex-direction: column;
                 align-items: stretch;
                 padding: 24px;
                 gap: 20px;
             }
-
             .hero-banner button {
                 width: 100%;
             }
-
             .stats-grid {
                 grid-template-columns: 1fr;
                 gap: 14px;
             }
-
             .controls-group {
                 opacity: 1;
             }
-
             .field-row {
                 grid-template-columns: 1fr;
             }
-
             .sidebar-backdrop {
                 position: fixed;
-                top: 0; left: 0; right: 0; bottom: 0;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
                 background: rgba(0,0,0,0.4);
                 z-index: 95;
                 display: none;
                 backdrop-filter: blur(4px);
             }
-
             body.sidebar-active .sidebar-backdrop {
                 display: block;
             }
@@ -1186,7 +1147,6 @@
     </style>
 </head>
 <body>
-
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
     <div class="toast-container" id="toastContainer"></div>
 
@@ -1194,13 +1154,12 @@
         <div class="sidebar-header">
             <a href="#" class="logo">
                 <div class="logo-icon">T</div>
-                <span class="logo-text">TaskFlow Premium</span>
+                <span class="logo-text">TaskFlow Pro</span>
             </a>
             <button class="menu-toggle" id="closeSidebarBtn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
         </div>
-
         <nav class="sidebar-nav">
             <div class="nav-item active" data-view="dashboard">
                 <div class="nav-item-content">
@@ -1236,12 +1195,11 @@
                 </div>
             </div>
         </nav>
-
         <div class="sidebar-footer">
-            <div class="user-avatar" id="globalUserAvatar">H</div>
+            <div class="user-avatar" id="globalUserAvatar">U</div>
             <div class="user-info">
-                <span class="user-name" id="globalUserName">Historica Space</span>
-                <span class="user-role" id="globalUserRole">Администратор</span>
+                <span class="user-name" id="globalUserName">Пользователь</span>
+                <span class="user-role" id="globalUserRole">Студент</span>
             </div>
         </div>
     </aside>
@@ -1255,7 +1213,7 @@
                 <div class="search-box">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <input type="text" id="searchInput" placeholder="Поиск задач по ключевым словам...">
-                    <span class="search-hint">Ctrl + K</span>
+                    <span class="search-hint">Поиск</span>
                 </div>
             </div>
             <div class="topbar-right">
@@ -1267,335 +1225,185 @@
         </header>
 
         <main class="content-container" id="mainViewContent">
-            <section class="hero-banner" id="heroBanner">
-                <div class="hero-text">
-                    <h1>Управляйте целями эффективно</h1>
-                    <p>Проектируйте сложные образовательные треки, координируйте командные и личные спринты в защищенной и кастомизируемой экосистеме данных.</p>
-                </div>
-                <div class="hero-cta">
-                    <button class="btn btn-primary" id="topCreateTaskBtn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        Быстрая задача
-                    </button>
-                </div>
-            </section>
-
-            <section class="stats-grid" id="statsGrid">
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">Задач в пайплайне</span>
-                        <div class="stat-icon-box total">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                        </div>
-                    </div>
-                    <div class="stat-card-body">
-                        <span class="stat-number" id="statTotalCount">0</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">Успешно закрыто</span>
-                        <div class="stat-icon-box done">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        </div>
-                    </div>
-                    <div class="stat-card-body">
-                        <span class="stat-number" id="statCompletedCount">0</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">Продуктивность цикла</span>
-                        <div class="stat-icon-box percent">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                        </div>
-                    </div>
-                    <div class="stat-card-body" style="flex-direction: column;">
-                        <span class="stat-number" id="statPercentValue">0%</span>
-                        <div class="progress-track">
-                            <div class="progress-fill" id="statProgressBar"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="workspace-area" id="workspaceContainer">
-                <div class="filter-bar" id="globalFilterBar">
-                    <div class="filter-group">
-                        <label style="font-size:13px; font-weight:600; color:var(--text-muted);">Приоритет:</label>
-                        <select class="select-custom" id="filterPrioritySelect">
-                            <option value="all">Все приоритеты</option>
-                            <option value="high">Высокий</option>
-                            <option value="medium">Средний</option>
-                            <option value="low">Низкий</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label style="font-size:13px; font-weight:600; color:var(--text-muted);">Сортировка:</label>
-                        <select class="select-custom" id="sortTasksSelect">
-                            <option value="none">По умолчанию</option>
-                            <option value="alphabet">По алфавиту</option>
-                            <option value="date">По дедлайну</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="workspace-title-row">
-                    <h2 id="workspaceContextTitle">Ваши пространства</h2>
-                    <button class="btn btn-secondary" id="rootAddFolderBtn" style="padding: 8px 14px;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        Новая папка
-                    </button>
-                </div>
-
-                <div class="folders-stack" id="foldersContainer"></div>
-            </section>
-        </main>
+            </main>
     </div>
 
-    <div class="modal-mask" id="modalMask">
-        <div class="modal-surface" id="standardModalSurface">
+    <div class="modal-mask" id="folderModal">
+        <div class="modal-surface">
             <div class="modal-top">
-                <h3 id="modalHeadTitle">Новый элемент структуры</h3>
-                <button class="modal-close-trigger" id="modalCloseX">&times;</button>
+                <h3 id="folderModalTitle">Создать папку</h3>
+                <button class="modal-close-trigger" onclick="closeModal('folderModal')">&times;</button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="folderModalId">
                 <div class="field-box">
-                    <label id="modalFieldLabel">Наименование</label>
-                    <input type="text" id="modalMainInput" placeholder="Введите имя...">
-                </div>
-                
-                <div id="extendedTaskFields" style="display: none; flex-direction: column; gap: 18px;">
-                    <div class="field-row">
-                        <div class="field-box">
-                            <label>Приоритет задачи</label>
-                            <select id="modalTaskPriority">
-                                <option value="medium">Средний</option>
-                                <option value="high">Высокий</option>
-                                <option value="low">Низкий</option>
-                            </select>
-                        </div>
-                        <div class="field-box">
-                            <label>Срок выполнения</label>
-                            <input type="date" id="modalTaskDeadline">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field-box" id="modalSelectWrapper" style="display: none;">
-                    <label>Целевая директория (Раздел)</label>
-                    <select id="modalRelationSelect"></select>
+                    <label for="folderNameInput">Название папки</label>
+                    <input type="text" id="folderNameInput" placeholder="Например: Математический анализ">
                 </div>
             </div>
             <div class="modal-actions-row">
-                <button class="btn btn-secondary" id="modalCancelBtn">Отмена</button>
-                <button class="btn btn-primary" id="modalSubmitBtn">Сохранить</button>
+                <button class="btn btn-secondary" onclick="closeModal('folderModal')">Отмена</button>
+                <button class="btn btn-primary" id="saveFolderBtn">Сохранить</button>
             </div>
         </div>
+    </div>
 
-        <div class="modal-surface confirm-surface" id="confirmModalSurface" style="display: none;">
-            <div class="confirm-icon-illustration">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    <div class="modal-mask" id="sectionModal">
+        <div class="modal-surface">
+            <div class="modal-top">
+                <h3 id="sectionModalTitle">Добавить категорию/секцию</h3>
+                <button class="modal-close-trigger" onclick="closeModal('sectionModal')">&times;</button>
             </div>
-            <h3 class="confirm-title" id="confirmModalTitle">Удалить элемент?</h3>
-            <p class="confirm-desc" id="confirmModalDescription">Это действие необратимо. Связанные подэлементы и данные будут стерты из локального хранилища.</p>
-            <div class="modal-actions-row" style="background: transparent; justify-content: center; padding-bottom: 24px;">
-                <button class="btn btn-secondary" id="confirmModalCancelBtn">Отмена</button>
-                <button class="btn btn-danger" id="confirmModalSubmitBtn">Подтвердить</button>
+            <div class="modal-body">
+                <input type="hidden" id="sectionFolderId">
+                <input type="hidden" id="sectionModalId">
+                <div class="field-box">
+                    <label for="sectionNameInput">Название секции</label>
+                    <input type="text" id="sectionNameInput" placeholder="Например: Лекции, Практика">
+                </div>
+            </div>
+            <div class="modal-actions-row">
+                <button class="btn btn-secondary" onclick="closeModal('sectionModal')">Отмена</button>
+                <button class="btn btn-primary" id="saveSectionBtn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-mask" id="taskModal">
+        <div class="modal-surface">
+            <div class="modal-top">
+                <h3 id="taskModalTitle">Создать задачу</h3>
+                <button class="modal-close-trigger" onclick="closeModal('taskModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="taskModalId">
+                <input type="hidden" id="taskFolderId">
+                <input type="hidden" id="taskSectionId">
+
+                <div class="field-box">
+                    <label for="taskTitleInput">Название задачи</label>
+                    <input type="text" id="taskTitleInput" placeholder="Что необходимо сделать?">
+                </div>
+
+                <div class="field-row">
+                    <div class="field-box">
+                        <label for="taskPrioritySelect">Приоритет</label>
+                        <select id="taskPrioritySelect">
+                            <option value="low">Низкий</option>
+                            <option value="medium" selected>Средний</option>
+                            <option value="high">Высокий</option>
+                        </select>
+                    </div>
+                    <div class="field-box">
+                        <label for="taskDateInput">Срок выполнения</label>
+                        <input type="date" id="taskDateInput">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions-row">
+                <button class="btn btn-secondary" onclick="closeModal('taskModal')">Отмена</button>
+                <button class="btn btn-primary" id="saveTaskBtn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-mask" id="confirmModal">
+        <div class="modal-surface confirm-surface">
+            <div class="confirm-icon-illustration">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            </div>
+            <h3 class="confirm-title" id="confirmModalTitle">Вы уверены?</h3>
+            <p class="confirm-desc" id="confirmModalDesc">Это действие безвозвратно удалит выбранный элемент.</p>
+            <div class="modal-actions-row" style="justify-content: center; background: transparent; border-top: none; padding-bottom: 24px;">
+                <button class="btn btn-secondary" onclick="closeModal('confirmModal')">Отмена</button>
+                <button class="btn btn-danger" id="confirmModalSubmitBtn">Удалить</button>
             </div>
         </div>
     </div>
 
     <script>
-        const STORAGE_KEY = 'taskflow_notion_premium_data';
-        const USER_STORAGE_KEY = 'taskflow_user_profile_data';
-        const THEME_STORAGE_KEY = 'taskflow_theme_preference';
-
-        // Первоначальный пакет данных
-        const INITIAL_DATA = [
+        // ==========================================================================
+        // ИНИЦИАЛИЗАЦИЯ И СОСТОЯНИЕ
+        // ==========================================================================
+        let state = JSON.parse(localStorage.getItem('taskflow_state')) || [
             {
-                id: "fld-1",
-                name: "Разработка",
+                id: "f1",
+                name: "Университет",
                 isOpen: true,
                 sections: [
                     {
-                        id: "sec-1",
-                        name: "Frontend",
+                        id: "s1",
+                        name: "Высшая математика",
                         tasks: [
-                            { id: "tsk-1", name: "Верстка Landing Page", isCompleted: true, priority: "high", deadline: "2026-06-15" },
-                            { id: "tsk-2", name: "Адаптация мобильной версии", isCompleted: true, priority: "medium", deadline: "2026-06-20" }
-                        ]
-                    },
-                    {
-                        id: "sec-2",
-                        name: "Backend",
-                        tasks: [
-                            { id: "tsk-3", name: "API авторизации", isCompleted: false, priority: "high", deadline: "2026-06-18" },
-                            { id: "tsk-4", name: "База данных PostgreSQL", isCompleted: false, priority: "medium", deadline: "2026-06-25" }
-                        ]
-                    }
-                ]
-            },
-            {
-                id: "fld-2",
-                name: "Маркетинг",
-                isOpen: true,
-                sections: [
-                    {
-                        id: "sec-3",
-                        name: "Реклама",
-                        tasks: [
-                            { id: "tsk-5", name: "Создать рекламные баннеры", isCompleted: true, priority: "low", deadline: "2026-06-12" },
-                            { id: "tsk-6", name: "Настроить контекстную рекламу", isCompleted: false, priority: "high", deadline: "2026-06-14" }
-                        ]
-                    }
-                ]
-            },
-            {
-                id: "fld-3",
-                name: "Учеба",
-                isOpen: true,
-                sections: [
-                    {
-                        id: "sec-4",
-                        name: "История Казахстана",
-                        tasks: [
-                            { id: "tsk-7", name: "Прочитать конспект и лекции", isCompleted: false, priority: "medium", deadline: "2026-06-11" },
-                            { id: "tsk-8", name: "Пройти квалификационный тест", isCompleted: false, priority: "high", deadline: "2026-06-13" }
+                            { id: "t1", title: "Подготовиться к коллоквиуму", priority: "high", date: "2026-06-15", isCompleted: false },
+                            { id: "t2", title: "Домашнее задание №4", priority: "medium", date: "2026-06-12", isCompleted: true }
                         ]
                     }
                 ]
             }
         ];
 
-        const INITIAL_USER = {
-            name: "Historica Space",
-            role: "Администратор"
+        let currentView = 'dashboard';
+        let searchQuery = '';
+        let filterPriority = 'all';
+        let filterStatus = 'all';
+        let confirmCallback = null;
+
+        // Настройки профиля по умолчанию
+        let profile = JSON.parse(localStorage.getItem('taskflow_profile')) || {
+            name: "Иван Иванов",
+            role: "Студент"
         };
 
-        // Состояние приложения (State)
-        let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || INITIAL_DATA;
-        let userProfile = JSON.parse(localStorage.getItem(USER_STORAGE_KEY)) || INITIAL_USER;
-        let currentView = 'dashboard'; 
-        let currentSearchQuery = '';
-        let currentPriorityFilter = 'all';
-        let currentSortMethod = 'none';
-
-        // Контекст ядра модальных окон
-        let modalMode = ''; 
-        let selectedFolderTarget = null;
-        let selectedSectionTarget = null;
-        let activeConfirmCallback = null;
-
-        // Ссылки на DOM дерево
-        const foldersContainer = document.getElementById('foldersContainer');
-        const searchInput = document.getElementById('searchInput');
-        const modalMask = document.getElementById('modalMask');
-        const standardModalSurface = document.getElementById('standardModalSurface');
-        const confirmModalSurface = document.getElementById('confirmModalSurface');
-        
-        const modalHeadTitle = document.getElementById('modalHeadTitle');
-        const modalFieldLabel = document.getElementById('modalFieldLabel');
-        const modalMainInput = document.getElementById('modalMainInput');
-        const modalSelectWrapper = document.getElementById('modalSelectWrapper');
-        const modalRelationSelect = document.getElementById('modalRelationSelect');
-        const extendedTaskFields = document.getElementById('extendedTaskFields');
-        const modalTaskPriority = document.getElementById('modalTaskPriority');
-        const modalTaskDeadline = document.getElementById('modalTaskDeadline');
-        const modalSubmitBtn = document.getElementById('modalSubmitBtn');
-
-        const confirmModalTitle = document.getElementById('confirmModalTitle');
-        const confirmModalDescription = document.getElementById('confirmModalDescription');
-        const confirmModalSubmitBtn = document.getElementById('confirmModalSubmitBtn');
-        const confirmModalCancelBtn = document.getElementById('confirmModalCancelBtn');
-
-        const filterPrioritySelect = document.getElementById('filterPrioritySelect');
-        const sortTasksSelect = document.getElementById('sortTasksSelect');
-
-        /* === ИНИЦИАЛИЗАЦИЯ И СТАРТ === */
-        window.addEventListener('DOMContentLoaded', () => {
-            initTheme();
-            initAppRouter();
-            syncUserProfileUI();
-            renderUI();
-            setupCoreListeners();
-        });
-
+        // ==========================================================================
+        // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (UI И СИСТЕМНЫЕ)
+        // ==========================================================================
         function saveState() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-            renderUI();
+            localStorage.setItem('taskflow_state', JSON.stringify(state));
+            updateBadges();
         }
 
-        function saveUserProfile() {
-            localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userProfile));
-            syncUserProfileUI();
-        }
-
-        function syncUserProfileUI() {
-            document.getElementById('globalUserName').innerText = userProfile.name;
-            document.getElementById('globalUserRole').innerText = userProfile.role;
-            document.getElementById('globalUserAvatar').innerText = userProfile.name.charAt(0);
-        }
-
-        /* === СИСТЕМА КАСТОМНЫХ ДИАЛОГОВЫХ ОКН И УВЕДОМЛЕНИЙ === */
-        function showToast(text, type = 'info') {
+        function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast-card ${type}`;
-            
-            let icon = '';
-            if(type === 'success') icon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-            else if(type === 'danger') icon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
-            else icon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
-
-            toast.innerHTML = `${icon}<span>${text}</span>`;
+            toast.innerText = message;
             container.appendChild(toast);
-
             setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(-20px)';
-                setTimeout(() => toast.remove(), 300);
+                toast.remove();
             }, 3000);
         }
 
-        function openConfirmModal(title, description, onConfirm) {
-            standardModalSurface.style.display = 'none';
-            confirmModalSurface.style.display = 'block';
-            
-            confirmModalTitle.innerText = title;
-            confirmModalDescription.innerText = description;
-            
-            activeConfirmCallback = onConfirm;
-            modalMask.classList.add('is-active');
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('is-active');
+            }
         }
 
-        function closeConfirmModal() {
-            modalMask.classList.remove('is-active');
-            setTimeout(() => {
-                confirmModalSurface.style.display = 'none';
-                standardModalSurface.style.display = 'block';
-                activeConfirmCallback = null;
-            }, 200);
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('is-active');
+            }
         }
 
-        /* === ТЕМЫ ОФОРМЛЕНИЯ (DARK / LIGHT MODE) === */
+        function triggerConfirm(title, desc, callback) {
+            document.getElementById('confirmModalTitle').innerText = title;
+            document.getElementById('confirmModalDesc').innerText = desc;
+            confirmCallback = callback;
+            openModal('confirmModal');
+        }
+
+        // Переключение тем
         function initTheme() {
-            const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            syncThemeIcons(savedTheme);
+            const currentTheme = localStorage.getItem('taskflow_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            toggleThemeIcons(currentTheme);
         }
 
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-            syncThemeIcons(newTheme);
-            showToast(`Активирована ${newTheme === 'dark' ? 'Тёмная' : 'Светлая'} тема`, 'info');
-        }
-
-        function syncThemeIcons(theme) {
-            if(theme === 'dark') {
+        function toggleThemeIcons(theme) {
+            if (theme === 'dark') {
                 document.getElementById('themeIconMoon').style.display = 'none';
                 document.getElementById('themeIconSun').style.display = 'block';
             } else {
@@ -1604,606 +1412,590 @@
             }
         }
 
-        /* === СУПЕРВИЗОР ОТРИСОВКИ ИНТЕРФЕЙСА (RENDER LAYER) === */
-        function renderUI() {
-            foldersContainer.innerHTML = '';
-            
-            // Расчет счетчиков данных
-            let counts = { all: 0, highPriority: 0 };
-            state.forEach(f => f.sections.forEach(s => s.tasks.forEach(t => {
-                counts.all++;
-                if(t.priority === 'high' && !t.isCompleted) counts.highPriority++;
-            })));
-            
-            document.getElementById('badgeAll').innerText = counts.all;
-            document.getElementById('badgeFav').innerText = counts.highPriority;
+        // Обновление счетчиков в меню
+        function updateBadges() {
+            let total = 0;
+            let high = 0;
+            state.forEach(f => {
+                f.sections.forEach(s => {
+                    s.tasks.forEach(t => {
+                        if (!t.isCompleted) {
+                            total++;
+                            if (t.priority === 'high') high++;
+                        }
+                    });
+                });
+            });
+            document.getElementById('badgeAll').innerText = total;
+            document.getElementById('badgeFav').innerText = high;
+        }
 
-            calculateAnalytics(counts.all);
+        // Обновление информации о профиле в футере
+        function updateProfileUI() {
+            document.getElementById('globalUserName').innerText = profile.name;
+            document.getElementById('globalUserRole').innerText = profile.role;
+            document.getElementById('globalUserAvatar').innerText = profile.name.charAt(0).toUpperCase();
+        }
 
+        // ==========================================================================
+        // РЕНДЕРИНГ ЭКРАНОВ
+        // ==========================================================================
+        function renderContent() {
+            const container = document.getElementById('mainViewContent');
+            
             if (currentView === 'settings') {
-                renderSettingsView();
-                return;
-            }
-
-            // Глубокое копирование пула данных для безопасной фильтрации
-            let dataPool = JSON.parse(JSON.stringify(state));
-
-            // Полнотекстовый поиск и фильтрация
-            dataPool = dataPool.filter(folder => {
-                folder.sections = folder.sections.filter(sec => {
-                    sec.tasks = sec.tasks.filter(task => {
-                        // Поисковый запрос
-                        const matchesSearch = task.name.toLowerCase().includes(currentSearchQuery.toLowerCase());
-                        // Фильтр по приоритету
-                        const matchesPriority = (currentPriorityFilter === 'all' || task.priority === currentPriorityFilter);
-                        
-                        // Логика системных представлений бокового меню
-                        let matchesView = true;
-                        if(currentView === 'favorites') matchesView = (task.priority === 'high');
-                        if(currentView === 'archive') matchesView = task.isCompleted;
-                        if(currentView === 'dashboard' || currentView === 'all') {
-                            // На дашборде не показываем выполненные, если это обычный список
-                            if(currentView === 'dashboard') matchesView = !task.isCompleted;
-                        }
-
-                        return matchesSearch && matchesPriority && matchesView;
-                    });
-
-                    // Сортировка внутри раздела
-                    if (currentSortMethod === 'alphabet') {
-                        sec.tasks.sort((a, b) => a.name.localeCompare(b.name));
-                    } else if (currentSortMethod === 'date') {
-                        sec.tasks.sort((a, b) => new Date(a.deadline || '9999-12-31') - new Date(b.deadline || '9999-12-31'));
-                    }
-
-                    return sec.tasks.length > 0 || currentSearchQuery === '';
-                });
-                return folder.sections.length > 0 || currentSearchQuery === '';
-            });
-
-            if(dataPool.length === 0 || (dataPool.every(f => f.sections.length === 0))) {
-                foldersContainer.innerHTML = `<div class="empty-state">Задачи отсутствуют или не соответствуют заданным фильтрам.</div>`;
-                return;
-            }
-
-            // Рендеринг дерева папок
-            dataPool.forEach(folder => {
-                const folderBox = document.createElement('div');
-                folderBox.className = `folder-box ${folder.isOpen ? 'is-open' : ''}`;
-                
-                folderBox.innerHTML = `
-                    <div class="folder-trigger" data-fld-id="${folder.id}">
-                        <div class="folder-meta">
-                            <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary);"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                            <span class="folder-name">${folder.name}</span>
-                        </div>
-                        <div class="controls-group">
-                            <button class="icon-btn add-sec-trigger" title="Добавить раздел" data-fld-id="${folder.id}">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                            <button class="icon-btn danger-hover delete-fld-trigger" title="Удалить папку" data-fld-id="${folder.id}">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                            </button>
-                        </div>
+                container.innerHTML = `
+                    <div class="workspace-title-row">
+                        <h2>Настройки и Профиль</h2>
                     </div>
-                    <div class="folder-dropzone"></div>
-                `;
-
-                const dropzone = folderBox.querySelector('.folder-dropzone');
-
-                if(folder.sections.length === 0) {
-                    dropzone.innerHTML = `<div class="empty-state" style="padding:12px; font-size:12px;">В папке пока нет активных разделов.</div>`;
-                }
-
-                folder.sections.forEach(section => {
-                    const sectionBlock = document.createElement('div');
-                    sectionBlock.className = 'section-block';
-
-                    sectionBlock.innerHTML = `
-                        <div class="section-bar">
-                            <div class="section-identity">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="16 16 12 12 8 16"></polyline><polyline points="12 12 12 21"></polyline></svg>
-                                <span>${section.name}</span>
-                            </div>
-                            <div class="controls-group">
-                                <button class="icon-btn add-task-trigger" title="Добавить задачу" data-fld-id="${folder.id}" data-sec-id="${section.id}">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                </button>
-                                <button class="icon-btn danger-hover delete-sec-trigger" title="Удалить раздел" data-fld-id="${folder.id}" data-sec-id="${section.id}">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="tasks-bundle"></div>
-                    `;
-
-                    const bundle = sectionBlock.querySelector('.tasks-bundle');
-                    if(section.tasks.length === 0) {
-                        bundle.innerHTML = `<div class="empty-state" style="padding:10px; font-size:12px; border-style:solid;">Нет задач</div>`;
-                    }
-
-                    section.tasks.forEach(task => {
-                        const taskRow = document.createElement('div');
-                        taskRow.className = `task-row ${task.isCompleted ? 'is-completed' : ''}`;
-                        
-                        let priorityLabel = 'Низкий';
-                        if(task.priority === 'high') priorityLabel = 'Высокий';
-                        if(task.priority === 'medium') priorityLabel = 'Средний';
-
-                        const dateFormatted = task.deadline ? formatTaskDate(task.deadline) : 'Без срока';
-
-                        taskRow.innerHTML = `
-                            <div class="task-interactive" data-fld-id="${folder.id}" data-sec-id="${section.id}" data-tsk-id="${task.id}">
-                                <div class="checkbox-container">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                </div>
-                                <div class="task-details-wrapper">
-                                    <span class="task-title-text">${task.name}</span>
-                                    <div class="task-meta-info">
-                                        <span class="badge-priority priority-${task.priority || 'medium'}">${priorityLabel}</span>
-                                        <span class="task-date">
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                            ${dateFormatted}
-                                        </span>
+                    <div class="settings-view-card">
+                        <div>
+                            <div class="settings-section-title">Данные пользователя</div>
+                            <div class="profile-settings-flex">
+                                <div class="profile-editable-avatar" id="settingsAvatar">${profile.name.charAt(0).toUpperCase()}</div>
+                                <div style="flex: 1; display:flex; flex-direction:column; gap:12px;">
+                                    <div class="field-box">
+                                        <label>Имя пользователя</label>
+                                        <input type="text" id="profileNameInput" value="${profile.name}">
                                     </div>
+                                    <div class="field-box">
+                                        <label>Специализация / Роль</label>
+                                        <input type="text" id="profileRoleInput" value="${profile.role}">
+                                    </div>
+                                    <button class="btn btn-primary" id="saveProfileBtn" style="align-self: flex-start;">Сохранить профиль</button>
                                 </div>
                             </div>
-                            <div class="controls-group">
-                                <button class="icon-btn danger-hover delete-tsk-trigger" data-fld-id="${folder.id}" data-sec-id="${section.id}" data-tsk-id="${task.id}">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                                </button>
-                            </div>
-                        `;
-                        bundle.appendChild(taskRow);
-                    });
-
-                    dropzone.appendChild(sectionBlock);
-                });
-
-                foldersContainer.appendChild(folderBox);
-            });
-        }
-
-        function calculateAnalytics(totalCount) {
-            let completedCount = 0;
-            state.forEach(f => f.sections.forEach(s => s.tasks.forEach(t => {
-                if(t.isCompleted) completedCount++;
-            })));
-
-            const percent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
-            
-            document.getElementById('statTotalCount').innerText = totalCount;
-            document.getElementById('statCompletedCount').innerText = completedCount;
-            document.getElementById('statPercentValue').innerText = `${percent}%`;
-            document.getElementById('statProgressBar').style.width = `${percent}%`;
-        }
-
-        function formatTaskDate(dateString) {
-            const options = { month: 'short', day: 'numeric' };
-            const date = new Date(dateString);
-            return date.toLocaleDateString('ru-RU', options);
-        }
-
-        /* === ЦЕНТРАЛЬНЫЙ СЛУШАТЕЛЬ СОБЫТИЙ (EVENT DELEGATION) === */
-        function setupCoreListeners() {
-            
-            // Клик по дереву элементов структуры
-            foldersContainer.addEventListener('click', (e) => {
-                const target = e.target;
-
-                // Аккордеон папки
-                const trigger = target.closest('.folder-trigger');
-                if (trigger && !target.closest('.controls-group')) {
-                    const fldId = trigger.getAttribute('data-fld-id');
-                    const node = state.find(f => f.id === fldId);
-                    if(node) {
-                        node.isOpen = !node.isOpen;
-                        saveState();
-                    }
-                    return;
-                }
-
-                // Интерактивное переключение выполнения чекбокса
-                const taskInteractive = target.closest('.task-interactive');
-                if (taskInteractive) {
-                    const fId = taskInteractive.getAttribute('data-fld-id');
-                    const sId = taskInteractive.getAttribute('data-sec-id');
-                    const tId = taskInteractive.getAttribute('data-tsk-id');
-                    
-                    const fld = state.find(f => f.id === fId);
-                    const sec = fld?.sections.find(s => s.id === sId);
-                    const tsk = sec?.tasks.find(t => t.id === tId);
-                    if(tsk) {
-                        tsk.isCompleted = !tsk.isCompleted;
-                        saveState();
-                        showToast(tsk.isCompleted ? 'Задача выполнена!' : 'Задача возвращена в работу', 'success');
-                    }
-                    return;
-                }
-
-                // Вызовы менеджера модальных окон
-                const addSecBtn = target.closest('.add-sec-trigger');
-                if (addSecBtn) {
-                    selectedFolderTarget = addSecBtn.getAttribute('data-fld-id');
-                    openModalManager('SECTION');
-                    return;
-                }
-
-                const addTaskBtn = target.closest('.add-task-trigger');
-                if (addTaskBtn) {
-                    selectedFolderTarget = addTaskBtn.getAttribute('data-fld-id');
-                    selectedSectionTarget = addTaskBtn.getAttribute('data-sec-id');
-                    openModalManager('TASK');
-                    return;
-                }
-
-                // Замена стандартных confirm окон на кастомные
-                const delFldBtn = target.closest('.delete-fld-trigger');
-                if (delFldBtn) {
-                    const id = delFldBtn.getAttribute('data-fld-id');
-                    const folder = state.find(f => f.id === id);
-                    openConfirmModal(
-                        'Удалить папку?', 
-                        `Вы собираетесь удалить папку "${folder.name}" со всеми вложенными разделами и задачами.`, 
-                        () => {
-                            state = state.filter(f => f.id !== id);
-                            saveState();
-                            showToast('Папка успешно удалена', 'danger');
-                        }
-                    );
-                    return;
-                }
-
-                const delSecBtn = target.closest('.delete-sec-trigger');
-                if (delSecBtn) {
-                    const fId = delSecBtn.getAttribute('data-fld-id');
-                    const sId = delSecBtn.getAttribute('data-sec-id');
-                    openConfirmModal(
-                        'Удалить раздел?',
-                        'Все задачи внутри этого раздела будут безвозвратно стерты.',
-                        () => {
-                            const fld = state.find(f => f.id === fId);
-                            if(fld) {
-                                fld.sections = fld.sections.filter(s => s.id !== sId);
-                                saveState();
-                                showToast('Раздел удален', 'danger');
-                            }
-                        }
-                    );
-                    return;
-                }
-
-                const delTskBtn = target.closest('.delete-tsk-trigger');
-                if (delTskBtn) {
-                    const fId = delTskBtn.getAttribute('data-fld-id');
-                    const sId = delTskBtn.getAttribute('data-sec-id');
-                    const tId = delTskBtn.getAttribute('data-tsk-id');
-                    openConfirmModal(
-                        'Удалить задачу?',
-                        'Данная задача будет полностью удалена из вашего таймлайна.',
-                        () => {
-                            const fld = state.find(f => f.id === fId);
-                            const sec = fld?.sections.find(s => s.id === sId);
-                            if(sec) {
-                                sec.tasks = sec.tasks.filter(t => t.id !== tId);
-                                saveState();
-                                showToast('Задача удалена', 'info');
-                            }
-                        }
-                    );
-                    return;
-                }
-            });
-
-            // Корневые действия
-            document.getElementById('rootAddFolderBtn').onclick = () => openModalManager('FOLDER');
-            document.getElementById('topCreateTaskBtn').onclick = () => openModalManager('GLOBAL_TASK');
-
-            // Фильтры
-            filterPrioritySelect.onchange = (e) => {
-                currentPriorityFilter = e.target.value;
-                renderUI();
-            };
-            sortTasksSelect.onchange = (e) => {
-                currentSortMethod = e.target.value;
-                renderUI();
-            };
-
-            // Переключатель тем
-            document.getElementById('themeSwitchBtn').onclick = toggleTheme;
-
-            // Поисковый механизм
-            searchInput.oninput = (e) => {
-                currentSearchQuery = e.target.value;
-                renderUI();
-            };
-
-            window.onkeydown = (e) => {
-                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                    e.preventDefault();
-                    searchInput.focus();
-                }
-            };
-
-            // Управление модальными окнами
-            document.getElementById('modalCloseX').onclick = closeModalManager;
-            document.getElementById('modalCancelBtn').onclick = closeModalManager;
-            modalSubmitBtn.onclick = processModalSubmit;
-            
-            modalMainInput.onkeydown = (e) => {
-                if (e.key === 'Enter') processModalSubmit();
-            };
-
-            // Слушатели диалога подтверждения
-            confirmModalCancelBtn.onclick = closeConfirmModal;
-            confirmModalSubmitBtn.onclick = () => {
-                if(activeConfirmCallback) activeConfirmCallback();
-                closeConfirmModal();
-            };
-        }
-
-        /* === СУПЕРВИЗОР МОДАЛЬНЫХ ОКН (WORKFLOW EDITOR) === */
-        function openModalManager(mode) {
-            modalMode = mode;
-            modalMainInput.value = '';
-            modalSelectWrapper.style.display = 'none';
-            extendedTaskFields.style.display = 'none';
-
-            // Настройка сегодняшней даты по умолчанию для дедлайнов
-            const today = new Date().toISOString().split('T')[0];
-            modalTaskDeadline.value = today;
-            modalTaskPriority.value = 'medium';
-
-            if (mode === 'FOLDER') {
-                modalHeadTitle.innerText = 'Создать новую папку';
-                modalFieldLabel.innerText = 'Название папки';
-                modalMainInput.placeholder = 'Например: Стратегическое планирование';
-            } 
-            else if (mode === 'SECTION') {
-                modalHeadTitle.innerText = 'Добавить новый раздел';
-                modalFieldLabel.innerText = 'Имя подраздела / Спринта';
-                modalMainInput.placeholder = 'Например: Квартальный отчет';
-            } 
-            else if (mode === 'TASK' || mode === 'GLOBAL_TASK') {
-                modalHeadTitle.innerText = mode === 'TASK' ? 'Добавить задачу' : 'Быстрое глобальное создание';
-                modalFieldLabel.innerText = 'Что необходимо сделать?';
-                modalMainInput.placeholder = 'Например: Изучить параграф 4 архитектуры данных';
-                extendedTaskFields.style.display = 'flex';
-
-                if (mode === 'GLOBAL_TASK') {
-                    modalRelationSelect.innerHTML = '';
-                    let hasSections = false;
-
-                    state.forEach(f => {
-                        f.sections.forEach(s => {
-                            hasSections = true;
-                            const opt = document.createElement('option');
-                            opt.value = `${f.id}||${s.id}`;
-                            opt.innerText = `${f.name} → ${s.name}`;
-                            modalRelationSelect.appendChild(opt);
-                        });
-                    });
-
-                    if(!hasSections) {
-                        showToast('Ошибка: Создайте сначала папку и раздел!', 'danger');
-                        return;
-                    }
-                    modalSelectWrapper.style.display = 'flex';
-                }
-            }
-
-            modalMask.classList.add('is-active');
-            modalMainInput.focus();
-        }
-
-        function closeModalManager() {
-            modalMask.classList.remove('is-active');
-        }
-
-        function processModalSubmit() {
-            const rawValue = modalMainInput.value.trim();
-            if (!rawValue) {
-                showToast('Поле не может быть пустым!', 'danger');
-                return;
-            }
-
-            const generateId = () => 'uid-' + Math.random().toString(36).substring(2, 11);
-
-            if (modalMode === 'FOLDER') {
-                state.push({
-                    id: generateId(),
-                    name: rawValue,
-                    isOpen: true,
-                    sections: []
-                });
-                showToast('Папка создана', 'success');
-            } 
-            else if (modalMode === 'SECTION') {
-                const fld = state.find(f => f.id === selectedFolderTarget);
-                fld?.sections.push({
-                    id: generateId(),
-                    name: rawValue,
-                    tasks: []
-                });
-                showToast('Раздел добавлен', 'success');
-            } 
-            else if (modalMode === 'TASK') {
-                const fld = state.find(f => f.id === selectedFolderTarget);
-                const sec = fld?.sections.find(s => s.id === selectedSectionTarget);
-                sec?.tasks.push({
-                    id: generateId(),
-                    name: rawValue,
-                    isCompleted: false,
-                    priority: modalTaskPriority.value,
-                    deadline: modalTaskDeadline.value
-                });
-                showToast('Задача интегрирована', 'success');
-            }
-            else if (modalMode === 'GLOBAL_TASK') {
-                const [fId, sId] = modalRelationSelect.value.split('||');
-                const fld = state.find(f => f.id === fId);
-                const sec = fld?.sections.find(s => s.id === sId);
-                sec?.tasks.push({
-                    id: generateId(),
-                    name: rawValue,
-                    isCompleted: false,
-                    priority: modalTaskPriority.value,
-                    deadline: modalTaskDeadline.value
-                });
-                showToast('Глобальная задача распределена', 'success');
-            }
-
-            saveState();
-            closeModalManager();
-        }
-
-        /* === КЛИЕНТСКИЙ МАРШРУТИЗАТОР (ROUTER ENGINE) === */
-        function initAppRouter() {
-            const navItems = document.querySelectorAll('.nav-item');
-            const openSidebarBtn = document.getElementById('openSidebarBtn');
-            const closeSidebarBtn = document.getElementById('closeSidebarBtn');
-            const appSidebar = document.getElementById('appSidebar');
-            const sidebarBackdrop = document.getElementById('sidebarBackdrop');
-
-            navItems.forEach(item => {
-                item.onclick = () => {
-                    navItems.forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-                    
-                    currentView = item.getAttribute('data-view');
-                    
-                    const ctxTitle = document.getElementById('workspaceContextTitle');
-                    const hero = document.getElementById('heroBanner');
-                    const stats = document.getElementById('statsGrid');
-                    const filterBar = document.getElementById('globalFilterBar');
-                    const rootAddFolderBtn = document.getElementById('rootAddFolderBtn');
-
-                    // Управление видимостью блоков в зависимости от роутинга
-                    hero.style.display = 'flex';
-                    stats.style.display = 'grid';
-                    filterBar.style.display = 'flex';
-                    rootAddFolderBtn.style.display = 'inline-flex';
-
-                    if(currentView === 'dashboard') {
-                        ctxTitle.innerText = 'Ваши пространства';
-                    } else if(currentView === 'all') {
-                        ctxTitle.innerText = 'Все задачи распределенной системы';
-                        hero.style.display = 'none';
-                    } else if(currentView === 'favorites') {
-                        ctxTitle.innerText = 'Задачи с высоким приоритетом';
-                        hero.style.display = 'none';
-                        stats.style.display = 'none';
-                    } else if(currentView === 'archive') {
-                        ctxTitle.innerText = 'Архив выполненных задач';
-                        hero.style.display = 'none';
-                        stats.style.display = 'none';
-                    } else if(currentView === 'settings') {
-                        ctxTitle.innerText = 'Настройки профиля и базы данных';
-                        hero.style.display = 'none';
-                        stats.style.display = 'none';
-                        filterBar.style.display = 'none';
-                        rootAddFolderBtn.style.display = 'none';
-                    }
-
-                    renderUI();
-
-                    appSidebar.classList.remove('is-mobile-open');
-                    document.body.classList.remove('sidebar-active');
-                };
-            });
-
-            openSidebarBtn.onclick = () => {
-                appSidebar.classList.add('is-mobile-open');
-                document.body.classList.add('sidebar-active');
-            };
-
-            const closeMenuAction = () => {
-                appSidebar.classList.remove('is-mobile-open');
-                document.body.classList.remove('sidebar-active');
-            };
-
-            closeSidebarBtn.onclick = closeMenuAction;
-            sidebarBackdrop.onclick = closeMenuAction;
-        }
-
-        /* === ИНТЕРФЕЙС НАСТРОЕК (SETTINGS & STORAGE WORKSPACE) === */
-        function renderSettingsView() {
-            foldersContainer.innerHTML = `
-                <div class="settings-view-card">
-                    <div>
-                        <h3 class="settings-section-title">Профиль сотрудника / студента</h3>
-                        <div class="profile-settings-flex">
-                            <div class="profile-editable-avatar" id="settingsAvatarIcon">${userProfile.name.charAt(0)}</div>
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 12px;">
-                                <div class="field-box">
-                                    <label>Ваше Имя</label>
-                                    <input type="text" id="settingsProfileName" value="${userProfile.name}">
-                                </div>
-                                <div class="field-box">
-                                    <label>Роль / Должность</label>
-                                    <input type="text" id="settingsProfileRole" value="${userProfile.role}">
-                                </div>
-                                <button class="btn btn-primary" id="saveProfileBtn" style="align-self: flex-start; padding: 8px 14px; font-size:13px;">Сохранить профиль</button>
+                        </div>
+                        <div>
+                            <div class="settings-section-title">Управление данными</div>
+                            <div class="data-management-buttons">
+                                <button class="btn btn-secondary" id="exportDataBtn">Экспорт резервной копии (JSON)</button>
+                                <button class="btn btn-secondary" onclick="document.getElementById('importFileHidden').click()">Импорт данных</button>
+                                <input type="file" id="importFileHidden" style="display:none;" accept=".json">
                             </div>
                         </div>
                     </div>
+                `;
+                initSettingsListeners();
+                return;
+            }
 
-                    <div>
-                        <h3 class="settings-section-title">Управление системной базой данных</h3>
-                        <p style="color:var(--text-muted); font-size:14px; margin-bottom:16px; line-height:1.5;">
-                            Выполняйте резервное копирование, восстанавливайте данные или сбрасывайте состояние хранилища (LocalStorage) до заводской конфигурации ТЗ.
-                        </p>
-                        <div class="data-management-buttons">
-                            <button class="btn btn-secondary" id="exportDataBtn">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                                Экспорт в JSON
-                            </button>
-                            <button class="btn btn-secondary" id="importDataBtnFake" onclick="document.getElementById('importFileHidden').click()">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                                Импорт файла
-                            </button>
-                            <input type="file" id="importFileHidden" style="display: none;" accept=".json">
-                            <button class="btn btn-danger" id="resetDataBtn" style="box-shadow:none;">
-                                Очистить всё хранилище
+            // Рендеринг Дашборда и Всех задач
+            let html = '';
+
+            // Шапка и фильтры в зависимости от экрана
+            if (currentView === 'dashboard') {
+                html += `
+                    <section class="hero-banner">
+                        <div class="hero-text">
+                            <h1>Эффективный менеджер задач</h1>
+                            <p>Создавайте папки, разбивайте их на секции и легко отслеживайте ваши дедлайны.</p>
+                        </div>
+                        <div class="hero-cta">
+                            <button class="btn btn-primary" id="addFolderQuickBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Новая папка
                             </button>
                         </div>
+                    </section>
+                `;
+            }
+
+            // Статистика (всегда видна на главном экране и общем списке)
+            let totalTasks = 0, completedTasks = 0;
+            state.forEach(f => f.sections.forEach(s => s.tasks.forEach(t => {
+                totalTasks++;
+                if (t.isCompleted) completedTasks++;
+            })));
+            let percent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+            html += `
+                <section class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Задач в пайплайне</span>
+                            <div class="stat-icon-box total">📊</div>
+                        </div>
+                        <div class="stat-number">${totalTasks}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Выполнено</span>
+                            <div class="stat-icon-box done">✅</div>
+                        </div>
+                        <div class="stat-number">${completedTasks}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Прогресс трека</span>
+                            <div class="stat-icon-box percent">🔥</div>
+                        </div>
+                        <div class="stat-number">${percent}%</div>
+                        <div class="progress-track"><div class="progress-fill" style="width: ${percent}%"></div></div>
+                    </div>
+                </section>
+            `;
+
+            // Панель инструментов
+            let titleView = currentView === 'dashboard' ? 'Рабочее пространство' : (currentView === 'favorites' ? 'Высокий приоритет' : 'Архив выполненных задач');
+            if (currentView === 'all') titleView = 'Все задачи списком';
+
+            html += `
+                <div class="workspace-title-row">
+                    <h2>${titleView}</h2>
+                    ${currentView === 'dashboard' ? `
+                        <button class="btn btn-primary" onclick="openCreateFolderModal()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Добавить папку
+                        </button>
+                    ` : ''}
+                </div>
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <select class="select-custom" id="filterPriority">
+                            <option value="all" ${filterPriority === 'all' ? 'selected' : ''}>Все приоритеты</option>
+                            <option value="high" ${filterPriority === 'high' ? 'selected' : ''}>Высокий</option>
+                            <option value="medium" ${filterPriority === 'medium' ? 'selected' : ''}>Средний</option>
+                            <option value="low" ${filterPriority === 'low' ? 'selected' : ''}>Низкий</option>
+                        </select>
+                        <select class="select-custom" id="filterStatus">
+                            <option value="all" ${filterStatus === 'all' ? 'selected' : ''}>Все статусы</option>
+                            <option value="active" ${filterStatus === 'active' ? 'selected' : ''}>В работе</option>
+                            <option value="completed" ${filterStatus === 'completed' ? 'selected' : ''}>Выполненные</option>
+                        </select>
                     </div>
                 </div>
             `;
 
-            // Обработчики для профиля
-            document.getElementById('saveProfileBtn').onclick = () => {
-                const nameVal = document.getElementById('settingsProfileName').value.trim();
-                const roleVal = document.getElementById('settingsProfileRole').value.trim();
-                if(!nameVal || !roleVal) {
-                    showToast('Заполните данные профиля', 'danger');
+            // Основной рендеринг структуры данных
+            html += `<div class="folders-stack">`;
+
+            let hasVisibleContent = false;
+
+            state.forEach(folder => {
+                // Если мы не на дашборде, папки как сущность не скрываем, но фильтруем задачи внутри них
+                let folderHtml = `
+                    <div class="folder-box ${folder.isOpen ? 'is-open' : ''}" data-id="${folder.id}">
+                        <div class="folder-trigger" onclick="toggleFolderCollapse('${folder.id}')">
+                            <div class="folder-meta">
+                                <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--primary);"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                <span class="folder-name">${folder.name}</span>
+                            </div>
+                            <div class="controls-group" onclick="event.stopPropagation();">
+                                <button class="icon-btn" title="Добавить секцию" onclick="openCreateSectionModal('${folder.id}')">＋</button>
+                                <button class="icon-btn" title="Редактировать папку" onclick="openEditFolderModal('${folder.id}', '${folder.name}')">✏️</button>
+                                <button class="icon-btn danger-hover" title="Удалить папку" onclick="deleteFolder('${folder.id}')">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="folder-dropzone">
+                `;
+
+                let folderHasTasks = false;
+
+                if (folder.sections.length === 0) {
+                    folderHtml += `<div class="empty-state">В папке нет секций. Создайте первую секцию для распределения задач.</div>`;
+                }
+
+                folder.sections.forEach(section => {
+                    let sectionHtml = `
+                        <div class="section-block">
+                            <div class="section-bar">
+                                <div class="section-identity">📂 ${section.name}</div>
+                                <div class="controls-group">
+                                    <button class="icon-btn" title="Добавить задачу" onclick="openCreateTaskModal('${folder.id}', '${section.id}')">＋ Task</button>
+                                    <button class="icon-btn danger-hover" title="Удалить секцию" onclick="deleteSection('${folder.id}', '${section.id}')">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="tasks-bundle">
+                    `;
+
+                    let filteredTasks = section.tasks.filter(task => {
+                        // Поиск
+                        if (searchQuery && !task.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+                        // Системный фильтр в боковом меню
+                        if (currentView === 'favorites' && task.priority !== 'high') return false;
+                        if (currentView === 'archive' && !task.isCompleted) return false;
+                        // Инструментальные фильтры (селекты)
+                        if (filterPriority !== 'all' && task.priority !== filterPriority) return false;
+                        if (filterStatus === 'active' && task.isCompleted) return false;
+                        if (filterStatus === 'completed' && !task.isCompleted) return false;
+
+                        return true;
+                    });
+
+                    if (filteredTasks.length > 0) {
+                        folderHasTasks = true;
+                        hasVisibleContent = true;
+                    }
+
+                    filteredTasks.forEach(task => {
+                        sectionHtml += `
+                            <div class="task-row ${task.isCompleted ? 'is-completed' : ''}">
+                                <div class="task-interactive" onclick="toggleTaskStatus('${folder.id}', '${section.id}', '${task.id}')">
+                                    <div class="checkbox-container">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    </div>
+                                    <div class="task-details-wrapper">
+                                        <div class="task-title-text">${task.title}</div>
+                                        <div class="task-meta-info">
+                                            <span class="badge-priority priority-${task.priority}">${task.priority}</span>
+                                            ${task.date ? `<span class="task-date">📅 ${task.date}</span>` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="controls-group">
+                                    <button class="icon-btn" onclick="openEditTaskModal('${folder.id}', '${section.id}', '${task.id}')">✏️</button>
+                                    <button class="icon-btn danger-hover" onclick="deleteTask('${folder.id}', '${section.id}', '${task.id}')">🗑️</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    if (filteredTasks.length === 0) {
+                        sectionHtml += `<div class="empty-state" style="padding:16px;">Нет подходящих задач</div>`;
+                    }
+
+                    sectionHtml += `</div></div>`;
+                    folderHtml += sectionHtml;
+                });
+
+                folderHtml += `</div></div>`;
+
+                // Применяем фильтр отображения пустых папок на спец-экранах
+                if (currentView === 'dashboard' || folderHasTasks) {
+                    html += folderHtml;
+                    hasVisibleContent = true;
+                }
+            });
+
+            if (!hasVisibleContent) {
+                html += `<div class="empty-state" style="padding:60px;">Задач или папок не найдено. Измените фильтры или добавьте новые элементы.</div>`;
+            }
+
+            html += `</div>`;
+            container.innerHTML = html;
+
+            initViewListeners();
+        }
+
+        // ==========================================================================
+        // БИЗНЕС-ЛОГИКА (CRUD ОПЕРАЦИИ С СОСТОЯНИЕМ)
+        // ==========================================================================
+        function toggleFolderCollapse(id) {
+            const folder = state.find(f => f.id === id);
+            if (folder) {
+                folder.isOpen = !folder.isOpen;
+                saveState();
+                renderContent();
+            }
+        }
+
+        // Папки
+        function openCreateFolderModal() {
+            document.getElementById('folderModalTitle').innerText = 'Создать папку';
+            document.getElementById('folderModalId').value = '';
+            document.getElementById('folderNameInput').value = '';
+            openModal('folderModal');
+        }
+
+        function openEditFolderModal(id, name) {
+            document.getElementById('folderModalTitle').innerText = 'Редактировать папку';
+            document.getElementById('folderModalId').value = id;
+            document.getElementById('folderNameInput').value = name;
+            openModal('folderModal');
+        }
+
+        function saveFolder() {
+            const id = document.getElementById('folderModalId').value;
+            const name = document.getElementById('folderNameInput').value.trim();
+
+            if (!name) {
+                showToast('Введите название папки', 'danger');
+                return;
+            }
+
+            if (id) {
+                // Редактирование
+                const folder = state.find(f => f.id === id);
+                if (folder) folder.name = name;
+            } else {
+                // Создание
+                state.push({
+                    id: 'f_' + Date.now(),
+                    name: name,
+                    isOpen: true,
+                    sections: []
+                });
+            }
+            saveState();
+            closeModal('folderModal');
+            renderContent();
+            showToast('Папка успешно сохранена', 'success');
+        }
+
+        function deleteFolder(id) {
+            triggerConfirm('Удалить папку?', 'Все вложенные секции и задачи будут безвозвратно удалены.', () => {
+                state = state.filter(f => f.id !== id);
+                saveState();
+                renderContent();
+                showToast('Папка удалена', 'info');
+            });
+        }
+
+        // Секции
+        function openCreateSectionModal(folderId) {
+            document.getElementById('sectionModalTitle').innerText = 'Добавить категорию/секцию';
+            document.getElementById('sectionFolderId').value = folderId;
+            document.getElementById('sectionModalId').value = '';
+            document.getElementById('sectionNameInput').value = '';
+            openModal('sectionModal');
+        }
+
+        function saveSection() {
+            const folderId = document.getElementById('sectionFolderId').value;
+            const sectionId = document.getElementById('sectionModalId').value;
+            const name = document.getElementById('sectionNameInput').value.trim();
+
+            if (!name) {
+                showToast('Введите название секции', 'danger');
+                return;
+            }
+
+            const folder = state.find(f => f.id === folderId);
+            if (!folder) return;
+
+            if (sectionId) {
+                const section = folder.sections.find(s => s.id === sectionId);
+                if (section) section.name = name;
+            } else {
+                folder.sections.push({
+                    id: 's_' + Date.now(),
+                    name: name,
+                    tasks: []
+                });
+            }
+            saveState();
+            closeModal('sectionModal');
+            renderContent();
+            showToast('Секция успешно сохранена', 'success');
+        }
+
+        function deleteSection(folderId, sectionId) {
+            triggerConfirm('Удалить секцию?', 'Все задачи в этой секции будут стерты.', () => {
+                const folder = state.find(f => f.id === folderId);
+                if (folder) {
+                    folder.sections = folder.sections.filter(s => s.id !== sectionId);
+                    saveState();
+                    renderContent();
+                    showToast('Секция удалена', 'info');
+                }
+            });
+        }
+
+        // Задачи
+        function openCreateTaskModal(folderId, sectionId) {
+            document.getElementById('taskModalTitle').innerText = 'Создать задачу';
+            document.getElementById('taskModalId').value = '';
+            document.getElementById('taskFolderId').value = folderId;
+            document.getElementById('taskSectionId').value = sectionId;
+            document.getElementById('taskTitleInput').value = '';
+            document.getElementById('taskPrioritySelect').value = 'medium';
+            document.getElementById('taskDateInput').value = '';
+            openModal('taskModal');
+        }
+
+        function openEditTaskModal(folderId, sectionId, taskId) {
+            const folder = state.find(f => f.id === folderId);
+            const section = folder?.sections.find(s => s.id === sectionId);
+            const task = section?.tasks.find(t => t.id === taskId);
+
+            if (!task) return;
+
+            document.getElementById('taskModalTitle').innerText = 'Редактировать задачу';
+            document.getElementById('taskModalId').value = task.id;
+            document.getElementById('taskFolderId').value = folderId;
+            document.getElementById('taskSectionId').value = sectionId;
+            document.getElementById('taskTitleInput').value = task.title;
+            document.getElementById('taskPrioritySelect').value = task.priority;
+            document.getElementById('taskDateInput').value = task.date || '';
+            openModal('taskModal');
+        }
+
+        function saveTask() {
+            const taskId = document.getElementById('taskModalId').value;
+            const folderId = document.getElementById('taskFolderId').value;
+            const sectionId = document.getElementById('taskSectionId').value;
+            
+            const title = document.getElementById('taskTitleInput').value.trim();
+            const priority = document.getElementById('taskPrioritySelect').value;
+            const date = document.getElementById('taskDateInput').value;
+
+            if (!title) {
+                showToast('Введите текст задачи', 'danger');
+                return;
+            }
+
+            const folder = state.find(f => f.id === folderId);
+            const section = folder?.sections.find(s => s.id === sectionId);
+            if (!section) return;
+
+            if (taskId) {
+                const task = section.tasks.find(t => t.id === taskId);
+                if (task) {
+                    task.title = title;
+                    task.priority = priority;
+                    task.date = date;
+                }
+            } else {
+                section.tasks.push({
+                    id: 't_' + Date.now(),
+                    title: title,
+                    priority: priority,
+                    date: date,
+                    isCompleted: false
+                });
+            }
+
+            saveState();
+            closeModal('taskModal');
+            renderContent();
+            showToast('Задача сохранена', 'success');
+        }
+
+        function toggleTaskStatus(folderId, sectionId, taskId) {
+            const folder = state.find(f => f.id === folderId);
+            const section = folder?.sections.find(s => s.id === sectionId);
+            const task = section?.tasks.find(t => t.id === taskId);
+
+            if (task) {
+                task.isCompleted = !task.isCompleted;
+                saveState();
+                renderContent();
+                showToast(task.isCompleted ? 'Задача выполнена!' : 'Задача возвращена в работу', 'info');
+            }
+        }
+
+        function deleteTask(folderId, sectionId, taskId) {
+            triggerConfirm('Удалить задачу?', 'Вы собираетесь удалить эту задачу из списка.', () => {
+                const folder = state.find(f => f.id === folderId);
+                const section = folder?.sections.find(s => s.id === sectionId);
+                if (section) {
+                    section.tasks = section.tasks.filter(t => t.id !== taskId);
+                    saveState();
+                    renderContent();
+                    showToast('Задача удалена', 'info');
+                }
+            });
+        }
+
+        // ==========================================================================
+        // ОБРАБОТЧИКИ СОБЫТИЙ И СЛУШАТЕЛИ
+        // ==========================================================================
+        function initGlobalListeners() {
+            // Переключатели бокового меню
+            document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    document.querySelectorAll('.sidebar-nav .nav-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    currentView = item.getAttribute('data-view');
+                    
+                    // Закрытие мобильного меню при переходе
+                    document.getElementById('appSidebar').classList.remove('is-mobile-open');
+                    document.body.classList.remove('sidebar-active');
+
+                    renderContent();
+                });
+            });
+
+            // Живой глобальный поиск
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                renderContent();
+            });
+
+            // Смена темы
+            document.getElementById('themeSwitchBtn').addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('taskflow_theme', newTheme);
+                toggleThemeIcons(newTheme);
+                showToast(`Включена ${newTheme === 'dark' ? 'темная' : 'светлая'} тема`, 'info');
+            });
+
+            // Мобильная адаптация кнопок открытия/закрытия меню
+            document.getElementById('openSidebarBtn').addEventListener('click', () => {
+                document.getElementById('appSidebar').classList.add('is-mobile-open');
+                document.body.classList.add('sidebar-active');
+            });
+
+            const closeBtn = document.getElementById('closeSidebarBtn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    document.getElementById('appSidebar').classList.remove('is-mobile-open');
+                    document.body.classList.remove('sidebar-active');
+                });
+            }
+
+            document.getElementById('sidebarBackdrop').addEventListener('click', () => {
+                document.getElementById('appSidebar').classList.remove('is-mobile-open');
+                document.body.classList.remove('sidebar-active');
+            });
+
+            // Привязка отправки форм в модальных окнах
+            document.getElementById('saveFolderBtn').addEventListener('click', saveFolder);
+            document.getElementById('saveSectionBtn').addEventListener('click', saveSection);
+            document.getElementById('saveTaskBtn').addEventListener('click', saveTask);
+            document.getElementById('confirmModalSubmitBtn').addEventListener('click', () => {
+                if (confirmCallback) confirmCallback();
+                closeModal('confirmModal');
+            });
+        }
+
+        function initViewListeners() {
+            // Динамические фильтры (если они отрисованы)
+            const fPriority = document.getElementById('filterPriority');
+            const fStatus = document.getElementById('filterStatus');
+
+            if (fPriority) {
+                fPriority.addEventListener('change', (e) => {
+                    filterPriority = e.target.value;
+                    renderContent();
+                });
+            }
+            if (fStatus) {
+                fStatus.addEventListener('change', (e) => {
+                    filterStatus = e.target.value;
+                    renderContent();
+                });
+            }
+
+            // Быстрые кнопки на дашборде
+            const quickFolderBtn = document.getElementById('addFolderQuickBtn');
+            if (quickFolderBtn) {
+                quickFolderBtn.addEventListener('click', openCreateFolderModal);
+            }
+        }
+
+        function initSettingsListeners() {
+            // Сохранение профиля
+            document.getElementById('saveProfileBtn').addEventListener('click', () => {
+                const name = document.getElementById('profileNameInput').value.trim();
+                const role = document.getElementById('profileRoleInput').value.trim();
+
+                if (!name || !role) {
+                    showToast('Поля профиля не могут быть пустыми', 'danger');
                     return;
                 }
-                userProfile.name = nameVal;
-                userProfile.role = roleVal;
-                saveUserProfile();
-                document.getElementById('settingsAvatarIcon').innerText = nameVal.charAt(0);
-                showToast('Данные профиля успешно обновлены', 'success');
-            };
 
-            // Полный сброс данных через Кастомный Диалог
-            document.getElementById('resetDataBtn').onclick = () => {
-                openConfirmModal(
-                    'Сбросить все данные?',
-                    'Это действие полностью удалит текущие папки, разделы и дедлайны из вашего браузера, вернув их к начальному ТЗ.',
-                    () => {
-                        localStorage.removeItem(STORAGE_KEY);
-                        state = JSON.parse(JSON.stringify(INITIAL_DATA));
-                        saveState();
-                        showToast('База данных успешно возвращена к ТЗ', 'info');
-                        document.querySelector('[data-view="dashboard"]').click();
-                    }
-                );
-            };
+                profile = { name, role };
+                localStorage.setItem('taskflow_profile', JSON.stringify(profile));
+                updateProfileUI();
+                document.getElementById('settingsAvatar').innerText = name.charAt(0).toUpperCase();
+                showToast('Профиль успешно обновлен', 'success');
+            });
 
-            // Экспорт в файл
-            document.getElementById('exportDataBtn').onclick = () => {
+            // Экспорт JSON файлов
+            document.getElementById('exportDataBtn').addEventListener('click', () => {
                 const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
                 const downloadAnchor = document.createElement('a');
                 downloadAnchor.setAttribute("href", dataStr);
@@ -2211,8 +2003,8 @@
                 document.body.appendChild(downloadAnchor);
                 downloadAnchor.click();
                 downloadAnchor.remove();
-                showToast('Файл бэкапа успешно сгенерирован', 'success');
-            };
+                showToast('Файл резервной копии сгенерирован', 'success');
+            });
 
             // Импорт из файла JSON
             document.getElementById('importFileHidden').onchange = (e) => {
@@ -2229,15 +2021,24 @@
                             showToast('Резервная копия успешно восстановлена!', 'success');
                             document.querySelector('[data-view="dashboard"]').click();
                         } else {
-                            showToast('Ошибка структуры файла JSON', 'danger');
+                            showToast('Неверная структура JSON файла', 'danger');
                         }
                     } catch (err) {
-                        showToast('Невалидный файл JSON', 'danger');
+                        showToast('Ошибка при чтении файла JSON', 'danger');
                     }
                 };
                 reader.readAsText(file);
             };
         }
+
+        // Инициализация при старте
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            updateBadges();
+            updateProfileUI();
+            initGlobalListeners();
+            renderContent();
+        });
     </script>
 </body>
 </html>
