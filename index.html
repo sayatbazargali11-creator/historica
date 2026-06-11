@@ -1,2245 +1,1499 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <title>TaskFlow Pro — Премиальный образовательный таск-менеджер</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <script src="https://unpkg.com/lucide@latest"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historica.kz — Максималды қорғалған интеллектуалды жүйе</title>
     <style>
         /* ==========================================================================
-           1. ДИЗАЙН-СИСТЕМА И ПЕРЕМЕННЫЕ (СВЕТЛАЯ И ТЕМНАЯ ТЕМА)
-           ========================================================================== */
-        :root {
-            --primary: #FF7A00;
-            --primary-light: #FFF0E0;
-            --primary-hover: #E56E00;
-            --primary-alpha: rgba(255, 122, 0, 0.08);
-            --bg: #FAFAFA;
-            --sidebar-bg: #FFFFFF;
-            --card-bg: #FFFFFF;
-            --modal-bg: #FFFFFF;
-            
-            --text-main: #1A1A1A;
-            --text-muted: #666666;
-            --text-ghost: #999999;
-            --text-on-primary: #FFFFFF;
-            
-            --border: #EEEEEE;
-            --border-hover: #D8D8D8;
-            --border-focus: #FF7A00;
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
-            --radius-xs: 4px;
-
-            --danger: #FF3B30;
-            --danger-light: #FFEBEB;
-            --success: #00B341;
-            --success-light: #E6F9EE;
-            --warning: #FFCC00;
-            --info: #007AFF;
-            
-            --shadow-sm: 0px 1px 2px rgba(0, 0, 0, 0.02), 0px 4px 12px rgba(0, 0, 0, 0.03);
-            --shadow-md: 0px 4px 12px rgba(0, 0, 0, 0.05), 0px 16px 40px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0px 12px 24px rgba(0, 0, 0, 0.08), 0px 32px 64px rgba(0, 0, 0, 0.08);
-            
-            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            --sidebar-width: 280px;
-        }
-
-        [data-theme="dark"] {
-            --primary: #FF8A1F;
-            --primary-light: #2C1A08;
-            --primary-hover: #FF9F43;
-            --primary-alpha: rgba(255, 138, 31, 0.15);
-            --bg: #0B0B0C;
-            --sidebar-bg: #121214;
-            --card-bg: #161619;
-            --modal-bg: #1A1A1E;
-            
-            --text-main: #F5F5F7;
-            --text-muted: #A0A0A5;
-            --text-ghost: #636366;
-            
-            --border: #222226;
-            --border-hover: #323238;
-            --border-focus: #FF8A1F;
-            
-            --shadow-sm: 0px 1px 2px rgba(0, 0, 0, 0.2), 0px 4px 12px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0px 4px 12px rgba(0, 0, 0, 0.4), 0px 16px 40px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0px 12px 24px rgba(0, 0, 0, 0.5), 0px 32px 64px rgba(0, 0, 0, 0.5);
-
-            --danger: #FF453A;
-            --danger-light: #2C1514;
-            --success: #32D74B;
-            --success-light: #122C17;
-        }
-
-        /* ==========================================================================
-           2. БАЗОВЫЕ СТИЛИ И СБРОС СТАНДАРТНЫХ СВОЙСТВ
+           1. ГЛОБАЛЬНЫЕ СТИЛИ И ЗАЩИТА ИНТЕРФЕЙСА (ANTI-COPY & SELECTION)
            ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            
+            /* Полный запрет выделения текста на уровне CSS */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            overflow-x: hidden;
-            letter-spacing: -0.011em;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-hover);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-ghost);
-        }
-
-        input, select, textarea, button {
-            font-family: inherit;
-            font-size: inherit;
-            color: inherit;
-        }
-
-        /* ==========================================================================
-           3. КОМПОНЕНТЫ И КНОПКИ (UI COMPONENTS)
-           ========================================================================== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 10px 16px;
-            border-radius: var(--radius-sm);
-            border: 1px solid transparent;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
-            user-select: none;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: var(--text-on-primary);
-            box-shadow: 0px 2px 4px rgba(255, 122, 0, 0.15);
-            font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-            box-shadow: 0px 4px 12px rgba(255, 122, 0, 0.25);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            background: var(--card-bg);
-            border-color: var(--border);
-            color: var(--text-main);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .btn-secondary:hover {
-            background: var(--bg);
-            border-color: var(--border-hover);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            color: #FFFFFF;
-            box-shadow: 0px 2px 4px rgba(255, 59, 48, 0.15);
-        }
-
-        .btn-danger:hover {
-            background: #E03126;
-            transform: translateY(-1px);
-        }
-
-        .icon-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: var(--radius-sm);
-            border: none;
-            background: transparent;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .icon-btn:hover {
-            background: var(--border);
-            color: var(--text-main);
-        }
-
-        .icon-btn.danger-hover:hover {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-
-        .badge-priority {
-            font-size: 10px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 2px 4px rgba(0, 0, 0, 0.03);
-            position: relative;
-            overflow: hidden;
-            user-select: none;
-            transition: var(--transition);
-        }
-
-        .task-row:hover .badge-priority::after {
-            content: '';
-            position: absolute;
-            top: 0; 
-            left: -100%; 
-            width: 200%; 
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            animation: badgeShineEffect 1.2s ease-in-out infinite;
-        }
-
-        @keyframes badgeShineEffect {
-            0% { left: -150%; }
-            100% { left: 150%; }
-        }
-
-        .priority-high { 
-            background: linear-gradient(135deg, rgba(255, 59, 48, 0.12) 0%, rgba(255, 59, 48, 0.22) 100%); 
-            color: var(--danger); 
-            border: 1px solid rgba(255, 59, 48, 0.28);
-            box-shadow: 0 0 8px rgba(255, 59, 48, 0.08);
-        }
-
-        .priority-medium { 
-            background: linear-gradient(135deg, rgba(255, 122, 0, 0.1) 0%, rgba(255, 122, 0, 0.2) 100%); 
-            color: var(--primary); 
-            border: 1px solid rgba(255, 122, 0, 0.26);
-            box-shadow: 0 0 8px rgba(255, 122, 0, 0.08);
-        }
-
-        .priority-low { 
-            background: linear-gradient(135deg, rgba(0, 122, 255, 0.08) 0%, rgba(0, 122, 255, 0.18) 100%); 
-            color: var(--info); 
-            border: 1px solid rgba(0, 122, 255, 0.24);
-            box-shadow: 0 0 8px rgba(0, 122, 255, 0.06);
-        }
-
-        /* ==========================================================================
-           4. ЛЕЙАУТ И БОКОВАЯ ПАНЕЛЬ (SIDEBAR)
-           ========================================================================== */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--sidebar-bg);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            left: 0;
-            top: 0;
-            z-index: 100;
-            transition: var(--transition);
-        }
-
-        .sidebar-header {
-            padding: 24px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background-color: var(--primary);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            font-weight: 800;
-            font-size: 16px;
-            box-shadow: 0px 4px 10px rgba(255, 122, 0, 0.25);
-        }
-
-        .logo-text {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
-            letter-spacing: -0.04em;
-        }
-
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
-            padding: 0 12px;
-            gap: 4px;
-            flex: 1;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 12px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            border-radius: var(--radius-sm);
-            transition: var(--transition);
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .nav-item-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .nav-item svg {
-            color: var(--text-ghost);
-            transition: var(--transition);
-        }
-
-        .nav-item:hover {
-            background-color: var(--bg);
-            color: var(--text-main);
-        }
-
-        .nav-item:hover svg {
-            color: var(--text-muted);
-        }
-
-        .nav-item.active {
-            background-color: var(--primary-light);
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .nav-item.active svg {
-            color: var(--primary);
-        }
-
-        .nav-badge {
-            background: linear-gradient(135deg, var(--bg) 0%, var(--border) 100%);
-            color: var(--text-muted);
-            font-size: 11px;
-            font-weight: 700;
-            padding: 3px 9px;
-            border-radius: 20px;
-            border: 1px solid var(--border-hover);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), var(--shadow-sm);
-            transition: var(--transition);
-        }
-
-        .nav-item.active .nav-badge {
-            background: linear-gradient(135deg, #FF9F43 0%, var(--primary) 100%);
-            color: var(--text-on-primary);
-            border-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 4px 10px rgba(255, 122, 0, 0.25), inset 0 1px 1px rgba(255,255,255,0.3);
-            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-        }
-
-        [data-theme="dark"] .nav-badge {
-            background: linear-gradient(135deg, #1A1A1E 0%, #222226 100%);
-            border-color: #323238;
-            color: var(--text-muted);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), var(--shadow-sm);
-        }
-        [data-theme="dark"] .badge-priority {
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.04), 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .nav-divider {
-            height: 1px;
-            background-color: var(--border);
-            margin: 12px 12px;
-        }
-
-        .sidebar-footer {
-            padding: 16px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0,0,0,0.01);
-        }
-
-        .user-avatar {
-            width: 38px;
-            height: 38px;
-            background: var(--primary-light);
-            color: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 15px;
-            border: 1px solid rgba(255, 122, 0, 0.15);
-            text-transform: uppercase;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .user-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-main);
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-        .user-role {
-            font-size: 11px;
-            color: var(--text-muted);
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-        /* ==========================================================================
-           5. ГЛАВНАЯ ОБЛАСТЬ И ПАНЕЛЬ НАВИГАЦИИ (TOPBAR)
-           ========================================================================== */
-        .main-wrapper {
-            margin-left: var(--sidebar-width);
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-        }
-
-        .topbar {
-            height: 64px;
-            background: var(--sidebar-bg);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            position: sticky;
-            top: 0;
-            z-index: 90;
-        }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex: 1;
-            max-width: 540px;
-        }
-
-        .menu-toggle {
-            display: none;
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--bg);
-            padding: 8px 14px;
-            border-radius: var(--radius-sm);
-            width: 100%;
-            transition: var(--transition);
-            border: 1px solid var(--border);
-        }
-
-        .search-box:focus-within {
-            background: var(--card-bg);
-            border-color: var(--primary);
-            box-shadow: 0px 0px 0px 3px var(--primary-alpha);
-        }
-
-        .search-box input {
-            border: none;
-            background: transparent;
-            outline: none;
-            font-size: 14px;
-            color: var(--text-main);
-            width: 100%;
-        }
-
-        .search-hint {
-            font-size: 11px;
-            color: var(--text-ghost);
-            background: var(--card-bg);
-            padding: 2px 6px;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-            font-weight: 600;
-        }
-
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .content-container {
-            padding: 40px;
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            flex: 1;
-        }
-
-        /* ==========================================================================
-           6. БАННЕРЫ И АНАЛИТИКА (HERO & ANALYTICS)
-           ========================================================================== */
-        .hero-banner {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 32px;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 24px;
-            margin-bottom: 32px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-text h1 {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            margin-bottom: 8px;
-            color: var(--text-main);
-        }
-
-        .hero-text p {
-            font-size: 15px;
-            color: var(--text-muted);
+            background-color: #fafafa;
+            color: #1a1a1a;
             line-height: 1.6;
-            max-width: 620px;
+            padding: 40px 20px;
+            transition: background-color 0.3s ease;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
             margin-bottom: 40px;
+            animation: fadeInDown 0.6s ease-out;
         }
 
-        .stat-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .stat-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .stat-card-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-
-        .stat-icon-box {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stat-icon-box.total { background: var(--bg); color: var(--text-main); }
-        .stat-icon-box.done { background: var(--success-light); color: var(--success); }
-        .stat-icon-box.percent { background: var(--primary-light); color: var(--primary); }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            color: var(--text-main);
-        }
-
-        .progress-track {
-            background: var(--border);
-            height: 6px;
-            border-radius: 10px;
-            width: 100%;
-            margin-top: 14px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--primary);
-            border-radius: 10px;
-            width: 0%;
-            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .filter-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .filter-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .select-custom {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 6px 12px;
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            color: var(--text-muted);
-            outline: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        /* ==========================================================================
-           7. СТРУКТУРА ДАННЫХ И КАРТОЧКИ (FOLDERS & TASKS)
-           ========================================================================== */
-        .workspace-title-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-
-        .workspace-title-row h2 {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-        }
-
-        .folders-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .folder-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .folder-box:hover {
-            border-color: var(--border-hover);
-        }
-
-        .folder-trigger {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            background: rgba(0,0,0,0.01);
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .folder-meta {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .chevron-icon {
-            color: var(--text-ghost);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .folder-box.is-open .chevron-icon {
-            transform: rotate(90deg);
-        }
-
-        .folder-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .controls-group {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            opacity: 0;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .folder-trigger:hover .controls-group,
-        .section-bar:hover .controls-group,
-        .task-row:hover .controls-group {
-            opacity: 1;
-        }
-
-        .folder-dropzone {
-            display: none;
-            padding: 8px 24px 24px 24px;
-            border-top: 1px solid var(--border);
-            background: var(--card-bg);
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .folder-box.is-open .folder-dropzone {
-            display: flex;
-        }
-
-        .section-block {
-            padding-left: 16px;
-            border-left: 2px solid var(--border);
-        }
-
-        .section-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 0;
-            margin-bottom: 12px;
-        }
-
-        .section-identity {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .tasks-bundle {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .task-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 18px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            transition: var(--transition);
-        }
-
-        .task-row:hover {
-            border-color: var(--border-hover);
-            box-shadow: var(--shadow-sm);
-            transform: translateX(4px);
-        }
-
-        .task-interactive {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            flex: 1;
-            cursor: pointer;
-            min-width: 0;
-        }
-
-        .checkbox-container {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--text-ghost);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            background: transparent;
-            flex-shrink: 0;
-        }
-
-        .checkbox-container svg {
-            display: none;
-            color: #FFFFFF;
-        }
-
-        .task-row.is-completed .checkbox-container {
-            background: var(--success);
-            border-color: var(--success);
-        }
-
-        .task-row.is-completed .checkbox-container svg {
-            display: block;
-        }
-
-        .task-details-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            min-width: 0;
-        }
-
-        .task-title-text {
-            font-size: 14.5px;
-            font-weight: 500;
-            color: var(--text-main);
-            transition: var(--transition);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .task-row.is-completed .task-title-text {
-            color: var(--text-ghost);
-            text-decoration: line-through;
-        }
-
-        .task-meta-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .task-date {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .empty-state {
-            padding: 36px;
-            text-align: center;
-            color: var(--text-ghost);
-            font-size: 14px;
-            border: 1px dashed var(--border);
-            border-radius: var(--radius-md);
-            background: rgba(0,0,0,0.005);
-        }
-
-        /* ==========================================================================
-           8. МОДАЛЬНЫЕ ОКНА И ДИАЛОГИ (MODALS & CUSTOM CONFIRM)
-           ========================================================================== */
-        .modal-mask {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-surface {
-            background: var(--modal-bg);
-            border-radius: var(--radius-lg);
-            width: 100%;
-            max-width: 500px;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transform: scale(0.95);
-            opacity: 0;
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .modal-mask.is-active {
-            display: flex;
-        }
-
-        .modal-mask.is-active .modal-surface {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        .modal-top {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .modal-top h3 {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-        }
-
-        .modal-close-trigger {
-            background: transparent;
-            border: none;
-            font-size: 24px;
-            color: var(--text-ghost);
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .modal-close-trigger:hover {
-            color: var(--text-main);
-        }
-
-        .modal-body {
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .field-box {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .field-box label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .field-box input, .field-box select, .field-box textarea {
-            padding: 12px 16px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 14px;
-            color: var(--text-main);
-            outline: none;
-            background: var(--card-bg);
-            transition: var(--transition);
-            width: 100%;
-        }
-
-        .field-box input:focus, .field-box select:focus, .field-box textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0px 0px 0px 3px var(--primary-alpha);
-        }
-
-        .field-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .modal-actions-row {
-            padding: 18px 24px;
-            background: rgba(0,0,0,0.01);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-        }
-
-        .confirm-surface {
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .confirm-icon-illustration {
-            width: 56px;
-            height: 56px;
-            background: var(--danger-light);
-            color: var(--danger);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 24px auto 16px auto;
-        }
-
-        .confirm-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            padding: 0 24px;
-        }
-
-        .confirm-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            padding: 0 24px 24px 24px;
-            line-height: 1.5;
-        }
-
-        /* ==========================================================================
-           9. СИСТЕМА УВЕДОМЛЕНИЙ (TOAST NOTIFICATIONS)
-           ========================================================================== */
-        .toast-container {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        header img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 15px;
             pointer-events: none;
         }
 
-        .toast-card {
-            background: var(--modal-bg);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-lg);
-            padding: 14px 20px;
-            border-radius: var(--radius-md);
+        header h1 {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #000000;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 14px;
+            color: #666666;
+            margin-top: 8px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #eef0f2;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+            animation: fadeInUp 0.5s ease-out;
+            position: relative;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 25px;
+            color: #000000;
+            border-bottom: 1px solid #f2f4f7;
+            padding-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            color: #333333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================================
+           2. КОМПОНЕНТЫ ИНТЕРФЕЙСА (ИНПУТЫ, КНОПКИ, СПИСКИ СТУДЕНТОВ)
+           ========================================================================== */
+        button {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #000000;
+            padding: 12px 22px;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: #ffffff;
+            color: #000000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        button:disabled {
+            background-color: #f3f4f6;
+            border-color: #f3f4f6;
+            color: #9ca3af;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        button.btn-secondary {
+            background-color: #ffffff;
+            color: #4b5563;
+            border-color: #d1d5db;
+        }
+
+        button.btn-secondary:hover {
+            background-color: #f9fafb;
+            color: #111111;
+            border-color: #111111;
+        }
+
+        button.btn-danger {
+            background-color: #dc2626;
+            border-color: #dc2626;
+            color: #ffffff;
+        }
+        
+        button.btn-danger:hover {
+            background-color: #ffffff;
+            color: #dc2626;
+        }
+
+        input[type="password"] {
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 200px;
+            outline: none;
+            transition: all 0.25s ease;
+            background-color: #ffffff;
+        }
+
+        input[type="password"]:focus {
+            border-color: #000000;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+        }
+
+        .student-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            max-height: 550px;
+            overflow-y: auto;
+            padding-right: 5px;
+            border: 1px solid #f3f4f6;
+            border-radius: 8px;
+        }
+
+        .student-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f9fafb;
+            transition: background-color 0.2s ease;
+            background-color: #ffffff;
+        }
+
+        .student-item:last-child {
+            border-bottom: none;
+        }
+
+        .student-item:hover {
+            background-color: #fcfcfc;
+        }
+
+        .student-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .student-name {
+            font-weight: 500;
+            font-size: 15px;
+            color: #111111;
+        }
+
+        .student-status {
+            font-size: 12px;
+        }
+
+        .status-ready { color: #059669; }
+        .status-passed { color: #dc2626; font-weight: 500; }
+        .status-disqualified { color: #7f1d1d; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .action-group {
             display: flex;
             align-items: center;
             gap: 12px;
-            color: var(--text-main);
-            font-size: 14px;
-            font-weight: 500;
-            pointer-events: auto;
-            transform: translateY(40px);
-            opacity: 0;
-            animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            border-left: 4px solid var(--primary);
         }
-
-        @keyframes toastIn {
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .toast-card.success { border-left-color: var(--success); }
-        .toast-card.danger { border-left-color: var(--danger); }
-        .toast-card.info { border-left-color: var(--info); }
 
         /* ==========================================================================
-           10. НАСТРОЙКИ, ПРОФИЛЬ И ИМПОРТ/ЭКСПОРТ
+           3. ТЕСТОВЫЙ СЛУЖЕБНЫЙ ИНТЕРФЕЙС (ПРОКТОРИНГ И ТАЙМЕР)
            ========================================================================== */
-        .settings-view-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 32px;
-            box-shadow: var(--shadow-sm);
+        .quiz-header {
             display: flex;
-            flex-direction: column;
-            gap: 32px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f3f4f6;
         }
 
-        .settings-section-title {
-            font-size: 16px;
-            font-weight: 700;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-            margin-bottom: 16px;
-            color: var(--text-main);
+        #timer {
+            font-size: 26px;
+            font-weight: 600;
+            color: #000000;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+            background: #f3f4f6;
+            padding: 6px 16px;
+            border-radius: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        .profile-settings-flex {
+        .proctoring-badge {
+            background-color: #fff1f2;
+            border: 1px solid #fecdd3;
+            color: #9f1239;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 15px;
+            line-height: 1.5;
         }
 
-        .profile-editable-avatar {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: var(--primary-light);
-            color: var(--primary);
-            font-size: 28px;
-            font-weight: 700;
+        .proctoring-badge span {
+            font-size: 22px;
+        }
+
+        .question-container {
+            margin-bottom: 35px;
+            min-height: 240px;
+        }
+
+        .question-card {
+            display: none;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .question-card.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .question-text {
+            font-size: 19px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            color: #000000;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #ffffff;
+        }
+
+        .option-item:hover {
+            border-color: #000000;
+            background-color: #f9fafb;
+        }
+
+        .option-item.selected {
+            border-color: #000000;
+            background-color: #f3f4f6;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            accent-color: #000000;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Интерактивная матричная карта вопросов */
+        .quiz-navigation {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .progress-dots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+            background-color: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #f3f4f6;
+        }
+
+        .dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .data-management-buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+        .dot:hover {
+            border-color: #9ca3af;
+            background-color: #f3f4f6;
+        }
+
+        .dot.active {
+            background-color: #000000;
+            border-color: #000000;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        .dot.visited {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            border-color: #d1d5db;
+        }
+
+        .dot.filled {
+            background-color: #4b5563;
+            border-color: #4b5563;
+            color: #ffffff;
         }
 
         /* ==========================================================================
-           11. МОБИЛЬНАЯ АДАПТАЦИЯ (COMPACT SMARTPHONE MODE)
+           4. ЖУРНАЛ КУРАТОРА, СТАТИСТИКА И РЕЗУЛЬТАТЫ ОТВЕТОВ
            ========================================================================== */
-        @media (max-width: 991px) {
-            .sidebar { transform: translateX(-100%); box-shadow: none; }
-            .sidebar.is-mobile-open { transform: translateX(0); box-shadow: var(--shadow-lg); }
-            .main-wrapper { margin-left: 0; }
-            .topbar { padding: 0 20px; }
-            .menu-toggle { display: block; }
-            .search-hint { display: none; }
-            .content-container { padding: 24px 20px; }
-            .hero-banner { flex-direction: column; align-items: stretch; padding: 24px; gap: 20px; }
-            .hero-banner button { width: 100%; }
-            .stats-grid { grid-template-columns: 1fr; gap: 14px; }
-            .controls-group { opacity: 1; }
-            .field-row { grid-template-columns: 1fr; }
-            .sidebar-backdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 95; display: none; backdrop-filter: blur(4px); }
-            body.sidebar-active .sidebar-backdrop { display: block; }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-table th, .result-table td {
+            text-align: left;
+            padding: 14px 18px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .result-table th {
+            font-weight: 500;
+            color: #4b5563;
+            width: 40%;
+            background-color: #f9fafb;
+        }
+
+        .log-box {
+            background-color: #111827;
+            border: 1px solid #374151;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            color: #10b981;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 15px;
+            line-height: 1.6;
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .admin-panel-toggle {
+            margin-top: 20px;
+            background-color: #ffffff;
+            color: #9ca3af;
+            border: 1px dashed #d1d5db;
+            width: 100%;
+            padding: 10px;
+            text-transform: none;
+            font-size: 12px;
+        }
+        
+        .admin-panel-toggle:hover {
+            color: #111111;
+            border-color: #111111;
+            background-color: #ffffff;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .analytics-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .analytics-item .val {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000000;
+            margin-top: 5px;
+        }
+
+        /* Модуль отображения ответов над ошибками */
+        .answers-review-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .review-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .review-question {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #111111;
+        }
+
+        .review-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .review-opt-item {
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            border: 1px solid #f3f4f6;
+            background-color: #f9fafb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .review-opt-item.correct-match {
+            background-color: #ecfdf5;
+            border-color: #10b981;
+            color: #047857;
+            font-weight: 500;
+        }
+
+        .review-opt-item.wrong-match {
+            background-color: #fef2f2;
+            border-color: #ef4444;
+            color: #b91c1c;
+            font-weight: 500;
+        }
+
+        .review-badge {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .review-badge.correct { background-color: #10b981; color: #ffffff; }
+        .review-badge.wrong { background-color: #ef4444; color: #ffffff; }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes flashRedAlert {
+            0% { background-color: #ffffff; }
+            50% { background-color: #fee2e2; }
+            100% { background-color: #ffffff; }
+        }
+
+        .cheat-detected-flash {
+            animation: flashRedAlert 0.3s ease-in-out 2;
         }
     </style>
 </head>
-<body>
-    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
-    <div class="toast-container" id="toastContainer"></div>
+<body oncontextmenu="return false;">
 
-    <aside class="sidebar" id="appSidebar">
-        <div class="sidebar-header">
-            <a href="#" class="logo">
-                <div class="logo-icon">T</div>
-                <span class="logo-text">TaskFlow Pro</span>
-            </a>
-            <button class="menu-toggle" id="closeSidebarBtn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-        </div>
+<div class="container">
+    
+    <header>
+        <img src="https://historica.kz/assets/default/img/site_logo.png" alt="Historica Логитип">
+        <h1>Интеллектуалды Сынақ Панелі</h1>
+        <p>Күзет деңгейі жоғарылатылған автоматтандырылған бақылау кешені v3.0 PRO</p>
+    </header>
 
-        <nav class="sidebar-nav">
-            <div class="nav-item active" data-view="dashboard">
-                <div class="nav-item-content">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>
-                    <span data-i18n="menuDashboard">Панель управления</span>
-                </div>
-            </div>
-            <div class="nav-item" data-view="all">
-                <div class="nav-item-content">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
-                    <span data-i18n="menuAll">Все задачи</span>
-                </div>
-                <span class="nav-badge" id="badgeAll">0</span>
-            </div>
-            <div class="nav-item" data-view="favorites">
-                <div class="nav-item-content">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    <span data-i18n="menuHigh">Высокий приоритет</span>
-                </div>
-                <span class="nav-badge" id="badgeFav">0</span>
-            </div>
-            <div class="nav-item" data-view="archive">
-                <div class="nav-item-content">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5" rx="1"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
-                    <span data-i18n="menuArchive">Архив выполненных</span>
-                </div>
-            </div>
-            <div class="nav-divider"></div>
-            <div class="nav-item" data-view="settings">
-                <div class="nav-item-content">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                    <span data-i18n="menuSettings">Настройки и Профиль</span>
-                </div>
-            </div>
-        </nav>
+    <section id="dashboard-section" class="card">
+        <h2>Студенттерді тіркеу және емтихан ведомосы</h2>
+        
+        <ul class="student-list" id="students-roster-list">
+            </ul>
 
-        <div class="sidebar-footer">
-            <div class="user-avatar" id="globalUserAvatar">U</div>
-            <div class="user-info">
-                <span class="user-name" id="globalUserName">Пользователь</span>
-                <span class="user-role" id="globalUserRole">Студент</span>
+        <button class="admin-panel-toggle" onclick="toggleAdminPanel()">📊 Куратордың талдау және әкімшілік панелін ашу</button>
+    </section>
+
+    <section id="admin-analytics-section" class="card hidden">
+        <h2>Топтық академиялық талдау (Групповая аналитика)</h2>
+        <div class="analytics-grid">
+            <div class="analytics-item">
+                <div>Жалпы студент саны:</div>
+                <div class="val" id="stat-total-students">30</div>
+            </div>
+            <div class="analytics-item">
+                <div>Тапсырғандары:</div>
+                <div class="val" id="stat-passed-count">0</div>
+            </div>
+            <div class="analytics-item">
+                <div>Орташа үлгерім көрсеткіші:</div>
+                <div class="val" id="stat-average-percent">0%</div>
+            </div>
+            <div class="analytics-item">
+                <div>Шеттетілгендер (Дискв.):</div>
+                <div class="val" id="stat-disq-count" style="color: #dc2626;">0</div>
             </div>
         </div>
-    </aside>
+        <div style="display: flex; gap: 15px; justify-content: flex-end;">
+            <button class="btn-secondary" onclick="resetAllGlobalData()">🔄 Барлық dereктерді тазарту</button>
+            <button onclick="toggleAdminPanel()">Жабу</button>
+        </div>
+    </section>
 
-    <div class="main-wrapper">
-        <header class="topbar">
-            <div class="topbar-left">
-                <button class="menu-toggle" id="openSidebarBtn">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                </button>
-                <div class="search-box">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" id="globalSearchInput" placeholder="Поиск по названию или описанию задачи...">
-                    <span class="search-hint">⌘K</span>
-                </div>
-            </div>
-            <div class="topbar-right">
-                <select class="select-custom" id="langSelector" style="font-weight:600; padding: 6px 8px;">
-                    <option value="ru">RU</option>
-                    <option value="kk">KK</option>
-                </select>
-                <button class="icon-btn" id="themeToggleBtn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                </button>
-            </div>
-        </header>
+    <section id="quiz-section" class="card hidden">
+        <div class="quiz-header">
+            <h2 id="quiz-student-title" style="border: none; margin: 0; padding: 0;">Сыналушы профилі: ...</h2>
+            <div id="timer">05:00</div>
+        </div>
 
-        <main class="content-container" id="mainContentPool">
-            </main>
-    </div>
-
-    <div class="modal-mask" id="folderModal">
-        <div class="modal-surface">
-            <div class="modal-top">
-                <h3 id="folderModalTitle" data-i18n="modalFolderAdd">Создать рабочую область</h3>
-                <button class="modal-close-trigger" onclick="closeModal('folderModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="field-box">
-                    <label data-i18n="labelFolderName">Название области / Предмета</label>
-                    <input type="text" id="folderNameInput" placeholder="например, Высшая математика">
-                </div>
-            </div>
-            <div class="modal-actions-row">
-                <button class="btn btn-secondary" onclick="closeModal('folderModal')" data-i18n="btnCancel">Отмена</button>
-                <button class="btn btn-primary" id="saveFolderBtn" data-i18n="btnSave">Сохранить</button>
+        <div class="proctoring-badge">
+            <span>🛡️</span>
+            <div>
+                <strong>Назар аударыңыз! Белсенді прокторинг және анти-колапс қорғанысы қосылған:</strong> <br>
+                Бетті кездейсоқ қайта жүктеу немесе желінің уақытша үзілуі жауаптарды жоймайды. Терезеден тыс аймақтарды басу, басқа бағдарламаларға ауысу немесе экран суретін түсіру бұзушылық болып саналады... Сәтсіздік лимитінен асқан жағдайда тест автоматты түрде бұғатталады.
             </div>
         </div>
-    </div>
 
-    <div class="modal-mask" id="sectionModal">
-        <div class="modal-surface">
-            <div class="modal-top">
-                <h3 id="sectionModalTitle" data-i18n="modalSectionAdd">Создать категорию этапа</h3>
-                <button class="modal-close-trigger" onclick="closeModal('sectionModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="field-box">
-                    <label data-i18n="labelSectionName">Название этапа / категории</label>
-                    <input type="text" id="sectionNameInput" placeholder="например, Лабораторные работы">
-                </div>
-            </div>
-            <div class="modal-actions-row">
-                <button class="btn btn-secondary" onclick="closeModal('sectionModal')" data-i18n="btnCancel">Отмена</button>
-                <button class="btn btn-primary" id="saveSectionBtn" data-i18n="btnSave">Сохранить</button>
+        <div id="quiz-flow-holder" class="question-container"></div>
+
+        <div class="quiz-navigation">
+            <div class="progress-dots" id="dots-bar-holder"></div>
+            <div class="nav-controls">
+                <button id="nav-btn-prev" class="btn-secondary" onclick="changeQuestion(-1)">⬅️ Артқа</button>
+                <button id="nav-btn-next" onclick="changeQuestion(1)">Алға ➡️</button>
+                <button id="nav-btn-finish" class="hidden btn-danger" onclick="confirmAndSubmitQuiz()">Тестті Аяқтау 🏁</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="modal-mask" id="taskModal">
-        <div class="modal-surface">
-            <div class="modal-top">
-                <h3 id="taskModalTitle" data-i18n="modalTaskAdd">Добавить учебную задачу</h3>
-                <button class="modal-close-trigger" onclick="closeModal('taskModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="field-box">
-                    <label data-i18n="labelTaskName">Название задачи</label>
-                    <input type="text" id="taskNameInput" placeholder="Подготовка к коллоквиуму">
-                </div>
-                <div class="field-box">
-                    <label data-i18n="labelTaskDesc">Детальное описание</label>
-                    <textarea id="taskDescInput" rows="3" placeholder="Прочитать главы 3-5 учебника..."></textarea>
-                </div>
-                <div class="field-row">
-                    <div class="field-box">
-                        <label data-i18n="labelTaskDate">Срок сдачи (Дедлайн)</label>
-                        <input type="date" id="taskDeadlineInput">
-                    </div>
-                    <div class="field-box">
-                        <label data-i18n="labelTaskPriority">Приоритет важности</label>
-                        <select id="taskPriorityInput">
-                            <option value="low" data-i18n="priorityLow">Низкий уровень</option>
-                            <option value="medium" data-i18n="priorityMedium" selected>Средний уровень</option>
-                            <option value="high" data-i18n="priorityHigh">Высокий (Критический)</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-actions-row">
-                <button class="btn btn-secondary" onclick="closeModal('taskModal')" data-i18n="btnCancel">Отмена</button>
-                <button class="btn btn-primary" id="saveTaskBtn" data-i18n="btnSave">Сохранить</button>
-            </div>
+    <section id="report-section" class="card hidden">
+        <h2>Емтихан сессиясының ресми қорытынды есебі</h2>
+        
+        <table class="result-table">
+            <tr>
+                <th>Параметр атауы</th>
+                <th>Тіркелген мәліметтер</th>
+            </tr>
+            <tr>
+                <td>Сыналушының толық аты-жөні:</td>
+                <td id="rep-student-name" style="font-weight: 600; color: #000000;">-</td>
+            </tr>
+            <tr>
+                <td>Бөлінген сұрақтар көлемі:</td>
+                <td id="rep-total-q">-</td>
+            </tr>
+            <tr>
+                <td>Расталған дұрыс шешімдер саны:</td>
+                <td id="rep-correct-q" style="color: #059669; font-weight: 600;">-</td>
+            </tr>
+            <tr>
+                <td>Қорытынды бағалау (Пайыздық үлес):</td>
+                <td id="rep-percentage" style="font-weight: 700; font-size: 18px;">-</td>
+            </tr>
+            <tr>
+                <td>Қауіпсіздік ережелерін бұзу оқиғалары:</td>
+                <td id="rep-violations-count" style="color: #dc2626; font-weight: 600;">0 рет</td>
+            </tr>
+            <tr>
+                <td>Сессияның соңғы мәртебесі (Статус):</td>
+                <td id="rep-final-status" style="font-weight: 600;">-</td>
+            </tr>
+        </table>
+
+        <div id="review-answers-block">
+            <h3>📝 Жауаптарды тексеру және қатемен жұмыс:</h3>
+            <div class="answers-review-container" id="answers-review-list-holder"></div>
         </div>
-    </div>
 
-    <div class="modal-mask" id="taskViewModal">
-        <div class="modal-surface">
-            <div class="modal-top">
-                <h3 id="viewTaskTitle">Название задачи</h3>
-                <button class="modal-close-trigger" onclick="closeModal('taskViewModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p id="viewTaskDesc" style="font-size: 14px; color: var(--text-muted); line-height: 1.6; white-space: pre-wrap;"></p>
-                <div style="display: flex; gap: 16px; margin-top: 8px;">
-                    <div>
-                        <small style="display:block; font-size:11px; font-weight:700; color:var(--text-ghost); text-transform:uppercase;" data-i18n="labelTaskDate">Дедлайн</small>
-                        <span id="viewTaskDate" style="font-size: 13px; font-weight: 500;"></span>
-                    </div>
-                    <div>
-                        <small style="display:block; font-size:11px; font-weight:700; color:var(--text-ghost); text-transform:uppercase;" data-i18n="labelTaskPriority">Приоритет</small>
-                        <span id="viewTaskPriorityBadge"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-actions-row">
-                <button class="btn btn-secondary" onclick="closeModal('taskViewModal')" data-i18n="btnClose">Закрыть</button>
-            </div>
+        <h3 style="margin-top: 40px;">Экрандық мониторингтің хронологиялық журналы (Логтар):</h3>
+        <div class="log-box" id="system-proctoring-logs"></div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button onclick="goToMainDashboard()">Басқару панеліне қайту</button>
         </div>
-    </div>
+    </section>
 
-    <div class="modal-mask" id="confirmModal">
-        <div class="modal-surface confirm-surface">
-            <div class="confirm-icon-illustration">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-            </div>
-            <h4 class="confirm-title" data-i18n="confirmTitle">Вы уверены?</h4>
-            <p class="confirm-desc" id="confirmModalDesc" data-i18n="confirmDesc">Это действие безвозвратно удалит выбранный элемент и все его внутренние данные.</p>
-            <div class="modal-actions-row" style="background: transparent; justify-content: center; padding-bottom: 24px;">
-                <button class="btn btn-secondary" id="confirmCancelBtn" data-i18n="btnNo">Нет, отменить</button>
-                <button class="btn btn-danger" id="confirmSuccessBtn" data-i18n="btnYes">Да, удалить</button>
-            </div>
-        </div>
-    </div>
+</div>
 
-    <script>
-        // СИСТЕМА ПЕРЕВОДОВ (МУЛЬТИЯЗЫЧНОСТЬ)
-        const translations = {
-            ru: {
-                appTitle: "TaskFlow Pro — Премиальный образовательный таск-менеджер",
-                searchPlaceholder: "Поиск по названию или описанию задачи...",
-                menuDashboard: "Панель управления",
-                menuAll: "Все задачи",
-                menuHigh: "Высокий приоритет",
-                menuArchive: "Архив выполненных",
-                menuSettings: "Настройки и Профиль",
-                heroWelcome: "Приветствуем в TaskFlow Pro ✨",
-                heroDesc: "Организуйте учебный процесс эффективно. Создавайте предметные области, структурируйте этапы задач, контролируйте дедлайны и отслеживайте личную успеваемость в реальном времени.",
-                btnCreateWorkspace: "Создать область",
-                statTotal: "Учебных задач",
-                statDone: "Выполнено",
-                statProgress: "Успеваемость",
-                filterAll: "Все дедлайны",
-                filterToday: "На сегодня",
-                filterWeek: "На неделю",
-                filterOverdue: "Просроченные",
-                workspaceTitle: "Учебные дисциплины и курсы",
-                emptyTasks: "В этой секции пока нет учебных задач.",
-                emptyView: "Задачи не обнаружены.",
-                emptyArchive: "Архив выполненных задач пока пуст.",
-                modalFolderAdd: "Создать рабочую область",
-                modalFolderEdit: "Редактировать рабочую область",
-                modalSectionAdd: "Создать категорию этапа",
-                modalSectionEdit: "Редактировать категорию",
-                modalTaskAdd: "Добавить учебную задачу",
-                modalTaskEdit: "Редактировать учебную задачу",
-                labelFolderName: "Название области / Предмета",
-                labelSectionName: "Название этапа / категории",
-                labelTaskName: "Название задачи",
-                labelTaskDesc: "Детальное описание",
-                labelTaskDate: "Срок сдачи (Дедлайн)",
-                labelTaskPriority: "Приоритет важности",
-                priorityLow: "Низкий уровень",
-                priorityMedium: "Средний уровень",
-                priorityHigh: "Высокий (Критический)",
-                btnCancel: "Отмена",
-                btnSave: "Сохранить",
-                btnClose: "Закрыть",
-                confirmTitle: "Вы уверены?",
-                confirmDesc: "Это действие безвозвратно удалит выбранный элемент и все его внутренние данные.",
-                btnNo: "Нет, отменить",
-                btnYes: "Да, удалить",
-                settingsTitle: "Настройки вашей учетной записи",
-                settingsProfile: "Персонализация профиля",
-                labelUserName: "Ваше имя и фамилия",
-                labelUserRole: "Академический статус (Роль)",
-                roleStudent: "Студент",
-                roleTeacher: "Преподаватель / Тьютор",
-                roleResearcher: "Исследователь",
-                settingsData: "Управление резервными копиями",
-                btnExport: "Экспорт данных (JSON)",
-                btnImport: "Импорт бэкапа",
-                toastBackupSuccess: "Резервная копия успешно восстановлена!",
-                toastJSONError: "Неверная структура JSON файла",
-                toastReadError: "Ошибка при чтении файла JSON",
-                toastTaskCreated: "Задача успешно создана!",
-                toastTaskUpdated: "Задача обновлена!",
-                toastTaskDeleted: "Задача удалена!",
-                toastFolderCreated: "Дисциплина добавлена!",
-                toastFolderUpdated: "Название изменено!",
-                toastFolderDeleted: "Дисциплина полностью удалена!",
-                toastSectionCreated: "Раздел этапа успешно сформирован!",
-                toastSectionUpdated: "Раздел изменен!",
-                toastSectionDeleted: "Раздел удален!",
-                toastStateSaved: "Изменения зафиксированы!",
-                noDeadline: "Без дедлайна"
-            },
-            kk: {
-                appTitle: "TaskFlow Pro — Премиалды білім беру таск-менеджері",
-                searchPlaceholder: "Тапсырма атауы немесе сипаттамасы бойынша іздеу...",
-                menuDashboard: "Басқару панелі",
-                menuAll: "Барлық тапсырмалар",
-                menuHigh: "Жоғары басымдық",
-                menuArchive: "Орындалғандар мұрағаты",
-                menuSettings: "Баптаулар және Профиль",
-                heroWelcome: "TaskFlow Pro жүйесіне қош келдіңіз ✨",
-                heroDesc: "Оқу процесін тиімді ұйымдастырыңыз. Пәндік бағыттарды құрыңыз, тапсырма кезеңдерін құрылымдаңыз, дедлайндарды бақылаңыз және нақты уақытта жеке үлгеріміңізді қадағалаңыз.",
-                btnCreateWorkspace: "Аймақ құру",
-                statTotal: "Оқу тапсырмалары",
-                statDone: "Орындалды",
-                statProgress: "Үлгерім көрсеткіші",
-                filterAll: "Барлық дедлайндар",
-                filterToday: "Бүгінге",
-                filterWeek: "Аптаға",
-                filterOverdue: "Мерзімі өткендер",
-                workspaceTitle: "Оқу пәндері мен курстары",
-                emptyTasks: "Бұл бөлімде әлі оқу тапсырмалары жоқ.",
-                emptyView: "Тапсырмалар табылмады.",
-                emptyArchive: "Орындалған тапсырмалар мұрағаты әлі бос.",
-                modalFolderAdd: "Жұмыс аймағын құру",
-                modalFolderEdit: "Жұмыс аймағын өңдеу",
-                modalSectionAdd: "Кезең санатын құру",
-                modalSectionEdit: "Санатты өңдеу",
-                modalTaskAdd: "Оқу тапсырмасын қосу",
-                modalTaskEdit: "Оқу тапсырмасын өңдеу",
-                labelFolderName: "Аймақтың / Пәннің атауы",
-                labelSectionName: "Кезеңнің / Санаттың атауы",
-                labelTaskName: "Тапсырма атауы",
-                labelTaskDesc: "Толық сипаттамасы",
-                labelTaskDate: "Тапсыру мерзімі (Дедлайн)",
-                labelTaskPriority: "Маңыздылық басымдығы",
-                priorityLow: "Төмен деңгей",
-                priorityMedium: "Орташа деңгей",
-                priorityHigh: "Жоғары (Критикалық)",
-                btnCancel: "Бас тарту",
-                btnSave: "Сақтау",
-                btnClose: "Жабу",
-                confirmTitle: "Сенімдісіз бе?",
-                confirmDesc: "Бұл әрекет таңдалған элементті және оның барлық ішкі деректерін қайтарымсыз жояды.",
-                btnNo: "Жоқ, бас тарту",
-                btnYes: "Иә, жою",
-                settingsTitle: "Тіркелгіңіздің баптаулары",
-                settingsProfile: "Профильді жекелендіру",
-                labelUserName: "Сіздің атыңыз бен тегіңіз",
-                labelUserRole: "Академиялық мәртебе (Рөл)",
-                roleStudent: "Студент",
-                roleTeacher: "Оқытушы / Тьютор",
-                roleResearcher: "Зерттеуші",
-                settingsData: "Сақтық көшірмелерді басқару",
-                btnExport: "Деректерді экспорттау (JSON)",
-                btnImport: "Бэкапты импорттау",
-                toastBackupSuccess: "Сақтық көшірме сәтті қалпына келтірілді!",
-                toastJSONError: "JSON файлының құрылымы қате",
-                toastReadError: "JSON файлын оқу кезіндегі қателік",
-                toastTaskCreated: "Тапсырма сәтті құрылды!",
-                toastTaskUpdated: "Тапсырма жаңартылды!",
-                toastTaskDeleted: "Тапсырма жойылды!",
-                toastFolderCreated: "Пән сәтті қосылды!",
-                toastFolderUpdated: "Атауы өзгертілді!",
-                toastFolderDeleted: "Пән толығымен жойылды!",
-                toastSectionCreated: "Кезең бөлімі сәтті қалыптастырылды!",
-                toastSectionUpdated: "Бөлім өзгертілді!",
-                toastSectionDeleted: "Бөлім жойылды!",
-                toastStateSaved: "Өзгерістер сақталды!",
-                noDeadline: "Дедлайнсыз"
-            }
-        };
+<script>
+    /* ==========================================================================
+       5. БАЗА ДАННЫХ ВОПРОСОВ (120 СУПЕР-ВОПРОСОВ ПО КАТЕГОРИЯМ)
+       ========================================================================== */
+    const macroQuestionsDatabase = {
+        // Категория 1: Древний Казахстан и эпоха ранних кочевников (30 вопросов)
+        ancient: [
+            { q: "Ежелгі дәуірдегі Қазақстан аумағындағы ең алғашқы металл өңдеу өндірісі дамыған кезең:", a: ["Неолит", "Энеолит", "Қола дәуірі", "Темір дәуірі"], correct: 1 },
+            { q: "Ботай мәдениетінің әлемдік тарихтағы басты маңызы мен ерекшелігі қандай?", a: ["Кітап басу өнерінің негізін салуы", "Жылқы малын алғаш рет қолға үйретуі", "Темір қорыту технологиясын ойлап табуы", "Ұжымдық ірі қалалар тұрғызуы"], correct: 1 },
+            { q: "Сақ қоғамындағы 'арғымақтар' немесе атты әскерлер соғыста киген сауыт-сайман түрі:", a: ["Көбе сауыт", "Баттауық сауыт", "Аймауыт", "Жалаңқат"], correct: 0 },
+            { q: "Есік обасынан табылған 'Алтын адамның' киіміндегийн әшекейлер саны шамамен қанша?", a: ["1000-нан астам", "4000-нан астам", "10000-нан астам", "500-ге жуық"], correct: 1 },
+            { q: "Сақ тайпаларын жаулап алуға әрекет жасаған парсы патшасы Дарийдің жорығы болған жыл:", a: ["Б.з.б. 519 жыл", "Б.з.б. 530 жыл", "Б.з.б. 328 жыл", "Б.з.б. 490 жыл"], correct: 0 },
+            { q: "Сақ малшысы Шырақ өз отанын қорғау мақсатында кімдерге қарсы ерлік жасады?", a: ["Грек-македондықтарға", "Парсы әскерлеріне", "Ғұндарға", "Юэчжилерге"], correct: 1 },
+            { q: "Үйсін мемлекетінің билеуші лауазымы қалай аталған?", a: ["Қаған", "Жабғу", "Гуньмо (Күнхан)", "Шаньюй"], correct: 2 },
+            { q: "Қаңлы мемлекетінің археологиялық зерттеулер бойынша анықталған негізгі астанасы:", a: ["Битянь", "Суяб", "Чигучен", "Янгикент"], correct: 0 },
+            { q: "Ғұн мемлекетінің қуаттылығын арттырып, империя деңгейіне көтерген ұлы шаньюй:", a: ["Мөде", "Тұман", "Аттила", "Чжичжи"], correct: 0 },
+            { q: "Еуропаны жаулап алып, тарихта 'Құдайдың қамшысы' атанған ғұн билеушісі:", a: ["Мөде шаньюй", "Аттила (Еділ)", "Баламбер", "Рула"], correct: 1 },
+            { q: "Сақтардың 'хаомаварга' тобы мекендеген неге географиялық аймақ:", a: ["Мұрат өзенінің бойы", "Мургаб өзені аңғары, Памир таулары", "Арал маңы мен Сырдария бойы", "Жетісу және Тянь-Шань"], correct: 1 },
+            { q: "Үйсін мемлекетінің орталығы Чигучен (Қызыл Аңғар) қаласы орналасқан аймақ:", a: ["Ыстықкөл жағалауы", "Іле өзенінің төменгі ағысы", "Шу өзенінің алқабы", "Сырдария бойы"], correct: 0 },
+            { q: "Қаңлылардың экономикалық және мәдени байланыстарында маңызды рөл атқарған керуен жолының тармағы:", a: ["Ұлы Жібек жолы", "Лазурит жолы", "Нефрит жолы", "Дала жолы"], correct: 0 },
+            { q: "Б.з.б. ІІ ғасырда ғұндардың қысымымен Жетісудан Орта Азияға қарай ығысқан тайпалар:", a: ["Сақтар", "Юэчжилер", "Қаңлылар", "Үйсіндер"], correct: 1 },
+            { q: "Шілікті қорымынан табылған №1 обаның тарихи маңызы неде?", a: ["Ең көне Алтын адамның табылуы", "Алғашқы жазудың анықталуы", "Тас мүсіндердің көптігі", "Мыс балқыту пешінің табылуы"], correct: 0 },
+            { q: "Берел қорымдарынан табылған жәдігерлердің бірегейлігінің басты себебі қандай?", a: ["Алтынның тым тазалығы", "Мәңгілік тоң басуына байланысты органиканың жақсы сақталуы", "Қару-жарақтың көптігі", "Керамиканың сапасы"], correct: 1 },
+            { q: "Ежелгі грек тарихшысы Геродот сақ тайпаларын өз еңбектерінде қалай атады?", a: ["Азиялық скифтер", "Массагеттер", "Дайлар", "Исседондар"], correct: 0 },
+            { q: "Александр Македонскийдің әскеріне Сырдария бойында соққы беріп, ілгерілеуін тоқталған тайпалар:", a: ["Сақ-парадарайалар", "Сақ-тиграхаудалар", "Массагеттер", "Қаңлылар"], correct: 1 },
+            { q: "Сақ қоғамындағы абыздардың (діни қызметкерлердің) дәстүрлі киім түсі мен символы:", a: ["Қызыл түс, қару", "Ақ түс, тостаған мен ерекше бас киім", "Сары түс, соқа", "Көк түс, қамшы"], correct: 1 },
+            { q: "Қазақстаннда қола дәуірінің негізгі мәдениетін қалыптастырған тайпалар бірлестігі:", a: ["Ботай мәдениеті", "Андронов мәдениеті", "Беғазы-Дәндібай мәдениеті", "Сақ мәдениеті"], correct: 1 },
+            { q: "Қола дәуірінің соңғы кезеңіне жататын Орталық Қазақстандағы зәулім сәулеттік ескерткіштер мәдениеті:", a: ["Нұра мәдениеті", "Атасу мәдениеті", "Беғазы-Дәндібай мәдениеті", "Петровка мәдениеті"], correct: 2 },
+            { q: "Ежелгі ғұндардың баспана түрі, жылжымалы күймелері қалай аталған?", a: ["Күрке", "Торсық", "Арба үстіндегі киіз үй (күйме)", "Жеркепе"], correct: 2 },
+            { q: "Қаңлылардың жетістігі ретінде танылған, Сырдария өңіріндегі ежелгі суару каналы:", a: ["Зах каналы", "Шыршық каналы", "Шардара каналы", "Ынталы каналы"], correct: 0 },
+            { q: "Үйсіндердің антропологиялық тұрпаттары туралы құнды мәлімет қалдырған ежелгі деректер:", a: ["Рим хроникалары", "Қытай жазбалары (Цянь Ханьшу)", "Парсы тас жазулары", "Араб географтарының еңбектері"], correct: 1 },
+            { q: "Б.з.б. 530 жылы массагеттердің патшасы Томирис қай парсы патшасын жеңіп, басын қанға малды?", a: ["І Дарий", "Кир", "Ксеркс", "Камбиз"], correct: 1 },
+            { q: "Андронов мәдениетінің адамдары табынған негізгі табиғи құбылыс пен күш:", a: ["Жел мен су", "Күн және от", "Ай мен жұлдыздар", "Жер-Ана"], correct: 1 },
+            { q: "Тас дәуірінің палеолит кезеңіне жататын Қаратау жотасынан табылған ең көне еңбек құралдары:", a: ["Микролиттер", "Чоппер және чоппинг (шапқылар)", "Қашаулар", "Жебе ұштары"], correct: 1 },
+            { q: "Неолиттік төңкерістің басты мазмұны неде?", a: ["Темірдің ашылуы", "Иемденуші шаруашылықтан өндіруші шаруашылыққа өту", "Мал шаруашылығының құлдырауы", "Мемлекеттердің пайда болуы"], correct: 1 },
+            { q: "Сақ қоғамында тайпа көсемдерін сайлау құқығы кімдерге тиесілі болды?", a: ["Тек әйелдерге", "Бүкіл әскери жасақ мүшелері мен ерікті ер адамдарға", "Тек абыздарға", "Шет елдік елшілерге"], correct: 1 },
+            { q: "Ғұндардың Еуропа халықтарының орналасуына тигізген ең үлкен тарихи әсері:", a: ["Ренессанс кезеңін бастауы", "Халықтардың ұлы қоныс аударуына түрткі болуы", "Христиан дінін таратуы", "Қала мәдениетін жоюы"], correct: 1 }
+        ],
 
-        let currentLang = localStorage.getItem('taskflow_lang') || 'ru';
+        // Категория 2: Средневековые государства и Казахское ханство (30 вопросов)
+        medieval: [
+            { q: "Түрік қағанатының негізін қалаған және алғашқы ұлы қаған атанған билеуші:", a: ["Бумын қаған", "Мұқан қаған", "Істәми қаған", "Білге қаған"], correct: 0 },
+            { q: "Батыс және Шығыс Түрік қағанаттары болып мемлекеттің екіге ыдыраған жылы:", a: ["552 жыл", "603 жыл", "704 жыл", "756 жыл"], correct: 1 },
+            { q: "751 жылы Атлах шайқасында түркештер мен қарлықтар қай елдің әскерімен одақтасып қытайларды жеңді?", a: ["Араб хандығымен (аббасидтермен)", "Византиямен", "Парсылармен", "Тан империясымен"], correct: 0 },
+            { q: "Қарахан мемлекетінде ислам діні қай жылы мемлекеттік дін болып ресми жарияланды?", a: ["751 жыл", "960 жыл", "1206 жыл", "1312 жыл"], correct: 1 },
+            { q: "Алтын Ордада ислам дінін мемлекеттік дін деңгейіне көтерген хан:", a: ["Берке хан", "Өзбек хан", "Жәнібек хан", "Тоқтамыс хан"], correct: 1 },
+            { q: "Қазақ хандығының дербес мемлекет болып құрылған нақты тарихи жылы:", a: ["1206 жыл", "1380 жыл", "1465 жыл", "1511 жыл"], correct: 2 },
+            { q: "Қазақ хандығының негізін қалаған сұлтандар/хандар:", a: ["Керей мен Жәнібек", "Қасым мен Хақназар", "Тәуекел мен Есім", "Абылай мен Әбілқайыр"], correct: 0 },
+            { q: "Қасым ханның тұсында қабылданған мемлекеттік құқықтық заңдар жинағы:", a: ["Жеті жарғы", "Қасқа жол", "Ескі жол", "Тура заң"], correct: 1 },
+            { q: "Есім ханның тұсында қабылданған заңдар жинағы қалай аталды?", a: ["Жеті жарғы", "Қасқа жол", "Есім ханның ескі жолы", "Тура жол"], correct: 2 },
+            { q: "Тәуке ханның тұсында үш жүздің билері қабылдаған атақты заңдар кодексі:", a: ["Жеті жарғы", "Қасқа жол", "Ескі жол", "Дала заңы"], correct: 0 },
+            { q: "1726 жылы жоңғарларға қарсы жалпықазақ әскерін біріктіру туралы шешім қабылданған тарихи құрылтай орны:", a: ["Қарақұм", "Мәртөбе", "Ордабасы", "Күлтөбе"], correct: 2 },
+            { q: "Қазақ-жоңғар соғысындағы қазақтардың ең ірі жеңістерінің бірі — Аңырақай шайқасы болған жылдар:", a: ["1718 жыл", "1726 жыл", "1729-1730 жылдар", "1756 жыл"], correct: 2 },
+            { q: "1771 жылы Түркістанда үш жүздің өкілдері ресми түрде жалпықазақ ханы етіп сайлаған тұлға:", a: ["Әбілқайыр", "Абылай хан", "Кенесары", "Тәуке"], correct: 1 },
+            { q: "Түрік қағанатының жазғы астанасы ретінде белгілі болған Жетісудағы қала:", a: ["Суяб", "Мерке", "Баласағұн", "Тараз"], correct: 1 },
+            { q: "Батыс Түрік қағанатының бас астанасы болған қала:", a: ["Суяб", "Сығанақ", "Отырар", "Түркістан"], correct: 0 },
+            { q: "Түргеш қағанатының негізін қалаған билеуші:", a: ["Үшлік қаған", "Сұлу қаған", "Тұн жабғу", "Қапаған"], correct: 0 },
+            { q: "Сұлу қағанның арабтарға қарсы белсенді қимылдары үшін араб тарихшылары берген лақап аты:", a: ["Әбу Мұзаффар", "Мұқтадир", "Сұзеген (Абу Музахим)", "Сайф ад-Дин"], correct: 2 },
+            { q: "940 жылы Қарлық қағанатын құлатқан тайпалар мен мемлекет:", a: ["Оғыздар", "Қимақтар", "Яғма және Шығыл тайпалары (Қарахан мемлекеті)", "Қарақытайлар"], correct: 2 },
+            { q: "Оғыз мемлекетінің Сырдарияның төменгі ағысында орналасқан астанасы:", a: ["Янгикент (Жаңа Кент)", "Баршынкент", "Сығанақ", "Сауран"], correct: 0 },
+            { q: "Қимақ қағанатының Ертіс өзені бойында орналасқан орталығы:", a: ["Имақия", "Қарантия", "Баласағұн", "Жәнд"], correct: 0 },
+            { q: "1219 жылы Шыңғыс хан әскерінің Қазақстанға басып кіруіне сылтау болған оқиға:", a: ["Aтлах шайқасы", "Отырар апаты", "Қалқа шайқасы", "Аңырақай шайқасы"], correct: 1 },
+            { q: "Шыңғыс хан империясы ыдырағаннан кейін Қазақстанның негізгі аумағы қай ұлыстың құрамына кірді?", a: ["Шағатай ұлысы", "Жошы ұлысы (Алтын Орда)", "Үгедей ұлысы", "Төле ұлысы"], correct: 1 },
+            { q: "Ақ Орда мемлекетінің саяси қуатын арттырып, дербестігін бекіткен атақты билеушісі:", a: ["Орыс хан", "Тоқтамыс", "Барақ хан", "Едіге"], correct: 0 },
+            { q: "Моғолстан мемлекетінің бірінші ханы және негізін салушы:", a: ["Тоғылық Темір", "Ілияс Қожа", "Әмір Темір", "Қызыр Қожа"], correct: 0 },
+            { q: "Ноғай Ордасының дербес мемлекет ретінде қалыптасуына негіз қалаған беклербек:", a: ["Ноғай", "Едіге", "Нұрадын", "Мұса мырза"], correct: 1 },
+            { q: "1628-1652 жылдары билік еткен, жоңғарларға қарсы соғыста 'Салқам' лақап атын алған қазақ ханы:", a: ["Жәңгір хан", "Тәуекел хан", "Шығай хан", "Батыр хан"], correct: 0 },
+            { q: "1643 жылы Жәңгір хан 600 сарбазбен жоңғардың 50 мың әскерін тоқтатқан атақты шайқас:", a: ["Бұланты шайқасы", "Орбулақ шайқасы", "Аңырақай шайқасы", "Аягөз соғысы"], correct: 1 },
+            { q: "1726 (немесе 1728) жылы қазақтардың жоңғарларды алғаш рет ірі күйрете жеңген шайқасы:", a: ["Аңырақай шайқасы", "Бұланты шайқасы ('Қалмақ қырылған')", "Аягөз шайқасы", "Шемордан соғысы"], correct: 1 },
+            { q: "Қазақ хандығының Түркістанға дейінгі ең алғашқы ресми астанасы болған қала:", a: ["Сығанақ", "Сауран", "Тараз", "Отырар"], correct: 0 },
+            { q: "Хақназар ханның сыртқы саясаттағы ең үлкен жетістігі қандай болды?", a: ["Ноғай ордасының бір бөлігін және қырғыздарды өзіне бағындырып, шекараны кеңейтуі", "Ресеймен соғыста жеңіске жетуі", "Жоңғарларды толық бағындыруы", "Қытаймен шекара келісімін жасауы"], correct: 0 }
+        ],
 
-        function changeLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('taskflow_lang', lang);
-            document.documentElement.lang = lang;
-            
-            // Перевод статических элементов по дата-атрибуту
-            document.querySelectorAll('[data-i18n]').forEach(elem => {
-                const key = elem.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    elem.innerText = translations[lang][key];
-                }
-            });
+        // Категория 3: Казахстан в составе Российской империи и советский период (30 вопросов)
+        modern: [
+            { q: "Кіші жүз хан Әбілқайырдың Ресей империясының құрамына кіру туралы ант берген жылы:", a: ["1721 жыл", "1731 жыл", "1740 жыл", "1781 жыл"], correct: 1 },
+            { q: "1783-1797 жылдары Кіші жүздегі патша өкіметінің отарлау саясатына қарсы көтерілістің басшысы:", a: ["Сырым Датұлы", "Исатай Тайманов", "Махамбет Өтемісұлы", "Кенесары Қасымұлы"], correct: 0 },
+            { q: "1837-1847 жылдары Қазақстанның барлық өңірін қамтыған ең ірі ұлт-азаттық көтерілістің жетекшісі:", a: ["Сырым Датұлы", "Исатай Тайманов", "Жанқожа Нұрмұхамедұлы", "Кенесары Қасымұлы"], correct: 3 },
+            { q: "Патша өкіметінің қазақ даласындағы хандық билікті жойған реформалық Жарғылары қабылданған жылдар:", a: ["1822 және 1824 жылдар", "1867 және 1868 жылдар", "1891 жыл", "1905 жыл"], correct: 0 },
+            { q: "Қазақтың ұлы ғалымы, Ресей географиялық қоғамының мүшесі болған Орта Азия зерттеушісі:", a: ["Шоқан Уәлиханов", "Ыбырай Алтынсарин", "Абай Құнанбайұлы", "Әлихан Бөкейханов"], correct: 0 },
+            { q: "Ыбырай Алтынсариннің қазақ даласында алғашқы мемлекеттік мектепті ашқан жылы:", a: ["1841 жыл", "1864 жыл", "1879 жыл", "1888 жыл"], correct: 1 },
+            { q: "1916 жылғы қазақ даласындағы ұлт-азаттық көтерілістің тұтануына не себеп болды?", a: ["Салықтардың өсуі", "Майданның қара жұмысына қазақ жастарын алу туралы патша жарлығы", "Жерлерді тартып алу", "Діни қысым"], correct: 1 },
+            { q: "1917 жылы құрылған, қазақ зиялыларының басын қосқан ұлттық-саяси партия:", a: ["Үш жүз", "Алаш", "Шуро-и-Исламия", "Туркестанское руководство"], correct: 1 },
+            { q: "Қазақ Автономиялы Кеңестік Социалистік Республикасы (Қазақ АКСР) құрылған жыл:", a: ["1917 жыл", "1920 жыл", "1925 жыл", "1936 жыл"], correct: 1 },
+            { q: "Қазақстанда Ф. Голощекин жүргізген 'Кіші Қазан' саясаты мен ұжымдастыру салдарынан болған алапат ашаршылық жылдары:", a: ["1917-1918 жылдар", "1921-1922 жылдар", "1931-1933 жылдар", "1946-1947 жылдар"], correct: 2 },
+            { q: "Қазақ КСР-і дербес одақтас республика болып КСРО құрамында қашан бекітілді?", a: ["1920 жыл", "1924 жыл", "1936 жыл", "1945 жыл"], correct: 2 },
+            { q: "Ұлы Отан соғысы жылдарында Мәскеуді қорғауда өшпес ерлік көрсеткен И. Панфилов атындағы дивизия:", a: ["312-ші атқыштар дивизиясы", "316-шы атқыштар дивизиясы", "72-ші гвардиялық дивизия", "314-ші дивизия"], correct: 1 },
+            { q: "Рейхстаг қабырғасына алғашқылардың бірі болып Жеңіс туын тіккен қазақ батыры:", a: ["Бауыржан Момышұлы", "Рақымжан Қошқарбаев", "Талғат Бигелдинов", "Мәлік Ғабдуллин"], correct: 1 },
+            { q: "Семей ядролық полигонында ең алғашқы атомдық бомба сынағы өткізілген жыл:", a: ["1941 жыл", "1949 жыл", "1953 жыл", "1961 жыл"], correct: 1 },
+            { q: "КСРО басшылығының шешімімен Қазақстанда жаппай тың және тыңайған жерлерді игеру басталған жыл:", a: ["1945 жыл", "1954 жыл", "1965 жыл", "1982 жыл"], correct: 1 },
+            { q: "1986 жылы Алматыда болған қазақ жастарының ССРО орталық билігінің өтемдік саясатына қарсы наразылық көтерілісі:", a: ["Шахтерлер ереуілі", "Желтоқсан оқиғасы", "Қарағанды толқуы", "Целиноград наразылығы"], correct: 1 },
+            { q: "М.Сперанскийдің 1822 жылғы Жарғысы бойынша Орта жүзде сот істерін жүргізудің жаңа жүйесі қалай құрылды?", a: ["Байлар соты сақталды", "Округтік приказдар мен аға сұлтандар жүйесі енгізілді", "Әскери губернаторлар бәрін шешті", "Шариғат соты күшейді"], correct: 1 },
+            { q: "1836-1838 жылдары Ішкі Бөкей ордасындағы халық көтерілісінің басты жетекшілері:", a: ["Исатай Тайманов және Махамбет Өтемісұлы", "Сырым Датұлы", "Жанқожа Нұрмұхамедұлы", "Кенесары Қасымұлы"], correct: 0 },
+            { q: "1867-1868 жылдардағы реформа бойынша Қазақстан аумағы неше генерал-губернаторлыққа бөлінді?", a: ["2", "3 (Түркістан, Орынбор, Батыс-Сібір)", "5", "4"], correct: 1 },
+            { q: "Қазақ мерзімді басылымының тарихында ерекше орын алған, 1913-1918 жылдары жарық көрген 'Қазақ' газетінің бас редакторы:", a: ["Әлихан Бөкейханов", "Ахмет Байтұрсынұлы", "Міржақып Дулатұлы", "Мустафа Шоқай"], correct: 1 },
+            { q: "Түркістан автономиясы (Қоқан автономиясы) құрылған жыл және оның жетекшілерінің бірі:", a: ["1917 жыл, Мустафа Шоқай", "1916 жыл, Амангелді Иманов", "1920 жыл, Тұрар Рысқұлов", "1918 жыл, Сәкен Сейфуллин"], correct: 0 },
+            { q: "1920-жылдардың басында Қазақстанда жүргізілген Жаңа Экономикалық Саясаттың (ЖЭС/ЭП) басты жаңалығы:", a: ["Продразверстканы продналогпен (азық-түлік салығы) алмастыру", "Ұжымшарлар құру", "Жеке меншікті толық жою", "Ақшаны айналымнан шығару"], correct: 0 },
+            { q: "Қазақстанның тұңғыш ресми астанасы болған қала (1920-1925 жылдары):", a: ["Орынбор", "Қызылорда", "Алматы", "Семей"], correct: 0 },
+            { q: "1925 жылы Қазақстанның астанасы Орынбордан қай қалаға көшірілді?", a: ["Алматы", "Қызылорда", "Ақмола", "Түркістан"], correct: 1 },
+            { q: "1930-жылдардағы сталиндік саяси қуғын-сүргін құрбандары болған Алаш арыстары атылған негізгі қасіретті орын:", a: ["Жаңалық ауылы (Түймебаев)", "Быковка", "Кендірлік", "Спасск"], correct: 0 },
+            { q: "Ұлы Отан соғысы жылдарында Шығыс халықтарынан шыққан алғашқы Кеңес Одағының Батыры атанған қазақ қыздары:", a: ["Мәншүк Мәметова мен Әлия Молдағұлова", "Хиуаз Доспанова", "Баян Байғожина", "Нұрғаным Байсейітова"], correct: 0 },
+            { q: "Соғыс жылдарында екі мәрте Кеңес Одағының Батыры атағын алған атақты қазақстандық ұшқыш:", a: ["Нұркен Әбдіров", "Талғат Бигелдинов", "Сергей Луганский", "Леонид Беда"], correct: 1 },
+            { q: "1946 жылы құрылған Қазақ ССР Ғылым Академиясының тұңғыш президенті, академик:", a: ["Қаныш Сәтбаев", "Әлкей Марғұлан", "Мұхтар Әуезов", "Халық Мирзалиев"], correct: 0 },
+            { q: "1979 жылы Н. Назарбаев пен қазақ жастарының Целиноградтағы наразылығы неге қарсы бағытталды?", a: ["КСРО-ның Германия автономиясын Қазақстанда құру туралы жоспарына", "Ядролық сынақтарға", "Жалақының төмендеуіне", "Тілді шектеуге"], correct: 0 },
+            { q: "1989 жылы Қазақстанда ядролық сынақтарға қарсы құрылған халықаралық қоғамдық қозғалыс:", a: ["'Невада-Семей' (басшысы О. Сүлейменов)", "'Ақиқат'", "'Желтоқсан қозғалысы'", "'Жасыл әлем'"], correct: 0 }
+        ],
 
-            // Перевод плейсхолдеров
-            const searchInput = document.getElementById('globalSearchInput');
-            if (searchInput) searchInput.placeholder = translations[lang].searchPlaceholder;
-            
-            const fName = document.getElementById('folderNameInput');
-            if (fName) fName.placeholder = lang === 'ru' ? 'например, Высшая математика' : 'мысалы, Жоғары математика';
-            
-            const sName = document.getElementById('sectionNameInput');
-            if (sName) sName.placeholder = lang === 'ru' ? 'например, Лабораторные работы' : 'мысалы, Зертханалық жұмыстар';
+        // Категория 4: Новейшая история и Независимый Казахстан (30 вопросов)
+        contemporary: [
+            { q: "Семей ядролық полигонын жабу туралы Жарлыққа Президент қол қойған нақты күн мен жыл:", a: ["1989 жыл 28 ақпан", "1991 жыл 29 тамыз", "1991 жыл 16 желтоқсан", "1993 жыл 25 қазан"], correct: 1 },
+            { q: "Қазақстан Республикасының Мемлекеттік Тәуелсіздігі туралы Конституциялық Заң қабылданған тарихи күн:", a: ["1990 жыл 25 қазан", "1991 жыл 1 желтоқсан", "1991 жыл 16 желтоқсан", "1992 жыл 4 маусым"], correct: 2 },
+            { q: "Қазақстанның ұлттық валютасы — теңге ресми түрде айналымға енгізілген уақыт:", a: ["1991 жыл 16 желтоқсан", "1993 жыл 15 қараша", "1994 жыл 1 қаңтар", "1995 жыл 30 тамыз"], correct: 1 },
+            { q: "Қазақстан Республикасының қолданыстағы Ата Заңы (Конституциясы) бүкілхалықтық референдумда қабылданған күн:", a: ["1993 жыл 28 қаңтар", "1995 жыл 30 тамыз", "1997 жыл 10 маусым", "1998 жыл 25 қазан"], correct: 1 },
+            { q: "Елорданы Алматы қаласынан Ақмолаға (қазіргі Астана) көшіру туралы ресми шешім толық күшіне енген жыл:", a: ["1995 жыл", "1997 жыл", "1998 жыл", "2000 жыл"], correct: 1 },
+            { q: "Қазақстан Республикасының Біріккен Ұлттар Ұйымына (БҰҰ) толыққанды мүше болып кірген жылы:", a: ["1991 жыл", "1992 жыл 2 наурыз", "1993 жыл 10 тамыз", "1995 жыл"], correct: 1 },
+            { q: "Қазақстаннан ғарышқа ұшқан тұңғыш қазақ ғарышкері, Халық Қаһарманы:", a: ["Тоқтар Әубәкіров (1991 ж.)", "Талғат Мұсабаев", "Айдын Айымбетов", "Владимир Джанибеков"], correct: 0 },
+            { q: "1995 жылы елдегі ұлтаралық келісім мен тұрақтылықты сақтау мақсатында құрылған бірегей институт:", a: ["Қазақстан халқы Ассамблеясы", "Ұлттық Құрылтай", "Қоғамдық палата", "Конституциялық Соғыс"], correct: 0 },
+            { q: "2010 жылы Қазақстан ТМД елдері арасында алғашқы болып қай беделді халықаралық ұйымға төрағалық етті?", a: ["ЕҚЫҰ (ОБСЕ)", "ШЫҰ (ШОС)", "ҰҚШҰ (ОДКБ)", "БҰҰ Қауіпсіздік Кеңесі"], correct: 0 },
+            { q: "Астана қаласында 'Болашақтың энергиясы' ұранымен халықаралық мамандандырылған көрме өткен жыл:", a: ["2011 жыл", "2014 жыл", "2017 жыл (EXPO-2017)", "2020 жыл"], correct: 2 },
+            { q: "1990 жылы 25 қазанда қабылданған, тәуелсіздіке құқықтық негіз қалаған маңызды құжат:", a: ["Мемлекеттік егемендік туралы Декларация", "Тәуелсіздік Заңы", "Алматы Декларациясы", "Адам құқықтарының хартиясы"], correct: 0 },
+            { q: "Қазақстан Республикасының Мемлекеттік рәміздері (Ту, Елтаңба) ресми бекітілген күн мен жыл:", a: ["1991 жыл 16 желтоқсан", "1992 жыл 4 маусым", "1993 жыл 28 қаңтар", "1995 жыл 30 тамыз"], correct: 1 },
+            { q: "Тәуелсіз Қазақстанда нарықтық экономиканы дамыту мақсатында шетелдік инвесторлар тарту үшін ашылған арнайы қаржылық орталық:", a: ["'Астана' халықаралық қаржы орталығы (АХҚО)", "Алматы қор биржасы", "Даму қоры", "Самрук-Қазына"], correct: 0 },
+            { q: "Қазақстан Республикасының Әнұраны (Платиналық нұсқа — 'Менің Қазақстаным') жаңа мәтінмен қашан қабылданды?", a: ["1992 жыл", "2006 жыл қаңтар", "2011 жыл", "2019 жыл"], correct: 1 },
+            { q: "Қазақстанның бастамасымен құрылған, Азиядағы өзара іс-қимыл және сенім шаралары жөніндегі кеңес қысқаша қалай аталады?", a: ["АӨСШК (CICA)", "ШЫҰ", "ЕЭО", "ТҮРКСОЙ"], correct: 0 },
+            { q: "2011 жылы Қазақстанда (Алматы, Астана) өткен ірі спорттық халықаралық шара:", a: ["VІІ Қысқы Азия ойындары (Азиада)", "Олимпиада", "Универсиада 2020", "Әлем чемпионаты"], correct: 0 },
+            { q: "ҚР Президентінің Жарлығымен Шығыс Қазақстан облысының орталығы болып қай қала қайта бекітілді?", a: ["Өскемен", "Семей", "Риддер", "Алтай"], correct: 0 },
+            { q: "2022 жылы Қазақстанда әкімшілік-аумақтық реформа нәтижесінде жаңадан құрылған үш облыс:", a: ["Абай, Жетісу, Ұлытау облыстары", "Түркістан, Кентау, Сауран", "Каспий, Тобыл, Есіл", "Торғай, Көкшетау, Семей"], correct: 0 },
+            { q: "Қазақстан Республикасының Конституциялық Соты өз жұмысын жаңа форматта қашан бастады?", a: ["1995 жыл", "2020 жыл", "2023 жыл 1 қаңтар", "2025 жыл"], correct: 2 },
+            { q: "Шетелде білім алғысы келетін дарынды қазақстандық жастарға арналған халықаралық Президенттік стипендия:", a: ["Болашақ", "Дарын", "Үміт", "Алтын белгі"], correct: 0 },
+            { q: "1991 жылғы 21 желтоқсанда КСРО-ның өмір сүруін ресми тоқтатқан және ТМД-ны құрған тарихи басқосу:", a: ["Алматы кездесуі (Алматы Декларациясы)", "Минск келісімі", "Ашхабад шарты", "Мәскеу протоколы"], correct: 0 },
+            { q: "Қазақстанның ядролық қарудан бас тартқаннан кейін әлемдік державалар (АҚШ, Ресей, Ұлыбритания) берген кепілдігі:", a: ["Будапешт меморандумы (1994 ж.)", "Хельсинки актісі", "Париж хартиясы", "Вашингтон келісімі"], correct: 0 },
+            { q: "Астана қаласында Әлемдік және дәстүрлі діндер лидерлерінің І съезі өткен жыл:", a: ["2003 жыл", "2000 жыл", "2006 жыл", "2010 жыл"], correct: 0 },
+            { q: "Қазақстан Республикасы Түркітілдес мемлекеттердің ынтымақтастық кеңесін (Түркі кеңесі) қай қалада құруға мұрындық болды?", a: ["Нахичевань (2009 ж.)", "Стамбул", "Астана", "Баку"], correct: 0 },
+            { q: "Қазақстанның Каспий теңізінің құқықтық мәртебесі туралы Конвенцияға қолқоқан тарихи жылы мен орны:", a: ["2018 жыл, Ақтау", "2015 жыл, Баку", "2020 жыл, Тегеран", "2012 жыл, Астрахань"], correct: 0 },
+            { q: "Тәуелсіздік жылдарында елдегі тарихи-мәдени ескерткіштерді қалпына келтіру мақсатында қабылданған мемлекеттік бағдарлама:", a: ["'Мәдени мұра' бағдарламасы", "'Рухани жаңғыру'", "'Тарих толқынында'", "'Ана тілі'"], correct: 0 },
+            { q: "ЮНЕСКО-ның бүкіләлемдік мұралар тізіміне Қазақстаннан алғашқы болып енген сәулеттік ескерткіш:", a: ["Қожа Ахмет Ясауи кесенесі", "Айша бибі кесенесі", "Тамғалы петроглифтері", "Бекет ата жерасты мешіті"], correct: 0 },
+            { q: "Қазақстан Республикасы ЮНЕСКО ұйымына ресми мүше болып қабылданған жыл:", a: ["1992 жыл", "1991 жыл", "1995 жыл", "1998 жыл"], correct: 0 },
+            { q: "Қазақстан Республикасының Жоғарғы соты мен құқықтық жүйесіне енгізілген, азаматтардың құқығын қорғайтын халықаралық үлгідегі институт:", a: ["Aдам құқықтары жөніндегі уәкіл (Омбудсмен)", "Адвокаттар алқасы", "Медиаторлар кеңесі", "Прокурорлық қадағалау"], correct: 0 },
+            { q: "Қазақстанда өткен саяси реформалар аясында аудандық маңызы бар қалалар мен ауыл әкімдерін тікелей сайлау қашан басталды?", a: ["2021 жылдан бастап", "2015 жылдан", "2018 жылдан", "2025 жылдан"], correct: 0 }
+        ]
+    };
 
-            const tName = document.getElementById('taskNameInput');
-            if (tName) tName.placeholder = lang === 'ru' ? 'Подготовка к коллоквиуму' : 'Коллоквиумға дайындық';
+    /* ==========================================================================
+       6. РАСШИРЕННАЯ БАЗА СТУДЕНТОВ (30 СТУДЕНТОВ С УНИКАЛЬНЫМИ ПАРОЛЯМИ)
+       ========================================================================== */
+    const studentsDatabase = [
+        { id: "st1", name: "Әлішер Назарбаев", pass: "securePass2026_1" },
+        { id: "st2", name: "Мадина Серікова", pass: "securePass2026_2" },
+        { id: "st3", name: "Руслан Ахметов", pass: "securePass2026_3" },
+        { id: "st4", name: "Aружан Жұмабаева", pass: "securePass2026_4" },
+        { id: "st5", name: "Данияр Исмаилов", pass: "securePass2026_5" },
+        { id: "st6", name: "Диана Саматова", pass: "securePass2026_6" },
+        { id: "st7", name: "Бексұлтан Сұлтанов", pass: "securePass2026_7" },
+        { id: "st8", name: "Айгерім Омарова", pass: "securePass2026_8" },
+        { id: "st9", name: "Нұрсұлтан Әлиев", pass: "securePass2026_9" },
+        { id: "st10", name: "Зарина Каримова", pass: "securePass2026_10" },
+        { id: "st11", name: "Темірлан Төлегенов", pass: "securePass2026_11" },
+        { id: "st12", name: "Малика Кенжеева", pass: "securePass2026_12" },
+        { id: "st13", name: "Абылайхан Төлеген", pass: "securePass2026_13" },
+        { id: "st14", name: "Айша Сұлтанова", pass: "securePass2026_14" },
+        { id: "st15", name: "Ерасыл Мұратұлы", pass: "securePass2026_15" },
+        { id: "st16", name: "Диас Болатов", pass: "securePass2026_16" },
+        { id: "st17", name: "Алина Оспанова", pass: "securePass2026_17" },
+        { id: "st18", name: "Мирас Каримов", pass: "securePass2026_18" },
+        { id: "st19", name: "Жансая Сапарбаева", pass: "securePass2026_19" },
+        { id: "st20", name: "Нұрбек Тұрсын", pass: "securePass2026_20" },
+        { id: "st21", name: "Аружан Бекова", pass: "securePass2026_21" },
+        { id: "st22", name: "Санжар Кәрім", pass: "securePass2026_22" },
+        { id: "st23", name: "Жанель Ахметова", pass: "securePass2026_23" },
+        { id: "st24", name: "Илияс Маратов", pass: "securePass2026_24" },
+        { id: "st25", name: "Камила Нұрланова", pass: "securePass2026_25" },
+        { id: "st26", name: "Бауыржан Садық", pass: "securePass2026_26" },
+        { id: "st27", name: "Аяулым Марат", pass: "securePass2026_27" },
+        { id: "st28", name: "Елдар Ибрагимов", pass: "securePass2026_28" },
+        { id: "st29", name: "Томирис Рахимбаева", pass: "securePass2026_29" },
+        { id: "st30", name: "Рамазан Серік", pass: "securePass2026_30" }
+    ];
 
-            const tDesc = document.getElementById('taskDescInput');
-            if (tDesc) tDesc.placeholder = lang === 'ru' ? 'Прочитать главы 3-5 учебника...' : 'Оқулықтың 3-5 тарауларын оқу...';
+    /* ==========================================================================
+       7. ГЛОБАЛЬНЫЙ СТАТУС СИСТЕМЫ И ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ
+       ========================================================================== */
+    let currentStudentId = "";
+    let targetStudentName = "";
+    let currentFlowIdx = 0;
+    const totalQuestionsAmount = 20; // Итоговый пул теста (по 5 из каждого периода)
+    let activeQuestionsPool = [];
+    let timerRef = null;
+    let remainingTimeSeconds = 300; // 5 минут на тест
+    let violationLogsCounter = 0;
+    const maximumViolationLimit = 7; // Предел нарушений перед авто-дисквалификацией
+    let studentResponseMap = {};
+    let isDisqualifiedFlag = false;
 
-            document.title = translations[lang].appTitle;
+    // Инициализация при старте DOM
+    window.addEventListener('DOMContentLoaded', () => {
+        renderStudentsRoster();
+        refreshDashboardStatuses();
+        calculateGroupAnalytics();
+        checkActiveSessionOnLoad();
+    });
 
-            updateProfileUI();
-            renderContent();
-        }
-
-        // КОРНЕВОЕ СОСТОЯНИЕ ПРИЛОЖЕНИЯ (STATE)
-        let state = JSON.parse(localStorage.getItem('taskflow_state')) || [
-            {
-                id: 'f1',
-                name: currentLang === 'ru' ? 'Высшая математика' : 'Жоғары математика',
-                sections: [
-                    {
-                        id: 's1',
-                        name: currentLang === 'ru' ? 'Лабораторные работы' : 'Зертханалық жұмыстар',
-                        tasks: [
-                            { id: 't1', title: currentLang === 'ru' ? 'Интегральное исчисление ЛР№1' : 'Интегралдық есептеу ЗЖ№1', desc: 'Вариант 4. Сдать до пятницы.', deadline: '2026-06-15', priority: 'high', completed: false },
-                            { id: 't2', title: currentLang === 'ru' ? 'Дифференциальные уравнения ЛР№2' : 'Дифференциалдық теңдеулер ЗЖ№2', desc: 'Теоретические вопросы.', deadline: '', priority: 'medium', completed: true }
-                        ]
-                    }
-                ]
-            }
-        ];
-
-        let profile = JSON.parse(localStorage.getItem('taskflow_profile')) || {
-            name: 'Иван Иванов',
-            role: 'student'
-        };
-
-        let currentView = 'dashboard'; 
-        let currentFilter = 'all'; 
-        let globalSearchQuery = ''; 
-        let confirmationCallback = null; 
-
-        function saveState() {
-            localStorage.setItem('taskflow_state', JSON.stringify(state));
-            updateBadges();
-        }
-
-        function saveProfile() {
-            localStorage.setItem('taskflow_profile', JSON.stringify(profile));
-            updateProfileUI();
-        }
-
-        function updateProfileUI() {
-            document.getElementById('globalUserName').innerText = profile.name;
-            
-            let roleText = translations[currentLang].roleStudent;
-            if (profile.role === 'teacher') roleText = translations[currentLang].roleTeacher;
-            if (profile.role === 'researcher') roleText = translations[currentLang].roleResearcher;
-            
-            document.getElementById('globalUserRole').innerText = roleText;
-            document.getElementById('globalUserAvatar').innerText = profile.name.charAt(0).toUpperCase();
-        }
-
-        function updateBadges() {
-            let allCount = 0;
-            let favCount = 0;
-
-            state.forEach(f => {
-                f.sections.forEach(s => {
-                    s.tasks.forEach(t => {
-                        if (!t.completed) {
-                            allCount++;
-                            if (t.priority === 'high') favCount++;
-                        }
-                    });
-                });
-            });
-
-            document.getElementById('badgeAll').innerText = allCount;
-            document.getElementById('badgeFav').innerText = favCount;
-        }
-
-        function showToast(message, type = 'primary') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast-card ${type}`;
-            toast.innerHTML = `
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                <span>${message}</span>
-            `;
-            container.appendChild(toast);
-            setTimeout(() => { toast.remove(); }, 3500);
-        }
-
-        function openModal(id) {
-            document.getElementById(id).classList.add('is-active');
-        }
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('is-active');
-        }
-
-        function callConfirm(desc, callback) {
-            document.getElementById('confirmModalDesc').innerText = desc;
-            openModal('confirmModal');
-            confirmationCallback = callback;
-        }
-
-        // РЕНДЕРИНГ ИНТЕРФЕЙСА (DASHBOARD / ALL / FAV / ARCHIVE / SETTINGS)
-        function renderContent() {
-            const pool = document.getElementById('mainContentPool');
-            pool.innerHTML = '';
-
-            if (currentView === 'settings') {
-                renderSettingsView(pool);
-                return;
-            }
-
-            // Рендер верхней панели статистики для Dashboard
-            if (currentView === 'dashboard') {
-                renderDashboardHeader(pool);
-            }
-
-            // Рендер строки фильтров и заголовка контента
-            renderFilterAndTitleRow(pool);
-
-            // Фильтрация и рендеринг дерева задач
-            renderDataTree(pool);
-            
-            lucide.createIcons();
-        }
-
-        function renderDashboardHeader(pool) {
-            let total = 0, done = 0;
-            state.forEach(f => f.sections.forEach(s => s.tasks.forEach(t => {
-                total++; if (t.completed) done++;
-            })));
-            const percent = total > 0 ? Math.round((done / total) * 100) : 0;
-
-            const hero = document.createElement('div');
-            hero.className = 'hero-banner';
-            hero.innerHTML = `
-                <div class="hero-text">
-                    <h1>${translations[currentLang].heroWelcome}</h1>
-                    <p>${translations[currentLang].heroDesc}</p>
+    /* --------------------------------------------------------------------------
+       РЕНДЕРИНГ И СТИЛИЗАЦИЯ ИНТЕРФЕЙСА УЧЕНИКОВ
+       -------------------------------------------------------------------------- */
+    function renderStudentsRoster() {
+        const rosterContainer = document.getElementById('students-roster-list');
+        rosterContainer.innerHTML = "";
+        
+        studentsDatabase.forEach(st => {
+            const li = document.createElement('li');
+            li.className = "student-item";
+            li.id = `student-row-${st.id}`;
+            li.innerHTML = `
+                <div class="student-info">
+                    <span class="student-name">${st.name}</span>
+                    <span class="student-status" id="status-${st.id}">Жүктелуде...</span>
                 </div>
-                <button class="btn btn-primary" onclick="openAddFolderModal()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>${translations[currentLang].btnCreateWorkspace}</span>
-                </button>
-            `;
-            pool.appendChild(hero);
-
-            const grid = document.createElement('div');
-            grid.className = 'stats-grid';
-            grid.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">${translations[currentLang].statTotal}</span>
-                        <div class="stat-icon-box total"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path></svg></div>
-                    </div>
-                    <span class="stat-number">${total}</span>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">${translations[currentLang].statDone}</span>
-                        <div class="stat-icon-box done"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"></path></svg></div>
-                    </div>
-                    <span class="stat-number">${done}</span>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">${translations[currentLang].statProgress}</span>
-                        <div class="stat-icon-box percent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg></div>
-                    </div>
-                    <div>
-                        <span class="stat-number">${percent}%</span>
-                        <div class="progress-track"><div class="progress-fill" style="width: ${percent}%"></div></div>
-                    </div>
+                <div class="action-group" id="action-${st.id}">
+                    <input type="password" id="student-pass-${st.id}" placeholder="Құпия сөз">
+                    <button onclick="checkAccessAndStart('${st.id}', '${st.name}', '${st.pass}', 'student-pass-${st.id}')">Тестті Бастау</button>
                 </div>
             `;
-            pool.appendChild(grid);
-        }
-
-        function renderFilterAndTitleRow(pool) {
-            const row = document.createElement('div');
-            row.className = 'filter-bar';
-            
-            let titleText = translations[currentLang].workspaceTitle;
-            if (currentView === 'all') titleText = translations[currentLang].menuAll;
-            if (currentView === 'favorites') titleText = translations[currentLang].menuHigh;
-            if (currentView === 'archive') titleText = translations[currentLang].menuArchive;
-
-            row.innerHTML = `
-                <div class="workspace-title-row" style="margin-bottom:0;">
-                    <h2>${titleText}</h2>
-                </div>
-                <div class="filter-group">
-                    <select class="select-custom" id="viewFilterSelector">
-                        <option value="all" ${currentFilter === 'all'?'selected':''}>${translations[currentLang].filterAll}</option>
-                        <option value="today" ${currentFilter === 'today'?'selected':''}>${translations[currentLang].filterToday}</option>
-                        <option value="week" ${currentFilter === 'week'?'selected':''}>${translations[currentLang].filterWeek}</option>
-                        <option value="overdue" ${currentFilter === 'overdue'?'selected':''}>${translations[currentLang].filterOverdue}</option>
-                    </select>
-                </div>
-            `;
-            pool.appendChild(row);
-
-            document.getElementById('viewFilterSelector').onchange = (e) => {
-                currentFilter = e.target.value;
-                renderContent();
-            };
-        }
-
-        function renderDataTree(pool) {
-            const stack = document.createElement('div');
-            stack.className = 'folders-stack';
-            pool.appendChild(stack);
-
-            let hasData = false;
-
-            state.forEach(folder => {
-                let folderHasVisibleTasks = false;
-                
-                // Проверка на наличие подходящих задач в папке
-                folder.sections.forEach(sec => {
-                    const filtered = sec.tasks.filter(t => matchTaskCriteria(t));
-                    if (filtered.length > 0) folderHasVisibleTasks = true;
-                });
-
-                // Если просматриваем не Панель Управления, то пустые папки не выводим
-                if (currentView !== 'dashboard' && !folderHasVisibleTasks) return;
-
-                hasData = true;
-                const fBox = document.createElement('div');
-                fBox.className = `folder-box ${localStorage.getItem(`f_open_${folder.id}`) === 'true' ? 'is-open' : ''}`;
-                fBox.id = `folder_render_${folder.id}`;
-
-                fBox.innerHTML = `
-                    <div class="folder-trigger" onclick="toggleFolderCollapse('${folder.id}')">
-                        <div class="folder-meta">
-                            <svg width="20" height="20" class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            <svg width="20" height="20" style="color:var(--primary)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                            <span class="folder-name">${folder.name}</span>
-                        </div>
-                        <div class="controls-group" onclick="event.stopPropagation();">
-                            <button class="icon-btn" onclick="openAddSectionModal('${folder.id}')" title="${translations[currentLang].modalSectionAdd}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
-                            <button class="icon-btn" onclick="openEditFolderModal('${folder.id}', '${folder.name}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"></path></svg></button>
-                            <button class="icon-btn danger-hover" onclick="deleteFolder('${folder.id}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
-                        </div>
-                    </div>
-                    <div class="folder-dropzone" id="dropzone_${folder.id}"></div>
-                `;
-
-                stack.appendChild(fBox);
-                const dropzone = fBox.querySelector(`#dropzone_${folder.id}`);
-
-                folder.sections.forEach(section => {
-                    const filteredTasks = section.tasks.filter(t => matchTaskCriteria(t));
-                    if (currentView !== 'dashboard' && filteredTasks.length === 0) return;
-
-                    const sBlock = document.createElement('div');
-                    sBlock.className = 'section-block';
-                    sBlock.innerHTML = `
-                        <div class="section-bar">
-                            <div class="section-identity">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>
-                                <span>${section.name}</span>
-                            </div>
-                            <div class="controls-group">
-                                <button class="icon-btn" onclick="openAddTaskModal('${folder.id}', '${section.id}')" title="${translations[currentLang].modalTaskAdd}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
-                                <button class="icon-btn" onclick="openEditSectionModal('${folder.id}', '${section.id}', '${section.name}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"></path></svg></button>
-                                <button class="icon-btn danger-hover" onclick="deleteSection('${folder.id}', '${section.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
-                            </div>
-                        </div>
-                        <div class="tasks-bundle" id="bundle_${folder.id}_${section.id}"></div>
-                    `;
-
-                    dropzone.appendChild(sBlock);
-                    const bundle = sBlock.querySelector(`#bundle_${folder.id}_${section.id}`);
-
-                    if (filteredTasks.length === 0) {
-                        bundle.innerHTML = `<div class="empty-state">${translations[currentLang].emptyTasks}</div>`;
-                    } else {
-                        filteredTasks.forEach(task => {
-                            const tRow = document.createElement('div');
-                            tRow.className = `task-row ${task.completed ? 'is-completed' : ''}`;
-                            
-                            let pClass = 'priority-low', pText = translations[currentLang].priorityLow;
-                            if (task.priority === 'medium') { pClass = 'priority-medium'; pText = translations[currentLang].priorityMedium; }
-                            if (task.priority === 'high') { pClass = 'priority-high'; pText = translations[currentLang].priorityHigh; }
-
-                            const dateDisplay = task.deadline ? formatDate(task.deadline) : translations[currentLang].noDeadline;
-
-                            tRow.innerHTML = `
-                                <div class="task-interactive" onclick="viewTaskDetails('${folder.id}', '${section.id}', '${task.id}')">
-                                    <div class="checkbox-container" onclick="event.stopPropagation(); toggleTaskComplete('${folder.id}', '${section.id}', '${task.id}')">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    </div>
-                                    <div class="task-details-wrapper">
-                                        <span class="task-title-text">${task.title}</span>
-                                        <div class="task-meta-info">
-                                            <span class="task-date"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>${dateDisplay}</span>
-                                            <span class="badge-priority ${pClass}">${pText}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="controls-group">
-                                    <button class="icon-btn" onclick="openEditTaskModal('${folder.id}', '${section.id}', '${task.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"></path></svg></button>
-                                    <button class="icon-btn danger-hover" onclick="deleteTask('${folder.id}', '${section.id}', '${task.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
-                                </div>
-                            `;
-                            bundle.appendChild(tRow);
-                        });
-                    }
-                });
-            });
-
-            if (!hasData) {
-                stack.innerHTML = `
-                    <div class="empty-state" style="padding: 60px 20px;">
-                        <svg width="40" height="40" style="color:var(--text-ghost); margin-bottom:12px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                        <p>${currentView === 'archive' ? translations[currentLang].emptyArchive : translations[currentLang].emptyView}</p>
-                    </div>
-                `;
-            }
-        }
-
-        function renderSettingsView(pool) {
-            const card = document.createElement('div');
-            card.className = 'settings-view-card';
-            card.innerHTML = `
-                <div>
-                    <h2 class="settings-section-title" style="font-size:20px; margin-bottom:24px;">${translations[currentLang].settingsTitle}</h2>
-                    <div class="profile-settings-flex">
-                        <div class="profile-editable-avatar" id="settingsAvatar">U</div>
-                        <div style="flex:1; display:flex; flex-direction:column; gap:14px;">
-                            <div class="field-box">
-                                <label>${translations[currentLang].labelUserName}</label>
-                                <input type="text" id="settingsNameInput" value="${profile.name}">
-                            </div>
-                            <div class="field-box">
-                                <label>${translations[currentLang].labelUserRole}</label>
-                                <select id="settingsRoleInput">
-                                    <option value="student" ${profile.role==='student'?'selected':''}>${translations[currentLang].roleStudent}</option>
-                                    <option value="teacher" ${profile.role==='teacher'?'selected':''}>${translations[currentLang].roleTeacher}</option>
-                                    <option value="researcher" ${profile.role==='researcher'?'selected':''}>${translations[currentLang].roleResearcher}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="settings-section-title">${translations[currentLang].settingsData}</h3>
-                    <div class="data-management-buttons">
-                        <button class="btn btn-secondary" id="exportDataBtn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                            <span>${translations[currentLang].btnExport}</span>
-                        </button>
-                        <button class="btn btn-secondary" onclick="document.getElementById('importFileHidden').click()">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                            <span>${translations[currentLang].btnImport}</span>
-                        </button>
-                        <input type="file" id="importFileHidden" style="display:none;" accept=".json">
-                    </div>
-                </div>
-            `;
-            pool.appendChild(card);
-
-            // Обработчики изменений профиля
-            const nameIn = card.querySelector('#settingsNameInput');
-            const roleIn = card.querySelector('#settingsRoleInput');
-            
-            const triggerProfileSave = () => {
-                profile.name = nameIn.value.trim() || 'Пользователь';
-                profile.role = roleIn.value;
-                saveProfile();
-                card.querySelector('#settingsAvatar').innerText = profile.name.charAt(0).toUpperCase();
-            };
-
-            nameIn.oninput = triggerProfileSave;
-            roleIn.onchange = triggerProfileSave;
-
-            // Экспорт JSON
-            card.querySelector('#exportDataBtn').onclick = () => {
-                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
-                const downloadAnchor = document.createElement('a');
-                downloadAnchor.setAttribute("href", dataStr);
-                downloadAnchor.setAttribute("download", `taskflow_backup_${new Date().toISOString().slice(0,10)}.json`);
-                document.body.appendChild(downloadAnchor);
-                downloadAnchor.click();
-                downloadAnchor.remove();
-            };
-        }
-
-        // КРИТЕРИИ СОРТИРОВКИ И ПОИСКА ЗАДАЧ
-        function matchTaskCriteria(task) {
-            // Фильтрация по табам бокового меню
-            if (currentView === 'archive' && !task.completed) return false;
-            if (currentView !== 'archive' && task.completed) return false;
-            if (currentView === 'favorites' && task.priority !== 'high') return false;
-
-            // Фильтрация по поисковому запросу
-            if (globalSearchQuery) {
-                const query = globalSearchQuery.toLowerCase();
-                const matchTitle = task.title.toLowerCase().includes(query);
-                const matchDesc = task.desc.toLowerCase().includes(query);
-                if (!matchTitle && !matchDesc) return false;
-            }
-
-            // Фильтрация по выпадающему списку дедлайнов
-            if (currentFilter === 'all') return true;
-            if (!task.deadline) return false;
-
-            const tDate = new Date(task.deadline);
-            tDate.setHours(0,0,0,0);
-            const today = new Date();
-            today.setHours(0,0,0,0);
-
-            if (currentFilter === 'today') {
-                return tDate.getTime() === today.getTime();
-            }
-            if (currentFilter === 'week') {
-                const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-                return tDate >= today && tDate <= nextWeek;
-            }
-            if (currentFilter === 'overdue') {
-                return tDate < today;
-            }
-
-            return true;
-        }
-
-        function toggleFolderCollapse(id) {
-            const fBox = document.getElementById(`folder_render_${id}`);
-            const isOpen = fBox.classList.toggle('is-open');
-            localStorage.setItem(`f_open_${id}`, isOpen);
-        }
-
-        function formatDate(dateStr) {
-            const d = new Date(dateStr);
-            if (isNaN(d.getTime())) return dateStr;
-            return d.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'kk-KZ', { day: 'numeric', month: 'short' });
-        }
-
-        // ОПЕРАЦИИ С ДАННЫМИ (CRUD)
-        let activeFolderId = null, activeSectionId = null, activeTaskId = null;
-
-        function openAddFolderModal() {
-            activeFolderId = null;
-            document.getElementById('folderModalTitle').innerText = translations[currentLang].modalFolderAdd;
-            document.getElementById('folderNameInput').value = '';
-            openModal('folderModal');
-        }
-        function openEditFolderModal(id, currentName) {
-            activeFolderId = id;
-            document.getElementById('folderModalTitle').innerText = translations[currentLang].modalFolderEdit;
-            document.getElementById('folderNameInput').value = currentName;
-            openModal('folderModal');
-        }
-        function deleteFolder(id) {
-            callConfirm(translations[currentLang].confirmDesc, () => {
-                state = state.filter(f => f.id !== id);
-                saveState();
-                renderContent();
-                showToast(translations[currentLang].toastFolderDeleted, 'danger');
-            });
-        }
-
-        function openAddSectionModal(fId) {
-            activeFolderId = fId; activeSectionId = null;
-            document.getElementById('sectionModalTitle').innerText = translations[currentLang].modalSectionAdd;
-            document.getElementById('sectionNameInput').value = '';
-            openModal('sectionModal');
-        }
-        function openEditSectionModal(fId, sId, currentName) {
-            activeFolderId = fId; activeSectionId = sId;
-            document.getElementById('sectionModalTitle').innerText = translations[currentLang].modalSectionEdit;
-            document.getElementById('sectionNameInput').value = currentName;
-            openModal('sectionModal');
-        }
-        function deleteSection(fId, sId) {
-            callConfirm(translations[currentLang].confirmDesc, () => {
-                const f = state.find(folder => folder.id === fId);
-                if (f) f.sections = f.sections.filter(s => s.id !== sId);
-                saveState();
-                renderContent();
-                showToast(translations[currentLang].toastSectionDeleted, 'danger');
-            });
-        }
-
-        function openAddTaskModal(fId, sId) {
-            activeFolderId = fId; activeSectionId = sId; activeTaskId = null;
-            document.getElementById('taskModalTitle').innerText = translations[currentLang].modalTaskAdd;
-            document.getElementById('taskNameInput').value = '';
-            document.getElementById('taskDescInput').value = '';
-            document.getElementById('taskDeadlineInput').value = '';
-            document.getElementById('taskPriorityInput').value = 'medium';
-            openModal('taskModal');
-        }
-        function openEditTaskModal(fId, sId, tId) {
-            activeFolderId = fId; activeSectionId = sId; activeTaskId = tId;
-            const folder = state.find(f => f.id === fId);
-            const section = folder.sections.find(s => s.id === sId);
-            const task = section.tasks.find(t => t.id === tId);
-
-            document.getElementById('taskModalTitle').innerText = translations[currentLang].modalTaskEdit;
-            document.getElementById('taskNameInput').value = task.title;
-            document.getElementById('taskDescInput').value = task.desc;
-            document.getElementById('taskDeadlineInput').value = task.deadline;
-            document.getElementById('taskPriorityInput').value = task.priority;
-            openModal('taskModal');
-        }
-        function deleteTask(fId, sId, tId) {
-            callConfirm(translations[currentLang].confirmDesc, () => {
-                const folder = state.find(f => f.id === fId);
-                const section = folder.sections.find(s => s.id === sId);
-                section.tasks = section.tasks.filter(t => t.id !== tId);
-                saveState();
-                renderContent();
-                showToast(translations[currentLang].toastTaskDeleted, 'danger');
-            });
-        }
-
-        function toggleTaskComplete(fId, sId, tId) {
-            const folder = state.find(f => f.id === fId);
-            const section = folder.sections.find(s => s.id === sId);
-            const task = section.tasks.find(t => t.id === tId);
-            task.completed = !task.completed;
-            saveState();
-            renderContent();
-            showToast(translations[currentLang].toastStateSaved, 'success');
-        }
-
-        function viewTaskDetails(fId, sId, tId) {
-            const folder = state.find(f => f.id === fId);
-            const section = folder.sections.find(s => s.id === sId);
-            const task = section.tasks.find(t => t.id === tId);
-
-            document.getElementById('viewTaskTitle').innerText = task.title;
-            document.getElementById('viewTaskDesc').innerText = task.desc || (currentLang === 'ru' ? 'Описание отсутствует.' : 'Сипаттамасы жоқ.');
-            document.getElementById('viewTaskDate').innerText = task.deadline ? formatDate(task.deadline) : translations[currentLang].noDeadline;
-
-            let pClass = 'priority-low', pText = translations[currentLang].priorityLow;
-            if (task.priority === 'medium') { pClass = 'priority-medium'; pText = translations[currentLang].priorityMedium; }
-            if (task.priority === 'high') { pClass = 'priority-high'; pText = translations[currentLang].priorityHigh; }
-
-            document.getElementById('viewTaskPriorityBadge').className = `badge-priority ${pClass}`;
-            document.getElementById('viewTaskPriorityBadge').innerText = pText;
-
-            openModal('taskViewModal');
-        }
-
-        // ИНИЦИАЛИЗАЦИЯ СЛУШАТЕЛЕЙ И НАСТРОЕК
-        function initTheme() {
-            const savedTheme = localStorage.getItem('taskflow_theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-        }
-
-        function updateThemeIcon(theme) {
-            const btn = document.getElementById('themeToggleBtn');
-            if (theme === 'dark') {
-                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-            } else {
-                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
-            }
-        }
-
-        function initGlobalListeners() {
-            // Выбор языка
-            const langSel = document.getElementById('langSelector');
-            langSel.value = currentLang;
-            langSel.onchange = (e) => changeLanguage(e.target.value);
-
-            // Переключение тем оформления
-            document.getElementById('themeToggleBtn').onclick = () => {
-                const current = document.documentElement.getAttribute('data-theme');
-                const target = current === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', target);
-                localStorage.setItem('taskflow_theme', target);
-                updateThemeIcon(target);
-            };
-
-            // Мобильная адаптация меню
-            const sidebar = document.getElementById('appSidebar');
-            document.getElementById('openSidebarBtn').onclick = () => {
-                sidebar.classList.add('is-mobile-open');
-                document.body.classList.add('sidebar-active');
-            };
-            const closeMenu = () => {
-                sidebar.classList.remove('is-mobile-open');
-                document.body.classList.remove('sidebar-active');
-            };
-            document.getElementById('closeSidebarBtn').onclick = closeMenu;
-            document.getElementById('sidebarBackdrop').onclick = closeMenu;
-
-            // Навигация бокового меню
-            document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
-                item.onclick = (e) => {
-                    document.querySelectorAll('.sidebar-nav .nav-item').forEach(i => i.classList.remove('active'));
-                    const target = e.currentTarget;
-                    target.classList.add('active');
-                    currentView = target.getAttribute('data-view');
-                    closeMenu();
-                    renderContent();
-                };
-            });
-
-            // Подтверждение диалога удаления
-            document.getElementById('confirmCancelBtn').onclick = () => closeModal('confirmModal');
-            document.getElementById('confirmSuccessBtn').onclick = () => {
-                if (confirmationCallback) confirmationCallback();
-                closeModal('confirmModal');
-            };
-
-            // Сохранение папки (дисциплины)
-            document.getElementById('saveFolderBtn').onclick = () => {
-                const name = document.getElementById('folderNameInput').value.trim();
-                if (!name) return;
-
-                if (activeFolderId) {
-                    const f = state.find(folder => folder.id === activeFolderId);
-                    f.name = name;
-                    showToast(translations[currentLang].toastFolderUpdated, 'success');
-                } else {
-                    state.push({ id: 'f_' + Date.now(), name: name, sections: [] });
-                    showToast(translations[currentLang].toastFolderCreated, 'success');
-                }
-                saveState(); closeModal('folderModal'); renderContent();
-            };
-
-            // Сохранение секции этапа
-            document.getElementById('saveSectionBtn').onclick = () => {
-                const name = document.getElementById('sectionNameInput').value.trim();
-                if (!name) return;
-
-                const folder = state.find(f => f.id === activeFolderId);
-                if (activeSectionId) {
-                    const s = folder.sections.find(sec => sec.id === activeSectionId);
-                    s.name = name;
-                    showToast(translations[currentLang].toastSectionUpdated, 'success');
-                } else {
-                    folder.sections.push({ id: 's_' + Date.now(), name: name, tasks: [] });
-                    localStorage.setItem(`f_open_${activeFolderId}`, 'true');
-                    showToast(translations[currentLang].toastSectionCreated, 'success');
-                }
-                saveState(); closeModal('sectionModal'); renderContent();
-            };
-
-            // Сохранение учебной задачи
-            document.getElementById('saveTaskBtn').onclick = () => {
-                const title = document.getElementById('taskNameInput').value.trim();
-                const desc = document.getElementById('taskDescInput').value.trim();
-                const deadline = document.getElementById('taskDeadlineInput').value;
-                const priority = document.getElementById('taskPriorityInput').value;
-                if (!title) return;
-
-                const folder = state.find(f => f.id === activeFolderId);
-                const section = folder.sections.find(s => s.id === activeSectionId);
-
-                if (activeTaskId) {
-                    const t = section.tasks.find(task => task.id === activeTaskId);
-                    t.title = title; t.desc = desc; t.deadline = deadline; t.priority = priority;
-                    showToast(translations[currentLang].toastTaskUpdated, 'success');
-                } else {
-                    section.tasks.push({ id: 't_' + Date.now(), title, desc, deadline, priority, completed: false });
-                    showToast(translations[currentLang].toastTaskCreated, 'success');
-                }
-                saveState(); closeModal('taskModal'); renderContent();
-            };
-
-            // Глобальный поиск
-            document.getElementById('globalSearchInput').oninput = (e) => {
-                globalSearchQuery = e.target.value;
-                renderContent();
-            };
-
-            // Импорт бэкапа JSON
-            document.getElementById('importFileHidden').onchange = (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    try {
-                        const importedData = JSON.parse(event.target.result);
-                        if (Array.isArray(importedData)) {
-                            state = importedData;
-                            saveState();
-                            showToast(translations[currentLang].toastBackupSuccess, 'success');
-                            document.querySelector('[data-view="dashboard"]').click();
-                        } else {
-                            showToast(translations[currentLang].toastJSONError, 'danger');
-                        }
-                    } catch (err) {
-                        showToast(translations[currentLang].toastReadError, 'danger');
-                    }
-                };
-                reader.readAsText(file);
-            };
-        }
-
-        // Инициализация при старте приложения
-        window.addEventListener('DOMContentLoaded', () => {
-            initTheme();
-            changeLanguage(currentLang);
-            initGlobalListeners();
+            rosterContainer.appendChild(li);
         });
-    </script>
+    }
+
+    /* --------------------------------------------------------------------------
+       ОБНОВЛЕНИЕ СТАТУСОВ НА ГЛАВНОЙ ПАНЕЛИ И ПРОВЕРКА БЛОКИРОВОК
+       -------------------------------------------------------------------------- */
+    function refreshDashboardStatuses() {
+        studentsDatabase.forEach(st => {
+            const statusEl = document.getElementById(`status-${st.id}`);
+            const actionEl = document.getElementById(`action-${st.id}`);
+            const savedResult = localStorage.getItem(`result_${st.id}`);
+
+            if (savedResult) {
+                const res = JSON.parse(savedResult);
+                if (res.isDisqualified) {
+                    if (statusEl) {
+                        statusEl.className = "student-status status-disqualified";
+                        statusEl.innerText = "Шеттетілді (DISQUALIFIED) • Ереже бұзғаны үшін бұғатталған!";
+                    }
+                    if (actionEl) {
+                        actionEl.innerHTML = `<button class="btn-danger" onclick="viewSavedReport('${st.id}')">Хаттаманы Көру</button>`;
+                    }
+                } else {
+                    if (statusEl) {
+                        statusEl.className = "student-status status-passed";
+                        statusEl.innerText = `Тапсырылды. Нәтижесі: ${res.percent}% (${res.correct}/${res.total}).`;
+                    }
+                    if (actionEl) {
+                        actionEl.innerHTML = `<button class="btn-secondary" onclick="viewSavedReport('${st.id}')">Нәтижені Көру</button>`;
+                    }
+                }
+            } else {
+                if (statusEl) {
+                    statusEl.className = "student-status status-ready";
+                    statusEl.innerText = "Күйі: Дайын • Мониторинг күтуде";
+                }
+            }
+        });
+    }
+
+    /* --------------------------------------------------------------------------
+       МОДУЛЬ АДМИНИСТРАТИВНОЙ АНАЛИТИКИ (КУРАТОРСКИЙ КОНТРОЛЬ)
+       -------------------------------------------------------------------------- */
+    function calculateGroupAnalytics() {
+        let totalCount = studentsDatabase.length;
+        let passedCount = 0;
+        let disqCount = 0;
+        let cumulativePercentage = 0;
+
+        studentsDatabase.forEach(st => {
+            const dataStr = localStorage.getItem(`result_${st.id}`);
+            if (dataStr) {
+                passedCount++;
+                const res = JSON.parse(dataStr);
+                if (res.isDisqualified) {
+                    disqCount++;
+                } else {
+                    cumulativePercentage += res.percent;
+                }
+            }
+        });
+
+        let avg = passedCount > 0 ? Math.round(cumulativePercentage / (passedCount - disqCount || 1)) : 0;
+
+        document.getElementById('stat-total-students').innerText = totalCount;
+        document.getElementById('stat-passed-count').innerText = passedCount;
+        document.getElementById('stat-average-percent').innerText = `${avg}%`;
+        document.getElementById('stat-disq-count').innerText = disqCount;
+    }
+
+    function toggleAdminPanel() {
+        const panel = document.getElementById('admin-analytics-section');
+        panel.classList.toggle('hidden');
+        calculateGroupAnalytics();
+    }
+
+    function resetAllGlobalData() {
+        if (confirm("Ескерту! Барлық студенттердің тест нәтижелері мен жазбалары толығымен жойылады. Жалғастырамыз ба?")) {
+            localStorage.clear();
+            renderStudentsRoster();
+            refreshDashboardStatuses();
+            calculateGroupAnalytics();
+            alert("Жүйе жады толығымен тазартылды.");
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       ДВИЖОК РАНДОМИЗАЦИИ ВОПРОСОВ (ИНТЕЛЛЕКТУАЛЬНЫЙ БАЛАНС)
+       -------------------------------------------------------------------------- */
+    function compileBalancedQuestionsPool() {
+        // Извлекаем ровно по 5 случайных вопросов из каждой эпохи базы данных
+        let p1 = [...macroQuestionsDatabase.ancient].sort(() => 0.5 - Math.random()).slice(0, 5);
+        let p2 = [...macroQuestionsDatabase.medieval].sort(() => 0.5 - Math.random()).slice(0, 5);
+        let p3 = [...macroQuestionsDatabase.modern].sort(() => 0.5 - Math.random()).slice(0, 5);
+        let p4 = [...macroQuestionsDatabase.contemporary].sort(() => 0.5 - Math.random()).slice(0, 5);
+        
+        // Объединяем и делаем финальный перемес структуры пула
+        activeQuestionsPool = [...p1, ...p2, ...p3, ...p4].sort(() => 0.5 - Math.random());
+    }
+
+    /* --------------------------------------------------------------------------
+       АВТОРИЗАЦИЯ И СТАРТ ТЕСТОВОЙ СЕССИИ
+       -------------------------------------------------------------------------- */
+    function checkAccessAndStart(id, name, correctPass, fieldId) {
+        if (localStorage.getItem(`result_${id}`)) {
+            alert("Бұл студент тестілеуден өткен! Қайта тапсыруға рұқсат жоқ.");
+            return;
+        }
+
+        const passInput = document.getElementById(fieldId);
+        if (passInput && passInput.value === correctPass) {
+            currentStudentId = id;
+            targetStudentName = name;
+            passInput.value = "";
+            
+            localStorage.setItem('active_student_id', id);
+            
+            // Настройка дефолтных параметров новой сессии
+            currentFlowIdx = 0;
+            remainingTimeSeconds = 300;
+            violationLogsCounter = 0;
+            isDisqualifiedFlag = false;
+            studentResponseMap = {};
+            
+            compileBalancedQuestionsPool();
+            
+            document.getElementById('dashboard-section').classList.add('hidden');
+            document.getElementById('admin-analytics-section').classList.add('hidden');
+            document.getElementById('quiz-section').classList.remove('hidden');
+            document.getElementById('quiz-student-title').innerText = `Сыналушы профилі: ${targetStudentName}`;
+            document.getElementById('system-proctoring-logs').innerHTML = `<p>[${getCurrentTimeStr()}] Қорғалған сессия сәтті ашылды. Автоматты бақылау іске қосылды.</p>`;
+
+            buildQuestionsDOM();
+            buildDotsDOM();
+            showQuestionCard(currentFlowIdx);
+            runCountdownClock();
+            applyAntiCopyFilters();
+            saveCurrentStateToCache();
+        } else {
+            alert("Құпия сөз қате енгізілді. Қайта тексеріңіз!");
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       АНТИ-КОЛАПС ДВИЖОК (ПРОЦЕДУРА ВОССТАНОВЛЕНИЯ ИЗ КЭША БРАУЗЕРА)
+       -------------------------------------------------------------------------- */
+    function checkActiveSessionOnLoad() {
+        const activeId = localStorage.getItem('active_student_id');
+        if (activeId) {
+            const savedState = localStorage.getItem(`session_state_${activeId}`);
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                currentStudentId = activeId;
+                targetStudentName = state.name;
+                currentFlowIdx = state.currentIdx;
+                remainingTimeSeconds = state.timeLeft;
+                violationLogsCounter = state.violations;
+                studentResponseMap = state.answers;
+                activeQuestionsPool = state.pool || [];
+                isDisqualifiedFlag = state.isDisqualified || false;
+
+                if (activeQuestionsPool.length === 0) {
+                    compileBalancedQuestionsPool();
+                }
+
+                document.getElementById('dashboard-section').classList.add('hidden');
+                document.getElementById('admin-analytics-section').classList.add('hidden');
+                document.getElementById('quiz-section').classList.remove('hidden');
+                document.getElementById('quiz-student-title').innerText = `Сыналушы профилі: ${targetStudentName} (Жадыдан қалпына келтірілді)`;
+                
+                buildQuestionsDOM();
+                buildDotsDOM();
+                showQuestionCard(currentFlowIdx);
+                
+                // Восстановление выбранных ранее радио-кнопок
+                Object.keys(studentResponseMap).forEach(qIdx => {
+                    const oIdx = studentResponseMap[qIdx];
+                    const radio = document.getElementById(`secure_opt_${qIdx}_${oIdx}`);
+                    if (radio) {
+                        radio.checked = true;
+                        radio.closest('.option-item').classList.add('selected');
+                    }
+                });
+
+                document.getElementById('system-proctoring-logs').innerHTML = localStorage.getItem(`logs_${activeId}`) || "";
+
+                runCountdownClock();
+                applyAntiCopyFilters();
+                logProctoringEvent("Жүйелік хабарлама: Веб-парақшаның күйі локалды кэштен автоматты түрде қалпына келтірілді.");
+            }
+        }
+    }
+
+    function saveCurrentStateToCache() {
+        if (!currentStudentId) return;
+        const state = {
+            name: targetStudentName,
+            currentIdx: currentFlowIdx,
+            timeLeft: remainingTimeSeconds,
+            violations: violationLogsCounter,
+            answers: studentResponseMap,
+            pool: activeQuestionsPool,
+            isDisqualified: isDisqualifiedFlag
+        };
+        localStorage.setItem(`session_state_${currentStudentId}`, JSON.stringify(state));
+        localStorage.setItem(`logs_${currentStudentId}`, document.getElementById('system-proctoring-logs').innerHTML);
+    }
+
+    /* --------------------------------------------------------------------------
+       ДИНАМИЧЕСКАЯ ГЕНЕРАЦИЯ ОБЪЕКТОВ DOM ДЛЯ ТЕСТА
+       -------------------------------------------------------------------------- */
+    function buildQuestionsDOM() {
+        const holder = document.getElementById('quiz-flow-holder');
+        holder.innerHTML = "";
+        
+        activeQuestionsPool.forEach((item, qIdx) => {
+            let optionsMarkup = "";
+            item.a.forEach((optText, oIdx) => {
+                optionsMarkup += `
+                    <label class="option-item" id="label_box_${qIdx}_${oIdx}" onclick="registerAnswer(${qIdx}, ${oIdx})">
+                        <input type="radio" name="secure_q_group_${qIdx}" id="secure_opt_${qIdx}_${oIdx}" value="${oIdx}">
+                        <span>${optText}</span>
+                    </label>
+                `;
+            });
+            const card = document.createElement('div');
+            card.className = "question-card";
+            card.id = `secure-card-${qIdx}`;
+            card.innerHTML = `
+                <div class="question-text">${qIdx + 1}. ${item.q}</div>
+                <div class="options-list">${optionsMarkup}</div>
+            `;
+            holder.appendChild(card);
+        });
+    }
+
+    function buildDotsDOM() {
+        const dotsBar = document.getElementById('dots-bar-holder');
+        dotsBar.innerHTML = "";
+        for (let i = 0; i < totalQuestionsAmount; i++) {
+            const dot = document.createElement('span');
+            dot.className = "dot";
+            dot.id = `secure-dot-${i}`;
+            dot.innerText = i + 1;
+            dot.onclick = () => {
+                const oldDot = document.getElementById(`secure-dot-${currentFlowIdx}`);
+                if (oldDot && !oldDot.classList.contains('filled')) {
+                    oldDot.classList.add('visited');
+                }
+                currentFlowIdx = i;
+                showQuestionCard(currentFlowIdx);
+                saveCurrentStateToCache();
+            };
+            dotsBar.appendChild(dot);
+        }
+    }
+
+    function showQuestionCard(index) {
+        for (let i = 0; i < totalQuestionsAmount; i++) {
+            const cardEl = document.getElementById('secure-card-' + i);
+            if (cardEl) cardEl.classList.remove('active');
+            
+            const dotEl = document.getElementById('secure-dot-' + i);
+            if (dotEl) {
+                dotEl.classList.remove('active');
+                if (studentResponseMap[i] !== undefined) {
+                    dotEl.classList.add('filled');
+                }
+            }
+        }
+        
+        const currentCard = document.getElementById('secure-card-' + index);
+        if (currentCard) currentCard.classList.add('active');
+        
+        const currentDot = document.getElementById('secure-dot-' + index);
+        if (currentDot) {
+            currentDot.classList.remove('visited');
+            currentDot.classList.add('active');
+        }
+
+        document.getElementById('nav-btn-prev').disabled = (index === 0);
+        
+        if (index === totalQuestionsAmount - 1) {
+            document.getElementById('nav-btn-next').classList.add('hidden');
+            document.getElementById('nav-btn-finish').classList.remove('hidden');
+        } else {
+            document.getElementById('nav-btn-next').classList.remove('hidden');
+            document.getElementById('nav-btn-finish').classList.add('hidden');
+        }
+    }
+
+    function changeQuestion(step) {
+        const oldDot = document.getElementById(`secure-dot-${currentFlowIdx}`);
+        if (oldDot && !oldDot.classList.contains('filled')) {
+            oldDot.classList.add('visited');
+        }
+
+        let nextIdx = currentFlowIdx + step;
+        if (nextIdx >= 0 && nextIdx < totalQuestionsAmount) {
+            currentFlowIdx = nextIdx;
+            showQuestionCard(currentFlowIdx);
+            saveCurrentStateToCache();
+        }
+    }
+
+    function registerAnswer(qIdx, oIdx) {
+        studentResponseMap[qIdx] = oIdx;
+        
+        for (let i = 0; i < 4; i++) {
+            const lbl = document.getElementById(`label_box_${qIdx}_${i}`);
+            if (lbl) lbl.classList.remove('selected');
+        }
+        
+        const activeLabel = document.getElementById(`label_box_${qIdx}_${oIdx}`);
+        if (activeLabel) activeLabel.classList.add('selected');
+
+        const dot = document.getElementById(`secure-dot-${qIdx}`);
+        if (dot) {
+            dot.classList.remove('visited');
+            dot.classList.add('filled');
+        }
+        saveCurrentStateToCache();
+    }
+
+    /* --------------------------------------------------------------------------
+       ВЫЧИСЛИТЕЛЬНЫЙ ТАЙМЕР ОБРАТНОГО ОТСЧЕТА
+       -------------------------------------------------------------------------- */
+    function runCountdownClock() {
+        if (timerRef) clearInterval(timerRef);
+        timerRef = setInterval(() => {
+            remainingTimeSeconds--;
+            let mins = Math.floor(remainingTimeSeconds / 60);
+            let secs = remainingTimeSeconds % 60;
+            document.getElementById('timer').innerText = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+            if (remainingTimeSeconds % 4 === 0) {
+                saveCurrentStateToCache();
+            }
+
+            if (remainingTimeSeconds <= 0) {
+                clearInterval(timerRef);
+                logProctoringEvent("Уақыт бітті! Тест сессиясы автоматты түрде қорытындыланды.");
+                executeForcedTermination(false);
+            }
+        }, 1000);
+    }
+
+    /* --------------------------------------------------------------------------
+       ПАКЕТ СТРОГОГО ПРОКТОРИНГА И ДЕТЕКЦИИ НАРУШЕНИЙ (ANTI-CHEAT)
+       -------------------------------------------------------------------------- */
+    function applyAntiCopyFilters() {
+        window.addEventListener('keydown', suppressKeyboardShortcuts, true);
+        document.addEventListener('visibilitychange', checkTabTampering, true);
+        window.addEventListener('blur', checkWindowFocusLoss, true);
+    }
+
+    function removeAntiCopyFilters() {
+        window.removeEventListener('keydown', suppressKeyboardShortcuts, true);
+        document.removeEventListener('visibilitychange', checkTabTampering, true);
+        window.removeEventListener('blur', checkWindowFocusLoss, true);
+    }
+
+    function suppressKeyboardShortcuts(e) {
+        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 70)) {
+            e.preventDefault();
+            e.stopPropagation();
+            logProctoringEvent("ҚАУІП: Жүйелік пернелерді қолдану арқылы ақпарат көшіру/іздеу әрекеті бұғатталды!");
+            return false;
+        }
+        if (e.keyCode === 123) {
+            e.preventDefault();
+            e.stopPropagation();
+            logProctoringEvent("ҚАУІП: Әзірлеуші консолін (F12) іске қосу әрекеті анықталды!");
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+            e.preventDefault();
+            e.stopPropagation();
+            logProctoringEvent("ҚАУІП: Браузер инспекторын ашу әрекеті тоқтатылды!");
+            return false;
+        }
+    }
+
+    function checkTabTampering() {
+        if (document.hidden) {
+            logProctoringEvent("ЕРЕЖЕ БҰЗУ: Пайдаланушы басқа вкладкаға немесе сыртқы терезеге ауысты!");
+        }
+    }
+
+    function checkWindowFocusLoss() {
+        logProctoringEvent("ЕСКЕРТУ: Браузер терезесінен фокус жоғалды (экранды бөлу немесе хабарлама ашу әрекеті)!");
+    }
+
+    function logProctoringEvent(msg) {
+        violationLogsCounter++;
+        
+        document.body.classList.add('cheat-detected-flash');
+        setTimeout(() => document.body.classList.remove('cheat-detected-flash'), 600);
+
+        const logBox = document.getElementById('system-proctoring-logs');
+        if (logBox) {
+            const p = document.createElement('p');
+            p.style.color = "#f87171";
+            p.style.marginBottom = "5px";
+            p.style.borderLeft = "3px solid #dc2626";
+            p.style.paddingLeft = "8px";
+            p.innerText = `[${getCurrentTimeStr()}] ${msg}`;
+            logBox.appendChild(p);
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        if (violationLogsCounter >= maximumViolationLimit) {
+            isDisqualifiedFlag = true;
+            saveCurrentStateToCache();
+            executeForcedTermination(true);
+        } else {
+            saveCurrentStateToCache();
+        }
+    }
+
+    function getCurrentTimeStr() {
+        return new Date().toTimeString().split(' ')[0];
+    }
+
+    /* --------------------------------------------------------------------------
+       ОКОНЧАТЕЛЬНЫЙ РАСЧЕТ И ИЗВЛЕЧЕНИЕ МЕТРИК УСПЕВАЕМОСТИ
+       -------------------------------------------------------------------------- */
+    function confirmAndSubmitQuiz() {
+        let answeredCount = Object.keys(studentResponseMap).length;
+        let warningText = "Тестті аяқтауды растайсыз ба?";
+        if (answeredCount < totalQuestionsAmount) {
+            warningText = `Сіз ${totalQuestionsAmount} сұрақтың тек ${answeredCount}-не жауап бердіңіз. Тестті түпкілікті аяқтаймыз ба?`;
+        }
+        
+        if (confirm(warningText)) {
+            executeForcedTermination(false);
+        }
+    }
+
+    function executeForcedTermination(byDisqualification = false) {
+        if (timerRef) clearInterval(timerRef);
+        removeAntiCopyFilters();
+
+        let correctCount = 0;
+        let percentage = 0;
+
+        if (!byDisqualification && !isDisqualifiedFlag) {
+            activeQuestionsPool.forEach((q, i) => {
+                if (studentResponseMap[i] !== undefined && parseInt(studentResponseMap[i]) === q.correct) {
+                    correctCount++;
+                }
+            });
+            percentage = Math.round((correctCount / totalQuestionsAmount) * 100);
+        } else {
+            correctCount = 0;
+            percentage = 0;
+            isDisqualifiedFlag = true;
+        }
+
+        const finalResult = {
+            name: targetStudentName,
+            total: totalQuestionsAmount,
+            correct: correctCount,
+            percent: percentage,
+            violations: violationLogsCounter,
+            isDisqualified: isDisqualifiedFlag,
+            logs: document.getElementById('system-proctoring-logs').innerHTML,
+            answers: studentResponseMap, // Сохраняем ответы
+            pool: activeQuestionsPool      // Сохраняем слепок выданных вопросов
+        };
+
+        localStorage.setItem(`result_${currentStudentId}`, JSON.stringify(finalResult));
+        
+        localStorage.removeItem('active_student_id');
+        localStorage.removeItem(`session_state_${currentStudentId}`);
+
+        displayReportOutput(finalResult);
+        refreshDashboardStatuses();
+        calculateGroupAnalytics();
+    }
+
+    /* --------------------------------------------------------------------------
+       МОДУЛЬ ОТОБРАЖЕНИЯ ПРАВИЛЬНЫХ И НЕПРАВИЛЬНЫХ ОТВЕТОВ (РАЗБОР ОШИБОК)
+       -------------------------------------------------------------------------- */
+    function buildReviewAnswersUI(data) {
+        const reviewContainer = document.getElementById('answers-review-list-holder');
+        const reviewBlock = document.getElementById('review-answers-block');
+        reviewContainer.innerHTML = "";
+
+        // Если студент дисквалифицирован, скрываем разбор полетов в целях безопасности
+        if (data.isDisqualified) {
+            reviewBlock.classList.add('hidden');
+            return;
+        }
+        
+        reviewBlock.classList.remove('hidden');
+
+        data.pool.forEach((item, qIdx) => {
+            const studentAns = data.answers[qIdx]; // Индекс ответа студента
+            const correctAns = item.correct;       // Индекс истинно верного ответа
+
+            const reviewCard = document.createElement('div');
+            reviewCard.className = "review-card";
+
+            let optionsMarkup = "";
+            item.a.forEach((optText, oIdx) => {
+                let statusClass = "";
+                let badgeMarkup = "";
+
+                if (oIdx === correctAns) {
+                    // Это правильный ответ в базе данных
+                    statusClass = "correct-match";
+                    badgeMarkup = `<span class="review-badge correct">Дұрыс жауап</span>`;
+                } else if (studentAns !== undefined && oIdx === parseInt(studentAns) && studentAns !== correctAns) {
+                    // Студент выбрал этот вариант, но он ошибочный
+                    statusClass = "wrong-match";
+                    badgeMarkup = `<span class="review-badge wrong">Сіздің қатеңіз</span>`;
+                }
+
+                optionsMarkup += `
+                    <div class="review-opt-item ${statusClass}">
+                        <span>${optText}</span>
+                        ${badgeMarkup}
+                    </div>
+                `;
+            });
+
+            // Определяем заголовок карточки (верно/неверно/пропущено)
+            let questionIndicator = "";
+            if (studentAns === undefined) {
+                questionIndicator = `<span style="color: #6b7280; font-weight: normal;">(Жауап берілмеді)</span>`;
+            } else if (parseInt(studentAns) === correctAns) {
+                questionIndicator = `<span style="color: #10b981;">✅ Жауап дұрыс</span>`;
+            } else {
+                questionIndicator = `<span style="color: #ef4444;">❌ Қате жазылды</span>`;
+            }
+
+            reviewCard.innerHTML = `
+                <div class="review-question">
+                    ${qIdx + 1}. ${item.q} ${questionIndicator}
+                </div>
+                <div class="review-options">
+                    ${optionsMarkup}
+                </div>
+            `;
+            reviewContainer.appendChild(reviewCard);
+        });
+    }
+
+    function displayReportOutput(data) {
+        document.getElementById('rep-student-name').innerText = data.name;
+        document.getElementById('rep-total-q').innerText = `${data.total} сұрақ`;
+        document.getElementById('rep-correct-q').innerText = `${data.correct} дұрыс жауап`;
+        document.getElementById('rep-percentage').innerText = `${data.percent}%`;
+        document.getElementById('rep-violations-count').innerText = `${data.violations} рет`;
+        document.getElementById('system-proctoring-logs').innerHTML = data.logs;
+
+        const statusField = document.getElementById('rep-final-status');
+        if (data.isDisqualified) {
+            statusField.innerText = "ШЕТТЕТІЛДІ (DISQUALIFIED)";
+            statusField.style.color = "#dc2626";
+        } else {
+            statusField.innerText = "СӘТТІ АЯҚТАЛДЫ";
+            statusField.style.color = "#059669";
+        }
+
+        // Запуск генератора разбора правильных ответов
+        buildReviewAnswersUI(data);
+
+        document.getElementById('quiz-section').classList.add('hidden');
+        document.getElementById('report-section').classList.remove('hidden');
+    }
+
+    function viewSavedReport(id) {
+        const data = JSON.parse(localStorage.getItem(`result_${id}`));
+        if (data) {
+            displayReportOutput(data);
+            document.getElementById('dashboard-section').classList.add('hidden');
+            document.getElementById('admin-analytics-section').classList.add('hidden');
+        }
+    }
+
+    function goToMainDashboard() {
+        document.getElementById('report-section').classList.add('hidden');
+        document.getElementById('dashboard-section').classList.remove('hidden');
+        calculateGroupAnalytics();
+    }
+</script>
+
 </body>
 </html>
