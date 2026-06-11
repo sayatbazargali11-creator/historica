@@ -27,7 +27,7 @@
             background-color: #fafafa;
             color: #1a1a1a;
             line-height: 1.6;
-            padding: 20px 10px; /* Уменьшено для мобильных экранов */
+            padding: 20px 10px; /* Уменьшено для mobile */
             transition: background-color 0.3s ease;
         }
 
@@ -45,14 +45,14 @@
         }
 
         header img {
-            max-width: 160px; /* Чуть компактнее на мобильных */
+            max-width: 160px;
             height: auto;
             margin-bottom: 10px;
             pointer-events: none;
         }
 
         header h1 {
-            font-size: 22px; /* Адаптивный размер */
+            font-size: 22px;
             font-weight: 300;
             letter-spacing: 1px;
             color: #000000;
@@ -69,7 +69,7 @@
             background: #ffffff;
             border: 1px solid #eef0f2;
             border-radius: 12px;
-            padding: 20px; /* Уменьшено с 40px для экономии места */
+            padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
             animation: fadeInUp 0.5s ease-out;
@@ -78,7 +78,7 @@
         }
 
         h2 {
-            font-size: 18px; /* Компактнее для мобильных */
+            font-size: 18px;
             font-weight: 400;
             margin-bottom: 20px;
             color: #000000;
@@ -116,11 +116,11 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            width: 100%; /* Кнопки на мобильных на всю ширину по умолчанию */
+            width: 100%;
         }
 
         @media (min-width: 600px) {
-            button { width: auto; } /* На десктопе возвращаем обычную ширину */
+            button { width: auto; }
         }
 
         button:hover {
@@ -153,7 +153,7 @@
             border: 1px solid #d1d5db;
             border-radius: 6px;
             font-size: 14px;
-            width: 100%; /* На мобильных на всю ширину */
+            width: 100%;
             outline: none;
             transition: all 0.25s ease;
             background-color: #ffffff;
@@ -179,7 +179,7 @@
 
         .student-item {
             display: flex;
-            flex-direction: column; /* Элементы в стек на мобильных */
+            flex-direction: column;
             gap: 12px;
             padding: 15px;
             border: 1px solid #e5e7eb;
@@ -212,8 +212,7 @@
         }
 
         .status-ready { color: #059669; }
-        .status-passed { color: #dc2626; font-weight: 500; }
-        .status-disqualified { color: #7f1d1d; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .status-passed { color: #059669; font-weight: 500; }
 
         .action-group {
             display: flex;
@@ -235,7 +234,7 @@
            ========================================================================== */
         .quiz-header {
             display: flex;
-            flex-direction: column-reverse; /* Таймер сверху на мобильных */
+            flex-direction: column-reverse;
             gap: 10px;
             align-items: center;
             margin-bottom: 20px;
@@ -317,13 +316,13 @@
         .option-item {
             display: flex;
             align-items: center;
-            padding: 14px 16px; /* Увеличено для точного тапа пальцем */
+            padding: 14px 16px;
             border: 1px solid #e5e7eb;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
             background-color: #ffffff;
-            min-height: 52px; /* Минимальная высота под мобильные стандарты Apple/Google */
+            min-height: 52px;
         }
 
         .option-item:hover {
@@ -339,12 +338,11 @@
         .option-item input[type="radio"] {
             margin-right: 12px;
             accent-color: #000000;
-            width: 20px; /* Чуть крупнее для мобильных */
+            width: 20px;
             height: 20px;
             flex-shrink: 0;
         }
 
-        /* Интерактивная матричная карта вопросов */
         .quiz-navigation {
             display: flex;
             flex-direction: column;
@@ -356,7 +354,7 @@
 
         .nav-controls {
             display: flex;
-            flex-direction: column; /* Элементы управления в стек на мобильных */
+            flex-direction: column;
             gap: 10px;
             width: 100%;
         }
@@ -370,7 +368,7 @@
 
         .progress-dots {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* Стабильная сетка по 5 кнопок в ряд */
+            grid-template-columns: repeat(5, 1fr);
             gap: 6px;
             width: 100%;
             background-color: #f9fafb;
@@ -380,7 +378,7 @@
         }
 
         @media (min-width: 450px) {
-            .progress-dots { grid-template-columns: repeat(10, 1fr); } /* 10 в ряд на средних экранах */
+            .progress-dots { grid-template-columns: repeat(10, 1fr); }
         }
 
         .dot {
@@ -428,7 +426,7 @@
 
         .result-table tr {
             display: flex;
-            flex-direction: column; /* Таблица картами на мобильных */
+            flex-direction: column;
             border-bottom: 1px solid #e5e7eb;
             padding: 10px 0;
         }
@@ -490,7 +488,7 @@
 
         .analytics-grid {
             display: grid;
-            grid-template-columns: 1fr; /* В один ряд на мобильных */
+            grid-template-columns: 1fr;
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -514,7 +512,6 @@
             margin-top: 5px;
         }
 
-        /* Модуль отображения ответов над ошибками */
         .answers-review-container {
             margin-top: 20px;
             display: flex;
@@ -549,7 +546,7 @@
             border: 1px solid #f3f4f6;
             background-color: #f9fafb;
             display: flex;
-            flex-direction: column; /* Элементы в стек, если текст длинный */
+            flex-direction: column;
             align-items: flex-start;
             gap: 6px;
         }
@@ -577,6 +574,74 @@
 
         .hidden {
             display: none !important;
+        }
+
+        /* ==========================================================================
+           5. АДАПТИВНЫЕ МОДАЛЬНЫЕ ОКНА
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            padding: 15px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.modal-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            max-width: 480px;
+            width: 100%;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: scale(0.9);
+            transition: transform 0.2s ease;
+            text-align: center;
+        }
+
+        .modal-overlay.modal-open .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111111;
+            margin-bottom: 12px;
+        }
+
+        .modal-text {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        @media (min-width: 400px) {
+            .modal-buttons {
+                flex-direction: row;
+            }
         }
 
         @keyframes fadeInDown {
@@ -624,10 +689,6 @@
                 <div>Орташа үлгерім көрсеткіші:</div>
                 <div class="val" id="stat-average-percent">0%</div>
             </div>
-            <div class="analytics-item">
-                <div>Шеттетілгендер (Дисквалификация):</div>
-                <div class="val" id="stat-disq-count" style="color: #dc2626;">0</div>
-            </div>
         </div>
         <button class="btn-secondary" style="background-color: #fff1f2; color: #9f1239; border-color: #fecdd3;" onclick="resetAllGlobalData()">🔄 Барлық нәтижелерді тазарту және деректерді нөлдеу</button>
     </section>
@@ -642,7 +703,7 @@
             <span>🛡️</span>
             <div>
                 <strong>Назар аударыңыз! Белсенді прокторинг қосылған:</strong> <br>
-                Бетті қайта жүктеу жауаптарды жоймайды. Терезеден тыс ауысу бұзушылық болык саналады.
+                Бетті қайта жүктеу жауаптарды жоймайды. Терезеден тыс ауысу бұзушылық ретінде логқа жазылады.
             </div>
         </div>
 
@@ -659,11 +720,11 @@
     </section>
 
     <section id="report-section" class="card hidden">
-        <h2>Емтихан сессиясының рефициалды қорытынды есебі</h2>
+        <h2>Емтихан сессиясының ресми қорытынды есебі</h2>
         
         <table class="result-table">
             <tr>
-                <th>Параметр атауы</th>
+                <th>Parametr атауы</th>
                 <th>Тіркелген мәліметтер</th>
             </tr>
             <tr>
@@ -707,9 +768,18 @@
 
 </div>
 
+<div class="modal-overlay" id="custom-modal-box">
+    <div class="modal-container">
+        <div class="modal-title" id="custom-modal-title">Хабарлама</div>
+        <div class="modal-text" id="custom-modal-body">Мазмұны...</div>
+        <div class="modal-buttons" id="custom-modal-actions">
+            </div>
+    </div>
+</div>
+
 <script>
     /* ==========================================================================
-       5. БАЗА ДАННЫХ ВОПРОСОВ (120 СУПЕР-ВОПРОСОВ ПО КАТЕГОРИЯМ)
+       6. БАЗА ДАННЫХ ВОПРОСОВ (120 ВОПРОСОВ)
        ========================================================================== */
     const macroQuestionsDatabase = {
         ancient: [
@@ -729,7 +799,7 @@
             { q: "Б.з.б. ІІ ғасырда ғұндардың қысымымен Жетісудан Орта Азияға қарай ығысқан тайпалар:", a: ["Сақтар", "Юэчжилер", "Қаңлылар", "Үйсіндер"], correct: 1 },
             { q: "Шілікті қорымынан табылған №1 обаның тарихи маңызы неде?", a: ["Ең көне Алтын адамның табылуы", "Алғашқы жазудың анықталуы", "Тас мүсіндердің көптігі", "Мыс балқыту пешінің табылуы"], correct: 0 },
             { q: "Берел қорымдарынан табылған жәдігерлердің бірегейлігінің басты себебі қандай?", a: ["Алтынның тым тазалығы", "Мәңгілік тоң басуына байланысты органиканың жақсы сақталуы", "Қару-жарақтың көптігі", "Керамиканың сапасы"], correct: 1 },
-            { q: "Ежелгі грек тарихшысы Геродот сақ тайпаларын өз еңбектерінде қалай атады?", a: ["Азиялық скифтер", "Массагеттер", "Дайлар", "Исседондар"], correct: 0 },
+            { q: "Ежелгі грек тарихшысы Геродот сақ тайпаларын өз еңбектерінде қалай атады?", a: ["Aзиялық скифтер", "Массагеттер", "Дайлар", "Исседондар"], correct: 0 },
             { q: "Александр Македонскийдің әскеріне Сырдария бойында соққы беріп, ілгерілеуін тоқталған тайпалар:", a: ["Сақ-парадарайалар", "Сақ-тиграхаудалар", "Массагеттер", "Қаңлылар"], correct: 1 },
             { q: "Сақ қоғамындағы абыздардың (діни қызметкерлердің) дәстүрлі киім түсі мен символы:", a: ["Қызыл түс, қару", "Ақ түс, тостаған мен ерекше бас киім", "Сары түс, соқа", "Көк түс, қамшы"], correct: 1 },
             { q: "Қазақстаннда қола дәуірінің негізгі мәдениетін қалыптастырған тайпалар бірлестігі:", a: ["Ботай мәдениеті", "Андронов мәдениеті", "Беғазы-Дәндібай мәдениеті", "Сақ мәдениеті"], correct: 1 },
@@ -747,12 +817,12 @@
         medieval: [
             { q: "Түрік қағанатының негізін қалаған және алғашқы ұлы қаған атанған билеуші:", a: ["Бумын қаған", "Мұқан қаған", "Істәми қаған", "Білге қаған"], correct: 0 },
             { q: "Батыс және Шығыс Түрік қағанаттары болып мемлекеттің екіге ыдыраған жылы:", a: ["552 жыл", "603 жыл", "704 жыл", "756 жыл"], correct: 1 },
-            { q: "751 жылы Атлах шайқасында түркештер мен қарлықтар қай елдің әскерімен одақтасып қытайларды жеңді?", a: ["Араб хандығымен (аббасидтермен)", "Византиямен", "Парсылармен", "Тан империясымен"], correct: 0 },
+            { q: "751 жылы Атлах шайқасында түркештер мен қарлықтар қай елдің әскерімен одақтасып қытайларды жеңді?", a: ["Араб хандығымен (аббасидтермен)", "Византиямен", "Парсылармен", "Тан empire-сымен"], correct: 0 },
             { q: "Қарахан мемлекетінде ислам діні қай жылы мемлекеттік дін болып ресми жарияланды?", a: ["751 жыл", "960 жыл", "1206 жыл", "1312 жыл"], correct: 1 },
             { q: "Алтын Ордада ислам дінін мемлекеттік дін деңгейіне көтерген хан:", a: ["Берке хан", "Өзбек хан", "Жәнібек хан", "Тоқтамыс хан"], correct: 1 },
             { q: "Қазақ хандығының дербес мемлекет болып құрылған нақты тарихи жылы:", a: ["1206 жыл", "1380 жыл", "1465 жыл", "1511 жыл"], correct: 2 },
-            { q: "Қазақ хандығының негізін қалаған сұлтандар/хандар:", a: ["Керей мен Жәнібек", "Қасым мен Хақназар", "Тәукел мен Есім", "Абылай мен Әбілқайыр"], correct: 0 },
-            { q: "Қасым ханның тұсында қабылданған мемлекеттік құқықтық заңдар жинағы:", a: ["Жеті жарғы", "Қасқа жол", "Ескі жол", "Тура заң"], correct: 1 },
+            { q: "Қазақ хандығының негізін қалаған сұлтандар/хандар:", a: ["Керей мен Жәнібек", "Қасым Novel", "Тәукел мен Есім", "Aбылай мен Әбілқайыр"], correct: 0 },
+            { q: "Қасым ханның тұсында қабылданған мемлекеттік құқықтық заңдар заңнамасы:", a: ["Жеті жарғы", "Қасқа жол", "Ескі жол", "Tura заң"], correct: 1 },
             { q: "Есім ханның тұсында қабылданған заңдар жинағы қалай аталды?", a: ["Жеті жарғы", "Қасқа жол", "Есім ханның ескі жолы", "Тура жол"], correct: 2 },
             { q: "Тәуке ханның тұсында үш жүздің билері қабылдаған атақты заңдар кодексі:", a: ["Жеті жарғы", "Қасқа жол", "Ескі жол", "Дала заңы"], correct: 0 },
             { q: "1726 жылы жоңғарларға қарсы жалпықазақ әскерін біріктіру туралы шешім қабылданған тарихи құрылтай орны:", a: ["Қарақұм", "Мәртөбе", "Ордабасы", "Күлтөбе"], correct: 2 },
@@ -760,7 +830,7 @@
             { q: "1771 жылы Түркістанда үш жүздің өкілдері ресми түрде жалпықазақ ханы етіп сайлаған тұлға:", a: ["Әбілқайыр", "Абылай хан", "Кенесары", "Тәуке"], correct: 1 },
             { q: "Түрік қағанатының жазғы астанасы ретінде белгілі болған Жетісудағы қала:", a: ["Суяб", "Мерке", "Баласағұн", "Тараз"], correct: 1 },
             { q: "Батыс Түрік қағанатының бас астанасы болған қала:", a: ["Суяб", "Сығанақ", "Отырар", "Түркістан"], correct: 0 },
-            { q: "Түргеш қағанатының негізін қалаған билеуші:", a: ["Үшлік қаған", "Сұлу қаған", "Тұн жабғу", "Қапаған"], correct: 0 },
+            { q: "Түргеш қағанатының неге қалаған билеуші:", a: ["Үшлік қаған", "Сұлу қаған", "Тұн жабғу", "Қапаған"], correct: 0 },
             { q: "Сұлу қағанның арабтарға қарсы белсенді қимылдары үшін араб тарихшылары берген лақап аты:", a: ["Әбу Мұзаффар", "Мұқтадир", "Сұзеген (Абу Музахим)", "Сайф ад-Дин"], correct: 2 },
             { q: "Қарлық қағанатының құлауына және Жетісуға соғдылар мен басқа да түркі топтарының ығысуына әсер еткен сыртқы күш:", a: ["Саманидтер әулеті", "Қимақтар", "Қарақытайлар", "Наймандар"], correct: 0 },
             { q: "Орта ғасырларда Сырдарияның төменгі ағысында құрылған, Батыс Қазақстанды қамтыған оғыз мемлекетінің орталығы:", a: ["Жанкент (Янгикент)", "Сауран", "Сығанақ", "Жаркент"], correct: 0 },
@@ -771,7 +841,7 @@
             { q: "Шыңғыс хан империясының ыдырауынан кейін Қазақстанның далалық аймақтары қай ұлыстың құрамына енді?", a: ["Жошы ұлысы (Алтын Орда)", "Шағатай ұлысы", "Үгедей ұлысы", "Төле ұлысы"], correct: 0 },
             { q: "Алтын Орданың негізін қалаған және оның қуаттылығын Батыс жорықтары арқылы бекіткен билеуші:", a: ["Бату (Батый) хан", "Жошы хан", "Берке хан", "Тоқтамыс"], correct: 0 },
             { q: "1628-1652 жылдары билік еткен, жоңғарларға қарсы соғыста 'Салқам' лақап атын алған қазақ ханы:", a: ["Жәңгір хан", "Тәуекел хан", "Шығай хан", "Батыр хан"], correct: 0 },
-            { q: "1643 жылы Жәңгір хан 600 сарбазбен жоңғардың 50 мың әскерін тоқтатқан атақты шайқас:", a: ["Бұланты шайқасы", "Орбулақ шайқасы", "Аңырақай шайқасы", "Аягөз соғысы"], correct: 1 },
+            { q: "1643 жылы Жәңгір хан 600 сарбазбен жоңғардың 50 мың әскерін тоқтатқан атақты шайқас:", a: ["Бұланты шайқасы", "Орбулақ шайқасы", "Аңырақай шайқасы", "Aягөз соғысы"], correct: 1 },
             { q: "1726 (немесе 1728) жылы қазақтардың жоңғарларды алғаш рет ірі күйрете жеңген шайқасы:", a: ["Аңырақай шайқасы", "Бұланты шайқасы", "Аягөз шайқасы", "Шемордан соғысы"], correct: 1 },
             { q: "Қазақ хандығының Түркістанға дейінгі ең алғашқы ресми астанасы болған қала:", a: ["Сығанақ", "Сауран", "Тараз", "Отырар"], correct: 0 },
             { q: "Хақназар ханның сыртқы саясаттағы ең үлкен жетістігі қандай болды?", a: ["Ноғай ордасының бір бөлігін және қырғыздарды өзіне бағындырып шекараны кеңейтуі", "Ресеймен соғыста жеңіске жетуі", "Жоңғарларды толық бағындыруы", "Қытаймен шекара келісімін жасауы"], correct: 0 }
@@ -782,10 +852,10 @@
             { q: "1836-1838 жылдары Ішкі Бөкей ордасында болған шаруалар көтерілісінің жетекшілері:", a: ["Исатай Тайманов пен Махамбет Өтемісұлы", "Сырым Датұлы", "Кенесары Қасымұлы", "Жанқожа Нұрмұхамедұлы"], correct: 0 },
             { q: "Ресей империясының отаршылдық жүйесіне қарсы ең ұзақ әрі ауқымды жалпыұлттық көтеріліс (1837-1847 жж.):", a: ["Кенесары Қасымұлы бастаған ұлт-азаттық қозғалыс", "Сырым Датұлы көтерілісі", "Пугачев көтерілісі", "1916 жылғы көтеріліс"], correct: 0 },
             { q: "Патша өкіметінің Қазақстандағы хандық билікті жою туралы 'Сібір қырғыздарының Жарғысы' қабылданған жыл:", a: ["1822 жыл", "1824 жыл", "1867 жыл", "1891 жыл"], correct: 0 },
-            { q: "Кіші жүзде хандық билікті ресми жойған 'Орынбор қырғыздарының Жарғысы' шыққан жыл:", a: ["1822 жыл", "1824 жыл", "1868 жыл", "1886 жыл"], correct: 1 },
+            { q: "Kіші жүзде хандық билікті ресми жойған 'Орынбор қырғыздарының Жарғысы' шыққан жыл:", a: ["1822 жыл", "1824 жыл", "1868 жыл", "1886 жыл"], correct: 1 },
             { q: "Қазақстанның әкімшілік-аумақтық басқару жүйесін түбегейлі өзгерткен 'Жалпы реформа' жылдары:", a: ["1867-1868 жылдар", "1822-1824 жылдар", "1891 жыл", "1917 жыл"], correct: 0 },
             { q: "ХІХ ғасырдың екінші жартысында Қазақстан экономикасына үлкен серпін берген алғашқы ірі теміржол желісі:", a: ["Орынбор-Ташкент", "Түрксіб", "Транссібір желісі", "Орта Азия теміржолы"], correct: 0 },
-            { q: "ХІХ ғасырдағы ұлы қазақ ағартушысы, ғалым, Ресей географиялық қоғамының мүшесі:", a: ["Шоқан Уәлиханов", "Ыбырай Алтынсарин", "Абай Құнанбайұлы", "Ахмет Байтұрсынұлы"], correct: 0 },
+            { q: "ХІХ ғасырдағы ұлы қазақ ағартушысы, ғалым, Ресей географиялық қоғамының мүшесі:", a: ["Шоқан Уәлиханов", "Ыбырай Алтынсарин", "Aбай Құнанбайұлы", "Ахмет Байтұрсынұлы"], correct: 0 },
             { q: "Қазақ даласында алғаш рет қыздар училищесін және жаңа үлгідегі мектептер ашқан педагог-ағартушы:", a: ["Ыбырай Алтынсарин", "Шоқан Уәлиханов", "Абай Құнанбайұлы", "Міржақып Дулатұлы"], correct: 0 },
             { q: "Қазақ жазба әдебиетінің негізін қалаушы, философ, ойшыл және ұлы ақын:", a: ["Абай Құнанбайұлы", "Махамбет Өтемісұлы", "Шәкәрім Құдайбердіұлы", "Сұлтанмахмұт Торайғыров"], correct: 0 },
             { q: "ХХ ғасырдың басында патша өкіметінің қоныс аудару саясатына байланысты қазақ жерлерін тартып алуға қарсы құжат:", a: ["Қарқаралы петициясы (1905 ж.)", "Дала ережесі", "Алаш бағдарламасы", "Түркістан жарлығы"], correct: 0 },
@@ -799,7 +869,7 @@
             { q: "Қазақ Автономиялы Кеңестік Социалистік Республикасы (Қазақ АКСР) қай жылы құрылды?", a: ["1917 жыл", "1920 жыл", "1925 жыл", "1936 жыл"], correct: 1 },
             { q: "Қазақстанда Ф. Голощекин жүргізген 'Кіші Қазан' саясаты мен ұжымдастыру салдарынан болған алапат ашаршылық жылдары:", a: ["1917-1918 жылдар", "1921-1922 жылдар", "1931-1933 жылдар", "1946-1947 жылдар"], correct: 2 },
             { q: "Қазақ КСР-і дербес одақтас республика болып КСРО құрамында қашан бекітілді?", a: ["1920 жыл", "1924 жыл", "1936 жыл", "1945 жыл"], correct: 2 },
-            { q: "Ұлы Отан соғысы жылдарында Мәскеуді қорғауда өшпес ерлік көрсеткен И. Панфилов атындағы дивизия:", a: ["312-ші атқыштар дивизиясы", "316-шы атқыштар дивизиясы", "72-ші гвардиялық дивизия", "314-ші дивизия"], correct: 1 },
+            { q: "Улы Отан соғысы жылдарында Мәскеуді қорғауда өшпес ерлік көрсеткен И. Панфилов атындағы дивизия:", a: ["312-ші атқыштар дивизиясы", "316-шы атқыштар дивизиясы", "72-ші гвардиялық дивизия", "314-ші дивизия"], correct: 1 },
             { q: "Рейхстаг қабырғасына алғашқылардың бірі болып Жеңіс туын тіккен қазақ батыры:", a: ["Бауыржан Момышұлы", "Рақымжан Қошқарбаев", "Талғат Бигелдинов", "Мәлік Ғабдуллин"], correct: 1 },
             { q: "Семей ядролық полигонында ең алғашқы атомдық бомба сынағы өткізілген жыл:", a: ["1941 жыл", "1949 жыл", "1953 жыл", "1961 жыл"], correct: 1 },
             { q: "КСРО басшылығының шешімімен Қазақстанда жаппай тың және тыңайған жерлерді игеру басталған жыл:", a: ["1945 жыл", "1954 жыл", "1965 жыл", "1982 жыл"], correct: 1 },
@@ -810,7 +880,7 @@
             { q: "Соғыс жылдарында екі мәрте Кеңес Одағының Батыры атағын алған атақты қазақстандық ұшқыш:", a: ["Нұркен Әбдіров", "Талғат Бигелдинов", "Сергей Луганский", "Леонид Беда"], correct: 1 },
             { q: "1946 жылы құрылған Қазақ ССР Ғылым Академиясының тұңғыш президенті, академик:", a: ["Қаныш Сәтбаев", "Әлкей Марғұлан", "Мұхтар Әуезов", "Халық Мирзалиев"], correct: 0 },
             { q: "1979 жылы Целиноградтағы наразылық неге қарсы бағытталды?", a: ["КСРО-ның Германия автономиясын Қазақстанда құру туралы жоспарына", "Ядролық сынақтарға", "Жалақының төмендеуіне", "Тілді шектеуге"], correct: 0 },
-            { q: "1989 жылы Қазақстанда ядролық сынақтарға қарсы құрылған халықаралық қоғамдық қозғалыс:", a: ["'Невада-Семей'", "'Ақиқат'", "'Желтоқсан қозғалысы'", "'Жасыл әлем'"], correct: 0 }
+            { q: "1989 жылы Қазақстанда ядролық сынақтарға қарсы құрылған халықаралық қоғамдық қозғалыс:", a: ["'Невада-Семей'", "'Aқиқат'", "'Желтоқсан қозғалысы'", "'Жасыл әлем'"], correct: 0 }
         ],
         contemporary: [
             { q: "Семей ядролық сынақ полигонын жабу туралы Жарлыққа қол қойылған нақты тарихи күн мен жыл:", a: ["1991 жыл 29 тамыз", "1991 жыл 16 желтоқсан", "1992 жыл 25 қазан", "1993 жыл 28 қаңтар"], correct: 0 },
@@ -838,7 +908,7 @@
 
     const studentsDatabase = [
         { id: "st1", name: "Әлібек Мұстафа", pass: "securePass2026_1" },
-        { id: "st2", name: "Аружан Сұлтанова", pass: "securePass2026_2" },
+        { id: "st2", name: "Aружан Сұлтанова", pass: "securePass2026_2" },
         { id: "st3", name: "Данияр Ахметов", pass: "securePass2026_3" },
         { id: "st4", name: "Диана Ибрагимова", pass: "securePass2026_4" },
         { id: "st5", name: "Ерасыл Серіков", pass: "securePass2026_5" },
@@ -861,11 +931,11 @@
         { id: "st22", name: "Илияс Маратов", pass: "securePass2026_22" },
         { id: "st23", name: "Камила Нұрланова", pass: "securePass2026_23" },
         { id: "st24", name: "Бауыржан Садық", pass: "securePass2026_24" },
-        { id: "st25", name: "Аяулым Марат", pass: "securePass2026_25" }
+        { id: "st25", name: "Aяулым Марат", pass: "securePass2026_25" }
     ];
 
     /* ==========================================================================
-       6. СОСТОЯНИЕ И КЭШ СЕССИИ ТЕСТИРОВАНИЯ
+       7. СОСТОЯНИЕ СЕССИИ ТЕСТИРОВАНИЯ И СТАБИЛЬНЫЙ ПРОКТОРИНГ
        ========================================================================== */
     const totalQuestionsAmount = 20;
     let activeQuestionsPool = [];
@@ -874,15 +944,69 @@
     let currentStudentId = null;
     let targetStudentName = "";
     let currentFlowIdx = 0;
-    let remainingTimeSeconds = 300; // 5 минут
+    let remainingTimeSeconds = 300;
     let timerRef = null;
     let violationLogsCounter = 0;
-    let isDisqualifiedFlag = false;
+
+    let blurTimeoutTracker = null;
+    let isModalCurrentlyActive = false;
 
     window.addEventListener('DOMContentLoaded', () => {
         renderStudentsRoster();
         refreshDashboardStatuses();
     });
+
+    /* МОДАЛЬНЫЙ INTERFACE ДЛЯ НАДЕЖНОГО ПРОКТОРИНГА */
+    function showCustomAlert(title, text, onConfirm = null) {
+        isModalCurrentlyActive = true; 
+        const overlay = document.getElementById('custom-modal-box');
+        document.getElementById('custom-modal-title').innerText = title;
+        document.getElementById('custom-modal-body').innerText = text;
+        
+        const actions = document.getElementById('custom-modal-actions');
+        actions.innerHTML = '';
+        
+        const btn = document.createElement('button');
+        btn.innerText = "ОК";
+        btn.onclick = () => {
+            overlay.classList.remove('modal-open');
+            isModalCurrentlyActive = false;
+            if (onConfirm) onConfirm();
+        };
+        actions.appendChild(btn);
+        overlay.classList.add('modal-open');
+    }
+
+    function showCustomConfirm(title, text, onYes, onNo = null) {
+        isModalCurrentlyActive = true;
+        const overlay = document.getElementById('custom-modal-box');
+        document.getElementById('custom-modal-title').innerText = title;
+        document.getElementById('custom-modal-body').innerText = text;
+        
+        const actions = document.getElementById('custom-modal-actions');
+        actions.innerHTML = '';
+        
+        const btnNo = document.createElement('button');
+        btnNo.className = "btn-secondary";
+        btnNo.innerText = "Жоқ (Нет)";
+        btnNo.onclick = () => {
+            overlay.classList.remove('modal-open');
+            isModalCurrentlyActive = false;
+            if (onNo) onNo();
+        };
+        
+        const btnYes = document.createElement('button');
+        btnYes.innerText = "Иә (Да)";
+        btnYes.onclick = () => {
+            overlay.classList.remove('modal-open');
+            isModalCurrentlyActive = false;
+            if (onYes) onYes();
+        };
+        
+        actions.appendChild(btnNo);
+        actions.appendChild(btnYes);
+        overlay.classList.add('modal-open');
+    }
 
     function renderStudentsRoster() {
         const holder = document.getElementById('students-roster-list');
@@ -912,22 +1036,12 @@
 
             if (dataStr) {
                 const res = JSON.parse(dataStr);
-                if (res.isDisqualified) {
-                    if (statusEl) {
-                        statusEl.className = "student-status status-disqualified";
-                        statusEl.innerText = "ШЕТТЕТІЛДІ (DISQUALIFIED)";
-                    }
-                    if (actionEl) {
-                        actionEl.innerHTML = `<button class="btn-secondary" onclick="viewSavedReport('${st.id}')">Есепті Көру</button>`;
-                    }
-                } else {
-                    if (statusEl) {
-                        statusEl.className = "student-status status-passed";
-                        statusEl.innerText = `Тапсырылды. Нәтиже: ${res.percent}% (${res.correct}/${res.total})`;
-                    }
-                    if (actionEl) {
-                        actionEl.innerHTML = `<button class="btn-secondary" onclick="viewSavedReport('${st.id}')">Нәтижені Көру</button>`;
-                    }
+                if (statusEl) {
+                    statusEl.className = "student-status status-passed";
+                    statusEl.innerText = `Тапсырылды. Нәтиже: ${res.percent}% (${res.correct}/${res.total})`;
+                }
+                if (actionEl) {
+                    actionEl.innerHTML = `<button class="btn-secondary" onclick="viewSavedReport('${st.id}')">Нәтижені Көру</button>`;
                 }
             } else {
                 if (statusEl) {
@@ -941,7 +1055,6 @@
     function calculateGroupAnalytics() {
         let totalCount = studentsDatabase.length;
         let passedCount = 0;
-        let disqCount = 0;
         let cumulativePercentage = 0;
 
         studentsDatabase.forEach(st => {
@@ -949,19 +1062,14 @@
             if (dataStr) {
                 passedCount++;
                 const res = JSON.parse(dataStr);
-                if (res.isDisqualified) {
-                    disqCount++;
-                } else {
-                    cumulativePercentage += res.percent;
-                }
+                cumulativePercentage += res.percent;
             }
         });
 
-        let avg = passedCount > 0 ? Math.round(cumulativePercentage / (passedCount - disqCount || 1)) : 0;
+        let avg = passedCount > 0 ? Math.round(cumulativePercentage / passedCount) : 0;
         document.getElementById('stat-total-students').innerText = totalCount;
         document.getElementById('stat-passed-count').innerText = passedCount;
         document.getElementById('stat-average-percent').innerText = `${avg}%`;
-        document.getElementById('stat-disq-count').innerText = disqCount;
     }
 
     function toggleAdminPanel() {
@@ -971,13 +1079,13 @@
     }
 
     function resetAllGlobalData() {
-        if (confirm("Барлық студенттердің тест нәтижелері жойылады. Жалғастырамыз ба?")) {
+        showCustomConfirm("Растау", "Барлық студенттердің тест нәтижелері жойылады. Жалғастырамыз ба?", () => {
             localStorage.clear();
             renderStudentsRoster();
             refreshDashboardStatuses();
             calculateGroupAnalytics();
-            alert("Жүйе жады толығымен тазартылды.");
-        }
+            showCustomAlert("Жетістік", "Жүйе жады толығымен тазартылды.");
+        });
     }
 
     function compileBalancedQuestionsPool() {
@@ -990,14 +1098,14 @@
 
     function checkAccessAndStart(id, name, correctPass, fieldId) {
         if (localStorage.getItem(`result_${id}`)) {
-            alert("Бұл студент тестілеуден өткен.");
+            showCustomAlert("Ескерту", "Бұл студент тестілеуден өткен.");
             return;
         }
         const val = document.getElementById(fieldId).value;
         if (val === correctPass) {
             startQuizSession(id, name);
         } else {
-            alert("Қате құпия сөз! Рұқсат берілмеді.");
+            showCustomAlert("Қате", "Қате құпия сөз! Рұқсат берілмеді.");
         }
     }
 
@@ -1014,13 +1122,11 @@
             violationLogsCounter = data.violations;
             studentResponseMap = data.answers;
             activeQuestionsPool = data.pool;
-            isDisqualifiedFlag = data.isDisqualified;
 
             buildQuestionsDOM();
             buildDotsDOM();
             showQuestionCard(currentFlowIdx);
             
-            // Восстановление выбранных элементов UI
             Object.keys(studentResponseMap).forEach(qIdx => {
                 const oIdx = studentResponseMap[qIdx];
                 const label = document.getElementById(`label_box_${qIdx}_${oIdx}`);
@@ -1039,7 +1145,6 @@
             remainingTimeSeconds = 300;
             violationLogsCounter = 0;
             studentResponseMap = {};
-            isDisqualifiedFlag = false;
             document.getElementById('system-proctoring-logs').innerHTML = `<p>[${new Date().toLocaleTimeString()}] Жүйе іске қосылды. Сессия басталды.</p>`;
 
             compileBalancedQuestionsPool();
@@ -1054,10 +1159,6 @@
         document.getElementById('dashboard-section').classList.add('hidden');
         document.getElementById('admin-analytics-section').classList.add('hidden');
         document.getElementById('quiz-section').classList.remove('hidden');
-
-        if (isDisqualifiedFlag) {
-            executeForcedTermination(true);
-        }
     }
 
     function saveCurrentStateToCache() {
@@ -1068,8 +1169,7 @@
             timeLeft: remainingTimeSeconds,
             violations: violationLogsCounter,
             answers: studentResponseMap,
-            pool: activeQuestionsPool,
-            isDisqualified: isDisqualifiedFlag
+            pool: activeQuestionsPool
         };
         localStorage.setItem(`session_state_${currentStudentId}`, JSON.stringify(state));
         localStorage.setItem(`logs_${currentStudentId}`, document.getElementById('system-proctoring-logs').innerHTML);
@@ -1159,14 +1259,12 @@
     }
 
     function registerAnswer(event, qIdx, oIdx) {
-        // Защита от дублирования клика на сотовых телефонах
         if (event && event.target.tagName === 'INPUT') {
             event.stopPropagation();
         }
 
         studentResponseMap[qIdx] = oIdx;
 
-        // Визуальное обновление классов выбора ответов
         const item = activeQuestionsPool[qIdx];
         item.a.forEach((_, optIdx) => {
             const box = document.getElementById(`label_box_${qIdx}_${optIdx}`);
@@ -1208,21 +1306,24 @@
 
             if (remainingTimeSeconds <= 0) {
                 clearInterval(timerRef);
-                executeForcedTermination(false);
+                executeForcedTermination();
             }
         }, 1000);
     }
 
+    /* ФИЛЬТРЫ ПРОКТОРИНГA */
     function applyAntiCopyFilters() {
         window.addEventListener('keydown', suppressKeyboardShortcuts, true);
         document.addEventListener('visibilitychange', checkTabTampering, true);
         window.addEventListener('blur', checkWindowFocusLoss, true);
+        window.addEventListener('focus', clearMobileBlurTimeout, true);
     }
 
     function removeAntiCopyFilters() {
         window.removeEventListener('keydown', suppressKeyboardShortcuts, true);
         document.removeEventListener('visibilitychange', checkTabTampering, true);
         window.removeEventListener('blur', checkWindowFocusLoss, true);
+        window.removeEventListener('focus', clearMobileBlurTimeout, true);
     }
 
     function suppressKeyboardShortcuts(e) {
@@ -1242,12 +1343,25 @@
 
     function checkTabTampering() {
         if (document.hidden) {
-            logProctoringEvent("ЕРЕЖЕ БҰЗУ: Басқа вкладкаға ауысу анықталды!");
+            logProctoringEvent("ЕРЕЖЕ БҰЗУ: Басқа вкладкаға ауысу немесе браузерді жиру анықталды!");
         }
     }
 
     function checkWindowFocusLoss() {
-        logProctoringEvent("ЕСКЕРТУ: Терезеден фокус жоғалды!");
+        if (isModalCurrentlyActive) return; 
+        
+        if (blurTimeoutTracker) clearTimeout(blurTimeoutTracker);
+        
+        blurTimeoutTracker = setTimeout(() => {
+            logProctoringEvent("ЕСКЕРТУ: Терезеден фокус жоғалды (Экран ауысуы немесе жүйелік хабарлама)!");
+        }, 600); 
+    }
+
+    function clearMobileBlurTimeout() {
+        if (blurTimeoutTracker) {
+            clearTimeout(blurTimeoutTracker);
+            blurTimeoutTracker = null;
+        }
     }
 
     function logProctoringEvent(msg) {
@@ -1257,23 +1371,13 @@
             logBox.innerHTML += `<p style="color: #ef4444;">[${new Date().toLocaleTimeString()}] ${msg}</p>`;
             logBox.scrollTop = logBox.scrollHeight;
         }
-
-        if (violationLogsCounter >= 5 && !isDisqualifiedFlag) {
-            isDisqualifiedFlag = true;
-            executeForcedTermination(true);
-        }
+        // Автоматическое завершение и дисквалификация по превышению лимита убраны
         saveCurrentStateToCache();
     }
 
-    function executeForcedTermination(byViolation) {
+    function executeForcedTermination() {
         clearInterval(timerRef);
         removeAntiCopyFilters();
-
-        if (byViolation) {
-            alert("Сенім деңгейінің шекті мәнінен асып кеттіңіз! Ереже бұзғаныңыз үшін тестілеу автоматты түрде тоқтатылды.");
-        } else {
-            alert("Бөлінген уақыт аяқталды! Жауаптарыңыз автоматты түрде қабылданды.");
-        }
 
         let correctCounter = 0;
         activeQuestionsPool.forEach((item, idx) => {
@@ -1290,7 +1394,6 @@
             correct: correctCounter,
             percent: percent,
             violations: violationLogsCounter,
-            isDisqualified: byViolation,
             pool: activeQuestionsPool,
             answers: studentResponseMap,
             logs: document.getElementById('system-proctoring-logs').innerHTML
@@ -1299,11 +1402,12 @@
         localStorage.setItem(`result_${currentStudentId}`, JSON.stringify(resultObject));
         localStorage.removeItem(`session_state_${currentStudentId}`);
 
-        displayReportOutput(resultObject);
+        showCustomAlert("Уақыт аяқталды", "Бөлінген уақыт аяқталды! Жауаптарыңыз автоматты түрде қабылданды.", () => {
+            displayReportOutput(resultObject);
+        });
 
         document.getElementById('quiz-section').classList.add('hidden');
         document.getElementById('report-section').classList.remove('hidden');
-        
         refreshDashboardStatuses();
     }
 
@@ -1318,7 +1422,7 @@
             promptMsg = `Сізде ${unanswered} белгіленбеген сұрақ қалды. Сынақты толық аяқтаймыз ба?`;
         }
 
-        if (confirm(promptMsg)) {
+        showCustomConfirm("Тестті аяқтау", promptMsg, () => {
             clearInterval(timerRef);
             removeAntiCopyFilters();
 
@@ -1337,7 +1441,6 @@
                 correct: correctCounter,
                 percent: percent,
                 violations: violationLogsCounter,
-                isDisqualified: false,
                 pool: activeQuestionsPool,
                 answers: studentResponseMap,
                 logs: document.getElementById('system-proctoring-logs').innerHTML
@@ -1350,9 +1453,8 @@
 
             document.getElementById('quiz-section').classList.add('hidden');
             document.getElementById('report-section').classList.remove('hidden');
-
             refreshDashboardStatuses();
-        }
+        });
     }
 
     function displayReportOutput(data) {
@@ -1364,13 +1466,8 @@
         document.getElementById('system-proctoring-logs').innerHTML = data.logs;
 
         const statusField = document.getElementById('rep-final-status');
-        if (data.isDisqualified) {
-            statusField.innerText = "ШЕТТЕТІЛДІ (DISQUALIFIED)";
-            statusField.style.color = "#dc2626";
-        } else {
-            statusField.innerText = "СӘТТІ АЯҚТАЛДЫ";
-            statusField.style.color = "#059669";
-        }
+        statusField.innerText = "СӘТТІ АЯҚТАЛДЫ";
+        statusField.style.color = "#059669";
 
         buildReviewAnswersUI(data);
 
@@ -1445,6 +1542,7 @@
             holder.appendChild(card);
         });
     }
+
 </script>
 
 </body>
