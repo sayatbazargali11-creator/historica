@@ -229,7 +229,7 @@
         }
 
         /* ==========================================================================
-           3. ТЕСТОВЫЙ СЛУЖЕБНЫЙ ИНТЕРФЕЙС (ПРОКТОРИНГ И ТАЙМЕР)
+           3. ТЕСТОВЫЙ СЛУЖЕБНЫЙ ИНТЕРФЕЙС (ПРОКТОРИНГ)
            ========================================================================== */
         .quiz-header {
             display: flex;
@@ -248,22 +248,6 @@
                 justify-content: space-between;
                 text-align: left;
             }
-        }
-
-        #timer {
-            font-size: 22px;
-            font-weight: 600;
-            color: #000000;
-            font-variant-numeric: tabular-nums;
-            background: #f3f4f6;
-            padding: 4px 14px;
-            border-radius: 6px;
-            width: 100%;
-            text-align: center;
-        }
-
-        @media (min-width: 600px) {
-            #timer { width: auto; }
         }
 
         .proctoring-badge {
@@ -702,7 +686,6 @@
     <section id="quiz-section" class="card hidden">
         <div class="quiz-header">
             <h2 id="quiz-student-title" style="border: none; margin: 0; padding: 0; font-size: 16px;">Сыналушы профилі: ...</h2>
-            <div id="timer">05:00</div>
         </div>
 
         <div class="proctoring-badge">
@@ -750,7 +733,7 @@
                 <td id="rep-percentage" style="font-weight: 700; font-size: 18px;">-</td>
             </tr>
             <tr>
-                <td>Қауіпсіздік ережелерін бұзу оқиғалары:</td>
+                <td>Қауіпсіздік ережелерін бұжу оқиғалары:</td>
                 <td id="rep-violations-count" style="color: #dc2626; font-weight: 600;">0 рет</td>
             </tr>
             <tr>
@@ -792,12 +775,12 @@
             { q: "Жоңғарларға отты қару және зеңбірек құю технологиясын үйреткен тұтқын швед офицері:", a: ["Иоган Густав Ренат", "Филипп Ефремов", "Карл Густав", "Иоганн Видеман"], correct: 0 },
             { q: "Жоңғар қонтайшысы Цеван Рабтан өмір сүрген жылдар аралығы:", a: ["1635-1697 жылдар", "1663-1727 жылдар", "1680-1745 жылдар", "1693-1756 жылдар"], correct: 1 },
             { q: "Қытаймен (Цин империясымен) бейбіт қарым-қатынас жасап, Жоңғарияның шығыс шегарасының қауіпсіздігін бекіткен билеуші:", a: ["Галдан Бошокту", "Батыр қонтайшы", "Цеван Рабтан", "Галдан Церен"], correct: 2 },
-            { q: "Жоңғарлар қазақтарға қарсы бірігіп соғыс жүргізуді көздеген, Еділ бойындағы қалмақтардың ханы:", a: ["Аюке", "Хо-Урлюк", "Убаши", "Дондук-Омбо"], correct: 0 },
+            { q: "Жоңғарлардың қазақтарға қарсы бірігіп соғыс жүргізуді көздеген, Еділ бойындағы қалмақтардың ханы:", a: ["Аюке", "Хо-Урлюк", "Убаши", "Дондук-Омбо"], correct: 0 },
             { q: "Жоңғарлардың тұтқиылдан жасаған жау соққысына ең алғаш ұшыраған қазақ өңірлері:", a: ["Батыс Қазақстан аймағы", "Жетісу мен Ертіс бойы", "Сырдарияның төменгі ағысы", "Маңғыстау түбегі"], correct: 1 },
-            { q: "«Ақтабан шұбырынды» жылдары жоңғарлар біртіндеп басып алған оңтүстіктегі маңызды қалалар:", a: ["Сайрам, Түркістан, Ташкент", "Сауран, Отырар, Сығанақ", "Жаркент, Суяб, Баласағұн", "Тараз, Мерке, Жанкент"], correct: 0 },
+            { q: "«Ақтабан шұбырынды» жылдары жоңғарлар біртіндеп басып алған оңтүстіктегі маңызды қалалар:", a: ["Сайрам, Түркістан, Ташкент", "Сауран, Отырар, Сығанақ", "Жаркент, Суяб, Balaсағұн", "Тараз, Мерке, Жанкент"], correct: 0 },
             { q: "«Ақтабан шұбырынды, Алқакөл сұлама» қасіретінен географиялық орналасуына байланысты зардап шекпеген қазақ аймағы:", a: ["Шығыс аймақ", "Орталық далалық аймақ", "Батыс аймақ", "Оңтүстік қалалық аймақ"], correct: 2 },
             { q: "Қазақ халқының тұрмысы мен трагедиясын суреттейтін «Қалқаман-Мамыр» поэмасының авторы:", a: ["Абай Құнанбайұлы", "Шәкәрім Құдайбердіұлы", "Махамбет Өтемісұлы", "Бұқар жырау Қалқаманұлы"], correct: 1 },
-            { q: "Жоңғар шапқыншылығы кезінде Сырдариядан өтіп, Самарқан қаласының төңірегегіне көшіп кеткен қай жүз өкілдері?", a: ["Ұлы жүз", "Орта жүз", "Кіші жүз", "Бөкей ордасы"], correct: 1 },
+            { q: "Жоңғар шапқыншылығы кезінде Сырдариядан өтіп, Самарқан қаласының төңірегегеге көшіп кеткен қай жүз өкілдері?", a: ["Ұлы жүз", "Орта жүз", "Кіші жүз", "Бөкей ордасы"], correct: 1 },
             { q: "Шапқыншылық жылдары Кіші жүз қазақтары бас сауғалап жаппай көшкен тарихи аймақ:", a: ["Хиуа және Бұқар хандықтарының шекарасы", "Тобыл және Есіл өзендерінің бойы", "Жетісу және Алатау қойнауы", "Қытай мен Моңғолия шекарасы"], correct: 0 },
             { q: "«Олар өлімнен қорықпайды, жау қолына түскеннен гөрі қолына қару ұстап, ақырғы демі шыққанша шайқасып өлгенді ерлік санайды» деп жазған ағылшын ғалымы:", a: ["Д. Флэтчер", "А. Левшин", "Т. Аткинсон", "Д. Кеннан"], correct: 0 },
             { q: "1717 жылы жоңғарлар Аягөз өзені бойындағы қай қазақ тайпаларының қоныстарына баса көктеп кірді?", a: ["Арғын мен Қыпшақ", "Найман мен Жалайыр", "Алшын мен Адай", "Дулат пен Суан"], correct: 1 },
@@ -850,8 +833,6 @@
     let currentStudentId = null;
     let targetStudentName = "";
     let currentFlowIdx = 0;
-    let remainingTimeSeconds = 300;
-    let timerRef = null;
     let violationLogsCounter = 0;
 
     let blurTimeoutTracker = null;
@@ -994,7 +975,6 @@
     }
 
     function compileBalancedQuestionsPool() {
-        // Базада тек medieval санаттары болғандықтан, соны араластырып толық 20 сұрақ аламыз
         activeQuestionsPool = [...macroQuestionsDatabase.medieval].sort(() => 0.5 - Math.random());
     }
 
@@ -1020,7 +1000,6 @@
         if (cached) {
             const data = JSON.parse(cached);
             currentFlowIdx = data.currentIdx;
-            remainingTimeSeconds = data.timeLeft;
             violationLogsCounter = data.violations;
             studentResponseMap = data.answers;
             activeQuestionsPool = data.pool;
@@ -1038,11 +1017,9 @@
                 }
             });
             document.getElementById('system-proctoring-logs').innerHTML = localStorage.getItem(`logs_${activeId}`) || "";
-            runCountdownClock();
             applyAntiCopyFilters();
         } else {
             currentFlowIdx = 0;
-            remainingTimeSeconds = 300;
             violationLogsCounter = 0;
             studentResponseMap = {};
             document.getElementById('system-proctoring-logs').innerHTML = `<p>[${new Date().toLocaleTimeString()}] Жүйе іске қосылды. Сессия басталды.</p>`;
@@ -1052,7 +1029,6 @@
             buildDotsDOM();
             showQuestionCard(0);
             saveCurrentStateToCache();
-            runCountdownClock();
             applyAntiCopyFilters();
         }
 
@@ -1066,7 +1042,6 @@
         const state = {
             name: targetStudentName,
             currentIdx: currentFlowIdx,
-            timeLeft: remainingTimeSeconds,
             violations: violationLogsCounter,
             answers: studentResponseMap,
             pool: activeQuestionsPool
@@ -1190,23 +1165,6 @@
         }
     }
 
-    function runCountdownClock() {
-        if (timerRef) clearInterval(timerRef);
-        timerRef = setInterval(() => {
-            remainingTimeSeconds--;
-            saveCurrentStateToCache();
-
-            const mins = Math.floor(remainingTimeSeconds / 60);
-            const secs = remainingTimeSeconds % 60;
-            document.getElementById('timer').innerText = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
-
-            if (remainingTimeSeconds <= 0) {
-                clearInterval(timerRef);
-                executeForcedTermination();
-            }
-        }, 1000);
-    }
-
     /* ФИЛЬТРЫ ПРОКТОРИНГA */
     function applyAntiCopyFilters() {
         window.addEventListener('keydown', suppressKeyboardShortcuts, true);
@@ -1268,38 +1226,6 @@
         saveCurrentStateToCache();
     }
 
-    function executeForcedTermination() {
-        clearInterval(timerRef);
-        removeAntiCopyFilters();
-
-        let correctCounter = 0;
-        activeQuestionsPool.forEach((item, idx) => {
-            if (studentResponseMap[idx] !== undefined && parseInt(studentResponseMap[idx]) === item.correct) {
-                correctCounter++;
-            }
-        });
-
-        const percent = Math.round((correctCounter / totalQuestionsAmount) * 100);
-        const resultObject = {
-            studentId: currentStudentId,
-            studentName: targetStudentName,
-            total: totalQuestionsAmount,
-            correct: correctCounter,
-            percent: percent,
-            violations: violationLogsCounter,
-            pool: activeQuestionsPool,
-            answers: studentResponseMap,
-            logs: document.getElementById('system-proctoring-logs').innerHTML
-        };
-
-        localStorage.setItem(`result_${currentStudentId}`, JSON.stringify(resultObject));
-        localStorage.removeItem(`session_state_${currentStudentId}`);
-
-        showCustomAlert("Уақыт аяқталды", "Бөлінген уақыт аяқталды! Жауаптарыңыз автоматты түрде қабылданды.", () => {
-            displayReportOutput(resultObject);
-        });
-    }
-
     function confirmAndSubmitQuiz() {
         let unanswered = 0;
         for (let i = 0; i < totalQuestionsAmount; i++) {
@@ -1312,7 +1238,6 @@
         }
 
         showCustomConfirm("Тестті аяқтау", promptMsg, () => {
-            clearInterval(timerRef);
             removeAntiCopyFilters();
 
             let correctCounter = 0;
