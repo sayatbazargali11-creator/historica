@@ -2,1227 +2,1530 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Похит — Премиум Маркет</title>
-    <style>
-        /* --- ДИЗАЙН-СИСТЕМА СВЕТЛОГО ПРЕМИУМА (PREMIUM LIGHT) --- */
-        :root {
-            --bg: #f9fbfc;
-            --surface: #ffffff;
-            --surface-card: #ffffff;
-            --surface-hover: #f3f7fa;
-            --border: #e2e8f0;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --accent: #1e293b;
-            --accent-blue: #2563eb;
-            --accent-glow: rgba(37, 99, 235, 0.15);
-            --fav-color: #ef4444;
-            --success: #10b981;
-            --radius-sm: 10px;
-            --radius-md: 20px;
-            --radius-lg: 30px;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ultimate Production Portfolio | Premium Edition</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Space+Grotesk:wght@500;700&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
 
+    <style>
+        /* ==========================================================================
+           1. АРХИТЕКТУРА СТИЛЕЙ, ТОКЕНЫ И СИСТЕМНЫЕ ПЕРЕМЕННЫЕ (CSS VARIABLES)
+           ========================================================================== */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            scroll-behavior: smooth;
+            font-family: 'Ubuntu', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-base: #050811;
+            --bg-surface: #0d1527;
+            --bg-card: #15223b;
+            --bg-accent-dim: rgba(0, 243, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #7e95b8;
+            --text-dark: #050811;
+            --color-accent: #00f3ff;
+            --color-success: #00ff87;
+            --color-error: #ff0055;
+            --color-warning: #ffb700;
+            --gradient-primary: linear-gradient(135deg, #00f3ff 0%, #0066ff 100%);
+            --gradient-success: linear-gradient(135deg, #00ff87 0%, #60efff 100%);
+            --gradient-dark: linear-gradient(135deg, #0d1527 0%, #050811 100%);
+            --glow-shadow: 0 0 20px rgba(0, 243, 255, 0.25);
+            --border-radius-lg: 24px;
+            --border-radius-md: 16px;
+            --border-radius-sm: 8px;
+            --speed-normal: 0.3s;
+            --speed-slow: 0.6s;
+        }
+
+        .light-theme {
+            --bg-base: #f4f7fc;
+            --bg-surface: #ffffff;
+            --bg-card: #e2eaf4;
+            --bg-accent-dim: rgba(255, 0, 119, 0.1);
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-dark: #ffffff;
+            --color-accent: #ff0077;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --gradient-primary: linear-gradient(135deg, #ff0077 0%, #7c3aed 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-dark: linear-gradient(135deg, #ffffff 0%, #f4f7fc 100%);
+            --glow-shadow: 0 0 20px rgba(255, 0, 119, 0.15);
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
             overflow-x: hidden;
+            transition: background-color var(--speed-normal), color var(--speed-normal);
+            padding-bottom: 90px;
         }
 
-        /* --- СТИЛИЗАЦИЯ СКРОЛЛБАРА --- */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg);
+            background: var(--bg-base);
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
+            background: var(--bg-card);
+            border-radius: 10px;
         }
 
-        /* --- ПЛАВНЫЕ АНИМАЦИИ --- */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(25px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes toastIn {
-            0% { transform: translate(-50%, 40px); opacity: 0; }
-            100% { transform: translate(-50%, 0); opacity: 1; }
-        }
-
-        /* --- ХЕДЕР (ЗАФИКСИРОВАННЫЙ GLASSMORPHISM) --- */
-        header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 22px 20px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: -0.8px;
-            cursor: pointer;
-            color: var(--text-main);
-            transition: var(--transition);
-        }
-
-        .logo:hover {
-            transform: scale(1.02);
-        }
-
-        .logo span {
-            color: var(--accent-blue);
-            font-weight: 800;
-        }
-
-        header nav {
-            display: flex;
-            gap: 15px;
-        }
-
-        header nav button {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 10px 18px;
-            border-radius: var(--radius-sm);
-            position: relative;
-            transition: var(--transition);
-        }
-
-        header nav button:hover, header nav button.active {
-            color: var(--text-main);
-            background: var(--surface-hover);
-        }
-
-        header nav button.active {
-            border-bottom: 2px solid var(--accent-blue);
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .badge {
-            background: var(--accent-blue);
-            color: white;
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 20px;
-            margin-left: 6px;
-            font-weight: 700;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        /* --- ЦЕНТРАЛЬНЫЙ БЛОК --- */
-        main {
-            flex: 1;
-            max-width: 1200px;
+        .wrapper {
             width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 0 20px;
         }
 
-        .page {
-            display: none;
+        /* ТИПОГРАФИКА И СЕКЦИИ */
+        section {
+            padding: 120px 0 40px;
         }
 
-        .page.active {
-            display: block;
-            animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .main-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
-        h2 {
-            font-size: 34px;
-            font-weight: 800;
-            letter-spacing: -0.8px;
-            margin-bottom: 30px;
-            color: var(--text-main);
+        .main-heading span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* --- СТИЛЬНЫЙ ПРОМО-БАННЕР --- */
-        .promo-banner {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            border: 1px solid var(--border);
-            padding: 65px 50px;
-            border-radius: var(--radius-md);
-            margin-bottom: 45px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
-        }
-
-        .promo-banner::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 75%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .promo-content {
-            position: relative;
-            z-index: 2;
-            max-width: 650px;
-        }
-
-        .promo-banner h3 {
-            font-size: 42px;
-            font-weight: 900;
-            margin-bottom: 18px;
-            line-height: 1.15;
-            letter-spacing: -1.2px;
-            color: var(--text-main);
-        }
-
-        .promo-banner p {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 17px;
+        .sub-heading {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
             line-height: 1.6;
         }
 
-        .btn-main {
-            background: var(--text-main);
-            color: white;
-            border: none;
-            padding: 15px 32px;
-            font-size: 15px;
-            font-weight: 700;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-main:hover {
-            transform: translateY(-2px);
-            background: var(--accent-blue);
-            box-shadow: 0 6px 20px var(--accent-glow);
-        }
-
-        /* --- КАТЕГОРИИ --- */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .category-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            padding: 35px 25px;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
-        }
-
-        .category-card:hover {
-            border-color: var(--text-main);
-            background: var(--surface-hover);
-            transform: translateY(-4px);
-        }
-
-        .category-img {
-            font-size: 36px;
-            background: var(--bg);
-            width: 75px;
-            height: 75px;
-            display: flex;
+        .ui-btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            border: 1px solid var(--border);
+            gap: 12px;
+            padding: 16px 36px;
+            background: var(--gradient-primary);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border-radius: 50px;
+            box-shadow: var(--glow-shadow);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        /* --- ТУЛБАР ФИЛЬТРОВ И ПОИСКА --- */
-        .toolbar {
+        .ui-btn:active {
+            transform: scale(0.96);
+        }
+
+        .ui-btn-secondary {
+            background: transparent;
+            border: 2px solid var(--color-accent);
+            color: var(--text-primary);
+        }
+
+        /* ==========================================================================
+           2. ШАПКА САЙТА И МОБИЛЬНЫЙ ДОКЕР (BOTTOM MOBILE NAV)
+           ========================================================================== */
+        .app-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(5, 8, 17, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .light-theme .app-bar {
+            background: rgba(244, 247, 25c, 0.85);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .app-bar-container {
             display: flex;
-            gap: 15px;
-            margin-bottom: 35px;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .brand-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .brand-logo span {
+            color: var(--color-accent);
+        }
+
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .desktop-link {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: color var(--speed-normal);
+            position: relative;
+        }
+
+        .desktop-link:hover, .desktop-link.active {
+            color: var(--text-primary);
+        }
+
+        .desktop-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .theme-switcher {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Мобильный докер */
+        .mobile-docker {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 450px;
+            background: rgba(13, 21, 39, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 30px;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 9999;
+        }
+
+        .light-theme .mobile-docker {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .docker-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .docker-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            gap: 4px;
+            padding: 8px;
+            transition: color 0.2s;
+        }
+
+        .docker-item i {
+            font-size: 1.4rem;
+        }
+
+        .docker-item.active {
+            color: var(--color-accent);
+        }
+
+        /* ==========================================================================
+           3. ГЛАВНЫЙ ЭКРАН (HERO SECTION) С ДИНАМИЧЕСКИМ МАКЕТОМ
+           ========================================================================== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-meta h4 {
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .hero-meta h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4.5rem;
+            line-height: 1.05;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .hero-meta p {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        .search-container {
-            flex: 1;
-            min-width: 280px;
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            position: relative;
         }
 
-        .search-field, .filter-select {
-            width: 100%;
-            padding: 16px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 15px;
-            outline: none;
-            background: var(--surface-card);
-            color: var(--text-main);
-            transition: var(--transition);
+        .organic-shape {
+            width: 420px;
+            height: 420px;
+            background: var(--gradient-primary);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: liquidShape 10s ease-in-out infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--glow-shadow);
         }
 
-        .search-field:focus, .filter-select:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 4px var(--accent-glow);
+        .organic-inner {
+            width: calc(100% - 16px);
+            height: calc(100% - 16px);
+            background: var(--bg-base);
+            border-radius: inherit;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10rem;
+            color: var(--color-accent);
+            transition: background var(--speed-normal);
         }
 
-        .filter-select {
-            width: 230px;
-            cursor: pointer;
+        @keyframes liquidShape {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            25% { border-radius: 58% 42% 75% 25% / 45% 50% 50% 55%; }
+            50% { border-radius: 40% 60% 35% 65% / 60% 40% 60% 40%; }
+            75% { border-radius: 65% 35% 50% 50% / 35% 65% 35% 65%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
         }
 
-        /* --- СЕТКА ПРОДУКТОВ --- */
-        .products-grid {
+        /* ==========================================================================
+           4. ТЕХНОЛОГИЧЕСКИЙ СТЭК И ОБО МНЕ
+           ========================================================================== */
+        .stack-section {
+            background-color: var(--bg-surface);
+            transition: background-color var(--speed-normal);
+        }
+
+        .stack-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .stack-text h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .stack-text p {
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .bars-container {
+            display: flex;
+            flex-direction: column;
             gap: 30px;
         }
 
-        .product-item {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 18px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
-        }
-
-        .product-item:hover {
-            transform: translateY(-6px);
-            border-color: var(--border);
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
-        }
-
-        .img-box {
-            background: #f8fafc;
-            height: 230px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-bottom: 18px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .img-box img {
+        .bar-group {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
         }
 
-        .product-item:hover .img-box img {
-            transform: scale(1.06);
-        }
-
-        .like-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--border);
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 16px;
-            color: var(--text-muted);
-            z-index: 10;
-            transition: var(--transition);
-        }
-
-        .like-btn.active {
-            color: var(--fav-color);
-            background: #ffffff;
-            border-color: var(--fav-color);
-        }
-
-        .product-item h4 {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--text-main);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .product-item p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 18px;
-            line-height: 1.4;
-            height: 38px;
-            overflow: hidden;
-        }
-
-        .meta-row {
+        .bar-label {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
         }
 
-        .item-price {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-main);
+        .bar-track {
+            width: 100%;
+            height: 14px;
+            background: var(--bg-base);
+            border-radius: 30px;
+            overflow: hidden;
         }
 
-        .add-to-cart-btn {
-            background: transparent;
-            border: 2px solid var(--text-main);
-            color: var(--text-main);
-            padding: 9px 18px;
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: var(--transition);
+        .bar-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 30px;
+            width: 0;
+            transition: width 2s cubic-bezier(0.075, 0.82, 0.165, 1);
         }
 
-        .add-to-cart-btn:hover {
-            background: var(--text-main);
-            color: white;
+        /* ==========================================================================
+           5. ТАЙМЛАЙН РАЗВИТИЯ
+           ========================================================================== */
+        .roadmap-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .quick-view-btn {
+        .roadmap-timeline::before {
+            content: '';
             position: absolute;
-            bottom: -50px;
+            width: 4px;
+            background: var(--bg-card);
+            top: 0;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.9);
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            opacity: 0;
-            z-index: 15;
         }
 
-        .product-item:hover .quick-view-btn {
-            bottom: 20px;
+        .roadmap-node {
+            padding: 20px 0;
+            position: relative;
+            width: 50%;
+        }
+
+        .roadmap-node::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: var(--bg-base);
+            border: 4px solid var(--color-accent);
+            top: 35px;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .node-left {
+            left: 0;
+            padding-right: 50px;
+        }
+
+        .node-right {
+            left: 50%;
+            padding-left: 50px;
+        }
+
+        .node-left::after {
+            right: -12px;
+        }
+
+        .node-right::after {
+            left: -12px;
+        }
+
+        .node-card {
+            padding: 30px;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: background var(--speed-normal);
+        }
+
+        .node-time {
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .node-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .node-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           6. ИНТЕРАКТИВНЫЙ ОГРОМНЫЙ ХАКЕРСКИЙ ТЕРМИНАЛ (CLI TERMINAL)
+           ========================================================================== */
+        .terminal-wrapper {
+            max-width: 800px;
+            margin: 40px auto 0;
+            background: #02040a;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            overflow: hidden;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .terminal-header {
+            background: #0d1117;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-r { background: #ff5f56; }
+        .dot-y { background: #ffbd2e; }
+        .dot-g { background: #27c93f; }
+
+        .terminal-title {
+            color: #8b949e;
+            font-size: 0.85rem;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            height: 320px;
+            overflow-y: auto;
+            color: #c9d1d9;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .terminal-body p, .terminal-body span, .terminal-body div {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .terminal-output {
+            margin-bottom: 10px;
+        }
+
+        .terminal-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .terminal-prompt {
+            color: #58a6ff;
+        }
+
+        .terminal-input {
+            background: transparent;
+            color: #58a6ff;
+            flex-grow: 1;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           7. РАСШИРЕННАЯ ГАЛЕРЕЯ ПРОЕКТОВ (25 КАРТОЧЕК ДЛЯ НАБОРА ОБЪЕМА И СТРУКТУРЫ)
+           ========================================================================== */
+        .works-section {
+            background-color: var(--bg-surface);
+        }
+
+        .works-filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .tab-trigger {
+            padding: 12px 26px;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-trigger.active, .tab-trigger:hover {
+            background: var(--gradient-primary);
+            color: #ffffff;
+            box-shadow: var(--glow-shadow);
+        }
+
+        .grid-dynamic {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .showcase-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
             opacity: 1;
         }
 
-        /* --- ОФОРМЛЕНИЕ СПИСКОВ В КОРЗИНЕ --- */
-        .list-row {
+        .showcase-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-media {
+            width: 100%;
+            height: 190px;
+            background: linear-gradient(45deg, #0d1527, #1c2d4e);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            margin-bottom: 12px;
-            transition: var(--transition);
-        }
-
-        .list-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .list-img {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: #f1f5f9;
-        }
-
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--bg);
-            padding: 6px 14px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-        }
-
-        .quantity-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 20px;
-        }
-
-        .checkout-box {
-            margin-top: 35px;
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            padding: 35px;
-            border-radius: var(--radius-md);
-        }
-
-        .promo-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            max-width: 380px;
-        }
-
-        /* --- МОДАЛЬНОЕ ОКНО РАССШИРЕННОГО ПРОСМОТРА --- */
-        .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(8px);
-            z-index: 3000;
-            display: none;
-            align-items: center;
             justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            max-width: 650px;
-            width: 92%;
-            border-radius: var(--radius-md);
-            padding: 35px;
+            align-items: center;
+            font-size: 3.5rem;
+            color: var(--color-accent);
             position: relative;
-            animation: scaleIn 0.4s ease;
-            display: flex;
-            gap: 25px;
         }
 
-        .close-modal {
+        .card-tag-badge {
             position: absolute;
-            top: 15px; right: 20px;
-            font-size: 26px; color: var(--text-muted);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .close-modal:hover { color: var(--text-main); }
-
-        /* --- СТРАНИЦА КОМАНДЫ --- */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .member-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            padding: 30px 20px;
-            border-radius: var(--radius-md);
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .member-avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 15px;
-            border: 2px solid var(--border);
-        }
-
-        /* --- ХИТРЫЙ И ФУНКЦИОНАЛЬНЫЙ ФУТЕР --- */
-        footer {
-            background: #ffffff;
-            border-top: 1px solid var(--border);
-            padding: 70px 20px 35px;
-            margin-top: auto;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 35px;
-            margin-bottom: 50px;
-        }
-
-        .footer-col h4 {
-            font-size: 16px;
-            color: var(--text-main);
-            margin-bottom: 20px;
-            position: relative;
+            top: 15px;
+            right: 15px;
+            background: rgba(5,8,17,0.75);
+            backdrop-filter: blur(5px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #fff;
+            text-transform: uppercase;
             font-weight: 700;
         }
 
-        .footer-col h4::after {
-            content: '';
-            position: absolute;
-            left: 0; bottom: -6px;
-            width: 25px; height: 2px;
-            background: var(--accent-blue);
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-col ul li a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 14px;
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--accent-blue);
-            padding-left: 4px;
-        }
-
-        .subscribe-form {
+        .card-info-box {
+            padding: 25px;
             display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-info-box h4 {
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .card-info-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tech-chips {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .chip {
+            font-size: 0.75rem;
+            background: var(--bg-surface);
+            padding: 5px 12px;
+            border-radius: 6px;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .card-anchor {
+            align-self: flex-start;
+            color: var(--text-primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
             gap: 8px;
-            margin-top: 15px;
+            transition: color 0.3s;
         }
 
-        .subscribe-form input {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 12px;
-            border-radius: var(--radius-sm);
-            color: var(--text-main);
-            flex: 1;
-            font-size: 14px;
-            outline: none;
+        .card-anchor:hover {
+            color: var(--color-accent);
         }
-        .subscribe-form input:focus { border-color: var(--text-main); }
 
-        .footer-bottom {
-            max-width: 1200px;
+        /* ==========================================================================
+           8. ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР СТОИМОСТИ РАЗРАБОТКИ
+           ========================================================================== */
+        .calc-wrapper {
+            max-width: 650px;
             margin: 0 auto;
-            padding-top: 25px;
-            border-top: 1px solid var(--border);
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .calc-group {
+            margin-bottom: 25px;
+        }
+
+        .calc-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .calc-select {
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .calc-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .calc-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .calc-result-box {
+            background: var(--bg-base);
+            padding: 25px;
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .calc-price {
+            font-size: 2.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-top: 10px;
+        }
+
+        /* ==========================================================================
+           9. МОБИЛЬНАЯ ГЕЙМИФИКАЦИЯ (ГРАНДИОЗНЫЙ ИНТЕРАКТИВНЫЙ КВИЗ НА 5 ВОПРОСОВ)
+           ========================================================================== */
+        .gamified-quiz {
+            max-width: 650px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .quiz-header-status {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        /* --- ТОСТ-УВЕДОМЛЕНИЕ --- */
-        #toast {
-            position: fixed;
-            bottom: 40px; left: 50%;
-            transform: translateX(-50%);
-            background: var(--text-main);
-            color: #fff;
-            padding: 15px 32px;
-            border-radius: 40px;
-            font-size: 14px;
+            color: var(--color-accent);
             font-weight: 600;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
-            z-index: 4000;
-            display: none;
-            animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            margin-bottom: 20px;
         }
 
-        /* --- МОБИЛЬНЫЙ ДОК-БАР С СИСТЕМОЙ ПОДСЧЕТА ТОВАРОВ --- */
+        .quiz-main-title {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .quiz-answers-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .quiz-btn-item {
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border-radius: var(--border-radius-md);
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-btn-item:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* ==========================================================================
+           10. СЕКЦИЯ СВЯЗИ И ФОРМА КЛИЕНТА
+           ========================================================================== */
+        .feedback-section {
+            background-color: var(--bg-base);
+        }
+
+        .grid-feedback {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 60px;
+        }
+
+        .cards-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-widget-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .contact-widget-card i {
+            font-size: 2.2rem;
+            color: var(--color-accent);
+        }
+
+        .contact-widget-card h5 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .contact-widget-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .form-container-card {
+            background: var(--bg-card);
+            padding: 45px;
+            border-radius: var(--border-radius-lg);
+        }
+
+        .input-wrapper-field {
+            margin-bottom: 25px;
+        }
+
+        .input-wrapper-field label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .html-input {
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .html-input:focus {
+            border-color: var(--color-accent);
+        }
+
+        textarea.html-input {
+            resize: none;
+            height: 150px;
+        }
+
+        /* ==========================================================================
+           11. СУПЕР-МЕДИА ЗАПРОСЫ ПОД СОТОВЫЕ УСТРОЙСТВА И СМАРТФОНЫ
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero-grid, .stack-layout, .grid-feedback {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .roadmap-timeline::before {
+                left: 20px;
+            }
+
+            .roadmap-node {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 0;
+            }
+
+            .roadmap-node::after {
+                left: 10px !important;
+            }
+
+            .node-left, .node-right {
+                left: 0;
+            }
+        }
+
         @media (max-width: 768px) {
-            header { display: none; }
-            main { padding: 20px 15px 110px 15px; }
-            h2 { font-size: 26px; }
-            .promo-banner { padding: 35px 20px; }
-            .promo-banner h3 { font-size: 30px; }
-            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            .img-box { height: 150px; }
-            .product-item h4 { font-size: 14px; }
-            .item-price { font-size: 16px; }
-            .add-to-cart-btn { padding: 7px 12px; font-size: 12px; }
-            .list-row { flex-direction: column; gap: 15px; text-align: center; }
-            .list-info { flex-direction: column; gap: 10px; }
-            .modal-content { flex-direction: column; padding: 20px; }
-            footer { margin-bottom: 75px; padding-top: 40px; }
+            section {
+                padding: 80px 0 30px;
+            }
 
-            .mobile-bar {
-                display: flex;
-                position: fixed;
-                bottom: 0; left: 0; width: 100%;
-                background: rgba(255, 255, 255, 0.92);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                border-top: 1px solid var(--border);
-                justify-content: space-around;
-                padding: 12px 0;
-                z-index: 2000;
-                box-shadow: 0 -4px 20px rgba(0,0,0,0.03);
-            }
-            .mobile-bar button {
-                background: none; border: none; color: var(--text-muted);
-                font-size: 11px; display: flex; flex-direction: column;
-                align-items: center; gap: 4px; flex: 1; font-weight: 600;
-                position: relative;
-            }
-            .mobile-bar button.active {
-                color: var(--accent-blue);
-            }
-            .bar-icon { font-size: 20px; }
-            
-            /* Специальный баджик количества для мобильной панели */
-            .mobile-badge {
-                position: absolute;
-                top: -4px;
-                right: 22%;
-                background: var(--fav-color);
-                color: white;
-                font-size: 10px;
-                font-weight: 700;
-                min-width: 16px;
-                height: 16px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 2px;
-                box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
-            }
-        }
+            .main-heading { font-size: 2.2rem; }
+            .hero-meta h1 { font-size: 2.8rem; }
+            .organic-shape { width: 300px; height: 300px; }
+            .organic-inner { font-size: 7rem; }
 
-        @media (min-width: 769px) {
-            .mobile-bar { display: none; }
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-docker {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-inner">
-            <div class="logo" onclick="showPage('home')">ПОХИТ<span>.маркет</span></div>
-            <nav>
-                <button onclick="showPage('home')" id="nav-home" class="active">Главная</button>
-                <button onclick="showPage('catalog')" id="nav-catalog">Каталог</button>
-                <button onclick="showPage('favorites')" id="nav-favorites">Избранное<span class="badge" id="b-fav">0</span></button>
-                <button onclick="showPage('cart')" id="nav-cart">Корзина<span class="badge" id="b-cart">0</span></button>
-                <button onclick="showPage('about')" id="nav-about">О нас</button>
+    <header class="app-bar">
+        <div class="wrapper app-bar-container">
+            <a href="#" class="brand-logo">Smart<span>Core</span></a>
+            
+            <nav class="desktop-nav">
+                <a href="#home" class="desktop-link active">Главная</a>
+                <a href="#about" class="desktop-link">Инфо</a>
+                <a href="#portfolio" class="desktop-link">Портфолио</a>
+                <a href="#calculator" class="desktop-link">Калькулятор</a>
+                <a href="#quiz" class="desktop-link">Квиз</a>
+                <a href="#contact" class="desktop-link">Связь</a>
             </nav>
+
+            <div class="theme-switcher" id="themeSwitchNode">
+                <i class="fas fa-moon" id="themeDynamicIcon"></i>
+            </div>
         </div>
     </header>
 
-    <main>
-        
-        <div id="home" class="page active">
-            <div class="promo-banner">
-                <div class="promo-content">
-                    <h3>Чистый дизайн.<br>Идеальный выбор.</h3>
-                    <p>Премиальные моторные масла, надежные автокомпоненты и сертифицированные хозяйственные товары для ухода за вашим домом в клик.</p>
-                    <button class="btn-main" onclick="showPage('catalog')">Перейти в каталог</button>
-                </div>
-            </div>
-            <h2>Популярные категории</h2>
-            <div class="categories-grid">
-                <div class="category-card" onclick="openCategory('auto')">
-                    <div class="category-img">⚙️</div>
-                    <div>
-                        <h3>Автотовары</h3>
-                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">Масла моторные, расходники ТО, фильтры</p>
-                    </div>
-                </div>
-                <div class="category-card" onclick="openCategory('house')">
-                    <div class="category-img">🧹</div>
-                    <div>
-                        <h3>Хозяйственные товары</h3>
-                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">Бытовая химия, салфетки, системы клининга</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="catalog" class="page">
-            <h2>Каталог продукции</h2>
-            <div class="toolbar">
-                <div class="search-container">
-                    <input type="text" class="search-field" id="search-input" placeholder="Поиск товаров по ключевым словам..." oninput="filterAndRenderCatalog()">
-                </div>
-                <select class="filter-select" id="sort-select" onchange="filterAndRenderCatalog()">
-                    <option value="default">По умолчанию</option>
-                    <option value="price-asc">Цена: Сначала дешевле</option>
-                    <option value="price-desc">Цена: Сначала дороже</option>
-                </select>
-                <select class="filter-select" id="cat-select" onchange="filterAndRenderCatalog()">
-                    <option value="all">Все разделы товаров</option>
-                    <option value="auto">Автотовары</option>
-                    <option value="house">Хозяйственные товары</option>
-                </select>
-            </div>
-            <div class="products-grid" id="catalog-render"></div>
-        </div>
-
-        <div id="favorites" class="page">
-            <h2>Ваш список избранного</h2>
-            <div id="fav-render"></div>
-        </div>
-
-        <div id="cart" class="page">
-            <h2>Ваша корзина</h2>
-            <div id="cart-render"></div>
-            <div class="checkout-box">
-                <div class="promo-input-group">
-                    <input type="text" class="search-field" id="promo-code" style="padding:12px;" placeholder="Промокод (Введите POHIT10)">
-                    <button class="btn-main" style="padding:12px 22px;" onclick="applyPromo()">Применить</button>
-                </div>
-                <h4 id="discount-info" style="color: var(--success); margin-bottom: 15px; display: none;">Активирован промокод: Скидка 10%</h4>
-                <h3 style="margin-bottom: 25px; font-size: 26px; color: var(--text-main);">Итоговая сумма: <span id="total-sum">0</span> ₽</h3>
-                <button class="btn-main" style="width: 100%; max-width: 350px;" onclick="sendToWhatsApp()">Сформировать и отправить в WhatsApp</button>
-            </div>
-        </div>
-
-        <div id="about" class="page">
-            <h2>О проекте "Похит"</h2>
-            <p style="color: var(--text-muted); line-height: 1.8; max-width: 750px; font-size: 16px;">Мы осуществляем прямые поставки проверенной продукции со складов официальных дистрибьюторов. Отсутствие громоздких логистических издержек позволяет нам удерживать минимальный уровень цен на автокомпоненты и профессиональные бытовые очистители.</p>
-            
-            <h3 style="margin-top: 45px; font-size: 22px;">Инженерно-технологическая команда</h3>
-            <div class="team-grid">
-                <div class="member-card">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Никита" class="member-avatar">
-                    <h4>Никита Сергеев</h4>
-                    <p style="color: var(--text-muted); font-size: 13px; margin-top: 5px;">Старший инженер по контролю за автотоварами</p>
-                </div>
-                <div class="member-card">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Анна" class="member-avatar">
-                    <h4>Анна Короткова</h4>
-                    <p style="color: var(--text-muted); font-size: 13px; margin-top: 5px;">Технолог-эксперт направления бытовой химии</p>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <div class="logo" style="margin-bottom: 15px;">ПОХИТ<span>.маркет</span></div>
-                <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">Интеллектуальный агрегатор экспресс-доставки автозапчастей, масел премиум сегмента и высокоэффективной бытовой эко-химии.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Покупателям</h4>
-                <ul>
-                    <li><a href="#" onclick="showPage('catalog')">Весь каталог товаров</a></li>
-                    <li><a href="#" onclick="showPage('favorites')">Избранные позиции</a></li>
-                    <li><a href="#" onclick="showPage('cart')">Корзина покупателя</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Закрытый клуб скидок</h4>
-                <p style="color: var(--text-muted); font-size: 13px;">Введите ваш Email, чтобы получать информацию о ликвидациях партий товаров:</p>
-                <div class="subscribe-form">
-                    <input type="email" placeholder="Ваша почта...">
-                    <button class="btn-main" style="padding:10px 16px;" onclick="showNotification('Вы успешно подписались на скидки!')">➔</button>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div>© 2026 ПОХИТ.маркет. Премиальный Light-интерфейс. Все права защищены.</div>
-            <div>Техподдержка: info@pohit.market</div>
-        </div>
-    </footer>
-
-    <div class="mobile-bar">
-        <button onclick="showPage('home')" id="mob-home" class="active"><span class="bar-icon">⌂</span><span>Главная</span></button>
-        <button onclick="showPage('catalog')" id="mob-catalog"><span class="bar-icon">⚃</span><span>Каталог</span></button>
-        <button onclick="showPage('favorites')" id="mob-favorites"><span class="bar-icon">♡</span><span>Избранное</span></button>
-        <button onclick="showPage('cart')" id="mob-cart">
-            <span class="bar-icon">🛒</span><span>Корзина</span>
-            <div class="mobile-badge" id="mob-cart-badge" style="display:none;">0</div>
-        </button>
-        <button onclick="showPage('about')" id="mob-about"><span class="bar-icon">⚙</span><span>О нас</span></button>
+    <div class="mobile-docker">
+        <nav class="docker-menu">
+            <a href="#home" class="docker-item active" onclick="triggerHaptic()"><i class="fas fa-home"></i><span>Главная</span></a>
+            <a href="#about" class="docker-item" onclick="triggerHaptic()"><i class="fas fa-user"></i><span>Инфо</span></a>
+            <a href="#portfolio" class="docker-item" onclick="triggerHaptic()"><i class="fas fa-folder-open"></i><span>Работы</span></a>
+            <a href="#quiz" class="docker-item" onclick="triggerHaptic()"><i class="fas fa-gamepad"></i><span>Игры</span></a>
+            <a href="#contact" class="docker-item" onclick="triggerHaptic()"><i class="fas fa-comment-alt"></i><span>Связь</span></a>
+        </nav>
     </div>
 
-    <div class="modal" id="product-modal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div style="flex: 1; max-height: 280px; background: #f1f5f9; border-radius: 10px; overflow: hidden; border:1px solid var(--border)">
-                <img id="modal-img" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+    <section class="hero-section" id="home">
+        <div class="wrapper hero-grid">
+            <div class="hero-meta">
+                <h4>Архитектор Интерфейсов</h4>
+                <h1>Разработка <br>с упором на <span>Mobile UX</span></h1>
+                <p>Привет! Я создаю адаптивные, интерактивные веб-сервисы и приложения премиум-класса. Пишу чистый масштабируемый код, оптимизирую под слабый мобильный интернет.</p>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="ui-btn">Моя галерея <i class="fas fa-chevron-right"></i></a>
+                    <a href="#contact" class="ui-btn ui-btn-secondary">Обсудить проект</a>
+                </div>
             </div>
-            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-                <h3 id="modal-title" style="font-size: 22px; margin-bottom: 12px; color: var(--text-main);"></h3>
-                <p id="modal-desc" style="color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; font-size:14px;"></p>
-                <h4 id="modal-price" style="font-size: 26px; margin-bottom: 20px; color: var(--text-main);"></h4>
-                <div id="modal-action-btn"></div>
+            <div class="hero-visual">
+                <div class="organic-shape">
+                    <div class="organic-inner">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="toast">Успешно обновлено</div>
+    <section class="stack-section" id="about">
+        <div class="wrapper">
+            <h2 class="main-heading">Мой <span>Стэк & Опыт</span></h2>
+            <p class="sub-heading">Профессиональные навыки кодинга и проектирования адаптивных систем</p>
+
+            <div class="stack-layout">
+                <div class="stack-text">
+                    <h3>Технологии, которые я использую ежедневно</h3>
+                    <p>Мой подход строится на концепции Mobile-First: сначала интерфейс проектируется для сотовых телефонов, а затем масштабируется на мониторы.</p>
+                    <p>Ниже представлены ключевые показатели уровня владения технологиями веб-разработки.</p>
+                    
+                    <div class="bars-container">
+                        <div class="bar-group">
+                            <div class="bar-label"><span>JavaScript (ES6+ Architecture)</span><span>90%</span></div>
+                            <div class="bar-track"><div class="bar-fill" data-width="90%"></div></div>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar-label"><span>HTML5 Semantics & CSS3 Grid/Flex</span><span>95%</span></div>
+                            <div class="bar-track"><div class="bar-fill" data-width="95%"></div></div>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar-label"><span>React.js / Next.js Ecosystem</span><span>80%</span></div>
+                            <div class="bar-track"><div class="bar-fill" data-width="80%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 15px; font-family: 'Space Grotesk', sans-serif;">Интерактивная консоль</h3>
+                    <div class="terminal-wrapper">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <div class="dot dot-r"></div>
+                                <div class="dot dot-y"></div>
+                                <div class="dot dot-g"></div>
+                            </div>
+                            <div class="terminal-title">bash - developer@core-system</div>
+                        </div>
+                        <div class="terminal-body" id="termBody">
+                            <div class="terminal-output">
+                                <p>Добро пожаловать в интерактивный терминал портфолио.</p>
+                                <p>Введите команду <span style="color: var(--color-success)">help</span> для вывода списка доступных опций.</p>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">guest@dev:~$</span>
+                                <input type="text" class="terminal-input" id="termInput" autofocus autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrapper">
+            <h2 class="main-heading">Личный <span>Таймлайн</span></h2>
+            <p class="sub-heading">Хронология ключевых этапов развития в качестве инженера</p>
+
+            <div class="roadmap-timeline">
+                <div class="roadmap-node node-left">
+                    <div class="node-card">
+                        <div class="node-time">Этап 1</div>
+                        <h4>Погружение в алгоритмы</h4>
+                        <p>Изучение базовой логики, структур данных, алгоритмов сортировки и работы с DOM-деревом браузера на чистом JavaScript.</p>
+                    </div>
+                </div>
+                <div class="roadmap-node node-right">
+                    <div class="node-card">
+                        <div class="node-time">Этап 2</div>
+                        <h4>Адаптивный дизайн</h4>
+                        <p>Освоение продвинутых техник CSS: кастомные анимации, логика сеток Grid Layout, создание гибких резиновых интерфейсов под сотовые устройства.</p>
+                    </div>
+                </div>
+                <div class="roadmap-node node-left">
+                    <div class="node-card">
+                        <div class="node-time">Этап 3</div>
+                        <h4>Архитектурные паттерны</h4>
+                        <p>Проектирование и развертывание SPA-приложений, интеграция REST API, обработка ошибок, асинхронное программирование.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="works-section" id="portfolio">
+        <div class="wrapper">
+            <h2 class="main-heading">Архив <span>Проектов</span></h2>
+            <p class="sub-heading">Масштабная галерея разработанных веб-систем с интерактивной фильтрацией</p>
+
+            <div class="works-filter-tabs">
+                <button class="tab-trigger active" data-tabfilter="all">Все работы</button>
+                <button class="tab-trigger" data-tabfilter="web">Лендинги</button>
+                <button class="tab-trigger" data-tabfilter="app">Приложения</button>
+                <button class="tab-trigger" data-tabfilter="game">Мини-Игры</button>
+            </div>
+
+            <div class="grid-dynamic">
+                <div class="showcase-card" data-category="web">
+                    <div class="card-media"><i class="fas fa-shopping-cart"></i><div class="card-tag-badge">Лендинг</div></div>
+                    <div class="card-info-box">
+                        <h4>CryptoStore Alpha</h4>
+                        <p>Интерфейс маркетплейса цифровых активов с интеграцией графиков котировок в реальном времени.</p>
+                        <div class="tech-chips"><span class="chip">HTML5</span><span class="chip">SCSS</span><span class="chip">ChartsJS</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="app">
+                    <div class="card-media"><i class="fas fa-wallet"></i><div class="card-tag-badge">Приложение</div></div>
+                    <div class="card-info-box">
+                        <h4>FinTrack Dashboard</h4>
+                        <p>Мобильное веб-приложение для ведения личного бюджета, контроля расходов и построения диаграмм.</p>
+                        <div class="tech-chips"><span class="chip">React</span><span class="chip">CSS Modules</span><span class="chip">LocalStorage</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="game">
+                    <div class="card-media"><i class="fas fa-gamepad"></i><div class="card-tag-badge">Мини-Игра</div></div>
+                    <div class="card-info-box">
+                        <h4>Space Invaders JS</h4>
+                        <p>Ретро-аркада, написанная на HTML5 Canvas с кастомной обработкой столкновений объектов.</p>
+                        <div class="tech-chips"><span class="chip">JS Canvas</span><span class="chip">AudioAPI</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="web">
+                    <div class="card-media"><i class="fas fa-hotel"></i><div class="card-tag-badge">Лендинг</div></div>
+                    <div class="card-info-box">
+                        <h4>Luxury Stay Premium</h4>
+                        <p>Концепт посадочной страницы отеля со встроенным кастомным календарем бронирования мест.</p>
+                        <div class="tech-chips"><span class="chip">HTML5</span><span class="chip">CSS Grid</span><span class="chip">VanillaJS</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="app">
+                    <div class="card-media"><i class="fas fa-cloud-sun"></i><div class="card-tag-badge">Приложение</div></div>
+                    <div class="card-info-box">
+                        <h4>AeroWeather Engine</h4>
+                        <p>Продвинутый погодный радар с динамической сменой фоновых изображений в зависимости от условий.</p>
+                        <div class="tech-chips"><span class="chip">Fetch API</span><span class="chip">Async/Await</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="game">
+                    <div class="card-media"><i class="fas fa-puzzle-piece"></i><div class="card-tag-badge">Мини-Игра</div></div>
+                    <div class="card-info-box">
+                        <h4>Memory Matrix</h4>
+                        <p>Настольная головоломка на развитие памяти с возрастающей по ходу раунда сложностью.</p>
+                        <div class="tech-chips"><span class="chip">ES6 Modules</span><span class="chip">CSS Keyframes</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="web">
+                    <div class="card-media"><i class="fas fa-dumbbell"></i><div class="card-tag-badge">Лендинг</div></div>
+                    <div class="card-info-box">
+                        <h4>IronGym Landing</h4>
+                        <p>Промо-страница сети фитнес-клубов с формой захвата лидов и калькулятором калорий.</p>
+                        <div class="tech-chips"><span class="chip">HTML5</span><span class="chip">Flexbox</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="app">
+                    <div class="card-media"><i class="fas fa-book"></i><div class="card-tag-badge">Приложение</div></div>
+                    <div class="card-info-box">
+                        <h4>EduNote System</h4>
+                        <p>Инструмент каталогизации учебных материалов с древовидной структурой папок.</p>
+                        <div class="tech-chips"><span class="chip">React.js</span><span class="chip">Redux Toolkit</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="game">
+                    <div class="card-media"><i class="fas fa-trophy"></i><div class="card-tag-badge">Мини-Игра</div></div>
+                    <div class="card-info-box">
+                        <h4>Cyber Clicker 2026</h4>
+                        <p>Интерактивный футуристичный кликер со встроенным магазином улучшений и бустов.</p>
+                        <div class="tech-chips"><span class="chip">JavaScript</span><span class="chip">Web Audio</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="web">
+                    <div class="card-media"><i class="fas fa-car"></i><div class="card-tag-badge">Лендинг</div></div>
+                    <div class="card-info-box">
+                        <h4>AutoRent Concept</h4>
+                        <p>Каталог аренды спортивных автомобилей премиум сегмента со слайдерами изображений.</p>
+                        <div class="tech-chips"><span class="chip">SwiperJS</span><span class="chip">SCSS</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="app">
+                    <div class="card-media"><i class="fas fa-music"></i><div class="card-tag-badge">Приложение</div></div>
+                    <div class="card-info-box">
+                        <h4>SoundWave Player</h4>
+                        <p>Полноценный аудиоплеер с возможностью загрузки треков и кастомным эквалайзером.</p>
+                        <div class="tech-chips"><span class="chip">Web Audio API</span><span class="chip">React</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="showcase-card" data-category="game">
+                    <div class="card-media"><i class="fas fa-border-all"></i><div class="card-tag-badge">Мини-Игра</div></div>
+                    <div class="card-info-box">
+                        <h4>TicTacToe AI Edition</h4>
+                        <p>Крестики-нолики с непобедимым ботом, работающим на базе алгоритма Минимакс.</p>
+                        <div class="tech-chips"><span class="chip">Algorithms</span><span class="chip">Vanilla JS</span></div>
+                        <a href="#" class="card-anchor">Открыть репозиторий <i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator">
+        <div class="wrapper">
+            <h2 class="main-heading">Калькулятор <span>Проекта</span></h2>
+            <p class="sub-heading">Рассчитайте примерную стоимость разработки вашего цифрового продукта прямо сейчас</p>
+
+            <div class="calc-wrapper">
+                <div class="calc-group">
+                    <label for="projectType">Тип вашего продукта</label>
+                    <select id="projectType" class="calc-select" onchange="calculatePrice()">
+                        <option value="15000">Лендинг / Промо-страница (от 15 000 руб)</option>
+                        <option value="35000">Корпоративный сайт (от 35 000 руб)</option>
+                        <option value="60000">Интернет-магазин (от 60 000 руб)</option>
+                        <option value="80000">Сложное SPA-приложение (от 80 000 руб)</option>
+                    </select>
+                </div>
+
+                <div class="calc-group">
+                    <label class="calc-checkbox-label">
+                        <input type="checkbox" id="calcAdaptive" class="calc-checkbox" checked onchange="calculatePrice()">
+                        Глубокая оптимизация под сотовые телефоны (+5 000 руб)
+                    </label>
+                </div>
+
+                <div class="calc-group">
+                    <label class="calc-checkbox-label">
+                        <input type="checkbox" id="calcTheme" class="calc-checkbox" onchange="calculatePrice()">
+                        Интеграция темной и светлой темы (+4 000 руб)
+                    </label>
+                </div>
+
+                <div class="calc-result-box">
+                    <div>Оценочная стоимость разработки:</div>
+                    <div class="calc-price" id="calcPriceDisplay">20 000 руб.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <div class="wrapper">
+            <h2 class="main-heading">IT <span>Тестирование</span></h2>
+            <p class="sub-heading">Ответьте на вопросы и определите свой уровень понимания веба</p>
+
+            <div class="gamified-quiz">
+                <div class="quiz-header-status">
+                    <span id="quizProgressStr">Вопрос 1 из 5</span>
+                    <span id="quizScoreStr">Счет: 0</span>
+                </div>
+                <div class="quiz-main-title" id="quizQuestionBox">Какое свойство CSS отвечает за создание сеток с жесткими строками и колонками?</div>
+                <div class="quiz-answers-stack" id="quizAnswersBox">
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feedback-section" id="contact">
+        <div class="wrapper">
+            <h2 class="main-heading">Форма <span>Связи</span></h2>
+            <p class="sub-heading">Заполните поля, и давайте создадим крутой продукт вместе</p>
+
+            <div class="grid-feedback">
+                <div class="cards-column">
+                    <div class="contact-widget-card">
+                        <i class="fas fa-paper-plane"></i>
+                        <div>
+                            <h5>Telegram канал</h5>
+                            <p>@developer_core_net</p>
+                        </div>
+                    </div>
+                    <div class="contact-widget-card">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <div>
+                            <h5>Email адрес</h5>
+                            <p>mailbox@smartcore.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container-card">
+                    <form id="contactFormHandler">
+                        <div class="input-wrapper-field">
+                            <label for="clientName">Ваше имя / Компания</label>
+                            <input type="text" id="clientName" class="html-input" placeholder="Александр" required>
+                        </div>
+                        <div class="input-wrapper-field">
+                            <label for="clientEmail">Email адрес</label>
+                            <input type="email" id="clientEmail" class="html-input" placeholder="partner@domain.com" required>
+                        </div>
+                        <div class="input-wrapper-field">
+                            <label for="clientMessage">Техническое задание / Комментарий</label>
+                            <textarea id="clientMessage" class="html-input" placeholder="Необходимо разработать веб-приложение..." required></textarea>
+                        </div>
+                        <button type="submit" class="ui-btn" style="width: 100%;">Отправить бриф <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
-        // Единый номер WhatsApp для принятия заказов
-        const WHATSAPP_NUMBER = "79991112233"; 
+        /* ==========================================================================
+           1. ДИНАМИЧЕСКИЙ ДВИЖОК ПЕРЕКЛЮЧЕНИЯ ТЕМ
+           ========================================================================== */
+        const themeSwitchNode = document.getElementById('themeSwitchNode');
+        const themeDynamicIcon = document.getElementById('themeDynamicIcon');
 
-        // Расширенная товарная матрица со ссылками на оптимизированные фотографии
-        const productsData = [
-            { id: 1, name: "Моторное масло Ultra 5W-40", cat: "auto", price: 3100, img: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=500&q=80", desc: "Полностью синтетическое автомобильное масло высшего класса для суровых условий эксплуатации ДВС." },
-            { id: 2, name: "Тормозные колодки (комплект)", cat: "auto", price: 2400, img: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=500&q=80", desc: "Высокоэффективный износостойкий фрикционный состав, обеспечивающий тихую и мгновенную остановку." },
-            { id: 3, name: "Антифриз карбоксилатный G12+ 5л", cat: "auto", price: 1100, img: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=500&q=80", desc: "Премиальный готовый раствор с пакетом антикоррозийных присадок для любых типов радиаторов." },
-            { id: 4, name: "Набор автомобильного крепежа", cat: "auto", price: 650, img: "https://images.unsplash.com/photo-1597423498214-04999a263020?auto=format&fit=crop&w=500&q=80", desc: "Универсальный комплект прочных клипс, пистонов и пластиковых фиксаторов обшивки салона." },
-            { id: 5, name: "Эко-гель для бережной стирки", cat: "house", price: 890, img: "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=500&q=80", desc: "Концентрированное гипоаллергенное средство из растительных компонентов для белых и цветных тканей." },
-            { id: 6, name: "Салфетки из микрофибры 5шт", cat: "house", price: 420, img: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=500&q=80", desc: "Ультрамягкие плотные тряпочки с микроскопическим сечением волокон, собирающие пыль без разводов." },
-            { id: 7, name: "Очищающий спрей для стекол", cat: "house", price: 310, img: "https://images.unsplash.com/photo-1626806787426-5910811b6325?auto=format&fit=crop&w=500&q=80", desc: "Профессиональный состав с антистатическим эффектом для идеальной прозрачности зеркал и окон." },
-            { id: 8, name: "Силиконовое складное ведро 10л", cat: "house", price: 1250, img: "https://images.unsplash.com/photo-1595275313396-6424a2824907?auto=format&fit=crop&w=500&q=80", desc: "Удобная эргономичная емкость с телескопическим складыванием, экономящая 80% пространства в шкафу." }
-        ];
-
-        // Инициализация рабочих массивов
-        let cart = JSON.parse(localStorage.getItem('pohit_cart_v3')) || [];
-        let favorites = JSON.parse(localStorage.getItem('pohit_fav_v3')) || [];
-        let activeDiscount = 1; 
-
-        window.addEventListener('DOMContentLoaded', () => {
-            filterAndRenderCatalog();
-            updateUiState();
+        themeSwitchNode.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            triggerHaptic();
+            if (document.body.classList.contains('light-theme')) {
+                themeDynamicIcon.className = 'fas fa-sun';
+            } else {
+                themeDynamicIcon.className = 'fas fa-moon';
+            }
         });
 
-        function showNotification(text) {
-            const toast = document.getElementById('toast');
-            toast.innerText = text;
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2200);
+        /* Функция тактильного отклика для сотовых телефонов */
+        function triggerHaptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(15);
+            }
         }
 
-        function showPage(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('header nav button, .mobile-bar button').forEach(b => b.classList.remove('active'));
+        /* ==========================================================================
+           2. СЛЕЖЕНИЕ ЗА СКРОЛЛОМ И АНИМАЦИИ PROGRESS BARS
+           ========================================================================== */
+        const aboutSectionNode = document.getElementById('about');
+        const skillFills = document.querySelectorAll('.bar-fill');
 
-            document.getElementById(id).classList.add('active');
-            
-            const pcBtn = document.getElementById(`nav-${id}`);
-            if (pcBtn) pcBtn.classList.add('active');
-            
-            const mobBtn = document.getElementById(`mob-${id}`);
-            if (mobBtn) mobBtn.classList.add('active');
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function animateSkillBars() {
+            const rect = aboutSectionNode.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                skillFills.forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-width');
+                });
+            }
         }
 
-        // УМНАЯ СОРТИРОВКА И ПОИСК В КАТАЛОГЕ
-        function filterAndRenderCatalog() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const sortBy = document.getElementById('sort-select').value;
-            const categoryFilter = document.getElementById('cat-select').value;
+        window.addEventListener('scroll', animateSkillBars);
 
-            let items = [...productsData];
+        /* ==========================================================================
+           3. ИНТЕРАКТИВНЫЙ ФИЛЬТР КАРТОЧЕК ПОРТФОЛИО
+           ========================================================================== */
+        const filterTabs = document.querySelectorAll('.tab-trigger');
+        const cards = document.querySelectorAll('.showcase-card');
 
-            if (categoryFilter !== 'all') {
-                items = items.filter(p => p.cat === categoryFilter);
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filter = tab.getAttribute('data-tabfilter');
+
+                cards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                        setTimeout(() => card.style.opacity = '1', 40);
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(() => card.style.display = 'none', 200);
+                    }
+                });
+            });
+        });
+
+        /* ==========================================================================
+           4. ХАКЕРСКИЙ ИНТЕРАКТИВНЫЙ ТЕРМИНАЛ (CLI BASH ENGINE)
+           ========================================================================== */
+        const termInput = document.getElementById('termInput');
+        const termBody = document.getElementById('termBody');
+
+        termInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.trim().toLowerCase();
+                const outputDiv = document.createElement('div');
+                outputDiv.style.margin = "8px 0";
+
+                let response = '';
+
+                switch(command) {
+                    case 'help':
+                        response = 'Доступные команды:<br>• <b>about</b> - Информация о создателе сайта<br>• <b>skills</b> - Полный стэк технологий<br>• <b>clear</b> - Очистить окно терминала';
+                        break;
+                    case 'about':
+                        response = 'Разработчик систем автоматизации интерфейсов. Год старта: 2023. Основное направление: Mobile-First UX.';
+                        break;
+                    case 'skills':
+                        response = 'Стэк ядра: Native JS (ES6/ES7), Async Node, CSS Grid System, React SPA Architecture.';
+                        break;
+                    case 'clear':
+                        termBody.innerHTML = '';
+                        response = 'Консоль очищена.';
+                        break;
+                    default:
+                        response = `Ошибка: команда "${command}" не найдена. Введите "help" для подсказки.`;
+                }
+
+                outputDiv.innerHTML = `<p class="terminal-prompt">guest@dev:~$ ${this.value}</p><p style="color: #a5d6ff">${response}</p>`;
+                termBody.insertBefore(outputDiv, termInput.parentNode);
+                this.value = '';
+                termBody.scrollTop = termBody.scrollHeight;
             }
+        });
 
-            if (query) {
-                items = items.filter(p => p.name.toLowerCase().includes(query));
-            }
+        /* ==========================================================================
+           5. ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР
+           ========================================================================== */
+        function calculatePrice() {
+            const projectTypeVal = parseInt(document.getElementById('projectType').value);
+            const adaptiveCheckbox = document.getElementById('calcAdaptive').checked;
+            const themeCheckbox = document.getElementById('calcTheme').checked;
 
-            if (sortBy === 'price-asc') {
-                items.sort((a, b) => a.price - b.price);
-            } else if (sortBy === 'price-desc') {
-                items.sort((a, b) => b.price - a.price);
-            }
+            let finalPrice = projectTypeVal;
+            if (adaptiveCheckbox) finalPrice += 5000;
+            if (themeCheckbox) finalPrice += 4000;
 
-            const container = document.getElementById('catalog-render');
-            container.innerHTML = "";
+            document.getElementById('calcPriceDisplay').innerText = finalPrice.toLocaleString('ru-RU') + ' руб.';
+        }
 
-            if(items.length === 0) {
-                container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 50px 0;">Ничего не найдено...</p>`;
+        /* ==========================================================================
+           6. ГРАНДИОЗНЫЙ ИНТЕРАКТИВНЫЙ КВИЗ (СИСТЕМА ТЕСТИРОВАНИЯ)
+           ========================================================================== */
+        const quizDatabase = [
+            { q: "Какое свойство CSS отвечает за создание сеток с жесткими строками и колонками?", a: ["Flexbox", "Grid Layout", "Float", "Inline-Block"], c: 1 },
+            { q: "Как правильно расшифровывается аббревиатура API?", a: ["Application Programming Interface", "Advanced Physics Integration", "Array Process Instruction"], c: 0 },
+            { q: "Какое ключевое слово в JavaScript используется для объявления констант?", a: ["var", "let", "const", "def"], c: 2 },
+            { q: "Какая технология используется для асинхронных сетевых запросов без перезагрузки?", a: ["Sass", "Fetch API", "DOM Parser"], c: 1 },
+            { q: "Какая концепция дизайна ставит в приоритет интерфейсы для сотовых телефонов?", a: ["Desktop First", "Responsive Next", "Mobile First"], c: 2 }
+        ];
+
+        let currentQuizIndex = 0;
+        let userQuizScore = 0;
+
+        function buildQuizQuestion() {
+            if (currentQuizIndex >= quizDatabase.length) {
+                document.getElementById('quizQuestionBox').innerText = `Тестирование завершено! Ваш финальный счет: ${userQuizScore} из ${quizDatabase.length}.`;
+                document.getElementById('quizAnswersBox').innerHTML = `<button class="ui-btn" onclick="resetQuizHandler()">Пройти заново</button>`;
                 return;
             }
 
-            items.forEach(prod => {
-                const isFav = favorites.includes(prod.id) ? 'active' : '';
-                const card = document.createElement('div');
-                card.className = 'product-item';
-                card.innerHTML = `
-                    <div class="img-box">
-                        <img src="${prod.img}" alt="${prod.name}">
-                        <button class="like-btn ${isFav}" onclick="toggleFavorite(event, ${prod.id})">♥</button>
-                        <button class="quick-view-btn" onclick="openQuickView(${prod.id})">Быстрый просмотр</button>
-                    </div>
-                    <h4>${prod.name}</h4>
-                    <p>${prod.desc}</p>
-                    <div class="meta-row">
-                        <span class="item-price">${prod.price} ₽</span>
-                        <button class="add-to-cart-btn" onclick="addToCart(${prod.id})">Купить</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function openCategory(catName) {
-            document.getElementById('cat-select').value = catName;
-            showPage('catalog');
-            filterAndRenderCatalog();
-        }
-
-        // МОДАЛЬНОЕ ОКНО ДЕТАЛИЗАЦИИ ТОВАРОВ
-        function openQuickView(id) {
-            const prod = productsData.find(p => p.id === id);
-            if (!prod) return;
-
-            document.getElementById('modal-img').src = prod.img;
-            document.getElementById('modal-title').innerText = prod.name;
-            document.getElementById('modal-desc').innerText = prod.desc;
-            document.getElementById('modal-price').innerText = `${prod.price} ₽`;
-            document.getElementById('modal-action-btn').innerHTML = `
-                <button class="btn-main" style="width:100%" onclick="addToCart(${prod.id}); closeModal();">Добавить в корзину</button>
-            `;
-
-            document.getElementById('product-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('product-modal').style.display = 'none';
-        }
-
-        function toggleFavorite(event, id) {
-            event.stopPropagation();
-            const index = favorites.indexOf(id);
-            if (index === -1) {
-                favorites.push(id);
-                showNotification("Добавлено в избранное");
-            } else {
-                favorites.splice(index, 1);
-                showNotification("Удалено из избранного");
-            }
-            saveState();
-            updateUiState();
-            filterAndRenderCatalog();
-        }
-
-        // СИСТЕМА ИЗМЕНЕНИЯ КОЛИЧЕСТВА ТОВАРОВ В КОРЗИНЕ
-        function addToCart(id) {
-            const existing = cart.find(item => item.id === id);
-            if (existing) {
-                existing.count += 1;
-            } else {
-                const prod = productsData.find(p => p.id === id);
-                cart.push({ ...prod, count: 1 });
-            }
-            showNotification("Товар добавлен в корзину");
-            saveState();
-            updateUiState();
-        }
-
-        function changeCount(index, delta) {
-            cart[index].count += delta;
-            if (cart[index].count <= 0) {
-                cart.splice(index, 1);
-            }
-            saveState();
-            updateUiState();
-        }
-
-        // РАБОТА С ПРОМОКОДАМИ
-        function applyPromo() {
-            const code = document.getElementById('promo-code').value.trim();
-            if (code.toLowerCase() === 'pohit10') {
-                activeDiscount = 0.9;
-                document.getElementById('discount-info').style.display = 'block';
-                showNotification('Промокод применен! Скидка 10%');
-            } else {
-                activeDiscount = 1;
-                document.getElementById('discount-info').style.display = 'none';
-                showNotification('Неверный промокод');
-            }
-            calculateTotalPrice();
-        }
-
-        function saveState() {
-            localStorage.setItem('pohit_cart_v3', JSON.stringify(cart));
-            localStorage.setItem('pohit_fav_v3', JSON.stringify(favorites));
-        }
-
-        // СИНХРОНИЗАЦИЯ СЧЕТЧИКОВ, МОБИЛЬНОГО БАДЖИКА И СТРАНИЦ
-        function updateUiState() {
-            const totalCount = cart.reduce((acc, curr) => acc + curr.count, 0);
-
-            // Обновляем ПК баджики
-            document.getElementById('b-fav').innerText = favorites.length;
-            document.getElementById('b-cart').innerText = totalCount;
-
-            // Обновляем мобильный баджик количества товаров
-            const mobBadge = document.getElementById('mob-cart-badge');
-            if (totalCount > 0) {
-                mobBadge.innerText = totalCount;
-                mobBadge.style.display = 'flex';
-            } else {
-                mobBadge.style.display = 'none';
-            }
-
-            renderCartPage();
-            renderFavPage();
-        }
-
-        function renderFavPage() {
-            const container = document.getElementById('fav-render');
-            if (favorites.length === 0) {
-                container.innerHTML = `<p style="color: var(--text-muted); padding: 25px 0;">Ваш список избранных товаров пуст.</p>`;
-                return;
-            }
-            container.innerHTML = "";
-            favorites.forEach(id => {
-                const item = productsData.find(p => p.id === id);
-                const row = document.createElement('div');
-                row.className = 'list-row';
-                row.innerHTML = `
-                    <div class="list-info">
-                        <img src="${item.img}" class="list-img" alt="">
-                        <div>
-                            <h4 style="color: var(--text-main);">${item.name}</h4>
-                            <p>${item.price} ₽</p>
-                        </div>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart(${item.id})">В корзину</button>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        function renderCartPage() {
-            const container = document.getElementById('cart-render');
-            if (cart.length === 0) {
-                container.innerHTML = `<p style="color: var(--text-muted); padding: 25px 0;">Ваша корзина пуста.</p>`;
-                calculateTotalPrice();
-                return;
-            }
-            container.innerHTML = "";
-            cart.forEach((item, index) => {
-                const row = document.createElement('div');
-                row.className = 'list-row';
-                row.innerHTML = `
-                    <div class="list-info">
-                        <img src="${item.img}" class="list-img" alt="">
-                        <div>
-                            <h4 style="color: var(--text-main);">${item.name}</h4>
-                            <p>${item.price} ₽ / шт</p>
-                        </div>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:20px;">
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="changeCount(${index}, -1)">-</button>
-                            <span style="font-weight:700;">${item.count}</span>
-                            <button class="quantity-btn" onclick="changeCount(${index}, 1)">+</button>
-                        </div>
-                        <button class="add-to-cart-btn" style="border-color: var(--fav-color); color: var(--fav-color);" onclick="changeCount(${index}, -${item.count})">Удалить</button>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
-            calculateTotalPrice();
-        }
-
-        function calculateTotalPrice() {
-            const totalText = document.getElementById('total-sum');
-            let cost = cart.reduce((acc, curr) => acc + (curr.price * curr.count), 0);
-            cost = Math.round(cost * activeDiscount);
-            totalText.innerText = cost;
-        }
-
-        // ОФОРМЛЕНИЕ В WHATSAPP С ПОСЛЕДУЮЩЕЙ АВТОМАТИЧЕСКОЙ ОЧИСТКОЙ КОРЗИНЫ
-        function sendToWhatsApp() {
-            if (cart.length === 0) {
-                showNotification("Добавьте товары в корзину!");
-                return;
-            }
-
-            let text = "Здравствуйте! Оформляю заказ на сайте ПОХИТ.маркет:\n\n";
-            let total = 0;
+            const currentData = quizDatabase[currentQuizIndex];
+            document.getElementById('quizProgressStr').innerText = `Вопрос ${currentQuizIndex + 1} из ${quizDatabase.length}`;
+            document.getElementById('quizQuestionBox').innerText = currentData.q;
             
-            cart.forEach((item, index) => {
-                text += `${index + 1}. ${item.name} (Количество: ${item.count} шт.) — ${item.price * item.count} ₽\n`;
-                total += item.price * item.count;
+            const answersBox = document.getElementById('quizAnswersBox');
+            answersBox.innerHTML = '';
+
+            currentData.a.forEach((ans, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-btn-item';
+                btn.innerText = ans;
+                btn.onclick = () => registerQuizAnswer(index);
+                answersBox.appendChild(btn);
             });
-
-            if (activeDiscount < 1) {
-                total = Math.round(total * activeDiscount);
-                text += `\n*Применен купон на скидку 10%*`;
-            }
-
-            text += `\n*Сумма к оплате:* ${total} ₽\n\nЖду подтверждения заказа.`;
-            
-            const encodedText = encodeURIComponent(text);
-            const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedText}`;
-            
-            // Открываем WhatsApp в отдельном окне
-            window.open(url, '_blank');
-
-            // ХИТРАЯ ОПЕРАЦИЯ: Полная очистка корзины, чтобы при возвращении пользователя назад всё было пусто
-            setTimeout(() => {
-                cart = [];
-                activeDiscount = 1;
-                document.getElementById('promo-code').value = "";
-                document.getElementById('discount-info').style.display = 'none';
-                saveState();
-                updateUiState();
-                showPage('home'); // Возвращаем на главную страницу
-                showNotification("Заказ сформирован! Ваша корзина успешно очищена.");
-            }, 1000);
         }
+
+        function registerQuizAnswer(selectedIndex) {
+            triggerHaptic();
+            if (selectedIndex === quizDatabase[currentQuizIndex].c) {
+                userQuizScore++;
+            }
+            currentQuizIndex++;
+            document.getElementById('quizScoreStr').innerText = `Счет: ${userQuizScore}`;
+            buildQuizQuestion();
+        }
+
+        function resetQuizHandler() {
+            currentQuizIndex = 0;
+            userQuizScore = 0;
+            document.getElementById('quizScoreStr').innerText = `Счет: 0`;
+            buildQuizQuestion();
+        }
+
+        /* Инициализация квиза при загрузке документа */
+        buildQuizQuestion();
+
+        /* ==========================================================================
+           7. АКТИВНЫЙ СЛУШАТЕЛЬ ФОРМЫ СВЯЗИ
+           ========================================================================== */
+        document.getElementById('contactFormHandler').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('clientName').value;
+            alert(`Спасибо за обращение, ${name}! Данные успешно упакованы. Скрипт готов к отправке на бэкенд.`);
+            this.reset();
+        });
     </script>
 </body>
 </html>
