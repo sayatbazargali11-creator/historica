@@ -8,12 +8,32 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ── ГЛОБАЛЬНЫЕ СТИЛИ И СБРОС ЦСС (RESET) ── */
+/* ── ГЛОБАЛЬНЫЕ СТИЛИ И СБРОС ЦСС (RESET) + ЗАЩИТА ОТ КОПИРОВАНИЯ ── */
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;font-size:14px;color:#222;background:#f5f6f7;line-height:1.4;overflow-x:hidden}
+body{
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    color:#222;
+    background:#f5f6f7;
+    line-height:1.4;
+    overflow-x:hidden;
+    /* Защита от выделения и копирования контента на уровне CSS */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 a{text-decoration:none;color:inherit;transition:color .15s ease}
 img{display:block;max-width:100%;height:auto}
 button, input, textarea, select{font-family:inherit;font-size:inherit;color:inherit}
+
+/* Поля ввода должны оставаться выделяемыми, чтобы пользователи могли писать свои данные в формах */
+input, textarea, select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
 
 /* ── ВЕРХНЯЯ ИНФОРМАЦИОННАЯ ПАНЕЛЬ (TOPBAR) ── */
 .topbar{background:#ffffff;border-bottom:1px solid #e9ebeb;font-size:12px;color:#7e8282;padding:6px 0;position:relative;z-index:30}
@@ -61,7 +81,7 @@ header{background:#ffffff;border-bottom:1px solid #e2e5e5;position:sticky;top:0;
 .hdr-action svg{width:22px;height:22px;stroke-width:1.7;fill:none}
 .hdr-badge{position:absolute;top:-4px;right:0;background:#ff4d4d;color:#ffffff;font-size:9px;font-weight:700;border-radius:10px;min-width:15px;height:15px;padding:0 4px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
 
-/* Кнопка Мобильного Меню (Гамбургер из 3-х линий) */
+/* Кнопка Мобильного Меню */
 .hamburger-menu{display:none;flex-direction:column;justify-content:space-between;width:24px;height:18px;background:none;border:none;cursor:pointer;z-index:150;position:relative}
 .hamburger-menu span{display:block;width:100%;height:2.5px;background-color:#2c3e50;border-radius:2px;transition:all 0.25s ease-in-out}
 .hamburger-menu.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
@@ -109,7 +129,7 @@ header{background:#ffffff;border-bottom:1px solid #e2e5e5;position:sticky;top:0;
 .requisites-table{width:100%;border-collapse:collapse;font-size:13.5px}
 .requisites-table td{padding:13px 22px;border-bottom:1px solid #e9ebeb;vertical-align:top}
 .requisites-table tr:last-child td{border-bottom:none}
-.requisites-table td.label-td{color:#7e8282;font-weight:500;width:38%;background:#fafbfc;user-select:none}
+.requisites-table td.label-td {color:#7e8282;font-weight:500;width:38%;background:#fafbfc;user-select:none}
 .requisites-table td.value-td{color:#2c3e50;font-weight:600}
 
 /* Боковая колонка контактов */
@@ -221,8 +241,11 @@ header{background:#ffffff;border-bottom:1px solid #e2e5e5;position:sticky;top:0;
 .fav-modal-items-list{display:flex;flex-direction:column;gap:12px}
 .fav-item-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e9ebeb;font-size:13.5px}
 .fav-item-row:last-child{border-bottom:none}
-.fav-item-title{color:#2c3e50;font-weight:500;max-width:70%}
-.fav-item-price{font-weight:700;color:#1a252f;white-space:nowrap}
+.fav-item-title{color:#2c3e50;font-weight:500;max-width:65%}
+.fav-item-price-box{display:flex;align-items:center;gap:14px;white-space:nowrap}
+.fav-item-price{font-weight:700;color:#1a252f}
+.btn-remove-from-fav{background:none;border:none;color:#ff4d4d;cursor:pointer;font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px}
+.btn-remove-from-fav:hover{background:#ffebeb}
 
 .city-grid-list{display:grid;grid-template-columns:1fr;gap:8px;list-style:none}
 .city-grid-item{padding:12px 16px;border:1px solid #e9ebeb;border-radius:6px;cursor:pointer;font-weight:600;color:#2c3e50;transition:all 0.15s}
@@ -269,241 +292,75 @@ footer{background:#1a252f;color:#95a5a6;margin-top:50px;font-size:13px}
 /* ==========================================================================
    УЛУЧШЕННАЯ И ГЛУБОКАЯ АДАПТИВНОСТЬ (ПЛАНШЕТЫ И ТЕЛЕФОНЫ ОТ 320px ДО 1024px)
    ========================================================================== */
-
-/* Предотвращение случайных сдвигов контента в мобильных браузерах */
 html, body {
     overflow-x: hidden !important;
     max-width: 100% !important;
     -webkit-text-size-adjust: 100%;
 }
 
-/* --- ВЕРСИЯ ДЛЯ КРУПНЫХ ПЛАНШЕТОВ И IPAD (ДО 1024px) --- */
 @media (max-width: 1024px) {
-    .page-wrap {
-        padding: 0 16px;
-    }
-    .products-grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-        gap: 14px;
-    }
-    .requisites-table td.label-td {
-        width: 42%;
-        padding: 12px 16px;
-    }
-    .requisites-table td.value-td {
-        padding: 12px 16px;
-    }
+    .page-wrap { padding: 0 16px; }
+    .products-grid-container { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+    .requisites-table td.label-td { width: 42%; padding: 12px 16px; }
+    .requisites-table td.value-td { padding: 12px 16px; }
 }
 
-/* --- ВЕРСИЯ ДЛЯ ОБЫЧНЫХ ПЛАНШЕТОВ И БОЛЬШИХ ТЕЛЕФОНОВ (ДО 992px) --- */
 @media (max-width: 992px) {
-    .header-right-desktop {
-        display: none !important;
-    }
-    .hamburger-menu {
-        display: flex !important;
-    }
-    .contacts-layout, 
-    .catalog-layout-box {
-        grid-template-columns: 1fr !important;
-        gap: 24px;
-    }
-    .footer-top {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 28px;
-        padding: 35px 20px;
-    }
-    .map-frame-box {
-        height: 340px;
-    }
+    .header-right-desktop { display: none !important; }
+    .hamburger-menu { display: flex !important; }
+    .contacts-layout, .catalog-layout-box { grid-template-columns: 1fr !important; gap: 24px; }
+    .footer-top { grid-template-columns: repeat(2, 1fr) !important; gap: 28px; padding: 35px 20px; }
+    .map-frame-box { height: 340px; }
 }
 
-/* --- ПОЛНОЦЕННЫЙ СМАРТФОН-РЕЖИМ (МОБИЛЬНЫЕ ДО 650px) --- */
 @media (max-width: 650px) {
-    .topbar {
-        display: none !important;
-    }
-    .gnav {
-        display: none !important;
-    }
-    header {
-        position: sticky;
-        top: 0;
-        height: auto;
-        padding: 10px 0;
-    }
-    .header-inner {
-        height: auto;
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 0 14px;
-    }
-    .logo-wrap {
-        order: 1;
-        flex: 1;
-    }
-    .logo-ankas {
-        font-size: 21px !important;
-    }
-    .logo-sub {
-        font-size: 9px !important;
-    }
-    #mobileHamburgerTriggerButton {
-        order: 2;
-    }
-    .search-wrap {
-        order: 3;
-        width: 100%;
-        flex: none !important;
-        height: 40px;
-        margin-top: 4px;
-    }
-    .search-input {
-        font-size: 13.5px;
-        padding: 0 14px;
-    }
-    .search-btn {
-        padding: 0 16px;
-    }
-    .section-title {
-        font-size: 20px !important;
-        margin-bottom: 16px;
-        line-height: 1.25;
-    }
-    .breadcrumb {
-        padding: 12px 0;
-        font-size: 12px;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-    }
+    .topbar { display: none !important; }
+    .gnav { display: none !important; }
+    header { position: sticky; top: 0; height: auto; padding: 10px 0; }
+    .header-inner { height: auto; flex-wrap: wrap; gap: 10px; padding: 0 14px; }
+    .logo-wrap { order: 1; flex: 1; }
+    .logo-ankas { font-size: 21px !important; }
+    .logo-sub { font-size: 9px !important; }
+    #mobileHamburgerTriggerButton { order: 2; }
+    .search-wrap { order: 3; width: 100%; flex: none !important; height: 40px; margin-top: 4px; }
+    .search-input { font-size: 13.5px; padding: 0 14px; }
+    .search-btn { padding: 0 16px; }
+    .section-title { font-size: 20px !important; margin-bottom: 16px; line-height: 1.25; }
+    .breadcrumb { padding: 12px 0; font-size: 12px; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
     
-    /* Сетка товаров в два аккуратных ряда без искажения картинок */
-    .products-grid-container {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px;
-    }
-    .product-item-card {
-        padding: 12px;
-        border-radius: 6px;
-    }
-    .pic-img-placeholder {
-        height: 115px;
-        padding: 6px;
-        font-size: 10px;
-    }
-    .pic-img-placeholder svg {
-        width: 26px;
-        height: 26px;
-    }
-    .pic-title {
-        font-size: 12.5px !important;
-        height: 34px;
-        margin-bottom: 6px;
-    }
-    .pic-brand {
-        font-size: 10.5px;
-        margin-bottom: 8px;
-    }
-    .pic-price-value {
-        font-size: 14.5px !important;
-    }
-    .pic-btns-group {
-        flex-direction: column;
-        gap: 6px;
-    }
-    .btn-toggle-favorite {
-        width: 100%;
-        height: 34px;
-    }
-    .btn-add-to-cart {
-        padding: 9px;
-        font-size: 12px;
-    }
+    .products-grid-container { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+    .product-item-card { padding: 12px; border-radius: 6px; }
+    .pic-img-placeholder { height: 115px; padding: 6px; font-size: 10px; }
+    .pic-img-placeholder svg { width: 26px; height: 26px; }
+    .pic-title { font-size: 12.5px !important; height: 34px; margin-bottom: 6px; }
+    .pic-brand { font-size: 10.5px; margin-bottom: 8px; }
+    .pic-price-value { font-size: 14.5px !important; }
+    .pic-btns-group { flex-direction: column; gap: 6px; }
+    .btn-toggle-favorite { width: 100%; height: 34px; }
+    .btn-add-to-cart { padding: 9px; font-size: 12px; }
 
-    /* Адаптивное превращение тяжелых таблиц реквизитов в карточную разметку */
-    .requisites-table, 
-    .requisites-table tbody, 
-    .requisites-table tr, 
-    .requisites-table td {
-        display: block;
-        width: 100% !important;
-    }
-    .requisites-table tr {
-        border-bottom: 1px solid #e9ebeb;
-        padding: 12px 0;
-    }
-    .requisites-table tr:last-child {
-        border-bottom: none;
-    }
-    .requisites-table td.label-td {
-        background: transparent;
-        padding: 0 16px 4px 16px;
-        font-size: 11.5px;
-    }
-    .requisites-table td.value-td {
-        padding: 0 16px 4px 16px;
-        font-size: 13.5px;
-    }
+    .requisites-table, .requisites-table tbody, .requisites-table tr, .requisites-table td { display: block; width: 100% !important; }
+    .requisites-table tr { border-bottom: 1px solid #e9ebeb; padding: 12px 0; }
+    .requisites-table tr:last-child { border-bottom: none; }
+    .requisites-table td.label-td { background: transparent; padding: 0 16px 4px 16px; font-size: 11.5px; }
+    .requisites-table td.value-td { padding: 0 16px 4px 16px; font-size: 13.5px; }
 
-    /* Адаптация окон Корзины и Форм */
-    .modal-mask {
-        padding: 10px;
-    }
-    .modal-window-box {
-        max-width: 100% !important;
-        border-radius: 8px;
-    }
-    .modal-win-header {
-        padding: 14px 18px;
-    }
-    .modal-win-body {
-        padding: 18px;
-    }
-    .cart-table-row {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        text-align: left;
-        position: relative;
-        padding-bottom: 16px;
-    }
-    .btn-remove-from-cart {
-        align-self: flex-start;
-        padding: 6px 0;
-    }
-    .cart-totals-summary-box {
-        flex-direction: column;
-        gap: 14px;
-        align-items: stretch;
-        text-align: center;
-    }
-    .info-content-card {
-        padding: 18px;
-    }
-    .info-content-card p {
-        font-size: 13px;
-    }
-    .footer-top {
-        grid-template-columns: 1fr !important;
-        gap: 22px;
-        text-align: center;
-    }
-    .footer-bottom {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-        padding: 16px;
-    }
+    .modal-mask { padding: 10px; }
+    .modal-window-box { max-width: 100% !important; border-radius: 8px; }
+    .modal-win-header { padding: 14px 18px; }
+    .modal-win-body { padding: 18px; }
+    .cart-table-row { grid-template-columns: 1fr; gap: 10px; text-align: left; position: relative; padding-bottom: 16px; }
+    .btn-remove-from-cart { align-self: flex-start; padding: 6px 0; }
+    .cart-totals-summary-box { flex-direction: column; gap: 14px; align-items: stretch; text-align: center; }
+    .info-content-card { padding: 18px; }
+    .info-content-card p { font-size: 13px; }
+    .footer-top { grid-template-columns: 1fr !important; gap: 22px; text-align: center; }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; padding: 16px; }
 }
 
-/* Оптимизация для микро-экранов старых смартфонов */
 @media (max-width: 360px) {
-    .logo-ankas {
-        font-size: 19px !important;
-    }
-    .products-grid-container {
-        grid-template-columns: 1fr !important;
-    }
+    .logo-ankas { font-size: 19px !important; }
+    .products-grid-container { grid-template-columns: 1fr !important; }
 }
 </style>
 </head>
@@ -589,7 +446,7 @@ html, body {
       <div class="logo-box">
         <span class="logo-ankas" style="font-size:20px">АНКАС</span>
       </div>
-      <button class="mnd-close-btn" id="mobileDrawerCloseButtonElement">&times;</button>
+      <button class="mnd-close-btn" id="mobileDrawerCloseButtonElement">×</button>
     </div>
     <div class="mnd-body">
       <div class="mnd-action-item trigger-cart-modal-view" id="mndCartActionItem">
@@ -655,12 +512,10 @@ html, body {
     <div class="catalog-layout-box">
       <aside class="catalog-sidebar-nav">
         <h3>Категории</h3>
-        <ul class="category-filter-list" id="domCategoryFilterSidebarList">
-          </ul>
+        <ul class="category-filter-list" id="domCategoryFilterSidebarList"></ul>
       </aside>
       <main>
-        <div class="products-grid-container" id="domProductsGridContainerBox">
-          </div>
+        <div class="products-grid-container" id="domProductsGridContainerBox"></div>
       </main>
     </div>
   </div>
@@ -837,16 +692,29 @@ html, body {
     </div>
   </div>
   <div class="footer-bottom">
-    <div>&copy; 2026 ТОО «АНКАС». БИН 210340019230. Все права защищены.</div>
+    <div>© 2026 ТОО «АНКАС». БИН 210340019230. Все права защищены.</div>
     <div>Разработка и поддержка IT-отдела ТОО «АНКАС»</div>
   </div>
 </footer>
+
+
+<div class="modal-mask" id="modalWindowCustomAlertBox">
+  <div class="modal-window-box" style="max-width: 420px; text-align: center;">
+    <div class="modal-win-body" style="padding: 30px; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+      <div style="width: 56px; height: 56px; background: #e6f7ef; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1baa65; font-size: 26px; font-weight: 700;">✓</div>
+      <h3 id="customAlertTitleNode" style="font-size: 17px; color: #2c3e50; font-weight: 700; margin-top: 4px;">Уведомление</h3>
+      <p id="customAlertMessageNode" style="font-size: 13.5px; color: #535a5a; line-height: 1.5; margin-bottom: 8px; white-space: pre-line;"></p>
+      <button class="modal-form-submit-btn" id="customAlertCloseActionButton" style="margin-top: 0; padding: 11px;">Понятно</button>
+    </div>
+  </div>
+</div>
+
 
 <div class="modal-mask" id="modalWindowCitySelectionBox">
   <div class="modal-window-box">
     <div class="modal-win-header">
       <h3>Выберите ваш город</h3>
-      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
       <ul class="city-grid-list">
@@ -864,11 +732,10 @@ html, body {
   <div class="modal-window-box">
     <div class="modal-win-header">
       <h3>Избранные товары</h3>
-      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
-      <div class="fav-modal-items-list" id="domFavoritesModalListContainer">
-        </div>
+      <div class="fav-modal-items-list" id="domFavoritesModalListContainer"></div>
     </div>
   </div>
 </div>
@@ -877,11 +744,10 @@ html, body {
   <div class="modal-window-box">
     <div class="modal-win-header">
       <h3>История ваших запросов</h3>
-      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
-      <div class="orders-history-list" id="domOrdersHistoryContainerBox">
-        </div>
+      <div class="orders-history-list" id="domOrdersHistoryContainerBox"></div>
     </div>
   </div>
 </div>
@@ -890,10 +756,10 @@ html, body {
   <div class="modal-window-box">
     <div class="modal-win-header">
       <h3>Личный кабинет ТОО «АНКАС»</h3>
-      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
-      <form id="dummyAuthFormHandler" onsubmit="event.preventDefault(); alert('Вход выполнен успешно (демо-режим)!'); document.getElementById('modalWindowAuthFormBox').classList.remove('active');">
+      <form id="dummyAuthFormHandler">
         <div class="form-field-group">
           <label>Электронная почта (Email)</label>
           <input type="email" class="form-input-element" required placeholder="example@mail.kz">
@@ -912,7 +778,7 @@ html, body {
   <div class="modal-window-box">
     <div class="modal-win-header">
       <h3>Обращение в ТОО «АНКАС»</h3>
-      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
       <form id="dummyFeedbackFormHandler">
@@ -938,15 +804,14 @@ html, body {
   <div class="modal-window-box wide">
     <div class="modal-win-header">
       <h3>Спецификация запроса (Корзина)</h3>
-      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
       <div id="domCartEmptyStateNotification" style="padding:20px 0; text-align:center; color:#7e8282; display:none">
         Ваша корзина пуста. Перейдите в каталог оборудования, чтобы добавить необходимые позиции.
       </div>
       <div id="domCartFilledStateContainer">
-        <div class="cart-items-wrapper" id="domCartItemsRowsInjectContainer">
-          </div>
+        <div class="cart-items-wrapper" id="domCartItemsRowsInjectContainer"></div>
         <div class="cart-totals-summary-box">
           <div>
             <div class="sum-label">Ориентировочная сумма спецификации:</div>
@@ -963,27 +828,47 @@ html, body {
   <div class="modal-window-box">
     <div class="modal-win-header">
       <h3>Оформление запроса цены</h3>
-      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
       <form id="checkoutOrderFinalFormHandler">
+        
         <div class="form-field-group">
-          <label>Название компании / ТОО / ИП</label>
-          <input type="text" id="coInpCompany" class="form-input-element" required placeholder="ТОО КазНефтьСнаб">
+          <label>Тип покупателя</label>
+          <select id="checkoutCustomerTypeSelector" class="form-input-element" style="padding: 10px; font-weight: 600; cursor: pointer;">
+            <option value="individual">Обычный покупатель (Частное лицо → WhatsApp)</option>
+            <option value="legal">Юридическое лицо (Компания / ТОО / ИП)</option>
+          </select>
         </div>
-        <div class="form-field-group">
-          <label>БИН организации (для ускорения счета)</label>
-          <input type="text" id="coInpBin" class="form-input-element" placeholder="12 цифр БИН">
+
+        <div id="checkoutLegalFieldsContainer" style="display: none;">
+          <div class="form-field-group">
+            <label>Название компании / ТОО / ИП</label>
+            <input type="text" id="coInpCompany" class="form-input-element" placeholder="ТОО КазНефтьСнаб">
+          </div>
+          <div class="form-field-group">
+            <label>БИН организации (12 цифр)</label>
+            <input type="text" id="coInpBin" class="form-input-element" placeholder="210340019230">
+          </div>
         </div>
+
+        <div id="checkoutIndividualFieldsContainer">
+          <div class="form-field-group">
+            <label>Ваше Имя и Фамилия</label>
+            <input type="text" id="coInpPersonalName" class="form-input-element" placeholder="Иван Петров">
+          </div>
+        </div>
+
         <div class="form-field-group">
           <label>Контактный Email</label>
           <input type="email" id="coInpEmail" class="form-input-element" required placeholder="snab@company.kz">
         </div>
         <div class="form-field-group">
-          <label>Телефон для связи с инженером</label>
+          <label>Телефон (WhatsApp для отправки чека)</label>
           <input type="tel" id="coInpPhone" class="form-input-element" required placeholder="+7 (707) 123-45-67">
         </div>
-        <button type="submit" class="modal-form-submit-btn">Отправить спецификацию на просчет</button>
+        
+        <button type="submit" class="modal-form-submit-btn" id="submitCheckoutFormButtonText">Отправить заказ инженеру</button>
       </form>
     </div>
   </div>
@@ -991,10 +876,6 @@ html, body {
 
 
 <script>
-/**
- * СТРУКТУРИРОВАННЫЙ КАТАЛОГ ПРОДУКЦИИ ТОО «АНКАС»
- * База данных оборудования (Имитация серверного ответа)
- */
 const rawProductsCatalogData = [
     { id: 1, category: "Насосное оборудование", name: "Насос КМ 80-65-160 Е (Для нефтепродуктов, взрывозащищенный)", sku: "KM-80-65-160-E", brand: "ЛИВГИДРОМАШ", price: 485000 },
     { id: 2, category: "Насосное оборудование", name: "Насосный агрегат АСВН-80А (Самомовсасывающий, для бензина и ДТ)", sku: "ASVN-80A-PUMP", brand: "ЭНА", price: 390000 },
@@ -1010,28 +891,98 @@ const rawProductsCatalogData = [
     { id: 12, category: "Оборудование для АЗС", name: "Раздаточный пистолет OPW 11A (Автоматический, отсекатель для бензина)", sku: "OPW-11A-NOZZLE", brand: "OPW", price: 58000 }
 ];
 
-// Глобальные реактивные хранилища данных сессии пользователя (State)
 let userCartStorageArray = [];
 let userFavoritesStorageArray = [];
 let userOrdersHistoryArray = [];
 let currentSelectedActiveCategoryName = "Все категории";
+let customAlertCallbackFunction = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Инициализация базовых UI узлов интерфейса
     initGlobalNavigationTabsLogic();
     initGlobalModalsWindowMaskSystem();
     initMobileNavigationDrawerLogic();
+    initAntiCopySecuritySystem();
     
-    // Рендеринг динамического приложения
     buildStaticCategoriesSidebarMenu();
     renderProductsGrid(rawProductsCatalogData);
     
     initLiveSearchAutocompleteEngine();
     initFormsSubmissionInterceptors();
+    initCheckoutTypeToggleLogic();
 
     /**
-     * ПЕРЕКЛЮЧЕНИЕ ГЛАВНЫХ РАЗДЕЛОВ (ТАБЫ)
+     * СИСТЕМА КРАСИВЫХ МОДАЛЬНЫХ АЛЕРТОВ (ВМЕСТО СИСТЕМНЫХ ОКOН)
+     */
+    window.openCustomPrettyAlert = function(title, message, callback = null) {
+        document.getElementById('customAlertTitleNode').innerText = title;
+        document.getElementById('customAlertMessageNode').innerText = message;
+        customAlertCallbackFunction = callback;
+        document.getElementById('modalWindowCustomAlertBox').classList.add('active');
+    };
+
+    const alertCloseBtn = document.getElementById('customAlertCloseActionButton');
+    if(alertCloseBtn) {
+        alertCloseBtn.addEventListener('click', () => {
+            document.getElementById('modalWindowCustomAlertBox').classList.remove('active');
+            if(customAlertCallbackFunction) {
+                customAlertCallbackFunction();
+                customAlertCallbackFunction = null;
+            }
+        });
+    }
+
+    /**
+     * ЗАЩИТА КОНТЕНТА ОТ КОПИРОВАНИЯ
+     */
+    function initAntiCopySecuritySystem() {
+        // Блокировка вызова правой кнопки мыши (Контекстного меню)
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        // Блокировка сочетаний клавиш Ctrl+C, Ctrl+A, Ctrl+U, Ctrl+S, F12
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 65 || e.keyCode === 85 || e.keyCode === 83)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+
+    /**
+     * ДИНАМИЧЕСКОЕ ПЕРЕКЛЮЧЕНИЕ ТИПА ПОКУПАТЕЛЯ (ФИЗ / ЮР ЛИЦО)
+     */
+    function initCheckoutTypeToggleLogic() {
+        const selector = document.getElementById('checkoutCustomerTypeSelector');
+        const legalBlock = document.getElementById('checkoutLegalFieldsContainer');
+        const individualBlock = document.getElementById('checkoutIndividualFieldsContainer');
+        const submitBtnText = document.getElementById('submitCheckoutFormButtonText');
+
+        if(selector) {
+            selector.addEventListener('change', () => {
+                if(selector.value === 'legal') {
+                    legalBlock.style.display = 'block';
+                    individualBlock.style.display = 'none';
+                    if(submitBtnText) submitBtnText.innerText = "Отправить спецификацию на просчет";
+                    document.getElementById('coInpCompany').required = true;
+                } else {
+                    legalBlock.style.display = 'none';
+                    individualBlock.style.display = 'block';
+                    if(submitBtnText) submitBtnText.innerText = "Перейти к оплате в WhatsApp";
+                    document.getElementById('coInpCompany').required = false;
+                }
+            });
+        }
+    }
+
+    /**
+     * ПЕРЕКЛЮЧЕНИЕ ТАБОВ СЕКЦИЙ
      */
     function initGlobalNavigationTabsLogic() {
         const triggers = document.querySelectorAll('.gnav-tab-trigger-btn');
@@ -1044,19 +995,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 const targetId = btn.getAttribute('data-target');
                 if(!targetId) return;
 
-                // Смена активного состояния кнопок
                 triggers.forEach(t => t.classList.remove('active'));
                 
-                // Синхронизация подсветки десктопного меню
                 const sameTriggers = document.querySelectorAll(`.gnav-tab-trigger-btn[data-target="${targetId}"]`);
                 sameTriggers.forEach(st => st.classList.add('active'));
 
-                // Переключение видимости блоков секций
                 sections.forEach(sec => sec.classList.remove('active'));
                 const activeSection = document.getElementById(targetId);
                 if(activeSection) activeSection.classList.add('active');
 
-                // Адаптивное обновление хлебных крошек
                 let sectionFriendlyName = "Каталог продукции";
                 if(targetId === 'contacts-tab-section') sectionFriendlyName = "Контакты ТОО";
                 if(targetId === 'about-tab-section') sectionFriendlyName = "О компании";
@@ -1064,15 +1011,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 if(breadcrumbNode) breadcrumbNode.innerText = sectionFriendlyName;
 
-                // Автоматическое закрытие мобильной шторки при переходе
                 closeMobileNavigationDrawer();
-                
-                // Прокрутка наверх
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
 
-        // Срабатывание клика на логотипы
         document.querySelectorAll('.ankas-brand-home-trigger').forEach(logo => {
             logo.addEventListener('click', () => {
                 const catalogBtn = document.querySelector('.gnav-links-wrap a[data-target="catalog-tab-section"]');
@@ -1082,10 +1025,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * СИСТЕМА УПРАВЛЕНИЯ МОДАЛЬНЫМИ ОКНАМИ
+     * СИСТЕМА МАСОК ОКОН
      */
     function initGlobalModalsWindowMaskSystem() {
-        // Конфигурационная карта связей триггер-окно
         const modalBridges = [
             { trigger: '#citySelectionButton', modal: '#modalWindowCitySelectionBox' },
             { trigger: '#actionOpenFavorites', modal: '#modalWindowFavoritesListBox' },
@@ -1105,10 +1047,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 btns.forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        // Закрываем шторку если открыта
                         closeMobileNavigationDrawer();
                         
-                        // Если открываем корзину, перерендерить ее актуальное состояние
                         if(bridge.modal === '#modalWindowCartItemsListBox') syncCartModalDOMState();
                         if(bridge.modal === '#modalWindowFavoritesListBox') syncFavoritesModalDOMState();
                         if(bridge.modal === '#modalWindowOrdersHistoryBox') syncOrdersHistoryModalDOMState();
@@ -1119,21 +1059,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Универсальный обработчик закрытия окон
         document.querySelectorAll('.general-close-modal-mask-trigger-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 btn.closest('.modal-mask').classList.remove('active');
             });
         });
 
-        // Закрытие по клику на маску
         document.querySelectorAll('.modal-mask').forEach(mask => {
             mask.addEventListener('click', (e) => {
                 if(e.target === mask) mask.classList.remove('active');
             });
         });
 
-        // Кнопка перехода к оформлению в корзине
         const btnGoCheckout = document.getElementById('triggerGoToCheckoutStepButton');
         if(btnGoCheckout) {
             btnGoCheckout.addEventListener('click', () => {
@@ -1142,20 +1079,16 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Переключатель городов
         document.querySelectorAll('.dynamic-city-selector-list-node').forEach(item => {
             item.addEventListener('click', () => {
                 const selectedCity = item.getAttribute('data-city');
                 document.getElementById('currentCityLabel').innerText = selectedCity;
                 item.closest('.modal-mask').classList.remove('active');
-                alert(`Регион изменен на: ${selectedCity}. Цены и остатки оборудования актуализированы для выбранного филиала.`);
+                openCustomPrettyAlert("Регион изменен", `Цены и остатки оборудования актуализированы для филиала в г. ${selectedCity}.`);
             });
         });
     }
 
-    /**
-     * МОБИЛЬНАЯ ВЫЕЗЖАЮЩАЯ ПАНЕЛЬ (DRAWER)
-     */
     function initMobileNavigationDrawerLogic() {
         const openBtn = document.getElementById('mobileHamburgerTriggerButton');
         const closeBtn = document.getElementById('mobileDrawerCloseButtonElement');
@@ -1184,14 +1117,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if(drawer) drawer.classList.remove('open');
     }
 
-    /**
-     * СБОРКА СТАТИЧЕСКИХ КАТЕГОРИЙ В САЙДБАРЕ
-     */
     function buildStaticCategoriesSidebarMenu() {
         const sidebarUl = document.getElementById('domCategoryFilterSidebarList');
         if(!sidebarUl) return;
 
-        // Вычисляем список уникальных категорий из нашей структуры данных
         const uniqueCategoriesSet = new Set();
         rawProductsCatalogData.forEach(item => uniqueCategoriesSet.add(item.category));
         
@@ -1210,7 +1139,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentSelectedActiveCategoryName = catName;
                 document.getElementById('catalogMainHeadlineTitle').innerText = catName === "Все категории" ? "Промышленное оборудование" : catName;
 
-                // Фильтрация
                 if(catName === "Все категории") {
                     renderProductsGrid(rawProductsCatalogData);
                 } else {
@@ -1223,15 +1151,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /**
-     * СЕТКА ТОВАРОВ КАТАЛОГА
-     */
     function renderProductsGrid(productsArray) {
         const container = document.getElementById('domProductsGridContainerBox');
         if(!container) return;
 
         if(productsArray.length === 0) {
-            container.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #7e8282;">По вашему запросу оборудование не найдено. Попробуйте изменить ключевое слово.</div>`;
+            container.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #7e8282;">По вашему запросу оборудование не найдено.</div>`;
             return;
         }
 
@@ -1267,16 +1192,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
-            // Логика кнопки "Купить / Добавить в спецификацию"
             card.querySelector('.btn-add-to-cart').addEventListener('click', (e) => {
-                if(userCartStorageArray.some(c => c.id === prod.id)) return; // Уже добавлен
+                if(userCartStorageArray.some(c => c.id === prod.id)) return;
                 userCartStorageArray.push(prod);
                 e.target.classList.add('added');
                 e.target.innerText = "Добавлено в КП";
                 updateGlobalBadgesCountCounters();
             });
 
-            // Логика кнопки "Избранное"
             card.querySelector('.btn-toggle-favorite').addEventListener('click', (e) => {
                 const btn = e.currentTarget;
                 const idx = userFavoritesStorageArray.findIndex(f => f.id === prod.id);
@@ -1294,27 +1217,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /**
-     * ОБНОВЛЕНИЕ СЧЕТЧИКОВ И БЕЙДЖЕЙ НА ИНТЕРФЕЙСЕ
-     */
     function updateGlobalBadgesCountCounters() {
-        // Корзина
-        document.querySelectorAll('.dynamic-cart-badge-count').forEach(node => {
-            node.innerText = userCartStorageArray.length;
-        });
-        // Избранное
-        document.querySelectorAll('.dynamic-fav-badge-count').forEach(node => {
-            node.innerText = userFavoritesStorageArray.length;
-        });
-        // Заказы
-        document.querySelectorAll('.dynamic-orders-badge-count').forEach(node => {
-            node.innerText = userOrdersHistoryArray.length;
-        });
+        document.querySelectorAll('.dynamic-cart-badge-count').forEach(node => { node.innerText = userCartStorageArray.length; });
+        document.querySelectorAll('.dynamic-fav-badge-count').forEach(node => { node.innerText = userFavoritesStorageArray.length; });
+        document.querySelectorAll('.dynamic-orders-badge-count').forEach(node => { node.innerText = userOrdersHistoryArray.length; });
     }
 
-    /**
-     * СИНХРОНИЗАЦИЯ И РЕНДЕРИНГ ДАННЫХ ВНУТРИ МОДАЛКИ КОРЗИНЫ
-     */
     function syncCartModalDOMState() {
         const emptyState = document.getElementById('domCartEmptyStateNotification');
         const filledState = document.getElementById('domCartFilledStateContainer');
@@ -1347,12 +1255,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     row.querySelector('.btn-remove-from-cart').addEventListener('click', () => {
                         userCartStorageArray = userCartStorageArray.filter(c => c.id !== item.id);
-                        // Обновляем отображение сетки каталога (сбрасываем кнопку добавленности)
-                        if(currentSelectedActiveCategoryName === "Все категории") {
-                            renderProductsGrid(rawProductsCatalogData);
-                        } else {
-                            renderProductsGrid(rawProductsCatalogData.filter(p => p.category === currentSelectedActiveCategoryName));
-                        }
+                        refreshCatalogGridState();
                         updateGlobalBadgesCountCounters();
                         syncCartModalDOMState();
                     });
@@ -1366,7 +1269,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * СИНХРОНИЗАЦИЯ МОДАЛКИ ИЗБРАННОГО
+     * СИНХРОНИЗАЦИЯ ИЗБРАННОГО (ТЕПЕРЬ С ВОЗМОЖНОСТЬЮ УДАЛЕНИЯ ИЗ ОКНА)
      */
     function syncFavoritesModalDOMState() {
         const container = document.getElementById('domFavoritesModalListContainer');
@@ -1383,15 +1286,32 @@ document.addEventListener("DOMContentLoaded", () => {
             row.className = "fav-item-row";
             row.innerHTML = `
                 <div class="fav-item-title">${item.name}</div>
-                <div class="fav-item-price">${item.price.toLocaleString('ru-RU')} ₸</div>
+                <div class="fav-item-price-box">
+                    <span class="fav-item-price">${item.price.toLocaleString('ru-RU')} ₸</span>
+                    <button class="btn-remove-from-fav" data-id="${item.id}">Удалить</button>
+                </div>
             `;
+
+            // Кнопка обратного удаления товара из Избранного прямо в модальном окне
+            row.querySelector('.btn-remove-from-fav').addEventListener('click', () => {
+                userFavoritesStorageArray = userFavoritesStorageArray.filter(f => f.id !== item.id);
+                refreshCatalogGridState();
+                updateGlobalBadgesCountCounters();
+                syncFavoritesModalDOMState(); // Мгновенный ререндер списка в модалке
+            });
+
             container.appendChild(row);
         });
     }
 
-    /**
-     * СИНХРОНИЗАЦИЯ МОДАЛКИ ЗАКАЗОВ
-     */
+    function refreshCatalogGridState() {
+        if(currentSelectedActiveCategoryName === "Все категории") {
+            renderProductsGrid(rawProductsCatalogData);
+        } else {
+            renderProductsGrid(rawProductsCatalogData.filter(p => p.category === currentSelectedActiveCategoryName));
+        }
+    }
+
     function syncOrdersHistoryModalDOMState() {
         const container = document.getElementById('domOrdersHistoryContainerBox');
         if(!container) return;
@@ -1408,10 +1328,13 @@ document.addEventListener("DOMContentLoaded", () => {
             card.innerHTML = `
                 <div class="ohc-header">
                   <span>ЗАПРОС №${order.orderNum} от ${order.date}</span>
-                  <span class="ohc-status">На обработке инженером</span>
+                  <span class="ohc-status" style="color: ${order.bin === 'Физ. лицо (WhatsApp)' ? '#0077ff' : '#1baa65'}">
+                    ${order.bin === 'Физ. лицо (WhatsApp)' ? 'Перенаправлен в WhatsApp' : 'На обработке инженером'}
+                  </span>
                 </div>
                 <div class="ohc-body">
-                  <strong>Заказчик:</strong> ${order.companyName} (БИН: ${order.bin})<br>
+                  <strong>Заказчик:</strong> ${order.companyName}<br>
+                  <strong>Идентификатор:</strong> ${order.bin}<br>
                   <strong>Состав спецификации:</strong> ${order.itemsCount} наим. оборудования.
                 </div>
                 <div class="ohc-footer">
@@ -1423,9 +1346,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /**
-     * УМНЫЙ ЖИВОЙ АВТОКОМПЛИТ-ПОИСК С ПОДСКАЗКАМИ
-     */
     function initLiveSearchAutocompleteEngine() {
         const searchInput = document.getElementById('siteGlobalSearchInput');
         const searchBtn = document.getElementById('siteGlobalSearchButton');
@@ -1440,14 +1360,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Ищем совпадения в локальной базе данных оборудования
             const filteredMatches = rawProductsCatalogData.filter(p => 
                 p.name.toLowerCase().includes(queryValue) || p.sku.toLowerCase().includes(queryValue)
             );
 
             if(filteredMatches.length > 0) {
                 suggestionsBox.innerHTML = "";
-                // Ограничиваем выдачу до 6 подсказок
                 filteredMatches.slice(0, 6).forEach(prod => {
                     const itemDiv = document.createElement('div');
                     itemDiv.className = "suggest-item";
@@ -1456,7 +1374,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         searchInput.value = prod.name;
                         suggestionsBox.classList.remove('active');
                         
-                        // Сразу рендерим выбранный товар
                         switchActiveTabSection('catalog-tab-section', 'Поиск продукции');
                         document.querySelectorAll('.category-filter-list li').forEach(li => li.classList.remove('active'));
                         renderProductsGrid([prod]);
@@ -1469,14 +1386,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Прячем выпадающий бокс автокомплита при кликах в свободную область экрана
         document.addEventListener('click', (e) => {
             if(!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
                 suggestionsBox.classList.remove('active');
             }
         });
         
-        // Работа главной кнопки лупы в поиске
         if(searchBtn) {
             searchBtn.addEventListener('click', () => {
                 const val = searchInput.value.trim().toLowerCase();
@@ -1490,7 +1405,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Вспомогательная функция принудительного перехода на вкладку
     function switchActiveTabSection(sectionId, breadcrumbCustomTitle) {
         document.querySelectorAll('.site-section').forEach(s => s.classList.remove('active'));
         const targetSec = document.getElementById(sectionId);
@@ -1503,64 +1417,121 @@ document.addEventListener("DOMContentLoaded", () => {
         if(bcNode) bcNode.innerText = breadcrumbCustomTitle;
     }
 
-    /**
-     * ПЕРЕХВАТ И ОБРАБОТКА ОТПРАВКИ ФОРМ (FORMS SUBMISSION INTERCEPTORS)
-     */
     function initFormsSubmissionInterceptors() {
-        // Форма 1: Обратная связь директора
         const formFeedback = document.getElementById('dummyFeedbackFormHandler');
         if(formFeedback) {
             formFeedback.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const name = document.getElementById('fbInpName').value;
-                alert(`Уважаемый ${name}, ваше официальное обращение зарегистрировано в CRM ТОО «АНКАС». Инженер свяжется с вами по указанному телефону в течение 15 минут.`);
                 formFeedback.reset();
                 document.getElementById('modalWindowFeedbackFormBox').classList.remove('active');
+                openCustomPrettyAlert("Обращение принято", `Уважаемый ${name}, ваше официальное обращение зарегистрировано в CRM ТОО «АНКАС». Инженер свяжется с вами в течение 15 минут.`);
             });
         }
 
-        // Форма 2: Финальное оформление спецификации из корзины
+        /**
+         * ОБРАБОТКА ДВУХ РЕЖИМОВ ЗАКАЗА: ЮР. ЛИЦО (ОБЫЧНЫЙ СЧЕТ) И ФИЗ. ЛИЦО (АВТО-ВАТСАП)
+         */
         const formCheckout = document.getElementById('checkoutOrderFinalFormHandler');
         if(formCheckout) {
             formCheckout.addEventListener('submit', (e) => {
                 e.preventDefault();
                 
-                const companyName = document.getElementById('coInpCompany').value;
-                const binCode = document.getElementById('coInpBin').value || "Не указан";
+                const customerType = document.getElementById('checkoutCustomerTypeSelector').value;
                 const generatedNumber = Math.floor(1000 + Math.random() * 9000);
                 const dateString = new Date().toLocaleDateString('ru-RU');
-
-                // Считаем сумму спецификации
+                
                 let orderSum = 0;
-                userCartStorageArray.forEach(item => orderSum += item.price);
-
-                // Записываем структуру заказа в хранилище истории сессии
-                userOrdersHistoryArray.push({
-                    orderNum: generatedNumber,
-                    date: dateString,
-                    companyName: companyName,
-                    bin: binCode,
-                    itemsCount: userCartStorageArray.length,
-                    totalSum: `${orderSum.toLocaleString('ru-RU')} ₸`
+                let itemsListText = "";
+                userCartStorageArray.forEach((item, index) => {
+                    orderSum += item.price;
+                    itemsListText += `${index + 1}) ${item.name} [${item.sku}] — 1 ед.\n`;
                 });
 
-                alert(`Запрос спецификации №${generatedNumber} для компании "${companyName}" успешно сформирован!\n\nОфициальное коммерческое предложение (КП) и счет на оплату с НДС будут отправлены на ваш Email в течение 30 минут.`);
-                
-                // Очищаем корзину и обновляем глобальное состояние приложения
-                userCartStorageArray = [];
-                updateGlobalBadgesCountCounters();
-                formCheckout.reset();
+                const formattedSumText = `${orderSum.toLocaleString('ru-RU')} ₸`;
 
-                document.getElementById('modalWindowCheckoutOrderFormBox').classList.remove('active');
-                
-                // Перерисовываем каталог оборудования
-                renderProductsGrid(rawProductsCatalogData);
-                document.querySelectorAll('.category-filter-list li').forEach(li => {
-                    if(li.textContent === "Все категории") li.classList.add('active');
-                    else li.classList.remove('active');
-                });
-                document.getElementById('catalogMainHeadlineTitle').innerText = "Промышленное оборудование";
+                if(customerType === 'legal') {
+                    // РЕЖИМ ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ
+                    const companyName = document.getElementById('coInpCompany').value;
+                    const binCode = document.getElementById('coInpBin').value || "Не указан";
+
+                    userOrdersHistoryArray.push({
+                        orderNum: generatedNumber,
+                        date: dateString,
+                        companyName: companyName,
+                        bin: `БИН: ${binCode}`,
+                        itemsCount: userCartStorageArray.length,
+                        totalSum: formattedSumText
+                    });
+
+                    document.getElementById('modalWindowCheckoutOrderFormBox').classList.remove('active');
+                    
+                    openCustomPrettyAlert(
+                        `Запрос №${generatedNumber} сформирован`, 
+                        `Для компании "${companyName}" сформирован запрос на расчет цен ТОО.\n\nКоммерческое предложение и счет с НДС будут отправлены на ваш Email в течение 30 минут.`,
+                        () => { clearCartAndResetCatalogState(); }
+                    );
+
+                } else {
+                    // РЕЖИМ ДЛЯ ЧАСТНЫХ/ОБЫЧНЫХ ПОКУПАТЕЛЕЙ (ФИЗ. ЛИЦО → WHATSAPP)
+                    const personalName = document.getElementById('coInpPersonalName').value || "Частный клиент";
+                    
+                    // Сохраняем в «Мои заказы» перед уходом в мессенджер
+                    userOrdersHistoryArray.push({
+                        orderNum: generatedNumber,
+                        date: dateString,
+                        companyName: `Физическое лицо: ${personalName}`,
+                        bin: `Физ. лицо (WhatsApp)`,
+                        itemsCount: userCartStorageArray.length,
+                        totalSum: formattedSumText
+                    });
+
+                    document.getElementById('modalWindowCheckoutOrderFormBox').classList.remove('active');
+
+                    // Формирование ссылки в WhatsApp ТОО «АНКАС»
+                    const targetWhatsAppNumber = "77719499055";
+                    const whatsAppMessageText = `Здравствуйте, ТОО АНКАС! Я обычный покупатель.\n` +
+                                                `Мой заказ №${generatedNumber} от ${dateString}.\n` +
+                                                `ФИО: ${personalName}\n\n` +
+                                                `Выбранное оборудование:\n${itemsListText}\n` +
+                                                `Ориентировочная сумма: ${formattedSumText}\n` +
+                                                `Прошу связаться со мной для выставления чека и обсуждения доставки.`;
+
+                    const finalWhatsAppRedirectLink = `https://wa.me/${targetWhatsAppNumber}?text=${encodeURIComponent(whatsAppMessageText)}`;
+
+                    openCustomPrettyAlert(
+                        "Заказ отправлен в Мои Заказы",
+                        `Уважаемый ${personalName}, ваш заказ зафиксирован в системе сайта под №${generatedNumber}.\n\nСейчас вы будете автоматически перенаправлены в WhatsApp для согласования доставки с инженером.`,
+                        () => {
+                            clearCartAndResetCatalogState();
+                            // Редирект покупателя на чат WhatsApp
+                            window.open(finalWhatsAppRedirectLink, '_blank');
+                        }
+                    );
+                }
             });
+        }
+
+        function clearCartAndResetCatalogState() {
+            userCartStorageArray = [];
+            updateGlobalBadgesCountCounters();
+            formCheckout.reset();
+            
+            // Сбрасываем селектор типов в дефолтное состояние
+            const selector = document.getElementById('checkoutCustomerTypeSelector');
+            if(selector) {
+                selector.value = 'individual';
+                document.getElementById('checkoutLegalFieldsContainer').style.display = 'none';
+                document.getElementById('checkoutIndividualFieldsContainer').style.display = 'block';
+                document.getElementById('submitCheckoutFormButtonText').innerText = "Перейти к оплате в WhatsApp";
+            }
+
+            renderProductsGrid(rawProductsCatalogData);
+            document.querySelectorAll('.category-filter-list li').forEach(li => {
+                if(li.textContent === "Все категории") li.classList.add('active');
+                else li.classList.remove('active');
+            });
+            document.getElementById('catalogMainHeadlineTitle').innerText = "Промышленное оборудование";
         }
     }
 });
