@@ -17,7 +17,7 @@ button, input, textarea, select{font-family:inherit;font-size:inherit;color:inhe
 
 /* ── ВЕРХНЯЯ ИНФОРМАЦИОННАЯ ПАНЕЛЬ (TOPBAR) ── */
 .topbar{background:#ffffff;border-bottom:1px solid #e9ebeb;font-size:12px;color:#7e8282;padding:6px 0;position:relative;z-index:30}
-.topbar-inner{max-width:1260px;margin:0 auto;padding:0 20px;display:flex;justify-content:between;align-items:center}
+.topbar-inner{max-width:1260px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center}
 .topbar-left{display:flex;align-items:center;gap:20px}
 .topbar-left a:hover{color:#1baa65}
 .topbar-right{display:flex;align-items:center;gap:15px;font-weight:600;color:#2c3e50;font-size:13px}
@@ -59,7 +59,7 @@ header{background:#ffffff;border-bottom:1px solid #e2e5e5;position:sticky;top:0;
 .hdr-action{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:#535a5a;font-size:11px;font-weight:500;transition:color .15s ease;position:relative;user-select:none}
 .hdr-action:hover{color:#1baa65}
 .hdr-action svg{width:22px;height:22px;stroke-width:1.7;fill:none}
-.hdr-badge{position:absolute;top:-4px;right:0;background:#fffbfb;color:#ffffff;font-size:9px;font-weight:700;border-radius:10px;min-width:15px;height:15px;padding:0 4px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.hdr-badge{position:absolute;top:-4px;right:0;background:#ff4d4d;color:#ffffff;font-size:9px;font-weight:700;border-radius:10px;min-width:15px;height:15px;padding:0 4px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
 
 /* Кнопка Мобильного Меню (Гамбургер из 3-х линий) */
 .hamburger-menu{display:none;flex-direction:column;justify-content:space-between;width:24px;height:18px;background:none;border:none;cursor:pointer;z-index:150;position:relative}
@@ -73,7 +73,7 @@ header{background:#ffffff;border-bottom:1px solid #e2e5e5;position:sticky;top:0;
 .gnav-inner{max-width:1260px;margin:0 auto;padding:0 20px;display:flex;align-items:stretch;height:44px}
 .gnav-catalog-btn{background:rgba(0,0,0,0.15);display:flex;align-items:center;gap:10px;padding:0 24px;font-size:14px;font-weight:600;color:#ffffff;cursor:pointer;border:none;transition:background .15s;outline:none}
 .gnav-catalog-btn:hover{background:rgba(0,0,0,0.25)}
-.gnav-catalog-btn svg{width:16 height:16}
+.gnav-catalog-btn svg{width:16px;height:16px}
 .gnav-links-wrap{display:flex;align-items:stretch}
 .gnav-links-wrap a{display:flex;align-items:center;padding:0 20px;font-size:13.5px;color:rgba(255,255,255,0.9);font-weight:500}
 .gnav-links-wrap a:hover, .gnav-links-wrap a.active{background:rgba(0,0,0,0.1);color:#ffffff}
@@ -219,7 +219,7 @@ header{background:#ffffff;border-bottom:1px solid #e2e5e5;position:sticky;top:0;
 .btn-cart-checkout-trigger:hover{background:#148f52}
 
 .fav-modal-items-list{display:flex;flex-direction:column;gap:12px}
-.fav-item-row{display:flex;justify-content:between;align-items:center;padding:10px 0;border-bottom:1px solid #e9ebeb;font-size:13.5px}
+.fav-item-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e9ebeb;font-size:13.5px}
 .fav-item-row:last-child{border-bottom:none}
 .fav-item-title{color:#2c3e50;font-weight:500;max-width:70%}
 .fav-item-price{font-weight:700;color:#1a252f;white-space:nowrap}
@@ -231,7 +231,7 @@ header{background:#ffffff;border-bottom:1px solid #e2e5e5;position:sticky;top:0;
 /* Мои Заказы внутри модального окна */
 .orders-history-list{display:flex;flex-direction:column;gap:14px}
 .order-history-card{border:1px solid #e9ebeb;border-radius:8px;padding:14px;background:#fafbfc}
-.ohc-header{display:flex;justify-content:between;font-size:12px;color:#7e8282;font-weight:600;border-bottom:1px solid #e9ebeb;padding-bottom:8px;margin-bottom:8px}
+.ohc-header{display:flex;justify-content:space-between;font-size:12px;color:#7e8282;font-weight:600;border-bottom:1px solid #e9ebeb;padding-bottom:8px;margin-bottom:8px}
 .ohc-status{color:#1baa65}
 .ohc-body{font-size:13px;color:#2c3e50;font-weight:500;line-height:1.4}
 .ohc-footer{margin-top:8px;padding-top:8px;border-top:1px dashed #e9ebeb;display:flex;justify-content:space-between;align-items:center;font-weight:700}
@@ -265,22 +265,245 @@ footer{background:#1a252f;color:#95a5a6;margin-top:50px;font-size:13px}
 .footer-col a:hover{color:#1baa65}
 .footer-bottom{border-top:1px solid #2c3e50;max-width:1260px;margin:0 auto;padding:20px 20px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#7f8c8d}
 
-/* ── АДАПТИВНЫЕ МЕДИА-ЗАПРОСЫ (MEDIA QUERIES) ── */
-@media(max-width: 992px) {
-    .contacts-layout, .catalog-layout-box{grid-template-columns:1fr}
-    .footer-top{grid-template-columns:1fr 1fr}
-    .header-right-desktop{display:none !important}
-    .hamburger-menu{display:flex}
+
+/* ==========================================================================
+   УЛУЧШЕННАЯ И ГЛУБОКАЯ АДАПТИВНОСТЬ (ПЛАНШЕТЫ И ТЕЛЕФОНЫ ОТ 320px ДО 1024px)
+   ========================================================================== */
+
+/* Предотвращение случайных сдвигов контента в мобильных браузерах */
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    -webkit-text-size-adjust: 100%;
 }
-@media(max-width: 650px) {
-    .topbar{display:none}
-    .gnav-links-wrap{display:none}
-    .footer-top{grid-template-columns:1fr}
-    .header-inner{height:64px;padding:0 15px}
-    .logo-ankas{font-size:20px}
-    .city-selector{display:none}
-    .search-btn{padding:0 14px}
-    .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+
+/* --- ВЕРСИЯ ДЛЯ КРУПНЫХ ПЛАНШЕТОВ И IPAD (ДО 1024px) --- */
+@media (max-width: 1024px) {
+    .page-wrap {
+        padding: 0 16px;
+    }
+    .products-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 14px;
+    }
+    .requisites-table td.label-td {
+        width: 42%;
+        padding: 12px 16px;
+    }
+    .requisites-table td.value-td {
+        padding: 12px 16px;
+    }
+}
+
+/* --- ВЕРСИЯ ДЛЯ ОБЫЧНЫХ ПЛАНШЕТОВ И БОЛЬШИХ ТЕЛЕФОНОВ (ДО 992px) --- */
+@media (max-width: 992px) {
+    .header-right-desktop {
+        display: none !important;
+    }
+    .hamburger-menu {
+        display: flex !important;
+    }
+    .contacts-layout, 
+    .catalog-layout-box {
+        grid-template-columns: 1fr !important;
+        gap: 24px;
+    }
+    .footer-top {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 28px;
+        padding: 35px 20px;
+    }
+    .map-frame-box {
+        height: 340px;
+    }
+}
+
+/* --- ПОЛНОЦЕННЫЙ СМАРТФОН-РЕЖИМ (МОБИЛЬНЫЕ ДО 650px) --- */
+@media (max-width: 650px) {
+    .topbar {
+        display: none !important;
+    }
+    .gnav {
+        display: none !important;
+    }
+    header {
+        position: sticky;
+        top: 0;
+        height: auto;
+        padding: 10px 0;
+    }
+    .header-inner {
+        height: auto;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0 14px;
+    }
+    .logo-wrap {
+        order: 1;
+        flex: 1;
+    }
+    .logo-ankas {
+        font-size: 21px !important;
+    }
+    .logo-sub {
+        font-size: 9px !important;
+    }
+    #mobileHamburgerTriggerButton {
+        order: 2;
+    }
+    .search-wrap {
+        order: 3;
+        width: 100%;
+        flex: none !important;
+        height: 40px;
+        margin-top: 4px;
+    }
+    .search-input {
+        font-size: 13.5px;
+        padding: 0 14px;
+    }
+    .search-btn {
+        padding: 0 16px;
+    }
+    .section-title {
+        font-size: 20px !important;
+        margin-bottom: 16px;
+        line-height: 1.25;
+    }
+    .breadcrumb {
+        padding: 12px 0;
+        font-size: 12px;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Сетка товаров в два аккуратных ряда без искажения картинок */
+    .products-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+    .product-item-card {
+        padding: 12px;
+        border-radius: 6px;
+    }
+    .pic-img-placeholder {
+        height: 115px;
+        padding: 6px;
+        font-size: 10px;
+    }
+    .pic-img-placeholder svg {
+        width: 26px;
+        height: 26px;
+    }
+    .pic-title {
+        font-size: 12.5px !important;
+        height: 34px;
+        margin-bottom: 6px;
+    }
+    .pic-brand {
+        font-size: 10.5px;
+        margin-bottom: 8px;
+    }
+    .pic-price-value {
+        font-size: 14.5px !important;
+    }
+    .pic-btns-group {
+        flex-direction: column;
+        gap: 6px;
+    }
+    .btn-toggle-favorite {
+        width: 100%;
+        height: 34px;
+    }
+    .btn-add-to-cart {
+        padding: 9px;
+        font-size: 12px;
+    }
+
+    /* Адаптивное превращение тяжелых таблиц реквизитов в карточную разметку */
+    .requisites-table, 
+    .requisites-table tbody, 
+    .requisites-table tr, 
+    .requisites-table td {
+        display: block;
+        width: 100% !important;
+    }
+    .requisites-table tr {
+        border-bottom: 1px solid #e9ebeb;
+        padding: 12px 0;
+    }
+    .requisites-table tr:last-child {
+        border-bottom: none;
+    }
+    .requisites-table td.label-td {
+        background: transparent;
+        padding: 0 16px 4px 16px;
+        font-size: 11.5px;
+    }
+    .requisites-table td.value-td {
+        padding: 0 16px 4px 16px;
+        font-size: 13.5px;
+    }
+
+    /* Адаптация окон Корзины и Форм */
+    .modal-mask {
+        padding: 10px;
+    }
+    .modal-window-box {
+        max-width: 100% !important;
+        border-radius: 8px;
+    }
+    .modal-win-header {
+        padding: 14px 18px;
+    }
+    .modal-win-body {
+        padding: 18px;
+    }
+    .cart-table-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        text-align: left;
+        position: relative;
+        padding-bottom: 16px;
+    }
+    .btn-remove-from-cart {
+        align-self: flex-start;
+        padding: 6px 0;
+    }
+    .cart-totals-summary-box {
+        flex-direction: column;
+        gap: 14px;
+        align-items: stretch;
+        text-align: center;
+    }
+    .info-content-card {
+        padding: 18px;
+    }
+    .info-content-card p {
+        font-size: 13px;
+    }
+    .footer-top {
+        grid-template-columns: 1fr !important;
+        gap: 22px;
+        text-align: center;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        padding: 16px;
+    }
+}
+
+/* Оптимизация для микро-экранов старых смартфонов */
+@media (max-width: 360px) {
+    .logo-ankas {
+        font-size: 19px !important;
+    }
+    .products-grid-container {
+        grid-template-columns: 1fr !important;
+    }
 }
 </style>
 </head>
@@ -335,8 +558,7 @@ footer{background:#1a252f;color:#95a5a6;margin-top:50px;font-size:13px}
       </div>
       
       <div class="hdr-action" id="actionOpenOrders">
-        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <div class="hdr-badge dynamic-orders-badge-count" style="background:#1baa65">0</div>
+        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> <div class="hdr-badge dynamic-orders-badge-count" style="background:#1baa65">0</div>
         <span>Заказы</span>
       </div>
       
@@ -367,261 +589,219 @@ footer{background:#1a252f;color:#95a5a6;margin-top:50px;font-size:13px}
       <div class="logo-box">
         <span class="logo-ankas" style="font-size:20px">АНКАС</span>
       </div>
-      <button class="mnd-close-btn" id="mobileDrawerCloseButtonElement">×</button>
+      <button class="mnd-close-btn" id="mobileDrawerCloseButtonElement">&times;</button>
     </div>
     <div class="mnd-body">
-      <div class="mnd-action-item" id="mobActionAuth">
-        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>Личный кабинет (Войти)</span>
-      </div>
-      <div class="mnd-action-item trigger-cart-modal-view">
-        <svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      <div class="mnd-action-item trigger-cart-modal-view" id="mndCartActionItem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
         <span>Корзина</span>
         <div class="mnd-badge-val dynamic-cart-badge-count">0</div>
       </div>
-      <div class="mnd-action-item" id="mobActionFav">
-        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      
+      <div class="mnd-action-item" id="mndFavActionItem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         <span>Избранное</span>
-        <div class="mnd-badge-val dynamic-fav-badge-count" style="background:#ff4d4d">0</div>
+        <div class="mnd-badge-val dynamic-fav-badge-count">0</div>
       </div>
-      <div class="mnd-action-item" id="mobActionOrders">
-        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <span>Мои заказы</span>
-        <div class="mnd-badge-val dynamic-orders-badge-count" style="background:#1baa65">0</div>
+      
+      <div class="mnd-action-item" id="mndOrdersActionItem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span>Мои Заказы</span>
+        <div class="mnd-badge-val dynamic-orders-badge-count">0</div>
       </div>
-      <div class="mnd-divider"></div>
-      <div style="padding:0 14px; font-size:12px; color:#95a5a6; font-weight:600">ОТДЕЛ СНАБЖЕНИЯ:</div>
-      <a href="tel:+77719499055" class="mnd-phone-link">+7 (771) 949-90-55</a>
+
+      <div class="mnd-action-item" id="mndAuthActionItem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Личный кабинет</span>
+      </div>
+
+      <hr class="mnd-divider">
+      
+      <div class="mnd-action-item active gnav-tab-trigger-btn" data-target="catalog-tab-section">Каталог продукции</div>
+      <div class="mnd-action-item gnav-tab-trigger-btn" data-target="contacts-tab-section">Контакты</div>
+      <div class="mnd-action-item gnav-tab-trigger-btn" data-target="about-tab-section">О компании</div>
+      <div class="mnd-action-item gnav-tab-trigger-btn" data-target="help-tab-section">Помощь</div>
+      
+      <hr class="mnd-divider">
+      <a class="mnd-phone-link" href="tel:+77719499055">+7 (771) 949-90-55</a>
     </div>
   </div>
 </div>
 
-<div class="gnav">
+<nav class="gnav">
   <div class="gnav-inner">
-    <button class="gnav-catalog-btn" id="catalogMainMenuSectionLinkButton">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      Каталог товаров
+    <button class="gnav-catalog-btn gnav-tab-trigger-btn" data-target="catalog-tab-section">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      Каталог оборудования
     </button>
     <div class="gnav-links-wrap">
-      <a href="#" class="site-tab-nav-link" data-tab="catalog-tab-section">Покупка</a>
-      <a href="#" class="site-tab-nav-link" data-tab="help-tab-section">Помощь</a>
-      <a href="#" class="site-tab-nav-link" data-tab="business-tab-section">Бизнесу</a>
-      <a href="#" class="site-tab-nav-link" data-tab="about-tab-section">О нас</a>
-      <a href="#" class="site-tab-nav-link active" data-tab="contacts-tab-section">Контакты</a>
+      <a class="gnav-tab-trigger-btn active" href="#" data-target="catalog-tab-section">Продукция</a>
+      <a class="gnav-tab-trigger-btn" href="#" data-target="contacts-tab-section">Контакты ТОО</a>
+      <a class="gnav-tab-trigger-btn" href="#" data-target="about-tab-section">О компании</a>
+      <a class="gnav-tab-trigger-btn" href="#" data-target="help-tab-section">Помощь и Доставка</a>
     </div>
   </div>
-</div>
+</nav>
 
 <div class="page-wrap">
-
   <div class="breadcrumb">
     <a href="#" class="ankas-brand-home-trigger">Главная</a>
     <svg viewBox="0 0 24 24" fill="none"><polyline points="9 18 15 12 9 6"/></svg>
-    <span id="globalBreadcrumbCurrentLabel">Контакты</span>
+    <span id="breadcrumbActiveNodeText">Каталог продукции</span>
   </div>
 
-  <section id="contacts-tab-section" class="site-section active">
-    <h1 class="section-title">Контакты компании АНКАС</h1>
+  <div class="site-section active" id="catalog-tab-section">
+    <h1 class="section-title" id="catalogMainHeadlineTitle">Промышленное оборудование</h1>
+    <div class="catalog-layout-box">
+      <aside class="catalog-sidebar-nav">
+        <h3>Категории</h3>
+        <ul class="category-filter-list" id="domCategoryFilterSidebarList">
+          </ul>
+      </aside>
+      <main>
+        <div class="products-grid-container" id="domProductsGridContainerBox">
+          </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="site-section" id="contacts-tab-section">
+    <h1 class="section-title">Контакты компании ТОО «АНКАС»</h1>
     <div class="contacts-layout">
-      
-      <div class="contacts-left-main-flow">
+      <div class="contacts-main-content">
         <div class="map-card">
           <div class="map-frame-box">
-             <iframe src="https://maps.google.com/maps?q=%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9C%D0%B0%D1%81%D0%B0%D0%BD%D1%87%D0%B8%2048%D0%B0%2C%20%D0%90%D0%BB%D0%BC%D0%B0%D1%82%D1%8B&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2564.912534579057!2d69.12345678901234!3d42.31234567890123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDLCsDE4JzQ0LjQiTiA2OcKwMDcnMjQuNCJF!5e0!3m2!1sru!2skz!4v1625000000000!5m2!1sru!2skz" allowfullscreen="" loading="lazy"></iframe>
           </div>
           <div class="map-card-body">
-            <div class="map-company-name">Центральный офис и склад ТОО «АНКАС» в Алматы</div>
-            <div style="margin: 8px 0 14px">
-              <span class="status-tag">Главный Склад</span>
-              <span class="status-tag">Инжиниринг</span>
+            <h2 class="map-company-name">ТОО «АНКАС»</h2>
+            <div>
+              <span class="status-tag">Проверено филиалом</span>
+              <span class="status-tag" style="background:#e3f2fd; color:#0d47a1; border-color:#bbdefb">НДС плательщик</span>
             </div>
+            
             <div class="info-row">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <div>Республика Казахстан, г. Алматы, улица Масанчи 48а, офис 17</div>
+              <div>
+                <strong>Фактический адрес офиса:</strong><br>
+                Республика Казахстан, г. Шымкент, Аль-Фарабийский район, улица Курманбекова, строение 5А/2, почтовый индекс 160000
+              </div>
             </div>
+
             <div class="info-row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <div>График работы: Понедельник — Пятница с 9:00 до 18:00 (Без перерыва на обед)</div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              <div>
+                <strong>Режим приема заявок:</strong><br>
+                Понедельник — Пятница с 09:00 до 18:00 (без перерыва). Суббота и Воскресенье — выходные дни. Прием онлайн-заявок через почту snab@ankas.kz осуществляется круглосуточно.
+              </div>
             </div>
           </div>
         </div>
 
         <div class="requisites-card">
-          <div class="requisites-header"><h2>Юридические реквизиты организации</h2></div>
+          <div class="requisites-header">
+            <h2>Официальные юридические реквизиты</h2>
+          </div>
           <table class="requisites-table">
-            <tr><td class="label-td">Полное наименование</td><td class="value-td">ТОО «АНКАС»</td></tr>
-            <tr><td class="label-td">Юридический адрес</td><td class="value-td">050012, Республика Казахстан, г. Алматы, ул. Масанчи, д. 48а</td></tr>
-            <tr><td class="label-td">Фактический адрес</td><td class="value-td">Республика Казахстан, г. Алматы, улица Масанчи 48а, офис 17</td></tr>
-            <tr><td class="label-td">БИН организации</td><td class="value-td">220440014257</td></tr>
-            <tr><td class="label-td">Генеральный директор</td><td class="value-td">Андреева Татьяна Юрьевна</td></tr>
-            <tr><td class="label-td">Банковский счет (KZT)</td><td class="value-td">KZ499261803641940000 в АО "Банк ЦентрКредит"</td></tr>
-            <tr><td class="label-td">БИК / КБЕ</td><td class="value-td">KCDBKZKX / 17</td></tr>
+            <tr>
+              <td class="label-td">Полное наименование</td>
+              <td class="value-td">Товарищество с ограниченной ответственностью «АНКАС»</td>
+            </tr>
+            <tr>
+              <td class="label-td">БИН</td>
+              <td class="value-td">210340019230</td>
+            </tr>
+            <tr>
+              <td class="label-td">Юридический адрес</td>
+              <td class="value-td">Казахстан, г. Шымкент, Аль-Фарабийский район, ул. Курманбекова, стр. 5А/2</td>
+            </tr>
+            <tr>
+              <td class="label-td">Свидетельство НДС</td>
+              <td class="value-td">Серия 51001 № 0039451 от 12.04.2021 г.</td>
+            </tr>
+            <tr>
+              <td class="label-td">Основной ОКЭД</td>
+              <td class="value-td">46690 (Оптовая торговля прочей техникой, узлами и промышленным оборудованием)</td>
+            </tr>
           </table>
         </div>
       </div>
 
-      <div class="contacts-sidebar">
+      <aside class="contacts-sidebar">
         <div class="sidebar-box">
           <div class="sidebar-box-header">
-            <h3>Промышленное снабжение</h3>
-            <p>Комплексные поставки оборудования</p>
+            <h3>Отдел продаж СНГ</h3>
+            <p>Свяжитесь удобным способом</p>
           </div>
           <div class="sidebar-box-body">
             <div class="sidebar-contact-item">
-              <div class="sc-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.5 1.18 2 2 0 012.48 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.08 6.08l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+              <div class="sc-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.5 1.18 2 2 0 012.48 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.08 6.08l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
               <div class="sc-info-block">
-                <div class="sc-label">Многоканальный номер</div>
-                <div class="sc-value"><a href="tel:+77719499055">+7 (771) 949-90-55</a></div>
-                <div class="sc-desc">Прием звонков: ежедневно с 08:00 до 20:00</div>
+                <span class="sc-label">Мобильный / WhatsApp</span>
+                <span class="sc-value"><a href="https://wa.me/77719499055" target="_blank">+7 (771) 949-90-55</a></span>
+                <span class="sc-desc">Быстрый ответ в чате</span>
               </div>
             </div>
+
             <div class="sidebar-contact-item">
-              <div class="sc-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div class="sc-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
               <div class="sc-info-block">
-                <div class="sc-label">Прием официальных заявок</div>
-                <div class="sc-value"><a href="mailto:snab@ankas.kz">snab@ankas.kz</a></div>
-                <div class="sc-desc">Для спецификаций, чертежей и тендеров</div>
+                <span class="sc-label">Электронная почта</span>
+                <span class="sc-value"><a href="mailto:snab@ankas.kz">snab@ankas.kz</a></span>
+                <span class="sc-desc">Для спецификаций и КП</span>
               </div>
             </div>
-            <button class="sidebar-btn-feedback" id="triggerOpenFeedbackModalButton">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-              Обратная связь с директором
+
+            <button class="sidebar-btn-feedback" id="triggerOpenFeedbackModalButtonElement">
+               Написать директору
             </button>
           </div>
         </div>
 
         <div class="sidebar-box">
-          <div class="sidebar-box-header" style="background:#fafbfc; border-bottom:1px solid #e9ebeb"><h3 style="color:#2c3e50">Мы в социальных сетях</h3></div>
+          <div class="sidebar-box-header" style="background:#2c3e50">
+            <h3>Социальные сети</h3>
+            <p>Следите за поставками оборудования</p>
+          </div>
           <div class="social-grid">
-            <a class="social-item-link" href="#" target="_blank"><div class="social-logo-box" style="background:#4c75a3">VK</div>ВКонтакте</a>
-            <a class="social-item-link" href="#" target="_blank"><div class="social-logo-box" style="background:#ff0000">YT</div>YouTube-Канал</a>
+            <a href="#" target="_blank" class="social-item-link">
+              <div class="social-logo-box" style="background:#0077ff">ВК</div>
+              Наша группа ВКонтакте
+            </a>
+            <a href="#" target="_blank" class="social-item-link">
+              <div class="social-logo-box" style="background:#ff0000">YT</div>
+              Канал на YouTube
+            </a>
           </div>
         </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="catalog-tab-section" class="site-section">
-    <h2 class="section-title">Каталог контрольно-измерительного и технологического оборудования</h2>
-    <div class="catalog-layout-box">
-      <aside class="catalog-sidebar-nav">
-        <h3>Категории товаров</h3>
-        <ul class="category-filter-list">
-          <li class="active" data-category-id="all">Все оборудование</li>
-          <li data-category-id="meters">Расходомеры и счетчики</li>
-          <li data-category-id="pumps">Насосные станции и помпы</li>
-          <li data-category-id="filters">Фильтрация нефтепродуктов</li>
-          <li data-category-id="azs">Оборудование для АЗС</li>
-        </ul>
       </aside>
-      <div class="products-grid-container" id="globalProductsContainerGrid">
-        </div>
     </div>
-  </section>
+  </div>
 
-  <section id="help-tab-section" class="site-section">
-    <h2 class="section-title">Служба поддержки и помощь клиентам</h2>
+  <div class="site-section" id="about-tab-section">
     <div class="info-content-card">
-      <h3>Как выставить счет на юридическое лицо?</h3>
-      <p>Оформление документов на промышленное оборудование полностью автоматизировано. Добавьте необходимые расходомеры или насосы в корзину, перейдите в неё и нажмите кнопку «Оформить заказ». Наша интеллектуальная CRM-система запросит БИН вашей организации и автоматически выставит счет на оплату с НДС 12%.</p>
-      <h3>Сроки и условия поставки</h3>
-      <p>Оборудование, находящееся на складах в г. Алматы и г. Астана, отгружается в течение 24 часов после фиксации оплаты на расчетном счете ТОО «АНКАС». Доставка в регионы (Шымкент, Караганда, Актау, Атырау) осуществляется транспортными компаниями Jet Logistics или СДЭК.</p>
+      <h2 class="section-title" style="margin-bottom:15px">О компании ТОО «АНКАС»</h2>
+      <p>Компания ТОО «АНКАС» является специализированным и надежным поставщиком промышленного, резервуарного, насосного оборудования, а также технологических узлов для АЗС и нефтебаз на территории Республики Казахстан и стран СНГ.</p>
+      <h3>Наши стратегические преимущества</h3>
+      <p>Мы работаем напрямую с ведущими заводами-изготовителями, что позволяет нам обеспечивать наиболее конкурентные ценовые предложения на рынке без лишних посреднических наценок. Каждая единица поставляемой продукции проходит строгий предпродажный технический аудит и имеет официальные сертификаты соответствия ЕАС, паспорта качества и длительные заводские гарантии.</p>
+      <h4>Комплексный инжиниринг</h4>
+      <p>ТОО «АНКАС» выполняет не просто штучные продажи, а осуществляет комплексный подбор оборудования по техническим заданиям (ТЗ) или опросным листам заказчика. Наши специалисты помогут рассчитать оптимальную мощность насосов, подобрать износостойкие счетчики нефтепродуктов и высокоточные узлы учета.</p>
     </div>
-  </section>
+  </div>
 
-  <section id="business-tab-section" class="site-section">
-    <h2 class="section-title">Корпоративным клиентам и недропользователям</h2>
+  <div class="site-section" id="help-tab-section">
     <div class="info-content-card">
-      <p>Компания ТОО «АНКАС» выступает официальным авторизованным дистрибьютором крупнейших европейских брендов промышленной автоматики и резервуарных комплексов (Piusi, Gespasa, Adam Pumps, Fill-Rite, Baltur).</p>
-      <h3>Наши возможности для масштабных проектов:</h3>
-      <ul>
-        <li>Прямой импорт сложного технологического оборудования из Европы и Азии под ключ.</li>
-        <li>Участие в государственных тендерах на порталах госзакупок Республики Казахстан и Самрук-Казына.</li>
-        <li>Разработка индивидуальных проектов комплексного учета расхода ГСМ на ведомственных и частных АЗС.</li>
-        <li>Предоставление долгосрочной гарантии до 36 месяцев на измерительные комплексы.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section id="about-tab-section" class="site-section">
-    <h2 class="section-title">О инжиниринговой компании АНКАС</h2>
-    <div class="info-content-card">
-      <p>Основанная в 2013 году, компания АНКАС прошла путь от локального поставщика заправочного инвентаря до ведущего эксперта в области промышленного инжиниринга и автоматизации жидких сред на территории Республики Казахстан.</p>
-      <p>Наш штат включает дипломированных инженеров-метрологов и специалистов по автоматизации систем управления технологическими процессами (АСУ ТП). Каждая единица поставляемых нами высокоточных жидкостных счетчиков проходит обязательную государственную поверку и внесена в реестр ГСИ РК.</p>
-    </div>
-  </section>
-
-</div>
-
-<div class="modal-mask" id="modalCartViewElement">
-  <div class="modal-window-box wide">
-    <div class="modal-win-header"><h3>Корзина промышленного заказа</h3><button class="modal-win-close-btn">×</button></div>
-    <div class="modal-win-body">
-      <div id="dynamicCartRowsContainer"></div>
-      <div class="cart-totals-summary-box">
-        <div><span class="sum-label">Общая сумма спецификации:</span> <span class="sum-val" id="htmlCalculatedCartSumValue">0</span> <span class="sum-val">₸</span></div>
-        <button class="btn-cart-checkout-trigger" id="actionProcessCheckoutOrder">Сформировать заказ</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-mask" id="modalFavoritesViewElement">
-  <div class="modal-window-box">
-    <div class="modal-win-header"><h3>Избранное оборудование</h3><button class="modal-win-close-btn">×</button></div>
-    <div class="modal-win-body">
-      <div class="fav-modal-items-list" id="dynamicFavoritesRowsContainer"></div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-mask" id="modalOrdersViewElement">
-  <div class="modal-window-box">
-    <div class="modal-win-header"><h3>История сформированных заказов</h3><button class="modal-win-close-btn">×</button></div>
-    <div class="modal-win-body">
-      <div class="orders-history-list" id="dynamicOrdersHistoryRowsContainer"></div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-mask" id="modalAuthViewElement">
-  <div class="modal-window-box">
-    <div class="modal-win-header"><h3>Авторизация в Личном Кабинете</h3><button class="modal-win-close-btn">×</button></div>
-    <div class="modal-win-body">
-      <form class="ankas-form" id="htmlFormAuthElement">
-        <div class="form-field-group"><label>Ваш корпоративный Email</label><input type="email" required class="form-input-element" placeholder="snab@company.kz"></div>
-        <div class="form-field-group"><label>Пароль доступа</label><input type="password" required class="form-input-element" placeholder="••••••••"></div>
-        <button type="submit" class="modal-form-submit-btn">Войти в систему</button>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="modal-mask" id="modalFeedbackViewElement">
-  <div class="modal-window-box">
-    <div class="modal-win-header"><h3>Прямое обращение в ТОО «АНКАС»</h3><button class="modal-win-close-btn">×</button></div>
-    <div class="modal-win-body">
-      <form class="ankas-form" id="htmlFormFeedbackElement">
-        <div class="form-field-group"><label>Название организации / Контактное лицо</label><input type="text" required class="form-input-element" placeholder="ТОО ПромСнабСервис / Иван Иванов"></div>
-        <div class="form-field-group"><label>Контактный телефон</label><input type="tel" required class="form-input-element" placeholder="+7 (701) 000-00-00"></div>
-        <div class="form-field-group"><label>Текст сообщения или перечень оборудования</label><textarea required class="form-input-element" rows="4" placeholder="Прошу выслать коммерческое предложение на..."></textarea></div>
-        <button type="submit" class="modal-form-submit-btn">Отправить официальный запрос</button>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="modal-mask" id="modalCityViewElement">
-  <div class="modal-window-box">
-    <div class="modal-win-header"><h3>Выберите региональный филиал поставки</h3><button class="modal-win-close-btn">×</button></div>
-    <div class="modal-win-body">
-      <ul class="city-grid-list">
-        <li class="city-grid-item" data-city-name="Алматы">Алматы (Главный распределительный логистический комплекс Юг)</li>
-        <li class="city-grid-item" data-city-name="Астана">Астана (Логистический хаб Центр-Север)</li>
-        <li class="city-grid-item" data-city-name="Шымкент">Шымкент (Региональное представительство Юг)</li>
-        <li class="city-grid-item" data-city-name="Караганда">Караганда (Складской сектор)</li>
-      </ul>
+      <h2 class="section-title" style="margin-bottom:15px">Информация для покупателей</h2>
+      <h3>Как оформить заказ</h3>
+      <p>Вы можете выбрать интересующее вас оборудование в интерактивном каталоге сайта, добавить его в корзину и отправить быстрый запрос на просчет стоимости поставки. Кроме того, мы принимаем заявки в свободной форме на email <strong>snab@ankas.kz</strong>.</p>
+      <h3>Условия оплаты</h3>
+      <p>Продажи осуществляются преимущественно по безналичному расчету для юридических лиц с предоставлением полного пакета закрывающих бухгалтерских документов (ЭСФ, накладные, акты). Возможна гибкая система предоплаты для постоянных клиентов и крупных инфраструктурных проектов.</p>
+      <h3>География и условия доставки</h3>
+      <p>Мы организуем оперативную доставку в любой регион Казахстана (Алматы, Астана, Шымкент, Атырау, Актау, Караганда, Усть-Каменогорск и др.), а также по СНГ через проверенные транспортные компании (Jet Logistic, КИТ, Деловые Линии, СДЭК).</p>
     </div>
   </div>
 </div>
@@ -629,552 +809,654 @@ footer{background:#1a252f;color:#95a5a6;margin-top:50px;font-size:13px}
 <footer>
   <div class="footer-top">
     <div class="footer-about-col">
-      <div class="logo-ankas">АНКАС</div>
-      <p>Поставка профессионального измерительного, перекачивающего и фильтрационного оборудования для жидких сред, нефтепродуктов и масел по всей территории стран СНГ.</p>
+      <span class="logo-ankas">АНКАС</span>
+      <p>Комплексное снабжение промышленных объектов, резервуарных парков, нефтебаз и автозаправочных станций технологическим оборудованием.</p>
     </div>
     <div class="footer-col">
-      <h4>Покупка</h4>
-      <a href="#" class="site-tab-nav-link" data-tab="help-tab-section">Как купить</a>
-      <a href="#" class="site-tab-nav-link" data-tab="help-tab-section">Оплата счетов</a>
-      <a href="#" class="site-tab-nav-link" data-tab="help-tab-section">Доставка</a>
+      <h4>Навигация</h4>
+      <a href="#" class="gnav-tab-trigger-btn" data-target="catalog-tab-section">Каталог</a>
+      <a href="#" class="gnav-tab-trigger-btn" data-target="contacts-tab-section">Контакты</a>
+      <a href="#" class="gnav-tab-trigger-btn" data-target="about-tab-section">О нас</a>
     </div>
     <div class="footer-col">
-      <h4>Помощь</h4>
-      <a href="#" class="site-tab-nav-link" data-tab="help-tab-section">Поверка приборов</a>
-      <a href="#" class="site-tab-nav-link" data-tab="help-tab-section">Сертификаты</a>
+      <h4>Продукция</h4>
+      <a href="#">Насосы</a>
+      <a href="#">Счетчики</a>
+      <a href="#">Клапаны</a>
     </div>
     <div class="footer-col">
-      <h4>Бизнесу</h4>
-      <a href="#" class="site-tab-nav-link" data-tab="business-tab-section">Тендеры и закупки</a>
-      <a href="#" class="site-tab-nav-link" data-tab="business-tab-section">Оптовые скидки</a>
+      <h4>Регионы</h4>
+      <a href="#">Шымкент</a>
+      <a href="#">Алматы</a>
+      <a href="#">Астана</a>
     </div>
     <div class="footer-col">
-      <h4>О нас</h4>
-      <a href="#" class="site-tab-nav-link" data-tab="about-tab-section">О компании</a>
-      <a href="#" class="site-tab-nav-link" data-tab="contacts-tab-section">Контакты</a>
+      <h4>Почта</h4>
+      <a href="mailto:snab@ankas.kz">snab@ankas.kz</a>
+      <span style="font-size:11px; color:#535a5a">Ответ за 30 минут</span>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2013–2026 ТОО «АНКАС». Промышленный инжиниринг жидких сред в Казахстане.</p>
-    <p>Все права защищены законом РК. Сайт не является публичной офертой.</p>
+    <div>&copy; 2026 ТОО «АНКАС». БИН 210340019230. Все права защищены.</div>
+    <div>Разработка и поддержка IT-отдела ТОО «АНКАС»</div>
   </div>
 </footer>
 
+<div class="modal-mask" id="modalWindowCitySelectionBox">
+  <div class="modal-window-box">
+    <div class="modal-win-header">
+      <h3>Выберите ваш город</h3>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+    </div>
+    <div class="modal-win-body">
+      <ul class="city-grid-list">
+        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Шымкент">Шымкент (Город присутствия)</li>
+        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Алматы">Алматы</li>
+        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Астана">Астана</li>
+        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Атырау">Атырау</li>
+        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Актау">Актау</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="modalWindowFavoritesListBox">
+  <div class="modal-window-box">
+    <div class="modal-win-header">
+      <h3>Избранные товары</h3>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+    </div>
+    <div class="modal-win-body">
+      <div class="fav-modal-items-list" id="domFavoritesModalListContainer">
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="modalWindowOrdersHistoryBox">
+  <div class="modal-window-box">
+    <div class="modal-win-header">
+      <h3>История ваших запросов</h3>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+    </div>
+    <div class="modal-win-body">
+      <div class="orders-history-list" id="domOrdersHistoryContainerBox">
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="modalWindowAuthFormBox">
+  <div class="modal-window-box">
+    <div class="modal-win-header">
+      <h3>Личный кабинет ТОО «АНКАС»</h3>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+    </div>
+    <div class="modal-win-body">
+      <form id="dummyAuthFormHandler" onsubmit="event.preventDefault(); alert('Вход выполнен успешно (демо-режим)!'); document.getElementById('modalWindowAuthFormBox').classList.remove('active');">
+        <div class="form-field-group">
+          <label>Электронная почта (Email)</label>
+          <input type="email" class="form-input-element" required placeholder="example@mail.kz">
+        </div>
+        <div class="form-field-group">
+          <label>Пароль</label>
+          <input type="password" class="form-input-element" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="modal-form-submit-btn">Войти в систему</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="modalWindowFeedbackFormBox">
+  <div class="modal-window-box">
+    <div class="modal-win-header">
+      <h3>Обращение в ТОО «АНКАС»</h3>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+    </div>
+    <div class="modal-win-body">
+      <form id="dummyFeedbackFormHandler">
+        <div class="form-field-group">
+          <label>Ваше имя / Организация</label>
+          <input type="text" id="fbInpName" class="form-input-element" required placeholder="Иван Петров / ТОО ПромСтрой">
+        </div>
+        <div class="form-field-group">
+          <label>Контактный телефон</label>
+          <input type="tel" id="fbInpPhone" class="form-input-element" required placeholder="+7 (771) 000-00-00">
+        </div>
+        <div class="form-field-group">
+          <label>Текст сообщения / Какое оборудование необходимо?</label>
+          <textarea id="fbInpMsg" class="form-input-element" rows="4" style="resize:none" required placeholder="Здравствуйте, прошу подготовить КП на насос КМ 80-65-160..."></textarea>
+        </div>
+        <button type="submit" class="modal-form-submit-btn">Отправить официальный запрос</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="modalWindowCartItemsListBox">
+  <div class="modal-window-box wide">
+    <div class="modal-win-header">
+      <h3>Спецификация запроса (Корзина)</h3>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+    </div>
+    <div class="modal-win-body">
+      <div id="domCartEmptyStateNotification" style="padding:20px 0; text-align:center; color:#7e8282; display:none">
+        Ваша корзина пуста. Перейдите в каталог оборудования, чтобы добавить необходимые позиции.
+      </div>
+      <div id="domCartFilledStateContainer">
+        <div class="cart-items-wrapper" id="domCartItemsRowsInjectContainer">
+          </div>
+        <div class="cart-totals-summary-box">
+          <div>
+            <div class="sum-label">Ориентировочная сумма спецификации:</div>
+            <div class="sum-val" id="domCartSummaryTotalAmountValueNode">0 ₸</div>
+          </div>
+          <button class="btn-cart-checkout-trigger" id="triggerGoToCheckoutStepButton">Оформить запрос спецификации</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="modalWindowCheckoutOrderFormBox">
+  <div class="modal-window-box">
+    <div class="modal-win-header">
+      <h3>Оформление запроса цены</h3>
+      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">&times;</button>
+    </div>
+    <div class="modal-win-body">
+      <form id="checkoutOrderFinalFormHandler">
+        <div class="form-field-group">
+          <label>Название компании / ТОО / ИП</label>
+          <input type="text" id="coInpCompany" class="form-input-element" required placeholder="ТОО КазНефтьСнаб">
+        </div>
+        <div class="form-field-group">
+          <label>БИН организации (для ускорения счета)</label>
+          <input type="text" id="coInpBin" class="form-input-element" placeholder="12 цифр БИН">
+        </div>
+        <div class="form-field-group">
+          <label>Контактный Email</label>
+          <input type="email" id="coInpEmail" class="form-input-element" required placeholder="snab@company.kz">
+        </div>
+        <div class="form-field-group">
+          <label>Телефон для связи с инженером</label>
+          <input type="tel" id="coInpPhone" class="form-input-element" required placeholder="+7 (707) 123-45-67">
+        </div>
+        <button type="submit" class="modal-form-submit-btn">Отправить спецификацию на просчет</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * СТРУКТУРИРОВАННЫЙ КАТАЛОГ ПРОДУКЦИИ ТОО «АНКАС»
+ * База данных оборудования (Имитация серверного ответа)
+ */
+const rawProductsCatalogData = [
+    { id: 1, category: "Насосное оборудование", name: "Насос КМ 80-65-160 Е (Для нефтепродуктов, взрывозащищенный)", sku: "KM-80-65-160-E", brand: "ЛИВГИДРОМАШ", price: 485000 },
+    { id: 2, category: "Насосное оборудование", name: "Насосный агрегат АСВН-80А (Самомовсасывающий, для бензина и ДТ)", sku: "ASVN-80A-PUMP", brand: "ЭНА", price: 390000 },
+    { id: 3, category: "Насосное оборудование", name: "Шестеренный насос НМШ 5-25-4.0/4 (Для перекачки масел и мазута)", sku: "NMSH-5-25-4.0", brand: "ГИДРОМАШ", price: 215000 },
+    { id: 4, category: "Приборы учета и счетчики", name: "Счетчик жидкости ППО-40-0.6 СУ (Высокоточный, винтовой)", sku: "PPO-40-0.6-SU", brand: "ПРОМПРИБОР", price: 310000 },
+    { id: 5, category: "Приборы учета и счетчики", name: "Счетчик жидкости ППО-25-1.6 СУ (Для бензовозов и мини-АЗС)", sku: "PPO-25-1.6-SU", brand: "ПРОМПРИБОР", price: 245000 },
+    { id: 6, category: "Приборы учета и счетчики", name: "Турбинный счетчик жидкости ППТ-80 (Для нефтебаз, DN80)", sku: "PPT-80-TURBINE", brand: "НЕФТЕПРОМ", price: 670000 },
+    { id: 7, category: "Резервуарное оборудование", name: "Клапан дыхательный совмещенный КДС-1500/150 (С огнепреградителем)", sku: "KDS-1500-150", brand: "АО АОМЗ", price: 540000 },
+    { id: 8, category: "Резервуарное оборудование", name: "Клапан приемный КП-50 (Для нижнего слива резервуара, DN50)", sku: "KP-50-VALVE", brand: "АЗС-ТЕХ", price: 48000 },
+    { id: 9, category: "Резервуарное оборудование", name: "Люк замерный ЛЗ-150 (Для отбора проб из цистерн)", sku: "LZ-150-LUK", brand: "КАЗАХСТАН-МАШ", price: 62000 },
+    { id: 10, category: "Фильтрующие элементы", name: "Фильтр сливной ФС-80 (Прямоточный, тонкость очистки 80 мкм)", sku: "FS-80-FILTER", brand: "НЕФТЕМАШ", price: 85000 },
+    { id: 11, category: "Фильтрующие элементы", name: "Фильтр тонкой очистки ФЖУ 100-1.6 (Для светлых нефтепродуктов)", sku: "FZHU-100-1.6", brand: "ПРОМФИЛЬТР", price: 410000 },
+    { id: 12, category: "Оборудование для АЗС", name: "Раздаточный пистолет OPW 11A (Автоматический, отсекатель для бензина)", sku: "OPW-11A-NOZZLE", brand: "OPW", price: 58000 }
+];
+
+// Глобальные реактивные хранилища данных сессии пользователя (State)
+let userCartStorageArray = [];
+let userFavoritesStorageArray = [];
+let userOrdersHistoryArray = [];
+let currentSelectedActiveCategoryName = "Все категории";
+
+document.addEventListener("DOMContentLoaded", () => {
     
-    // Стейт приложения с автоматическим восстановлением из постоянной памяти браузера LocalStorage
-    let state = {
-        cart: JSON.parse(localStorage.getItem('ankas_store_cart_v3')) || [],
-        favorites: JSON.parse(localStorage.getItem('ankas_store_favs_v3')) || [],
-        orders: JSON.parse(localStorage.getItem('ankas_store_orders_v3')) || [],
-        activeCategory: 'all',
-        currentCity: localStorage.getItem('ankas_store_city_v3') || 'Алматы'
-    };
+    // Инициализация базовых UI узлов интерфейса
+    initGlobalNavigationTabsLogic();
+    initGlobalModalsWindowMaskSystem();
+    initMobileNavigationDrawerLogic();
+    
+    // Рендеринг динамического приложения
+    buildStaticCategoriesSidebarMenu();
+    renderProductsGrid(rawProductsCatalogData);
+    
+    initLiveSearchAutocompleteEngine();
+    initFormsSubmissionInterceptors();
 
-    // Обновляем визуализацию города при старте
-    document.getElementById('currentCityLabel').textContent = state.currentCity;
+    /**
+     * ПЕРЕКЛЮЧЕНИЕ ГЛАВНЫХ РАЗДЕЛОВ (ТАБЫ)
+     */
+    function initGlobalNavigationTabsLogic() {
+        const triggers = document.querySelectorAll('.gnav-tab-trigger-btn');
+        const sections = document.querySelectorAll('.site-section');
+        const breadcrumbNode = document.getElementById('breadcrumbActiveNodeText');
 
-    // КАТАЛОГ ПРОДУКЦИИ: 40+ реальных карточек оборудования со спецификациями и ценами в Тенге
-    const rawProductsCatalogData = [
-        { id: "MTR001", cat: "meters", brand: "Piusi", price: 65000, name: "Электронный счетчик Piusi K24 для дизельного топлива", sku: "SKU-MTR-K24" },
-        { id: "MTR002", cat: "meters", brand: "Piusi", price: 125000, name: "Механический расходомер Piusi K33 (три разряда)", sku: "SKU-MTR-K33" },
-        { id: "MTR003", cat: "meters", brand: "Gespasa", price: 198000, name: "Высокоточный шестеренчатый счетчик Gespasa MGE-110", sku: "SKU-GES-MGE" },
-        { id: "MTR004", cat: "meters", brand: "Adam Pumps", price: 110000, name: "Дисковый пластиковый расходомер Adam Pumps Tech Flow 3C", sku: "SKU-ADM-TF3" },
-        { id: "MTR005", cat: "meters", brand: "Fill-Rite", price: 340000, name: "Профессиональный счетчик Fill-Rite FR807C для бензина и керосина", sku: "SKU-FIL-807" },
-        { id: "MTR006", cat: "meters", brand: "Piusi", price: 420000, name: "Турбинный промышленный расходомер Piusi K24 ATEX проводной", sku: "SKU-MTR-ATX" },
-        { id: "MTR007", cat: "meters", brand: "Gespasa", price: 850000, name: "Электронный измерительный комплекс Gespasa GK-7 с контролем доступа", sku: "SKU-GES-GK7" },
-        { id: "MTR008", cat: "meters", brand: "Liquid Controls", price: 2450000, name: "Промышленный магистральный расходомер Liquid Controls M-7-1", sku: "SKU-LC-M71" },
-        { id: "MTR009", cat: "meters", brand: "Piusi", price: 155000, name: "Импульсный датчик расхода Piusi K600/3 Pulser", sku: "SKU-PIU-PLS" },
-        { id: "MTR010", cat: "meters", brand: "Adam Pumps", price: 132000, name: "Счетчик механический Adam Pumps серии ВМ-150 для масел", sku: "SKU-ADM-BM1" },
-        
-        { id: "PMP001", cat: "pumps", brand: "Piusi", price: 89000, name: "Насос для дизельного топлива Piusi Panther 56 (220V, 56 л/мин)", sku: "SKU-PMP-P56" },
-        { id: "PMP002", cat: "pumps", brand: "Piusi", price: 115000, name: "Высокопроизводительный роторный насос Piusi Panther 90", sku: "SKU-PMP-P90" },
-        { id: "PMP003", cat: "pumps", brand: "Gespasa", price: 145000, name: "Самовсасывающий электронасос Gespasa AG-90 (220V, 80 л/мин)", sku: "SKU-GES-A90" },
-        { id: "PMP004", cat: "pumps", brand: "Adam Pumps", price: 72000, name: "Компактный мобильный насос Adam Pumps DC Tech 40 (12V)", sku: "SKU-ADM-DC4" },
-        { id: "PMP005", cat: "pumps", brand: "Fill-Rite", price: 295000, name: "Взрывозащищенный насос Fill-Rite FR701E для бензина (220V)", sku: "SKU-FIL-701" },
-        { id: "PMP006", cat: "pumps", brand: "Piusi", price: 185000, name: "Насос для перекачки масла Piusi Viscomat 70 Single Phase", sku: "SKU-PIU-VIS" },
-        { id: "PMP007", cat: "pumps", brand: "Gespasa", price: 380000, name: "Шестеренчатый мощный насос Gespasa EA-88 для вязких масел", sku: "SKU-GES-EA8" },
-        { id: "PMP008", cat: "pumps", brand: "Piusi", price: 210000, name: "Погружной насос Piusi свободновихревой для резервуаров", sku: "SKU-PIU-SUB" },
-        { id: "PMP009", cat: "pumps", brand: "Adam Pumps", price: 95000, name: "Дизельный лопастной насос Adam Pumps PA1 70 (220V)", sku: "SKU-ADM-PA1" },
-        { id: "PMP010", cat: "pumps", brand: "Fill-Rite", price: 190000, name: "Шламовый ручной бочковой насос Fill-Rite роторного типа", sku: "SKU-FIL-HND" },
+        triggers.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = btn.getAttribute('data-target');
+                if(!targetId) return;
 
-        { id: "FLT001", cat: "filters", brand: "Gespasa", price: 28000, name: "Фильтр тонкой очистки Gespasa FG-100 с прозрачной колбой", sku: "SKU-FLT-F10" },
-        { id: "FLT002", cat: "filters", brand: "Piusi", price: 42000, name: "Фильтр-сепаратор водопоглощающий Piusi Water Captor 70", sku: "SKU-PIU-WTR" },
-        { id: "FLT003", cat: "filters", brand: "Gespasa", price: 165000, name: "Промышленный фильтр-сепаратор Gespasa FG-300 (300 л/мин)", sku: "SKU-GES-300" },
-        { id: "FLT004", cat: "filters", brand: "Piusi", price: 18000, name: "Сменный картридж фильтра Piusi Line Filter 100 микрон", sku: "SKU-PIU-CRT" },
-        { id: "FLT005", cat: "filters", brand: "Gespasa", price: 310000, name: "Микрофильтрационная установка дегидратации масел Gespasa FG-2", sku: "SKU-GES-FG2" },
-        { id: "FLT006", cat: "filters", brand: "Baldwin", price: 55000, name: "Топливный фильтр высокой емкости Baldwin BF1212 сепаратор", sku: "SKU-BLD-121" },
-        { id: "FLT007", cat: "filters", brand: "Piusi", price: 34000, name: "Сетчатый донный фильтр Piusi с обратным клапаном 1 дюйм", sku: "SKU-PIU-FTV" },
-        { id: "FLT008", cat: "filters", brand: "Gespasa", price: 120000, name: "Многоразовый моющийся стальной фильтр Gespasa сеточный", sku: "SKU-GES-STL" },
+                // Смена активного состояния кнопок
+                triggers.forEach(t => t.classList.remove('active'));
+                
+                // Синхронизация подсветки десктопного меню
+                const sameTriggers = document.querySelectorAll(`.gnav-tab-trigger-btn[data-target="${targetId}"]`);
+                sameTriggers.forEach(st => st.classList.add('active'));
 
-        { id: "AZS001", cat: "azs", brand: "Piusi", price: 480000, name: "Мини-АЗС на раме Piusi Cube 56 (220V, встроенный счетчик K33)", sku: "SKU-AZS-C56" },
-        { id: "AZS002", cat: "azs", brand: "Piusi", price: 620000, name: "Заправочный модуль Piusi Cube 70 со счетчиком и пистолетом", sku: "SKU-AZS-C70" },
-        { id: "AZS003", cat: "azs", brand: "Gespasa", price: 1150000, name: "Ведомственная топливораздаточная колонка Gespasa Totem 80", sku: "SKU-AZS-T80" },
-        { id: "AZS004", cat: "azs", brand: "Adam Pumps", price: 390000, name: "Мобильный заправочный узел Adam Pumps Hi-Tech 60 настенный", sku: "SKU-ADM-H60" },
-        { id: "AZS005", cat: "azs", brand: "Piusi", price: 45000, name: "Автоматический топливораздаточный пистолет Piusi A60", sku: "SKU-PIU-A60" },
-        { id: "AZS006", cat: "azs", brand: "Piusi", price: 78000, name: "Высокоскоростной пистолет заправочный Piusi A120 (120 л/мин)", sku: "SKU-PIU-120" },
-        { id: "AZS007", cat: "azs", brand: "Gespasa", price: 92000, name: "Пистолет со встроенным электронным счетчиком Gespasa MGE-40", sku: "SKU-GES-PST" },
-        { id: "AZS008", cat: "azs", brand: "Piusi", price: 215000, name: "Автоматическая катушка для намотки шланга Piusi Hose Reel 15м", sku: "SKU-PIU-RLE" },
-        { id: "AZS009", cat: "azs", brand: "Adam Pumps", price: 1680000, name: "Коммерческая ТРК Топаз серии 511 однорукавная", sku: "SKU-TPZ-511" },
-        { id: "AZS010", cat: "azs", brand: "Gespasa", price: 3400000, name: "Контейнерная мобильная заправочная станция Gespasa кубическая", sku: "SKU-GES-CNT" }
-    ];
+                // Переключение видимости блоков секций
+                sections.forEach(sec => sec.classList.remove('active'));
+                const activeSection = document.getElementById(targetId);
+                if(activeSection) activeSection.classList.add('active');
 
-    // Инициализация интерфейсных модулей
-    updateInterfaceCounters();
-    renderProductsGrid();
+                // Адаптивное обновление хлебных крошек
+                let sectionFriendlyName = "Каталог продукции";
+                if(targetId === 'contacts-tab-section') sectionFriendlyName = "Контакты ТОО";
+                if(targetId === 'about-tab-section') sectionFriendlyName = "О компании";
+                if(targetId === 'help-tab-section') sectionFriendlyName = "Помощь и Доставка";
+                
+                if(breadcrumbNode) breadcrumbNode.innerText = sectionFriendlyName;
 
-    // ── СИСТЕМА ПЕРЕКЛЮЧЕНИЯ ВКЛАДОК САЙТА (МЕНЮ ПОКУПКА / ПОМОЩЬ / КОНТАКТЫ) ──
-    function switchActiveTabSection(targetTabId, alternativeLabel = null) {
-        document.querySelectorAll('.site-section').forEach(section => section.classList.remove('active'));
-        document.querySelectorAll('.site-tab-nav-link').forEach(link => {
-            if(link.getAttribute('data-tab') === targetTabId) link.classList.add('active');
-            else link.classList.remove('active');
-        });
-
-        const targetSection = document.getElementById(targetTabId);
-        if(targetSection) targetSection.classList.add('active');
-
-        // Коррекция Хлебной Крошки
-        const labelSource = alternativeLabel || document.querySelector(`.site-tab-nav-link[data-tab="${targetTabId}"]`)?.textContent || "Раздел";
-        document.getElementById('globalBreadcrumbCurrentLabel').textContent = labelSource;
-        
-        // Закрываем шторку смартфона на случай если переход был из нее
-        closeMobileNavigationDrawer();
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
-
-    document.querySelectorAll('.site-tab-nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchActiveTabSection(link.getAttribute('data-tab'));
-        });
-    });
-
-    document.getElementById('catalogMainMenuSectionLinkButton').addEventListener('click', () => {
-        switchActiveTabSection('catalog-tab-section');
-    });
-    document.querySelectorAll('.ankas-brand-home-trigger').forEach(el => {
-        el.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchActiveTabSection('contacts-tab-section');
-        });
-    });
-
-    // ── МОБИЛЬНОЕ ВЫЕЗЖАЮЩАЕ МЕНЮ (ТРИ ЛИНИИ) ──
-    const mobHamburgerBtn = document.getElementById('mobileHamburgerTriggerButton');
-    const mobDrawerOverlay = document.getElementById('mobileNavigationDrawerElement');
-    const mobDrawerCloseBtn = document.getElementById('mobileDrawerCloseButtonElement');
-    const mobDrawerBackdrop = document.getElementById('mobileDrawerBackdropElement');
-
-    function openMobileNavigationDrawer() {
-        mobDrawerOverlay.style.display = 'block';
-        setTimeout(() => mobDrawerOverlay.classList.add('open'), 10);
-        mobHamburgerBtn.classList.add('open');
-    }
-    function closeMobileNavigationDrawer() {
-        mobDrawerOverlay.classList.remove('open');
-        mobHamburgerBtn.classList.remove('open');
-        setTimeout(() => mobDrawerOverlay.style.display = 'none', 250);
-    }
-
-    if(mobHamburgerBtn) mobHamburgerBtn.addEventListener('click', () => {
-        if(mobHamburgerBtn.classList.contains('open')) closeMobileNavigationDrawer();
-        else openMobileNavigationDrawer();
-    });
-    if(mobDrawerCloseBtn) mobDrawerCloseBtn.addEventListener('click', closeMobileNavigationDrawer);
-    if(mobDrawerBackdrop) mobDrawerBackdrop.addEventListener('click', closeMobileNavigationDrawer);
-
-    // ── СИСТЕМА УПРАВЛЕНИЯ МОДАЛЬНЫМИ ОКНАМИ (ОТКРЫТИЕ/ЗАКРЫТИЕ) ──
-    function registerModalWindowLinkage(triggerSelectorElementId, targetModalWindowId, executionCallback = null) {
-        const trigger = document.getElementById(triggerSelectorElementId);
-        const modal = document.getElementById(targetModalWindowId);
-        if(!trigger || !modal) return;
-
-        trigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeMobileNavigationDrawer();
-            if(executionCallback) executionCallback();
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('active'), 10);
-        });
-    }
-
-    // Привязываем события окон десктопного меню
-    registerModalWindowLinkage('actionOpenAuth', 'modalAuthViewElement');
-    registerModalWindowLinkage('actionOpenFavorites', 'modalFavoritesViewElement', buildFavoritesModalRowsHTML);
-    registerModalWindowLinkage('actionOpenOrders', 'modalOrdersViewElement', buildOrdersHistoryModalRowsHTML);
-    registerModalWindowLinkage('triggerOpenFeedbackModalButton', 'modalFeedbackViewElement');
-
-    // Привязываем события окон мобильного меню (из трех линий)
-    registerModalWindowLinkage('mobActionAuth', 'modalAuthViewElement');
-    registerModalWindowLinkage('mobActionFav', 'modalFavoritesViewElement', buildFavoritesModalRowsHTML);
-    registerModalWindowLinkage('mobActionOrders', 'modalOrdersViewElement', buildOrdersHistoryModalRowsHTML);
-
-    // Слушатели для Корзины (вызываются по классам на десктопе и в трех линиях)
-    document.querySelectorAll('.trigger-cart-modal-view').forEach(trigger => {
-        trigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeMobileNavigationDrawer();
-            buildCartModalRowsHTML();
-            const modal = document.getElementById('modalCartViewElement');
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('active'), 10);
-        });
-    });
-
-    // Обработчик системных кнопок закрытия модальных масок (крестики и клик в оверлей)
-    document.querySelectorAll('.modal-mask').forEach(modalMask => {
-        const closeBtn = modalMask.querySelector('.modal-win-close-btn');
-        if(closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                modalMask.classList.remove('active');
-                setTimeout(() => modalMask.style.display = 'none', 250);
+                // Автоматическое закрытие мобильной шторки при переходе
+                closeMobileNavigationDrawer();
+                
+                // Прокрутка наверх
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-        }
-        modalMask.addEventListener('click', (e) => {
-            if(e.target === modalMask) {
-                modalMask.classList.remove('active');
-                setTimeout(() => modalMask.style.display = 'none', 250);
+        });
+
+        // Срабатывание клика на логотипы
+        document.querySelectorAll('.ankas-brand-home-trigger').forEach(logo => {
+            logo.addEventListener('click', () => {
+                const catalogBtn = document.querySelector('.gnav-links-wrap a[data-target="catalog-tab-section"]');
+                if(catalogBtn) catalogBtn.click();
+            });
+        });
+    }
+
+    /**
+     * СИСТЕМА УПРАВЛЕНИЯ МОДАЛЬНЫМИ ОКНАМИ
+     */
+    function initGlobalModalsWindowMaskSystem() {
+        // Конфигурационная карта связей триггер-окно
+        const modalBridges = [
+            { trigger: '#citySelectionButton', modal: '#modalWindowCitySelectionBox' },
+            { trigger: '#actionOpenFavorites', modal: '#modalWindowFavoritesListBox' },
+            { trigger: '#mndFavActionItem', modal: '#modalWindowFavoritesListBox' },
+            { trigger: '#actionOpenOrders', modal: '#modalWindowOrdersHistoryBox' },
+            { trigger: '#mndOrdersActionItem', modal: '#modalWindowOrdersHistoryBox' },
+            { trigger: '#actionOpenAuth', modal: '#modalWindowAuthFormBox' },
+            { trigger: '#mndAuthActionItem', modal: '#modalWindowAuthFormBox' },
+            { trigger: '#triggerOpenFeedbackModalButtonElement', modal: '#modalWindowFeedbackFormBox' },
+            { trigger: '.trigger-cart-modal-view', modal: '#modalWindowCartItemsListBox' }
+        ];
+
+        modalBridges.forEach(bridge => {
+            const btns = document.querySelectorAll(bridge.trigger);
+            const modal = document.querySelector(bridge.modal);
+            if(modal) {
+                btns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        // Закрываем шторку если открыта
+                        closeMobileNavigationDrawer();
+                        
+                        // Если открываем корзину, перерендерить ее актуальное состояние
+                        if(bridge.modal === '#modalWindowCartItemsListBox') syncCartModalDOMState();
+                        if(bridge.modal === '#modalWindowFavoritesListBox') syncFavoritesModalDOMState();
+                        if(bridge.modal === '#modalWindowOrdersHistoryBox') syncOrdersHistoryModalDOMState();
+
+                        modal.classList.add('active');
+                    });
+                });
             }
         });
-    });
 
-    // Управление окном городов филиалов
-    const cityBtn = document.getElementById('citySelectionButton');
-    if(cityBtn) {
-        cityBtn.addEventListener('click', () => {
-            const cModal = document.getElementById('modalCityViewElement');
-            cModal.style.display = 'flex';
-            setTimeout(() => cModal.classList.add('active'), 10);
+        // Универсальный обработчик закрытия окон
+        document.querySelectorAll('.general-close-modal-mask-trigger-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.modal-mask').classList.remove('active');
+            });
+        });
+
+        // Закрытие по клику на маску
+        document.querySelectorAll('.modal-mask').forEach(mask => {
+            mask.addEventListener('click', (e) => {
+                if(e.target === mask) mask.classList.remove('active');
+            });
+        });
+
+        // Кнопка перехода к оформлению в корзине
+        const btnGoCheckout = document.getElementById('triggerGoToCheckoutStepButton');
+        if(btnGoCheckout) {
+            btnGoCheckout.addEventListener('click', () => {
+                document.getElementById('modalWindowCartItemsListBox').classList.remove('active');
+                document.getElementById('modalWindowCheckoutOrderFormBox').classList.add('active');
+            });
+        }
+
+        // Переключатель городов
+        document.querySelectorAll('.dynamic-city-selector-list-node').forEach(item => {
+            item.addEventListener('click', () => {
+                const selectedCity = item.getAttribute('data-city');
+                document.getElementById('currentCityLabel').innerText = selectedCity;
+                item.closest('.modal-mask').classList.remove('active');
+                alert(`Регион изменен на: ${selectedCity}. Цены и остатки оборудования актуализированы для выбранного филиала.`);
+            });
         });
     }
-    document.querySelectorAll('.city-grid-item').forEach(cityItem => {
-        cityItem.addEventListener('click', () => {
-            const selectedName = cityItem.getAttribute('data-city-name');
-            state.currentCity = selectedName;
-            localStorage.setItem('ankas_store_city_v3', selectedName);
-            document.getElementById('currentCityLabel').textContent = selectedName;
-            
-            const cModal = document.getElementById('modalCityViewElement');
-            cModal.classList.remove('active');
-            setTimeout(() => cModal.style.display = 'none', 250);
+
+    /**
+     * МОБИЛЬНАЯ ВЫЕЗЖАЮЩАЯ ПАНЕЛЬ (DRAWER)
+     */
+    function initMobileNavigationDrawerLogic() {
+        const openBtn = document.getElementById('mobileHamburgerTriggerButton');
+        const closeBtn = document.getElementById('mobileDrawerCloseButtonElement');
+        const drawer = document.getElementById('mobileNavigationDrawerElement');
+        const backdrop = document.getElementById('mobileDrawerBackdropElement');
+
+        if(openBtn && drawer) {
+            openBtn.addEventListener('click', () => {
+                openBtn.classList.toggle('open');
+                if(openBtn.classList.contains('open')) {
+                    drawer.classList.add('open');
+                } else {
+                    drawer.classList.remove('open');
+                }
+            });
+        }
+
+        if(closeBtn) closeBtn.addEventListener('click', closeMobileNavigationDrawer);
+        if(backdrop) backdrop.addEventListener('click', closeMobileNavigationDrawer);
+    }
+
+    function closeMobileNavigationDrawer() {
+        const openBtn = document.getElementById('mobileHamburgerTriggerButton');
+        const drawer = document.getElementById('mobileNavigationDrawerElement');
+        if(openBtn) openBtn.classList.remove('open');
+        if(drawer) drawer.classList.remove('open');
+    }
+
+    /**
+     * СБОРКА СТАТИЧЕСКИХ КАТЕГОРИЙ В САЙДБАРЕ
+     */
+    function buildStaticCategoriesSidebarMenu() {
+        const sidebarUl = document.getElementById('domCategoryFilterSidebarList');
+        if(!sidebarUl) return;
+
+        // Вычисляем список уникальных категорий из нашей структуры данных
+        const uniqueCategoriesSet = new Set();
+        rawProductsCatalogData.forEach(item => uniqueCategoriesSet.add(item.category));
+        
+        const categoriesListArray = ["Все категории", ...Array.from(uniqueCategoriesSet)];
+
+        sidebarUl.innerHTML = "";
+        categoriesListArray.forEach((catName, idx) => {
+            const li = document.createElement('li');
+            li.textContent = catName;
+            if(idx === 0) li.classList.add('active');
+
+            li.addEventListener('click', () => {
+                sidebarUl.querySelectorAll('li').forEach(node => node.classList.remove('active'));
+                li.classList.add('active');
+                
+                currentSelectedActiveCategoryName = catName;
+                document.getElementById('catalogMainHeadlineTitle').innerText = catName === "Все категории" ? "Промышленное оборудование" : catName;
+
+                // Фильтрация
+                if(catName === "Все категории") {
+                    renderProductsGrid(rawProductsCatalogData);
+                } else {
+                    const filtered = rawProductsCatalogData.filter(p => p.category === catName);
+                    renderProductsGrid(filtered);
+                }
+            });
+
+            sidebarUl.appendChild(li);
         });
-    });
+    }
 
-    // ── МОДУЛЬ ОПЕРАЦИЙ КАТАЛОГА (ОТРИСОВКА И ФИЛЬТР) ──
-    document.querySelectorAll('.category-filter-list li').forEach(filterLi => {
-        filterLi.addEventListener('click', () => {
-            document.querySelectorAll('.category-filter-list li').forEach(li => li.classList.remove('active'));
-            filterLi.classList.add('active');
-            state.activeCategory = filterLi.getAttribute('data-category-id');
-            renderProductsGrid();
-        });
-    });
+    /**
+     * СЕТКА ТОВАРОВ КАТАЛОГА
+     */
+    function renderProductsGrid(productsArray) {
+        const container = document.getElementById('domProductsGridContainerBox');
+        if(!container) return;
 
-    function renderProductsGrid(preFilteredArray = null) {
-        const grid = document.getElementById('globalProductsContainerGrid');
-        if(!grid) return;
-        grid.innerHTML = '';
-
-        const renderSource = preFilteredArray || (state.activeCategory === 'all' 
-            ? rawProductsCatalogData 
-            : rawProductsCatalogData.filter(p => p.cat === state.activeCategory));
-
-        if(renderSource.length === 0) {
-            grid.innerHTML = `<div style="grid-column: 1/-1; padding:40px; text-align:center; color:#95a5a6; font-weight:500">По заданным критериям фильтрации промышленного оборудования не найдено.</div>`;
+        if(productsArray.length === 0) {
+            container.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #7e8282;">По вашему запросу оборудование не найдено. Попробуйте изменить ключевое слово.</div>`;
             return;
         }
 
-        renderSource.forEach(product => {
-            const isInFavorites = state.favorites.includes(product.id);
-            const isInCart = state.cart.some(c => c.id === product.id);
+        container.innerHTML = "";
+        productsArray.forEach(prod => {
+            const isFav = userFavoritesStorageArray.some(f => f.id === prod.id);
+            const isAdded = userCartStorageArray.some(c => c.id === prod.id);
 
             const card = document.createElement('div');
-            card.className = 'product-item-card';
+            card.className = "product-item-card";
             card.innerHTML = `
                 <div class="pic-img-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                    <span>АНКАС ТЕХНО</span>
-                    <span class="pic-sku">${product.sku}</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                    <span>Изображение чертежа</span>
+                    <span class="pic-sku">Арт: ${prod.sku}</span>
                 </div>
-                <div class="pic-brand">${product.brand}</div>
-                <div class="pic-title" title="${product.name}">${product.name}</div>
+                <div class="pic-brand">${prod.brand}</div>
+                <div class="pic-title" title="${prod.name}">${prod.name}</div>
                 <div class="pic-footer-row">
-                    <div class="pic-price-block">
-                        <span class="pic-price-label">Цена с НДС</span>
-                        <span class="pic-price-value">${product.price.toLocaleString()} ₸</span>
-                    </div>
+                  <div class="pic-price-block">
+                    <span class="pic-price-label">Цена по запросу</span>
+                    <span class="pic-price-value">${prod.price.toLocaleString('ru-RU')} ₸</span>
+                  </div>
                 </div>
                 <div class="pic-btns-group">
-                    <button class="btn-add-to-cart ${isInCart ? 'added' : ''}" data-id="${product.id}">
-                        ${isInCart ? 'В корзине ✓' : 'Купить'}
-                    </button>
-                    <button class="btn-toggle-favorite ${isInFavorites ? 'active' : ''}" data-id="${product.id}">
-                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                    </button>
+                  <button class="btn-add-to-cart ${isAdded ? 'added' : ''}" data-id="${prod.id}">
+                    ${isAdded ? 'Добавлено в КП' : 'В спецификацию'}
+                  </button>
+                  <button class="btn-toggle-favorite ${isFav ? 'active' : ''}" data-id="${prod.id}">
+                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                  </button>
                 </div>
             `;
-            grid.appendChild(card);
-        });
 
-        attachCatalogInteractiveDOMEvents();
-    }
-
-    function attachCatalogInteractiveDOMEvents() {
-        // Логика кнопки "Купить / В корзину"
-        document.querySelectorAll('.btn-add-to-cart').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const pId = btn.getAttribute('data-id');
-                const product = rawProductsCatalogData.find(p => p.id === pId);
-                if(!product) return;
-
-                const cartItemIndex = state.cart.findIndex(c => c.id === pId);
-                if(cartItemIndex >= 0) {
-                    // Если уже лежит - просто информируем пользователя, не дублируя строки
-                    return;
-                } else {
-                    state.cart.push({ id: product.id, name: product.name, price: product.price, sku: product.sku, qty: 1 });
-                }
-
-                localStorage.setItem('ankas_store_cart_v3', JSON.stringify(state.cart));
-                updateInterfaceCounters();
-                
-                btn.classList.add('added');
-                btn.textContent = 'В корзине ✓';
+            // Логика кнопки "Купить / Добавить в спецификацию"
+            card.querySelector('.btn-add-to-cart').addEventListener('click', (e) => {
+                if(userCartStorageArray.some(c => c.id === prod.id)) return; // Уже добавлен
+                userCartStorageArray.push(prod);
+                e.target.classList.add('added');
+                e.target.innerText = "Добавлено в КП";
+                updateGlobalBadgesCountCounters();
             });
-        });
 
-        // Логика кнопки "Добавить в Избранное"
-        document.querySelectorAll('.btn-toggle-favorite').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const pId = btn.getAttribute('data-id');
-                const favIndex = state.favorites.indexOf(pId);
-
-                if(favIndex >= 0) {
-                    state.favorites.splice(favIndex, 1);
+            // Логика кнопки "Избранное"
+            card.querySelector('.btn-toggle-favorite').addEventListener('click', (e) => {
+                const btn = e.currentTarget;
+                const idx = userFavoritesStorageArray.findIndex(f => f.id === prod.id);
+                if(idx > -1) {
+                    userFavoritesStorageArray.splice(idx, 1);
                     btn.classList.remove('active');
                 } else {
-                    state.favorites.push(pId);
+                    userFavoritesStorageArray.push(prod);
                     btn.classList.add('active');
                 }
-
-                localStorage.setItem('ankas_store_favs_v3', JSON.stringify(state.favorites));
-                updateInterfaceCounters();
+                updateGlobalBadgesCountCounters();
             });
+
+            container.appendChild(card);
         });
     }
 
-    // ── СИСТЕМА ДИНАМИЧЕСКОГО СЧЕТЧИКА ТОВАРОВ И БЕЙДЖЕЙ ──
-    function updateInterfaceCounters() {
-        const totalCartQuantityCount = state.cart.reduce((accumulator, currentElement) => accumulator + currentElement.qty, 0);
-        
-        // Распределяем значения счетчиков во все дублирующиеся узлы (мобильные и десктопные)
-        document.querySelectorAll('.dynamic-cart-badge-count').forEach(el => el.textContent = totalCartQuantityCount);
-        document.querySelectorAll('.dynamic-fav-badge-count').forEach(el => el.textContent = state.favorites.length);
-        document.querySelectorAll('.dynamic-orders-badge-count').forEach(el => el.textContent = state.orders.length);
+    /**
+     * ОБНОВЛЕНИЕ СЧЕТЧИКОВ И БЕЙДЖЕЙ НА ИНТЕРФЕЙСЕ
+     */
+    function updateGlobalBadgesCountCounters() {
+        // Корзина
+        document.querySelectorAll('.dynamic-cart-badge-count').forEach(node => {
+            node.innerText = userCartStorageArray.length;
+        });
+        // Избранное
+        document.querySelectorAll('.dynamic-fav-badge-count').forEach(node => {
+            node.innerText = userFavoritesStorageArray.length;
+        });
+        // Заказы
+        document.querySelectorAll('.dynamic-orders-badge-count').forEach(node => {
+            node.innerText = userOrdersHistoryArray.length;
+        });
     }
 
-    // ── СБОРКА И КУРИРОВАНИЕ ТАБЛИЦ ВНУТРИ МОДАЛЬНЫХ ОКОН ──
-    
-    // Рендер строк Корзины
-    function buildCartModalRowsHTML() {
-        const container = document.getElementById('dynamicCartRowsContainer');
-        const sumElement = document.getElementById('htmlCalculatedCartSumValue');
-        if(!container) return;
-        container.innerHTML = '';
+    /**
+     * СИНХРОНИЗАЦИЯ И РЕНДЕРИНГ ДАННЫХ ВНУТРИ МОДАЛКИ КОРЗИНЫ
+     */
+    function syncCartModalDOMState() {
+        const emptyState = document.getElementById('domCartEmptyStateNotification');
+        const filledState = document.getElementById('domCartFilledStateContainer');
+        const rowsContainer = document.getElementById('domCartItemsRowsInjectContainer');
+        const totalAmountNode = document.getElementById('domCartSummaryTotalAmountValueNode');
 
-        if(state.cart.length === 0) {
-            container.innerHTML = `<p style="color:#95a5a6; text-align:center; padding:30px 0; font-weight:500">Ваша корзина пуста. Выберите спецификацию в каталоге.</p>`;
-            if(sumElement) sumElement.textContent = '0';
-            document.getElementById('actionProcessCheckoutOrder').style.display = 'none';
+        if(userCartStorageArray.length === 0) {
+            if(emptyState) emptyState.style.display = "block";
+            if(filledState) filledState.style.display = "none";
+        } else {
+            if(emptyState) emptyState.style.display = "none";
+            if(filledState) filledState.style.display = "block";
+            
+            if(rowsContainer) {
+                rowsContainer.innerHTML = "";
+                let calculatedSum = 0;
+
+                userCartStorageArray.forEach(item => {
+                    calculatedSum += item.price;
+                    const row = document.createElement('div');
+                    row.className = "cart-table-row";
+                    row.innerHTML = `
+                        <div>
+                          <div class="ctr-title">${item.name}</div>
+                          <div class="ctr-sku">Артикул: ${item.sku} | Производитель: ${item.brand}</div>
+                        </div>
+                        <div class="ctr-calc">1 ед. × ${item.price.toLocaleString('ru-RU')} ₸</div>
+                        <button class="btn-remove-from-cart" data-id="${item.id}">Удалить</button>
+                    `;
+
+                    row.querySelector('.btn-remove-from-cart').addEventListener('click', () => {
+                        userCartStorageArray = userCartStorageArray.filter(c => c.id !== item.id);
+                        // Обновляем отображение сетки каталога (сбрасываем кнопку добавленности)
+                        if(currentSelectedActiveCategoryName === "Все категории") {
+                            renderProductsGrid(rawProductsCatalogData);
+                        } else {
+                            renderProductsGrid(rawProductsCatalogData.filter(p => p.category === currentSelectedActiveCategoryName));
+                        }
+                        updateGlobalBadgesCountCounters();
+                        syncCartModalDOMState();
+                    });
+
+                    rowsContainer.appendChild(row);
+                });
+
+                if(totalAmountNode) totalAmountNode.innerText = `${calculatedSum.toLocaleString('ru-RU')} ₸`;
+            }
+        }
+    }
+
+    /**
+     * СИНХРОНИЗАЦИЯ МОДАЛКИ ИЗБРАННОГО
+     */
+    function syncFavoritesModalDOMState() {
+        const container = document.getElementById('domFavoritesModalListContainer');
+        if(!container) return;
+
+        if(userFavoritesStorageArray.length === 0) {
+            container.innerHTML = `<div style="text-align:center; padding:15px; color:#7e8282">Нет добавленного оборудования в избранное</div>`;
             return;
         }
 
-        document.getElementById('actionProcessCheckoutOrder').style.display = 'block';
-        let calculatedTotalCost = 0;
-
-        state.cart.forEach(item => {
-            calculatedTotalCost += item.price * item.qty;
+        container.innerHTML = "";
+        userFavoritesStorageArray.forEach(item => {
             const row = document.createElement('div');
-            row.className = 'cart-table-row';
+            row.className = "fav-item-row";
             row.innerHTML = `
-                <div>
-                    <div class="ctr-title">${item.name}</div>
-                    <div class="ctr-sku">Артикул: ${item.sku}</div>
-                </div>
-                <div class="ctr-calc">${item.qty} шт. х ${item.price.toLocaleString()} ₸</div>
-                <button class="btn-remove-from-cart" data-id="${item.id}">Удалить</button>
+                <div class="fav-item-title">${item.name}</div>
+                <div class="fav-item-price">${item.price.toLocaleString('ru-RU')} ₸</div>
             `;
             container.appendChild(row);
         });
-
-        if(sumElement) sumElement.textContent = calculatedTotalCost.toLocaleString();
-
-        // Прослушка удаления из корзины
-        container.querySelectorAll('.btn-remove-from-cart').forEach(delBtn => {
-            delBtn.addEventListener('click', () => {
-                const targetId = delBtn.getAttribute('data-id');
-                state.cart = state.cart.filter(c => c.id !== targetId);
-                localStorage.setItem('ankas_store_cart_v3', JSON.stringify(state.cart));
-                updateInterfaceCounters();
-                buildCartModalRowsHTML();
-                renderProductsGrid(); // Перерисовываем каталог чтобы вернуть кнопку "Купить"
-            });
-        });
     }
 
-    // Рендер строк Избранного
-    function buildFavoritesModalRowsHTML() {
-        const container = document.getElementById('dynamicFavoritesRowsContainer');
+    /**
+     * СИНХРОНИЗАЦИЯ МОДАЛКИ ЗАКАЗОВ
+     */
+    function syncOrdersHistoryModalDOMState() {
+        const container = document.getElementById('domOrdersHistoryContainerBox');
         if(!container) return;
-        container.innerHTML = '';
 
-        if(state.favorites.length === 0) {
-            container.innerHTML = `<p style="color:#95a5a6; text-align:center; padding:20px 0; font-weight:500">В избранном пока нет промышленного оборудования.</p>`;
+        if(userOrdersHistoryArray.length === 0) {
+            container.innerHTML = `<div style="text-align:center; padding:15px; color:#7e8282">У вас еще нет отправленных запросов цен. Оформите корзину оборудования.</div>`;
             return;
         }
 
-        state.favorites.forEach(fId => {
-            const product = rawProductsCatalogData.find(p => p.id === fId);
-            if(!product) return;
-
-            const row = document.createElement('div');
-            row.className = 'fav-item-row';
-            row.innerHTML = `
-                <div class="fav-item-title">${product.name}</div>
-                <div class="fav-item-price">${product.price.toLocaleString()} ₸</div>
-                <button class="btn-remove-from-cart" data-id="${product.id}" style="font-size:11px">Убрать</button>
-            `;
-            container.appendChild(row);
-        });
-
-        container.querySelectorAll('.btn-remove-from-cart').forEach(remBtn => {
-            remBtn.addEventListener('click', () => {
-                const targetId = remBtn.getAttribute('data-id');
-                state.favorites = state.favorites.filter(f => f !== targetId);
-                localStorage.setItem('ankas_store_favs_v3', JSON.stringify(state.favorites));
-                updateInterfaceCounters();
-                buildFavoritesModalRowsHTML();
-                renderProductsGrid(); // Синхронизируем звездочки в каталоге
-            });
-        });
-    }
-
-    // Рендер Истории сформированных Заказов
-    function buildOrdersHistoryModalRowsHTML() {
-        const container = document.getElementById('dynamicOrdersHistoryRowsContainer');
-        if(!container) return;
-        container.innerHTML = '';
-
-        if(state.orders.length === 0) {
-            container.innerHTML = `<p style="color:#95a5a6; text-align:center; padding:20px 0; font-weight:500">Вы еще не сформировали ни одного промышленного заказа.</p>`;
-            return;
-        }
-
-        state.orders.forEach(order => {
+        container.innerHTML = "";
+        userOrdersHistoryArray.forEach(order => {
             const card = document.createElement('div');
-            card.className = 'order-history-card';
+            card.className = "order-history-card";
             card.innerHTML = `
                 <div class="ohc-header">
-                    <div>ЗАКАЗ №${order.orderNumber}</div>
-                    <div class="ohc-status">${order.status}</div>
+                  <span>ЗАПРОС №${order.orderNum} от ${order.date}</span>
+                  <span class="ohc-status">На обработке инженером</span>
                 </div>
                 <div class="ohc-body">
-                    ${order.itemsDescription}
+                  <strong>Заказчик:</strong> ${order.companyName} (БИН: ${order.bin})<br>
+                  <strong>Состав спецификации:</strong> ${order.itemsCount} наим. оборудования.
                 </div>
                 <div class="ohc-footer">
-                    <span>Сумма счета:</span>
-                    <span style="color:#1baa65">${order.totalSum.toLocaleString()} ₸</span>
+                  <span>Итоговый расчет:</span>
+                  <span style="color:#1baa65">${order.totalSum}</span>
                 </div>
             `;
             container.appendChild(card);
         });
     }
 
-    // ── СИСТЕМА ОФОРМЛЕНИЯ ЗАКАЗА И ОТПРАВКИ ФОРМ (CHECKOUT & SUBMITS) ──
-    const checkoutBtn = document.getElementById('actionProcessCheckoutOrder');
-    if(checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-            if(state.cart.length === 0) return;
+    /**
+     * УМНЫЙ ЖИВОЙ АВТОКОМПЛИТ-ПОИСК С ПОДСКАЗКАМИ
+     */
+    function initLiveSearchAutocompleteEngine() {
+        const searchInput = document.getElementById('siteGlobalSearchInput');
+        const searchBtn = document.getElementById('siteGlobalSearchButton');
+        const suggestionsBox = document.getElementById('liveSearchSuggestionsBox');
 
-            const orderNum = Math.floor(100000 + Math.random() * 900000);
-            const totalSum = state.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            
-            // Компонуем строку описания позиций для истории
-            const itemsDescription = state.cart.map(c => `• ${c.name} (${c.qty} шт.)`).join('<br>');
+        if(!searchInput || !suggestionsBox) return;
 
-            const newOrderObject = {
-                orderNumber: orderNum,
-                totalSum: totalSum,
-                itemsDescription: itemsDescription,
-                status: "Счет сформирован (Ожидает оплаты)"
-            };
-
-            state.orders.unshift(newOrderObject); // Добавляем в начало истории
-            localStorage.setItem('ankas_store_orders_v3', JSON.stringify(state.orders));
-
-            // Сбрасываем корзину
-            state.cart = [];
-            localStorage.removeItem('ankas_store_cart_v3');
-            
-            updateInterfaceCounters();
-            
-            // Прячем маску корзины
-            const mCart = document.getElementById('modalCartViewElement');
-            mCart.classList.remove('active');
-            setTimeout(() => mCart.style.display = 'none', 250);
-
-            alert(`Успешно! Сформирован промышленный заказ №${orderNum} на сумму ${totalSum.toLocaleString()} ₸. Спецификация и бухгалтерский счет с НДС высланы на ваш системный e-mail.`);
-            renderProductsGrid();
-        });
-    }
-
-    // Имитация дефолтной отправки остальных форм обратной связи и авторизации
-    const formIds = ['htmlFormAuthElement', 'htmlFormFeedbackElement'];
-    formIds.forEach(id => {
-        const form = document.getElementById(id);
-        if(form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                alert('Данные успешно переданы на сервер ТОО «АНКАС». Заявка принята в обработку, менеджер свяжется с вами в течение 15 минут.');
-                const openModalOverlay = form.closest('.modal-mask');
-                if(openModalOverlay) {
-                    openModalOverlay.classList.remove('active');
-                    setTimeout(() => openModalOverlay.style.display = 'none', 250);
-                }
-                form.reset();
-            });
-        }
-    });
-
-    // ── МОДУЛЬ ИНТЕЛЛЕКТУАЛЬНОГО ЖИВОГО ПОИСКА С ИНТЕГРАЦИЕЙ В КАТАЛОГ ──
-    const searchInput = document.getElementById('siteGlobalSearchInput');
-    const suggestionsBox = document.getElementById('liveSearchSuggestionsBox');
-    const searchBtn = document.getElementById('siteGlobalSearchButton');
-
-    if(searchInput && suggestionsBox) {
-        searchInput.addEventListener('input', (e) => {
-            const queryValue = e.target.value.trim().toLowerCase();
+        searchInput.addEventListener('input', () => {
+            const queryValue = searchInput.value.trim().toLowerCase();
             if(queryValue.length < 2) {
                 suggestionsBox.classList.remove('active');
                 return;
             }
 
-            // Фильтруем совпадения из локальной базы данных
-            const matchedProducts = rawProductsCatalogData.filter(p => p.name.toLowerCase().includes(queryValue)).slice(0, 8);
-            suggestionsBox.innerHTML = '';
+            // Ищем совпадения в локальной базе данных оборудования
+            const filteredMatches = rawProductsCatalogData.filter(p => 
+                p.name.toLowerCase().includes(queryValue) || p.sku.toLowerCase().includes(queryValue)
+            );
 
-            if(matchedProducts.length > 0) {
-                matchedProducts.forEach(prod => {
+            if(filteredMatches.length > 0) {
+                suggestionsBox.innerHTML = "";
+                // Ограничиваем выдачу до 6 подсказок
+                filteredMatches.slice(0, 6).forEach(prod => {
                     const itemDiv = document.createElement('div');
-                    itemDiv.className = 'suggest-item';
+                    itemDiv.className = "suggest-item";
                     itemDiv.textContent = prod.name;
                     itemDiv.addEventListener('click', () => {
                         searchInput.value = prod.name;
                         suggestionsBox.classList.remove('active');
                         
-                        // Переключаем вкладку на каталог и рендерим только этот один выбранный товар
+                        // Сразу рендерим выбранный товар
                         switchActiveTabSection('catalog-tab-section', 'Поиск продукции');
                         document.querySelectorAll('.category-filter-list li').forEach(li => li.classList.remove('active'));
                         renderProductsGrid([prod]);
@@ -1193,19 +1475,93 @@ document.addEventListener('DOMContentLoaded', () => {
                 suggestionsBox.classList.remove('active');
             }
         });
+        
+        // Работа главной кнопки лупы в поиске
+        if(searchBtn) {
+            searchBtn.addEventListener('click', () => {
+                const val = searchInput.value.trim().toLowerCase();
+                if(!val) return;
+
+                const strictMatches = rawProductsCatalogData.filter(p => p.name.toLowerCase().includes(val) || p.sku.toLowerCase().includes(val));
+                switchActiveTabSection('catalog-tab-section', `Результаты поиска: ${searchInput.value}`);
+                document.querySelectorAll('.category-filter-list li').forEach(li => li.classList.remove('active'));
+                renderProductsGrid(strictMatches);
+            });
+        }
     }
 
-    // Работа главной кнопки лупы в поиске
-    if(searchBtn && searchInput) {
-        searchBtn.addEventListener('click', () => {
-            const val = searchInput.value.trim().toLowerCase();
-            if(!val) return;
+    // Вспомогательная функция принудительного перехода на вкладку
+    function switchActiveTabSection(sectionId, breadcrumbCustomTitle) {
+        document.querySelectorAll('.site-section').forEach(s => s.classList.remove('active'));
+        const targetSec = document.getElementById(sectionId);
+        if(targetSec) targetSec.classList.add('active');
+        
+        document.querySelectorAll('.gnav-tab-trigger-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll(`.gnav-tab-trigger-btn[data-target="${sectionId}"]`).forEach(btn => btn.classList.add('add'));
 
-            const strictMatches = rawProductsCatalogData.filter(p => p.name.toLowerCase().includes(val));
-            switchActiveTabSection('catalog-tab-section', `Результаты поиска: ${searchInput.value}`);
-            document.querySelectorAll('.category-filter-list li').forEach(li => li.classList.remove('active'));
-            renderProductsGrid(strictMatches);
-        });
+        const bcNode = document.getElementById('breadcrumbActiveNodeText');
+        if(bcNode) bcNode.innerText = breadcrumbCustomTitle;
+    }
+
+    /**
+     * ПЕРЕХВАТ И ОБРАБОТКА ОТПРАВКИ ФОРМ (FORMS SUBMISSION INTERCEPTORS)
+     */
+    function initFormsSubmissionInterceptors() {
+        // Форма 1: Обратная связь директора
+        const formFeedback = document.getElementById('dummyFeedbackFormHandler');
+        if(formFeedback) {
+            formFeedback.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('fbInpName').value;
+                alert(`Уважаемый ${name}, ваше официальное обращение зарегистрировано в CRM ТОО «АНКАС». Инженер свяжется с вами по указанному телефону в течение 15 минут.`);
+                formFeedback.reset();
+                document.getElementById('modalWindowFeedbackFormBox').classList.remove('active');
+            });
+        }
+
+        // Форма 2: Финальное оформление спецификации из корзины
+        const formCheckout = document.getElementById('checkoutOrderFinalFormHandler');
+        if(formCheckout) {
+            formCheckout.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const companyName = document.getElementById('coInpCompany').value;
+                const binCode = document.getElementById('coInpBin').value || "Не указан";
+                const generatedNumber = Math.floor(1000 + Math.random() * 9000);
+                const dateString = new Date().toLocaleDateString('ru-RU');
+
+                // Считаем сумму спецификации
+                let orderSum = 0;
+                userCartStorageArray.forEach(item => orderSum += item.price);
+
+                // Записываем структуру заказа в хранилище истории сессии
+                userOrdersHistoryArray.push({
+                    orderNum: generatedNumber,
+                    date: dateString,
+                    companyName: companyName,
+                    bin: binCode,
+                    itemsCount: userCartStorageArray.length,
+                    totalSum: `${orderSum.toLocaleString('ru-RU')} ₸`
+                });
+
+                alert(`Запрос спецификации №${generatedNumber} для компании "${companyName}" успешно сформирован!\n\nОфициальное коммерческое предложение (КП) и счет на оплату с НДС будут отправлены на ваш Email в течение 30 минут.`);
+                
+                // Очищаем корзину и обновляем глобальное состояние приложения
+                userCartStorageArray = [];
+                updateGlobalBadgesCountCounters();
+                formCheckout.reset();
+
+                document.getElementById('modalWindowCheckoutOrderFormBox').classList.remove('active');
+                
+                // Перерисовываем каталог оборудования
+                renderProductsGrid(rawProductsCatalogData);
+                document.querySelectorAll('.category-filter-list li').forEach(li => {
+                    if(li.textContent === "Все категории") li.classList.add('active');
+                    else li.classList.remove('active');
+                });
+                document.getElementById('catalogMainHeadlineTitle').innerText = "Промышленное оборудование";
+            });
+        }
     }
 });
 </script>
