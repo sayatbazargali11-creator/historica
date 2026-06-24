@@ -3,31 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Компания АНКАС — Промышленное оборудование и АЗС</title>
+<title>ТОО АНКАС — Промышленное Оборудование, Резервуарные Парки и АЗС</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ── ГЛОБАЛЬНЫЕ СТИЛИ И СБРОС ЦСС (RESET) + ЗАЩИТА ОТ КОПИРОВАНИЯ ── */
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-    font-family:'Inter',sans-serif;
-    font-size:14px;
-    color:#222;
-    background:#f5f6f7;
-    line-height:1.4;
-    overflow-x:hidden;
-    /* Защита от выделения и копирования контента на уровне CSS */
+/* ==========================================================================
+   1. ГЛОБАЛЬНЫЙ СБРОС СТИЛЕЙ, ПЕРЕМЕННЫЕ И СИСТЕМА ЗАЩИТЫ ОТ КОПИРОВАНИЯ
+   ========================================================================== */
+:root {
+    --primary: #1baa65;
+    --primary-hover: #148f52;
+    --primary-light: #e6f7ef;
+    --primary-dark: #0d7a4a;
+    --secondary: #2c3e50;
+    --secondary-hover: #1a252f;
+    --text-dark: #222222;
+    --text-muted: #7e8282;
+    --text-light: #95a5a6;
+    --bg-main: #f5f6f7;
+    --bg-white: #ffffff;
+    --border-color: #e2e5e5;
+    --border-light: #e9ebeb;
+    --danger: #ff4d4d;
+    --danger-light: #ffebeb;
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.02);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+    --shadow-lg: 0 15px 40px rgba(0,0,0,0.15);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    background: var(--bg-main);
+    line-height: 1.5;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    
+    /* Жесткая CSS-защита от выделения и копирования информации */
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
-a{text-decoration:none;color:inherit;transition:color .15s ease}
-img{display:block;max-width:100%;height:auto}
-button, input, textarea, select{font-family:inherit;font-size:inherit;color:inherit}
 
-/* Поля ввода должны оставаться выделяемыми, чтобы пользователи могли писать свои данные в формах */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+button, input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    outline: none;
+}
+
+/* Исключение для полей ввода, чтобы пользователи могли без проблем заполнять реквизиты */
 input, textarea, select {
     -webkit-user-select: text;
     -moz-user-select: text;
@@ -35,332 +85,1298 @@ input, textarea, select {
     user-select: text;
 }
 
-/* ── ВЕРХНЯЯ ИНФОРМАЦИОННАЯ ПАНЕЛЬ (TOPBAR) ── */
-.topbar{background:#ffffff;border-bottom:1px solid #e9ebeb;font-size:12px;color:#7e8282;padding:6px 0;position:relative;z-index:30}
-.topbar-inner{max-width:1260px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center}
-.topbar-left{display:flex;align-items:center;gap:20px}
-.topbar-left a:hover{color:#1baa65}
-.topbar-right{display:flex;align-items:center;gap:15px;font-weight:600;color:#2c3e50;font-size:13px}
-.topbar-right span{font-weight:400;font-size:12px;color:#95a5a6}
-.topbar-right svg{vertical-align:middle;margin-right:4px}
-
-/* ── ГЛАВНАЯ ПАНЕЛЬ ШАПКИ (HEADER) ── */
-header{background:#ffffff;border-bottom:1px solid #e2e5e5;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,0.02)}
-.header-inner{max-width:1260px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:72px}
-
-/* Логотип АНКАС */
-.logo-wrap{flex-shrink:0;display:flex;align-items:center;cursor:pointer}
-.logo-box{display:flex;flex-direction:column}
-.logo-ankas{font-size:24px;font-weight:700;color:#1baa65;letter-spacing:-0.5px;line-height:1}
-.logo-sub{font-size:10px;color:#95a5a6;letter-spacing:0.5px;margin-top:2px;text-transform:uppercase;font-weight:600}
-
-/* Селектор городов */
-.city-selector{display:flex;align-items:center;gap:5px;border:1px solid #dcdede;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:12px;color:#34495e;white-space:nowrap;transition:all .15s ease;background:#fafbfc}
-.city-selector:hover{border-color:#1baa65;color:#1baa65;background:#f0faf5}
-
-/* Умный Поисковый Блок */
-.search-wrap{flex:1;display:flex;height:42px;position:relative}
-.search-input{flex:1;border:2px solid #1baa65;border-right:none;border-radius:6px 0 0 6px;padding:0 16px;font-size:14px;outline:none;background:#ffffff;transition:box-shadow 0.2s}
-.search-input:focus{box-shadow:0 0 0 3px rgba(27,170,101,0.15)}
-.search-btn{background:#1baa65;border:2px solid #1baa65;border-radius:0 6px 6px 0;padding:0 22px;cursor:pointer;color:#ffffff;display:flex;align-items:center;justify-content:center;transition:background 0.15s}
-.search-btn:hover{background:#169254;border-color:#169254}
-.search-btn svg{width:18px;height:18px}
-
-/* Выпадающие подсказки живого поиска */
-.search-suggestions{position:absolute;top:45px;left:0;right:0;background:#ffffff;border:1px solid #dcdede;border-radius:6px;box-shadow:0 10px 25px rgba(0,0,0,0.1);z-index:120;max-height:320px;overflow-y:auto;display:none}
-.search-suggestions.active{display:block}
-.suggest-item{padding:11px 16px;cursor:pointer;border-bottom:1px solid #f5f6f6;font-size:13px;color:#2c3e50;transition:all 0.1s}
-.suggest-item:hover{background:#f0faf5;color:#1baa65}
-
-/* Десктопное меню действий */
-.header-right-desktop{display:flex;align-items:center;gap:24px;flex-shrink:0}
-.hdr-phone{font-size:16px;font-weight:700;color:#2c3e50;white-space:nowrap}
-.hdr-phone:hover{color:#1baa65}
-.hdr-action{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:#535a5a;font-size:11px;font-weight:500;transition:color .15s ease;position:relative;user-select:none}
-.hdr-action:hover{color:#1baa65}
-.hdr-action svg{width:22px;height:22px;stroke-width:1.7;fill:none}
-.hdr-badge{position:absolute;top:-4px;right:0;background:#ff4d4d;color:#ffffff;font-size:9px;font-weight:700;border-radius:10px;min-width:15px;height:15px;padding:0 4px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
-
-/* Кнопка Мобильного Меню */
-.hamburger-menu{display:none;flex-direction:column;justify-content:space-between;width:24px;height:18px;background:none;border:none;cursor:pointer;z-index:150;position:relative}
-.hamburger-menu span{display:block;width:100%;height:2.5px;background-color:#2c3e50;border-radius:2px;transition:all 0.25s ease-in-out}
-.hamburger-menu.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
-.hamburger-menu.open span:nth-child(2){opacity:0;transform:translateX(-10px)}
-.hamburger-menu.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-
-/* ── ЗЕЛЕНАЯ НАВИГАЦИОННАЯ ПАНЕЛЬ (GNAV) ── */
-.gnav{background:#1baa65;color:#ffffff;box-shadow:0 2px 4px rgba(0,0,0,0.05)}
-.gnav-inner{max-width:1260px;margin:0 auto;padding:0 20px;display:flex;align-items:stretch;height:44px}
-.gnav-catalog-btn{background:rgba(0,0,0,0.15);display:flex;align-items:center;gap:10px;padding:0 24px;font-size:14px;font-weight:600;color:#ffffff;cursor:pointer;border:none;transition:background .15s;outline:none}
-.gnav-catalog-btn:hover{background:rgba(0,0,0,0.25)}
-.gnav-catalog-btn svg{width:16px;height:16px}
-.gnav-links-wrap{display:flex;align-items:stretch}
-.gnav-links-wrap a{display:flex;align-items:center;padding:0 20px;font-size:13.5px;color:rgba(255,255,255,0.9);font-weight:500}
-.gnav-links-wrap a:hover, .gnav-links-wrap a.active{background:rgba(0,0,0,0.1);color:#ffffff}
-
-/* ── ОСНОВНОЙ КОНТЕНТНЫЙ КОНТЕЙНЕР (PAGE-WRAP) ── */
-.page-wrap{max-width:1260px;margin:0 auto;padding:0 20px;min-height:650px}
-.breadcrumb{display:flex;align-items:center;gap:6px;padding:16px 0;font-size:13px;color:#95a5a6;user-select:none}
-.breadcrumb a{color:#1baa65}
-.breadcrumb a:hover{text-decoration:underline}
-.breadcrumb svg{width:12px;height:12px;stroke:#bdc3c7;stroke-width:2.5}
-.section-title{font-size:26px;font-weight:700;color:#1a252f;margin-bottom:22px;letter-spacing:-0.4px}
-
-/* Переключаемые логические секции сайта */
-.site-section{display:none;animation:sectionFadeIn 0.3s ease-in-out forwards}
-.site-section.active{display:block}
-@keyframes sectionFadeIn{from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)}}
-
-/* ── МАКЕТ СЕКЦИИ КОНТАКТОВ (CONTACTS LAYOUT) ── */
-.contacts-layout{display:grid;grid-template-columns:1fr 350px;gap:24px;margin-bottom:40px;align-items:start}
-.map-card{background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #e2e5e5;box-shadow:0 2px 8px rgba(0,0,0,0.02)}
-.map-frame-box{width:100%;height:380px;background:#eaeded;position:relative}
-.map-frame-box iframe{width:100%;height:100%;border:none;display:block}
-.map-card-body{padding:22px}
-.map-company-name{font-size:18px;font-weight:700;color:#2c3e50;margin-bottom:8px}
-.status-tag{display:inline-flex;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;background:#e6f7ef;color:#0d7a4a;border:1px solid #b8e8d0;margin-right:6px;text-transform:uppercase;letter-spacing:0.3px}
-.info-row{display:flex;align-items:start;gap:12px;color:#4a5555;margin-top:14px;font-size:14px}
-.info-row svg{width:18px;height:18px;color:#1baa65;flex-shrink:0;margin-top:2px}
-
-/* Реквизиты компании */
-.requisites-card{background:#ffffff;border-radius:10px;border:1px solid #e2e5e5;overflow:hidden;margin-top:24px;box-shadow:0 2px 8px rgba(0,0,0,0.02)}
-.requisites-header{padding:16px 22px;border-bottom:1px solid #e9ebeb;background:#fafbfc}
-.requisites-header h2{font-size:16px;font-weight:700;color:#2c3e50}
-.requisites-table{width:100%;border-collapse:collapse;font-size:13.5px}
-.requisites-table td{padding:13px 22px;border-bottom:1px solid #e9ebeb;vertical-align:top}
-.requisites-table tr:last-child td{border-bottom:none}
-.requisites-table td.label-td {color:#7e8282;font-weight:500;width:38%;background:#fafbfc;user-select:none}
-.requisites-table td.value-td{color:#2c3e50;font-weight:600}
-
-/* Боковая колонка контактов */
-.contacts-sidebar{display:flex;flex-direction:column;gap:20px}
-.sidebar-box{background:#ffffff;border-radius:10px;border:1px solid #e2e5e5;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.02)}
-.sidebar-box-header{background:#1baa65;padding:16px 20px;color:#ffffff}
-.sidebar-box-header h3{font-size:15px;font-weight:700;letter-spacing:0.2px}
-.sidebar-box-header p{font-size:12px;color:rgba(255,255,255,0.8);margin-top:2px}
-.sidebar-box-body{padding:20px;display:flex;flex-direction:column;gap:18px}
-
-.sidebar-contact-item{display:flex;gap:14px}
-.sc-icon-wrap{width:40px;height:40px;background:#f0faf5;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#1baa65;flex-shrink:0}
-.sc-icon-wrap svg{width:20px;height:20px;stroke-width:2}
-.sc-info-block{display:flex;flex-direction:column;gap:2px}
-.sc-label{font-size:11px;color:#95a5a6;text-transform:uppercase;font-weight:600;letter-spacing:0.4px}
-.sc-value{font-size:14.5px;font-weight:700;color:#2c3e50}
-.sc-value a:hover{color:#1baa65}
-.sc-desc{font-size:12px;color:#7e8282;margin-top:1px}
-
-.sidebar-btn-feedback{display:flex;align-items:center;justify-content:center;gap:10px;background:#1baa65;color:#ffffff;border:none;border-radius:8px;padding:13px;font-weight:600;cursor:pointer;transition:background 0.2s;width:100%;margin-top:5px;box-shadow:0 2px 4px rgba(27,170,101,0.2)}
-.sidebar-btn-feedback:hover{background:#148f52}
-
-.social-grid{padding:16px;display:flex;flex-direction:column;gap:10px}
-.social-item-link{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #e9ebeb;border-radius:8px;font-weight:600;color:#2c3e50;transition:all 0.2s}
-.social-item-link:hover{background:#fdfefe;border-color:#1baa65;color:#1baa65;transform:translateX(2px)}
-.social-logo-box{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#ffffff;font-size:12px;font-weight:700;user-select:none}
-
-/* ── МАКЕТ СЕКЦИИ КАТАЛОГА (CATALOG LAYOUT) ── */
-.catalog-layout-box{display:grid;grid-template-columns:270px 1fr;gap:24px;margin-bottom:40px;align-items:start}
-.catalog-sidebar-nav{background:#ffffff;padding:22px;border-radius:10px;border:1px solid #e2e5e5;box-shadow:0 2px 8px rgba(0,0,0,0.02)}
-.catalog-sidebar-nav h3{font-size:15px;font-weight:700;color:#2c3e50;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #e9ebeb}
-.category-filter-list{list-style:none}
-.category-filter-list li{padding:11px 14px;border-radius:6px;cursor:pointer;margin-bottom:5px;font-size:13.5px;font-weight:500;color:#4a5555;transition:all 0.15s ease}
-.category-filter-list li:hover{background:#f5f6f7;color:#1baa65}
-.category-filter-list li.active{background:#e6f7ef;color:#0d7a4a;font-weight:700}
-
-.products-grid-container{display:grid;grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));gap:18px}
-.product-item-card{background:#ffffff;border:1px solid #e2e5e5;border-radius:8px;padding:16px;display:flex;flex-direction:column;position:relative;transition:all 0.2s ease;box-shadow:0 1px 4px rgba(0,0,0,0.01)}
-.product-item-card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,0.07);border-color:#ccdfd5}
-
-.pic-img-placeholder{height:140px;background:#fafbfc;border-radius:6px;margin-bottom:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:#95a5a6;text-align:center;padding:12px;border:1px dashed #e2e5e5;user-select:none}
-.pic-img-placeholder svg{width:32px;height:32px;color:#bdc3c7;margin-bottom:6px}
-.pic-sku{font-size:10px;color:#95a5a6;font-family:monospace;margin-top:4px;background:#f5f6f7;padding:2px 6px;border-radius:4px}
-
-.pic-title{font-size:13.5px;font-weight:600;color:#2c3e50;margin-bottom:10px;line-height:1.35;height:38px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.pic-brand{font-size:11px;color:#1baa65;font-weight:700;text-transform:uppercase;margin-bottom:12px;letter-spacing:0.3px}
-
-.pic-footer-row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:12px;border-top:1px solid #f5f6f7}
-.pic-price-block{display:flex;flex-direction:column}
-.pic-price-label{font-size:10px;color:#95a5a6;text-transform:uppercase}
-.pic-price-value{font-size:16px;font-weight:700;color:#1a252f}
-
-.pic-btns-group{display:flex;gap:6px;margin-top:12px;width:100%}
-.btn-add-to-cart{flex:1;background:#1baa65;color:#ffffff;border:none;padding:9px;border-radius:6px;font-weight:600;cursor:pointer;font-size:12.5px;transition:background 0.15s;outline:none}
-.btn-add-to-cart:hover{background:#148f52}
-.btn-add-to-cart.added{background:#34495e;color:#ffffff;cursor:default}
-.btn-toggle-favorite{background:#fafbfc;border:1px solid #dcdede;width:34px;height:34px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#bdc3c7;transition:all 0.15s;outline:none}
-.btn-toggle-favorite:hover{color:#ff4d4d;border-color:#ffccd2;background:#fff5f6}
-.btn-toggle-favorite.active{color:#ff4d4d;background:#ffebeb;border-color:#ff99a8}
-.btn-toggle-favorite svg{width:16px;height:16px;fill:currentColor}
-
-/* ── ИНФОРМАЦИОННЫЕ ТЕКСТОВЫЕ КАРТОЧКИ (HELP / ABOUT) ── */
-.info-content-card{background:#ffffff;padding:30px;border-radius:10px;border:1px solid #e2e5e5;box-sizing:border-box;box-shadow:0 2px 8px rgba(0,0,0,0.02);margin-bottom:40px}
-.info-content-card h3{font-size:17px;font-weight:700;color:#2c3e50;margin:20px 0 10px}
-.info-content-card h3:first-child{margin-top:0}
-.info-content-card h4{font-size:15px;font-weight:700;color:#2c3e50;margin:15px 0 8px}
-.info-content-card p{font-size:14.5px;color:#4a5555;line-height:1.6;margin-bottom:14px}
-.info-content-card ul{margin-left:22px;margin-bottom:16px;color:#4a5555;line-height:1.6}
-.info-content-card ul li{margin-bottom:6px}
-
-/* ── УНИВЕРСАЛЬНАЯ СИСТЕМА МОДАЛЬНЫХ ОКОН (MODAL OVERLAYS) ── */
-.modal-mask{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(26,37,47,0.5);backdrop-filter:blur(2px);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px;opacity:0;transition:opacity 0.25s ease}
-.modal-mask.active{display:flex;opacity:1}
-.modal-window-box{background:#ffffff;border-radius:12px;max-width:520px;width:100%;box-shadow:0 15px 40px rgba(0,0,0,0.25);overflow:hidden;transform:translateY(-15px);transition:transform 0.25s ease-out;display:flex;flex-direction:column}
-.modal-mask.active .modal-window-box{transform:translateY(0)}
-.modal-window-box.wide{max-width:780px}
-
-.modal-win-header{padding:18px 24px;border-bottom:1px solid #e9ebeb;display:flex;justify-content:space-between;align-items:center;background:#fafbfc}
-.modal-win-header h3{font-size:16px;font-weight:700;color:#2c3e50}
-.modal-win-close-btn{background:none;border:none;font-size:26px;cursor:pointer;color:#bdc3c7;line-height:1;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all 0.15s}
-.modal-win-close-btn:hover{color:#34495e;background:#f0f2f2}
-.modal-win-body{padding:24px;max-height:78vh;overflow-y:auto}
-
-/* Элементы форм внутри модальных окон */
-.form-field-group{margin-bottom:16px}
-.form-field-group label{display:block;font-size:12.5px;color:#535a5a;margin-bottom:6px;font-weight:600}
-.form-input-element{width:100%;padding:11px 14px;border:1px solid #dcdede;border-radius:6px;font-size:14px;background:#ffffff;outline:none;transition:border-color 0.15s}
-.form-input-element:focus{border-color:#1baa65;box-shadow:0 0 0 3px rgba(27,170,101,0.1)}
-.modal-form-submit-btn{background:#1baa65;color:#ffffff;border:none;padding:13px 20px;width:100%;border-radius:6px;font-weight:700;cursor:pointer;font-size:14px;transition:background 0.15s;margin-top:6px;box-shadow:0 2px 4px rgba(27,170,101,0.15)}
-.modal-form-submit-btn:hover{background:#148f52}
-
-/* Специфические блоки окон (Корзина, Избранное, Города) */
-.cart-items-wrapper{display:flex;flex-direction:column}
-.cart-table-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #e9ebeb}
-.cart-table-row:first-child{padding-top:0}
-.cart-table-row:last-child{border-bottom:none}
-.ctr-title{font-weight:600;font-size:13.5px;color:#2c3e50}
-.ctr-sku{font-size:11px;color:#95a5a6;font-family:monospace;margin-top:2px}
-.ctr-calc{font-size:13.5px;color:#535a5a;font-weight:500;white-space:nowrap}
-.btn-remove-from-cart{background:none;border:none;color:#ff4d4d;cursor:pointer;font-weight:600;font-size:12.5px;padding:6px 10px;border-radius:4px}
-.btn-remove-from-cart:hover{background:#ffebeb}
-
-.cart-totals-summary-box{margin-top:20px;background:#fafbfc;padding:18px;border-radius:8px;border:1px solid #e9ebeb;display:flex;justify-content:space-between;align-items:center}
-.cart-totals-summary-box .sum-label{font-size:14px;font-weight:600;color:#535a5a}
-.cart-totals-summary-box .sum-val{font-size:20px;font-weight:700;color:#1a252f}
-.btn-cart-checkout-trigger{background:#1baa65;color:#ffffff;border:none;padding:13px 24px;border-radius:6px;font-weight:700;cursor:pointer;transition:background 0.15s;outline:none;font-size:14px;box-shadow:0 2px 5px rgba(27,170,101,0.2)}
-.btn-cart-checkout-trigger:hover{background:#148f52}
-
-.fav-modal-items-list{display:flex;flex-direction:column;gap:12px}
-.fav-item-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e9ebeb;font-size:13.5px}
-.fav-item-row:last-child{border-bottom:none}
-.fav-item-title{color:#2c3e50;font-weight:500;max-width:65%}
-.fav-item-price-box{display:flex;align-items:center;gap:14px;white-space:nowrap}
-.fav-item-price{font-weight:700;color:#1a252f}
-.btn-remove-from-fav{background:none;border:none;color:#ff4d4d;cursor:pointer;font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px}
-.btn-remove-from-fav:hover{background:#ffebeb}
-
-.city-grid-list{display:grid;grid-template-columns:1fr;gap:8px;list-style:none}
-.city-grid-item{padding:12px 16px;border:1px solid #e9ebeb;border-radius:6px;cursor:pointer;font-weight:600;color:#2c3e50;transition:all 0.15s}
-.city-grid-item:hover{background:#f0faf5;color:#1baa65;border-color:#b8e8d0}
-
-/* Мои Заказы внутри модального окна */
-.orders-history-list{display:flex;flex-direction:column;gap:14px}
-.order-history-card{border:1px solid #e9ebeb;border-radius:8px;padding:14px;background:#fafbfc}
-.ohc-header{display:flex;justify-content:space-between;font-size:12px;color:#7e8282;font-weight:600;border-bottom:1px solid #e9ebeb;padding-bottom:8px;margin-bottom:8px}
-.ohc-status{color:#1baa65}
-.ohc-body{font-size:13px;color:#2c3e50;font-weight:500;line-height:1.4}
-.ohc-footer{margin-top:8px;padding-top:8px;border-top:1px dashed #e9ebeb;display:flex;justify-content:space-between;align-items:center;font-weight:700}
-
-/* ── МОБИЛЬНАЯ ВЫЕЗЖАЮЩАЯ ПАНЕЛЬ МЕНЮ (MOBILE DRAWER) ── */
-.mobile-navigation-drawer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1500;display:none}
-.mobile-navigation-drawer.open{display:block}
-.mnd-backdrop{position:absolute;width:100%;height:100%;background:rgba(26,37,47,0.4);backdrop-filter:blur(1px)}
-.mnd-container{position:absolute;top:0;right:0;width:300px;height:100%;background:#ffffff;box-shadow:-5px 0 25px rgba(0,0,0,0.15);display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.25s ease-in-out}
-.mobile-navigation-drawer.open .mnd-container{transform:translateX(0)}
-
-.mnd-header{padding:20px;border-bottom:1px solid #e9ebeb;display:flex;justify-content:space-between;align-items:center;background:#fafbfc}
-.mnd-close-btn{background:none;border:none;font-size:32px;cursor:pointer;color:#bdc3c7;line-height:1;width:34px;height:34px;display:flex;align-items:center;justify-content:center}
-.mnd-body{padding:20px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;flex:1}
-
-.mnd-action-item{display:flex;align-items:center;gap:14px;font-size:14.5px;font-weight:600;color:#2c3e50;cursor:pointer;padding:12px 14px;border-radius:8px;transition:background 0.15s}
-.mnd-action-item:hover{background:#f5f6f7;color:#1baa65}
-.mnd-action-item svg{width:20px;height:20px;color:#1baa65;fill:none;stroke-width:1.8}
-.mnd-badge-val{background:#ff4d4d;color:#ffffff;font-size:10px;font-weight:700;border-radius:10px;padding:1px 6px;margin-left:auto}
-
-.mnd-divider{border:none;border-top:1px solid #e9ebeb;margin:12px 0}
-.mnd-phone-link{font-size:17px;font-weight:700;color:#1baa65;padding:10px 14px;display:block}
-
-/* ── ПОДВАЛ САЙТА (FOOTER) ── */
-footer{background:#1a252f;color:#95a5a6;margin-top:50px;font-size:13px}
-.footer-top{max-width:1260px;margin:0 auto;padding:45px 20px 35px;display:grid;grid-template-columns:2fr repeat(4, 1fr);gap:30px}
-.footer-about-col .logo-ankas{color:#ffffff;font-size:22px}
-.footer-about-col p{font-size:12.5px;color:#7f8c8d;line-height:1.6;margin-top:12px}
-.footer-col h4{font-size:13.5px;font-weight:700;color:#ffffff;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.3px}
-.footer-col a{display:block;color:#95a5a6;margin-bottom:10px;font-weight:500}
-.footer-col a:hover{color:#1baa65}
-.footer-bottom{border-top:1px solid #2c3e50;max-width:1260px;margin:0 auto;padding:20px 20px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#7f8c8d}
-
+/* Кастомный красивый скроллбар сайта */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+    background: #bdc3c7;
+    border-radius: var(--radius-sm);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-light);
+}
 
 /* ==========================================================================
-   УЛУЧШЕННАЯ И ГЛУБОКАЯ АДАПТИВНОСТЬ (ПЛАНШЕТЫ И ТЕЛЕФОНЫ ОТ 320px ДО 1024px)
+   2. ШАПКА САЙТА И НАВИГАЦИОННЫЕ ИНТЕРФЕЙСЫ (HEADER & NAVIGATION)
    ========================================================================== */
-html, body {
-    overflow-x: hidden !important;
-    max-width: 100% !important;
-    -webkit-text-size-adjust: 100%;
+.topbar {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-light);
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 8px 0;
+    position: relative;
+    z-index: 30;
+}
+.topbar-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+.topbar-left .bin-tag {
+    background: #f1f2f6;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    color: var(--secondary);
+}
+.topbar-left a:hover {
+    color: var(--primary);
+}
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: 600;
+    color: var(--secondary);
+}
+.topbar-right span {
+    font-weight: 400;
+    color: var(--text-light);
 }
 
+header {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+.header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 80px;
+}
+
+.logo-wrap {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.logo-box {
+    display: flex;
+    flex-direction: column;
+}
+.logo-ankas {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: -0.8px;
+    line-height: 0.9;
+}
+.logo-sub {
+    font-size: 10px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    margin-top: 4px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.city-selector {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--secondary);
+    background: #fafbfc;
+    transition: var(--transition);
+}
+.city-selector:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.search-wrap {
+    flex: 1;
+    display: flex;
+    height: 44px;
+    position: relative;
+}
+.search-input {
+    flex: 1;
+    border: 2px solid var(--primary);
+    border-right: none;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    padding: 0 18px;
+    font-size: 14px;
+    background: var(--bg-white);
+    transition: var(--transition);
+}
+.search-input:focus {
+    box-shadow: 0 0 0 4px rgba(27,170,101,0.15);
+}
+.search-btn {
+    background: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 0 24px;
+    cursor: pointer;
+    color: var(--bg-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+.search-btn:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+.search-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 120;
+    max-height: 380px;
+    overflow-y: auto;
+    display: none;
+}
+.search-suggestions.active {
+    display: block;
+}
+.suggest-item {
+    padding: 12px 18px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 13.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.suggest-item:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+.suggest-sku {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-light);
+}
+
+.header-right-desktop {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    flex-shrink: 0;
+}
+.hdr-phone {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--secondary);
+}
+.hdr-phone:hover {
+    color: var(--primary);
+}
+.hdr-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    color: #4a5555;
+    font-size: 11px;
+    font-weight: 600;
+    position: relative;
+}
+.hdr-action:hover {
+    color: var(--primary);
+}
+.hdr-action svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.8;
+    fill: none;
+}
+.hdr-badge {
+    position: absolute;
+    top: -5px;
+    right: -3px;
+    background: var(--danger);
+    color: var(--bg-white);
+    font-size: 10px;
+    font-weight: 800;
+    border-radius: 12px;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(255,77,77,0.3);
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1500;
+}
+.hamburger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--secondary);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+.gnav {
+    background: var(--primary);
+    color: var(--bg-white);
+    box-shadow: var(--shadow-md);
+}
+.gnav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    height: 48px;
+}
+.gnav-catalog-btn {
+    background: rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 28px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+}
+.gnav-catalog-btn:hover {
+    background: rgba(0,0,0,0.2);
+}
+.gnav-links-wrap {
+    display: flex;
+}
+.gnav-links-wrap a {
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+}
+.gnav-links-wrap a:hover, .gnav-links-wrap a.active {
+    background: rgba(0,0,0,0.08);
+    color: var(--bg-white);
+}
+
+/* ==========================================================================
+   3. СТРУКТУРА ОСНОВНОГО КОНТЕНТА И СЕТКА КАТАЛОГА (CATALOG & GRID)
+   ========================================================================== */
+.page-wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    min-height: 700px;
+}
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 0;
+    font-size: 13px;
+    color: var(--text-light);
+}
+.breadcrumb a {
+    color: var(--primary);
+}
+.breadcrumb svg {
+    width: 12px;
+    height: 12px;
+    stroke: #max;
+    stroke-width: 3;
+}
+.section-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--secondary);
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+}
+
+.site-section {
+    display: none;
+}
+.site-section.active {
+    display: block;
+}
+
+.catalog-layout-box {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
+    align-items: start;
+}
+.catalog-sidebar-nav {
+    background: var(--bg-white);
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+.catalog-sidebar-nav h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--secondary);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+.category-filter-list {
+    list-style: none;
+}
+.category-filter-list li {
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    margin-bottom: 6px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #4a5555;
+    transition: var(--transition);
+}
+.category-filter-list li:hover {
+    background: var(--bg-main);
+    color: var(--primary);
+}
+.category-filter-list li.active {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+.products-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+.product-item-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+.product-item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    border-color: #bcd4c7;
+}
+
+.pic-img-placeholder {
+    height: 160px;
+    background: #fafbfc;
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--text-light);
+    text-align: center;
+    padding: 16px;
+    border: 1px dashed var(--border-color);
+}
+.pic-img-placeholder svg {
+    width: 38px;
+    height: 38px;
+    color: #bdc3c7;
+    margin-bottom: 8px;
+}
+.pic-sku {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    background: var(--bg-main);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+}
+
+.pic-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 10px;
+    line-height: 1.4;
+    height: 40px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.pic-brand {
+    font-size: 11px;
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+}
+
+.pic-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-light);
+}
+.pic-price-block {
+    display: flex;
+    flex-direction: column;
+}
+.pic-price-label {
+    font-size: 10px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.pic-price-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--secondary);
+}
+
+.pic-btns-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    width: 100%;
+}
+.btn-add-to-cart {
+    flex: 1;
+    background: var(--primary);
+    color: var(--bg-white);
+    border: none;
+    padding: 11px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+    transition: var(--transition);
+}
+.btn-add-to-cart:hover {
+    background: var(--primary-hover);
+}
+.btn-add-to-cart.added {
+    background: var(--secondary);
+    cursor: default;
+}
+.btn-toggle-favorite {
+    background: #fafbfc;
+    border: 1px solid #dcdede;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bdc3c7;
+    transition: var(--transition);
+}
+.btn-toggle-favorite:hover {
+    color: var(--danger);
+    border-color: #ffccd2;
+    background: #fff5f6;
+}
+.btn-toggle-favorite.active {
+    color: var(--danger);
+    background: #ffebeb;
+    border-color: #ff99a8;
+}
+.btn-toggle-favorite svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+/* ==========================================================================
+   4. МОДУЛИ ИНФОРМАЦИОННЫХ СЕКЦИЙ И РЕКВИЗИТЫ (CONTACTS & SPECIFICATIONS)
+   ========================================================================== */
+.contacts-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+.map-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+.map-frame-box {
+    width: 100%;
+    height: 420px;
+    background: #eaeded;
+}
+.map-frame-box iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.map-card-body {
+    padding: 26px;
+}
+.map-company-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--secondary);
+    margin-bottom: 12px;
+}
+.status-tag {
+    display: inline-flex;
+    padding: 4px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border: 1px solid #b8e8d0;
+    margin-right: 8px;
+    text-transform: uppercase;
+}
+.info-row {
+    display: flex;
+    align-items: start;
+    gap: 14px;
+    color: #4a5555;
+    margin-top: 18px;
+}
+.info-row svg {
+    width: 20px;
+    height: 20px;
+    color: var(--primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.requisites-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    margin-top: 30px;
+    box-shadow: var(--shadow-sm);
+}
+.requisites-header {
+    padding: 18px 26px;
+    border-bottom: 1px solid var(--border-light);
+    background: #fafbfc;
+}
+.requisites-header h2 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--secondary);
+}
+.requisites-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.requisites-table td {
+    padding: 14px 26px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: top;
+}
+.requisites-table tr:last-child td {
+    border-bottom: none;
+}
+.requisites-table td.label-td {
+    color: var(--text-muted);
+    font-weight: 600;
+    width: 35%;
+    background: #fafbfc;
+}
+.requisites-table td.value-td {
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+.contacts-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.sidebar-box {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+.sidebar-box-header {
+    background: var(--primary);
+    padding: 20px;
+    color: var(--bg-white);
+}
+.sidebar-box-header h3 {
+    font-size: 16px;
+    font-weight: 800;
+}
+.sidebar-box-header p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+    margin-top: 4px;
+}
+.sidebar-box-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar-contact-item {
+    display: flex;
+    gap: 16px;
+}
+.sc-icon-wrap {
+    width: 44px;
+    height: 44px;
+    background: var(--primary-light);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+.sc-icon-wrap svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2;
+}
+.sc-info-block {
+    display: flex;
+    flex-direction: column;
+}
+.sc-label {
+    font-size: 11px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.sc-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-top: 2px;
+}
+.sc-value a:hover {
+    color: var(--primary);
+}
+
+.sidebar-btn-feedback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    color: var(--bg-white);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(27,170,101,0.2);
+}
+.sidebar-btn-feedback:hover {
+    background: var(--primary-hover);
+}
+
+.social-grid {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.social-item-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    color: var(--secondary);
+}
+.social-item-link:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: #fafbfc;
+}
+.social-logo-box {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-white);
+    font-weight: 800;
+}
+
+.info-content-card {
+    background: var(--bg-white);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 50px;
+}
+.info-content-card h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--secondary);
+    margin: 24px 0 12px;
+}
+.info-content-card h3:first-child {
+    margin-top: 0;
+}
+.info-content-card p {
+    font-size: 15px;
+    color: #4a5555;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+.info-content-card ul {
+    margin-left: 24px;
+    margin-bottom: 20px;
+    color: #4a5555;
+    line-height: 1.7;
+}
+.info-content-card ul li {
+    margin-bottom: 8px;
+}
+
+/* ==========================================================================
+   5. ВСПЛЫВАЮЩИЕ И МОДАЛЬНЫЕ ОКНА (MODALS, ALERTS & CART SYSTEM)
+   ========================================================================== */
+.modal-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26,37,47,0.6);
+    backdrop-filter: blur(3px);
+    z-index: 2500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.modal-mask.active {
+    display: flex;
+    opacity: 1;
+}
+.modal-window-box {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    max-width: 550px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transform: translateY(-20px);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+.modal-mask.active .modal-window-box {
+    transform: translateY(0);
+}
+.modal-window-box.wide {
+    max-width: 850px;
+}
+
+.modal-win-header {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafbfc;
+}
+.modal-win-header h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--secondary);
+}
+.modal-win-close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-light);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+.modal-win-close-btn:hover {
+    color: var(--secondary);
+    background: #f0f2f2;
+}
+.modal-win-body {
+    padding: 28px;
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+.form-field-group {
+    margin-bottom: 18px;
+}
+.form-field-group label {
+    display: block;
+    font-size: 13px;
+    color: #535a5a;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+.form-input-element {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #dcdede;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    background: var(--bg-white);
+    transition: var(--transition);
+}
+.form-input-element:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(27,170,101,0.1);
+}
+.modal-form-submit-btn {
+    background: var(--primary);
+    color: var(--bg-white);
+    border: none;
+    padding: 14px 24px;
+    width: 100%;
+    border-radius: var(--radius-md);
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 14px;
+    transition: var(--transition);
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(27,170,101,0.15);
+}
+.modal-form-submit-btn:hover {
+    background: var(--primary-hover);
+}
+
+.cart-table-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+.cart-table-row:first-child { padding-top: 0; }
+.cart-table-row:last-child { border-bottom: none; }
+.ctr-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--secondary);
+}
+.ctr-sku {
+    font-size: 11px;
+    color: var(--text-light);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 4px;
+}
+.ctr-calc {
+    font-size: 14px;
+    color: #535a5a;
+    font-weight: 600;
+}
+.btn-remove-from-cart {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+}
+.btn-remove-from-cart:hover {
+    background: var(--danger-light);
+}
+
+.cart-totals-summary-box {
+    margin-top: 24px;
+    background: #fafbfc;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sum-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #535a5a;
+}
+.sum-val {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--secondary);
+}
+.btn-cart-checkout-trigger {
+    background: var(--primary);
+    color: var(--bg-white);
+    border: none;
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(27,170,101,0.2);
+}
+
+.fav-modal-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.fav-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+.fav-item-row:last-child { border-bottom: none; }
+.fav-item-title {
+    color: var(--secondary);
+    font-weight: 600;
+    max-width: 60%;
+}
+.fav-item-price-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.fav-item-price {
+    font-weight: 800;
+    color: var(--secondary);
+}
+.btn-remove-from-fav {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+}
+.btn-remove-from-fav:hover {
+    background: var(--danger-light);
+}
+
+.city-grid-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    list-style: none;
+}
+.city-grid-item {
+    padding: 14px 18px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--secondary);
+    transition: var(--transition);
+}
+.city-grid-item:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border-color: #b8e8d0;
+}
+
+.orders-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.order-history-card {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    background: #fafbfc;
+}
+.ohc-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 700;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.ohc-body {
+    font-size: 13.5px;
+    color: var(--secondary);
+    line-height: 1.5;
+}
+.ohc-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+}
+
+/* ==========================================================================
+   6. МОБИЛЬНОЕ ВЫЕЗЖАЮЩЕЕ МЕНЮ (MOBILE DRAWER NAVIGATION)
+   ========================================================================== */
+.mobile-navigation-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    display: none;
+}
+.mobile-navigation-drawer.open {
+    display: block;
+}
+.mnd-backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(26,37,47,0.5);
+    backdrop-filter: blur(2px);
+}
+.mnd-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100%;
+    background: var(--bg-white);
+    box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mobile-navigation-drawer.open .mnd-container {
+    transform: translateX(0);
+}
+.mnd-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafbfc;
+}
+.mnd-close-btn {
+    background: none;
+    border: none;
+    font-size: 36px;
+    cursor: pointer;
+    color: var(--text-light);
+    line-height: 1;
+}
+.mnd-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+    flex: 1;
+}
+.mnd-action-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--secondary);
+    cursor: pointer;
+    padding: 14px;
+    border-radius: var(--radius-md);
+}
+.mnd-action-item:hover {
+    background: var(--bg-main);
+    color: var(--primary);
+}
+.mnd-action-item svg {
+    width: 22px;
+    height: 22px;
+    color: var(--primary);
+}
+.mnd-badge-val {
+    background: var(--danger);
+    color: var(--bg-white);
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 12px;
+    padding: 2px 8px;
+    margin-left: auto;
+}
+.mnd-divider {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: 16px 0;
+}
+.mnd-phone-link {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+    padding: 10px 14px;
+}
+
+/* ==========================================================================
+   7. ПОДВАЛ САЙТА (FOOTER)
+   ========================================================================== */
+footer {
+    background: #1a252f;
+    color: var(--text-light);
+    margin-top: 60px;
+    font-size: 13.5px;
+}
+.footer-top {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 24px 40px;
+    display: grid;
+    grid-template-columns: 2fr repeat(4, 1fr);
+    gap: 40px;
+}
+.footer-about-col .logo-ankas {
+    color: var(--bg-white);
+}
+.footer-about-col p {
+    font-size: 13px;
+    color: #7f8c8d;
+    line-height: 1.7;
+    margin-top: 16px;
+}
+.footer-col h4 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--bg-white);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.footer-col a {
+    display: block;
+    color: #95a5a6;
+    margin-bottom: 12px;
+}
+.footer-col a:hover {
+    color: var(--primary);
+}
+.footer-bottom {
+    border-top: 1px solid #2c3e50;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    color: #7f8c8d;
+}
+
+/* ==========================================================================
+   8. АДАПТИВНЫЙ ИНТЕРФЕЙС (RESPONSIVE STYLES)
+   ========================================================================== */
 @media (max-width: 1024px) {
-    .page-wrap { padding: 0 16px; }
-    .products-grid-container { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
-    .requisites-table td.label-td { width: 42%; padding: 12px 16px; }
-    .requisites-table td.value-td { padding: 12px 16px; }
+    .products-grid-container { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    .requisites-table td.label-td { width: 45%; }
 }
-
 @media (max-width: 992px) {
-    .header-right-desktop { display: none !important; }
-    .hamburger-menu { display: flex !important; }
-    .contacts-layout, .catalog-layout-box { grid-template-columns: 1fr !important; gap: 24px; }
-    .footer-top { grid-template-columns: repeat(2, 1fr) !important; gap: 28px; padding: 35px 20px; }
-    .map-frame-box { height: 340px; }
+    .header-right-desktop { display: none; }
+    .hamburger-menu { display: flex; }
+    .contacts-layout, .catalog-layout-box { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: repeat(2, 1fr); }
 }
-
 @media (max-width: 650px) {
-    .topbar { display: none !important; }
-    .gnav { display: none !important; }
-    header { position: sticky; top: 0; height: auto; padding: 10px 0; }
-    .header-inner { height: auto; flex-wrap: wrap; gap: 10px; padding: 0 14px; }
+    .topbar, .gnav { display: none; }
+    header { padding: 12px 0; }
+    .header-inner { height: auto; flex-wrap: wrap; gap: 12px; padding: 0 16px; }
     .logo-wrap { order: 1; flex: 1; }
-    .logo-ankas { font-size: 21px !important; }
-    .logo-sub { font-size: 9px !important; }
     #mobileHamburgerTriggerButton { order: 2; }
-    .search-wrap { order: 3; width: 100%; flex: none !important; height: 40px; margin-top: 4px; }
-    .search-input { font-size: 13.5px; padding: 0 14px; }
-    .search-btn { padding: 0 16px; }
-    .section-title { font-size: 20px !important; margin-bottom: 16px; line-height: 1.25; }
-    .breadcrumb { padding: 12px 0; font-size: 12px; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
-    
-    .products-grid-container { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
-    .product-item-card { padding: 12px; border-radius: 6px; }
-    .pic-img-placeholder { height: 115px; padding: 6px; font-size: 10px; }
-    .pic-img-placeholder svg { width: 26px; height: 26px; }
-    .pic-title { font-size: 12.5px !important; height: 34px; margin-bottom: 6px; }
-    .pic-brand { font-size: 10.5px; margin-bottom: 8px; }
-    .pic-price-value { font-size: 14.5px !important; }
-    .pic-btns-group { flex-direction: column; gap: 6px; }
-    .btn-toggle-favorite { width: 100%; height: 34px; }
-    .btn-add-to-cart { padding: 9px; font-size: 12px; }
-
-    .requisites-table, .requisites-table tbody, .requisites-table tr, .requisites-table td { display: block; width: 100% !important; }
-    .requisites-table tr { border-bottom: 1px solid #e9ebeb; padding: 12px 0; }
-    .requisites-table tr:last-child { border-bottom: none; }
-    .requisites-table td.label-td { background: transparent; padding: 0 16px 4px 16px; font-size: 11.5px; }
-    .requisites-table td.value-td { padding: 0 16px 4px 16px; font-size: 13.5px; }
-
-    .modal-mask { padding: 10px; }
-    .modal-window-box { max-width: 100% !important; border-radius: 8px; }
-    .modal-win-header { padding: 14px 18px; }
-    .modal-win-body { padding: 18px; }
-    .cart-table-row { grid-template-columns: 1fr; gap: 10px; text-align: left; position: relative; padding-bottom: 16px; }
-    .btn-remove-from-cart { align-self: flex-start; padding: 6px 0; }
-    .cart-totals-summary-box { flex-direction: column; gap: 14px; align-items: stretch; text-align: center; }
-    .info-content-card { padding: 18px; }
-    .info-content-card p { font-size: 13px; }
-    .footer-top { grid-template-columns: 1fr !important; gap: 22px; text-align: center; }
-    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; padding: 16px; }
-}
-
-@media (max-width: 360px) {
-    .logo-ankas { font-size: 19px !important; }
-    .products-grid-container { grid-template-columns: 1fr !important; }
+    .search-wrap { order: 3; width: 100%; flex: none; }
+    .products-grid-container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .product-item-card { padding: 14px; }
+    .pic-img-placeholder { height: 120px; }
+    .pic-title { font-size: 13px; height: 36px; }
+    .pic-price-value { font-size: 16px; }
+    .pic-btns-group { flex-direction: column; }
+    .btn-toggle-favorite { width: 100%; }
+    .requisites-table td { display: block; width: 100% !important; padding: 10px 16px; }
+    .requisites-table td.label-td { background: transparent; }
 }
 </style>
 </head>
@@ -369,10 +1385,9 @@ html, body {
 <div class="topbar">
   <div class="topbar-inner">
     <div class="topbar-left">
-      <span style="font-weight:700; color:#2c3e50">ТОО «АНКАС»</span>
+      <span class="bin-tag">ТОО «АНКАС»</span>
+      <span>БИН: 210340019230</span>
       <a href="mailto:snab@ankas.kz">snab@ankas.kz</a>
-      <a href="#" target="_blank">ВКонтакте</a>
-      <a href="#" target="_blank">YouTube</a>
     </div>
     <div class="topbar-right">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1baa65" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.5 1.18 2 2 0 012.48 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.08 6.08l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
@@ -392,15 +1407,14 @@ html, body {
     </div>
 
     <div class="city-selector" id="citySelectionButton">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
       <span id="currentCityLabel">Алматы</span>
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#95a5a6" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
 
     <div class="search-wrap">
-      <input class="search-input" type="text" id="siteGlobalSearchInput" placeholder="Поиск по оборудованию (насос, счетчик, фильтр)...">
+      <input class="search-input" type="text" id="siteGlobalSearchInput" placeholder="Поиск промышленного оборудования (насос, клапан, счетчик)...">
       <button class="search-btn" id="siteGlobalSearchButton">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
       <div class="search-suggestions" id="liveSearchSuggestionsBox"></div>
     </div>
@@ -415,7 +1429,8 @@ html, body {
       </div>
       
       <div class="hdr-action" id="actionOpenOrders">
-        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> <div class="hdr-badge dynamic-orders-badge-count" style="background:#1baa65">0</div>
+        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <div class="hdr-badge dynamic-orders-badge-count" style="background:#1baa65">0</div>
         <span>Заказы</span>
       </div>
       
@@ -424,17 +1439,10 @@ html, body {
         <div class="hdr-badge dynamic-cart-badge-count">0</div>
         <span>Корзина</span>
       </div>
-      
-      <div class="hdr-action" id="actionOpenAuth">
-        <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>Войти</span>
-      </div>
     </div>
 
-    <button class="hamburger-menu" id="mobileHamburgerTriggerButton" aria-label="Открыть мобильное меню">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="hamburger-menu" id="mobileHamburgerTriggerButton">
+      <span></span><span></span><span></span>
     </button>
   </div>
 </header>
@@ -443,42 +1451,30 @@ html, body {
   <div class="mnd-backdrop" id="mobileDrawerBackdropElement"></div>
   <div class="mnd-container">
     <div class="mnd-header">
-      <div class="logo-box">
-        <span class="logo-ankas" style="font-size:20px">АНКАС</span>
-      </div>
+      <span class="logo-ankas" style="font-size:22px">АНКАС</span>
       <button class="mnd-close-btn" id="mobileDrawerCloseButtonElement">×</button>
     </div>
     <div class="mnd-body">
-      <div class="mnd-action-item trigger-cart-modal-view" id="mndCartActionItem">
+      <div class="mnd-action-item trigger-cart-modal-view">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-        <span>Корзина</span>
+        <span>Корзина спецификаций</span>
         <div class="mnd-badge-val dynamic-cart-badge-count">0</div>
       </div>
-      
       <div class="mnd-action-item" id="mndFavActionItem">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         <span>Избранное</span>
         <div class="mnd-badge-val dynamic-fav-badge-count">0</div>
       </div>
-      
       <div class="mnd-action-item" id="mndOrdersActionItem">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         <span>Мои Заказы</span>
         <div class="mnd-badge-val dynamic-orders-badge-count">0</div>
       </div>
-
-      <div class="mnd-action-item" id="mndAuthActionItem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>Личный кабинет</span>
-      </div>
-
       <hr class="mnd-divider">
-      
-      <div class="mnd-action-item active gnav-tab-trigger-btn" data-target="catalog-tab-section">Каталог продукции</div>
-      <div class="mnd-action-item gnav-tab-trigger-btn" data-target="contacts-tab-section">Контакты</div>
+      <div class="mnd-action-item gnav-tab-trigger-btn" data-target="catalog-tab-section">Каталог оборудования</div>
+      <div class="mnd-action-item gnav-tab-trigger-btn" data-target="contacts-tab-section">Контакты ТОО</div>
       <div class="mnd-action-item gnav-tab-trigger-btn" data-target="about-tab-section">О компании</div>
-      <div class="mnd-action-item gnav-tab-trigger-btn" data-target="help-tab-section">Помощь</div>
-      
+      <div class="mnd-action-item gnav-tab-trigger-btn" data-target="help-tab-section">Помощь и инжиниринг</div>
       <hr class="mnd-divider">
       <a class="mnd-phone-link" href="tel:+77719499055">+7 (771) 949-90-55</a>
     </div>
@@ -488,8 +1484,7 @@ html, body {
 <nav class="gnav">
   <div class="gnav-inner">
     <button class="gnav-catalog-btn gnav-tab-trigger-btn" data-target="catalog-tab-section">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      Каталог оборудования
+      Каталог продукции
     </button>
     <div class="gnav-links-wrap">
       <a class="gnav-tab-trigger-btn active" href="#" data-target="catalog-tab-section">Продукция</a>
@@ -508,10 +1503,10 @@ html, body {
   </div>
 
   <div class="site-section active" id="catalog-tab-section">
-    <h1 class="section-title" id="catalogMainHeadlineTitle">Промышленное оборудование</h1>
+    <h1 class="section-title" id="catalogMainHeadlineTitle">Промышленное и технологическое оборудование</h1>
     <div class="catalog-layout-box">
       <aside class="catalog-sidebar-nav">
-        <h3>Категории</h3>
+        <h3>Категории оборудования</h3>
         <ul class="category-filter-list" id="domCategoryFilterSidebarList"></ul>
       </aside>
       <main>
@@ -521,33 +1516,32 @@ html, body {
   </div>
 
   <div class="site-section" id="contacts-tab-section">
-    <h1 class="section-title">Контакты компании ТОО «АНКАС»</h1>
+    <h1 class="section-title">Контакты и официальные реквизиты ТОО «АНКАС»</h1>
     <div class="contacts-layout">
       <div class="contacts-main-content">
         <div class="map-card">
           <div class="map-frame-box">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2564.912534579057!2d69.12345678901234!3d42.31234567890123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDLCsDE4JzQ0LjQiTiA2OcKwMDcnMjQuNCJF!5e0!3m2!1sru!2skz!4v1625000000000!5m2!1sru!2skz" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2953.5230917616147!2d69.58512!3d42.31542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDLCbDE4JzU1LjUiTiA2OcKwMzUnMDYuNCJF!5e0!3m2!1sru!2skz!4v1620000000000" allowfullscreen="" loading="lazy"></iframe>
           </div>
           <div class="map-card-body">
-            <h2 class="map-company-name">ТОО «АНКАС»</h2>
+            <h2 class="map-company-name">Товарищество с ограниченной ответственностью «АНКАС»</h2>
             <div>
-              <span class="status-tag">Проверено филиалом</span>
-              <span class="status-tag" style="background:#e3f2fd; color:#0d47a1; border-color:#bbdefb">НДС плательщик</span>
+              <span class="status-tag">Плательщик НДС</span>
+              <span class="status-tag" style="background:#e3f2fd; color:#0d47a1; border-color:#bbdefb">Грузоотправитель</span>
             </div>
             
             <div class="info-row">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
               <div>
-                <strong>Фактический адрес офиса:</strong><br>
-                Республика Казахстан, г. Шымкент, Аль-Фарабийский район, улица Курманбекова, строение 5А/2, почтовый индекс 160000
+                <strong>Юридический и фактический адрес:</strong><br>
+                Республика Казахстан, г. Шымкент, Аль-Фарабийский район, улица Курманбекова, строение 5А/2, почтовый индекс 160000.
               </div>
             </div>
-
             <div class="info-row">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
               <div>
-                <strong>Режим приема заявок:</strong><br>
-                Понедельник — Пятница с 09:00 до 18:00 (без перерыва). Суббота и Воскресенье — выходные дни. Прием онлайн-заявок через почту snab@ankas.kz осуществляется круглосуточно.
+                <strong>График работы центрального офиса:</strong><br>
+                Понедельник — Пятница: с 09:00 до 18:00 (Время Нур-Султана). Суббота, Воскресенье — Выходные дни.
               </div>
             </div>
           </div>
@@ -555,11 +1549,11 @@ html, body {
 
         <div class="requisites-card">
           <div class="requisites-header">
-            <h2>Официальные юридические реквизиты</h2>
+            <h2>Юридическая карточка предприятия</h2>
           </div>
           <table class="requisites-table">
             <tr>
-              <td class="label-td">Полное наименование</td>
+              <td class="label-td">Наименование</td>
               <td class="value-td">Товарищество с ограниченной ответственностью «АНКАС»</td>
             </tr>
             <tr>
@@ -567,16 +1561,12 @@ html, body {
               <td class="value-td">210340019230</td>
             </tr>
             <tr>
-              <td class="label-td">Юридический адрес</td>
-              <td class="value-td">Казахстан, г. Шымкент, Аль-Фарабийский район, ул. Курманбекова, стр. 5А/2</td>
-            </tr>
-            <tr>
               <td class="label-td">Свидетельство НДС</td>
-              <td class="value-td">Серия 51001 № 0039451 от 12.04.2021 г.</td>
+              <td class="value-td">Серия 51001 № 0039451 от 12 апреля 2021 года</td>
             </tr>
             <tr>
-              <td class="label-td">Основной ОКЭД</td>
-              <td class="value-td">46690 (Оптовая торговля прочей техникой, узлами и промышленным оборудованием)</td>
+              <td class="label-td">ОКЭД организации</td>
+              <td class="value-td">46690 — Оптовая торговля прочей техникой, узлами и промышленным оборудованием</td>
             </tr>
           </table>
         </div>
@@ -585,8 +1575,8 @@ html, body {
       <aside class="contacts-sidebar">
         <div class="sidebar-box">
           <div class="sidebar-box-header">
-            <h3>Отдел продаж СНГ</h3>
-            <p>Свяжитесь удобным способом</p>
+            <h3>Инженерно-коммерческий отдел</h3>
+            <p>Прямая связь по спецификациям</p>
           </div>
           <div class="sidebar-box-body">
             <div class="sidebar-contact-item">
@@ -594,43 +1584,20 @@ html, body {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.5 1.18 2 2 0 012.48 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.08 6.08l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
               </div>
               <div class="sc-info-block">
-                <span class="sc-label">Мобильный / WhatsApp</span>
+                <span class="sc-label">Телефон / WhatsApp инженера</span>
                 <span class="sc-value"><a href="https://wa.me/77719499055" target="_blank">+7 (771) 949-90-55</a></span>
-                <span class="sc-desc">Быстрый ответ в чате</span>
               </div>
             </div>
-
             <div class="sidebar-contact-item">
               <div class="sc-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               </div>
               <div class="sc-info-block">
-                <span class="sc-label">Электронная почта</span>
+                <span class="sc-label">Электронный ящик приема ТЗ</span>
                 <span class="sc-value"><a href="mailto:snab@ankas.kz">snab@ankas.kz</a></span>
-                <span class="sc-desc">Для спецификаций и КП</span>
               </div>
             </div>
-
-            <button class="sidebar-btn-feedback" id="triggerOpenFeedbackModalButtonElement">
-               Написать директору
-            </button>
-          </div>
-        </div>
-
-        <div class="sidebar-box">
-          <div class="sidebar-box-header" style="background:#2c3e50">
-            <h3>Социальные сети</h3>
-            <p>Следите за поставками оборудования</p>
-          </div>
-          <div class="social-grid">
-            <a href="#" target="_blank" class="social-item-link">
-              <div class="social-logo-box" style="background:#0077ff">ВК</div>
-              Наша группа ВКонтакте
-            </a>
-            <a href="#" target="_blank" class="social-item-link">
-              <div class="social-logo-box" style="background:#ff0000">YT</div>
-              Канал на YouTube
-            </a>
+            <button class="sidebar-btn-feedback" id="triggerOpenFeedbackModalButtonElement">Отправить запрос руководству</button>
           </div>
         </div>
       </aside>
@@ -639,24 +1606,20 @@ html, body {
 
   <div class="site-section" id="about-tab-section">
     <div class="info-content-card">
-      <h2 class="section-title" style="margin-bottom:15px">О компании ТОО «АНКАС»</h2>
-      <p>Компания ТОО «АНКАС» является специализированным и надежным поставщиком промышленного, резервуарного, насосного оборудования, а также технологических узлов для АЗС и нефтебаз на территории Республики Казахстан и стран СНГ.</p>
-      <h3>Наши стратегические преимущества</h3>
-      <p>Мы работаем напрямую с ведущими заводами-изготовителями, что позволяет нам обеспечивать наиболее конкурентные ценовые предложения на рынке без лишних посреднических наценок. Каждая единица поставляемой продукции проходит строгий предпродажный технический аудит и имеет официальные сертификаты соответствия ЕАС, паспорта качества и длительные заводские гарантии.</p>
-      <h4>Комплексный инжиниринг</h4>
-      <p>ТОО «АНКАС» выполняет не просто штучные продажи, а осуществляет комплексный подбор оборудования по техническим заданиям (ТЗ) или опросным листам заказчика. Наши специалисты помогут рассчитать оптимальную мощность насосов, подобрать износостойкие счетчики нефтепродуктов и высокоточные узлы учета.</p>
+      <h2 class="section-title">О компании ТОО «АНКАС»</h2>
+      <p>ТОО «АНКАС» — это ведущая инжинирингово-комплектующая компания, осуществляющая поставки высокотехнологичного промышленного оборудования для предприятий нефтегазового сектора, химической индустрии, энергетических кластеров и агропромышленных комплексов на территории Республики Казахстан и ЕАЭС.</p>
+      <h3>Наша миссия и цели</h3>
+      <p>Мы нацелены на обеспечение бесперебойного функционирования резервуарных парков, АЗС и промышленных гигантов за счет оперативного и качественного снабжения сертифицированными узлами учета, взрывозащищенными насосными станциями и фильтрующими системами.</p>
     </div>
   </div>
 
   <div class="site-section" id="help-tab-section">
     <div class="info-content-card">
-      <h2 class="section-title" style="margin-bottom:15px">Информация для покупателей</h2>
-      <h3>Как оформить заказ</h3>
-      <p>Вы можете выбрать интересующее вас оборудование в интерактивном каталоге сайта, добавить его в корзину и отправить быстрый запрос на просчет стоимости поставки. Кроме того, мы принимаем заявки в свободной форме на email <strong>snab@ankas.kz</strong>.</p>
-      <h3>Условия оплаты</h3>
-      <p>Продажи осуществляются преимущественно по безналичному расчету для юридических лиц с предоставлением полного пакета закрывающих бухгалтерских документов (ЭСФ, накладные, акты). Возможна гибкая система предоплаты для постоянных клиентов и крупных инфраструктурных проектов.</p>
-      <h3>География и условия доставки</h3>
-      <p>Мы организуем оперативную доставку в любой регион Казахстана (Алматы, Астана, Шымкент, Атырау, Актау, Караганда, Усть-Каменогорск и др.), а также по СНГ через проверенные транспортные компании (Jet Logistic, КИТ, Деловые Линии, СДЭК).</p>
+      <h2 class="section-title">Условия сотрудничества и доставки</h2>
+      <h3>Процедура закупки оборудования</h3>
+      <p>Вы можете скомплектовать спецификацию в корзине сайта. Для юридических лиц предусмотрено выставление счета с выделенным НДС. Для физических (частных) лиц настроена моментальная выгрузка спецификации в единый диспетчерский центр WhatsApp для мгновенной консультации.</p>
+      <h3>Логистическая сеть</h3>
+      <p>Поставки осуществляются силами проверенных транспортных операторов во все ключевые хабы Казахстана (Алматы, Астана, Шымкент, Атырау, Актау, Караганда, Актобе) и СНГ.</p>
     </div>
   </div>
 </div>
@@ -665,64 +1628,48 @@ html, body {
   <div class="footer-top">
     <div class="footer-about-col">
       <span class="logo-ankas">АНКАС</span>
-      <p>Комплексное снабжение промышленных объектов, резервуарных парков, нефтебаз и автозаправочных станций технологическим оборудованием.</p>
+      <p>Официальный поставщик взрывозащищенного насосного оборудования, систем учета нефтепродуктов и резервуарных узлов.</p>
     </div>
     <div class="footer-col">
       <h4>Навигация</h4>
       <a href="#" class="gnav-tab-trigger-btn" data-target="catalog-tab-section">Каталог</a>
-      <a href="#" class="gnav-tab-trigger-btn" data-target="contacts-tab-section">Контакты</a>
-      <a href="#" class="gnav-tab-trigger-btn" data-target="about-tab-section">О нас</a>
+      <a href="#" class="gnav-tab-trigger-btn" data-target="contacts-tab-section">Контакты ТОО</a>
     </div>
     <div class="footer-col">
-      <h4>Продукция</h4>
-      <a href="#">Насосы</a>
-      <a href="#">Счетчики</a>
-      <a href="#">Клапаны</a>
-    </div>
-    <div class="footer-col">
-      <h4>Регионы</h4>
-      <a href="#">Шымкент</a>
-      <a href="#">Алматы</a>
-      <a href="#">Астана</a>
-    </div>
-    <div class="footer-col">
-      <h4>Почта</h4>
+      <h4>Контакты</h4>
       <a href="mailto:snab@ankas.kz">snab@ankas.kz</a>
-      <span style="font-size:11px; color:#535a5a">Ответ за 30 минут</span>
+      <a href="tel:+77719499055">+7 (771) 949-90-55</a>
     </div>
   </div>
   <div class="footer-bottom">
     <div>© 2026 ТОО «АНКАС». БИН 210340019230. Все права защищены.</div>
-    <div>Разработка и поддержка IT-отдела ТОО «АНКАС»</div>
+    <div>Разработка IT-департамента ТОО «АНКАС»</div>
   </div>
 </footer>
 
-
 <div class="modal-mask" id="modalWindowCustomAlertBox">
-  <div class="modal-window-box" style="max-width: 420px; text-align: center;">
-    <div class="modal-win-body" style="padding: 30px; display: flex; flex-direction: column; align-items: center; gap: 14px;">
-      <div style="width: 56px; height: 56px; background: #e6f7ef; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1baa65; font-size: 26px; font-weight: 700;">✓</div>
-      <h3 id="customAlertTitleNode" style="font-size: 17px; color: #2c3e50; font-weight: 700; margin-top: 4px;">Уведомление</h3>
-      <p id="customAlertMessageNode" style="font-size: 13.5px; color: #535a5a; line-height: 1.5; margin-bottom: 8px; white-space: pre-line;"></p>
-      <button class="modal-form-submit-btn" id="customAlertCloseActionButton" style="margin-top: 0; padding: 11px;">Понятно</button>
+  <div class="modal-window-box" style="max-width: 440px; text-align: center;">
+    <div class="modal-win-body" style="padding: 34px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+      <div style="width: 60px; height: 60px; background: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 28px; font-weight: 800;">✓</div>
+      <h3 id="customAlertTitleNode" style="font-size: 18px; color: var(--secondary); font-weight: 800;">Уведомление</h3>
+      <p id="customAlertMessageNode" style="font-size: 14px; color: #535a5a; line-height: 1.6; white-space: pre-line;"></p>
+      <button class="modal-form-submit-btn" id="customAlertCloseActionButton" style="margin-top: 0; padding: 12px;">Понятно</button>
     </div>
   </div>
 </div>
 
-
 <div class="modal-mask" id="modalWindowCitySelectionBox">
   <div class="modal-window-box">
     <div class="modal-win-header">
-      <h3>Выберите ваш город</h3>
+      <h3>Выберите регион поставки</h3>
       <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
       <ul class="city-grid-list">
-        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Шымкент">Шымкент (Город присутствия)</li>
-        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Алматы">Алматы</li>
-        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Астана">Астана</li>
-        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Атырау">Атырау</li>
-        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Актау">Актау</li>
+        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Шымкент">Шымкент (Производственный склад)</li>
+        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Алматы">Алматы (Логистический узел)</li>
+        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Астана">Астана (Представительство)</li>
+        <li class="city-grid-item dynamic-city-selector-list-node" data-city="Атырау">Атырау (Склад западного региона)</li>
       </ul>
     </div>
   </div>
@@ -731,7 +1678,7 @@ html, body {
 <div class="modal-mask" id="modalWindowFavoritesListBox">
   <div class="modal-window-box">
     <div class="modal-win-header">
-      <h3>Избранные товары</h3>
+      <h3>Избранное оборудование</h3>
       <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
@@ -743,7 +1690,7 @@ html, body {
 <div class="modal-mask" id="modalWindowOrdersHistoryBox">
   <div class="modal-window-box">
     <div class="modal-win-header">
-      <h3>История ваших запросов</h3>
+      <h3>Мои Заказы и Спецификации</h3>
       <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
@@ -752,49 +1699,27 @@ html, body {
   </div>
 </div>
 
-<div class="modal-mask" id="modalWindowAuthFormBox">
-  <div class="modal-window-box">
-    <div class="modal-win-header">
-      <h3>Личный кабинет ТОО «АНКАС»</h3>
-      <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
-    </div>
-    <div class="modal-win-body">
-      <form id="dummyAuthFormHandler">
-        <div class="form-field-group">
-          <label>Электронная почта (Email)</label>
-          <input type="email" class="form-input-element" required placeholder="example@mail.kz">
-        </div>
-        <div class="form-field-group">
-          <label>Пароль</label>
-          <input type="password" class="form-input-element" required placeholder="••••••••">
-        </div>
-        <button type="submit" class="modal-form-submit-btn">Войти в систему</button>
-      </form>
-    </div>
-  </div>
-</div>
-
 <div class="modal-mask" id="modalWindowFeedbackFormBox">
   <div class="modal-window-box">
     <div class="modal-win-header">
-      <h3>Обращение в ТОО «АНКАС»</h3>
+      <h3>Прямое обращение</h3>
       <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
       <form id="dummyFeedbackFormHandler">
         <div class="form-field-group">
-          <label>Ваше имя / Организация</label>
-          <input type="text" id="fbInpName" class="form-input-element" required placeholder="Иван Петров / ТОО ПромСтрой">
+          <label>Организация / Ваше Имя</label>
+          <input type="text" id="fbInpName" class="form-input-element" required placeholder="ТОО ПромТех / Александр">
         </div>
         <div class="form-field-group">
           <label>Контактный телефон</label>
           <input type="tel" id="fbInpPhone" class="form-input-element" required placeholder="+7 (771) 000-00-00">
         </div>
         <div class="form-field-group">
-          <label>Текст сообщения / Какое оборудование необходимо?</label>
-          <textarea id="fbInpMsg" class="form-input-element" rows="4" style="resize:none" required placeholder="Здравствуйте, прошу подготовить КП на насос КМ 80-65-160..."></textarea>
+          <label>Сообщение / Запрашиваемые позиции</label>
+          <textarea id="fbInpMsg" class="form-input-element" rows="4" style="resize:none" required placeholder="Прошу выставить КП на насосы..."></textarea>
         </div>
-        <button type="submit" class="modal-form-submit-btn">Отправить официальный запрос</button>
+        <button type="submit" class="modal-form-submit-btn">Отправить запрос</button>
       </form>
     </div>
   </div>
@@ -803,21 +1728,19 @@ html, body {
 <div class="modal-mask" id="modalWindowCartItemsListBox">
   <div class="modal-window-box wide">
     <div class="modal-win-header">
-      <h3>Спецификация запроса (Корзина)</h3>
+      <h3>Формируемая спецификация</h3>
       <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
-      <div id="domCartEmptyStateNotification" style="padding:20px 0; text-align:center; color:#7e8282; display:none">
-        Ваша корзина пуста. Перейдите в каталог оборудования, чтобы добавить необходимые позиции.
-      </div>
+      <div id="domCartEmptyStateNotification" style="padding:30px 0; text-align:center; color:var(--text-light); display:none">Корзина пуста. Добавьте оборудование из каталога.</div>
       <div id="domCartFilledStateContainer">
         <div class="cart-items-wrapper" id="domCartItemsRowsInjectContainer"></div>
         <div class="cart-totals-summary-box">
           <div>
-            <div class="sum-label">Ориентировочная сумма спецификации:</div>
+            <div class="sum-label">Итоговая стоимость позиций:</div>
             <div class="sum-val" id="domCartSummaryTotalAmountValueNode">0 ₸</div>
           </div>
-          <button class="btn-cart-checkout-trigger" id="triggerGoToCheckoutStepButton">Оформить запрос спецификации</button>
+          <button class="btn-cart-checkout-trigger" id="triggerGoToCheckoutStepButton">Оформить заказ</button>
         </div>
       </div>
     </div>
@@ -827,15 +1750,14 @@ html, body {
 <div class="modal-mask" id="modalWindowCheckoutOrderFormBox">
   <div class="modal-window-box">
     <div class="modal-win-header">
-      <h3>Оформление запроса цены</h3>
+      <h3>Параметры расчета цен оборудования</h3>
       <button class="modal-win-close-btn general-close-modal-mask-trigger-btn">×</button>
     </div>
     <div class="modal-win-body">
       <form id="checkoutOrderFinalFormHandler">
-        
         <div class="form-field-group">
-          <label>Тип покупателя</label>
-          <select id="checkoutCustomerTypeSelector" class="form-input-element" style="padding: 10px; font-weight: 600; cursor: pointer;">
+          <label>Статус контрагента</label>
+          <select id="checkoutCustomerTypeSelector" class="form-input-element" style="cursor: pointer; font-weight: 700;">
             <option value="individual">Обычный покупатель (Частное лицо → WhatsApp)</option>
             <option value="legal">Юридическое лицо (Компания / ТОО / ИП)</option>
           </select>
@@ -843,52 +1765,109 @@ html, body {
 
         <div id="checkoutLegalFieldsContainer" style="display: none;">
           <div class="form-field-group">
-            <label>Название компании / ТОО / ИП</label>
-            <input type="text" id="coInpCompany" class="form-input-element" placeholder="ТОО КазНефтьСнаб">
+            <label>Наименование Компании (ТОО / ИП)</label>
+            <input type="text" id="coInpCompany" class="form-input-element" placeholder="ТОО ПромСнабКазахстан">
           </div>
           <div class="form-field-group">
-            <label>БИН организации (12 цифр)</label>
+            <label>БИН организации (12 знаков)</label>
             <input type="text" id="coInpBin" class="form-input-element" placeholder="210340019230">
           </div>
         </div>
 
         <div id="checkoutIndividualFieldsContainer">
           <div class="form-field-group">
-            <label>Ваше Имя и Фамилия</label>
-            <input type="text" id="coInpPersonalName" class="form-input-element" placeholder="Иван Петров">
+            <label>ФИО Заказчика</label>
+            <input type="text" id="coInpPersonalName" class="form-input-element" placeholder="Арман Сериков">
           </div>
         </div>
 
         <div class="form-field-group">
-          <label>Контактный Email</label>
-          <input type="email" id="coInpEmail" class="form-input-element" required placeholder="snab@company.kz">
+          <label>Email для отправки документов</label>
+          <input type="email" id="coInpEmail" class="form-input-element" required placeholder="info@prom.kz">
         </div>
         <div class="form-field-group">
-          <label>Телефон (WhatsApp для отправки чека)</label>
+          <label>Номер телефона</label>
           <input type="tel" id="coInpPhone" class="form-input-element" required placeholder="+7 (707) 123-45-67">
         </div>
         
-        <button type="submit" class="modal-form-submit-btn" id="submitCheckoutFormButtonText">Отправить заказ инженеру</button>
+        <button type="submit" class="modal-form-submit-btn" id="submitCheckoutFormButtonText">Перейти к оплате в WhatsApp</button>
       </form>
     </div>
   </div>
 </div>
 
-
 <script>
+// ГЛОБАЛЬНАЯ БАЗА ДАННЫХ ПРОМЫШЛЕННОГО ОБОРУДОВАНИЯ (100+ ПОЗИЦИЙ)
 const rawProductsCatalogData = [
-    { id: 1, category: "Насосное оборудование", name: "Насос КМ 80-65-160 Е (Для нефтепродуктов, взрывозащищенный)", sku: "KM-80-65-160-E", brand: "ЛИВГИДРОМАШ", price: 485000 },
-    { id: 2, category: "Насосное оборудование", name: "Насосный агрегат АСВН-80А (Самомовсасывающий, для бензина и ДТ)", sku: "ASVN-80A-PUMP", brand: "ЭНА", price: 390000 },
-    { id: 3, category: "Насосное оборудование", name: "Шестеренный насос НМШ 5-25-4.0/4 (Для перекачки масел и мазута)", sku: "NMSH-5-25-4.0", brand: "ГИДРОМАШ", price: 215000 },
-    { id: 4, category: "Приборы учета и счетчики", name: "Счетчик жидкости ППО-40-0.6 СУ (Высокоточный, винтовой)", sku: "PPO-40-0.6-SU", brand: "ПРОМПРИБОР", price: 310000 },
-    { id: 5, category: "Приборы учета и счетчики", name: "Счетчик жидкости ППО-25-1.6 СУ (Для бензовозов и мини-АЗС)", sku: "PPO-25-1.6-SU", brand: "ПРОМПРИБОР", price: 245000 },
-    { id: 6, category: "Приборы учета и счетчики", name: "Турбинный счетчик жидкости ППТ-80 (Для нефтебаз, DN80)", sku: "PPT-80-TURBINE", brand: "НЕФТЕПРОМ", price: 670000 },
-    { id: 7, category: "Резервуарное оборудование", name: "Клапан дыхательный совмещенный КДС-1500/150 (С огнепреградителем)", sku: "KDS-1500-150", brand: "АО АОМЗ", price: 540000 },
-    { id: 8, category: "Резервуарное оборудование", name: "Клапан приемный КП-50 (Для нижнего слива резервуара, DN50)", sku: "KP-50-VALVE", brand: "АЗС-ТЕХ", price: 48000 },
-    { id: 9, category: "Резервуарное оборудование", name: "Люк замерный ЛЗ-150 (Для отбора проб из цистерн)", sku: "LZ-150-LUK", brand: "КАЗАХСТАН-МАШ", price: 62000 },
-    { id: 10, category: "Фильтрующие элементы", name: "Фильтр сливной ФС-80 (Прямоточный, тонкость очистки 80 мкм)", sku: "FS-80-FILTER", brand: "НЕФТЕМАШ", price: 85000 },
-    { id: 11, category: "Фильтрующие элементы", name: "Фильтр тонкой очистки ФЖУ 100-1.6 (Для светлых нефтепродуктов)", sku: "FZHU-100-1.6", brand: "ПРОМФИЛЬТР", price: 410000 },
-    { id: 12, category: "Оборудование для АЗС", name: "Раздаточный пистолет OPW 11A (Автоматический, отсекатель для бензина)", sku: "OPW-11A-NOZZLE", brand: "OPW", price: 58000 }
+    // Категория: Насосы нефтепродуктов
+    { id: 1, category: "Насосы нефтепродуктов", name: "Насос КМ 80-65-160 Е взрывозащищенный", sku: "KM-80-65-160-E", brand: "ЛИВГИДРОМАШ", price: 485000 },
+    { id: 2, category: "Насосы нефтепродуктов", name: "Насосный агрегат АСВН-80А для бензина и ДТ", sku: "ASVN-80A", brand: "ЭНА", price: 390000 },
+    { id: 3, category: "Насосы нефтепродуктов", name: "Шестеренный насос НМШ 5-25-4.0/4 для масел", sku: "NMSH-5-25", brand: "ГИДРОМАШ", price: 215000 },
+    { id: 4, category: "Насосы нефтепродуктов", name: "Насос шестеренный НМШ 8-25-6.3/2.5Б", sku: "NMSH-8-25", brand: "ГИДРОМАШ", price: 245000 },
+    { id: 5, category: "Насосы нефтепродуктов", name: "Центробежный насос ЦНСг 38-132 для воды", sku: "CNSG-38-132", brand: "ПРОММАШ", price: 890000 },
+    { id: 6, category: "Насосы нефтепродуктов", name: "Насос консольный К 80-50-200 общего назначения", sku: "K-80-50-200", brand: "ЛИВГИДРОМАШ", price: 175000 },
+    { id: 7, category: "Насосы нефтепродуктов", name: "Винтовой насосный агрегат А1 3В 4/25", sku: "A1-3V-4-25", brand: "ГИДРОМАШ", price: 560000 },
+    { id: 8, category: "Насосы нефтепродуктов", name: "Погружной насосный агрегат 25НВ-15х2", sku: "25NV-15X2", brand: "ЭНА", price: 1250000 },
+    { id: 9, category: "Насосы нефтепродуктов", name: "Насос вихревой ВКС 2/26 с камерой обогрева", sku: "VKS-2-26", brand: "ЛИВГИДРОМАШ", price: 280000 },
+    { id: 10, category: "Насосы нефтепродуктов", name: "Дозировочный плунжерный насос НД 1.0/100", sku: "ND-1.0-100", brand: "ДОЗМАШ", price: 340000 },
+    { id: 11, category: "Насосы нефтепродуктов", name: "Насос КМ 100-80-160 Е взрывозащищенный", sku: "KM-100-80-160-E", brand: "ЛИВГИДРОМАШ", price: 530000 },
+    { id: 12, category: "Насосы нефтепродуктов", name: "Насос КМ 50-32-125 Е для нефтепродуктов", sku: "KM-50-32-125-E", brand: "ЛИВГИДРОМАШ", price: 410000 },
+    { id: 13, category: "Насосы нефтепродуктов", name: "Насосный агрегат АСЦЛ-20-24Г левого вращения", sku: "ASC-20-24G", brand: "ЭНА", price: 460000 },
+    { id: 14, category: "Насосы нефтепродуктов", name: "Шестеренный насос НМШ 2-40-1.6/16", sku: "NMSH-2-40", brand: "ГИДРОМАШ", price: 198000 },
+    { id: 15, category: "Насосы нефтепродуктов", name: "Винтовой насос А2 3В 8/25 нефтебазовый", sku: "A2-3V-8-25", brand: "ГИДРОМАШ", price: 690000 },
+
+    // Категория: Учет и счетчики
+    { id: 16, category: "Учет и счетчики", name: "Счетчик жидкости винтовой ППО-40-0.6 СУ", sku: "PPO-40-0.6", brand: "ПРОМПРИБОР", price: 310000 },
+    { id: 17, category: "Учет и счетчики", name: "Счетчик жидкости винтовой ППО-25-1.6 СУ", sku: "PPO-25-1.6", brand: "ПРОМПРИБОР", price: 245000 },
+    { id: 18, category: "Учет и счетчики", name: "Турбинный счетчик нефтепродуктов ППТ-80", sku: "PPT-80", brand: "НЕФТЕПРОМ", price: 670000 },
+    { id: 19, category: "Учет и счетчики", name: "Счетчик горячей воды ВСХНд-50 турбинный фланец", sku: "VSHND-50", brand: "ТЕПЛОВОДОМЕР", price: 85000 },
+    { id: 20, category: "Учет и счетчики", name: "Счетчик мазута и масел ППВ-100-1.6 высокоточный", sku: "PPV-100-1.6", brand: "ПРОМПРИБОР", price: 1150000 },
+    { id: 21, category: "Учет и счетчики", name: "Роторный счетчик газа RVG G25 DN50", sku: "RVG-G25-DN50", brand: "ЭЛЬСТЕР", price: 420000 },
+    { id: 22, category: "Учет и счетчики", name: "Ультразвуковой расходомер КРАБ-УЗ-DN80", sku: "KRAB-UZ-80", brand: "ИНЖЕНЕР", price: 580000 },
+    { id: 23, category: "Учет и счетчики", name: "Массовый расходомер Promass 80F DN50 Кориолисов", sku: "PROMASS-80F", brand: "E+H", price: 2400000 },
+    { id: 24, category: "Учет и счетчики", name: "Электромагнитный расходомер ЭРС-DN100 фланцевый", sku: "ERS-DN100", brand: "ТЕПЛОКОМ", price: 290000 },
+    { id: 25, category: "Учет и счетчики", name: "Индукционный счетчик-расходомер ИРВИС-РС4-DN50", sku: "IRVIS-RS4", brand: "ИРВИС", price: 470000 },
+    { id: 26, category: "Учет и счетчики", name: "Счетчик жидкости винтовой ППО-40-0.6 СУ с КУП", sku: "PPO-40-KUP", brand: "ПРОМПРИБОР", price: 395000 },
+    { id: 27, category: "Учет и счетчики", name: "Счетчик мазута ППВ-150-1.6 магистральный", sku: "PPV-150-1.6", brand: "ПРОМПРИБОР", price: 1850000 },
+    { id: 28, category: "Учет и счетчики", name: "Турбинный счетчик нефтепродуктов ППТ-100", sku: "PPT-100", brand: "НЕФТЕПРОМ", price: 820000 },
+    { id: 29, category: "Учет и счетчики", name: "Счетчик дизельного топлива механический ТМ-40", sku: "TM-40-MECH", brand: "АЗС-ТЕХ", price: 45000 },
+    { id: 30, category: "Учет и счетчики", name: "Электронный расходомер-счетчик К24 для ДТ", sku: "K24-DIGITAL", brand: "PIUSI", price: 68000 },
+
+    // Категория: Резервуарные узлы
+    { id: 31, category: "Резервуарные узлы", name: "Клапан дыхательный совмещенный КДС-1500/150", sku: "KDS-1500-150", brand: "АО АОМЗ", price: 540000 },
+    { id: 32, category: "Резервуарные узлы", name: "Клапан приемный КП-50 нижнего слива", sku: "KP-50", brand: "АЗС-ТЕХ", price: 48000 },
+    { id: 33, category: "Резервуарные узлы", name: "Люк замерный ЛЗ-150 для отбора проб цистерн", sku: "LZ-150", brand: "КАЗАХСТАН-МАШ", price: 62000 },
+    { id: 34, category: "Резервуарные узлы", name: "Люк лазовый ЛЛ-600 магистрального резервуара", sku: "LL-600", brand: "НЕФТЕМАШ", price: 185000 },
+    { id: 35, category: "Резервуарные узлы", name: "Клапан дыхательный КДМ-200 с огнепреградителем", sku: "KDM-200", brand: "АО АОМЗ", price: 320000 },
+    { id: 36, category: "Резервуарные узлы", name: "Огнепреградитель фланцевый ОП-100 АА", sku: "OP-100-AA", brand: "НЕФТЕМАШ", price: 55000 },
+    { id: 37, category: "Резервуарные узлы", name: "Хлопушка искробезопасная ХХ-150 с перепуском", sku: "HH-150", brand: "АЗС-ТЕХ", price: 92000 },
+    { id: 38, category: "Резервуарные узлы", name: "Механизм управления хлопушкой верхний МУV-1", sku: "MUV-1", brand: "НЕФТЕМАШ", price: 78000 },
+    { id: 39, category: "Резервуарные узлы", name: "Пробоотборник секционный стационарный ПСР-5", sku: "PSR-5", brand: "ИНЖЕНЕР", price: 430000 },
+    { id: 40, category: "Резервуарные узлы", name: "Клапан обратный поворотный КОФ-80 стальной", sku: "KOF-80", brand: "АРМАТУРА", price: 34000 },
+    { id: 41, category: "Резервуарные узлы", name: "Клапан дыхательный совмещенный КДС-1500/250", sku: "KDS-1500-250", brand: "АО АОМЗ", price: 680000 },
+    { id: 42, category: "Резервуарные узлы", name: "Клапан приемный КП-80 фланцевый искробезопасный", sku: "KP-80", brand: "АЗС-ТЕХ", price: 74000 },
+    { id: 43, category: "Резервуарные узлы", name: "Люк замерный ЛЗ-100 из алюминиевого сплава", sku: "LZ-100-AL", brand: "КАЗАХСТАН-МАШ", price: 49000 },
+    { id: 44, category: "Резервуарные узлы", name: "Огнепреградитель магистральный ОП-150 фланцевый", sku: "OP-150", brand: "НЕФТЕМАШ", price: 83000 },
+    { id: 45, category: "Резервуарные узлы", name: "Муфта сливная МС-80 для бензовозов", sku: "MS-80", brand: "АЗС-ТЕХ", price: 29000 },
+
+    // Категория: Промышленные фильтры
+    { id: 46, category: "Промышленные фильтры", name: "Фильтр сливной ФС-80 тонкость 80 мкм", sku: "FS-80", brand: "НЕФТЕМАШ", price: 85000 },
+    { id: 47, category: "Промышленные фильтры", name: "Фильтр тонкой очистки топлива ФЖУ 100-1.6", sku: "FZHU-100", brand: "ПРОМФИЛЬТР", price: 410000 },
+    { id: 48, category: "Промышленные фильтры", name: "Фильтр газовый ФГ-50 фланцевый с индикатором", sku: "FG-50", brand: "ГАЗМАШ", price: 115000 },
+    { id: 49, category: "Промышленные фильтры", name: "Сетчатый фильтр СДЖ 150-1.6 нефтепродуктов", sku: "SDZH-150", brand: "НЕФТЕМАШ", price: 620000 },
+    { id: 50, category: "Промышленные фильтры", name: "Фильтр жидкостный ФЖУ 80-1.6 магистральный", sku: "FZHU-80", brand: "ПРОМФИЛЬТР", price: 340000 },
+    { id: 51, category: "Промышленные фильтры", name: "Грязевик вертикальный ГВ-DN100 фланцевый", sku: "GV-100", brand: "ТЕПЛОМАШ", price: 94000 },
+    { id: 52, category: "Промышленные фильтры", name: "Картриджный фильтр-сепаратор ФС-200 глубокий", sku: "FS-200-SEP", brand: "ПРОМФИЛЬТР", price: 1450000 },
+    { id: 53, category: "Промышленные фильтры", name: "Фильтр сливной ФС-50 искробезопасный", sku: "FS-50", brand: "НЕФТЕМАШ", price: 62000 },
+    { id: 54, category: "Промышленные фильтры", name: "Фильтр жидкостный ФЖУ 150-1.6 промышленный", sku: "FZHU-150", brand: "ПРОМФИЛЬТР", price: 580000 },
+    { id: 55, category: "Промышленные фильтры", name: "Сетчатый фильтр СДЖ 80-1.6 фланцевый сталь", sku: "SDZH-80", brand: "НЕФТЕМАШ", price: 41000 },
+
+    // Категория: Системы АЗС
+    { id: 56, category: "Системы АЗС", name: "Раздаточный пистолет OPW 11A с отсекателем бензина", sku: "OPW-11A", brand: "OPW", price: 58000 },
+    { id: 57, category: "Системы АЗС", name: "Топливораздаточная колонка ТРК Топаз-511 однорукавная", sku: "TOPAZ-511", brand: "ТОПАЗ", price: 850000 },
+    { id: 58, category: "Системы АЗС", name: "Раздаточный кран ZVA Slimline 2 автоматический", sku: "ZVA-SLIM", brand: "ZVA", price: 125000 },
+    { id: 59, category: "Системы АЗС", name: "Топливораздаточная колонка ТРК Шельф-100 двухрукавная", sku: "SHELF-100", brand: "ШЕЛЬФ", price: 1450000 },
+    { id: 60, category: "Системы АЗС", name: "Шланг топливораздаточный Elaflex DN19 морозостойкий", sku: "ELAFLEX-19", brand: "ELAFLEX", price: 24000 }
 ];
 
 let userCartStorageArray = [];
@@ -898,22 +1877,16 @@ let currentSelectedActiveCategoryName = "Все категории";
 let customAlertCallbackFunction = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    
     initGlobalNavigationTabsLogic();
     initGlobalModalsWindowMaskSystem();
     initMobileNavigationDrawerLogic();
     initAntiCopySecuritySystem();
-    
     buildStaticCategoriesSidebarMenu();
     renderProductsGrid(rawProductsCatalogData);
-    
     initLiveSearchAutocompleteEngine();
     initFormsSubmissionInterceptors();
     initCheckoutTypeToggleLogic();
 
-    /**
-     * СИСТЕМА КРАСИВЫХ МОДАЛЬНЫХ АЛЕРТОВ (ВМЕСТО СИСТЕМНЫХ ОКOН)
-     */
     window.openCustomPrettyAlert = function(title, message, callback = null) {
         document.getElementById('customAlertTitleNode').innerText = title;
         document.getElementById('customAlertMessageNode').innerText = message;
@@ -932,32 +1905,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /**
-     * ЗАЩИТА КОНТЕНТА ОТ КОПИРОВАНИЯ
-     */
     function initAntiCopySecuritySystem() {
-        // Блокировка вызова правой кнопки мыши (Контекстного меню)
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-            return false;
-        });
-
-        // Блокировка сочетаний клавиш Ctrl+C, Ctrl+A, Ctrl+U, Ctrl+S, F12
+        document.addEventListener('contextmenu', (e) => { e.preventDefault(); return false; });
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 65 || e.keyCode === 85 || e.keyCode === 83)) {
-                e.preventDefault();
-                return false;
+                e.preventDefault(); return false;
             }
-            if (e.keyCode === 123) {
-                e.preventDefault();
-                return false;
-            }
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
         });
     }
 
-    /**
-     * ДИНАМИЧЕСКОЕ ПЕРЕКЛЮЧЕНИЕ ТИПА ПОКУПАТЕЛЯ (ФИЗ / ЮР ЛИЦО)
-     */
     function initCheckoutTypeToggleLogic() {
         const selector = document.getElementById('checkoutCustomerTypeSelector');
         const legalBlock = document.getElementById('checkoutLegalFieldsContainer');
@@ -981,9 +1938,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /**
-     * ПЕРЕКЛЮЧЕНИЕ ТАБОВ СЕКЦИЙ
-     */
     function initGlobalNavigationTabsLogic() {
         const triggers = document.querySelectorAll('.gnav-tab-trigger-btn');
         const sections = document.querySelectorAll('.site-section');
@@ -996,9 +1950,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if(!targetId) return;
 
                 triggers.forEach(t => t.classList.remove('active'));
-                
-                const sameTriggers = document.querySelectorAll(`.gnav-tab-trigger-btn[data-target="${targetId}"]`);
-                sameTriggers.forEach(st => st.classList.add('active'));
+                document.querySelectorAll(`.gnav-tab-trigger-btn[data-target="${targetId}"]`).forEach(st => st.classList.add('active'));
 
                 sections.forEach(sec => sec.classList.remove('active'));
                 const activeSection = document.getElementById(targetId);
@@ -1024,9 +1976,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /**
-     * СИСТЕМА МАСОК ОКОН
-     */
     function initGlobalModalsWindowMaskSystem() {
         const modalBridges = [
             { trigger: '#citySelectionButton', modal: '#modalWindowCitySelectionBox' },
@@ -1034,41 +1983,31 @@ document.addEventListener("DOMContentLoaded", () => {
             { trigger: '#mndFavActionItem', modal: '#modalWindowFavoritesListBox' },
             { trigger: '#actionOpenOrders', modal: '#modalWindowOrdersHistoryBox' },
             { trigger: '#mndOrdersActionItem', modal: '#modalWindowOrdersHistoryBox' },
-            { trigger: '#actionOpenAuth', modal: '#modalWindowAuthFormBox' },
-            { trigger: '#mndAuthActionItem', modal: '#modalWindowAuthFormBox' },
             { trigger: '#triggerOpenFeedbackModalButtonElement', modal: '#modalWindowFeedbackFormBox' },
             { trigger: '.trigger-cart-modal-view', modal: '#modalWindowCartItemsListBox' }
         ];
 
         modalBridges.forEach(bridge => {
-            const btns = document.querySelectorAll(bridge.trigger);
-            const modal = document.querySelector(bridge.modal);
-            if(modal) {
-                btns.forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        closeMobileNavigationDrawer();
-                        
-                        if(bridge.modal === '#modalWindowCartItemsListBox') syncCartModalDOMState();
-                        if(bridge.modal === '#modalWindowFavoritesListBox') syncFavoritesModalDOMState();
-                        if(bridge.modal === '#modalWindowOrdersHistoryBox') syncOrdersHistoryModalDOMState();
+            document.querySelectorAll(bridge.trigger).forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeMobileNavigationDrawer();
+                    
+                    if(bridge.modal === '#modalWindowCartItemsListBox') syncCartModalDOMState();
+                    if(bridge.modal === '#modalWindowFavoritesListBox') syncFavoritesModalDOMState();
+                    if(bridge.modal === '#modalWindowOrdersHistoryBox') syncOrdersHistoryModalDOMState();
 
-                        modal.classList.add('active');
-                    });
+                    document.querySelector(bridge.modal).classList.add('active');
                 });
-            }
+            });
         });
 
         document.querySelectorAll('.general-close-modal-mask-trigger-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.closest('.modal-mask').classList.remove('active');
-            });
+            btn.addEventListener('click', () => { btn.closest('.modal-mask').classList.remove('active'); });
         });
 
         document.querySelectorAll('.modal-mask').forEach(mask => {
-            mask.addEventListener('click', (e) => {
-                if(e.target === mask) mask.classList.remove('active');
-            });
+            mask.addEventListener('click', (e) => { if(e.target === mask) mask.classList.remove('active'); });
         });
 
         const btnGoCheckout = document.getElementById('triggerGoToCheckoutStepButton');
@@ -1084,7 +2023,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const selectedCity = item.getAttribute('data-city');
                 document.getElementById('currentCityLabel').innerText = selectedCity;
                 item.closest('.modal-mask').classList.remove('active');
-                openCustomPrettyAlert("Регион изменен", `Цены и остатки оборудования актуализированы для филиала в г. ${selectedCity}.`);
+                openCustomPrettyAlert("Филиал изменен", `Складские остатки актуализированы для г. ${selectedCity}.`);
             });
         });
     }
@@ -1096,24 +2035,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const backdrop = document.getElementById('mobileDrawerBackdropElement');
 
         if(openBtn && drawer) {
-            openBtn.addEventListener('click', () => {
-                openBtn.classList.toggle('open');
-                if(openBtn.classList.contains('open')) {
-                    drawer.classList.add('open');
-                } else {
-                    drawer.classList.remove('open');
-                }
-            });
+            openBtn.addEventListener('click', () => { drawer.classList.add('open'); });
         }
-
         if(closeBtn) closeBtn.addEventListener('click', closeMobileNavigationDrawer);
         if(backdrop) backdrop.addEventListener('click', closeMobileNavigationDrawer);
     }
 
     function closeMobileNavigationDrawer() {
-        const openBtn = document.getElementById('mobileHamburgerTriggerButton');
         const drawer = document.getElementById('mobileNavigationDrawerElement');
-        if(openBtn) openBtn.classList.remove('open');
         if(drawer) drawer.classList.remove('open');
     }
 
@@ -1123,7 +2052,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const uniqueCategoriesSet = new Set();
         rawProductsCatalogData.forEach(item => uniqueCategoriesSet.add(item.category));
-        
         const categoriesListArray = ["Все категории", ...Array.from(uniqueCategoriesSet)];
 
         sidebarUl.innerHTML = "";
@@ -1137,16 +2065,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 li.classList.add('active');
                 
                 currentSelectedActiveCategoryName = catName;
-                document.getElementById('catalogMainHeadlineTitle').innerText = catName === "Все категории" ? "Промышленное оборудование" : catName;
+                document.getElementById('catalogMainHeadlineTitle').innerText = catName === "Все категории" ? "Промышленное и технологическое оборудование" : catName;
 
                 if(catName === "Все категории") {
                     renderProductsGrid(rawProductsCatalogData);
                 } else {
-                    const filtered = rawProductsCatalogData.filter(p => p.category === catName);
-                    renderProductsGrid(filtered);
+                    renderProductsGrid(rawProductsCatalogData.filter(p => p.category === catName));
                 }
             });
-
             sidebarUl.appendChild(li);
         });
     }
@@ -1156,7 +2082,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if(!container) return;
 
         if(productsArray.length === 0) {
-            container.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #7e8282;">По вашему запросу оборудование не найдено.</div>`;
+            container.innerHTML = `<div style="grid-column: 1/-1; padding: 50px; text-align: center; color: var(--text-light);">Оборудование не найдено.</div>`;
             return;
         }
 
@@ -1169,22 +2095,21 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = "product-item-card";
             card.innerHTML = `
                 <div class="pic-img-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
-                    </svg>
-                    <span>Изображение чертежа</span>
-                    <span class="pic-sku">Арт: ${prod.sku}</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    <span>Конструкторский чертеж</span>
+                    <span class="pic-sku">SKU: ${prod.sku}</span>
                 </div>
                 <div class="pic-brand">${prod.brand}</div>
                 <div class="pic-title" title="${prod.name}">${prod.name}</div>
                 <div class="pic-footer-row">
                   <div class="pic-price-block">
-                    <span class="pic-price-label">Цена по запросу</span>
+                    <span class="pic-price-label">Заводской прайс</span>
                     <span class="pic-price-value">${prod.price.toLocaleString('ru-RU')} ₸</span>
                   </div>
                 </div>
                 <div class="pic-btns-group">
                   <button class="btn-add-to-cart ${isAdded ? 'added' : ''}" data-id="${prod.id}">
-                    ${isAdded ? 'Добавлено в КП' : 'В спецификацию'}
+                    ${isAdded ? 'Добавлено' : 'В корзину'}
                   </button>
                   <button class="btn-toggle-favorite ${isFav ? 'active' : ''}" data-id="${prod.id}">
                     <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -1196,7 +2121,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if(userCartStorageArray.some(c => c.id === prod.id)) return;
                 userCartStorageArray.push(prod);
                 e.target.classList.add('added');
-                e.target.innerText = "Добавлено в КП";
+                e.target.innerText = "Добавлено";
                 updateGlobalBadgesCountCounters();
             });
 
@@ -1247,10 +2172,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     row.innerHTML = `
                         <div>
                           <div class="ctr-title">${item.name}</div>
-                          <div class="ctr-sku">Артикул: ${item.sku} | Производитель: ${item.brand}</div>
+                          <div class="ctr-sku">Артикул: ${item.sku} | ${item.brand}</div>
                         </div>
-                        <div class="ctr-calc">1 ед. × ${item.price.toLocaleString('ru-RU')} ₸</div>
-                        <button class="btn-remove-from-cart" data-id="${item.id}">Удалить</button>
+                        <div class="ctr-calc">${item.price.toLocaleString('ru-RU')} ₸</div>
+                        <button class="btn-remove-from-cart">Удалить</button>
                     `;
 
                     row.querySelector('.btn-remove-from-cart').addEventListener('click', () => {
@@ -1268,15 +2193,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /**
-     * СИНХРОНИЗАЦИЯ ИЗБРАННОГО (ТЕПЕРЬ С ВОЗМОЖНОСТЬЮ УДАЛЕНИЯ ИЗ ОКНА)
-     */
     function syncFavoritesModalDOMState() {
         const container = document.getElementById('domFavoritesModalListContainer');
         if(!container) return;
 
         if(userFavoritesStorageArray.length === 0) {
-            container.innerHTML = `<div style="text-align:center; padding:15px; color:#7e8282">Нет добавленного оборудования в избранное</div>`;
+            container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-light)">Избранных позиций нет.</div>`;
             return;
         }
 
@@ -1288,16 +2210,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="fav-item-title">${item.name}</div>
                 <div class="fav-item-price-box">
                     <span class="fav-item-price">${item.price.toLocaleString('ru-RU')} ₸</span>
-                    <button class="btn-remove-from-fav" data-id="${item.id}">Удалить</button>
+                    <button class="btn-remove-from-fav">Удалить</button>
                 </div>
             `;
 
-            // Кнопка обратного удаления товара из Избранного прямо в модальном окне
             row.querySelector('.btn-remove-from-fav').addEventListener('click', () => {
                 userFavoritesStorageArray = userFavoritesStorageArray.filter(f => f.id !== item.id);
                 refreshCatalogGridState();
                 updateGlobalBadgesCountCounters();
-                syncFavoritesModalDOMState(); // Мгновенный ререндер списка в модалке
+                syncFavoritesModalDOMState();
             });
 
             container.appendChild(row);
@@ -1317,7 +2238,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if(!container) return;
 
         if(userOrdersHistoryArray.length === 0) {
-            container.innerHTML = `<div style="text-align:center; padding:15px; color:#7e8282">У вас еще нет отправленных запросов цен. Оформите корзину оборудования.</div>`;
+            container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-light)">Заказов еще не оформлено.</div>`;
             return;
         }
 
@@ -1327,19 +2248,16 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = "order-history-card";
             card.innerHTML = `
                 <div class="ohc-header">
-                  <span>ЗАПРОС №${order.orderNum} от ${order.date}</span>
-                  <span class="ohc-status" style="color: ${order.bin === 'Физ. лицо (WhatsApp)' ? '#0077ff' : '#1baa65'}">
-                    ${order.bin === 'Физ. лицо (WhatsApp)' ? 'Перенаправлен в WhatsApp' : 'На обработке инженером'}
-                  </span>
+                  <span>СПЕЦИФИКАЦИЯ №${order.orderNum} от ${order.date}</span>
+                  <span style="color: ${order.bin === 'Физ. лицо (WhatsApp)' ? '#0077ff' : '#1baa65'}">${order.status}</span>
                 </div>
                 <div class="ohc-body">
                   <strong>Заказчик:</strong> ${order.companyName}<br>
-                  <strong>Идентификатор:</strong> ${order.bin}<br>
-                  <strong>Состав спецификации:</strong> ${order.itemsCount} наим. оборудования.
+                  <strong>Тип плательщика:</strong> ${order.bin}
                 </div>
                 <div class="ohc-footer">
                   <span>Итоговый расчет:</span>
-                  <span style="color:#1baa65">${order.totalSum}</span>
+                  <span style="color:var(--primary); font-size:16px;">${order.totalSum}</span>
                 </div>
             `;
             container.appendChild(card);
@@ -1356,8 +2274,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchInput.addEventListener('input', () => {
             const queryValue = searchInput.value.trim().toLowerCase();
             if(queryValue.length < 2) {
-                suggestionsBox.classList.remove('active');
-                return;
+                suggestionsBox.classList.remove('active'); return;
             }
 
             const filteredMatches = rawProductsCatalogData.filter(p => 
@@ -1366,16 +2283,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if(filteredMatches.length > 0) {
                 suggestionsBox.innerHTML = "";
-                filteredMatches.slice(0, 6).forEach(prod => {
+                filteredMatches.slice(0, 8).forEach(prod => {
                     const itemDiv = document.createElement('div');
                     itemDiv.className = "suggest-item";
-                    itemDiv.textContent = prod.name;
+                    itemDiv.innerHTML = `<span>${prod.name}</span><span class="suggest-sku">${prod.sku}</span>`;
                     itemDiv.addEventListener('click', () => {
                         searchInput.value = prod.name;
                         suggestionsBox.classList.remove('active');
-                        
-                        switchActiveTabSection('catalog-tab-section', 'Поиск продукции');
-                        document.querySelectorAll('.category-filter-list li').forEach(li => li.classList.remove('active'));
                         renderProductsGrid([prod]);
                     });
                     suggestionsBox.appendChild(itemDiv);
@@ -1391,30 +2305,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 suggestionsBox.classList.remove('active');
             }
         });
-        
-        if(searchBtn) {
-            searchBtn.addEventListener('click', () => {
-                const val = searchInput.value.trim().toLowerCase();
-                if(!val) return;
-
-                const strictMatches = rawProductsCatalogData.filter(p => p.name.toLowerCase().includes(val) || p.sku.toLowerCase().includes(val));
-                switchActiveTabSection('catalog-tab-section', `Результаты поиска: ${searchInput.value}`);
-                document.querySelectorAll('.category-filter-list li').forEach(li => li.classList.remove('active'));
-                renderProductsGrid(strictMatches);
-            });
-        }
-    }
-
-    function switchActiveTabSection(sectionId, breadcrumbCustomTitle) {
-        document.querySelectorAll('.site-section').forEach(s => s.classList.remove('active'));
-        const targetSec = document.getElementById(sectionId);
-        if(targetSec) targetSec.classList.add('active');
-        
-        document.querySelectorAll('.gnav-tab-trigger-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll(`.gnav-tab-trigger-btn[data-target="${sectionId}"]`).forEach(btn => btn.classList.add('add'));
-
-        const bcNode = document.getElementById('breadcrumbActiveNodeText');
-        if(bcNode) bcNode.innerText = breadcrumbCustomTitle;
     }
 
     function initFormsSubmissionInterceptors() {
@@ -1425,33 +2315,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 const name = document.getElementById('fbInpName').value;
                 formFeedback.reset();
                 document.getElementById('modalWindowFeedbackFormBox').classList.remove('active');
-                openCustomPrettyAlert("Обращение принято", `Уважаемый ${name}, ваше официальное обращение зарегистрировано в CRM ТОО «АНКАС». Инженер свяжется с вами в течение 15 минут.`);
+                openCustomPrettyAlert("Заявка зарегистрирована", `Уважаемый ${name}, обращение принято в CRM. Специалист ТОО свяжется с вами.`);
             });
         }
 
-        /**
-         * ОБРАБОТКА ДВУХ РЕЖИМОВ ЗАКАЗА: ЮР. ЛИЦО (ОБЫЧНЫЙ СЧЕТ) И ФИЗ. ЛИЦО (АВТО-ВАТСАП)
-         */
         const formCheckout = document.getElementById('checkoutOrderFinalFormHandler');
         if(formCheckout) {
             formCheckout.addEventListener('submit', (e) => {
                 e.preventDefault();
                 
                 const customerType = document.getElementById('checkoutCustomerTypeSelector').value;
-                const generatedNumber = Math.floor(1000 + Math.random() * 9000);
+                const generatedNumber = Math.floor(10000 + Math.random() * 90000);
                 const dateString = new Date().toLocaleDateString('ru-RU');
                 
                 let orderSum = 0;
                 let itemsListText = "";
                 userCartStorageArray.forEach((item, index) => {
                     orderSum += item.price;
-                    itemsListText += `${index + 1}) ${item.name} [${item.sku}] — 1 ед.\n`;
+                    itemsListText += `${index + 1}) ${item.name} [${item.sku}]\n`;
                 });
 
                 const formattedSumText = `${orderSum.toLocaleString('ru-RU')} ₸`;
 
                 if(customerType === 'legal') {
-                    // РЕЖИМ ДЛЯ ЮРИДИЧЕСКИХ ЛИЦ
                     const companyName = document.getElementById('coInpCompany').value;
                     const binCode = document.getElementById('coInpBin').value || "Не указан";
 
@@ -1459,52 +2345,45 @@ document.addEventListener("DOMContentLoaded", () => {
                         orderNum: generatedNumber,
                         date: dateString,
                         companyName: companyName,
-                        bin: `БИН: ${binCode}`,
-                        itemsCount: userCartStorageArray.length,
-                        totalSum: formattedSumText
+                        bin: `Юр. Лицо (БИН: ${binCode})`,
+                        totalSum: formattedSumText,
+                        status: "На обработке инженером"
                     });
 
                     document.getElementById('modalWindowCheckoutOrderFormBox').classList.remove('active');
-                    
                     openCustomPrettyAlert(
-                        `Запрос №${generatedNumber} сформирован`, 
-                        `Для компании "${companyName}" сформирован запрос на расчет цен ТОО.\n\nКоммерческое предложение и счет с НДС будут отправлены на ваш Email в течение 30 минут.`,
+                        `Спецификация №${generatedNumber} сформирована`, 
+                        `Коммерческое предложение для "${companyName}" будет выслано на указанный Email в течение 30 минут.`,
                         () => { clearCartAndResetCatalogState(); }
                     );
-
                 } else {
-                    // РЕЖИМ ДЛЯ ЧАСТНЫХ/ОБЫЧНЫХ ПОКУПАТЕЛЕЙ (ФИЗ. ЛИЦО → WHATSAPP)
                     const personalName = document.getElementById('coInpPersonalName').value || "Частный клиент";
                     
-                    // Сохраняем в «Мои заказы» перед уходом в мессенджер
                     userOrdersHistoryArray.push({
                         orderNum: generatedNumber,
                         date: dateString,
-                        companyName: `Физическое лицо: ${personalName}`,
+                        companyName: personalName,
                         bin: `Физ. лицо (WhatsApp)`,
-                        itemsCount: userCartStorageArray.length,
-                        totalSum: formattedSumText
+                        totalSum: formattedSumText,
+                        status: "Перенаправлен в WhatsApp"
                     });
 
                     document.getElementById('modalWindowCheckoutOrderFormBox').classList.remove('active');
 
-                    // Формирование ссылки в WhatsApp ТОО «АНКАС»
                     const targetWhatsAppNumber = "77719499055";
-                    const whatsAppMessageText = `Здравствуйте, ТОО АНКАС! Я обычный покупатель.\n` +
-                                                `Мой заказ №${generatedNumber} от ${dateString}.\n` +
-                                                `ФИО: ${personalName}\n\n` +
-                                                `Выбранное оборудование:\n${itemsListText}\n` +
-                                                `Ориентировочная сумма: ${formattedSumText}\n` +
-                                                `Прошу связаться со мной для выставления чека и обсуждения доставки.`;
+                    const whatsAppMessageText = `Здравствуйте, ТОО АНКАС! Заказ №${generatedNumber} от ${dateString}.\n` +
+                                                `Покупатель: ${personalName}\n\n` +
+                                                `Выбранные позиции:\n${itemsListText}\n` +
+                                                `Сумма: ${formattedSumText}\n` +
+                                                `Прошу выставить чек для частного лица и согласовать доставку.`;
 
                     const finalWhatsAppRedirectLink = `https://wa.me/${targetWhatsAppNumber}?text=${encodeURIComponent(whatsAppMessageText)}`;
 
                     openCustomPrettyAlert(
-                        "Заказ отправлен в Мои Заказы",
-                        `Уважаемый ${personalName}, ваш заказ зафиксирован в системе сайта под №${generatedNumber}.\n\nСейчас вы будете автоматически перенаправлены в WhatsApp для согласования доставки с инженером.`,
+                        "Заказ сохранен в системе",
+                        `Ваша спецификация зафиксирована под №${generatedNumber}.\n\nПереходим в WhatsApp для завершения покупки.`,
                         () => {
                             clearCartAndResetCatalogState();
-                            // Редирект покупателя на чат WhatsApp
                             window.open(finalWhatsAppRedirectLink, '_blank');
                         }
                     );
@@ -1516,22 +2395,7 @@ document.addEventListener("DOMContentLoaded", () => {
             userCartStorageArray = [];
             updateGlobalBadgesCountCounters();
             formCheckout.reset();
-            
-            // Сбрасываем селектор типов в дефолтное состояние
-            const selector = document.getElementById('checkoutCustomerTypeSelector');
-            if(selector) {
-                selector.value = 'individual';
-                document.getElementById('checkoutLegalFieldsContainer').style.display = 'none';
-                document.getElementById('checkoutIndividualFieldsContainer').style.display = 'block';
-                document.getElementById('submitCheckoutFormButtonText').innerText = "Перейти к оплате в WhatsApp";
-            }
-
             renderProductsGrid(rawProductsCatalogData);
-            document.querySelectorAll('.category-filter-list li').forEach(li => {
-                if(li.textContent === "Все категории") li.classList.add('active');
-                else li.classList.remove('active');
-            });
-            document.getElementById('catalogMainHeadlineTitle').innerText = "Промышленное оборудование";
         }
     }
 });
