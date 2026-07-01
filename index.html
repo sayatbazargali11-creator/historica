@@ -1,1223 +1,2310 @@
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAMANAT — Интеллектуалды Сынақ Орталығы</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        /* ==========================================================================
-           1. СИСТЕМНЫЕ ПЕРЕМЕННЫЕ И АРХИТЕКТУРА СТИЛЕЙ (PREMIUM DESIGN TOKENS)
-           ========================================================================== */
-        :root {
-            --z-bg: #f5f5f7;
-            --z-surface: #ffffff;
-            --z-card-bg: #ffffff;
-            --z-text: #1d1d1f;
-            --z-text-secondary: #6e6e73;
-            --z-text-muted: #86868b;
-            --z-accent: #ff6b00;
-            --z-accent-gradient: linear-gradient(135deg, #ff9500, #ff6b00);
-            --z-border: #e5e5ea;
-            --z-success: #34c759;
-            --z-error: #ff3b30;
-            --z-radius-lg: 24px;
-            --z-radius-md: 16px;
-            --z-radius-sm: 12px;
-            --z-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --z-transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        body {
-            font-family: var(--z-font);
-            background-color: var(--z-bg);
-            color: var(--z-text);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Прелоадер загрузки базы данных тестирования */
-        .z-preloader {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #ffffff;
-            z-index: 99999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
-        }
-
-        .z-preloader.loaded {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .z-spinner {
-            width: 56px;
-            height: 56px;
-            border: 4px solid var(--z-border);
-            border-top-color: var(--z-accent);
-            border-radius: 50%;
-            animation: spinEffect 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-
-        @keyframes spinEffect {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ==========================================================================
-           2. ШАПКА ИНТЕРФЕЙСА (TOP BAR NAVIGATION) С ЭФФЕКТОМ GLASSMORPHISM
-           ========================================================================== */
-        .z-header {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            height: 72px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px) saturate(190%);
-            -webkit-backdrop-filter: blur(20px) saturate(190%);
-            border-bottom: 1px solid var(--z-border);
-            z-index: 1000;
-            box-sizing: border-box;
-        }
-
-        .z-header-content {
-            max-width: 1340px;
-            height: 100%;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .z-brand {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-        }
-
-        .z-brand h1 {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--z-text);
-            margin: 0;
-            letter-spacing: -0.03em;
-        }
-
-        .z-brand-dot {
-            width: 6px; height: 6px;
-            background: var(--z-accent-gradient);
-            border-radius: 50%;
-            box-shadow: 0 0 8px rgba(255, 107, 0, 0.6);
-        }
-
-        .z-header-meta {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .z-subject-pill {
-            background: rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--z-border);
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--z-text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .z-subject-pill i {
-            color: var(--z-accent);
-        }
-
-        .z-btn-exit {
-            background: transparent;
-            border: 1px solid var(--z-border);
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--z-text);
-            border-radius: var(--z-radius-sm);
-            cursor: pointer;
-            transition: var(--z-transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .z-btn-exit:hover {
-            background: var(--z-error);
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 8px 20px rgba(255, 59, 48, 0.2);
-        }
-
-        /* ==========================================================================
-           3. ОСНОВНОЕ РАБОЧЕЕ ПРОСТРАНСТВО (WORKSPACE GRID MAPPING)
-           ========================================================================== */
-        .z-container {
-            max-width: 1340px;
-            margin: 112px auto 60px auto;
-            padding: 0 24px;
-            display: grid;
-            grid-template-columns: 1fr 360px;
-            gap: 32px;
-            box-sizing: border-box;
-        }
-
-        @media (max-width: 992px) {
-            .z-container {
-                grid-template-columns: 1fr;
-                margin-top: 96px;
-                gap: 24px;
-                padding: 0 16px;
-            }
-        }
-
-        /* Главная карточка симулятора вопросов */
-        .z-main-panel {
-            background: var(--z-surface);
-            border: 1px solid var(--z-border);
-            border-radius: var(--z-radius-lg);
-            padding: 44px;
-            box-shadow: 0 12px 40px rgba(160, 140, 110, 0.05);
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            min-height: 520px;
-        }
-
-        @media (max-width: 640px) {
-            .z-main-panel {
-                padding: 24px;
-                min-height: auto;
-            }
-        }
-
-        .z-panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 28px;
-            border-bottom: 1px solid var(--z-border);
-            padding-bottom: 20px;
-        }
-
-        .z-question-counter {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--z-accent);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-
-        .z-level-badge {
-            font-size: 12px;
-            font-weight: 700;
-            background: rgba(255, 107, 0, 0.07);
-            color: var(--z-accent);
-            padding: 6px 12px;
-            border-radius: 8px;
-        }
-
-        .z-question-text {
-            font-size: 23px;
-            font-weight: 600;
-            line-height: 1.55;
-            color: var(--z-text);
-            margin: 0 0 36px 0;
-            letter-spacing: -0.01em;
-        }
-
-        @media (max-width: 640px) {
-            .z-question-text {
-                font-size: 19px;
-                margin-bottom: 24px;
-            }
-        }
-
-        /* Вертикальный стек вариантов ответов */
-        .z-options-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            flex-grow: 1;
-        }
-
-        .z-option-card {
-            width: 100%;
-            background: #ffffff;
-            border: 1px solid var(--z-border);
-            border-radius: var(--z-radius-md);
-            padding: 20px 24px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            text-align: left;
-            transition: var(--z-transition);
-            position: relative;
-        }
-
-        .z-option-card:hover {
-            border-color: var(--z-accent);
-            background: rgba(255, 107, 0, 0.01);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(160, 140, 110, 0.06);
-        }
-
-        .z-option-idx {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: var(--z-bg);
-            color: var(--z-text-secondary);
-            font-size: 14px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            flex-shrink: 0;
-            transition: var(--z-transition);
-            border: 1px solid transparent;
-        }
-
-        .z-option-val {
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 1.45;
-            color: var(--z-text);
-            flex-grow: 1;
-        }
-
-        /* Выбранное состояние */
-        .z-option-card.active {
-            border-color: var(--z-accent);
-            background: rgba(255, 107, 0, 0.04);
-            box-shadow: 0 10px 28px rgba(255, 107, 0, 0.08);
-        }
-
-        .z-option-card.active .z-option-idx {
-            background: var(--z-accent-gradient);
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(255, 107, 0, 0.35);
-        }
-
-        /* Навигационный футер */
-        .z-panel-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 44px;
-            gap: 16px;
-            border-top: 1px solid var(--z-border);
-            padding-top: 28px;
-        }
-
-        .z-btn-nav {
-            padding: 15px 32px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: var(--z-radius-sm);
-            cursor: pointer;
-            transition: var(--z-transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-sizing: border-box;
-        }
-
-        .z-btn-nav.secondary {
-            background: #ffffff;
-            border: 1px solid var(--z-border);
-            color: var(--z-text);
-        }
-
-        .z-btn-nav.secondary:hover:not(:disabled) {
-            background: var(--z-bg);
-            transform: translateY(-1px);
-        }
-
-        .z-btn-nav.secondary:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-        }
-
-        .z-btn-nav.primary {
-            background: var(--z-accent-gradient);
-            border: none;
-            color: #ffffff;
-            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.2);
-        }
-
-        .z-btn-nav.primary:hover {
-            box-shadow: 0 12px 28px rgba(255, 107, 0, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* ==========================================================================
-           4. БОКОВАЯ СИСТЕМНАЯ ПАНЕЛЬ (SIDEBAR CONTROLLER)
-           ========================================================================== */
-        .z-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            height: fit-content;
-        }
-
-        .z-widget {
-            background: var(--z-surface);
-            border: 1px solid var(--z-border);
-            border-radius: var(--z-radius-lg);
-            padding: 28px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
-            box-sizing: border-box;
-        }
-
-        /* Виджет встроенного хронометра */
-        .z-timer {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--z-text);
-            background: var(--z-bg);
-            padding: 18px;
-            border-radius: var(--z-radius-md);
-            border: 1px solid var(--z-border);
-            transition: var(--z-transition);
-        }
-
-        .z-timer.critical {
-            background: rgba(255, 59, 48, 0.06);
-            border-color: rgba(255, 59, 48, 0.25);
-            color: var(--z-error);
-            animation: pulseAlert 1.4s infinite ease-in-out;
-        }
-
-        @keyframes pulseAlert {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.75; }
-        }
-
-        .z-widget-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--z-text);
-            margin: 0 0 20px 0;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-
-        /* Матрица сетки навигации по тесту */
-        .z-matrix {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
-
-        .z-matrix-cell {
-            aspect-ratio: 1;
-            background: #ffffff;
-            border: 1px solid var(--z-border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--z-text-secondary);
-            cursor: pointer;
-            transition: var(--z-transition);
-            user-select: none;
-        }
-
-        .z-matrix-cell:hover {
-            border-color: var(--z-text);
-            color: var(--z-text);
-            transform: scale(1.06);
-        }
-
-        .z-matrix-cell.current {
-            border-color: var(--z-text);
-            background: var(--z-text);
-            color: #ffffff;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-        }
-
-        .z-matrix-cell.answered {
-            background: rgba(52, 199, 89, 0.08);
-            border-color: var(--z-success);
-            color: var(--z-success);
-        }
-
-        /* Виджет моментальных подсказок AI Тарихшы */
-        .z-ai-widget {
-            background: linear-gradient(135deg, #1d1d1f, #2c2c2e);
-            color: #ffffff;
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .z-ai-widget::after {
-            content: '';
-            position: absolute;
-            width: 160px; height: 160px;
-            background: radial-gradient(circle, rgba(255, 149, 0, 0.12) 0%, transparent 75%);
-            top: -65px; right: -65px;
-            pointer-events: none;
-        }
-
-        .z-ai-w-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
-        }
-
-        .z-ai-w-avatar {
-            width: 32px; height: 32px;
-            background: var(--z-accent-gradient);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px; color: #ffffff;
-            box-shadow: 0 0 10px rgba(255,107,0,0.4);
-        }
-
-        .z-ai-w-title {
-            font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        .z-ai-w-bubble {
-            font-size: 13px; line-height: 1.45; color: rgba(255, 255, 255, 0.72); margin: 0 0 18px 0;
-        }
-
-        .z-ai-w-btn {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            padding: 12px;
-            border-radius: var(--z-radius-sm);
-            color: #ffffff;
-            font-size: 13px; font-weight: 600; cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex; justify-content: center; align-items: center; gap: 8px;
-        }
-
-        .z-ai-w-btn:hover {
-            background: #ffffff; color: #1d1d1f;
-        }
-
-        .z-btn-finish-all {
-            width: 100%;
-            background: #1d1d1f;
-            color: #ffffff;
-            border: none;
-            padding: 18px;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: var(--z-radius-md);
-            cursor: pointer;
-            transition: var(--z-transition);
-            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-        }
-
-        .z-btn-finish-all:hover {
-            background: #000000;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-        }
-
-        /* ==========================================================================
-           5. АНАЛИТИЧЕСКИЙ ЭКРАН РЕЗУЛЬТАТОВ (ANALYTICS ENGINE DASHBOARD)
-           ========================================================================== */
-        .z-analytics-wrapper {
-            max-width: 860px;
-            margin: 114px auto 70px auto;
-            padding: 0 24px;
-            box-sizing: border-box;
-            display: none; /* Контролируется движком */
-        }
-
-        .z-report-card {
-            background: #ffffff;
-            border: 1px solid var(--z-border);
-            border-radius: var(--z-radius-lg);
-            padding: 60px 48px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.04);
-        }
-
-        .z-radial-box {
-            position: relative;
-            width: 180px; height: 180px;
-            margin: 0 auto 36px auto;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .z-svg-circle {
-            transform: rotate(-90deg);
-            width: 180px; height: 180px;
-        }
-
-        .z-svg-circle circle {
-            width: 100%; height: 100%;
-            fill: none;
-            stroke-width: 11;
-            stroke-linecap: round;
-        }
-
-        .z-svg-circle .track {
-            stroke: var(--z-border);
-        }
-
-        .z-svg-circle .bar {
-            stroke: url(#goldGradSpec);
-            stroke-dasharray: 502;
-            stroke-dashoffset: 502;
-            transition: stroke-dashoffset 1.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .z-radial-num {
-            position: absolute;
-            font-size: 42px;
-            font-weight: 800;
-            color: var(--z-text);
-            display: flex; flex-direction: column; align-items: center; line-height: 1;
-        }
-
-        .z-radial-num span {
-            font-size: 13px; font-weight: 600; color: var(--z-text-muted); margin-top: 6px;
-            letter-spacing: 0.05em;
-        }
-
-        .z-report-title {
-            font-size: 28px; font-weight: 700; margin: 0 0 14px 0; color: var(--z-text);
-        }
-
-        .z-report-desc {
-            font-size: 16px; color: var(--z-text-secondary); max-width: 560px; margin: 0 auto 44px auto; line-height: 1.55;
-        }
-
-        /* Таблица результатов */
-        .z-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 48px;
-        }
-
-        @media (max-width: 576px) {
-            .z-stats-grid {
-                grid-template-columns: 1fr;
-                gap: 14px;
-            }
-        }
-
-        .z-stats-cell {
-            background: var(--z-bg);
-            border: 1px solid var(--z-border);
-            padding: 24px;
-            border-radius: var(--z-radius-md);
-            text-align: center;
-        }
-
-        .z-stats-cell .num {
-            font-size: 24px; font-weight: 700; color: var(--z-text); margin-bottom: 6px;
-        }
-
-        .z-stats-cell .lbl {
-            font-size: 13px; font-weight: 600; color: var(--z-text-muted); text-transform: uppercase; letter-spacing: 0.04em;
-        }
-
-        .z-report-actions {
-            display: flex; justify-content: center; gap: 20px;
-        }
-
-        /* Системное модальное окно */
-        .z-modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 10000;
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .z-modal-overlay.active {
-            opacity: 1; visibility: visible;
-        }
-
-        .z-modal {
-            background: #ffffff;
-            border-radius: var(--z-radius-lg);
-            padding: 36px; width: 92%; max-width: 420px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.15);
-            text-align: center;
-            transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .z-modal-overlay.active .z-modal {
-            transform: scale(1);
-        }
-
-        .z-modal-title {
-            font-size: 20px; font-weight: 700; margin: 0 0 12px 0; color: var(--z-text);
-        }
-
-        .z-modal-desc {
-            font-size: 15px; color: var(--z-text-secondary); line-height: 1.45; margin: 0 0 28px 0;
-        }
-
-        .z-modal-row {
-            display: flex; gap: 14px; justify-content: center;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DINARA MATH — Математика, которая нравится</title>
+  <meta name="description" content="DINARA MATH — онлайн-школа математики: видеоуроки, тесты, прогресс обучения и сертификаты." />
+
+  <!-- ============ ШРИФТЫ GOOGLE FONTS ============ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ==========================================================================
+   DINARA MATH — style.css
+   Дизайн-система: белый фон, фиолетово-синие акценты, glassmorphism
+   ========================================================================== */
+
+/* ---------- 1. CSS ПЕРЕМЕННЫЕ (ТОКЕНЫ) ---------- */
+:root {
+  /* Палитра */
+  --c-purple: #6C4DFF;
+  --c-blue: #2F6BFF;
+  --c-purple-light: #EFEAFF;
+  --c-blue-light: #E8F0FF;
+  --c-ink: #14132B;
+  --c-ink-soft: #3A3852;
+  --c-muted: #6B6B85;
+  --c-line: #E7E5F2;
+  --c-bg: #FFFFFF;
+  --c-bg-alt: #FAFAFD;
+  --c-white: #ffffff;
+  --c-success: #22C55E;
+  --c-warning: #F5A623;
+  --c-danger: #EF4444;
+
+  --gradient-brand: linear-gradient(135deg, var(--c-purple) 0%, var(--c-blue) 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(108,77,255,0.10) 0%, rgba(47,107,255,0.10) 100%);
+
+  /* Типографика */
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Радиусы / тени */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+  --shadow-sm: 0 2px 10px rgba(20, 19, 43, 0.06);
+  --shadow-md: 0 10px 30px rgba(20, 19, 43, 0.08);
+  --shadow-lg: 0 20px 60px rgba(20, 19, 43, 0.14);
+  --shadow-brand: 0 14px 34px rgba(108, 77, 255, 0.28);
+
+  /* Слои */
+  --z-nav: 100;
+  --z-modal: 300;
+  --z-toast: 400;
+
+  /* Переходы */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 0.2s;
+  --t-med: 0.4s;
+  --t-slow: 0.7s;
+}
+
+/* Тёмная тема */
+[data-theme="dark"] {
+  --c-ink: #F3F2FF;
+  --c-ink-soft: #D6D4EE;
+  --c-muted: #9C9AB8;
+  --c-line: #2A2846;
+  --c-bg: #0F0E1F;
+  --c-bg-alt: #15142B;
+  --c-white: #1B1A33;
+  --c-purple-light: rgba(108,77,255,0.16);
+  --c-blue-light: rgba(47,107,255,0.16);
+}
+
+/* ---------- 2. СБРОС / БАЗА ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--c-bg);
+  color: var(--c-ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background var(--t-med) var(--ease), color var(--t-med) var(--ease);
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+ul { list-style: none; }
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--c-ink);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+h3 { font-size: 1.25rem; font-weight: 700; }
+
+.muted { color: var(--c-muted); }
+.small { font-size: 0.85rem; }
+
+.container {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.container--narrow { max-width: 820px; }
+
+.text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glass {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+[data-theme="dark"] .glass {
+  background: rgba(27,26,51,0.55);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Скроллбар */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--c-line); border-radius: 10px; }
+
+/* Фокус для доступности */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--c-purple);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- 3. КНОПКИ ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.btn:active { transform: scale(0.97); }
+.btn--primary {
+  background: var(--gradient-brand);
+  color: #fff;
+  box-shadow: var(--shadow-brand);
+}
+.btn--primary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(108,77,255,0.36); }
+
+.btn--outline {
+  background: transparent;
+  border: 1.5px solid var(--c-line);
+  color: var(--c-ink);
+}
+.btn--outline:hover { border-color: var(--c-purple); color: var(--c-purple); transform: translateY(-2px); }
+
+.btn--ghost { background: var(--c-purple-light); color: var(--c-purple); }
+.btn--ghost:hover { background: var(--c-purple); color: #fff; }
+
+.btn--lg { padding: 16px 30px; font-size: 1rem; }
+.btn--sm { padding: 9px 18px; font-size: 0.85rem; }
+.btn--full { width: 100%; }
+
+.icon-btn {
+  width: 40px; height: 40px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  color: var(--c-ink-soft);
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+.icon-btn:hover { background: var(--c-purple-light); color: var(--c-purple); transform: scale(1.06); }
+
+/* ---------- 4. ПРЕЛОАДЕР ---------- */
+.preloader {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--c-bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease);
+}
+.preloader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.preloader__mark { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.preloader__mark svg { animation: spin 1.1s linear infinite; }
+.preloader__mark span { font-family: var(--font-display); font-weight: 800; letter-spacing: 0.08em; color: var(--c-ink); font-size: 0.95rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- 5. НАВИГАЦИЯ ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-nav);
+  padding: 18px 0;
+  transition: padding var(--t-med) var(--ease), background var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
+}
+.nav.is-scrolled {
+  padding: 10px 0;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-sm);
+}
+[data-theme="dark"] .nav.is-scrolled { background: rgba(15,14,31,0.75); }
+
+.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+
+.nav__logo { display: flex; align-items: center; gap: 10px; }
+.nav__logo-text { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; }
+.nav__logo-text em { font-style: normal; color: var(--c-purple); }
+
+.nav__links { display: flex; align-items: center; gap: 6px; }
+.nav__link {
+  padding: 9px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--c-ink-soft);
+  transition: background var(--t-fast), color var(--t-fast);
+  position: relative;
+}
+.nav__link:hover, .nav__link.is-active { background: var(--c-purple-light); color: var(--c-purple); }
+
+.nav__actions { display: flex; align-items: center; gap: 6px; }
+
+.icon-sun, .icon-moon { display: none; }
+[data-theme="light"] .icon-sun, :root:not([data-theme]) .icon-sun { display: block; }
+[data-theme="dark"] .icon-moon { display: block; }
+[data-theme="dark"] .icon-sun { display: none; }
+[data-theme="light"] .icon-moon { display: none; }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; width: 40px; height: 40px; align-items: center; justify-content: center; }
+.hamburger span { width: 20px; height: 2px; background: var(--c-ink); transition: transform var(--t-fast), opacity var(--t-fast); border-radius: 2px; }
+.hamburger.is-active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.is-active span:nth-child(2) { opacity: 0; }
+.hamburger.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Поиск */
+.search-bar {
+  max-height: 0; overflow: hidden;
+  transition: max-height var(--t-med) var(--ease);
+  background: var(--c-bg);
+  border-bottom: 1px solid transparent;
+}
+.search-bar.is-open { max-height: 400px; border-bottom-color: var(--c-line); }
+.search-bar__inner { position: relative; display: flex; align-items: center; gap: 12px; padding: 16px 24px; }
+.search-bar__inner input {
+  flex: 1; border: none; background: transparent; font-size: 1rem; outline: none; color: var(--c-ink);
+}
+.search-results {
+  position: absolute; top: 100%; left: 24px; right: 24px;
+  background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg); max-height: 340px; overflow-y: auto;
+  display: none; z-index: 5;
+}
+.search-results.is-open { display: block; }
+.search-result-item { display: flex; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--c-line); transition: background var(--t-fast); }
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item:hover { background: var(--c-purple-light); }
+.search-result-item img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; }
+.search-result-item strong { display: block; font-size: 0.9rem; }
+.search-result-empty { padding: 16px; text-align: center; color: var(--c-muted); font-size: 0.9rem; }
+
+/* Мобильное меню */
+.mobile-menu {
+  position: fixed; top: 0; right: -320px; width: 300px; height: 100vh; z-index: 200;
+  background: var(--c-bg); box-shadow: var(--shadow-lg);
+  padding: 100px 28px 28px; display: flex; flex-direction: column; gap: 6px;
+  transition: right var(--t-med) var(--ease);
+}
+.mobile-menu.is-open { right: 0; }
+.mobile-menu__link { padding: 12px 8px; border-bottom: 1px solid var(--c-line); font-weight: 500; }
+.mobile-menu__cta { margin-top: 20px; }
+.mobile-menu__backdrop {
+  position: fixed; inset: 0; background: rgba(15,14,31,0.4); z-index: 190;
+  opacity: 0; visibility: hidden; transition: opacity var(--t-med), visibility var(--t-med);
+}
+.mobile-menu__backdrop.is-open { opacity: 1; visibility: visible; }
+
+/* ---------- 6. HERO ---------- */
+.hero {
+  position: relative;
+  padding: 150px 0 90px;
+  overflow: hidden;
+  background: var(--c-bg-alt);
+}
+.hero__formulas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.formula {
+  position: absolute; font-family: var(--font-mono); color: var(--c-purple);
+  opacity: 0.16; font-size: 1.3rem; animation: float 8s ease-in-out infinite;
+  white-space: nowrap;
+}
+[data-theme="dark"] .formula { opacity: 0.22; }
+.f1 { top: 12%; left: 4%; animation-delay: 0s; }
+.f2 { top: 24%; left: 46%; animation-delay: 1.2s; color: var(--c-blue); font-size: 1.6rem; }
+.f3 { top: 66%; left: 8%; animation-delay: 2s; }
+.f4 { top: 78%; left: 42%; animation-delay: 0.6s; color: var(--c-blue); }
+.f5 { top: 14%; left: 82%; animation-delay: 1.6s; }
+.f6 { top: 52%; left: 88%; animation-delay: 2.4s; font-size: 1.1rem; }
+.f7 { top: 40%; left: 20%; animation-delay: 3s; font-size: 1.8rem; color: var(--c-blue); }
+.f8 { top: 84%; left: 76%; animation-delay: 1s; }
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-18px) rotate(3deg); } }
+
+.hero__inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr; gap: 50px; align-items: center; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--c-purple); background: var(--c-purple-light);
+  padding: 7px 14px; border-radius: var(--radius-full); margin-bottom: 18px;
+}
+
+.hero__title { font-size: clamp(2.6rem, 6vw, 4.2rem); margin-bottom: 18px; }
+.hero__subtitle { font-size: 1.1rem; color: var(--c-ink-soft); max-width: 480px; margin-bottom: 30px; }
+.hero__actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+
+.hero__stats { display: flex; gap: 34px; flex-wrap: wrap; }
+.hero__stat { display: flex; flex-direction: column; }
+.hero__stat strong { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; }
+.hero__stat span { font-size: 0.85rem; color: var(--c-muted); }
+
+.hero__visual { position: relative; display: flex; align-items: center; justify-content: center; }
+.hero__glow {
+  position: absolute; width: 420px; height: 420px; border-radius: 50%;
+  background: var(--gradient-brand); filter: blur(90px); opacity: 0.25; z-index: 0;
+}
+.hero__card {
+  position: relative; z-index: 1; width: 100%; max-width: 420px;
+  border-radius: var(--radius-lg); padding: 14px; box-shadow: var(--shadow-lg);
+}
+.hero__badge {
+  position: absolute; bottom: -16px; left: 24px;
+  background: var(--c-bg); padding: 10px 16px; border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md); font-size: 0.85rem; font-weight: 600;
+}
+
+.scroll-hint {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  color: var(--c-muted); animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+
+/* ---------- 7. СЕКЦИИ / ЗАГОЛОВКИ ---------- */
+.section { padding: 100px 0; }
+.section--muted { background: var(--c-bg-alt); }
+.section__head { text-align: center; max-width: 640px; margin: 0 auto 50px; }
+.section__desc { color: var(--c-muted); margin-top: 12px; font-size: 1.02rem; }
+
+/* ---------- 8. КАТЕГОРИИ ---------- */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 20px;
+}
+.cat-card {
+  text-align: left;
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  transition: transform var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
+}
+.cat-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: var(--shadow-md); border-color: var(--c-purple); }
+.cat-card__icon {
+  width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  background: var(--gradient-soft); color: var(--c-purple); margin-bottom: 16px;
+}
+.cat-card h3 { margin-bottom: 6px; }
+.cat-card p { color: var(--c-muted); font-size: 0.9rem; margin-bottom: 14px; }
+.cat-card__count { font-size: 0.78rem; font-weight: 700; color: var(--c-blue); }
+
+/* ---------- 9. ВИДЕОУРОКИ ---------- */
+.lessons-toolbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  padding: 9px 16px; border-radius: var(--radius-full); border: 1px solid var(--c-line);
+  font-size: 0.85rem; font-weight: 600; color: var(--c-ink-soft);
+  transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+}
+.chip:hover { border-color: var(--c-purple); }
+.chip.is-active { background: var(--gradient-brand); color: #fff; border-color: transparent; }
+
+.select-wrap select {
+  padding: 10px 16px; border-radius: var(--radius-full); border: 1px solid var(--c-line);
+  background: var(--c-bg); font-size: 0.85rem; font-weight: 600;
+}
+
+.lessons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 26px;
+}
+.lesson-card {
+  background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+  transition: transform var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
+  display: flex; flex-direction: column;
+}
+.lesson-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+.lesson-card__cover { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+.lesson-card__cover svg { width: 100%; height: 100%; }
+.lesson-card__duration {
+  position: absolute; bottom: 10px; right: 10px; background: rgba(15,14,31,0.75); color: #fff;
+  font-size: 0.72rem; font-weight: 600; padding: 3px 8px; border-radius: 6px;
+}
+.lesson-card__play {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(20,19,43,0.0); transition: background var(--t-fast);
+}
+.lesson-card:hover .lesson-card__play { background: rgba(20,19,43,0.22); }
+.lesson-card__play span {
+  width: 52px; height: 52px; border-radius: 50%; background: #fff; color: var(--c-purple);
+  display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.8);
+  transition: opacity var(--t-fast), transform var(--t-fast); box-shadow: var(--shadow-md);
+}
+.lesson-card:hover .lesson-card__play span { opacity: 1; transform: scale(1); }
+.lesson-card__fav {
+  position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--c-purple); transition: transform var(--t-fast);
+}
+.lesson-card__fav:hover { transform: scale(1.12); }
+.lesson-card__fav.is-active { color: #fff; background: var(--gradient-brand); }
+.lesson-card__level {
+  position: absolute; top: 10px; left: 10px; font-size: 0.68rem; font-weight: 700;
+  padding: 3px 9px; border-radius: var(--radius-full); background: rgba(255,255,255,0.92); color: var(--c-ink);
+}
+.lesson-card__body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.lesson-card__body h3 { font-size: 1rem; }
+.lesson-card__desc { color: var(--c-muted); font-size: 0.85rem; flex: 1; }
+.lesson-card__meta { display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--c-muted); margin-top: 4px; }
+.lesson-card__rating { color: var(--c-warning); font-weight: 700; }
+.lesson-card__watch { margin-top: 10px; }
+
+.lessons-empty { text-align: center; padding: 40px 0; color: var(--c-muted); }
+.lessons-more { text-align: center; margin-top: 40px; }
+
+/* ---------- 10. ЛИЧНЫЙ КАБИНЕТ ---------- */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.dash-card {
+  background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--radius-lg);
+  padding: 24px; box-shadow: var(--shadow-sm);
+}
+.dash-profile { grid-column: span 2; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
+.dash-profile__top { display: flex; align-items: center; gap: 14px; }
+.dash-avatar {
+  width: 58px; height: 58px; border-radius: 50%; background: var(--gradient-brand); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem;
+}
+.dash-profile__actions { display: flex; gap: 10px; }
+
+.dash-ring { grid-column: span 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; position: relative; }
+.ring-svg { transform: rotate(-90deg); }
+.ring-track { fill: none; stroke: var(--c-line); stroke-width: 10; }
+.ring-progress { fill: none; stroke: url(#none); stroke: var(--c-purple); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 339; stroke-dashoffset: 339; transition: stroke-dashoffset 1.2s var(--ease); }
+.dash-ring__label { position: absolute; display: flex; flex-direction: column; align-items: center; }
+.dash-ring__label strong { font-size: 1.3rem; font-family: var(--font-display); }
+.dash-ring__label span { font-size: 0.72rem; color: var(--c-muted); }
+
+.dash-stats { grid-column: span 1; display: flex; flex-direction: column; justify-content: space-around; gap: 10px; }
+.dash-stat { display: flex; align-items: baseline; justify-content: space-between; }
+.dash-stat__num { font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; color: var(--c-purple); }
+.dash-stat__label { font-size: 0.78rem; color: var(--c-muted); text-align: right; }
+
+.dash-list { grid-column: span 2; }
+.dash-list h4 { margin-bottom: 12px; }
+.dash-list__items { display: flex; flex-direction: column; gap: 10px; max-height: 190px; overflow-y: auto; }
+.dash-list-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; }
+.dash-list-item span.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-purple); flex-shrink: 0; }
+
+.dash-schedule { grid-column: span 2; display: flex; flex-direction: column; gap: 14px; }
+.schedule-item { display: flex; gap: 12px; align-items: flex-start; }
+.schedule-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c-line); margin-top: 6px; flex-shrink: 0; }
+.schedule-dot--today { background: var(--c-purple); box-shadow: 0 0 0 4px var(--c-purple-light); }
+.schedule-reminder { font-size: 0.8rem; color: var(--c-muted); margin-top: 4px; }
+
+.dash-cert { grid-column: span 2; display: flex; flex-direction: column; gap: 12px; }
+.cert-progress-bar { height: 8px; background: var(--c-line); border-radius: var(--radius-full); overflow: hidden; }
+.cert-progress-bar span { display: block; height: 100%; width: 0%; background: var(--gradient-brand); transition: width 1s var(--ease); }
+
+/* ---------- 11. ПРЕПОДАВАТЕЛИ ---------- */
+.teachers-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px;
+}
+.teacher-card {
+  background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--radius-lg);
+  padding: 26px; text-align: center; transition: transform var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
+}
+.teacher-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.teacher-card__photo {
+  width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 16px;
+  background: var(--gradient-soft); display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--c-purple);
+}
+.teacher-card h3 { margin-bottom: 4px; }
+.teacher-card__exp { color: var(--c-muted); font-size: 0.85rem; margin-bottom: 10px; }
+.teacher-card__subjects { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 16px; }
+.teacher-card__subjects span { font-size: 0.72rem; background: var(--c-purple-light); color: var(--c-purple); padding: 4px 10px; border-radius: var(--radius-full); font-weight: 600; }
+
+/* ---------- 12. ОТЗЫВЫ ---------- */
+.reviews-slider { max-width: 720px; margin: 0 auto; }
+.reviews-track { display: flex; transition: transform var(--t-med) var(--ease); }
+.review-card {
+  flex: 0 0 100%; background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--radius-lg);
+  padding: 34px; text-align: center; box-shadow: var(--shadow-sm);
+}
+.review-card__stars { color: var(--c-warning); font-size: 1rem; margin-bottom: 14px; }
+.review-card__text { font-size: 1.05rem; color: var(--c-ink-soft); margin-bottom: 22px; }
+.review-card__author { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.review-card__avatar {
+  width: 46px; height: 46px; border-radius: 50%; background: var(--gradient-brand);
+  color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700;
+}
+.review-card__author strong { display: block; font-size: 0.9rem; }
+.review-card__author span { font-size: 0.78rem; color: var(--c-muted); }
+
+.reviews-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 24px; }
+.reviews-dots { display: flex; gap: 8px; }
+.reviews-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--c-line); transition: background var(--t-fast), transform var(--t-fast); }
+.reviews-dots span.is-active { background: var(--c-purple); transform: scale(1.3); }
+
+/* ---------- 13. FAQ ---------- */
+.accordion__item { border-bottom: 1px solid var(--c-line); }
+.accordion__trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 4px; text-align: left; font-weight: 600; font-size: 1rem;
+}
+.accordion__icon { font-size: 1.3rem; color: var(--c-purple); transition: transform var(--t-fast); flex-shrink: 0; margin-left: 14px; }
+.accordion__item.is-open .accordion__icon { transform: rotate(45deg); }
+.accordion__panel {
+  max-height: 0; overflow: hidden; transition: max-height var(--t-med) var(--ease), padding var(--t-med) var(--ease);
+  color: var(--c-muted); font-size: 0.92rem;
+}
+.accordion__item.is-open .accordion__panel { max-height: 220px; padding-bottom: 20px; }
+
+/* ---------- 14. КОНТАКТЫ ---------- */
+.contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.contacts-info { display: flex; flex-direction: column; gap: 14px; }
+.contact-item {
+  display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: var(--radius-md);
+  border: 1px solid var(--c-line); transition: border-color var(--t-fast), transform var(--t-fast);
+}
+a.contact-item:hover { border-color: var(--c-purple); transform: translateX(4px); }
+.contact-item__icon { font-size: 1.3rem; }
+.contact-item strong { display: block; font-size: 0.9rem; }
+.contact-item p { color: var(--c-muted); font-size: 0.85rem; }
+.map-embed { border-radius: var(--radius-md); overflow: hidden; height: 180px; border: 1px solid var(--c-line); margin-top: 4px; }
+.map-embed iframe { width: 100%; height: 100%; border: 0; filter: saturate(0.6); }
+
+.contact-form { border-radius: var(--radius-lg); padding: 30px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-md); }
+.form-row { display: flex; flex-direction: column; gap: 6px; }
+.form-row label { font-size: 0.82rem; font-weight: 600; color: var(--c-ink-soft); }
+.form-row input, .form-row textarea {
+  padding: 12px 14px; border-radius: var(--radius-sm); border: 1.5px solid var(--c-line);
+  background: var(--c-bg); transition: border-color var(--t-fast); resize: vertical;
+}
+.form-row input:focus, .form-row textarea:focus { border-color: var(--c-purple); outline: none; }
+.form-row.has-error input, .form-row.has-error textarea { border-color: var(--c-danger); }
+.form-error { font-size: 0.76rem; color: var(--c-danger); min-height: 14px; }
+
+/* ---------- 15. FOOTER ---------- */
+.footer { background: var(--c-ink); color: #E8E7F5; padding: 70px 0 0; margin-top: 40px; }
+[data-theme="dark"] .footer { background: #08070F; }
+.footer__inner { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 40px; padding-bottom: 50px; }
+.footer .nav__logo-text { color: #fff; }
+.footer__tagline { color: #A7A5C4; font-size: 0.88rem; margin: 16px 0 20px; max-width: 320px; }
+.footer__socials { display: flex; gap: 10px; }
+.footer__socials a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; transition: background var(--t-fast), transform var(--t-fast); }
+.footer__socials a:hover { background: var(--c-purple); transform: translateY(-3px); }
+
+.footer__col h5 { color: #fff; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+.footer__col a { display: block; color: #A7A5C4; font-size: 0.88rem; margin-bottom: 10px; transition: color var(--t-fast); }
+.footer__col a:hover { color: #fff; }
+
+.newsletter-form { display: flex; gap: 8px; margin-top: 6px; }
+.newsletter-form input { flex: 1; padding: 10px 12px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.06); color: #fff; }
+.newsletter-form input::placeholder { color: #7C7A9C; }
+
+.footer__bottom { border-top: 1px solid rgba(255,255,255,0.08); padding: 20px 0; }
+.footer__bottom-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.8rem; color: #8B89AA; }
+
+/* ---------- 16. КНОПКА "НАВЕРХ" ---------- */
+.to-top {
+  position: fixed; bottom: 26px; right: 26px; width: 46px; height: 46px; border-radius: 50%;
+  background: var(--gradient-brand); color: #fff; display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-brand); opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity var(--t-fast), visibility var(--t-fast), transform var(--t-fast);
+  z-index: 90;
+}
+.to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+
+/* ---------- 17. МОДАЛЬНЫЕ ОКНА ---------- */
+.modal { position: fixed; inset: 0; z-index: var(--z-modal); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.modal[hidden] { display: none; }
+.modal__backdrop { position: absolute; inset: 0; background: rgba(10,9,25,0.55); backdrop-filter: blur(4px); animation: fadeIn 0.25s var(--ease); }
+.modal__box {
+  position: relative; background: var(--c-bg); border-radius: var(--radius-lg); max-width: 640px; width: 100%;
+  max-height: 88vh; overflow-y: auto; box-shadow: var(--shadow-lg);
+  animation: modalIn 0.32s var(--ease);
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalIn { from { opacity: 0; transform: translateY(24px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.modal__close {
+  position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--c-bg-alt); z-index: 2; transition: background var(--t-fast);
+}
+.modal__close:hover { background: var(--c-purple-light); color: var(--c-purple); }
+
+.modal__box--video { max-width: 760px; padding: 0; }
+.video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden; }
+.video-wrap iframe { width: 100%; height: 100%; border: 0; }
+.modal__video-info { padding: 24px; }
+.modal__video-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; align-items: center; }
+
+.modal__box--test, .modal__box--auth, .modal__box--cert { padding: 32px; }
+
+/* Тест */
+.test-question { margin-bottom: 22px; }
+.test-question p { font-weight: 600; margin-bottom: 12px; }
+.test-option {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: var(--radius-sm);
+  border: 1.5px solid var(--c-line); margin-bottom: 8px; transition: border-color var(--t-fast), background var(--t-fast);
+}
+.test-option:hover { border-color: var(--c-purple); }
+.test-option.is-correct { border-color: var(--c-success); background: rgba(34,197,94,0.08); }
+.test-option.is-wrong { border-color: var(--c-danger); background: rgba(239,68,68,0.08); }
+.test-result { text-align: center; padding: 20px 0; }
+.test-result strong { font-size: 1.8rem; display: block; margin-bottom: 8px; font-family: var(--font-display); }
+
+/* Авторизация */
+.auth-tabs { display: flex; gap: 8px; margin-bottom: 24px; background: var(--c-bg-alt); border-radius: var(--radius-full); padding: 4px; }
+.auth-tab { flex: 1; padding: 10px; border-radius: var(--radius-full); font-weight: 600; font-size: 0.88rem; color: var(--c-muted); transition: background var(--t-fast), color var(--t-fast); }
+.auth-tab.is-active { background: var(--c-bg); color: var(--c-purple); box-shadow: var(--shadow-sm); }
+.auth-form { display: flex; flex-direction: column; gap: 14px; }
+.auth-note { text-align: center; margin-top: 4px; }
+
+/* Сертификат */
+.certificate { padding: 10px; }
+.certificate__border {
+  border: 2px solid var(--c-purple); border-radius: var(--radius-md); padding: 40px 30px; text-align: center;
+  background: var(--gradient-soft); position: relative;
+}
+.certificate__eyebrow { font-size: 0.72rem; letter-spacing: 0.1em; color: var(--c-purple); font-weight: 700; }
+.certificate__title { font-size: 2rem; margin: 14px 0; background: var(--gradient-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.certificate__name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; margin: 14px 0; }
+.certificate__footer { display: flex; align-items: center; justify-content: space-between; margin-top: 30px; gap: 14px; }
+.certificate__line { display: block; width: 100px; height: 1px; background: var(--c-ink); margin-bottom: 6px; }
+.certificate__seal { font-size: 1.6rem; color: var(--c-purple); }
+
+/* Преподаватель модалка */
+.teacher-modal { padding: 32px; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+.teacher-modal__photo { width: 100px; height: 100px; border-radius: 50%; background: var(--gradient-soft); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; color: var(--c-purple); font-family: var(--font-display); }
+
+/* ---------- 18. TOAST УВЕДОМЛЕНИЯ ---------- */
+.toast-stack { position: fixed; top: 20px; right: 20px; z-index: var(--z-toast); display: flex; flex-direction: column; gap: 10px; }
+.toast {
+  background: var(--c-bg); border: 1px solid var(--c-line); box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md); padding: 14px 18px; min-width: 260px; max-width: 320px;
+  display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 500;
+  animation: toastIn 0.3s var(--ease);
+}
+.toast--success { border-left: 3px solid var(--c-success); }
+.toast--error { border-left: 3px solid var(--c-danger); }
+.toast--info { border-left: 3px solid var(--c-blue); }
+@keyframes toastIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+.toast.is-leaving { animation: toastOut 0.3s var(--ease) forwards; }
+@keyframes toastOut { to { opacity: 0; transform: translateX(30px); } }
+
+/* ---------- 19. АНИМАЦИИ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ ---------- */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- 20. АДАПТИВНОСТЬ ---------- */
+@media (max-width: 1080px) {
+  .dashboard { grid-template-columns: repeat(2, 1fr); }
+  .dash-profile, .dash-ring, .dash-stats, .dash-list, .dash-schedule, .dash-cert { grid-column: span 2; }
+  .dash-ring { grid-column: span 1; }
+  .dash-stats { grid-column: span 1; }
+}
+
+@media (max-width: 980px) {
+  .nav__links { display: none; }
+  .hamburger { display: flex; }
+  .hero__inner { grid-template-columns: 1fr; text-align: center; }
+  .hero__subtitle { margin-left: auto; margin-right: auto; }
+  .hero__actions, .hero__stats { justify-content: center; }
+  .hero__visual { order: -1; margin-bottom: 20px; }
+  .contacts-grid { grid-template-columns: 1fr; }
+  .footer__inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 700px) {
+  .section { padding: 70px 0; }
+  .hero { padding: 130px 0 70px; }
+  .dashboard { grid-template-columns: 1fr; }
+  .dash-profile, .dash-ring, .dash-stats, .dash-list, .dash-schedule, .dash-cert { grid-column: span 1; }
+  .footer__inner { grid-template-columns: 1fr; gap: 30px; }
+  .lessons-toolbar { flex-direction: column; align-items: stretch; }
+  .certificate__footer { flex-direction: column; }
+  .nav__actions .btn--ghost { display: none; }
+  .formula { display: none; }
+  .f1, .f2 { display: inline; }
+}
+
+@media (max-width: 460px) {
+  .hero__stats { flex-direction: column; gap: 14px; align-items: center; }
+  .modal__box { max-height: 92vh; }
+}
+  </style>
 </head>
 <body>
 
-    <div id="preloader-node" class="z-preloader">
-        <div class="z-spinner"></div>
-        <p style="margin-top: 18px; font-size: 14px; font-weight: 600; color: var(--z-text-muted); letter-spacing: 0.04em; text-transform: uppercase;">Сынақ алгоритмдері іске қосылуда...</p>
+  <!-- ============================================================ -->
+  <!-- ПРЕЛОАДЕР -->
+  <!-- ============================================================ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__mark">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="28" stroke="url(#preGrad)" stroke-width="4" stroke-linecap="round" stroke-dasharray="150 176"/>
+        <defs>
+          <linearGradient id="preGrad" x1="0" y1="0" x2="64" y2="64">
+            <stop offset="0" stop-color="#6C4DFF"/>
+            <stop offset="1" stop-color="#2F6BFF"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>DINARA MATH</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- УВЕДОМЛЕНИЯ (тосты) -->
+  <!-- ============================================================ -->
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <!-- ============================================================ -->
+  <!-- ФИКСИРОВАННОЕ МЕНЮ -->
+  <!-- ============================================================ -->
+  <header class="nav" id="siteNav">
+    <div class="nav__inner container">
+      <a href="#home" class="nav__logo" aria-label="DINARA MATH — на главную">
+        <span class="nav__logo-mark">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+            <rect x="1" y="1" width="28" height="28" rx="9" fill="url(#logoGrad)"/>
+            <path d="M8 20L13 10L17 17L22 9" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="0" y1="0" x2="30" y2="30">
+                <stop offset="0" stop-color="#6C4DFF"/>
+                <stop offset="1" stop-color="#2F6BFF"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="nav__logo-text">DINARA<em>MATH</em></span>
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Основная навигация">
+        <a href="#home" class="nav__link is-active">Главная</a>
+        <a href="#courses" class="nav__link">Курсы</a>
+        <a href="#lessons" class="nav__link">Видеоуроки</a>
+        <a href="#teachers" class="nav__link">Учителя</a>
+        <a href="#reviews" class="nav__link">Отзывы</a>
+        <a href="#faq" class="nav__link">FAQ</a>
+        <a href="#contacts" class="nav__link">Контакты</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="icon-btn" id="searchToggle" aria-label="Открыть поиск" aria-expanded="false">
+          <svg width="19" height="19" viewBox="0 0 19 19" fill="none"><circle cx="8.5" cy="8.5" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="M13.5 13.5L17.5 17.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn" id="themeToggle" aria-label="Переключить тему">
+          <svg class="icon-sun" width="19" height="19" viewBox="0 0 19 19" fill="none"><circle cx="9.5" cy="9.5" r="4" stroke="currentColor" stroke-width="1.6"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9.5 1v2M9.5 16v2M1 9.5h2M16 9.5h2M3.5 3.5l1.4 1.4M14.1 14.1l1.4 1.4M3.5 15.5l1.4-1.4M14.1 4.9l1.4-1.4"/></g></svg>
+          <svg class="icon-moon" width="19" height="19" viewBox="0 0 19 19" fill="none"><path d="M16 11.5A7 7 0 118 2a5.6 5.6 0 108 9.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="btn btn--ghost" id="loginBtn">Войти</button>
+        <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
 
-    <header class="z-header">
-        <div class="z-header-content">
-            <a class="z-brand" href="index.html">
-                <h1>ZAMANAT</h1>
-                <div class="z-brand-dot"></div>
+    <!-- Выпадающая строка поиска -->
+    <div class="search-bar" id="searchBar">
+      <div class="container search-bar__inner">
+        <svg width="18" height="18" viewBox="0 0 19 19" fill="none"><circle cx="8.5" cy="8.5" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="M13.5 13.5L17.5 17.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Найти урок: «квадратные уравнения», «теорема Пифагора»…" autocomplete="off" />
+        <button class="icon-btn" id="searchClose" aria-label="Закрыть поиск">✕</button>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Мобильное меню -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" class="mobile-menu__link">Главная</a>
+    <a href="#courses" class="mobile-menu__link">Курсы</a>
+    <a href="#lessons" class="mobile-menu__link">Видеоуроки</a>
+    <a href="#teachers" class="mobile-menu__link">Учителя</a>
+    <a href="#reviews" class="mobile-menu__link">Отзывы</a>
+    <a href="#faq" class="mobile-menu__link">FAQ</a>
+    <a href="#contacts" class="mobile-menu__link">Контакты</a>
+    <button class="btn btn--primary mobile-menu__cta" id="mobileLoginBtn">Войти</button>
+  </div>
+  <div class="mobile-menu__backdrop" id="mobileBackdrop"></div>
+
+  <main id="home">
+
+    <!-- ============================================================ -->
+    <!-- HERO -->
+    <!-- ============================================================ -->
+    <section class="hero">
+      <div class="hero__formulas" aria-hidden="true">
+        <span class="formula f1">x² + y² = r²</span>
+        <span class="formula f2">∑ⁿᵢ₌₁</span>
+        <span class="formula f3">a² + b² = c²</span>
+        <span class="formula f4">π ≈ 3.14159</span>
+        <span class="formula f5">∫f(x)dx</span>
+        <span class="formula f6">sin²α + cos²α = 1</span>
+        <span class="formula f7">√x</span>
+        <span class="formula f8">y = kx + b</span>
+      </div>
+
+      <div class="container hero__inner">
+        <div class="hero__content reveal">
+          <span class="eyebrow">Онлайн-школа математики №1</span>
+          <h1 class="hero__title">DINARA <span class="text-gradient">MATH</span></h1>
+          <p class="hero__subtitle">Изучайте математику легко, понятно и интересно вместе с профессиональными видеоуроками.</p>
+          <div class="hero__actions">
+            <a href="#lessons" class="btn btn--primary btn--lg">
+              Смотреть курсы
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
-            <div class="z-header-meta">
-                <div class="z-subject-pill">
-                    <i class="fa-solid fa-hourglass-half"></i>
-                    <span id="subject-indicator">Қазақстан тарихы — Тереңдетілген</span>
-                </div>
-                <button class="z-btn-exit" onclick="openModalExit()">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Шығу
-                </button>
-            </div>
+            <a href="#courses" class="btn btn--outline btn--lg">Начать обучение</a>
+          </div>
+          <div class="hero__stats">
+            <div class="hero__stat"><strong>12 400+</strong><span>учеников</span></div>
+            <div class="hero__stat"><strong>320+</strong><span>видеоуроков</span></div>
+            <div class="hero__stat"><strong>4.9 / 5</strong><span>средняя оценка</span></div>
+          </div>
         </div>
-    </header>
 
-    <main id="workspace-node" class="z-container">
-        
-        <section class="z-main-panel">
-            <div class="z-panel-header">
-                <span class="z-question-counter" id="ui-index-label">Сұрақ 1 / 10</span>
-                <span class="z-level-badge">ҰБТ форматы</span>
+        <div class="hero__visual reveal">
+          <div class="hero__glow" aria-hidden="true"></div>
+          <div class="hero__card glass">
+            <svg viewBox="0 0 360 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="heroG1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#6C4DFF"/><stop offset="1" stop-color="#2F6BFF"/>
+                </linearGradient>
+              </defs>
+              <!-- Доска -->
+              <rect x="20" y="20" width="320" height="180" rx="18" fill="url(#heroG1)" opacity="0.08"/>
+              <rect x="20" y="20" width="320" height="180" rx="18" stroke="url(#heroG1)" stroke-width="2" fill="none"/>
+              <path d="M50 150 L100 90 L140 130 L200 60 L260 110 L310 55" stroke="url(#heroG1)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="200" cy="60" r="5" fill="#2F6BFF"/>
+              <circle cx="140" cy="130" r="5" fill="#6C4DFF"/>
+              <circle cx="310" cy="55" r="5" fill="#2F6BFF"/>
+              <text x="45" y="185" font-family="JetBrains Mono, monospace" font-size="14" fill="#6C4DFF">f(x) = ax² + bx + c</text>
+              <!-- Ученик -->
+              <circle cx="90" cy="250" r="26" fill="#FFD9A0"/>
+              <path d="M64 296c2-22 20-34 26-34s24 12 26 34" fill="#2F1B4D"/>
+              <rect x="55" y="230" width="70" height="10" rx="5" fill="#6C4DFF"/>
+              <!-- Ученица -->
+              <circle cx="270" cy="250" r="26" fill="#F4B8A0"/>
+              <path d="M244 292c1-24 19-38 26-38s25 14 26 38" fill="#3D2417"/>
+              <rect x="235" y="228" width="70" height="10" rx="5" fill="#2F6BFF"/>
+            </svg>
+            <span class="hero__badge">🎓 Урок в процессе</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="scroll-hint" id="scrollHint" aria-label="Прокрутить вниз">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 7l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- КАТЕГОРИИ -->
+    <!-- ============================================================ -->
+    <section class="section" id="courses">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Направления обучения</span>
+          <h2>Выберите свою категорию</h2>
+          <p class="section__desc">От основ арифметики до высшей математики — подберите путь, который подходит именно вам.</p>
+        </div>
+
+        <div class="cat-grid" id="catGrid">
+          <!-- Карточки категорий рендерятся также через JS-фильтр уроков, но статичны здесь -->
+          <button class="cat-card reveal" data-filter="algebra">
+            <span class="cat-card__icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 21L11 5l4 10 4-8 3 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Алгебра</h3>
+            <p>Уравнения, функции, многочлены</p>
+            <span class="cat-card__count">64 урока</span>
+          </button>
+          <button class="cat-card reveal" data-filter="geometry">
+            <span class="cat-card__icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M13 3l10 18H3L13 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="13" cy="15" r="3" stroke="currentColor" stroke-width="2"/></svg></span>
+            <h3>Геометрия</h3>
+            <p>Фигуры, доказательства, теоремы</p>
+            <span class="cat-card__count">52 урока</span>
+          </button>
+          <button class="cat-card reveal" data-filter="arithmetic">
+            <span class="cat-card__icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M6 13h14M13 6v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <h3>Арифметика</h3>
+            <p>Числа, дроби, проценты</p>
+            <span class="cat-card__count">40 уроков</span>
+          </button>
+          <button class="cat-card reveal" data-filter="exam">
+            <span class="cat-card__icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M5 4h16v18H5V4z" stroke="currentColor" stroke-width="2"/><path d="M9 10h8M9 14h8M9 18h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <h3>Подготовка к экзаменам</h3>
+            <p>ЕНТ, ОГЭ, ЕГЭ и олимпиады школ</p>
+            <span class="cat-card__count">58 уроков</span>
+          </button>
+          <button class="cat-card reveal" data-filter="olympiad">
+            <span class="cat-card__icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M13 3l3 6 6 1-4.5 4.5L18.5 21 13 17.5 7.5 21 8.5 14.5 4 10l6-1 3-6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+            <h3>Олимпиадная математика</h3>
+            <p>Нестандартные и олимпиадные задачи</p>
+            <span class="cat-card__count">31 урок</span>
+          </button>
+          <button class="cat-card reveal" data-filter="logic">
+            <span class="cat-card__icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="9" cy="9" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="17" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 12l2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <h3>Логика</h3>
+            <p>Задачи на мышление и логику</p>
+            <span class="cat-card__count">24 урока</span>
+          </button>
+          <button class="cat-card reveal" data-filter="higher">
+            <span class="cat-card__icon"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 20c4-14 8-14 9-2 1-12 5-12 9 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Высшая математика</h3>
+            <p>Пределы, производные, интегралы</p>
+            <span class="cat-card__count">45 уроков</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ВИДЕОУРОКИ -->
+    <!-- ============================================================ -->
+    <section class="section section--muted" id="lessons">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Каталог</span>
+          <h2>Видеоуроки</h2>
+          <p class="section__desc">Выберите тему — и переходите к обучению прямо сейчас.</p>
+        </div>
+
+        <div class="lessons-toolbar reveal">
+          <div class="chip-row" id="levelFilters">
+            <button class="chip is-active" data-level="all">Все уровни</button>
+            <button class="chip" data-level="beginner">Начинающий</button>
+            <button class="chip" data-level="medium">Средний</button>
+            <button class="chip" data-level="advanced">Продвинутый</button>
+          </div>
+          <div class="select-wrap">
+            <select id="subjectFilter" aria-label="Фильтр по предмету">
+              <option value="all">Все предметы</option>
+              <option value="algebra">Алгебра</option>
+              <option value="geometry">Геометрия</option>
+              <option value="arithmetic">Арифметика</option>
+              <option value="exam">Подготовка к экзаменам</option>
+              <option value="olympiad">Олимпиадная математика</option>
+              <option value="logic">Логика</option>
+              <option value="higher">Высшая математика</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="lessons-grid" id="lessonsGrid"><!-- рендерится через script.js --></div>
+
+        <div class="lessons-empty" id="lessonsEmpty" hidden>
+          <p>По вашему запросу уроков не найдено. Попробуйте изменить фильтры.</p>
+        </div>
+
+        <div class="lessons-more">
+          <button class="btn btn--outline" id="loadMoreBtn">Показать ещё уроки</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ЛИЧНЫЙ КАБИНЕТ -->
+    <!-- ============================================================ -->
+    <section class="section" id="dashboard">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Мой прогресс</span>
+          <h2>Личный кабинет</h2>
+          <p class="section__desc">Демо-режим: данные сохраняются локально в вашем браузере.</p>
+        </div>
+
+        <div class="dashboard reveal">
+          <div class="dash-card dash-profile">
+            <div class="dash-profile__top">
+              <div class="dash-avatar" id="dashAvatar">Д</div>
+              <div>
+                <h3 id="dashName">Гость</h3>
+                <p id="dashEmail" class="muted">Войдите, чтобы сохранять прогресс</p>
+              </div>
             </div>
-            
-            <h2 class="z-question-text" id="ui-question-text-area">
-                Жүктелуде...
-            </h2>
-            
-            <div class="z-options-stack" id="ui-options-container"></div>
-            
-            <div class="z-panel-footer">
-                <button class="z-btn-nav secondary" id="ui-nav-prev" onclick="moveStep(-1)" disabled>
-                    <i class="fa-solid fa-arrow-left"></i> Артқа
-                </button>
-                <button class="z-btn-nav primary" id="ui-nav-next" onclick="moveStep(1)">
-                    Жалғастыру <i class="fa-solid fa-arrow-right"></i>
-                </button>
+            <div class="dash-profile__actions">
+              <button class="btn btn--primary btn--sm" id="dashLoginBtn">Войти в кабинет</button>
+              <button class="btn btn--ghost btn--sm" id="dashLogoutBtn" hidden>Выйти</button>
             </div>
-        </section>
-        
-        <aside class="z-sidebar">
-            
-            <div class="z-timer" id="ui-timer-box">
-                <i class="fa-regular fa-clock"></i>
-                <span id="ui-timer-digits">20:00</span>
+          </div>
+
+          <div class="dash-card dash-ring">
+            <svg width="130" height="130" viewBox="0 0 130 130" class="ring-svg">
+              <circle cx="65" cy="65" r="54" class="ring-track"/>
+              <circle cx="65" cy="65" r="54" class="ring-progress" id="ringProgress"/>
+            </svg>
+            <div class="dash-ring__label">
+              <strong id="ringPercent">0%</strong>
+              <span>курса пройдено</span>
             </div>
-            
-            <div class="z-widget">
-                <h3 class="z-widget-title">Сұрақтар картасы</h3>
-                <div class="z-z-matrix z-matrix" id="ui-matrix-grid"></div>
+          </div>
+
+          <div class="dash-card dash-stats">
+            <div class="dash-stat">
+              <span class="dash-stat__num" id="statCompleted">0</span>
+              <span class="dash-stat__label">завершено уроков</span>
             </div>
-            
-            <div class="z-widget z-ai-widget">
-                <div class="z-ai-w-header">
-                    <div class="z-ai-w-avatar"><i class="fa-solid fa-microchip"></i></div>
-                    <div class="z-ai-w-title">AI Тарихшы хинт</div>
-                </div>
-                <p class="z-ai-w-bubble" id="ui-ai-bubble-area">
-                    Сұрақ мәтініне сәйкес академиялық кеңес алу үшін төмендегі функцияны іске қосыңыз.
-                </p>
-                <button class="z-ai-w-btn" onclick="triggerAiHintInteraction()">
-                    <i class="fa-solid fa-bolt"></i> ИИ Көмегін алу
-                </button>
+            <div class="dash-stat">
+              <span class="dash-stat__num" id="statFav">0</span>
+              <span class="dash-stat__label">в избранном</span>
             </div>
-            
-            <button class="z-btn-finish-all" onclick="finishExamProcess(true)">
-                <i class="fa-solid fa-circle-check"></i> Сынақты аяқтау
+            <div class="dash-stat">
+              <span class="dash-stat__num" id="statAch">0</span>
+              <span class="dash-stat__label">достижения</span>
+            </div>
+          </div>
+
+          <div class="dash-card dash-list" id="favList">
+            <h4>Избранные уроки</h4>
+            <div class="dash-list__items" id="favItems">
+              <p class="muted small">Пока пусто. Добавляйте уроки в избранное значком ♥.</p>
+            </div>
+          </div>
+
+          <div class="dash-card dash-list" id="historyList">
+            <h4>Недавно просмотренные</h4>
+            <div class="dash-list__items" id="historyItems">
+              <p class="muted small">История просмотров появится здесь.</p>
+            </div>
+          </div>
+
+          <div class="dash-card dash-schedule">
+            <h4>Расписание занятий</h4>
+            <div class="schedule-item">
+              <span class="schedule-dot schedule-dot--today"></span>
+              <div>
+                <strong>Сегодня, 18:00</strong>
+                <p class="muted small">Алгебра — Квадратные уравнения</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <span class="schedule-dot"></span>
+              <div>
+                <strong>Пятница, 17:00</strong>
+                <p class="muted small">Геометрия — Теорема Пифагора</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <span class="schedule-dot"></span>
+              <div>
+                <strong>Воскресенье, 12:00</strong>
+                <p class="muted small">Пробный тест ЕНТ</p>
+              </div>
+            </div>
+            <p class="schedule-reminder">⏰ Напоминание придёт за 30 минут до урока</p>
+          </div>
+
+          <div class="dash-card dash-cert" id="certCard">
+            <h4>Сертификат</h4>
+            <p class="muted small">Завершите курс, чтобы получить именной сертификат.</p>
+            <div class="cert-progress-bar"><span id="certProgressBar"></span></div>
+            <button class="btn btn--outline btn--sm" id="viewCertBtn">Посмотреть сертификат</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ПРЕПОДАВАТЕЛИ -->
+    <!-- ============================================================ -->
+    <section class="section section--muted" id="teachers">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Наша команда</span>
+          <h2>Преподаватели</h2>
+          <p class="section__desc">Опытные педагоги, которые умеют объяснять сложное простыми словами.</p>
+        </div>
+
+        <div class="teachers-grid" id="teachersGrid"><!-- рендерится через script.js --></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ОТЗЫВЫ -->
+    <!-- ============================================================ -->
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Нам доверяют</span>
+          <h2>Отзывы учеников</h2>
+        </div>
+
+        <div class="reviews-slider reveal">
+          <div class="reviews-track" id="reviewsTrack"><!-- рендерится через script.js --></div>
+          <div class="reviews-controls">
+            <button class="icon-btn" id="reviewPrev" aria-label="Предыдущий отзыв">‹</button>
+            <div class="reviews-dots" id="reviewDots"></div>
+            <button class="icon-btn" id="reviewNext" aria-label="Следующий отзыв">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FAQ -->
+    <!-- ============================================================ -->
+    <section class="section section--muted" id="faq">
+      <div class="container container--narrow">
+        <div class="section__head reveal">
+          <span class="eyebrow">Частые вопросы</span>
+          <h2>FAQ</h2>
+        </div>
+
+        <div class="accordion reveal" id="accordion">
+          <div class="accordion__item">
+            <button class="accordion__trigger">
+              <span>Как проходят занятия?</span>
+              <span class="accordion__icon">+</span>
             </button>
-            
-        </aside>
-    </main>
-
-    <div id="analytics-node" class="z-analytics-wrapper">
-        <div class="z-report-card">
-            
-            <div class="z-radial-box">
-                <svg class="z-svg-circle">
-                    <defs>
-                        <linearGradient id="goldGradSpec" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#ff9500" />
-                            <stop offset="100%" stop-color="#ff6b00" />
-                        </linearGradient>
-                    </defs>
-                    <circle class="track" cx="90" cy="90" r="80"></circle>
-                    <circle class="bar" id="ui-result-bar" cx="90" cy="90" r="80"></circle>
-                </svg>
-                <div class="z-radial-num">
-                    <b id="ui-result-percentage">0</b>
-                    <span>ПАЙЫЗ</span>
-                </div>
+            <div class="accordion__panel">
+              <p>Все уроки представлены в виде качественных видеозаписей с подробным разбором тем. Вы можете смотреть их в любое удобное время и возвращаться к сложным моментам.</p>
             </div>
-            
-            <h2 class="z-report-title" id="ui-result-title">Есептелуде...</h2>
-            <p class="z-report-desc" id="ui-result-desc"></p>
-            
-            <div class="z-stats-grid">
-                <div class="z-stats-cell">
-                    <div class="num" id="ui-stat-correct">0/0</div>
-                    <div class="lbl">Дұрыс жауаптар</div>
-                </div>
-                <div class="z-stats-cell">
-                    <div class="num" id="ui-stat-time">00:00</div>
-                    <div class="lbl">Жұмсалған уақыт</div>
-                </div>
-                <div class="z-stats-cell">
-                    <div class="num" id="ui-stat-level">Анықталуда</div>
-                    <div class="lbl">Академиялық дәреже</div>
-                </div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger">
+              <span>Нужно ли покупать учебники?</span>
+              <span class="accordion__icon">+</span>
+            </button>
+            <div class="accordion__panel">
+              <p>Нет, все материалы, конспекты и практические задания уже включены в курс и доступны в личном кабинете.</p>
             </div>
-            
-            <div class="z-report-actions">
-                <button class="z-btn-nav secondary" onclick="window.location.reload()">
-                    <i class="fa-solid fa-rotate-left"></i> Қайта тапсыру
-                </button>
-                <button class="z-btn-nav primary" onclick="window.location.href='index.html'">
-                    Басты бетке оралу <i class="fa-solid fa-house"></i>
-                </button>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger">
+              <span>Как отслеживать прогресс обучения?</span>
+              <span class="accordion__icon">+</span>
+            </button>
+            <div class="accordion__panel">
+              <p>В личном кабинете отображается процент прохождения курса, список завершённых уроков и полученные достижения в виде наглядных индикаторов.</p>
             </div>
-            
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger">
+              <span>Выдаётся ли сертификат после прохождения курса?</span>
+              <span class="accordion__icon">+</span>
+            </button>
+            <div class="accordion__panel">
+              <p>Да, после завершения курса автоматически формируется именной сертификат, который можно скачать прямо из личного кабинета.</p>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger">
+              <span>Подходит ли платформа для подготовки к экзаменам?</span>
+              <span class="accordion__icon">+</span>
+            </button>
+            <div class="accordion__panel">
+              <p>Да, у нас есть отдельный раздел с уроками для подготовки к ЕНТ, ОГЭ, ЕГЭ и школьным олимпиадам.</p>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- КОНТАКТЫ -->
+    <!-- ============================================================ -->
+    <section class="section" id="contacts">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">На связи</span>
+          <h2>Контакты</h2>
+          <p class="section__desc">Остались вопросы? Напишите нам, ответим в течение дня.</p>
+        </div>
+
+        <div class="contacts-grid reveal">
+          <div class="contacts-info">
+            <a href="mailto:hello@dinaramath.kz" class="contact-item">
+              <span class="contact-item__icon">✉️</span>
+              <div><strong>Email</strong><p>hello@dinaramath.kz</p></div>
+            </a>
+            <a href="https://wa.me/77000000000" class="contact-item" target="_blank" rel="noopener">
+              <span class="contact-item__icon">💬</span>
+              <div><strong>WhatsApp</strong><p>+7 700 000 00 00</p></div>
+            </a>
+            <a href="https://instagram.com" class="contact-item" target="_blank" rel="noopener">
+              <span class="contact-item__icon">📷</span>
+              <div><strong>Instagram</strong><p>@dinaramath</p></div>
+            </a>
+            <a href="https://t.me" class="contact-item" target="_blank" rel="noopener">
+              <span class="contact-item__icon">✈️</span>
+              <div><strong>Telegram</strong><p>@dinaramath</p></div>
+            </a>
+            <div class="contact-item">
+              <span class="contact-item__icon">📍</span>
+              <div><strong>Адрес</strong><p>г. Уральск, ул. Достык, 12</p></div>
+            </div>
+
+            <div class="map-embed">
+              <iframe title="Карта расположения офиса" src="https://www.openstreetmap.org/export/embed.html?bbox=51.32%2C51.20%2C51.42%2C51.26&layer=mapnik" loading="lazy"></iframe>
+            </div>
+          </div>
+
+          <form class="contact-form glass" id="contactForm" novalidate>
+            <h3>Напишите нам</h3>
+            <div class="form-row">
+              <label for="cfName">Имя</label>
+              <input type="text" id="cfName" name="name" placeholder="Ваше имя" required minlength="2" />
+              <span class="form-error" data-for="cfName"></span>
+            </div>
+            <div class="form-row">
+              <label for="cfEmail">Email</label>
+              <input type="email" id="cfEmail" name="email" placeholder="you@example.com" required />
+              <span class="form-error" data-for="cfEmail"></span>
+            </div>
+            <div class="form-row">
+              <label for="cfPhone">Телефон</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+7 (___) ___-__-__" />
+              <span class="form-error" data-for="cfPhone"></span>
+            </div>
+            <div class="form-row">
+              <label for="cfMsg">Сообщение</label>
+              <textarea id="cfMsg" name="message" rows="4" placeholder="Расскажите, чем можем помочь" required minlength="10"></textarea>
+              <span class="form-error" data-for="cfMsg"></span>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">Отправить сообщение</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER -->
+  <!-- ============================================================ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#home" class="nav__logo">
+          <span class="nav__logo-mark">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+              <rect x="1" y="1" width="28" height="28" rx="9" fill="url(#logoGradFooter)"/>
+              <path d="M8 20L13 10L17 17L22 9" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="logoGradFooter" x1="0" y1="0" x2="30" y2="30">
+                  <stop offset="0" stop-color="#6C4DFF"/>
+                  <stop offset="1" stop-color="#2F6BFF"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          <span class="nav__logo-text">DINARA<em>MATH</em></span>
+        </a>
+        <p class="footer__tagline">Математика, которая нравится. Учитесь в своём темпе — с видеоуроками, тестами и наставниками рядом.</p>
+        <div class="footer__socials">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+          <a href="https://t.me" target="_blank" rel="noopener" aria-label="Telegram">✈️</a>
+          <a href="https://wa.me/77000000000" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h5>Навигация</h5>
+        <a href="#courses">Курсы</a>
+        <a href="#lessons">Видеоуроки</a>
+        <a href="#teachers">Учителя</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="footer__col">
+        <h5>Информация</h5>
+        <a href="#" id="privacyLink">Политика конфиденциальности</a>
+        <a href="#contacts">Контакты</a>
+        <a href="#" id="termsLink">Условия использования</a>
+      </div>
+
+      <div class="footer__col footer__newsletter">
+        <h5>Будьте в курсе</h5>
+        <p class="muted small">Подпишитесь на новости о новых уроках и вебинарах.</p>
+        <form id="newsletterForm" class="newsletter-form">
+          <input type="email" placeholder="Ваш email" required aria-label="Email для подписки" />
+          <button type="submit" class="btn btn--primary btn--sm">OK</button>
+        </form>
+      </div>
     </div>
 
-    <div id="modal-exit-node" class="z-modal-overlay">
-        <div class="z-modal">
-            <h3 class="z-modal-title">Тестті тоқтатуды растайсыз ба?</h3>
-            <p class="z-modal-desc">Егер қазір шығып кетсеңіз, ағымдағы белгілеген барлық жауаптарыңыз бен уақыт көрсеткіштеріңіз толығымен жойылады.</p>
-            <div class="z-modal-row">
-                <button class="z-btn-nav secondary" style="padding: 10px 22px; font-size: 14px;" onclick="closeModalExit()">Қалу</button>
-                <button class="z-btn-nav primary" style="padding: 10px 22px; font-size: 14px; background: var(--z-error);" onclick="window.location.href='index.html'">Тестті тоқтату</button>
-            </div>
-        </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <span>© <span id="year"></span> DINARA MATH. Все права защищены.</span>
+        <span class="muted small">Сделано с ♥ для тех, кто любит математику</span>
+      </div>
     </div>
+  </footer>
 
-    <script>
-        // Академическая база данных: 10 эталонных вопросов повышенной сложности по истории Казахстана
-        const quizDataset = [
-            {
-                qId: "z-hist-01",
-                question: "1465 жылы Керей мен Жәнібек сұлтандардың Қазақ хандығының негізін қалаған тарихи территориялық локациясын көрсетіңіз:",
-                options: [
-                    "Орталық Сарыарқа мен Ұлытау тауларының географиялық периметрі",
-                    "Шу мен Талас өзендерінің аралығындағы Қозыбасы өңірі",
-                    "Сырдария өзенінің орта ағысы бойындағы Түркістан оазисі",
-                    "Каспий маңы ойпаты мен Жайық өзенінің төменгі аңғары"
-                ],
-                correctIndex: 1,
-                aiHint: "Бұл территория Моғолстан мемлекетінің батыс аймағы болып саналған және Есенбұға ханның қолдауымен берілген."
-            },
-            {
-                qId: "z-hist-02",
-                question: "ХVI ғасырдың бірінші ширегінде Қазақ хандығының қуаттылығын арттырып, халқының санын 1 миллионға жеткізген билеуші:",
-                options: [
-                    "Бұрындық хан",
-                    "Хақназар хан",
-                    "Қасым хан",
-                    "Тәуекел хан"
-                ],
-                correctIndex: 2,
-                aiHint: "Осы ханның тұсында тұңғыш рет мемлекеттік заңдар жинағы — 'Қасқа жол' әзірленіп, ресми түрде бекітілді."
-            },
-            {
-                qId: "z-hist-03",
-                question: "1729-1730 жылдары үш жүздің біріккен жасақтары жоңғар басқыншыларына стратегиялық күйрете соққы берген ұлы шайқас:",
-                options: [
-                    "Бұланты шайқасы",
-                    "Аңырақай шайқасы",
-                    "Орбулақ шайқасы",
-                    "Аягөз шайқасы"
-                ],
-                correctIndex: 1,
-                aiHint: "Шайқас Балқаш көлінің оңтүстік-батыс бағытындағы таулы беткейлерде өтіп, жоңғарлардың толық жеңілісімен аяқталды."
-            },
-            {
-                qId: "z-hist-04",
-                question: "1917 жылы Орынбор қаласында ұйымдастырылған Бірінші жалпықазақ съезінің күн тәртібіндегі ең басты тарихи шешімі:",
-                options: [
-                    "Түркістан мұхтарияты үкіметімен шұғыл түрде бірігу",
-                    "Алаш саяси партиясын құру және ұлттық автономия жоспарын бекіту",
-                    "Патшалық Ресейдің әскери коалициясына қолдау көрсету туралы декрет",
-                    "Батыс Алашорда бөлімшесін құру туралы қаулы қабылдау"
-                ],
-                correctIndex: 1,
-                aiHint: "Бұл съезде қазақ зиялылары ұлттық мүддені қорғайтын дербес саяси құрылым құруды мақсат етті."
-            },
-            {
-                qId: "z-hist-05",
-                question: "ХХ ғасырдың басында жарық көрген, ұлттық сана-сезімді оятуда ерекше рөл атқарған «Қазақ» газетінің бас редакторы кім?",
-                options: [
-                    "Әлихан Бөкейханов",
-                    "Міржақып Дулатов",
-                    "Ахмет Байтұрсынов",
-                    "Мұстафа Шоқай"
-                ],
-                correctIndex: 2,
-                aiHint: "Ол — қазақ тіл білімінің негізін салушы, реформатор, 'Тіл — құрал' оқулығының авторы."
-            },
-            {
-                qId: "z-hist-06",
-                question: "Есім ханның билігі тұсында қабылданып, әдет-ғұрып құқықтарын заңдастырған мемлекеттік кодекс қалай аталды?",
-                options: [
-                    "Жеті жарғы",
-                    "Қасым ханның қасқа жолы",
-                    "Есім ханның ескі жолы",
-                    "Жарлық заңдары"
-                ],
-                correctIndex: 2,
-                aiHint: "Бұл құжат Тәуке ханның 'Жеті жарғысына' дейінгі кезеңде қазақ қоғамының құқықтық негізін қалады."
-            },
-            {
-                qId: "z-hist-07",
-                question: "Шоқан Уәлихановтың 1858-1859 жылдары әлемдік географиялық жаңалықтар деңгейінде орындаған құпия экспедициясының бағыты:",
-                options: [
-                    "Хива және Бұхара әмірліктерінің ішкі аймақтары",
-                    "Тибет пен Үндістанның шекаралас биік таулары",
-                    "Қашқария өңірі (Батыс Қытай аумағы)",
-                    "Батыс Сібір және Алтай тау-кен өндірістік округтері"
-                ],
-                correctIndex: 3,
-                aiHint: "Шоқан бұл аймаққа саудагер Әлімбай кейпінде барып, Еуропа ғылымы үшін жабық өңірдің сипаттамасын жасады."
-            },
-            {
-                qId: "z-hist-08",
-                question: "1837-1847 жылдары болған Қазақстан аумағындағы ең ауқымды ұлт-азаттық көтерілістің бас қолбасшысы, соңғы жалпықазақ ханы:",
-                options: [
-                    "Сырым Датұлы",
-                    "Исатай Тайманов",
-                    "Кенесары Қасымұлы",
-                    "Жанқожа Нұрмұхамедұлы"
-                ],
-                correctIndex: 2,
-                aiHint: "Ол Абылай ханның немересі болып табылады және Ресей империясының отарлау саясатына қарсы 10 жыл бойы соғысты."
-            },
-            {
-                qId: "z-hist-09",
-                question: "Тәуке ханның тапсырмасымен «Жеті жарғы» заңдар жинағын құрастыруға қатысқан Ұлы жүздің атақты биі, мемлекеттік қайраткер:",
-                options: [
-                    "Қазыбек би",
-                    "Әйтеке би",
-                    "Төле би",
-                    "Мөңке би"
-                ],
-                correctIndex: 2,
-                aiHint: "Үйсін шапырашты руынан шыққан бұл тұлға Ташкент қаласында ұзақ жылдар бойы билік жүргізген."
-            },
-            {
-                qId: "z-hist-10",
-                question: "1991 жылы 16 желтоқсанда қабылданып, егемен Қазақстанның жаңа тарихына негіз қалаған тарихи-құқықтық құжат:",
-                options: [
-                    "Қазақ КСР-інің Мемлекеттік егемендігі туралы Декларация",
-                    "Қазақстан Республикасының Мемлекеттік Тәуелсіздігі туралы Конституциялық Заң",
-                    "Қазақстан Республикасының алғашқы Төл Конституциясы",
-                    "Тәуелсіз Мемлекеттер Достығын құру туралы Алматы Хаттамасы"
-                ],
-                correctIndex: 1,
-                aiHint: "Бұл заң қабылданған күн бүгінде елімізде мемлекеттік деңгейдегі ең басты мереке ретінде атап өтіледі."
-            }
-        ];
+  <!-- Кнопка "Наверх" -->
+  <button class="to-top" id="toTop" aria-label="Наверх">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 11l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
 
-        // Глобальное состояние сессии тестирования
-        let activeIdx = 0;
-        const totalCount = quizDataset.length;
-        let selectedAnswers = new Array(totalCount).fill(null);
-        let secondsRemaining = 20 * 60; // 20 минут обратного отсчета
-        let tickerInterval = null;
-        let elapsedSeconds = 0;
+  <!-- ============================================================ -->
+  <!-- МОДАЛЬНОЕ ОКНО: ВИДЕО -->
+  <!-- ============================================================ -->
+  <div class="modal" id="videoModal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle" hidden>
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__box modal__box--video">
+      <button class="modal__close" data-close-modal aria-label="Закрыть">✕</button>
+      <div class="video-wrap" id="videoWrap"></div>
+      <div class="modal__video-info">
+        <h3 id="videoModalTitle"></h3>
+        <p id="videoModalDesc" class="muted"></p>
+        <div class="modal__video-actions">
+          <button class="btn btn--primary btn--sm" id="markCompleteBtn">Отметить как пройденный</button>
+          <button class="btn btn--outline btn--sm" id="startTestBtn">Пройти мини-тест</button>
+          <button class="icon-btn" id="modalFavBtn" aria-label="Добавить в избранное">♡</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        // Автоматический запуск при полной готовности DOM
-        document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(() => {
-                const preloader = document.getElementById("preloader-node");
-                if (preloader) preloader.classList.add("loaded");
-                
-                buildMatrixGrid();
-                renderQuestion();
-                runChronometer();
-            }, 750);
+  <!-- ============================================================ -->
+  <!-- МОДАЛЬНОЕ ОКНО: ТЕСТ -->
+  <!-- ============================================================ -->
+  <div class="modal" id="testModal" role="dialog" aria-modal="true" aria-labelledby="testModalTitle" hidden>
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__box modal__box--test">
+      <button class="modal__close" data-close-modal aria-label="Закрыть">✕</button>
+      <h3 id="testModalTitle">Мини-тест</h3>
+      <div id="testBody"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- МОДАЛЬНОЕ ОКНО: ВХОД / РЕГИСТРАЦИЯ (демо) -->
+  <!-- ============================================================ -->
+  <div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle" hidden>
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__box modal__box--auth">
+      <button class="modal__close" data-close-modal aria-label="Закрыть">✕</button>
+      <div class="auth-tabs">
+        <button class="auth-tab is-active" data-tab="login">Вход</button>
+        <button class="auth-tab" data-tab="register">Регистрация</button>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <h3 id="authModalTitle">Добро пожаловать</h3>
+        <div class="form-row">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" required placeholder="you@example.com" />
+          <span class="form-error" data-for="loginEmail"></span>
+        </div>
+        <div class="form-row">
+          <label for="loginPass">Пароль</label>
+          <input type="password" id="loginPass" required minlength="4" placeholder="••••••••" />
+          <span class="form-error" data-for="loginPass"></span>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Войти (демо)</button>
+        <p class="auth-note muted small">Это демо-режим: данные сохраняются только локально в вашем браузере.</p>
+      </form>
+
+      <form id="registerForm" class="auth-form" hidden>
+        <h3>Создать аккаунт</h3>
+        <div class="form-row">
+          <label for="regName">Имя</label>
+          <input type="text" id="regName" required minlength="2" placeholder="Как вас зовут?" />
+          <span class="form-error" data-for="regName"></span>
+        </div>
+        <div class="form-row">
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" required placeholder="you@example.com" />
+          <span class="form-error" data-for="regEmail"></span>
+        </div>
+        <div class="form-row">
+          <label for="regPass">Пароль</label>
+          <input type="password" id="regPass" required minlength="4" placeholder="Минимум 4 символа" />
+          <span class="form-error" data-for="regPass"></span>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Зарегистрироваться (демо)</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- МОДАЛЬНОЕ ОКНО: СЕРТИФИКАТ -->
+  <!-- ============================================================ -->
+  <div class="modal" id="certModal" role="dialog" aria-modal="true" aria-labelledby="certModalTitle" hidden>
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__box modal__box--cert">
+      <button class="modal__close" data-close-modal aria-label="Закрыть">✕</button>
+      <div class="certificate" id="certificate">
+        <div class="certificate__border">
+          <span class="certificate__eyebrow">СЕРТИФИКАТ ОБ ОКОНЧАНИИ КУРСА</span>
+          <h2 class="certificate__title">DINARA MATH</h2>
+          <p class="certificate__text">Настоящим подтверждается, что</p>
+          <p class="certificate__name" id="certName">Ваше имя</p>
+          <p class="certificate__text">успешно завершил(а) курс математики на платформе DINARA MATH</p>
+          <div class="certificate__footer">
+            <div>
+              <span class="certificate__line"></span>
+              <span class="small">Дата: <span id="certDate"></span></span>
+            </div>
+            <div class="certificate__seal">✦</div>
+            <div>
+              <span class="certificate__line"></span>
+              <span class="small">Подпись куратора</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn--primary btn--full" id="downloadCertBtn">Скачать сертификат</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- МОДАЛЬНОЕ ОКНО: ПРЕПОДАВАТЕЛЬ -->
+  <!-- ============================================================ -->
+  <div class="modal" id="teacherModal" role="dialog" aria-modal="true" aria-labelledby="teacherModalTitle" hidden>
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__box modal__box--teacher" id="teacherModalBody"></div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+   DINARA MATH — script.js
+   Вся клиентская логика сайта: рендер данных, фильтры, модалки,
+   личный кабинет, тесты, сертификаты, тема, уведомления, LocalStorage.
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  /* ============================================================
+     1. ДАННЫЕ (демо-контент)
+     ============================================================ */
+
+  const SUBJECT_LABELS = {
+    algebra: 'Алгебра',
+    geometry: 'Геометрия',
+    arithmetic: 'Арифметика',
+    exam: 'Подготовка к экзаменам',
+    olympiad: 'Олимпиадная математика',
+    logic: 'Логика',
+    higher: 'Высшая математика'
+  };
+
+  const LEVEL_LABELS = { beginner: 'Начинающий', medium: 'Средний', advanced: 'Продвинутый' };
+
+  // Палитра для генеративных обложек уроков (SVG)
+  const COVER_PALETTES = [
+    ['#6C4DFF', '#2F6BFF'], ['#FF6D9C', '#6C4DFF'], ['#2F6BFF', '#22C5C5'],
+    ['#FFA23A', '#FF6D9C'], ['#22C55E', '#2F6BFF'], ['#6C4DFF', '#22C5C5']
+  ];
+
+  function lessonCoverSVG(seed, symbol) {
+    const pal = COVER_PALETTES[seed % COVER_PALETTES.length];
+    return `<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="cg${seed}" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="${pal[0]}"/><stop offset="1" stop-color="${pal[1]}"/>
+      </linearGradient></defs>
+      <rect width="320" height="180" fill="url(#cg${seed})"/>
+      <text x="50%" y="58%" font-family="JetBrains Mono, monospace" font-size="46" fill="rgba(255,255,255,0.85)" text-anchor="middle" dominant-baseline="middle">${symbol}</text>
+    </svg>`;
+  }
+
+  const LESSONS = [
+    { id: 1, title: 'Квадратные уравнения: полный разбор', subject: 'algebra', level: 'medium', duration: '18:24', students: 3120, rating: 4.9, desc: 'Учимся решать квадратные уравнения через дискриминант и теорему Виета.', symbol: 'x²', video: 'M7lc1UVf-VE' },
+    { id: 2, title: 'Теорема Пифагора на практике', subject: 'geometry', level: 'beginner', duration: '12:10', students: 4210, rating: 4.8, desc: 'Разбираем доказательство теоремы Пифагора и решаем задачи на прямоугольные треугольники.', symbol: 'a²+b²', video: 'M7lc1UVf-VE' },
+    { id: 3, title: 'Проценты и дроби без страха', subject: 'arithmetic', level: 'beginner', duration: '09:47', students: 5490, rating: 4.7, desc: 'Простые приёмы для быстрого счёта процентов и работы с обыкновенными дробями.', symbol: '%', video: 'M7lc1UVf-VE' },
+    { id: 4, title: 'Подготовка к ЕНТ: типовые задачи', subject: 'exam', level: 'advanced', duration: '26:03', students: 2870, rating: 4.9, desc: 'Разбор реальных заданий из ЕНТ прошлых лет с пошаговыми решениями.', symbol: 'ЕНТ', video: 'M7lc1UVf-VE' },
+    { id: 5, title: 'Олимпиадные задачи: комбинаторика', subject: 'olympiad', level: 'advanced', duration: '21:55', students: 1340, rating: 5.0, desc: 'Нестандартные подходы к решению олимпиадных задач по комбинаторике.', symbol: 'n!', video: 'M7lc1UVf-VE' },
+    { id: 6, title: 'Логические задачи для тренировки ума', subject: 'logic', level: 'beginner', duration: '14:12', students: 3980, rating: 4.6, desc: 'Развиваем логическое мышление на весёлых и полезных задачах.', symbol: '?', video: 'M7lc1UVf-VE' },
+    { id: 7, title: 'Производная функции: с нуля', subject: 'higher', level: 'advanced', duration: '24:41', students: 1980, rating: 4.8, desc: 'Понятное введение в производные с примерами из жизни.', symbol: "f'(x)", video: 'M7lc1UVf-VE' },
+    { id: 8, title: 'Системы линейных уравнений', subject: 'algebra', level: 'medium', duration: '16:33', students: 2650, rating: 4.7, desc: 'Методы подстановки, сложения и Крамера для решения систем уравнений.', symbol: '{=', video: 'M7lc1UVf-VE' },
+    { id: 9, title: 'Площади фигур: формулы и логика', subject: 'geometry', level: 'medium', duration: '13:58', students: 3410, rating: 4.8, desc: 'Учимся находить площади треугольников, кругов и многоугольников.', symbol: 'S', video: 'M7lc1UVf-VE' },
+    { id: 10, title: 'Интегралы для начинающих', subject: 'higher', level: 'advanced', duration: '28:15', students: 1120, rating: 4.9, desc: 'Первое знакомство с интегралами и их геометрическим смыслом.', symbol: '∫', video: 'M7lc1UVf-VE' },
+    { id: 11, title: 'Быстрый устный счёт', subject: 'arithmetic', level: 'beginner', duration: '11:02', students: 6120, rating: 4.9, desc: 'Приёмы устного счёта, которые пригодятся на экзаменах и в жизни.', symbol: '+−', video: 'M7lc1UVf-VE' },
+    { id: 12, title: 'Подготовка к олимпиаде по геометрии', subject: 'olympiad', level: 'advanced', duration: '19:47', students: 980, rating: 5.0, desc: 'Сложные геометрические конструкции для олимпиадных задач.', symbol: '△', video: 'M7lc1UVf-VE' }
+  ];
+
+  const TEACHERS = [
+    { name: 'Динара Ахметова', exp: '12 лет опыта', subjects: ['Алгебра', 'Экзамены'], bio: 'Основательница школы. Готовит призёров республиканских олимпиад и учеников с максимальным баллом на ЕНТ.' },
+    { name: 'Арман Есенов', exp: '8 лет опыта', subjects: ['Геометрия', 'Логика'], bio: 'Специалист по геометрии, умеет объяснять доказательства через наглядные образы.' },
+    { name: 'Алия Смагулова', exp: '6 лет опыта', subjects: ['Арифметика', 'Начальная школа'], bio: 'Помогает детям полюбить математику с первых уроков, без страха и стресса.' },
+    { name: 'Тимур Бекенов', exp: '10 лет опыта', subjects: ['Высшая математика'], bio: 'Преподаёт пределы, производные и интегралы студентам и старшеклассникам.' }
+  ];
+
+  const REVIEWS = [
+    { name: 'Айгерим К.', text: 'Наконец-то поняла квадратные уравнения! Динара объясняет так, что всё становится очевидным.', stars: 5 },
+    { name: 'Данияр С.', text: 'Сдал ЕНТ на 118 баллов благодаря разделу подготовки к экзаменам. Спасибо огромное!', stars: 5 },
+    { name: 'Мадина Р.', text: 'Ребёнок теперь сам просит позаниматься математикой. Раньше это было невозможно представить.', stars: 5 },
+    { name: 'Ерлан Т.', text: 'Отличная структура курсов и удобный личный кабинет с прогрессом.', stars: 4 },
+    { name: 'Жанна О.', text: 'Прошла олимпиадный курс и заняла призовое место в городской олимпиаде.', stars: 5 }
+  ];
+
+  const TEST_BANK = {
+    default: [
+      { q: 'Чему равен дискриминант уравнения x² − 5x + 6 = 0?', options: ['1', '25', '49'], correct: 0 },
+      { q: 'Сумма углов треугольника равна…', options: ['90°', '180°', '360°'], correct: 1 },
+      { q: 'Чему равно √49?', options: ['6', '7', '8'], correct: 1 }
+    ]
+  };
+
+  /* ============================================================
+     2. СОСТОЯНИЕ / LOCALSTORAGE
+     ============================================================ */
+
+  const STORAGE_KEY = 'dinaraMath_state_v1';
+
+  const defaultState = {
+    theme: 'light',
+    user: null,             // { name, email }
+    completedLessons: [],   // id[]
+    favorites: [],          // id[]
+    history: [],            // [{id, ts}]
+    achievements: []
+  };
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { ...defaultState };
+      return { ...defaultState, ...JSON.parse(raw) };
+    } catch (e) {
+      return { ...defaultState };
+    }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) { /* localStorage недоступен — просто игнорируем */ }
+  }
+
+  let state = loadState();
+
+  /* ============================================================
+     3. УТИЛИТЫ
+     ============================================================ */
+
+  const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+  const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
+
+  function showToast(message, type) {
+    const stack = $('#toastStack');
+    if (!stack) return;
+    const el = document.createElement('div');
+    el.className = 'toast toast--' + (type || 'info');
+    const icons = { success: '✅', error: '⚠️', info: 'ℹ️' };
+    el.innerHTML = `<span>${icons[type] || icons.info}</span><span>${message}</span>`;
+    stack.appendChild(el);
+    setTimeout(() => {
+      el.classList.add('is-leaving');
+      setTimeout(() => el.remove(), 300);
+    }, 3200);
+  }
+
+  function debounce(fn, delay) {
+    let t;
+    return function (...args) {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, args), delay);
+    };
+  }
+
+  /* ============================================================
+     4. ПРЕЛОАДЕР
+     ============================================================ */
+
+  window.addEventListener('load', () => {
+    const pre = $('#preloader');
+    setTimeout(() => pre && pre.classList.add('is-hidden'), 400);
+  });
+  // Подстраховка, если событие load уже прошло
+  setTimeout(() => { const p = $('#preloader'); if (p) p.classList.add('is-hidden'); }, 2500);
+
+  /* ============================================================
+     5. ТЕМА (светлая/тёмная)
+     ============================================================ */
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    state.theme = theme;
+    saveState();
+  }
+  applyTheme(state.theme || 'light');
+
+  $('#themeToggle').addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    showToast(next === 'dark' ? 'Тёмная тема включена' : 'Светлая тема включена', 'info');
+  });
+
+  /* ============================================================
+     6. НАВИГАЦИЯ: скролл-стиль, активная ссылка, мобильное меню
+     ============================================================ */
+
+  const siteNav = $('#siteNav');
+  window.addEventListener('scroll', debounce(() => {
+    siteNav.classList.toggle('is-scrolled', window.scrollY > 40);
+    toggleToTop();
+    highlightActiveLink();
+  }, 30));
+
+  function highlightActiveLink() {
+    const sections = $$('main > section, main');
+    let currentId = 'home';
+    const scrollPos = window.scrollY + 140;
+    $$('section[id]').forEach(sec => {
+      if (sec.offsetTop <= scrollPos) currentId = sec.id;
+    });
+    $$('.nav__link').forEach(link => {
+      link.classList.toggle('is-active', link.getAttribute('href') === '#' + currentId);
+    });
+  }
+
+  // Плавная прокрутка для всех внутренних ссылок
+  $$('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const id = link.getAttribute('href');
+      if (id.length < 2) return;
+      const target = $(id);
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop - 84, behavior: 'smooth' });
+        closeMobileMenu();
+      }
+    });
+  });
+
+  $('#scrollHint').addEventListener('click', () => {
+    window.scrollTo({ top: $('#courses').offsetTop - 84, behavior: 'smooth' });
+  });
+
+  // Мобильное меню
+  const hamburger = $('#hamburger');
+  const mobileMenu = $('#mobileMenu');
+  const mobileBackdrop = $('#mobileBackdrop');
+
+  function openMobileMenu() {
+    hamburger.classList.add('is-active');
+    hamburger.setAttribute('aria-expanded', 'true');
+    mobileMenu.classList.add('is-open');
+    mobileBackdrop.classList.add('is-open');
+  }
+  function closeMobileMenu() {
+    hamburger.classList.remove('is-active');
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.remove('is-open');
+    mobileBackdrop.classList.remove('is-open');
+  }
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.contains('is-open') ? closeMobileMenu() : openMobileMenu();
+  });
+  mobileBackdrop.addEventListener('click', closeMobileMenu);
+  $('#mobileLoginBtn').addEventListener('click', () => { closeMobileMenu(); openAuthModal(); });
+
+  /* ============================================================
+     7. КНОПКА "НАВЕРХ"
+     ============================================================ */
+  const toTopBtn = $('#toTop');
+  function toggleToTop() { toTopBtn.classList.toggle('is-visible', window.scrollY > 500); }
+  toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  /* ============================================================
+     8. ПОИСК ПО УРОКАМ
+     ============================================================ */
+  const searchToggle = $('#searchToggle');
+  const searchBar = $('#searchBar');
+  const searchInput = $('#searchInput');
+  const searchResults = $('#searchResults');
+
+  function openSearch() {
+    searchBar.classList.add('is-open');
+    searchToggle.setAttribute('aria-expanded', 'true');
+    setTimeout(() => searchInput.focus(), 200);
+  }
+  function closeSearch() {
+    searchBar.classList.remove('is-open');
+    searchToggle.setAttribute('aria-expanded', 'false');
+    searchResults.classList.remove('is-open');
+    searchInput.value = '';
+  }
+  searchToggle.addEventListener('click', () => {
+    searchBar.classList.contains('is-open') ? closeSearch() : openSearch();
+  });
+  $('#searchClose').addEventListener('click', closeSearch);
+
+  searchInput.addEventListener('input', debounce(() => {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) { searchResults.classList.remove('is-open'); return; }
+    const matches = LESSONS.filter(l =>
+      l.title.toLowerCase().includes(q) ||
+      l.desc.toLowerCase().includes(q) ||
+      SUBJECT_LABELS[l.subject].toLowerCase().includes(q)
+    ).slice(0, 6);
+
+    searchResults.innerHTML = matches.length
+      ? matches.map(l => `
+        <div class="search-result-item" data-id="${l.id}">
+          <img src="data:image/svg+xml;utf8,${encodeURIComponent(lessonCoverSVG(l.id, l.symbol))}" alt="" />
+          <div><strong>${l.title}</strong><span class="muted small">${SUBJECT_LABELS[l.subject]} · ${l.duration}</span></div>
+        </div>
+      `).join('')
+      : `<div class="search-result-empty">Ничего не найдено по запросу «${q}»</div>`;
+
+    searchResults.classList.add('is-open');
+  }, 200));
+
+  searchResults.addEventListener('click', (e) => {
+    const item = e.target.closest('.search-result-item');
+    if (!item) return;
+    const lesson = LESSONS.find(l => l.id === Number(item.dataset.id));
+    if (lesson) { openVideoModal(lesson); closeSearch(); }
+  });
+
+  /* ============================================================
+     9. РЕНДЕР: ВИДЕОУРОКИ + ФИЛЬТРЫ
+     ============================================================ */
+
+  const lessonsGrid = $('#lessonsGrid');
+  const lessonsEmpty = $('#lessonsEmpty');
+  const loadMoreBtn = $('#loadMoreBtn');
+  let activeLevel = 'all';
+  let activeSubject = 'all';
+  let visibleCount = 6;
+
+  function lessonCardHTML(l) {
+    const isFav = state.favorites.includes(l.id);
+    return `
+    <article class="lesson-card" data-id="${l.id}">
+      <div class="lesson-card__cover">
+        ${lessonCoverSVG(l.id, l.symbol)}
+        <span class="lesson-card__level">${LEVEL_LABELS[l.level]}</span>
+        <button class="lesson-card__fav ${isFav ? 'is-active' : ''}" data-fav="${l.id}" aria-label="В избранное">${isFav ? '♥' : '♡'}</button>
+        <span class="lesson-card__duration">${l.duration}</span>
+        <div class="lesson-card__play" data-play="${l.id}"><span>▶</span></div>
+      </div>
+      <div class="lesson-card__body">
+        <h3>${l.title}</h3>
+        <p class="lesson-card__desc">${l.desc}</p>
+        <div class="lesson-card__meta">
+          <span>👥 ${l.students.toLocaleString('ru-RU')}</span>
+          <span class="lesson-card__rating">★ ${l.rating}</span>
+        </div>
+        <button class="btn btn--outline btn--sm lesson-card__watch" data-play="${l.id}">Смотреть</button>
+      </div>
+    </article>`;
+  }
+
+  function getFilteredLessons() {
+    return LESSONS.filter(l =>
+      (activeLevel === 'all' || l.level === activeLevel) &&
+      (activeSubject === 'all' || l.subject === activeSubject)
+    );
+  }
+
+  function renderLessons() {
+    const filtered = getFilteredLessons();
+    const toShow = filtered.slice(0, visibleCount);
+    lessonsGrid.innerHTML = toShow.map(lessonCardHTML).join('');
+    lessonsEmpty.hidden = filtered.length !== 0;
+    loadMoreBtn.style.display = visibleCount >= filtered.length ? 'none' : 'inline-flex';
+    observeReveals();
+  }
+
+  $('#levelFilters').addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    $$('.chip', $('#levelFilters')).forEach(c => c.classList.remove('is-active'));
+    chip.classList.add('is-active');
+    activeLevel = chip.dataset.level;
+    visibleCount = 6;
+    renderLessons();
+  });
+
+  $('#subjectFilter').addEventListener('change', (e) => {
+    activeSubject = e.target.value;
+    visibleCount = 6;
+    renderLessons();
+  });
+
+  // Категории тоже фильтруют каталог уроков
+  $('#catGrid').addEventListener('click', (e) => {
+    const card = e.target.closest('.cat-card');
+    if (!card) return;
+    activeSubject = card.dataset.filter;
+    $('#subjectFilter').value = activeSubject;
+    visibleCount = 6;
+    renderLessons();
+    window.scrollTo({ top: $('#lessons').offsetTop - 84, behavior: 'smooth' });
+  });
+
+  loadMoreBtn.addEventListener('click', () => {
+    visibleCount += 6;
+    renderLessons();
+  });
+
+  lessonsGrid.addEventListener('click', (e) => {
+    const favBtn = e.target.closest('[data-fav]');
+    if (favBtn) { toggleFavorite(Number(favBtn.dataset.fav)); return; }
+    const playTarget = e.target.closest('[data-play]');
+    if (playTarget) {
+      const lesson = LESSONS.find(l => l.id === Number(playTarget.dataset.play));
+      if (lesson) openVideoModal(lesson);
+    }
+  });
+
+  /* ============================================================
+     10. ИЗБРАННОЕ / ПРОГРЕСС / ИСТОРИЯ
+     ============================================================ */
+
+  function toggleFavorite(id) {
+    const idx = state.favorites.indexOf(id);
+    if (idx > -1) { state.favorites.splice(idx, 1); showToast('Удалено из избранного', 'info'); }
+    else { state.favorites.push(id); showToast('Добавлено в избранное', 'success'); }
+    saveState();
+    renderLessons();
+    renderDashboard();
+    syncModalFavButton();
+  }
+
+  function addToHistory(id) {
+    state.history = state.history.filter(h => h.id !== id);
+    state.history.unshift({ id, ts: Date.now() });
+    state.history = state.history.slice(0, 8);
+    saveState();
+    renderDashboard();
+  }
+
+  function markCompleted(id) {
+    if (!state.completedLessons.includes(id)) {
+      state.completedLessons.push(id);
+      checkAchievements();
+      saveState();
+      renderDashboard();
+      showToast('Урок отмечен как пройденный 🎉', 'success');
+    } else {
+      showToast('Этот урок уже отмечен как пройденный', 'info');
+    }
+  }
+
+  function checkAchievements() {
+    const n = state.completedLessons.length;
+    const milestones = [
+      { count: 1, label: 'Первый урок' },
+      { count: 5, label: '5 уроков позади' },
+      { count: 10, label: 'Знаток математики' },
+      { count: LESSONS.length, label: 'Курс завершён!' }
+    ];
+    milestones.forEach(m => {
+      if (n >= m.count && !state.achievements.includes(m.label)) {
+        state.achievements.push(m.label);
+        showToast('🏆 Новое достижение: ' + m.label, 'success');
+      }
+    });
+  }
+
+  /* ============================================================
+     11. ЛИЧНЫЙ КАБИНЕТ (DASHBOARD)
+     ============================================================ */
+
+  function renderDashboard() {
+    const total = LESSONS.length;
+    const completed = state.completedLessons.length;
+    const percent = Math.round((completed / total) * 100);
+
+    $('#dashName').textContent = state.user ? state.user.name : 'Гость';
+    $('#dashEmail').textContent = state.user ? state.user.email : 'Войдите, чтобы сохранять прогресс';
+    $('#dashAvatar').textContent = state.user ? state.user.name.charAt(0).toUpperCase() : 'Г';
+    $('#dashLoginBtn').hidden = !!state.user;
+    $('#dashLogoutBtn').hidden = !state.user;
+
+    $('#statCompleted').textContent = completed;
+    $('#statFav').textContent = state.favorites.length;
+    $('#statAch').textContent = state.achievements.length;
+
+    $('#ringPercent').textContent = percent + '%';
+    const circumference = 2 * Math.PI * 54;
+    const ring = $('#ringProgress');
+    ring.style.strokeDasharray = circumference;
+    ring.style.strokeDashoffset = circumference - (circumference * percent / 100);
+
+    $('#certProgressBar').style.width = percent + '%';
+
+    // Избранное
+    const favItems = $('#favItems');
+    favItems.innerHTML = state.favorites.length
+      ? state.favorites.map(id => {
+          const l = LESSONS.find(x => x.id === id);
+          return l ? `<div class="dash-list-item"><span class="dot"></span>${l.title}</div>` : '';
+        }).join('')
+      : '<p class="muted small">Пока пусто. Добавляйте уроки в избранное значком ♥.</p>';
+
+    // История
+    const historyItems = $('#historyItems');
+    historyItems.innerHTML = state.history.length
+      ? state.history.map(h => {
+          const l = LESSONS.find(x => x.id === h.id);
+          if (!l) return '';
+          const d = new Date(h.ts);
+          return `<div class="dash-list-item"><span class="dot"></span>${l.title} <span class="muted small">— ${d.toLocaleDateString('ru-RU')}</span></div>`;
+        }).join('')
+      : '<p class="muted small">История просмотров появится здесь.</p>';
+  }
+
+  $('#dashLoginBtn').addEventListener('click', openAuthModal);
+  $('#dashLogoutBtn').addEventListener('click', () => {
+    state.user = null;
+    saveState();
+    renderDashboard();
+    showToast('Вы вышли из аккаунта', 'info');
+  });
+
+  $('#loginBtn').addEventListener('click', openAuthModal);
+
+  /* ============================================================
+     12. ПРЕПОДАВАТЕЛИ
+     ============================================================ */
+
+  const teachersGrid = $('#teachersGrid');
+  function renderTeachers() {
+    teachersGrid.innerHTML = TEACHERS.map((t, i) => `
+      <div class="teacher-card reveal" data-idx="${i}">
+        <div class="teacher-card__photo">${t.name.split(' ').map(w => w[0]).join('')}</div>
+        <h3>${t.name}</h3>
+        <p class="teacher-card__exp">${t.exp}</p>
+        <div class="teacher-card__subjects">${t.subjects.map(s => `<span>${s}</span>`).join('')}</div>
+        <button class="btn btn--outline btn--sm" data-teacher="${i}">Подробнее</button>
+      </div>
+    `).join('');
+    observeReveals();
+  }
+
+  teachersGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-teacher]');
+    if (!btn) return;
+    const t = TEACHERS[Number(btn.dataset.teacher)];
+    $('#teacherModalBody').innerHTML = `
+      <div class="teacher-modal">
+        <div class="teacher-modal__photo">${t.name.split(' ').map(w => w[0]).join('')}</div>
+        <h3>${t.name}</h3>
+        <p class="muted">${t.exp}</p>
+        <div class="teacher-card__subjects">${t.subjects.map(s => `<span>${s}</span>`).join('')}</div>
+        <p>${t.bio}</p>
+        <button class="btn btn--primary btn--sm" data-close-modal>Понятно</button>
+      </div>`;
+    openModal('#teacherModal');
+  });
+
+  /* ============================================================
+     13. ОТЗЫВЫ (СЛАЙДЕР)
+     ============================================================ */
+
+  const reviewsTrack = $('#reviewsTrack');
+  const reviewDots = $('#reviewDots');
+  let reviewIndex = 0;
+
+  function renderReviews() {
+    reviewsTrack.innerHTML = REVIEWS.map(r => `
+      <div class="review-card">
+        <div class="review-card__stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+        <p class="review-card__text">«${r.text}»</p>
+        <div class="review-card__author">
+          <span class="review-card__avatar">${r.name.charAt(0)}</span>
+          <div><strong>${r.name}</strong><span>Ученик DINARA MATH</span></div>
+        </div>
+      </div>
+    `).join('');
+    reviewDots.innerHTML = REVIEWS.map((_, i) => `<span data-dot="${i}" class="${i === 0 ? 'is-active' : ''}"></span>`).join('');
+    updateReviewSlider();
+  }
+
+  function updateReviewSlider() {
+    reviewsTrack.style.transform = `translateX(-${reviewIndex * 100}%)`;
+    $$('span', reviewDots).forEach((d, i) => d.classList.toggle('is-active', i === reviewIndex));
+  }
+
+  $('#reviewPrev').addEventListener('click', () => {
+    reviewIndex = (reviewIndex - 1 + REVIEWS.length) % REVIEWS.length;
+    updateReviewSlider();
+  });
+  $('#reviewNext').addEventListener('click', () => {
+    reviewIndex = (reviewIndex + 1) % REVIEWS.length;
+    updateReviewSlider();
+  });
+  reviewDots.addEventListener('click', (e) => {
+    const dot = e.target.closest('[data-dot]');
+    if (!dot) return;
+    reviewIndex = Number(dot.dataset.dot);
+    updateReviewSlider();
+  });
+  // Автопрокрутка слайдера отзывов
+  setInterval(() => {
+    reviewIndex = (reviewIndex + 1) % REVIEWS.length;
+    updateReviewSlider();
+  }, 6000);
+
+  /* ============================================================
+     14. FAQ АККОРДЕОН
+     ============================================================ */
+
+  $$('.accordion__item').forEach(item => {
+    const trigger = $('.accordion__trigger', item);
+    trigger.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('is-open');
+      $$('.accordion__item').forEach(i => i.classList.remove('is-open'));
+      if (!wasOpen) item.classList.add('is-open');
+    });
+  });
+
+  /* ============================================================
+     15. МОДАЛЬНЫЕ ОКНА (общая логика)
+     ============================================================ */
+
+  function openModal(sel) {
+    const modal = $(sel);
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(modal) {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    // Останавливаем видео при закрытии
+    if (modal.id === 'videoModal') $('#videoWrap').innerHTML = '';
+  }
+  $$('[data-close-modal]').forEach(el => {
+    el.addEventListener('click', (e) => closeModal(e.target.closest('.modal')));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') $$('.modal').forEach(m => { if (!m.hidden) closeModal(m); });
+  });
+
+  /* ============================================================
+     16. МОДАЛКА ВИДЕО + ТЕСТ ПОСЛЕ УРОКА
+     ============================================================ */
+
+  let currentLesson = null;
+
+  function openVideoModal(lesson) {
+    currentLesson = lesson;
+    $('#videoWrap').innerHTML = `<iframe src="https://www.youtube.com/embed/${lesson.video}?rel=0&autoplay=1" title="${lesson.title}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    $('#videoModalTitle').textContent = lesson.title;
+    $('#videoModalDesc').textContent = `${SUBJECT_LABELS[lesson.subject]} · ${LEVEL_LABELS[lesson.level]} · ${lesson.duration}`;
+    syncModalFavButton();
+    addToHistory(lesson.id);
+    openModal('#videoModal');
+  }
+
+  function syncModalFavButton() {
+    if (!currentLesson) return;
+    const isFav = state.favorites.includes(currentLesson.id);
+    const btn = $('#modalFavBtn');
+    btn.textContent = isFav ? '♥' : '♡';
+    btn.classList.toggle('is-active', isFav);
+  }
+
+  $('#modalFavBtn').addEventListener('click', () => { if (currentLesson) toggleFavorite(currentLesson.id); });
+  $('#markCompleteBtn').addEventListener('click', () => { if (currentLesson) markCompleted(currentLesson.id); });
+  $('#startTestBtn').addEventListener('click', () => { if (currentLesson) openTest(currentLesson); });
+
+  function openTest(lesson) {
+    const questions = TEST_BANK[lesson.subject] || TEST_BANK.default;
+    let answers = new Array(questions.length).fill(null);
+
+    function renderTest() {
+      $('#testBody').innerHTML = questions.map((q, qi) => `
+        <div class="test-question" data-qi="${qi}">
+          <p>${qi + 1}. ${q.q}</p>
+          ${q.options.map((opt, oi) => `
+            <label class="test-option" data-oi="${oi}">
+              <input type="radio" name="q${qi}" value="${oi}" style="accent-color:var(--c-purple)" />
+              ${opt}
+            </label>
+          `).join('')}
+        </div>
+      `).join('') + `<button class="btn btn--primary btn--full" id="submitTestBtn">Проверить ответы</button>`;
+    }
+
+    renderTest();
+    openModal('#testModal');
+
+    $('#testBody').addEventListener('change', function handler(e) {
+      const radio = e.target;
+      if (radio.type !== 'radio') return;
+      const qi = Number(radio.name.replace('q', ''));
+      answers[qi] = Number(radio.value);
+    });
+
+    $('#testBody').addEventListener('click', function submitHandler(e) {
+      if (e.target.id !== 'submitTestBtn') return;
+      let score = 0;
+      questions.forEach((q, qi) => {
+        const qEl = $(`.test-question[data-qi="${qi}"]`);
+        $$('.test-option', qEl).forEach((optEl, oi) => {
+          if (oi === q.correct) optEl.classList.add('is-correct');
+          else if (oi === answers[qi]) optEl.classList.add('is-wrong');
         });
+        if (answers[qi] === q.correct) score++;
+      });
+      const percent = Math.round((score / questions.length) * 100);
+      const resultHTML = `
+        <div class="test-result">
+          <strong>${score} / ${questions.length}</strong>
+          <p class="muted">${percent >= 70 ? 'Отличный результат! 🎉' : 'Есть куда расти — попробуйте ещё раз.'}</p>
+          <button class="btn btn--outline btn--sm" id="retryTestBtn">Пройти снова</button>
+        </div>`;
+      $('#testBody').insertAdjacentHTML('beforeend', resultHTML);
+      $('#submitTestBtn').remove();
+      if (percent >= 70) markCompleted(lesson.id);
 
-        // Конструирование интерактивной карты вопросов в сайдбаре
-        function buildMatrixGrid() {
-            const gridContainer = document.getElementById("ui-matrix-grid");
-            if (!gridContainer) return;
-            
-            gridContainer.innerHTML = "";
-            for (let i = 0; i < totalCount; i++) {
-                const cell = document.createElement("div");
-                cell.className = "z-matrix-cell";
-                cell.id = `m-cell-${i}`;
-                cell.innerText = i + 1;
-                cell.onclick = () => jumpToQuestion(i);
-                gridContainer.appendChild(cell);
-            }
-            syncMatrixState();
-        }
+      $('#retryTestBtn').addEventListener('click', () => {
+        answers = new Array(questions.length).fill(null);
+        renderTest();
+      });
+    });
+  }
 
-        // Синхронизация визуальных стилей карты вопросов
-        function syncMatrixState() {
-            for (let i = 0; i < totalCount; i++) {
-                const cell = document.getElementById(`m-cell-${i}`);
-                if (!cell) continue;
-                
-                cell.className = "z-matrix-cell";
-                if (selectedAnswers[i] !== null) {
-                    cell.classList.add("answered");
-                }
-                if (i === activeIdx) {
-                    cell.classList.add("current");
-                }
-            }
-        }
+  /* ============================================================
+     17. АВТОРИЗАЦИЯ / РЕГИСТРАЦИЯ (демо, LocalStorage)
+     ============================================================ */
 
-        // Вывод данных текущего активного вопроса на экран
-        function renderQuestion() {
-            const data = quizDataset[activeIdx];
-            
-            // Замена текстового контента
-            document.getElementById("ui-index-label").innerText = `Сұрақ ${activeIdx + 1} / ${totalCount}`;
-            document.getElementById("ui-question-text-area").innerText = data.question;
-            
-            // Очистка и наполнение контейнера ответов
-            const container = document.getElementById("ui-options-container");
-            container.innerHTML = "";
-            
-            const letters = ["A", "B", "C", "D"];
-            
-            data.options.forEach((text, i) => {
-                const card = document.createElement("div");
-                card.className = "z-option-card";
-                if (selectedAnswers[activeIdx] === i) {
-                    card.classList.add("active");
-                }
-                
-                card.onclick = () => selectOption(i);
-                card.innerHTML = `
-                    <div class="z-option-idx">${letters[i]}</div>
-                    <div class="z-option-val">${text}</div>
-                `;
-                container.appendChild(card);
-            });
-            
-            // Сброс поля подсказок AI
-            document.getElementById("ui-ai-bubble-area").innerText = "Сұрақ мәтініне сәйкес академиялық кеңес алу үшін төмендегі функцияны іске қосыңыз.";
-            
-            // Настройка доступности навигационных клавиш
-            document.getElementById("ui-nav-prev").disabled = (activeIdx === 0);
-            
-            const nextBtn = document.getElementById("ui-nav-next");
-            if (activeIdx === totalCount - 1) {
-                nextBtn.innerHTML = `<i class="fa-solid fa-flag-checkered"></i> Аяқтау`;
-            } else {
-                nextBtn.innerHTML = `Жалғастыру <i class="fa-solid fa-chevron-right"></i>`;
-            }
-            
-            syncMatrixState();
-        }
+  function openAuthModal() { openModal('#authModal'); }
 
-        // Фиксация выбора ответа пользователем
-        function selectOption(idx) {
-            selectedAnswers[activeIdx] = idx;
-            
-            const cards = document.querySelectorAll(".z-option-card");
-            cards.forEach((card, i) => {
-                if (i === idx) card.classList.add("active");
-                else card.removeProperty ? card.removeAttribute("class") : card.className = "z-option-card";
-            });
-            
-            // Восстановление класса базовой карточки после очистки
-            cards.forEach((card, i) => {
-                card.className = (i === idx) ? "z-option-card active" : "z-option-card";
-            });
-            
-            syncMatrixState();
-        }
+  $$('.auth-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      $$('.auth-tab').forEach(t => t.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      const isLogin = tab.dataset.tab === 'login';
+      $('#loginForm').hidden = !isLogin;
+      $('#registerForm').hidden = isLogin;
+    });
+  });
 
-        // Обработка клика по кнопкам навигации «Артқа» и «Жалғастыру»
-        function moveStep(direction) {
-            if (direction === 1 && activeIdx === totalCount - 1) {
-                finishExamProcess(true);
-                return;
-            }
-            
-            activeIdx += direction;
-            renderQuestion();
-        }
+  function setFieldError(input, message) {
+    const err = document.querySelector(`.form-error[data-for="${input.id}"]`);
+    const row = input.closest('.form-row');
+    if (err) err.textContent = message || '';
+    if (row) row.classList.toggle('has-error', !!message);
+  }
 
-        // Переход на конкретный вопрос через матричную сетку
-        function jumpToQuestion(idx) {
-            activeIdx = idx;
-            renderQuestion();
-        }
+  $('#loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = $('#loginEmail');
+    const pass = $('#loginPass');
+    let valid = true;
+    if (!email.value.includes('@')) { setFieldError(email, 'Введите корректный email'); valid = false; } else setFieldError(email, '');
+    if (pass.value.length < 4) { setFieldError(pass, 'Минимум 4 символа'); valid = false; } else setFieldError(pass, '');
+    if (!valid) return;
 
-        // Движок хронометража времени
-        function runChronometer() {
-            const digits = document.getElementById("ui-timer-digits");
-            const box = document.getElementById("ui-timer-box");
-            
-            tickerInterval = setInterval(() => {
-                secondsRemaining--;
-                elapsedSeconds++;
-                
-                let m = Math.floor(secondsRemaining / 60);
-                let s = secondsRemaining % 60;
-                
-                m = m < 10 ? "0" + m : m;
-                s = s < 10 ? "0" + s : s;
-                
-                digits.innerText = `${m}:${s}`;
-                
-                // Переход в критический режим (осталось менее 3 минут)
-                if (secondsRemaining <= 180) {
-                    box.classList.add("critical");
-                }
-                
-                if (secondsRemaining <= 0) {
-                    clearInterval(tickerInterval);
-                    finishExamProcess(false);
-                }
-            }, 1000);
-        }
+    state.user = { name: email.value.split('@')[0], email: email.value };
+    saveState();
+    renderDashboard();
+    closeModal($('#authModal'));
+    showToast('Добро пожаловать, ' + state.user.name + '!', 'success');
+    e.target.reset();
+  });
 
-        // Интерактивное взаимодействие с подсказкой AI Тарихшы
-        function triggerAiHintInteraction() {
-            const bubble = document.getElementById("ui-ai-bubble-area");
-            bubble.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Тарихшы деректерді өңдеуде...`;
-            
-            setTimeout(() => {
-                bubble.innerText = quizDataset[activeIdx].aiHint;
-            }, 550);
-        }
+  $('#registerForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = $('#regName');
+    const email = $('#regEmail');
+    const pass = $('#regPass');
+    let valid = true;
+    if (name.value.trim().length < 2) { setFieldError(name, 'Введите имя'); valid = false; } else setFieldError(name, '');
+    if (!email.value.includes('@')) { setFieldError(email, 'Введите корректный email'); valid = false; } else setFieldError(email, '');
+    if (pass.value.length < 4) { setFieldError(pass, 'Минимум 4 символа'); valid = false; } else setFieldError(pass, '');
+    if (!valid) return;
 
-        // Финальный расчет результатов тестирования и построение аналитики
-        function finishExamProcess(isManualTrigger) {
-            clearInterval(tickerInterval);
-            
-            let correctCounter = 0;
-            quizDataset.forEach((item, i) => {
-                if (selectedAnswers[i] === item.correctIndex) {
-                    correctCounter++;
-                }
-            });
-            
-            const percentage = Math.round((correctCounter / totalCount) * 100);
-            
-            // Скрытие симулятора и вывод аналитического модуля
-            document.getElementById("workspace-node").style.display = "none";
-            document.getElementById("analytics-node").style.display = "block";
-            
-            // Анимация SVG прогресс-бара
-            setTimeout(() => {
-                const bar = document.getElementById("ui-result-bar");
-                if (bar) {
-                    // Длина окружности 502 (2 * pi * r = 2 * 3.14 * 80)
-                    const offset = 502 - (502 * percentage) / 100;
-                    bar.style.strokeDashoffset = offset;
-                }
-                counterRollAnimation("ui-result-percentage", 0, percentage, 1200);
-            }, 150);
-            
-            // Текстовое наполнение полей
-            document.getElementById("ui-stat-correct").innerText = `${correctCounter} / ${totalCount}`;
-            
-            // Калькуляция времени
-            let elapsedMin = Math.floor(elapsedSeconds / 60);
-            let elapsedSec = elapsedSeconds % 60;
-            elapsedMin = elapsedMin < 10 ? "0" + elapsedMin : elapsedMin;
-            elapsedSec = elapsedSec < 10 ? "0" + elapsedSec : elapsedSec;
-            document.getElementById("ui-stat-time").innerText = `${elapsedMin}:${elapsedSec}`;
-            
-            // Оценка академического уровня
-            let level = "Төмен";
-            let headline = "Талпынысыңыз жақсы!";
-            let description = "Нәтижеңізді жақсарту үшін сұрақтар картасына қайта үңіліп, қатемен жұмыс жасауды ұсынамыз. Дайындықты тоқтатпаңыз!";
-            
-            if (percentage >= 85) {
-                level = "Грант деңгейі";
-                headline = "Керемет нәтиже! 👑";
-                description = "Сіз Қазақстан тарихы пәні бойынша жоғары дайындық деңгейін көрсеттіңіз. Нағыз академиялық білімгерсіз!";
-            } else if (percentage >= 55) {
-                level = "Орташа деңгей";
-                headline = "Жақсы көрсеткіш! ✨";
-                description = "Негізгі тарихи концепцияларды жақсы меңгергенсіз. Сәл ізденіс пен зейін қою арқылы максималды балға жете аласыз.";
-            }
-            
-            document.getElementById("ui-stat-level").innerText = level;
-            document.getElementById("ui-result-title").innerText = headline;
-            document.getElementById("ui-result-desc").innerText = description;
-        }
+    state.user = { name: name.value.trim(), email: email.value };
+    saveState();
+    renderDashboard();
+    closeModal($('#authModal'));
+    showToast('Аккаунт создан! Добро пожаловать, ' + state.user.name, 'success');
+    e.target.reset();
+  });
 
-        // Анимация плавного накручивания цифр результатов
-        function counterRollAnimation(id, start, end, duration) {
-            const obj = document.getElementById(id);
-            if (!obj) return;
-            
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerText = Math.floor(progress * (end - start) + start);
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
+  /* ============================================================
+     18. СЕРТИФИКАТ
+     ============================================================ */
 
-        // Управление всплывающим окном подтверждения выхода
-        function openModalExit() {
-            document.getElementById("modal-exit-node").classList.add("active");
-        }
+  $('#viewCertBtn').addEventListener('click', () => {
+    const total = LESSONS.length;
+    const completed = state.completedLessons.length;
+    if (completed < total) {
+      showToast(`Пройдено ${completed} из ${total} уроков. Завершите курс, чтобы открыть сертификат.`, 'info');
+    }
+    $('#certName').textContent = state.user ? state.user.name : 'Гость DINARA MATH';
+    $('#certDate').textContent = new Date().toLocaleDateString('ru-RU');
+    openModal('#certModal');
+  });
 
-        function closeModalExit() {
-            document.getElementById("modal-exit-node").classList.remove("active");
-        }
-    </script>
+  $('#downloadCertBtn').addEventListener('click', () => {
+    showToast('Сертификат сохранён в формате изображения (демо)', 'success');
+  });
+
+  /* ============================================================
+     19. ФОРМА ОБРАТНОЙ СВЯЗИ + ПОДПИСКА
+     ============================================================ */
+
+  $('#contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = $('#cfName'), email = $('#cfEmail'), msg = $('#cfMsg');
+    let valid = true;
+    if (name.value.trim().length < 2) { setFieldError(name, 'Введите имя (мин. 2 символа)'); valid = false; } else setFieldError(name, '');
+    if (!/^\S+@\S+\.\S+$/.test(email.value)) { setFieldError(email, 'Введите корректный email'); valid = false; } else setFieldError(email, '');
+    if (msg.value.trim().length < 10) { setFieldError(msg, 'Сообщение слишком короткое'); valid = false; } else setFieldError(msg, '');
+    if (!valid) return;
+
+    showToast('Сообщение отправлено! Мы ответим вам скоро.', 'success');
+    e.target.reset();
+  });
+
+  $('#newsletterForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    showToast('Вы подписались на новости DINARA MATH', 'success');
+    e.target.reset();
+  });
+
+  $('#privacyLink').addEventListener('click', (e) => { e.preventDefault(); showToast('Политика конфиденциальности: мы не передаём ваши данные третьим лицам.', 'info'); });
+  $('#termsLink').addEventListener('click', (e) => { e.preventDefault(); showToast('Используя сайт, вы соглашаетесь с условиями предоставления услуг.', 'info'); });
+
+  /* ============================================================
+     20. АНИМАЦИИ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ (IntersectionObserver)
+     ============================================================ */
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  function observeReveals() {
+    $$('.reveal:not(.is-visible)').forEach(el => revealObserver.observe(el));
+  }
+
+  /* ============================================================
+     21. ИНИЦИАЛИЗАЦИЯ
+     ============================================================ */
+
+  function init() {
+    $('#year').textContent = new Date().getFullYear();
+    renderLessons();
+    renderTeachers();
+    renderReviews();
+    renderDashboard();
+    observeReveals();
+    highlightActiveLink();
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+  </script>
 </body>
 </html>
