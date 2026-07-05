@@ -1,0 +1,139 @@
+/* =====================================================================
+   DINARA MATH & IT — Base Reset & Globals
+   ===================================================================== */
+
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+body{
+  margin: 0;
+  font-family: var(--font-body);
+  background:
+    linear-gradient(var(--surface-bg), var(--surface-bg)),
+    repeating-linear-gradient(0deg, var(--grid-line) 0 1px, transparent 1px var(--grid-size)),
+    repeating-linear-gradient(90deg, var(--grid-line) 0 1px, transparent 1px var(--grid-size));
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-size: var(--fs-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--dur-med) var(--ease-standard), color var(--dur-med) var(--ease-standard);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: var(--font-display);
+  margin: 0;
+  letter-spacing: -0.01em;
+  color: var(--text-main);
+}
+
+p{ margin: 0; }
+
+a{
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img{
+  max-width: 100%;
+  display: block;
+}
+
+button, input, select, textarea{
+  font-family: inherit;
+  color: inherit;
+}
+
+button{
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.container{
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hidden{ display: none !important; }
+
+.mono{ font-family: var(--font-mono); }
+
+::selection{
+  background: var(--color-violet);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{ width: 10px; height: 10px; }
+::-webkit-scrollbar-track{ background: transparent; }
+::-webkit-scrollbar-thumb{
+  background: var(--color-violet-soft);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover{ background: var(--color-violet); }
+
+/* Focus visibility for accessibility */
+:focus-visible{
+  outline: 2px solid var(--color-violet);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Views (SPA sections) ---- */
+.view{
+  display: none;
+  min-height: 60vh;
+}
+.view.active{
+  display: block;
+  animation: viewFadeIn 0.45s var(--ease-standard);
+}
+@keyframes viewFadeIn{
+  from{ opacity: 0; transform: translateY(12px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+.page-pad{
+  padding-top: var(--sp-9);
+  padding-bottom: var(--sp-10);
+}
+
+.page-head{
+  margin-bottom: var(--sp-7);
+}
+.page-head h1{
+  font-size: var(--fs-2xl);
+  margin-bottom: var(--sp-2);
+}
+.page-head p{
+  color: var(--text-soft);
+  font-size: var(--fs-md);
+}
+
+.mini-title{
+  font-size: var(--fs-md);
+  margin: var(--sp-7) 0 var(--sp-4);
+}
