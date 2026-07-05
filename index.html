@@ -1,548 +1,1136 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="light">
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DINARA MATH & IT — Онлайн-курсы по математике и информатике</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="variables.css">
-<link rel="stylesheet" href="base.css">
-<link rel="stylesheet" href="layout.css">
-<link rel="stylesheet" href="components.css">
-<link rel="stylesheet" href="pages.css">
-<link rel="stylesheet" href="animations.css">
-<link rel="stylesheet" href="responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLA BLA | Ресторан в Уральске</title>
+    <style>
+        /* -------------------------------------------------------------
+           1. БАЗОВЫЕ НАСТРОЙКИ И ПЕРЕМЕННЫЕ (Стиль: Премиальный минимализм)
+           ------------------------------------------------------------- */
+        :root {
+            --bg-main: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --accent: #e61c24; /* Фирменный красный цвет по логотипу */
+            --accent-hover: #c9141b;
+            --border-color: #e5e5e5;
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* -------------------------------------------------------------
+           2. ШАПКА САЙТА (STICKY HEADER)
+           ------------------------------------------------------------- */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        /* Логотип на основе присланной картинки через CSS */
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 60px;
+            height: 60px;
+            border: 4px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--accent), 0 0 0 8px #fff, 0 0 0 12px var(--accent), 0 0 0 16px #fff, 0 0 0 20px var(--accent);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .user-profile-badge {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .user-profile-badge:hover {
+            background-color: var(--text-main);
+            color: #fff;
+            border-color: var(--text-main);
+        }
+
+        .user-profile-badge.warning-badge {
+            border-color: var(--accent);
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* -------------------------------------------------------------
+           3. ПАНЕЛЬ АДРЕСА (СВЕРХУ / ОГРАНИЧИТЕЛЬ ВХОДА)
+           ------------------------------------------------------------- */
+        .address-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .address-card {
+            background: #fff;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .address-card h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .address-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--text-main);
+            background: #fff;
+        }
+
+        .map-hint-box {
+            background: #f0f7ff;
+            border-left: 4px solid #007aff;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #0056b3;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .primary-btn {
+            width: 100%;
+            background: var(--text-main);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .primary-btn:hover {
+            background: var(--accent);
+        }
+
+        /* -------------------------------------------------------------
+           4. КАТЕГОРИИ МЕНЮ (STICKY ВТОРОЙ УРОВЕНЬ)
+           ------------------------------------------------------------- */
+        .categories-bar {
+            position: sticky;
+            top: 72px;
+            background: var(--bg-main);
+            z-index: 90;
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 5%;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .categories-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-link {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 30px;
+            background: var(--bg-secondary);
+            color: var(--text-main);
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .cat-link.active, .cat-link:hover {
+            background: var(--text-main);
+            color: #fff;
+        }
+
+        /* -------------------------------------------------------------
+           5. СЕТКА ПРОДУКТОВ
+           ------------------------------------------------------------- */
+        .main-container {
+            padding: 40px 5%;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 8px;
+            width: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .menu-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 140px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            border-color: var(--text-main);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 75%; /* 4:3 Ratio */
+            background: var(--bg-secondary);
+            overflow: hidden;
+        }
+
+        .product-img-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-desc-short {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid var(--bg-secondary);
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .add-btn-sm {
+            background: var(--bg-secondary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .add-btn-sm {
+            background: var(--text-main);
+            color: #fff;
+        }
+
+        /* -------------------------------------------------------------
+           6. МОДАЛЬНОЕ ОКНО ТОВАРОВ И КОРЗИНЫ
+           ------------------------------------------------------------- */
+        .modal-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal-window {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .close-modal-btn:hover {
+            background: var(--text-main);
+            color: #fff;
+        }
+
+        .modal-hero-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background: var(--bg-secondary);
+        }
+
+        .modal-main-content {
+            padding: 30px;
+        }
+
+        .modal-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title-row h3 {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .modal-nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            background: var(--bg-secondary);
+            padding: 12px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .nutrition-item span {
+            display: block;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .nutrition-item label {
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .modal-full-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .modal-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        /* -------------------------------------------------------------
+           7. ПЛАВАЮЩАЯ КНОПКА КОРЗИНЫ И СТИЛИ КОРЗИНЫ
+           ------------------------------------------------------------- */
+        .cart-floating-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--text-main);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            cursor: pointer;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .cart-floating-trigger:hover {
+            background: var(--accent);
+            transform: scale(1.03);
+        }
+
+        .cart-count-badge {
+            background: #fff;
+            color: var(--text-main);
+            font-size: 12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .cart-items-container {
+            max-height: 280px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 5px;
+        }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .cart-item-info p {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-val {
+            font-size: 14px;
+            font-weight: 700;
+            min-width: 16px;
+            text-align: center;
+        }
+
+        .cart-summary-block {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .summary-row.total {
+            font-size: 18px;
+            font-weight: 800;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: #fff;
+        }
+
+        .whatsapp-btn:hover {
+            background: #20ba5a;
+        }
+
+        /* Адаптивность */
+        @media(max-width: 768px) {
+            header { padding: 12px 4%; }
+            .logo-text { font-size: 20px; }
+            .categories-bar { top: 65px; padding: 8px 4%; }
+            .main-container { padding: 25px 4%; }
+            .products-grid { gap: 15px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .product-info { padding: 12px; }
+            .product-name { font-size: 15px; }
+            .product-price { font-size: 15px; }
+            .product-desc-short { display: none; }
+            .modal-window { max-width: 100%; border-radius: var(--radius-lg) var(--radius-lg) 0 0; position: fixed; bottom: 0; left: 0; }
+            .modal-hero-img { height: 200px; }
+            .modal-main-content { padding: 20px; }
+            .modal-nutrition-grid { grid-template-columns: repeat(2, 1fr); }
+            .cart-floating-trigger { bottom: 20px; right: 20px; left: 20px; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ============ LOADING SCREEN ============ -->
-<div id="loading-screen" class="loading-screen">
-  <div class="loader-mark">
-    <svg viewBox="0 0 60 60" width="60" height="60">
-      <circle cx="30" cy="30" r="26" class="loader-ring-bg"/>
-      <circle cx="30" cy="30" r="26" class="loader-ring-fg"/>
-    </svg>
-  </div>
-  <p class="loader-text">DINARA MATH &amp; IT</p>
-</div>
-<script>
-  // Safety net: no matter what happens with the app scripts below (a slow
-  // connection, a missing file, an unexpected error), never leave the
-  // visitor stuck behind the loading screen for more than a few seconds.
-  setTimeout(function(){
-    var el = document.getElementById("loading-screen");
-    if(el) el.classList.add("hide");
-  }, 4000);
-</script>
+    <!-- -------------------------------------------------------------
+       ОКНО АВТОРИЗАЦИИ / ВВОДА АДРЕСА ДОСТАВКИ
+       ------------------------------------------------------------- -->
+    <div class="address-overlay" id="addressOverlay" style="display: none;">
+        <div class="address-card">
+            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+                <div class="logo-icon"></div>
+            </div>
+            <h2>Добро пожаловать в BLA BLA</h2>
+            <p>Для оформления быстрой доставки по городу Уральск, пожалуйста, заполните форму ниже.</p>
+            
+            <form id="addressForm" onsubmit="saveUserCredentials(event)">
+                <div class="form-group">
+                    <label for="inputName">Ваше Имя</label>
+                    <input type="text" id="inputName" required placeholder="Например, Арман">
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">Номер Телефона</label>
+                    <input type="tel" id="inputPhone" required placeholder="+7 (707) 000-00-00">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Точный адрес в Уральске</label>
+                    <input type="text" id="inputAddress" required placeholder="Улица, дом, квартира/офис">
+                </div>
+                <div class="map-hint-box">
+                    <strong>💡 Как сделать быстрее:</strong> Откройте приложение Яндекс.Карты или Google Maps, скопируйте ваш точный адрес и вставьте его в поле выше. Это исключит ошибки при доставке!
+                </div>
+                <button type="submit" class="primary-btn">Войти и открыть меню</button>
+            </form>
+        </div>
+    </div>
 
-<!-- ============ TOAST CONTAINER ============ -->
-<div id="toast-container" class="toast-container" aria-live="polite"></div>
+    <!-- -------------------------------------------------------------
+       ГЛАВНЫЙ ИНТЕРФЕЙС
+       ------------------------------------------------------------- -->
+    <header>
+        <div class="logo-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <div class="logo-icon"></div>
+            <div class="logo-text">BLA BLA</div>
+        </div>
+        <div class="user-profile-badge warning-badge" id="profileBadge" onclick="openAddressEditor()">
+            <span id="badgeText">Указать адрес</span>
+        </div>
+    </header>
 
-<!-- ============ CONFETTI CANVAS ============ -->
-<canvas id="confetti-canvas" class="confetti-canvas"></canvas>
-
-<!-- ============ HEADER ============ -->
-<header class="site-header" id="site-header">
-  <div class="header-inner container">
-    <a href="#/" class="brand" data-nav="home">
-      <span class="brand-mark">∫d</span>
-      <span class="brand-name">DINARA <em>MATH &amp; IT</em></span>
-    </a>
-
-    <nav class="main-nav" id="main-nav">
-      <button class="nav-link" data-nav="home">Главная</button>
-      <button class="nav-link" data-nav="courses">Курсы</button>
-      <button class="nav-link" data-nav="ent">ЕНТ</button>
-      <button class="nav-link" data-nav="tools">Инструменты</button>
-      <button class="nav-link" data-nav="leaderboard">Лидерборд</button>
+    <!-- Навигационная панель категорий -->
+    <nav class="categories-bar" id="categoriesBar">
+        <!-- Генерируется динамически скролл-ссылками -->
     </nav>
 
-    <div class="header-actions">
-      <button class="icon-btn" id="search-toggle" title="Поиск" aria-label="Поиск">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-      <button class="icon-btn" id="theme-toggle" title="Тема" aria-label="Переключить тему">
-        <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-      <div class="xp-pill" id="header-xp-pill" data-nav="profile">
-        <span class="xp-flame">🔥</span>
-        <span id="header-streak">0</span>
-      </div>
-      <button class="avatar-btn" id="avatar-btn" data-nav="profile">
-        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Dinara" alt="Аватар" id="header-avatar">
-      </button>
+    <!-- Основной контент -->
+    <main class="main-container" id="menuContainers">
+        <!-- Сюда будут рендериться все категории и товары -->
+    </main>
+
+    <!-- Плавающая кнопка корзины -->
+    <div class="cart-floating-trigger" id="cartTrigger" style="display: none;" onclick="openCartModal()">
+        <span>🛒 Корзина</span>
+        <div class="cart-count-badge" id="cartTotalItems">0</div>
     </div>
 
-    <button class="burger" id="burger-btn" aria-label="Меню">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <!-- Search overlay -->
-  <div class="search-overlay" id="search-overlay">
-    <div class="container">
-      <input type="text" id="global-search-input" class="search-input" placeholder="Поиск по курсам, урокам, темам, преподавателям...">
-      <div id="search-results" class="search-results"></div>
-    </div>
-  </div>
-</header>
-
-<!-- Mobile nav -->
-<div class="mobile-nav" id="mobile-nav">
-  <button class="nav-link" data-nav="home">Главная</button>
-  <button class="nav-link" data-nav="courses">Курсы</button>
-  <button class="nav-link" data-nav="ent">ЕНТ</button>
-  <button class="nav-link" data-nav="tools">Инструменты</button>
-  <button class="nav-link" data-nav="leaderboard">Лидерборд</button>
-  <button class="nav-link" data-nav="profile">Профиль</button>
-</div>
-
-<main id="app-root">
-
-  <!-- ================================================================= -->
-  <!-- VIEW: HOME                                                         -->
-  <!-- ================================================================= -->
-  <section class="view" id="view-home" data-view="home">
-
-    <section class="hero">
-      <div class="hero-bg" id="hero-bg"></div>
-      <div class="container hero-inner">
-        <div class="hero-copy reveal-up">
-          <span class="eyebrow">Онлайн-школа точных наук</span>
-          <h1 class="hero-title">Изучай математику и информатику<br> вместе с <span class="grad-text">DINARA MATH &amp; IT</span></h1>
-          <p class="hero-subtitle">Видеоуроки, интерактивные тренажёры, тесты, мини-IDE и графические калькуляторы — всё, чтобы понять предмет, а не просто пройти курс.</p>
-          <div class="hero-actions">
-            <button class="btn btn-primary btn-lg" data-nav="courses">
-              <span class="play-ico">▶</span> Начать обучение
-            </button>
-            <button class="btn btn-ghost btn-lg" data-nav="courses">Посмотреть курсы</button>
-          </div>
-          <div class="hero-stats" id="hero-stats">
-            <div class="stat-block">
-              <span class="stat-num" data-count="12400">0</span>
-              <span class="stat-label">учеников</span>
+    <!-- -------------------------------------------------------------
+       МОДАЛЬНОЕ ОКНО ДЕТАЛЕЙ ТОВАРА
+       ------------------------------------------------------------- -->
+    <div class="modal-mask" id="productModal" onclick="closeProductModal(event)">
+        <div class="modal-window" onclick="event.stopPropagation()">
+            <button class="close-modal-btn" onclick="closeProductModal(null)">&times;</button>
+            <img class="modal-hero-img" id="mImage" src="" alt="">
+            <div class="modal-main-content">
+                <div class="modal-title-row">
+                    <h3 id="mTitle">Название товара</h3>
+                </div>
+                <div class="modal-nutrition-grid">
+                    <div class="nutrition-item"><span id="mWeight">0 г</span><label>Вес</label></div>
+                    <div class="nutrition-item"><span id="mProt">0 г</span><label>Белки</label></div>
+                    <div class="nutrition-item"><span id="mFat">0 г</span><label>Жиры</label></div>
+                    <div class="nutrition-item"><span id="mCarb">0 г</span><label>Углеводы</label></div>
+                </div>
+                <div class="modal-full-desc" id="mDesc">Описание</div>
+                <div class="modal-action-bar">
+                    <div class="product-price" id="mPrice" style="font-size: 24px;">0 ₸</div>
+                    <button class="primary-btn" id="mAddBtn" style="width: auto; padding: 12px 35px; border-radius: 30px;">В корзину</button>
+                </div>
             </div>
-            <div class="stat-block">
-              <span class="stat-num" data-count="86">0</span>
-              <span class="stat-label">курсов</span>
+        </div>
+    </div>
+
+    <!-- -------------------------------------------------------------
+       МОДАЛЬНОЕ ОКНО КОРЗИНЫ
+       ------------------------------------------------------------- -->
+    <div class="modal-mask" id="cartModal" onclick="closeCartModal(event)">
+        <div class="modal-window" onclick="event.stopPropagation()" style="max-width: 500px;">
+            <button class="close-modal-btn" onclick="closeCartModal(null)">&times;</button>
+            <div class="modal-main-content" style="padding-top: 40px;">
+                <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 20px;">Ваш заказ</h3>
+                
+                <div class="cart-items-container" id="cartItemsList">
+                    <!-- Заполняется динамически -->
+                </div>
+
+                <div class="cart-summary-block">
+                    <div class="summary-row">
+                        <span>Доставка</span>
+                        <span style="color: #25d366; font-weight: 600;">Бесплатно</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Город</span>
+                        <span>Уральск</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Итого к оплате</span>
+                        <span id="cartTotalSum">0 ₸</span>
+                    </div>
+                </div>
+
+                <button class="primary-btn whatsapp-btn" onclick="checkoutOrder()">
+                    🟢 Оформить заказ через WhatsApp
+                </button>
             </div>
-            <div class="stat-block">
-              <span class="stat-num" data-count="3200">0</span>
-              <span class="stat-label">часов видео</span>
-            </div>
-            <div class="stat-block">
-              <span class="stat-num" data-count="49" data-decimal="1">0</span>
-              <span class="stat-label">средний рейтинг</span>
-            </div>
-          </div>
         </div>
-        <div class="hero-visual reveal-up delay-1">
-          <div class="floating-card card-glass fc-1">
-            <span class="fc-formula">∫₀^π sin(x)dx = 2</span>
-          </div>
-          <div class="floating-card card-glass fc-2">
-            <span class="fc-formula">def fib(n):</span>
-          </div>
-          <div class="floating-card card-glass fc-3">
-            <span class="fc-formula">O(n log n)</span>
-          </div>
-          <svg class="orbit-svg" viewBox="0 0 400 400">
-            <circle cx="200" cy="200" r="150" class="orbit-ring"/>
-            <circle cx="200" cy="200" r="110" class="orbit-ring"/>
-            <circle class="orbit-dot orbit-dot-1" r="6"/>
-            <circle class="orbit-dot orbit-dot-2" r="5"/>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <section class="section directions-section">
-      <div class="container">
-        <h2 class="section-title reveal-up">Выбери направление</h2>
-        <p class="section-subtitle reveal-up">Два больших раздела — от основ до подготовки к экзаменам</p>
-        <div class="direction-grid">
-          <button class="direction-card card-glass reveal-up" data-direction="math" data-nav="courses">
-            <div class="direction-icon" style="--icon-clr:var(--violet)">📐</div>
-            <h3>Математика</h3>
-            <p>Алгебра, геометрия, тригонометрия, производные, интегралы, вероятность и подготовка к ЕНТ</p>
-            <span class="direction-count">42 курса</span>
-          </button>
-          <button class="direction-card card-glass reveal-up delay-1" data-direction="cs" data-nav="courses">
-            <div class="direction-icon" style="--icon-clr:var(--teal)">💻</div>
-            <h3>Информатика</h3>
-            <p>Python, JavaScript, алгоритмы, структуры данных, ООП, SQL, Git и основы ИИ</p>
-            <span class="direction-count">44 курса</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section popular-section">
-      <div class="container">
-        <div class="section-head-row">
-          <div>
-            <h2 class="section-title reveal-up">Популярные курсы</h2>
-            <p class="section-subtitle reveal-up">Выбор большинства учеников за этот месяц</p>
-          </div>
-          <button class="btn btn-ghost" data-nav="courses">Все курсы →</button>
-        </div>
-        <div class="carousel-wrap">
-          <button class="carousel-arrow left" id="carousel-prev">‹</button>
-          <div class="carousel-track" id="popular-courses-track"></div>
-          <button class="carousel-arrow right" id="carousel-next">›</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section how-section">
-      <div class="container">
-        <h2 class="section-title reveal-up">Как это работает</h2>
-        <div class="how-grid">
-          <div class="how-card card-glass reveal-up">
-            <span class="how-num">01</span>
-            <h4>Смотри теорию</h4>
-            <p>Короткие видео с конспектом и формулами вместо длинных лекций</p>
-          </div>
-          <div class="how-card card-glass reveal-up delay-1">
-            <span class="how-num">02</span>
-            <h4>Решай практику</h4>
-            <p>Интерактивные задачи и мини-IDE закрепляют материал сразу</p>
-          </div>
-          <div class="how-card card-glass reveal-up delay-2">
-            <span class="how-num">03</span>
-            <h4>Проходи тесты</h4>
-            <p>Мгновенная проверка, баллы и разбор ошибок после каждой темы</p>
-          </div>
-          <div class="how-card card-glass reveal-up delay-3">
-            <span class="how-num">04</span>
-            <h4>Получай сертификат</h4>
-            <p>PDF-сертификат с твоим именем сразу после завершения курса</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section reviews-section">
-      <div class="container">
-        <h2 class="section-title reveal-up">Что говорят ученики</h2>
-        <div class="reviews-grid" id="home-reviews"></div>
-      </div>
-    </section>
-
-  </section>
-
-  <!-- ================================================================= -->
-  <!-- VIEW: COURSES CATALOG                                              -->
-  <!-- ================================================================= -->
-  <section class="view" id="view-courses" data-view="courses">
-    <div class="container page-pad">
-      <div class="page-head">
-        <h1>Каталог курсов</h1>
-        <p>Найди курс по математике или информатике под свой уровень</p>
-      </div>
-
-      <div class="catalog-toolbar card-glass">
-        <div class="tab-switch" id="direction-switch">
-          <button class="tab-btn active" data-filter-direction="all">Все</button>
-          <button class="tab-btn" data-filter-direction="math">Математика</button>
-          <button class="tab-btn" data-filter-direction="cs">Информатика</button>
-        </div>
-        <div class="filters-row">
-          <select id="filter-level" class="select-field">
-            <option value="all">Любой уровень</option>
-            <option value="beginner">Начинающий</option>
-            <option value="intermediate">Средний</option>
-            <option value="advanced">Продвинутый</option>
-          </select>
-          <select id="filter-duration" class="select-field">
-            <option value="all">Любая длительность</option>
-            <option value="short">До 3 часов</option>
-            <option value="medium">3–8 часов</option>
-            <option value="long">8+ часов</option>
-          </select>
-          <select id="filter-rating" class="select-field">
-            <option value="0">Любой рейтинг</option>
-            <option value="4.5">4.5+</option>
-            <option value="4.8">4.8+</option>
-          </select>
-          <select id="filter-price" class="select-field">
-            <option value="all">Любая цена</option>
-            <option value="free">Бесплатно</option>
-            <option value="paid">Платно</option>
-          </select>
-          <select id="filter-sort" class="select-field">
-            <option value="popular">По популярности</option>
-            <option value="rating">По рейтингу</option>
-            <option value="new">Сначала новые</option>
-            <option value="price-asc">Цена: по возрастанию</option>
-          </select>
-        </div>
-      </div>
-
-      <p class="results-count" id="courses-results-count"></p>
-      <div class="course-grid" id="courses-grid"></div>
     </div>
-  </section>
 
-  <!-- ================================================================= -->
-  <!-- VIEW: COURSE DETAIL                                                -->
-  <!-- ================================================================= -->
-  <section class="view" id="view-course-detail" data-view="course-detail">
-    <div id="course-detail-root"></div>
-  </section>
+    <!-- -------------------------------------------------------------
+       ДАТА-ЦЕНТР МЕНЮ И ЛОГИКА САЙТА (JAVASCRIPT)
+       ------------------------------------------------------------- -->
+    <script>
+        // Номер телефона заведения в формате международного стандарта (без плюса)
+        const WHATSAPP_PHONE = "77071234567"; 
 
-  <!-- ================================================================= -->
-  <!-- VIEW: LESSON                                                       -->
-  <!-- ================================================================= -->
-  <section class="view" id="view-lesson" data-view="lesson">
-    <div id="lesson-root"></div>
-  </section>
+        // Глобальное хранилище данных меню ресторана BLA BLA
+        const MENU_DATA = {
+            sushi: {
+                title: "Суши и Роллы",
+                items: [
+                    { id: 101, name: "Филадельфия Премиум", price: 2990, weight: "320г", pcs: "8 шт", desc: "Классический ролл со свежим лососем увеличенной порции, нежным сливочным сыром Cremette, спелым авокадо, рисом и нори.", prot: "9.2", fat: "11.4", carb: "22.1", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&auto=format&fit=crop" },
+                    { id: 102, name: "Калифорния с крабом", price: 2490, weight: "280г", pcs: "8 шт", desc: "Снежный краб замешанный с фирменным майонезом, свежий огурец, спелый авокадо, обсыпка из яркой икры летучей рыбы тобико.", prot: "6.5", fat: "8.1", carb: "26.4", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&auto=format&fit=crop" },
+                    { id: 103, name: "Канада с угрем", price: 3490, weight: "300г", pcs: "8 шт", desc: "Ролл со сливочным сыром, огурцом, обернутый копченым угрем высшего качества, политый соусом унаги и посыпанный ароматным кунжутом.", prot: "10.1", fat: "14.2", carb: "21.8", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&auto=format&fit=crop" },
+                    { id: 104, name: "Запеченный с лососем", price: 2790, weight: "310г", pcs: "8 шт", desc: "Теплый ролл со сливочным сыром и огурцом под нежной пикантной шапочкой из рубленого лосося и сырного соуса.", prot: "8.8", fat: "13.5", carb: "23.0", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&auto=format&fit=crop" },
+                    { id: 105, name: "Дракон Темпура", price: 2890, weight: "330г", pcs: "8 шт", desc: "Хрустящий ролл во фритюре с тигровой креветкой, нежным спайси соусом, твердым сыром и зеленым луком.", prot: "11.3", fat: "15.1", carb: "25.6", img: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600&auto=format&fit=crop" }
+                ]
+            },
+            sets: {
+                title: "Ассорти Сеты",
+                items: [
+                    { id: 201, name: "Сет Мега Бла Бла", price: 9990, weight: "1200г", pcs: "32 шт", desc: "Огромный сет для большой компании: Филадельфия Премиум, Калифорния, Запеченный с курицей, Хрустящая темпура с крабом.", prot: "8.9", fat: "11.8", carb: "24.2", img: "https://images.unsplash.com/photo-1607301408220-e1477485673a?w=600&auto=format&fit=crop" },
+                    { id: 202, name: "Сет Топ Филадельфия", price: 7490, weight: "940г", pcs: "24 шт", desc: "Мечта любителей лосося: Филадельфия классическая, Филадельфия с авокадо, запеченная Филадельфия под сырной шапкой.", prot: "9.5", fat: "12.1", carb: "21.9", img: "https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=600&auto=format&fit=crop" }
+                ]
+            },
+            pizza: {
+                title: "Итальянская Пицца",
+                items: [
+                    { id: 301, name: "Пепперони Классик", price: 2690, weight: "420г", pcs: "30 см", desc: "Тонкое традиционное тесто, пикантные колбаски пепперони, оригинальный томатный соус, много моцареллы и прованские травы.", prot: "12.4", fat: "14.8", carb: "28.1", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&auto=format&fit=crop" },
+                    { id: 302, name: "Четыре Сыра", price: 2990, weight: "440г", pcs: "30 см", desc: "Белый сливочный соус, благородный сыр Дор Блю, нежная моцарелла, ароматный чеддер и пармезан.", prot: "14.1", fat: "16.5", carb: "25.3", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop" },
+                    { id: 303, name: "Мясной Бум", price: 3290, weight: "510г", pcs: "30 см", desc: "Сытная пицца с охотничьими колбасками, ветчиной, куриным филе, беконом, соусом барбекю и маринованным луком.", prot: "15.2", fat: "17.1", carb: "27.0", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&auto=format&fit=crop" }
+                ]
+            },
+            soups: {
+                title: "Супы и Лапша WOK",
+                items: [
+                    { id: 401, name: "Том Ям с креветками", price: 2490, weight: "400г", pcs: "1 порц", desc: "Классический тайский остро-кислый суп на кокосовом молоке с тигровыми креветками, кальмарами, грибами шиитаке, томатами черри и кинзой. Подается с рисом.", prot: "5.4", fat: "6.8", carb: "11.2", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop" },
+                    { id: 402, name: "WOK с курицей Терьяки", price: 1990, weight: "350г", pcs: "1 порц", desc: "Пшеничная лапша удон собственного приготовления, обжаренная в раскаленном воке с сочным куриным филе, болгарским перцем, морковью и фирменным соусом терияки.", prot: "8.2", fat: "5.9", carb: "34.1", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&auto=format&fit=crop" }
+                ]
+            },
+            drinks: {
+                title: "Напитки",
+                items: [
+                    { id: 501, name: "Морс Домашний Ягодный", price: 790, weight: "500мл", pcs: "1 шт", desc: "Натуральный охлажденный морс собственного варения из свежей клюквы, черной смородины и малины.", prot: "0.1", fat: "0.0", carb: "12.5", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&auto=format&fit=crop" },
+                    { id: 502, name: "Coca-Cola Classic", price: 600, weight: "500мл", pcs: "1 шт", desc: "Классический сильногазированный безалкогольный напиток в пластиковой бутылке.", prot: "0.0", fat: "0.0", carb: "10.6", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop" }
+                ]
+            }
+        };
 
-  <!-- ================================================================= -->
-  <!-- VIEW: PROFILE                                                      -->
-  <!-- ================================================================= -->
-  <section class="view" id="view-profile" data-view="profile">
-    <div class="container page-pad">
-      <div class="profile-header card-glass">
-        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Dinara" class="profile-avatar" alt="Аватар">
-        <div class="profile-info">
-          <h2 id="profile-name">Динара Ахметова</h2>
-          <p id="profile-email">dinara@example.com</p>
-          <div class="level-badge-row">
-            <span class="level-chip">Уровень <b id="profile-level">1</b></span>
-            <div class="xp-track"><div class="xp-fill" id="profile-xp-fill"></div></div>
-            <span class="xp-text"><span id="profile-xp-current">0</span>/<span id="profile-xp-next">500</span> XP</span>
-          </div>
-        </div>
-        <div class="streak-block">
-          <span class="streak-fire">🔥</span>
-          <div>
-            <b id="profile-streak">0</b>
-            <span>дней подряд</span>
-          </div>
-        </div>
-      </div>
+        // Корзина пользователя
+        let cart = [];
+        // Выбранный товар для модального окна
+        let currentModalProduct = null;
 
-      <div class="profile-tabs" id="profile-tabs">
-        <button class="tab-btn active" data-profile-tab="overview">Обзор</button>
-        <button class="tab-btn" data-profile-tab="courses">Мои курсы</button>
-        <button class="tab-btn" data-profile-tab="progress">Прогресс</button>
-        <button class="tab-btn" data-profile-tab="achievements">Достижения</button>
-        <button class="tab-btn" data-profile-tab="certificates">Сертификаты</button>
-        <button class="tab-btn" data-profile-tab="settings">Настройки</button>
-      </div>
+        // Жизненный цикл приложения
+        window.addEventListener('DOMContentLoaded', () => {
+            initMenu();
+            checkUserSession();
+            updateCartUI();
+        });
 
-      <div class="profile-panel" id="profile-panel-overview">
-        <div class="overview-grid">
-          <div class="card-glass stat-card">
-            <span class="stat-card-icon">⏱</span>
-            <b id="stat-hours">0</b>
-            <span>часов обучения</span>
-          </div>
-          <div class="card-glass stat-card">
-            <span class="stat-card-icon">✅</span>
-            <b id="stat-tasks">0</b>
-            <span>задач выполнено</span>
-          </div>
-          <div class="card-glass stat-card">
-            <span class="stat-card-icon">📝</span>
-            <b id="stat-tests">0</b>
-            <span>тестов пройдено</span>
-          </div>
-          <div class="card-glass stat-card">
-            <span class="stat-card-icon">🏆</span>
-            <b id="stat-badges">0</b>
-            <span>значков получено</span>
-          </div>
-        </div>
-        <div class="continue-block card-glass" id="continue-learning"></div>
-        <h3 class="mini-title">Активность</h3>
-        <div class="heatmap" id="activity-heatmap"></div>
-      </div>
+        // Инициализация структуры меню и навигационной панели
+        function initMenu() {
+            const navBar = document.getElementById('categoriesBar');
+            const menuContainers = document.getElementById('menuContainers');
+            
+            navBar.innerHTML = '';
+            menuContainers.innerHTML = '';
 
-      <div class="profile-panel hidden" id="profile-panel-courses">
-        <div class="course-grid" id="my-courses-grid"></div>
-      </div>
+            Object.keys(MENU_DATA).forEach((key, index) => {
+                const category = MENU_DATA[key];
+                
+                // Создаем кнопку в навигации
+                const navLink = document.createElement('a');
+                navLink.className = `cat-link ${index === 0 ? 'active' : ''}`;
+                navLink.innerText = category.title;
+                navLink.href = `#cat_${key}`;
+                navLink.onclick = (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.cat-link').forEach(l => l.classList.remove('active'));
+                    navLink.classList.add('active');
+                    document.getElementById(`cat_${key}`).scrollIntoView({ behavior: 'smooth' });
+                };
+                navBar.appendChild(navLink);
 
-      <div class="profile-panel hidden" id="profile-panel-progress">
-        <div class="progress-charts-grid">
-          <div class="card-glass chart-card">
-            <h4>По направлениям</h4>
-            <canvas id="chart-directions" width="260" height="260"></canvas>
-          </div>
-          <div class="card-glass chart-card">
-            <h4>По неделям</h4>
-            <canvas id="chart-weekly" width="400" height="260"></canvas>
-          </div>
-        </div>
-      </div>
+                // Создаем секцию с карточками товаров
+                const section = document.createElement('section');
+                section.className = 'menu-section';
+                section.id = `cat_${key}`;
+                
+                const title = document.createElement('h2');
+                title.className = 'section-title';
+                title.innerText = category.title;
+                section.appendChild(title);
 
-      <div class="profile-panel hidden" id="profile-panel-achievements">
-        <div class="badges-grid" id="badges-grid"></div>
-      </div>
+                const grid = document.createElement('div');
+                grid.className = 'products-grid';
 
-      <div class="profile-panel hidden" id="profile-panel-certificates">
-        <div class="certificates-grid" id="certificates-grid"></div>
-      </div>
+                category.items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.onclick = () => openProductModal(item);
+                    
+                    card.innerHTML = `
+                        <div class="product-img-wrapper">
+                            <img src="${item.img}" alt="${item.name}" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-meta">${item.weight} • ${item.pcs}</div>
+                            <div class="product-name">${item.name}</div>
+                            <div class="product-desc-short">${item.desc}</div>
+                            <div class="product-footer">
+                                <div class="product-price">${item.price} ₸</div>
+                                <button class="add-btn-sm" onclick="event.stopPropagation(); fastAddToCart(${item.id})">+</button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
 
-      <div class="profile-panel hidden" id="profile-panel-settings">
-        <div class="settings-form card-glass">
-          <div class="form-row">
-            <label>Имя</label>
-            <input type="text" id="settings-name" class="text-field">
-          </div>
-          <div class="form-row">
-            <label>Email</label>
-            <input type="email" id="settings-email" class="text-field">
-          </div>
-          <div class="form-row">
-            <label>Тема оформления</label>
-            <div class="theme-switch-row">
-              <button class="theme-opt active" data-theme-choice="light">☀️ Светлая</button>
-              <button class="theme-opt" data-theme-choice="dark">🌙 Тёмная</button>
-            </div>
-          </div>
-          <div class="form-row">
-            <label>Уведомления о streak</label>
-            <label class="switch"><input type="checkbox" id="settings-notif" checked><span class="switch-slider"></span></label>
-          </div>
-          <button class="btn btn-primary" id="settings-save">Сохранить изменения</button>
-        </div>
-      </div>
-    </div>
-  </section>
+                section.appendChild(grid);
+                menuContainers.appendChild(section);
+            });
+        }
 
-  <!-- ================================================================= -->
-  <!-- VIEW: TOOLS HUB                                                    -->
-  <!-- ================================================================= -->
-  <section class="view" id="view-tools" data-view="tools">
-    <div class="container page-pad">
-      <div class="page-head">
-        <h1>Инструменты</h1>
-        <p>Калькуляторы, мини-IDE и графический визуализатор</p>
-      </div>
-      <div class="tools-grid">
-        <button class="tool-card card-glass" data-nav="calc-quadratic">
-          <span class="tool-icon">x²</span><h4>Квадратные уравнения</h4>
-        </button>
-        <button class="tool-card card-glass" data-nav="calc-percent">
-          <span class="tool-icon">%</span><h4>Проценты</h4>
-        </button>
-        <button class="tool-card card-glass" data-nav="calc-fractions">
-          <span class="tool-icon">½</span><h4>Дроби</h4>
-        </button>
-        <button class="tool-card card-glass" data-nav="calc-matrix">
-          <span class="tool-icon">[ ]</span><h4>Матрицы</h4>
-        </button>
-        <button class="tool-card card-glass" data-nav="calc-vector">
-          <span class="tool-icon">→</span><h4>Векторы</h4>
-        </button>
-        <button class="tool-card card-glass" data-nav="calc-derivative">
-          <span class="tool-icon">f'</span><h4>Производные</h4>
-        </button>
-        <button class="tool-card card-glass" data-nav="calc-integral">
-          <span class="tool-icon">∫</span><h4>Интегралы</h4>
-        </button>
-        <button class="tool-card card-glass" data-nav="calc-base">
-          <span class="tool-icon">10₂</span><h4>Системы счисления</h4>
-        </button>
-        <button class="tool-card card-glass" data-nav="ide">
-          <span class="tool-icon">&lt;/&gt;</span><h4>Мини-IDE</h4>
-        </button>
-        <button class="tool-card card-glass" data-nav="graphing">
-          <span class="tool-icon">📈</span><h4>Графики функций</h4>
-        </button>
-      </div>
-      <div id="tool-panel-root"></div>
-    </div>
-  </section>
+        // -------------------------------------------------------------
+        // СЕССИЯ ПОЛЬЗОВАТЕЛЯ И LOCALSTORAGE (СОХРАНЕНИЕ НАВСЕГДА)
+        // -------------------------------------------------------------
+        function checkUserSession() {
+            const savedName = localStorage.getItem('blabla_username');
+            const savedPhone = localStorage.getItem('blabla_userphone');
+            const savedAddress = localStorage.getItem('blabla_useraddress');
 
-  <!-- ================================================================= -->
-  <!-- VIEW: ENT PREP                                                     -->
-  <!-- ================================================================= -->
-  <section class="view" id="view-ent" data-view="ent">
-    <div class="container page-pad">
-      <div class="page-head">
-        <h1>Подготовка к ЕНТ</h1>
-        <p>Темы, пробные тесты, таймер и аналитика ошибок</p>
-      </div>
-      <div class="ent-subjects" id="ent-subjects"></div>
-      <div id="ent-panel-root"></div>
-    </div>
-  </section>
+            const overlay = document.getElementById('addressOverlay');
+            const badge = document.getElementById('profileBadge');
+            const badgeText = document.getElementById('badgeText');
 
-  <!-- ================================================================= -->
-  <!-- VIEW: LEADERBOARD                                                  -->
-  <!-- ================================================================= -->
-  <section class="view" id="view-leaderboard" data-view="leaderboard">
-    <div class="container page-pad">
-      <div class="page-head">
-        <h1>Лидерборд</h1>
-        <p>Рейтинг учеников по XP за эту неделю</p>
-      </div>
-      <div class="leaderboard-list card-glass" id="leaderboard-list"></div>
-    </div>
-  </section>
+            if (savedName && savedPhone && savedAddress) {
+                overlay.style.display = 'none';
+                badge.classList.remove('warning-badge');
+                badgeText.innerText = `👤 ${savedName}`;
+            } else {
+                overlay.style.display = 'flex';
+                badge.classList.add('warning-badge');
+                badgeText.innerText = `Указать адрес`;
+            }
+        }
 
-</main>
+        function saveUserCredentials(event) {
+            event.preventDefault();
+            const name = document.getElementById('inputName').value.trim();
+            const phone = document.getElementById('inputPhone').value.trim();
+            const address = document.getElementById('inputAddress').value.trim();
 
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div class="footer-brand">
-      <div class="brand">
-        <span class="brand-mark">∫d</span>
-        <span class="brand-name">DINARA <em>MATH &amp; IT</em></span>
-      </div>
-      <p>Онлайн-платформа для изучения математики и информатики нового поколения.</p>
-      <div class="social-row">
-        <a href="#" aria-label="Instagram">IG</a>
-        <a href="#" aria-label="YouTube">YT</a>
-        <a href="#" aria-label="Telegram">TG</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h5>Платформа</h5>
-      <a href="#" data-nav="courses">Курсы</a>
-      <a href="#" data-nav="ent">Подготовка к ЕНТ</a>
-      <a href="#" data-nav="tools">Инструменты</a>
-      <a href="#">О платформе</a>
-    </div>
-    <div class="footer-col">
-      <h5>Поддержка</h5>
-      <a href="#">FAQ</a>
-      <a href="#">Контакты</a>
-      <a href="#">Политика конфиденциальности</a>
-      <a href="#">Условия использования</a>
-    </div>
-    <div class="footer-col">
-      <h5>Контакты</h5>
-      <p>support@dinaramath.kz</p>
-      <p>+7 (700) 000-00-00</p>
-      <p>Алматы, Казахстан</p>
-    </div>
-  </div>
-  <div class="container footer-bottom">
-    <p>© 2026 DINARA MATH &amp; IT. Все права защищены.</p>
-  </div>
-</footer>
+            if(name && phone && address) {
+                localStorage.setItem('blabla_username', name);
+                localStorage.setItem('blabla_userphone', phone);
+                localStorage.setItem('blabla_useraddress', address);
+                checkUserSession();
+            }
+        }
 
-<script src="data.js"></script>
-<script src="store.js"></script>
-<script src="utils.js"></script>
-<script src="router.js"></script>
-<script src="ui-home.js"></script>
-<script src="ui-courses.js"></script>
-<script src="ui-lesson.js"></script>
-<script src="ui-profile.js"></script>
-<script src="gamification.js"></script>
-<script src="calculators.js"></script>
-<script src="syntax-highlight.js"></script>
-<script src="ide.js"></script>
-<script src="graphing.js"></script>
-<script src="ent.js"></script>
-<script src="certificates.js"></script>
-<script src="app.js"></script>
+        function openAddressEditor() {
+            const overlay = document.getElementById('addressOverlay');
+            document.getElementById('inputName').value = localStorage.getItem('blabla_username') || '';
+            document.getElementById('inputPhone').value = localStorage.getItem('blabla_userphone') || '';
+            document.getElementById('inputAddress').value = localStorage.getItem('blabla_useraddress') || '';
+            overlay.style.display = 'flex';
+        }
+
+        // -------------------------------------------------------------
+        // РАБОТА С МОДАЛЬНЫМ ОКНОМ ТОВАРА
+        // -------------------------------------------------------------
+        function openProductModal(product) {
+            currentModalProduct = product;
+            document.getElementById('mImage').src = product.img;
+            document.getElementById('mTitle').innerText = product.name;
+            document.getElementById('mWeight').innerText = product.weight;
+            document.getElementById('mProt').innerText = product.prot + ' г';
+            document.getElementById('mFat').innerText = product.fat + ' г';
+            document.getElementById('mCarb').innerText = product.carb + ' г';
+            document.getElementById('mDesc').innerText = product.desc;
+            document.getElementById('mPrice').innerText = `${product.price} ₸`;
+
+            document.getElementById('mAddBtn').onclick = () => {
+                fastAddToCart(product.id);
+                closeProductModal(null);
+            };
+
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function closeProductModal(e) {
+            if(!e || e.target === document.getElementById('productModal')) {
+                document.getElementById('productModal').style.display = 'none';
+            }
+        }
+
+        // -------------------------------------------------------------
+        // УПРАВЛЕНИЕ КОРЗИНОЙ И ЛОГИКА КАЛЬКУЛЯЦИИ
+        // -------------------------------------------------------------
+        function findProductById(id) {
+            for (let cat in MENU_DATA) {
+                const found = MENU_DATA[cat].items.find(p => p.id === id);
+                if (found) return found;
+            }
+            return null;
+        }
+
+        function fastAddToCart(productId) {
+            const product = findProductById(productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.product.id === productId);
+            if (existingItem) {
+                existingItem.qty++;
+            } else {
+                cart.push({ product, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        function changeQty(productId, delta) {
+            const itemIndex = cart.findIndex(item => item.product.id === productId);
+            if (itemIndex === -1) return;
+
+            cart[itemIndex].qty += delta;
+            if (cart[itemIndex].qty <= 0) {
+                cart.splice(itemIndex, 1);
+            }
+            updateCartUI();
+            if(document.getElementById('cartModal').style.display === 'flex') {
+                renderCartList();
+            }
+        }
+
+        function updateCartUI() {
+            const trigger = document.getElementById('cartTrigger');
+            const countBadge = document.getElementById('cartTotalItems');
+            
+            const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+
+            if (totalItems > 0) {
+                trigger.style.display = 'flex';
+                countBadge.innerText = totalItems;
+            } else {
+                trigger.style.display = 'none';
+                closeCartModal(null);
+            }
+        }
+
+        function openCartModal() {
+            renderCartList();
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeCartModal(e) {
+            if(!e || e.target === document.getElementById('cartModal')) {
+                document.getElementById('cartModal').style.display = 'none';
+            }
+        }
+
+        function renderCartList() {
+            const listContainer = document.getElementById('cartItemsList');
+            const totalSumSpan = document.getElementById('cartTotalSum');
+            listContainer.innerHTML = '';
+            
+            let totalSum = 0;
+
+            cart.forEach(item => {
+                const rowSum = item.product.price * item.qty;
+                totalSum += rowSum;
+
+                const row = document.createElement('div');
+                row.className = 'cart-item-row';
+                row.innerHTML = `
+                    <div class="cart-item-info">
+                        <h4>${item.product.name}</h4>
+                        <p>${item.product.price} ₸</p>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="qty-btn" onclick="changeQty(${item.product.id}, -1)">-</button>
+                        <div class="qty-val">${item.qty}</div>
+                        <button class="qty-btn" onclick="changeQty(${item.product.id}, 1)">+</button>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+
+            totalSumSpan.innerText = `${totalSum} ₸`;
+        }
+
+        // -------------------------------------------------------------
+        // ИНТЕГРАЦИЯ С WHATSAPP - ОТПРАВКА СФОРМИРОВАННОГО ЗАКАЗА
+        // -------------------------------------------------------------
+        function checkoutOrder() {
+            const username = localStorage.getItem('blabla_username');
+            const userphone = localStorage.getItem('blabla_userphone');
+            const useraddress = localStorage.getItem('blabla_useraddress');
+
+            if(!username || !userphone || !useraddress) {
+                alert("Обнаружена ошибка данных. Пожалуйста, заполните адрес доставки еще раз.");
+                openAddressEditor();
+                return;
+            }
+
+            if(cart.length === 0) {
+                alert("Ваша корзина пуста!");
+                return;
+            }
+
+            // Формируем красивый текст для WhatsApp в ресторанном стиле
+            let message = `*🍕 НОВЫЙ ЗАКАЗ В BLA BLA RESTAURANT*\n\n`;
+            message += `👤 *Клиент:* ${username}\n`;
+            message += `📞 *Телефон:* ${userphone}\n`;
+            message += `📍 *Адрес доставки (г. Уральск):* ${useraddress}\n\n`;
+            message += `📦 *Состав заказа:*\n`;
+
+            let finalSum = 0;
+            cart.forEach((item, index) => {
+                const cost = item.product.price * item.qty;
+                finalSum += cost;
+                message += `${index + 1}. ${item.product.name} — *${item.qty} шт.* (по ${item.product.price} ₸) на сумму _${cost} ₸_\n`;
+            });
+
+            message += `\n💵 *Итого к оплате:* *${finalSum} ₸*\n`;
+            message += `🛵 *Доставка:* Бесплатно по Уральску\n`;
+            message += `⏱️ _Прошу подтвердить заказ в ответном сообщении и сориентировать по времени доставки._`;
+
+            // Кодируем текст для передачи через URL
+            const encodedText = encodeURIComponent(message).replace(/%5Cn/g, '%0A'); 
+            const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodedText}`;
+            
+            // Открываем чат WhatsApp в новом окне/приложении
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
 </body>
 </html>
