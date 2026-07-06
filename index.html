@@ -316,6 +316,34 @@
             text-overflow: ellipsis;
         }
 
+        .header-right { display: flex; align-items: center; gap: 8px; }
+
+        .lang-switcher {
+            display: flex;
+            background-color: #f5f5f7;
+            border-radius: 20px;
+            padding: 3px;
+            flex-shrink: 0;
+        }
+
+        .lang-switcher button {
+            border: none;
+            background: transparent;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 16px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            font-family: var(--font);
+        }
+
+        .lang-switcher button.active {
+            background: var(--text-main);
+            color: #ffffff;
+        }
+
         .categories-carousel {
             position: sticky;
             top: 63px;
@@ -549,49 +577,49 @@
     <div class="address-overlay" id="userInitOverlay" style="display: none;">
         <div class="address-card">
             <div class="salmon-logo"></div>
-            <h2>Доставка в Уральске</h2>
-            <p>Укажите контакты и точный адрес из навигатора для быстрой доставки горячих блюд.</p>
+            <h2 data-i18n="deliveryTitle">Доставка в Уральске</h2>
+            <p data-i18n="deliverySubtitle">Укажите контакты и точный адрес из навигатора для быстрой доставки горячих блюд.</p>
             
             <form id="initFormElement" onsubmit="handleUserSubmit(event)">
                 <div class="form-group">
-                    <label>Ваше Имя</label>
+                    <label data-i18n="labelName">Ваше Имя</label>
                     <i class="fa-regular fa-user"></i>
-                    <input type="text" id="joinName" required placeholder="Введите ваше имя">
+                    <input type="text" id="joinName" required placeholder="Введите ваше имя" data-i18n-placeholder="placeholderName">
                 </div>
                 
                 <div class="form-group">
-                    <label>Номер телефона</label>
+                    <label data-i18n="labelPhone">Номер телефона</label>
                     <i class="fa-solid fa-phone"></i>
                     <input type="tel" id="joinPhone" required placeholder="+7 (___) ___-__-__">
                 </div>
 
                 <div class="form-group select-wrapper">
-                    <label>Тип жилья</label>
+                    <label data-i18n="labelHousingType">Тип жилья</label>
                     <i class="fa-solid fa-house-chimney"></i>
                     <select id="housingType" onchange="toggleHousingFields()">
-                        <option value="apartment">Квартира / Офис</option>
-                        <option value="private">Частный дом</option>
+                        <option value="apartment" data-i18n="optApartment">Квартира / Офис</option>
+                        <option value="private" data-i18n="optPrivateHouse">Частный дом</option>
                     </select>
                 </div>
                 
                 <div class="address-grid-fields" id="addressFieldsContainer">
                     <div class="form-group">
-                        <label>Улица и № дома</label>
+                        <label data-i18n="labelStreet">Улица и № дома</label>
                         <i class="fa-solid fa-location-dot"></i>
-                        <input type="text" id="joinStreet" required placeholder="Например: ул. Абулхаир хана, 45">
+                        <input type="text" id="joinStreet" required placeholder="Например: ул. Абулхаир хана, 45" data-i18n-placeholder="placeholderStreet">
                     </div>
                     <div class="form-group entrance-box" id="entranceFieldWrapper">
-                        <label>Подъезд / Кв.</label>
+                        <label data-i18n="labelEntrance">Подъезд / Кв.</label>
                         <i class="fa-solid fa-door-closed"></i>
-                        <input type="text" id="joinApartment" placeholder="Подъезд 2, кв 14">
+                        <input type="text" id="joinApartment" placeholder="Подъезд 2, кв 14" data-i18n-placeholder="placeholderEntrance">
                     </div>
                 </div>
 
                 <div class="map-hint-box">
-                    <strong>📍 Подсказка от BLA BLA:</strong> Для частных домов поле подъезда автоматически скрывается. Водитель приедет быстрее, если указать точный номер дома!
+                    <strong data-i18n="hintTitle">📍 Подсказка от BLA BLA:</strong> <span data-i18n="hintText">Для частных домов поле подъезда автоматически скрывается. Водитель приедет быстрее, если указать точный номер дома!</span>
                 </div>
                 <button type="submit" class="btn-animate">
-                    <i class="fa-solid fa-circle-check"></i> Сохранить и смотреть меню
+                    <i class="fa-solid fa-circle-check"></i> <span data-i18n="btnSaveMenu">Сохранить и смотреть меню</span>
                 </button>
             </form>
         </div>
@@ -602,18 +630,25 @@
             <div class="header-logo-mini"></div>
             <div class="logo-title">BLA BLA</div>
         </div>
-        <div class="profile-trigger" id="profileShortCut" onclick="reOpenAddressForm()">
-            <i class="fa-solid fa-location-crosshairs"></i> Указать адрес
+        <div class="header-right">
+            <div class="lang-switcher" id="langSwitcher">
+                <button type="button" data-lang="ru" onclick="setLanguage('ru')">RU</button>
+                <button type="button" data-lang="kz" onclick="setLanguage('kz')">ҚАЗ</button>
+            </div>
+            <div class="profile-trigger" id="profileShortCut" onclick="reOpenAddressForm()">
+                <i class="fa-solid fa-location-crosshairs"></i> <span data-i18n="btnSetAddress">Указать адрес</span>
+            </div>
         </div>
     </header>
 
     <nav class="categories-carousel" id="dynamicTabs"></nav>
     <main class="app-container" id="sectionsTarget"></main>
+    
 
     <div class="floating-basket-bar" id="basketTriggerBar" onclick="displayBasketModal()">
         <div class="basket-left-side">
             <span class="basket-indicator-num" id="basketItemsQty">0</span>
-            <span><i class="fa-solid fa-basket-shopping"></i> Посмотреть корзину</span>
+            <span><i class="fa-solid fa-basket-shopping"></i> <span data-i18n="btnViewCart">Посмотреть корзину</span></span>
         </div>
         <span id="basketTotalCost">0 ₸</span>
     </div>
@@ -626,17 +661,17 @@
                 <img class="sheet-preview-img" id="dishModalImg" src="" alt="">
                 <h3 class="sheet-meta-title" id="dishModalTitle">Название</h3>
                 <div class="sheet-stats-row">
-                    <div class="stat-pill"><font id="mWeight">0г</font><span>Вес</span></div>
-                    <div class="stat-pill"><font id="mProt">0г</font><span>Белки</span></div>
-                    <div class="stat-pill"><font id="mFat">0г</font><span>Жиры</span></div>
-                    <div class="stat-pill"><font id="mCarb">0г</font><span>Угл.</span></div>
+                    <div class="stat-pill"><font id="mWeight">0г</font><span data-i18n="statWeight">Вес</span></div>
+                    <div class="stat-pill"><font id="mProt">0г</font><span data-i18n="statProt">Белки</span></div>
+                    <div class="stat-pill"><font id="mFat">0г</font><span data-i18n="statFat">Жиры</span></div>
+                    <div class="stat-pill"><font id="mCarb">0г</font><span data-i18n="statCarb">Угл.</span></div>
                 </div>
                 <p class="sheet-description" id="dishModalDesc">Описание</p>
             </div>
             <div class="sheet-footer-sticky">
                 <div class="dish-cost" id="dishModalPrice" style="font-size: 22px;">0 ₸</div>
                 <button class="btn-animate" id="dishModalAddBtn" style="width: auto; padding: 14px 28px; border-radius: 25px;">
-                    <i class="fa-solid fa-plus"></i> Добавить
+                    <i class="fa-solid fa-plus"></i> <span data-i18n="btnAdd">Добавить</span>
                 </button>
             </div>
         </div>
@@ -648,21 +683,21 @@
             <button class="sheet-close" onclick="dismissBasketModal(null)">&times;</button>
             <div class="sheet-scroll-content" style="padding-top: 10px;">
                 <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;">
-                    <i class="fa-solid fa-cart-flat-bed"></i> Ваш заказ
+                    <i class="fa-solid fa-cart-flat-bed"></i> <span data-i18n="basketTitle">Ваш заказ</span>
                 </h3>
                 <div class="basket-scroll-list" id="basketRenderContainer"></div>
                 <div class="basket-cost-info">
                     <div class="cost-row">
-                        <span>Доставка по Уральску</span>
-                        <span style="color: #25d366; font-weight: 700;"><i class="fa-solid fa-truck-fast"></i> Бесплатно</span>
+                        <span data-i18n="deliveryLabel">Доставка по Уральску</span>
+                        <span style="color: #25d366; font-weight: 700;"><i class="fa-solid fa-truck-fast"></i> <span data-i18n="freeLabel">Бесплатно</span></span>
                     </div>
                     <div class="cost-row grand-total">
-                        <span>Итого к оплате</span>
+                        <span data-i18n="totalLabel">Итого к оплате</span>
                         <span id="basketFinalSum">0 ₸</span>
                     </div>
                 </div>
                 <button class="btn-animate whatsapp-submit-btn" onclick="submitOrderViaWhatsapp()">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> Перейти к заказу в WhatsApp
+                    <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> <span data-i18n="btnWhatsappOrder">Перейти к заказу в WhatsApp</span>
                 </button>
             </div>
         </div>
@@ -673,14 +708,14 @@
             <div class="sheet-indicator"></div>
             <div class="sheet-scroll-content status-dialog-box">
                 <i class="fa-regular fa-circle-question main-icon"></i>
-                <h3>Вы получили ответ оператора?</h3>
-                <p>Мы зафиксировали ваш переход в чат WhatsApp. Скажите, ответил ли вам наш менеджер и подтвердил ли он ваш заказ?</p>
+                <h3 data-i18n="operatorQTitle">Вы получили ответ оператора?</h3>
+                <p data-i18n="operatorQText">Мы зафиксировали ваш переход в чат WhatsApp. Скажите, ответил ли вам наш менеджер и подтвердил ли он ваш заказ?</p>
                 <div class="choice-buttons-grid">
                     <button class="btn-choice yes" onclick="processOperatorResponse(true)">
-                        <i class="fa-solid fa-check"></i> Да, ответил
+                        <i class="fa-solid fa-check"></i> <span data-i18n="btnYesAnswered">Да, ответил</span>
                     </button>
                     <button class="btn-choice no" onclick="processOperatorResponse(false)">
-                        <i class="fa-solid fa-xmark"></i> Нет, изменить
+                        <i class="fa-solid fa-xmark"></i> <span data-i18n="btnNoChange">Нет, изменить</span>
                     </button>
                 </div>
             </div>
@@ -693,10 +728,10 @@
             <button class="sheet-close" onclick="dismissSuccessModal(null)">&times;</button>
             <div class="sheet-scroll-content status-dialog-box">
                 <i class="fa-regular fa-circle-check main-icon"></i>
-                <h3>Спасибо за заказ!</h3>
-                <p>Ваше блюдо уже передано на кухню шеф-повару. Наш курьер выезжает сразу же по готовности. Приятного вам аппетита!</p>
+                <h3 data-i18n="successTitle">Спасибо за заказ!</h3>
+                <p data-i18n="successText">Ваше блюдо уже передано на кухню шеф-повару. Наш курьер выезжает сразу же по готовности. Приятного вам аппетита!</p>
                 <button class="btn-animate" onclick="dismissSuccessModal(null)">
-                    <i class="fa-solid fa-utensils"></i> Отлично, спасибо!
+                    <i class="fa-solid fa-utensils"></i> <span data-i18n="btnThanks">Отлично, спасибо!</span>
                 </button>
             </div>
         </div>
@@ -705,6 +740,149 @@
     <script>
         // Глобальный конфигурационный номер телефона ресторана BLA BLA (Казахстан)
         const CONFIG_WHATSAPP_NUMBER = "77058486656";
+
+        /**
+         * ============================================================================
+         * СЛОВАРЬ ПЕРЕВОДОВ ИНТЕРФЕЙСА (RU / KZ)
+         * ============================================================================
+         */
+        const LANG_UI = {
+            ru: {
+                pageTitle: "BLA BLA | Ресторан премиальной доставки в Уральске",
+                deliveryTitle: "Доставка в Уральске",
+                deliverySubtitle: "Укажите контакты и точный адрес из навигатора для быстрой доставки горячих блюд.",
+                labelName: "Ваше Имя",
+                placeholderName: "Введите ваше имя",
+                labelPhone: "Номер телефона",
+                labelHousingType: "Тип жилья",
+                optApartment: "Квартира / Офис",
+                optPrivateHouse: "Частный дом",
+                labelStreet: "Улица и № дома",
+                placeholderStreet: "Например: ул. Абулхаир хана, 45",
+                labelEntrance: "Подъезд / Кв.",
+                placeholderEntrance: "Подъезд 2, кв 14",
+                hintTitle: "📍 Подсказка от BLA BLA:",
+                hintText: "Для частных домов поле подъезда автоматически скрывается. Водитель приедет быстрее, если указать точный номер дома!",
+                btnSaveMenu: "Сохранить и смотреть меню",
+                btnSetAddress: "Указать адрес",
+                btnViewCart: "Посмотреть корзину",
+                statWeight: "Вес",
+                statProt: "Белки",
+                statFat: "Жиры",
+                statCarb: "Угл.",
+                btnAdd: "Добавить",
+                basketTitle: "Ваш заказ",
+                deliveryLabel: "Доставка по Уральску",
+                freeLabel: "Бесплатно",
+                totalLabel: "Итого к оплате",
+                btnWhatsappOrder: "Перейти к заказу в WhatsApp",
+                operatorQTitle: "Вы получили ответ оператора?",
+                operatorQText: "Мы зафиксировали ваш переход в чат WhatsApp. Скажите, ответил ли вам наш менеджер и подтвердил ли он ваш заказ?",
+                btnYesAnswered: "Да, ответил",
+                btnNoChange: "Нет, изменить",
+                successTitle: "Спасибо за заказ!",
+                successText: "Ваше блюдо уже передано на кухню шеф-повару. Наш курьер выезжает сразу же по готовности. Приятного вам аппетита!",
+                btnThanks: "Отлично, спасибо!",
+                notifyFillAddress: "⚠️ Подтвердите контакты и адрес доставки!",
+                notifyFillApartment: "🏢 Укажите номер квартиры или офиса!",
+                notifyEmptyCart: "🛒 Ваша корзина пуста!",
+                waHeader: "🚀 НОВЫЙ ЗАКАЗ В BLA BLA RESTAURANT",
+                waName: "👤 Имя клиента:",
+                waPhone: "📞 Контактный телефон:",
+                waAddress: "📍 Адрес доставки (г. Уральск):",
+                waDishesHeader: "📦 Выбранные блюда:",
+                waPiece: "шт.",
+                waTotal: "💵 Итого к оплате:",
+                waDelivery: "🛵 Доставка: Бесплатно по Уральску",
+                waFooter: "Пожалуйста, подтвердите получение заказа и сообщите ориентировочное время прибытия курьера.",
+                housePrivateLabel: "Частный дом",
+                apartmentPrefix: "кв/офис"
+            },
+            kz: {
+                pageTitle: "BLA BLA | Орал қаласындағы премиум жеткізу мейрамханасы",
+                deliveryTitle: "Орал қаласына жеткізу",
+                deliverySubtitle: "Ыстық тағамдарды жылдам жеткізу үшін байланыс деректері мен нақты мекенжайды көрсетіңіз.",
+                labelName: "Атыңыз",
+                placeholderName: "Атыңызды енгізіңіз",
+                labelPhone: "Телефон нөмірі",
+                labelHousingType: "Тұрғын үй түрі",
+                optApartment: "Пәтер / Кеңсе",
+                optPrivateHouse: "Жеке үй",
+                labelStreet: "Көше және үй №",
+                placeholderStreet: "Мысалы: Абулхаир хан көшесі, 45",
+                labelEntrance: "Кіреберіс / Пәтер",
+                placeholderEntrance: "2-кіреберіс, 14-пәтер",
+                hintTitle: "📍 BLA BLA кеңесі:",
+                hintText: "Жеке үйлер үшін кіреберіс өрісі автоматты түрде жасырылады. Үй нөмірін дәл көрсетсеңіз, жүргізуші тезірек жетеді!",
+                btnSaveMenu: "Сақтау және мәзірді қарау",
+                btnSetAddress: "Мекенжайды көрсету",
+                btnViewCart: "Себетті қарау",
+                statWeight: "Салмағы",
+                statProt: "Ақуыз",
+                statFat: "Май",
+                statCarb: "Көм.",
+                btnAdd: "Қосу",
+                basketTitle: "Сіздің тапсырысыңыз",
+                deliveryLabel: "Орал бойынша жеткізу",
+                freeLabel: "Тегін",
+                totalLabel: "Төленетін сома",
+                btnWhatsappOrder: "WhatsApp арқылы тапсырыс беру",
+                operatorQTitle: "Оператордан жауап алдыңыз ба?",
+                operatorQText: "WhatsApp чатына өтуіңізді тіркедік. Менеджеріміз жауап беріп, тапсырысыңызды растады ма, айтып беріңізші?",
+                btnYesAnswered: "Иә, жауап берді",
+                btnNoChange: "Жоқ, өзгерту",
+                successTitle: "Тапсырыс үшін рахмет!",
+                successText: "Сіздің тағамыңыз шеф-поварға берілді. Дайын болысымен курьеріміз жолға шығады. Ас дәмді болсын!",
+                btnThanks: "Керемет, рахмет!",
+                notifyFillAddress: "⚠️ Байланыс деректері мен жеткізу мекенжайын растаңыз!",
+                notifyFillApartment: "🏢 Пәтер немесе кеңсе нөмірін көрсетіңіз!",
+                notifyEmptyCart: "🛒 Себетіңіз бос!",
+                waHeader: "🚀 BLA BLA RESTAURANT-ҚА ЖАҢА ТАПСЫРЫС",
+                waName: "👤 Тапсырыс беруші:",
+                waPhone: "📞 Байланыс телефоны:",
+                waAddress: "📍 Жеткізу мекенжайы (Орал қ.):",
+                waDishesHeader: "📦 Таңдалған тағамдар:",
+                waPiece: "дана",
+                waTotal: "💵 Төленетін сома:",
+                waDelivery: "🛵 Жеткізу: Орал бойынша тегін",
+                waFooter: "Тапсырысты алғаныңызды растап, курьердің шамамен келу уақытын хабарлаңызшы.",
+                housePrivateLabel: "Жеке үй",
+                apartmentPrefix: "пәтер/кеңсе"
+            }
+        };
+
+        // Текущий выбранный язык интерфейса (сохраняется в браузере пользователя)
+        let currentLang = localStorage.getItem('bb_lang') || 'ru';
+
+        // Функция быстрого доступа к переводу по ключу
+        function t(key) { return (LANG_UI[currentLang] && LANG_UI[currentLang][key]) || LANG_UI.ru[key] || key; }
+
+        // Применение переводов ко всем статическим элементам с атрибутами data-i18n
+        function applyStaticTranslations() {
+            document.documentElement.lang = currentLang === 'kz' ? 'kk' : 'ru';
+            document.title = t('pageTitle');
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                el.textContent = t(el.getAttribute('data-i18n'));
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+            });
+            document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+            });
+        }
+
+        // Переключение языка интерфейса и перерисовка динамического контента
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('bb_lang', lang);
+            applyStaticTranslations();
+            renderAppNavigation();
+            renderAppItems();
+            refreshCartState();
+            updateProfileShortcut();
+            if (document.getElementById('basketModalElement').style.display === 'flex') renderBasketContents();
+        }
 
 /**
          * ============================================================================
@@ -715,89 +893,89 @@
 
         const RESTAURANT_MENU_DATABASE = {
             sushi: {
-                name: "Суши и Роллы",
+                name: { ru: "Суши и Роллы", kz: "Суши мен роллдар" },
                 icon: "fa-solid fa-shrimp",
                 items: [
-                    { id: 1001, name: "Филадельфия Премиум", price: 2990, weight: "320г", size: "8 кусочков", desc: "Увеличенная порция свежайшего слабосоленого лосося премиального атлантического вылова, нежнейший сливочный сыр Cremette высокой жирности, спелый мягкий авокадо сорта Хасс и отборный японский рис.", prot: "9.5", fat: "11.2", carb: "21.5", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
-                    { id: 1002, name: "Калифорния в Тобико", price: 2490, weight: "290г", size: "8 кусочков", desc: "Натуральное сочное мясо снежного краба (сурими премиум-класса), свежий хрустящий огурчик, легкий домашний японский майонез. Ролл целиком обвалян в яркой хрустящей икре летучей рыбы Тобико.", prot: "7.1", fat: "8.4", carb: "25.0", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80" },
-                    { id: 1003, name: "Канада с копченым Угрем", price: 3490, weight: "310г", size: "8 кусочков", desc: "Сливочный сыр Cremette и соломка свежого огурца. Снаружи ролл полностью укрыт щедрыми пластами филе подкопченного морского угря, полит густым соусом Унаги и посыпан обжаренным золотистым кунжутом.", prot: "10.4", fat: "13.9", carb: "22.1", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80" },
-                    { id: 1004, name: "Запеченный Босс-Ролл", price: 2890, weight: "330г", size: "8 кусочков", desc: "Теплый запеченный ролл. В начинку входят крупные тигровые креветки, обжаренные в легком чесночном масле, и спелый авокадо. Ролл запекается под нежной воздушной сырной шапочкой на основе оригинального соуса Яки.", prot: "11.0", fat: "14.5", carb: "23.4", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&q=80" },
-                    { id: 1005, name: "Дракон Опаленный", price: 3690, weight: "315г", size: "8 кусочков", desc: "Фирменный ролл с эффектом карамелизации. Начинка из нежного камчатского краба и майонеза, обернутая слайсами лосося и угря, которые слегка опаливаются газовой горелкой для придания благородного аромата дымка.", prot: "12.1", fat: "15.1", carb: "20.8", img: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600&q=80" },
-                    { id: 1006, name: "Темпура Эби Кранч", price: 2690, weight: "340г", size: "8 кусочков", desc: "Горячий ролл, обжаренный во фритюре до золотистой корочки. Содержит хрустящую тигровую креветку в панировке сухарей Панко, сливочный сыр и зеленый лук. Подается с пикантным соусом Шрирача-майонез.", prot: "8.9", fat: "16.2", carb: "28.4", img: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&q=80" },
-                    { id: 1007, name: "Маки с Лососем", price: 1490, weight: "120г", size: "6 кусочков", desc: "Минималистичный классический тонкий ролл (хосомаки). Только три безупречных ингредиента: листы водорослей Нори премиум-качества, эталонный японский круглозерный рис и толстый брусочек свежего филе семги.", prot: "6.8", fat: "4.2", carb: "18.1", img: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80" },
-                    { id: 1008, name: "Маки с Огурцом", price: 990, weight: "115г", size: "6 кусочков", desc: "Легкий вегетарианский диетический ролл. Хрустящая соломка свежего огурца, бережно завернутая в заправленный рис и прессованные водоросли нори. Сверху ролл посыпается смесью белого обжаренного кунжута.", prot: "2.1", fat: "1.0", carb: "19.5", img: "https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=600&q=80" },
-                    { id: 1009, name: "Филадельфия Лайт", price: 2190, weight: "260г", size: "8 кусочков", desc: "Облегченная версия популярного ролла. Сливочный сыр, свежий огурчик, рис и нори. Верхняя часть ролла декорирована аккуратной полоской нежного лосося. Отличный выбор для легкого перекуса.", prot: "7.8", fat: "9.2", carb: "22.0", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
-                    { id: 1010, name: "Запеченная Филадельфия", price: 3190, weight: "340г", size: "8 кусочков", desc: "Классический ролл Филадельфия, отправленный в печь под пикантным соусом. Горячий лосось раскрывает свой вкус совершенно по-новому в сочетании с расплавленным нежным сливочным сыром.", prot: "10.2", fat: "14.8", carb: "20.1", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&q=80" }
+                    { id: 1001, name: { ru: "Филадельфия Премиум", kz: "Филадельфия Премиум" }, price: 2990, weight: "320г", size: { ru: "8 кусочков", kz: "8 дана" }, desc: { ru: "Увеличенная порция свежайшего слабосоленого лосося премиального атлантического вылова, нежнейший сливочный сыр Cremette высокой жирности, спелый мягкий авокадо сорта Хасс и отборный японский рис.", kz: "Ірі порциялы жаңа піскен, аз тұздалған премиум атлантикалық лосось, майлылығы жоғары нәзік Cremette кілегей ірімшігі, піскен жұмсақ Хасс авокадосы және таңдаулы жапон күрішінен дайындалған." }, prot: "9.5", fat: "11.2", carb: "21.5", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
+                    { id: 1002, name: { ru: "Калифорния в Тобико", kz: "Тобикодағы Калифорния" }, price: 2490, weight: "290г", size: { ru: "8 кусочков", kz: "8 дана" }, desc: { ru: "Натуральное сочное мясо снежного краба (сурими премиум-класса), свежий хрустящий огурчик, легкий домашний японский майонез. Ролл целиком обвалян в яркой хрустящей икре летучей рыбы Тобико.", kz: "Табиғи шырынды қар қиыршығы еті (премиум сурими), жаңа әрі қытырлақ қияр, жеңіл үй жапон майонезі. Ролл толығымен ұшатын балықтың жарқын әрі қытырлақ тобико уылдырығына аунатылған." }, prot: "7.1", fat: "8.4", carb: "25.0", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80" },
+                    { id: 1003, name: { ru: "Канада с копченым Угрем", kz: "Ысталған жыланбалықты Канада" }, price: 3490, weight: "310г", size: { ru: "8 кусочков", kz: "8 дана" }, desc: { ru: "Сливочный сыр Cremette и соломка свежого огурца. Снаружи ролл полностью укрыт щедрыми пластами филе подкопченного морского угря, полит густым соусом Унаги и посыпан обжаренным золотистым кунжутом.", kz: "Cremette кілегей ірімшігі және жаңа қиярдың жіңішке кесектері. Роллдың сырты ысталған теңіз жыланбалығы филесінің мол қабаттарымен көмкерілген, үстіне қою унаги тұздығы құйылып, қуырылған алтын түсті күнжітпен себілген." }, prot: "10.4", fat: "13.9", carb: "22.1", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80" },
+                    { id: 1004, name: { ru: "Запеченный Босс-Ролл", kz: "Пісірілген Босс-ролл" }, price: 2890, weight: "330г", size: { ru: "8 кусочков", kz: "8 дана" }, desc: { ru: "Теплый запеченный ролл. В начинку входят крупные тигровые креветки, обжаренные в легком чесночном масле, и спелый авокадо. Ролл запекается под нежной воздушной сырной шапочкой на основе оригинального соуса Яки.", kz: "Жылы, пеште пісірілген ролл. Құрамында жеңіл сарымсақ майында қуырылған ірі жолақты асшаяндар мен піскен авокадо бар. Ролл түпнұсқа Яки тұздығы негізіндегі жеңіл ірімшік қабатының астында пісіріледі." }, prot: "11.0", fat: "14.5", carb: "23.4", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&q=80" },
+                    { id: 1005, name: { ru: "Дракон Опаленный", kz: "Қуырылған Айдаһар" }, price: 3690, weight: "315г", size: { ru: "8 кусочков", kz: "8 дана" }, desc: { ru: "Фирменный ролл с эффектом карамелизации. Начинка из нежного камчатского краба и майонеза, обернутая слайсами лосося и угря, которые слегка опаливаются газовой горелкой для придания благородного аромата дымка.", kz: "Карамельдену әсері бар фирмалық ролл. Ішінде нәзік камчатка қиыршығы мен майонез, сыртынан лосось және жыланбалық тілімдерімен оралған, олар асыл түтін хош иісін беру үшін газ оттығымен сәл қуырылады." }, prot: "12.1", fat: "15.1", carb: "20.8", img: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600&q=80" },
+                    { id: 1006, name: { ru: "Темпура Эби Кранч", kz: "Темпура Эби Кранч" }, price: 2690, weight: "340г", size: { ru: "8 кусочков", kz: "8 дана" }, desc: { ru: "Горячий ролл, обжаренный во фритюре до золотистой корочки. Содержит хрустящую тигровую креветку в панировке сухарей Панко, сливочный сыр и зеленый лук. Подается с пикантным соусом Шрирача-майонез.", kz: "Алтын түсті қабыршыққа дейін фритюрде қуырылған ыстық ролл. Құрамында Панко нан үгіндісінде қытырлақ жолақты асшаян, кілегей ірімшік және жасыл пияз бар. Өткір Шрирача-майонез тұздығымен беріледі." }, prot: "8.9", fat: "16.2", carb: "28.4", img: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&q=80" },
+                    { id: 1007, name: { ru: "Маки с Лососем", kz: "Лосось маки" }, price: 1490, weight: "120г", size: { ru: "6 кусочков", kz: "6 дана" }, desc: { ru: "Минималистичный классический тонкий ролл (хосомаки). Только три безупречных ингредиента: листы водорослей Нори премиум-качества, эталонный японский круглозерный рис и толстый брусочек свежего филе семги.", kz: "Минималистік классикалық жіңішке ролл (хосомаки). Тек үш мінсіз құрамдас: премиум сапалы Нори балдырлары, эталон жапон дөңгелек дәнді күріші және жаңа қызыл балық филесінің қалың кесегі." }, prot: "6.8", fat: "4.2", carb: "18.1", img: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80" },
+                    { id: 1008, name: { ru: "Маки с Огурцом", kz: "Қияр маки" }, price: 990, weight: "115г", size: { ru: "6 кусочков", kz: "6 дана" }, desc: { ru: "Легкий вегетарианский диетический ролл. Хрустящая соломка свежего огурца, бережно завернутая в заправленный рис и прессованные водоросли нори. Сверху ролл посыпается смесью белого обжаренного кунжута.", kz: "Жеңіл вегетариандық диеталық ролл. Жаңа қиярдың қытырлақ жіңішке кесектері дәмдендірілген күріш пен нори балдырына мұқият оралған. Үстіне қуырылған ақ күнжіт себіледі." }, prot: "2.1", fat: "1.0", carb: "19.5", img: "https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=600&q=80" },
+                    { id: 1009, name: { ru: "Филадельфия Лайт", kz: "Филадельфия Лайт" }, price: 2190, weight: "260г", size: { ru: "8 кусочков", kz: "8 дана" }, desc: { ru: "Облегченная версия популярного ролла. Сливочный сыр, свежий огурчик, рис и нори. Верхняя часть ролла декорирована аккуратной полоской нежного лосося. Отличный выбор для легкого перекуса.", kz: "Танымал роллдың жеңілдетілген нұсқасы. Кілегей ірімшік, жаңа қияр, күріш және нори. Роллдың үстіңгі бөлігі нәзік лосось жолағымен әшекейленген. Жеңіл тамақтануға тамаша таңдау." }, prot: "7.8", fat: "9.2", carb: "22.0", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
+                    { id: 1010, name: { ru: "Запеченная Филадельфия", kz: "Пісірілген Филадельфия" }, price: 3190, weight: "340г", size: { ru: "8 кусочков", kz: "8 дана" }, desc: { ru: "Классический ролл Филадельфия, отправленный в печь под пикантным соусом. Горячий лосось раскрывает свой вкус совершенно по-новому в сочетании с расплавленным нежным сливочным сыром.", kz: "Классикалық Филадельфия роллы өткір тұздықпен пеште пісіріледі. Ыстық лосось ерітілген нәзік кілегей ірімшікпен қосылып, дәмін мүлде жаңаша ашады." }, prot: "10.2", fat: "14.8", carb: "20.1", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&q=80" }
                 ]
             },
             pizza: {
-                name: "Горячая Пицца",
+                name: { ru: "Горячая Пицца", kz: "Ыстық пицца" },
                 icon: "fa-solid fa-pizza-slice",
                 items: [
-                    { id: 2001, name: "Пепперони из печи", price: 2790, weight: "450г", size: "30 см", desc: "Настоящая итальянская классика на тонком воздушном тесте с характерными пышными бортиками. Фирменный соус из спелых неаполитанских томатов, двойная порция сыра Моцарелла и пикантные колбаски пепперони.", prot: "13.1", fat: "15.2", carb: "27.4", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" },
-                    { id: 2002, name: "Сырный Царь (4 Сыра)", price: 3190, weight: "430г", size: "30 см", desc: "В основе лежит нежный сливочный соус, на котором гармонично тает благородное сочетание четырех сыров: пикантный сыр с голубой плесенью Дор Блю, выдержанный пармезан, ароматный чеддер и тягучая моцарелла.", prot: "14.5", fat: "16.9", carb: "24.1", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
-                    { id: 2003, name: "BBQ Мясное Изобилие", price: 3490, weight: "520г", size: "30 см", desc: "Очень сытная пицца. Содержит слайсы подкопченного бекона, охотничьи колбаски, ветчину из индейки и сочные кусочки маринованной куриной грудки. Покрывается моцареллой и густой сеточкой соуса Барбекю.", prot: "16.0", fat: "18.2", carb: "26.3", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" },
-                    { id: 2004, name: "Маргарита Классик", price: 2190, weight: "410г", size: "30 см", desc: "Минималистичный состав, рождающий идеальный вкус: томатный соус, много фермерской моцареллы, кружочки свежих томатов черри, сушеный орегано и капли ароматного базиликового масла.", prot: "10.2", fat: "9.8", carb: "29.1", img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&q=80" },
-                    { id: 2005, name: "Цыпленок Ранч", price: 2890, weight: "480г", size: "30 см", desc: "Кусочки нежного филе цыпленка, обжаренного на гриле, сочные помидоры, кубики белого салатного лука, моцарелла. Все это запекается под знаменитым американским сливочно-чесночным соусом Ранч.", prot: "12.8", fat: "14.1", carb: "25.9", img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=600&q=80" },
-                    { id: 2006, name: "Грибная с Трюфельным маслом", price: 3290, weight: "460г", size: "30 см", desc: "Бланшированные шампиньоны, лесные грибы, обжаренный репчатый лук, сливочная основа, сыры моцарелла. После извлечения из каменной печи пицца сбрызгивается каплями натурального трюфельного масла.", prot: "11.4", fat: "15.6", carb: "23.8", img: "https://images.unsplash.com/photo-1571066811602-71683a3f680d?w=600&q=80" },
-                    { id: 2007, name: "Мексиканская Острая", price: 2990, weight: "490г", size: "30 см", desc: "Пицца с характером. Жгучий перец халапеньо, острые колбаски, сочный мясной фарш, болгарский перец, томатный соус и сыр моцарелла. Настоящий взрыв вкуса для любителей поострее.", prot: "14.1", fat: "16.2", carb: "25.0", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" },
-                    { id: 2008, name: "Гавайская с ананасом", price: 2690, weight: "460г", size: "30 см", desc: "Тропическое сочетание нежной ветчины из индейки и кусочков сочного сладкого ананаса под слоем классической моцареллы на белом или томатном соусе по выбору шефа.", prot: "11.2", fat: "10.5", carb: "28.3", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" }
+                    { id: 2001, name: { ru: "Пепперони из печи", kz: "Пеш пепперониі" }, price: 2790, weight: "450г", size: { ru: "30 см", kz: "30 см" }, desc: { ru: "Настоящая итальянская классика на тонком воздушном тесте с характерными пышными бортиками. Фирменный соус из спелых неаполитанских томатов, двойная порция сыра Моцарелла и пикантные колбаски пепперони.", kz: "Жұқа әрі жеңіл қамырда, қалың шеттерімен нағыз итальяндық классика. Піскен неаполитан қызанақтарынан жасалған фирмалық тұздық, қос мөлшердегі Моцарелла ірімшігі және өткір пепперони шұжықтары." }, prot: "13.1", fat: "15.2", carb: "27.4", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" },
+                    { id: 2002, name: { ru: "Сырный Царь (4 Сыра)", kz: "Ірімшік патшасы (4 ірімшік)" }, price: 3190, weight: "430г", size: { ru: "30 см", kz: "30 см" }, desc: { ru: "В основе лежит нежный сливочный соус, на котором гармонично тает благородное сочетание четырех сыров: пикантный сыр с голубой плесенью Дор Блю, выдержанный пармезан, ароматный чеддер и тягучая моцарелла.", kz: "Негізінде нәзік кілегей тұздығы жатыр, оның үстінде төрт ірімшіктің үйлесімі еріп жатады: көк зең Дор Блю, тәжірибелі пармезан, хош иісті чеддер және созылмалы моцарелла." }, prot: "14.5", fat: "16.9", carb: "24.1", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
+                    { id: 2003, name: { ru: "BBQ Мясное Изобилие", kz: "BBQ Ет мол дастарханы" }, price: 3490, weight: "520г", size: { ru: "30 см", kz: "30 см" }, desc: { ru: "Очень сытная пицца. Содержит слайсы подкопченного бекона, охотничьи колбаски, ветчину из индейки и сочные кусочки маринованной куриной грудки. Покрывается моцареллой и густой сеточкой соуса Барбекю.", kz: "Өте тойымды пицца. Құрамында ысталған бекон тілімдері, аңшы шұжықтары, күрке тауық ветчинасы және маринадталған тауық төс еті кесектері бар. Үстіне моцарелла және қою Барбекю тұздығы жағылған." }, prot: "16.0", fat: "18.2", carb: "26.3", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" },
+                    { id: 2004, name: { ru: "Маргарита Классик", kz: "Маргарита Классик" }, price: 2190, weight: "410г", size: { ru: "30 см", kz: "30 см" }, desc: { ru: "Минималистичный состав, рождающий идеальный вкус: томатный соус, много фермерской моцареллы, кружочки свежих томатов черри, сушеный орегано и капли ароматного базиликового масла.", kz: "Мінсіз дәм беретін минималды құрам: қызанақ тұздығы, көп фермерлік моцарелла, жаңа шерри қызанақтарының тілімдері, кептірілген орегано және хош иісті базилик майының тамшылары." }, prot: "10.2", fat: "9.8", carb: "29.1", img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&q=80" },
+                    { id: 2005, name: { ru: "Цыпленок Ранч", kz: "Тауық Ранч" }, price: 2890, weight: "480г", size: { ru: "30 см", kz: "30 см" }, desc: { ru: "Кусочки нежного филе цыпленка, обжаренного на гриле, сочные помидоры, кубики белого салатного лука, моцарелла. Все это запекается под знаменитым американским сливочно-чесночным соусом Ранч.", kz: "Грильде қуырылған нәзік тауық филесінің кесектері, шырынды қызанақтар, ақ пияз текшелері, моцарелла. Барлығы әйгілі американдық кілегей-сарымсақ Ранч тұздығының астында пісіріледі." }, prot: "12.8", fat: "14.1", carb: "25.9", img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=600&q=80" },
+                    { id: 2006, name: { ru: "Грибная с Трюфельным маслом", kz: "Трюфель майлы саңырауқұлақты" }, price: 3290, weight: "460г", size: { ru: "30 см", kz: "30 см" }, desc: { ru: "Бланшированные шампиньоны, лесные грибы, обжаренный репчатый лук, сливочная основа, сыры моцарелла. После извлечения из каменной печи пицца сбрызгивается каплями натурального трюфельного масла.", kz: "Бланшталған шампиньондар, орман саңырауқұлақтары, қуырылған пияз, кілегей негізі, моцарелла ірімшігі. Тас пештен алынғаннан кейін пиццаға табиғи трюфель майы тамшылатылады." }, prot: "11.4", fat: "15.6", carb: "23.8", img: "https://images.unsplash.com/photo-1571066811602-71683a3f680d?w=600&q=80" },
+                    { id: 2007, name: { ru: "Мексиканская Острая", kz: "Мексикалық өткір" }, price: 2990, weight: "490г", size: { ru: "30 см", kz: "30 см" }, desc: { ru: "Пицца с характером. Жгучий перец халапеньо, острые колбаски, сочный мясной фарш, болгарский перец, томатный соус и сыр моцарелла. Настоящий взрыв вкуса для любителей поострее.", kz: "Мінезді пицца. Ащы халапеньо бұрышы, өткір шұжықтар, шырынды фарш, болгар бұрышы, қызанақ тұздығы және моцарелла ірімшігі. Ащыны жақсы көретіндерге нағыз дәм жарылысы." }, prot: "14.1", fat: "16.2", carb: "25.0", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" },
+                    { id: 2008, name: { ru: "Гавайская с ананасом", kz: "Ананасты гавайлық" }, price: 2690, weight: "460г", size: { ru: "30 см", kz: "30 см" }, desc: { ru: "Тропическое сочетание нежной ветчины из индейки и кусочков сочного сладкого ананаса под слоем классической моцареллы на белом или томатном соусе по выбору шефа.", kz: "Күрке тауық ветчинасы мен шырынды тәтті ананас кесектерінің тропикалық үйлесімі, шеф-повардың таңдауы бойынша ақ немесе қызанақ тұздығындағы классикалық моцарелла қабатының астында." }, prot: "11.2", fat: "10.5", carb: "28.3", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" }
                 ]
             },
             soups: {
-                name: "Супы и WOK лапша",
+                name: { ru: "Супы и WOK лапша", kz: "Сорпалар мен WOK кеспе" },
                 icon: "fa-solid fa-bowl-rice",
                 items: [
-                    { id: 3001, name: "Легендарный Том Ям", price: 2690, weight: "420г", size: "1 порция", desc: "Пряный, кисло-острый тайский суп на кокосовом молоке. Начинка: крупные тигровые креветки, кальмары, грибы, томаты черри, кинза и лемонграсс. Отварной рис подается в комплекте отдельно.", prot: "6.2", fat: "7.1", carb: "10.5", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" },
-                    { id: 3002, name: "WOK Удон с Курицей", price: 1990, weight: "360г", size: "1 порция", desc: "Пшеничная толстая лапша удон, обжаренная на максимальном огне в сковороде вок. Смешивается соломкой болгарского перца, моркови, цукини, перьев зеленого лука и цыпленка в соусе Терияки.", prot: "9.1", fat: "6.4", carb: "33.8", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" },
-                    { id: 3003, name: "Рамен с Копченой Грудинкой", price: 2390, weight: "500г", size: "1 порция", desc: "Огромная порция согревающего азиатского супа. Наваристый свиной бульон, яичная лапша, слайсы нежной копченой грудинки, маринованное яйцо, водоросли нори, ростки сои и зеленый лук.", prot: "14.2", fat: "12.8", carb: "38.0", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80" },
-                    { id: 3004, name: "WOK Тяхан с Говядиной", price: 2290, weight: "350г", size: "1 порция", desc: "Рассыпчатый рис обжаривается в воке с добавлением куриного яйца, кукурузы, зеленого горошка, чеснока и мелко рубленной нежной вырезки молодой говядины. Заправляется устричным соусом.", prot: "11.5", fat: "8.9", carb: "35.2", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" },
-                    { id: 3005, name: "Мисо суп классический", price: 1190, weight: "300г", size: "1 порция", desc: "Традиционный легкий японский суп на основе пасты из ферментированных соевых бобов, бульона даси, с кубиками нежного тофу, водорослями вакаме и мелко нарезанным зеленым луком.", prot: "4.5", fat: "2.1", carb: "6.8", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" },
-                    { id: 3006, name: "WOK Соба с Морепродуктами", price: 2590, weight: "340г", size: "1 порция", desc: "Гречневая лапша соба, обжаренная в воке с тигровыми креветками, мидиями, кальмарами и миксом свежих овощей. Заправляется пикантным соусом на основе соевого соуса и мирина.", prot: "12.3", fat: "5.8", carb: "31.2", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" },
-                    { id: 3007, name: "Сливочный суп с лососем", price: 2190, weight: "380г", size: "1 порция", desc: "Нежнейший суп на основе сливок средней жирности с добавлением кусочков филе атлантического лосося, картофеля, моркови и свежей зелени. Прекрасно согревает в прохладную погоду.", prot: "10.8", fat: "13.2", carb: "11.0", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80" },
-                    { id: 3008, name: "WOK Фунчоза Веджи", price: 1790, weight: "330г", size: "1 порция", desc: "Тонкая стеклянная лапша фунчоза, обжаренная с древесными грибами, стручковой фасолью, болгарским перцем, морковью и кунжутом в легком чесночно-соевом соусе.", prot: "3.2", fat: "4.5", carb: "41.0", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" }
+                    { id: 3001, name: { ru: "Легендарный Том Ям", kz: "Аңызға айналған Том Ям" }, price: 2690, weight: "420г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Пряный, кисло-острый тайский суп на кокосовом молоке. Начинка: крупные тигровые креветки, кальмары, грибы, томаты черри, кинза и лемонграсс. Отварной рис подается в комплекте отдельно.", kz: "Кокос сүтіндегі ащы-қышқыл дәмді тай сорпасы. Құрамында: ірі жолақты асшаяндар, кальмарлар, саңырауқұлақтар, шерри қызанақтары, кинза және лемонграсс. Пісірілген күріш бөлек беріледі." }, prot: "6.2", fat: "7.1", carb: "10.5", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" },
+                    { id: 3002, name: { ru: "WOK Удон с Курицей", kz: "Тауықты WOK удон" }, price: 1990, weight: "360г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Пшеничная толстая лапша удон, обжаренная на максимальном огне в сковороде вок. Смешивается соломкой болгарского перца, моркови, цукини, перьев зеленого лука и цыпленка в соусе Терияки.", kz: "Вок табасында жоғары отта қуырылған қалың бидай удон кеспесі. Болгар бұрышы, сәбіз, цуккини жіңішке кесектерімен, жасыл пияз және Терияки тұздығындағы тауық етімен араласады." }, prot: "9.1", fat: "6.4", carb: "33.8", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" },
+                    { id: 3003, name: { ru: "Рамен с Копченой Грудинкой", kz: "Ысталған төс еттi рамен" }, price: 2390, weight: "500г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Огромная порция согревающего азиатского супа. Наваристый свиной бульон, яичная лапша, слайсы нежной копченой грудинки, маринованное яйцо, водоросли нори, ростки сои и зеленый лук.", kz: "Жылытатын азиялық сорпаның үлкен порциясы. Қою шошқа сорпасы, жұмыртқа кеспесі, ысталған төс еті тілімдері, маринадталған жұмыртқа, нори балдыры, соя өскіндері және жасыл пияз." }, prot: "14.2", fat: "12.8", carb: "38.0", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80" },
+                    { id: 3004, name: { ru: "WOK Тяхан с Говядиной", kz: "Сиыр еттi WOK тяхан" }, price: 2290, weight: "350г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Рассыпчатый рис обжаривается в воке с добавлением куриного яйца, кукурузы, зеленого горошка, чеснока и мелко рубленной нежной вырезки молодой говядины. Заправляется устричным соусом.", kz: "Тары тәрізді күріш вокта тауық жұмыртқасы, жүгері, жасыл бұршақ, сарымсақ және ұсақ туралған жас сиыр етімен қуырылады. Устрица тұздығымен дәмделеді." }, prot: "11.5", fat: "8.9", carb: "35.2", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" },
+                    { id: 3005, name: { ru: "Мисо суп классический", kz: "Классикалық мисо сорпасы" }, price: 1190, weight: "300г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Традиционный легкий японский суп на основе пасты из ферментированных соевых бобов, бульона даси, с кубиками нежного тофу, водорослями вакаме и мелко нарезанным зеленым луком.", kz: "Ашытылған соя бұршағы пастасы мен даси сорпасы негізіндегі дәстүрлі жеңіл жапон сорпасы, нәзік тофу текшелерімен, вакаме балдырымен және ұсақ туралған жасыл пиязбен." }, prot: "4.5", fat: "2.1", carb: "6.8", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" },
+                    { id: 3006, name: { ru: "WOK Соба с Морепродуктами", kz: "Теңіз өнімдерімен WOK соба" }, price: 2590, weight: "340г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Гречневая лапша соба, обжаренная в воке с тигровыми креветками, мидиями, кальмарами и миксом свежих овощей. Заправляется пикантным соусом на основе соевого соуса и мирина.", kz: "Қарақұмық соба кеспесі вокта жолақты асшаяндармен, мидиялармен, кальмарлармен және жаңа көкөністер қоспасымен қуырылады. Соя тұздығы мен мирин негізіндегі өткір тұздықпен дәмделеді." }, prot: "12.3", fat: "5.8", carb: "31.2", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" },
+                    { id: 3007, name: { ru: "Сливочный суп с лососем", kz: "Лососьты кілегей сорпа" }, price: 2190, weight: "380г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Нежнейший суп на основе сливок средней жирности с добавлением кусочков филе атлантического лосося, картофеля, моркови и свежей зелени. Прекрасно согревает в прохладную погоду.", kz: "Орташа майлылықтағы кілегей негізіндегі нәзік сорпа, атлантикалық лосось филесінің кесектерімен, картоп, сәбіз және жаңа көкөніспен. Салқын күндері жақсы жылытады." }, prot: "10.8", fat: "13.2", carb: "11.0", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80" },
+                    { id: 3008, name: { ru: "WOK Фунчоза Веджи", kz: "Вегетариандық WOK фунчоза" }, price: 1790, weight: "330г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Тонкая стеклянная лапша фунчоза, обжаренная с древесными грибами, стручковой фасолью, болгарским перцем, морковью и кунжутом в легком чесночно-соевом соусе.", kz: "Жіңішке шыны фунчоза кеспесі ағаш саңырауқұлақтарымен, бұршақ бұршағымен, болгар бұрышымен, сәбізбен және күнжітпен жеңіл сарымсақ-соя тұздығында қуырылады." }, prot: "3.2", fat: "4.5", carb: "41.0", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" }
                 ]
             },
             snacks: {
-                name: "Закуски и Салаты",
+                name: { ru: "Закуски и Салаты", kz: "Тіскебасарлар мен салаттар" },
                 icon: "fa-solid fa-leaf",
                 items: [
-                    { id: 4001, name: "Салат Цезарь с Цыпленком", price: 1990, weight: "220г", size: "1 порция", desc: "Хрустящие листья салата Романо, сочная грудка цыпленка гриль, томаты черри, пшеничные гренки, тертый пармезан и аутентичный соус Цезарь с анчоусами.", prot: "14.2", fat: "12.5", carb: "8.9", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&q=80" },
-                    { id: 4002, name: "Салат Чука с ореховым соусом", price: 1390, weight: "160г", size: "1 порция", desc: "Маринованные морские водоросли Чука, нарезанные тонкой соломкой, обжаренный кунжут, долька лимона. Подается с традиционным густым японским ореховым соусом Гамадари.", prot: "1.8", fat: "6.2", carb: "14.0", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80" },
-                    { id: 4003, name: "Картофель Фри хрустящий", price: 890, weight: "150г", size: "Стандарт", desc: "Золотистые ломтики отборного картофеля, обжаренные до идеальной хрустящей корочки. Слегка приправлены морской солью. Подается горячим.", prot: "3.5", fat: "9.8", carb: "32.0", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" },
-                    { id: 4004, name: "Картофельные Дольки", price: 990, weight: "160г", size: "Стандарт", desc: "Ароматные картофельные дольки, запеченные в кожуре со специями, паприкой, сушеным чесноком и травами. Хрустящие снаружи и мягкие внутри.", prot: "3.8", fat: "8.5", carb: "30.1", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" },
-                    { id: 4005, name: "Куриные Наггетсы", price: 1190, weight: "180г", size: "7 штук", desc: "Нежное рубленое филе цыпленка в хрустящей панировке из сухарей. Обжариваются во фритюре до красивого золотистого цвета. Любимая детская закуска.", prot: "15.0", fat: "11.2", carb: "16.4", img: "https://images.unsplash.com/photo-1562967914-608f82629a7a?w=600&q=80" },
-                    { id: 4006, name: "Сырные палочки Моцарелла", price: 1490, weight: "170г", size: "5 штук", desc: "Палочки из натурального тягучего сыра моцарелла в плотной хрустящей панировке. При укусе сыр аппетитно тянется. Рекомендуется есть горячими.", prot: "12.4", fat: "16.8", carb: "19.2", img: "https://images.unsplash.com/photo-1531749668029-2db88e4b76ce?w=600&q=80" },
-                    { id: 4007, name: "Креветки Темпура", price: 2290, weight: "140г", size: "5 штук", desc: "Отборные королевские креветки, очищенные и обжаренные в воздушном, невесомом японском кляре темпура. Подаются с легким соевым соусом.", prot: "16.1", fat: "7.4", carb: "15.0", img: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&q=80" },
-                    { id: 4008, name: "Цезарь с Креветками", price: 2490, weight: "210г", size: "1 порция", desc: "Премиальная вариация салата Цезарь. Вместо птицы добавляются крупные тигровые креветки, обжаренные на гриле с чесноком и прованскими травами.", prot: "13.8", fat: "11.9", carb: "9.2", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&q=80" }
+                    { id: 4001, name: { ru: "Салат Цезарь с Цыпленком", kz: "Тауықты Цезарь салаты" }, price: 1990, weight: "220г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Хрустящие листья салата Романо, сочная грудка цыпленка гриль, томаты черри, пшеничные гренки, тертый пармезан и аутентичный соус Цезарь с анчоусами.", kz: "Романо салатының қытырлақ жапырақтары, шырынды гриль тауық төс еті, шерри қызанақтары, бидай кремзиктер, үккен пармезан және анчоуспен дайындалған түпнұсқа Цезарь тұздығы." }, prot: "14.2", fat: "12.5", carb: "8.9", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&q=80" },
+                    { id: 4002, name: { ru: "Салат Чука с ореховым соусом", kz: "Жаңғақ тұздықты Чука салаты" }, price: 1390, weight: "160г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Маринованные морские водоросли Чука, нарезанные тонкой соломкой, обжаренный кунжут, долька лимона. Подается с традиционным густым японским ореховым соусом Гамадари.", kz: "Жіңішке кесілген маринадталған теңіз балдыры Чука, қуырылған күнжіт, лимон бөлігі. Дәстүрлі қою жапон жаңғақ Гомадари тұздығымен беріледі." }, prot: "1.8", fat: "6.2", carb: "14.0", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80" },
+                    { id: 4003, name: { ru: "Картофель Фри хрустящий", kz: "Қытырлақ картоп фри" }, price: 890, weight: "150г", size: { ru: "Стандарт", kz: "Стандарт" }, desc: { ru: "Золотистые ломтики отборного картофеля, обжаренные до идеальной хрустящей корочки. Слегка приправлены морской солью. Подается горячим.", kz: "Таңдаулы картоптың алтын түсті тілімдері мінсіз қытырлақ қабыққа дейін қуырылған. Теңіз тұзымен сәл дәмделген. Ыстық күйінде беріледі." }, prot: "3.5", fat: "9.8", carb: "32.0", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" },
+                    { id: 4004, name: { ru: "Картофельные Дольки", kz: "Картоп бөліктері" }, price: 990, weight: "160г", size: { ru: "Стандарт", kz: "Стандарт" }, desc: { ru: "Ароматные картофельные дольки, запеченные в кожуре со специями, паприкой, сушеным чесноком и травами. Хрустящие снаружи и мягкие внутри.", kz: "Хош иісті картоп бөліктері қабығымен бірге дәмдеуіштермен, паприкамен, кептірілген сарымсақ пен шөптермен пісірілген. Сырты қытырлақ, іші жұмсақ." }, prot: "3.8", fat: "8.5", carb: "30.1", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" },
+                    { id: 4005, name: { ru: "Куриные Наггетсы", kz: "Тауық наггетстері" }, price: 1190, weight: "180г", size: { ru: "7 штук", kz: "7 дана" }, desc: { ru: "Нежное рубленое филе цыпленка в хрустящей панировке из сухарей. Обжариваются во фритюре до красивого золотистого цвета. Любимая детская закуска.", kz: "Нәзік туралған тауық филесі қытырлақ нан үгіндісінде. Әдемі алтын түске дейін фритюрде қуырылады. Балалардың сүйікті тағамы." }, prot: "15.0", fat: "11.2", carb: "16.4", img: "https://images.unsplash.com/photo-1562967914-608f82629a7a?w=600&q=80" },
+                    { id: 4006, name: { ru: "Сырные палочки Моцарелла", kz: "Моцарелла ірімшік таяқшалары" }, price: 1490, weight: "170г", size: { ru: "5 штук", kz: "5 дана" }, desc: { ru: "Палочки из натурального тягучего сыра моцарелла в плотной хрустящей панировке. При укусе сыр аппетитно тянется. Рекомендуется есть горячими.", kz: "Табиғи созылмалы моцарелла ірімшігінен жасалған таяқшалар қалың қытырлақ панировкада. Тістегенде ірімшік дәмді созылады. Ыстық күйінде жеу ұсынылады." }, prot: "12.4", fat: "16.8", carb: "19.2", img: "https://images.unsplash.com/photo-1531749668029-2db88e4b76ce?w=600&q=80" },
+                    { id: 4007, name: { ru: "Креветки Темпура", kz: "Темпура асшаяндары" }, price: 2290, weight: "140г", size: { ru: "5 штук", kz: "5 дана" }, desc: { ru: "Отборные королевские креветки, очищенные и обжаренные в воздушном, невесомом японском кляре темпура. Подаются с легким соевым соусом.", kz: "Таңдаулы патша асшаяндары тазаланып, жеңіл жапон темпура қамырында қуырылған. Жеңіл соя тұздығымен беріледі." }, prot: "16.1", fat: "7.4", carb: "15.0", img: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&q=80" },
+                    { id: 4008, name: { ru: "Цезарь с Креветками", kz: "Асшаянды Цезарь" }, price: 2490, weight: "210г", size: { ru: "1 порция", kz: "1 порция" }, desc: { ru: "Премиальная вариация салата Цезарь. Вместо птицы добавляются крупные тигровые креветки, обжаренные на гриле с чесноком и прованскими травами.", kz: "Цезарь салатының премиум нұсқасы. Құс еті орнына сарымсақ пен прованс шөптерімен грильде қуырылған ірі жолақты асшаяндар қосылады." }, prot: "13.8", fat: "11.9", carb: "9.2", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&q=80" }
                 ]
             },
             combos: {
-                name: "Сет-Комбо",
+                name: { ru: "Сет-Комбо", kz: "Сет-комбо" },
                 icon: "fa-solid fa-box",
                 items: [
-                    { id: 5001, name: "Сет Классик Ролл", price: 6990, weight: "920г", size: "24 кусочка", desc: "Большой классический набор для компании. Включает в себя три полноценных популярных ролла: Филадельфия Премиум, Калифорния в Тобико и Маки с огурцом.", prot: "28.0", fat: "31.0", carb: "85.0", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80" },
-                    { id: 5002, name: "Сет Горячая Темпура", price: 7490, weight: "1050г", size: "24 кусочка", desc: "Три сытных горячих темпурных ролла, обжаренных во фритюре: Темпура с лососем, Темпура с угрем и запеченный сырный Босс-ролл. Доезжает горячим!", prot: "31.2", fat: "38.5", carb: "92.0", img: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&q=80" },
-                    { id: 5003, name: "Комбо Пицца + Роллы", price: 5490, weight: "870г", size: "Пицца + Ролл", desc: "Идеальный комбо-набор для двоих: горячая ароматная пицца Пепперони (30 см) и порция нежного ролла Филадельфия Лайт. Выгодно и вкусно.", prot: "24.5", fat: "29.8", carb: "71.0", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
-                    { id: 5004, name: "Семейный Комбо Микс", price: 9990, weight: "1600г", size: "2 Пиццы + Ролл", desc: "Огромный сытный набор: пицца Цыпленок Ранч, пицца Маргарита, ролл Калифорния и порция картофеля фри. Идеально для семейного ужина.", prot: "45.0", fat: "51.0", carb: "160.0", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" },
-                    { id: 5005, name: "Мини Сет Маки", price: 3290, weight: "450г", size: "18 кусочков", desc: "Легкий мини-сет из простых одинарных роллов: маки с лососем, маки с тунцом и маки со свежим огурцом. Отличный выбор для обеда в офисе.", prot: "15.2", fat: "8.4", carb: "54.0", img: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80" },
-                    { id: 5006, name: "Сет Филадельфия Мания", price: 8990, weight: "1100г", size: "32 кусочка", desc: "Настоящий рай для любителей лосося. Четыре вариации Филадельфии: Филадельфия Премиум, Филадельфия Лайт, Запеченная Филадельфия и Филадельфия в кунжуте.", prot: "38.0", fat: "42.1", carb: "110.0", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
-                    { id: 5007, name: "Party Сет ХХL", price: 14990, weight: "2100г", size: "56 кусочков", desc: "Мега-сет для большой и голодной компании. Семь разнообразных роллов на любой вкус, включая острые, запеченные, классические и вегетарианские.", prot: "68.0", fat: "74.0", carb: "245.0", img: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600&q=80" },
-                    { id: 5008, name: "WOK Сет на двоих", price: 4190, weight: "720г", size: "2 коробочки", desc: "Две полноценные коробочки вок: лапша удон с нежным цыпленком терияки и рис тяхан с сочной говядиной. Сытный горячий обед гарантирован.", prot: "20.6", fat: "15.3", carb: "69.0", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" }
+                    { id: 5001, name: { ru: "Сет Классик Ролл", kz: "Классик ролл сеті" }, price: 6990, weight: "920г", size: { ru: "24 кусочка", kz: "24 дана" }, desc: { ru: "Большой классический набор для компании. Включает в себя три полноценных популярных ролла: Филадельфия Премиум, Калифорния в Тобико и Маки с огурцом.", kz: "Компанияға арналған үлкен классикалық жиынтық. Құрамында үш танымал ролл бар: Филадельфия Премиум, Тобикодағы Калифорния және Қияр маки." }, prot: "28.0", fat: "31.0", carb: "85.0", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80" },
+                    { id: 5002, name: { ru: "Сет Горячая Темпура", kz: "Ыстық темпура сеті" }, price: 7490, weight: "1050г", size: { ru: "24 кусочка", kz: "24 дана" }, desc: { ru: "Три сытных горячих темпурных ролла, обжаренных во фритюре: Темпура с лососем, Темпура с угрем и запеченный сырный Босс-ролл. Доезжает горячим!", kz: "Фритюрде қуырылған үш тойымды ыстық темпура ролл: Лососьты темпура, Жыланбалықты темпура және пісірілген ірімшікті Босс-ролл. Ыстық күйінде жеткізіледі!" }, prot: "31.2", fat: "38.5", carb: "92.0", img: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&q=80" },
+                    { id: 5003, name: { ru: "Комбо Пицца + Роллы", kz: "Пицца + Ролл комбо" }, price: 5490, weight: "870г", size: { ru: "Пицца + Ролл", kz: "Пицца + Ролл" }, desc: { ru: "Идеальный комбо-набор для двоих: горячая ароматная пицца Пепперони (30 см) и порция нежного ролла Филадельфия Лайт. Выгодно и вкусно.", kz: "Екі адамға арналған тамаша комбо-жиынтық: ыстық хош иісті Пепперони пиццасы (30 см) және нәзік Филадельфия Лайт роллы порциясы. Тиімді әрі дәмді." }, prot: "24.5", fat: "29.8", carb: "71.0", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
+                    { id: 5004, name: { ru: "Семейный Комбо Микс", kz: "Отбасылық комбо-микс" }, price: 9990, weight: "1600г", size: { ru: "2 Пиццы + Ролл", kz: "2 пицца + ролл" }, desc: { ru: "Огромный сытный набор: пицца Цыпленок Ранч, пицца Маргарита, ролл Калифорния и порция картофеля фри. Идеально для семейного ужина.", kz: "Үлкен тойымды жиынтық: Тауық Ранч пиццасы, Маргарита пиццасы, Калифорния роллы және картоп фри порциясы. Отбасылық кешкі асқа тамаша." }, prot: "45.0", fat: "51.0", carb: "160.0", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" },
+                    { id: 5005, name: { ru: "Мини Сет Маки", kz: "Мини маки сеті" }, price: 3290, weight: "450г", size: { ru: "18 кусочков", kz: "18 дана" }, desc: { ru: "Легкий мини-сет из простых одинарных роллов: маки с лососем, маки с тунцом и маки со свежим огурцом. Отличный выбор для обеда в офисе.", kz: "Қарапайым бір қабатты роллдардан жасалған жеңіл мини-жиынтық: лосось маки, тунец маки және жаңа қияр маки. Кеңседегі түскі асқа тамаша таңдау." }, prot: "15.2", fat: "8.4", carb: "54.0", img: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80" },
+                    { id: 5006, name: { ru: "Сет Филадельфия Мания", kz: "Филадельфия мания сеті" }, price: 8990, weight: "1100г", size: { ru: "32 кусочка", kz: "32 дана" }, desc: { ru: "Настоящий рай для любителей лосося. Четыре вариации Филадельфии: Филадельфия Премиум, Филадельфия Лайт, Запеченная Филадельфия и Филадельфия в кунжуте.", kz: "Лососьты жақсы көретіндерге нағыз жұмақ. Филадельфияның төрт түрі: Филадельфия Премиум, Филадельфия Лайт, Пісірілген Филадельфия және күнжітті Филадельфия." }, prot: "38.0", fat: "42.1", carb: "110.0", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
+                    { id: 5007, name: { ru: "Party Сет ХХL", kz: "Party сеті XXL" }, price: 14990, weight: "2100г", size: { ru: "56 кусочков", kz: "56 дана" }, desc: { ru: "Мега-сет для большой и голодной компании. Семь разнообразных роллов на любой вкус, включая острые, запеченные, классические и вегетарианские.", kz: "Үлкен әрі аш компанияға арналған мега-жиынтық. Дәмге сай жеті түрлі ролл, оның ішінде өткір, пісірілген, классикалық және вегетариандық түрлері бар." }, prot: "68.0", fat: "74.0", carb: "245.0", img: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600&q=80" },
+                    { id: 5008, name: { ru: "WOK Сет на двоих", kz: "Екеуге арналған WOK сеті" }, price: 4190, weight: "720г", size: { ru: "2 коробочки", kz: "2 қорап" }, desc: { ru: "Две полноценные коробочки вок: лапша удон с нежным цыпленком терияки и рис тяхан с сочной говядиной. Сытный горячий обед гарантирован.", kz: "Екі толыққанды вок қорабы: нәзік тауық терияки удон кеспесі және шырынды сиыр еті тяхан күріші. Тойымды ыстық түскі ас кепілдендірілген." }, prot: "20.6", fat: "15.3", carb: "69.0", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" }
                 ]
             },
             drinks: {
-                name: "Напитки и Десерты",
+                name: { ru: "Напитки и Десерты", kz: "Сусындар мен десерттер" },
                 icon: "fa-solid fa-ice-cream",
                 items: [
-                    { id: 6001, name: "Фирменный Морс BLA BLA", price: 890, weight: "500мл", size: "1 бутылка", desc: "Крафтовый напиток собственного приготовления. Варится из ягод дикой клюквы, ежевики и брусники. Обладает приятной кислинкой и витаминами.", prot: "0.2", fat: "0.0", carb: "11.8", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&q=80" },
-                    { id: 6002, name: "Нежный Чизкейк Нью-Йорк", price: 1290, weight: "150г", size: "1 кусочек", desc: "Кондитерский десерт. Творожно-сырная масса на основе оригинального крем-чиза, обладающая бархатистой текстурой, на подложке из песочного печенья.", prot: "5.4", fat: "18.2", carb: "29.0", img: "https://images.unsplash.com/photo-1524351199679-46cddf530c04?w=600&q=80" },
-                    { id: 6003, name: "Домашний Лимонад Цитрус", price: 990, weight: "500мл", size: "1 бутылка", desc: "Натуральный цитрусовый микс. Свежевыжатый сок спелых апельсинов, лайма и лимона с добавлением веточек мяты и тростникового сиропа. Подается холодным.", prot: "0.1", fat: "0.0", carb: "14.5", img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=80" },
-                    { id: 6004, name: "Кока-Кола Классик", price: 690, weight: "500мл", size: "1 бутылка", desc: "Традиционный легендарный газированный напиток в пластиковой бутылке. Подается сильно охлажденным, идеально дополняет пиццу и бургеры.", prot: "0.0", fat: "0.0", carb: "10.6", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&q=80" },
-                    { id: 6005, name: "Вода Tassay без газа", price: 490, weight: "500мл", size: "1 бутылка", desc: "Природная минеральная питьевая вода высшего качества, добываемая из экологически чистых подземных источников Казахстана. Не содержит газа.", prot: "0.0", fat: "0.0", carb: "0.0", img: "https://images.unsplash.com/photo-1608885898957-a599fb1698d6?w=600&q=80" },
-                    { id: 6006, name: "Вода Tassay с газом", price: 490, weight: "500мл", size: "1 бутылка", desc: "Природная питьевая минеральная вода Tassay, прошедшая бережную фильтрацию и насыщенная углекислым газом для приятного освежающего эффекта.", prot: "0.0", fat: "0.0", carb: "0.0", img: "https://images.unsplash.com/photo-1608885898957-a599fb1698d6?w=600&q=80" },
-                    { id: 6007, name: "Шоколадный Брауни", price: 1190, weight: "130г", size: "1 кусочек", desc: "Влажный, супершоколадный американский десерт с добавлением кусочков грецкого ореха и какао премиум-качества. Слегка разогревается перед подачей.", prot: "4.8", fat: "19.5", carb: "33.2", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80" },
-                    { id: 6008, name: "Сок Gracio Яблоко", price: 890, weight: "1л", size: "1 коробка", desc: "Натуральный стопроцентный яблочный сок без добавления искусственного сахара, красителей и консервантов. Приятный вкус спелых зеленых яблок.", prot: "0.0", fat: "0.0", carb: "11.5", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&q=80" }
+                    { id: 6001, name: { ru: "Фирменный Морс BLA BLA", kz: "BLA BLA фирмалық морсы" }, price: 890, weight: "500мл", size: { ru: "1 бутылка", kz: "1 бөтелке" }, desc: { ru: "Крафтовый напиток собственного приготовления. Варится из ягод дикой клюквы, ежевики и брусники. Обладает приятной кислинкой и витаминами.", kz: "Өз қолымен дайындалған крафт сусын. Жабайы мүкжидек, ұшпаржидек және мүкжидектен қайнатылады. Жағымды қышқылдығы және дәрумендері бар." }, prot: "0.2", fat: "0.0", carb: "11.8", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&q=80" },
+                    { id: 6002, name: { ru: "Нежный Чизкейк Нью-Йорк", kz: "Нью-Йорк чизкейкі" }, price: 1290, weight: "150г", size: { ru: "1 кусочек", kz: "1 кесек" }, desc: { ru: "Кондитерский десерт. Творожно-сырная масса на основе оригинального крем-чиза, обладающая бархатистой текстурой, на подложке из песочного печенья.", kz: "Кондитерлік десерт. Түпнұсқа крем-чиз негізіндегі мамық текстуралы сүзбе-ірімшік массасы, құм печеньесінен жасалған негізде." }, prot: "5.4", fat: "18.2", carb: "29.0", img: "https://images.unsplash.com/photo-1524351199679-46cddf530c04?w=600&q=80" },
+                    { id: 6003, name: { ru: "Домашний Лимонад Цитрус", kz: "Үй жасаған цитрус лимонады" }, price: 990, weight: "500мл", size: { ru: "1 бутылка", kz: "1 бөтелке" }, desc: { ru: "Натуральный цитрусовый микс. Свежевыжатый сок спелых апельсинов, лайма и лимона с добавлением веточек мяты и тростникового сиропа. Подается холодным.", kz: "Табиғи цитрус қоспасы. Піскен апельсин, лайм және лимоннан жаңа сыққан шырын, жалбыз бұтақтары мен қамыс сиропы қосылған. Суық күйінде беріледі." }, prot: "0.1", fat: "0.0", carb: "14.5", img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=80" },
+                    { id: 6004, name: { ru: "Кока-Кола Классик", kz: "Кока-Кола Классик" }, price: 690, weight: "500мл", size: { ru: "1 бутылка", kz: "1 бөтелке" }, desc: { ru: "Традиционный легендарный газированный напиток в пластиковой бутылке. Подается сильно охлажденным, идеально дополняет пиццу и бургеры.", kz: "Дәстүрлі әйгілі газдалған сусын пластик бөтелкеде. Қатты салқындатылған күйінде беріледі, пицца мен бургерге тамаша үйлеседі." }, prot: "0.0", fat: "0.0", carb: "10.6", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&q=80" },
+                    { id: 6005, name: { ru: "Вода Tassay без газа", kz: "Tassay газсыз суы" }, price: 490, weight: "500мл", size: { ru: "1 бутылка", kz: "1 бөтелке" }, desc: { ru: "Природная минеральная питьевая вода высшего качества, добываемая из экологически чистых подземных источников Казахстана. Не содержит газа.", kz: "Қазақстанның экологиялық таза жерасты бұлақтарынан алынған жоғары сапалы табиғи минералды ауыз су. Газсыз." }, prot: "0.0", fat: "0.0", carb: "0.0", img: "https://images.unsplash.com/photo-1608885898957-a599fb1698d6?w=600&q=80" },
+                    { id: 6006, name: { ru: "Вода Tassay с газом", kz: "Tassay газды суы" }, price: 490, weight: "500мл", size: { ru: "1 бутылка", kz: "1 бөтелке" }, desc: { ru: "Природная питьевая минеральная вода Tassay, прошедшая бережную фильтрацию и насыщенная углекислым газом для приятного освежающего эффекта.", kz: "Табиғи Tassay минералды ауыз суы мұқият сүзгіден өтіп, жағымды сергітетін әсер үшін көмірқышқыл газымен қанықтырылған." }, prot: "0.0", fat: "0.0", carb: "0.0", img: "https://images.unsplash.com/photo-1608885898957-a599fb1698d6?w=600&q=80" },
+                    { id: 6007, name: { ru: "Шоколадный Брауни", kz: "Шоколадты брауни" }, price: 1190, weight: "130г", size: { ru: "1 кусочек", kz: "1 кесек" }, desc: { ru: "Влажный, супершоколадный американский десерт с добавлением кусочков грецкого ореха и какао премиум-качества. Слегка разогревается перед подачей.", kz: "Дымқыл, өте шоколадты американдық десерт, жаңғақ кесектері және премиум сападағы какао қосылған. Беру алдында сәл жылытылады." }, prot: "4.8", fat: "19.5", carb: "33.2", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80" },
+                    { id: 6008, name: { ru: "Сок Gracio Яблоко", kz: "Gracio алма шырыны" }, price: 890, weight: "1л", size: { ru: "1 коробка", kz: "1 қорап" }, desc: { ru: "Натуральный стопроцентный яблочный сок без добавления искусственного сахара, красителей и консервантов. Приятный вкус спелых зеленых яблок.", kz: "Жасанды қант, бояғыш пен консервант қоспаған табиғи 100% алма шырыны. Піскен жасыл алманың жағымды дәмі." }, prot: "0.0", fat: "0.0", carb: "11.5", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&q=80" }
                 ]
             }
         };
@@ -807,6 +985,7 @@
         let isWaitingForVerification = false;
 
         window.addEventListener('DOMContentLoaded', () => {
+            applyStaticTranslations();
             renderAppNavigation();
             renderAppItems();
             setupPhoneMask();
@@ -863,7 +1042,7 @@
                 const group = RESTAURANT_MENU_DATABASE[key];
                 const badge = document.createElement('a');
                 badge.className = `cat-badge ${index === 0 ? 'active' : ''}`;
-                badge.innerHTML = `<i class="${group.icon}"></i> ${group.name}`;
+                badge.innerHTML = `<i class="${group.icon}"></i> ${group.name[currentLang]}`;
                 badge.href = `#sec_${key}`;
                 badge.onclick = (e) => {
                     e.preventDefault();
@@ -887,7 +1066,7 @@
 
                 const headline = document.createElement('h3');
                 headline.className = 'section-headline';
-                headline.innerHTML = `<i class="${group.icon}"></i> ${group.name}`;
+                headline.innerHTML = `<i class="${group.icon}"></i> ${group.name[currentLang]}`;
                 section.appendChild(headline);
 
                 const grid = document.createElement('div');
@@ -898,10 +1077,10 @@
                     card.className = 'dish-card';
                     card.onclick = () => displayDishModal(dish);
                     card.innerHTML = `
-                        <div class="dish-img-holder"><img src="${dish.img}" alt="${dish.name}"></div>
+                        <div class="dish-img-holder"><img src="${dish.img}" alt="${dish.name[currentLang]}"></div>
                         <div class="dish-details">
-                            <div class="dish-title">${dish.name}</div>
-                            <div class="dish-size-tag">${dish.weight} ${dish.size ? '• ' + dish.size : ''}</div>
+                            <div class="dish-title">${dish.name[currentLang]}</div>
+                            <div class="dish-size-tag">${dish.weight} ${dish.size ? '• ' + dish.size[currentLang] : ''}</div>
                             <div class="dish-row-bottom">
                                 <div class="dish-cost">${dish.price} ₸</div>
                                 <div class="card-action-container" id="action_container_${dish.id}">
@@ -950,14 +1129,27 @@
             const uPhone = localStorage.getItem('bb_client_phone');
             const uStreet = localStorage.getItem('bb_client_street');
             const overlay = document.getElementById('userInitOverlay');
-            const shortcut = document.getElementById('profileShortCut');
 
             if (uName && uPhone && uStreet) {
                 overlay.style.display = 'none';
-                shortcut.innerHTML = `<i class="fa-solid fa-user-check"></i> ${uName}`;
             } else {
                 overlay.style.display = 'flex';
                 toggleHousingFields();
+            }
+            updateProfileShortcut();
+        }
+
+        // Обновление содержимого мини-профиля в шапке (имя клиента или кнопка "указать адрес")
+        function updateProfileShortcut() {
+            const uName = localStorage.getItem('bb_client_name');
+            const uPhone = localStorage.getItem('bb_client_phone');
+            const uStreet = localStorage.getItem('bb_client_street');
+            const shortcut = document.getElementById('profileShortCut');
+
+            if (uName && uPhone && uStreet) {
+                shortcut.innerHTML = `<i class="fa-solid fa-user-check"></i> ${uName}`;
+            } else {
+                shortcut.innerHTML = `<i class="fa-solid fa-location-crosshairs"></i> <span data-i18n="btnSetAddress">${t('btnSetAddress')}</span>`;
             }
         }
 
@@ -995,12 +1187,12 @@
         // Открытие карточки подробного описания KБЖУ блюда
         function displayDishModal(dish) {
             document.getElementById('dishModalImg').src = dish.img;
-            document.getElementById('dishModalTitle').innerText = dish.name;
+            document.getElementById('dishModalTitle').innerText = dish.name[currentLang];
             document.getElementById('mWeight').innerText = dish.weight;
             document.getElementById('mProt').innerText = dish.prot + 'г';
             document.getElementById('mFat').innerText = dish.fat + 'г';
             document.getElementById('mCarb').innerText = dish.carb + 'г';
-            document.getElementById('dishModalDesc').innerText = dish.desc;
+            document.getElementById('dishModalDesc').innerText = dish.desc[currentLang];
             document.getElementById('dishModalPrice').innerText = `${dish.price} ₸`;
             document.getElementById('dishModalAddBtn').onclick = () => { addItemToCart(dish.id); dismissDishModal(null); };
             document.getElementById('dishModalElement').style.display = 'flex';
@@ -1086,7 +1278,7 @@
                 const row = document.createElement('div');
                 row.className = 'basket-item-card';
                 row.innerHTML = `
-                    <div class="basket-item-meta"><h4>${item.product.name}</h4><p>${item.product.price} ₸</p></div>
+                    <div class="basket-item-meta"><h4>${item.product.name[currentLang]}</h4><p>${item.product.price} ₸</p></div>
                     <div class="counter-widget">
                         <button class="counter-btn" onclick="changeBasketItemCount(${item.product.id}, -1)"><i class="fa-solid fa-minus"></i></button>
                         <div class="counter-value">${item.count}</div>
@@ -1152,7 +1344,7 @@
 
             // Проверка базовых полей
             if (!name || !phone || !street) {
-                showNotification("⚠️ Подтвердите контакты и адрес доставки!");
+                showNotification(t('notifyFillAddress'));
                 reOpenAddressForm();
                 return;
             }
@@ -1160,38 +1352,38 @@
             // Умная проверка типа жилья и форматирование
             let addressResult = "";
             if (housingType === "private") {
-                addressResult = `${street} (Частный дом)`;
+                addressResult = `${street} (${t('housePrivateLabel')})`;
             } else {
                 if (!apartment) {
-                    showNotification("🏢 Укажите номер квартиры или офиса!");
+                    showNotification(t('notifyFillApartment'));
                     reOpenAddressForm();
                     return;
                 }
-                addressResult = `${street}, кв/офис: ${apartment}`;
+                addressResult = `${street}, ${t('apartmentPrefix')}: ${apartment}`;
             }
 
             if (userCartArray.length === 0) {
-                showNotification("🛒 Ваша корзина пуста!");
+                showNotification(t('notifyEmptyCart'));
                 return;
             }
 
             // Формирование шаблона сообщения для WhatsApp
-            let textPattern = `*🚀 НОВЫЙ ЗАКАЗ В BLA BLA RESTAURANT*\\n\\n`;
-            textPattern += `👤 *Имя клиента:* ${name}\\n`;
-            textPattern += `📞 *Контактный телефон:* ${phone}\\n`;
-            textPattern += `📍 *Адрес доставки (г. Уральск):* ${addressResult}\\n\\n`;
-            textPattern += `📦 *Выбранные блюда:*\\n`;
+            let textPattern = `*${t('waHeader')}*\\n\\n`;
+            textPattern += `${t('waName')} *${name}*\\n`;
+            textPattern += `${t('waPhone')} *${phone}*\\n`;
+            textPattern += `${t('waAddress')} *${addressResult}*\\n\\n`;
+            textPattern += `${t('waDishesHeader')}\\n`;
 
             let costCounter = 0;
             userCartArray.forEach((item, index) => {
                 const blockPrice = item.product.price * item.count;
                 costCounter += blockPrice;
-                textPattern += `${index + 1}. ${item.product.name} — *${item.count} шт.* (${item.product.price} ₸/шт) на общую сумму _${blockPrice} ₸_\\n`;
+                textPattern += `${index + 1}. ${item.product.name[currentLang]} — *${item.count} ${t('waPiece')}* (${item.product.price} ₸) — _${blockPrice} ₸_\\n`;
             });
 
-            textPattern += `\\n💵 *Итого к оплате:* *${costCounter} ₸*\\n`;
-            textPattern += `🛵 *Доставка:* Бесплатно по Уральску\\n\\n`;
-            textPattern += `_Пожалуйста, подтвердите получение заказа и сообщите ориентировочное время прибытия курьера._`;
+            textPattern += `\\n${t('waTotal')} *${costCounter} ₸*\\n`;
+            textPattern += `${t('waDelivery')}\\n\\n`;
+            textPattern += `_${t('waFooter')}_`;
 
             isWaitingForVerification = true;
             document.getElementById('basketModalElement').style.display = 'none';
