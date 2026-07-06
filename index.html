@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BLA BLA | Ресторан в Уральске</title>
+    <title>BLA BLA | Ресторан премиальной доставки в Уральске</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* -------------------------------------------------------------
-           1. БАЗОВЫЕ НАСТРОЙКИ, АНИМАЦИИ И ПЕРЕМЕННЫЕ
+           1. БАЗОВЫЕ НАСТРОЙКИ, АНИМАЦИИ И ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ПЕРЕМЕННЫЕ
            ------------------------------------------------------------- */
         :root {
             --bg-main: #ffffff;
@@ -43,7 +43,7 @@
             letter-spacing: -0.2px;
         }
 
-        /* Плавное проявление контента */
+        /* Высокотехнологичные CSS3 анимации для обеспечения плавности мобильного UX */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -59,19 +59,8 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        @keyframes slideLeft {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
-        }
-
         /* -------------------------------------------------------------
-           2. ВХОД / УСТАНОВКА АДРЕСА (СВЕРХУ ПОЛНОЭКРАННЫЙ)
+           2. ВХОД / ПОЛНОЭКРАННЫЙ ИНТЕРФЕЙС УСТАНОВКИ ДЕТАЛЬНОГО АДРЕСА
            ------------------------------------------------------------- */
         .address-overlay {
             position: fixed;
@@ -83,9 +72,10 @@
             z-index: 2000;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            overflow-y: auto;
             align-items: center;
-            padding: 30px 24px;
+            padding: 40px 24px;
             animation: fadeIn 0.4s ease;
         }
 
@@ -96,7 +86,7 @@
             animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Анимированный логотип на основе текстуры лосося */
+        /* Премиальный анимированный логотип на основе текстуры лосося */
         .salmon-logo {
             width: 90px;
             height: 90px;
@@ -109,10 +99,6 @@
             transition: transform 0.3s ease;
         }
 
-        .salmon-logo:hover {
-            transform: scale(1.08) rotate(5deg);
-        }
-
         .salmon-logo::before {
             content: '';
             position: absolute;
@@ -122,7 +108,7 @@
             height: 130px;
             border: 5px solid #ffffff;
             border-radius: 50%;
-            box-shadow: 0 0 0 5px var(--accent), 0 0 0 10px #ffffff, 0 0 0 15px var(--accent), 0 0 0 20px #ffffff, 0 0 0 25px var(--accent), 0 0 0 30px #ffffff;
+            box-shadow: 0 0 0 5px var(--accent), 0 0 0 10px #ffffff, 0 0 0 15px var(--accent), 0 0 0 20px #ffffff;
         }
 
         .address-card h2 {
@@ -135,13 +121,12 @@
         .address-card p {
             color: var(--text-muted);
             font-size: 14px;
-            margin-bottom: 32px;
-            padding: 0 10px;
+            margin-bottom: 24px;
         }
 
         .form-group {
             text-align: left;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             position: relative;
         }
 
@@ -161,9 +146,10 @@
             top: 38px;
             color: var(--text-muted);
             font-size: 16px;
+            z-index: 2;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 16px 16px 16px 46px;
             font-size: 16px;
@@ -173,13 +159,57 @@
             background: #fafafa;
             color: var(--text-main);
             transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
         }
 
-        .form-group input:focus {
+        .form-group select {
+            padding-left: 46px;
+            cursor: pointer;
+        }
+
+        .form-group.select-wrapper::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 16px;
+            top: 38px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: var(--text-main);
             background: #ffffff;
             box-shadow: 0 0 0 4px rgba(0,0,0,0.03);
+        }
+
+        /* Специфические CSS-стили для динамической сетки ввода адреса */
+        .address-grid-fields {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            transition: all 0.3s ease;
+        }
+
+        .address-grid-fields.two-cols {
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 12px;
+        }
+
+        .entrance-box {
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: scaleY(1);
+            transform-origin: top;
+        }
+
+        .entrance-box.hidden {
+            display: none;
+            opacity: 0;
+            transform: scaleY(0);
         }
 
         .map-hint-box {
@@ -188,7 +218,7 @@
             padding: 14px 16px;
             font-size: 13px;
             color: #0066cc;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: left;
             line-height: 1.4;
             border: 1px dashed rgba(0, 102, 204, 0.2);
@@ -210,6 +240,7 @@
             gap: 10px;
             transition: all 0.25s ease;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-top: 10px;
         }
 
         .btn-animate:active {
@@ -218,7 +249,7 @@
         }
 
         /* -------------------------------------------------------------
-           3. МОБИЛЬНЫЙ / СОТОВЫЙ ИНТЕРФЕЙС ШАПКИ И КАТЕГОРИЙ
+           3. НАТИВНЫЙ МОБИЛЬНЫЙ ИНТЕРФЕЙС ШАПКИ И КАТЕГОРИЙ
            ------------------------------------------------------------- */
         header {
             position: sticky;
@@ -258,7 +289,7 @@
             height: 50px;
             border: 2px solid #ffffff;
             border-radius: 50%;
-            box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px #ffffff, 0 0 0 6px var(--accent);
+            box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px #ffffff;
         }
 
         .logo-title {
@@ -279,18 +310,12 @@
             align-items: center;
             gap: 6px;
             transition: all 0.2s ease;
-            max-width: 150px;
+            max-width: 170px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .profile-trigger:active {
-            background-color: #e8e8ed;
-            transform: scale(0.96);
-        }
-
-        /* Категории - Горизонтальная лента в мобильном стиле */
         .categories-carousel {
             position: sticky;
             top: 63px;
@@ -305,9 +330,7 @@
             scroll-behavior: smooth;
         }
 
-        .categories-carousel::-webkit-scrollbar {
-            display: none;
-        }
+        .categories-carousel::-webkit-scrollbar { display: none; }
 
         .cat-badge {
             padding: 10px 18px;
@@ -322,65 +345,25 @@
             align-items: center;
             gap: 8px;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid transparent;
-        }
-
-        .cat-badge i {
-            font-size: 13px;
         }
 
         .cat-badge.active {
             background: var(--text-main);
             color: #ffffff;
             transform: scale(1.04);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         /* -------------------------------------------------------------
-           4. СОТОВАЯ СЕТКА БЛЮД С ИЗОБРАЖЕНИЯМИ
+           4. СОВРЕМЕННАЯ СЕТКА БЛЮД С ИНЛАЙН СЧЕТЧИКАМИ И ПЛЮСАМИ
            ------------------------------------------------------------- */
-        .app-container {
-            padding: 24px 20px 100px 20px;
-        }
-
-        .menu-section {
-            margin-bottom: 35px;
-            scroll-margin-top: 130px;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .section-headline {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-headline i {
-            color: var(--accent);
-            font-size: 20px;
-        }
-
-        .section-headline::after {
-            content: '';
-            flex-grow: 1;
-            height: 1px;
-            background: var(--border-color);
-        }
-
-        .compact-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-        }
-
-        @media (min-width: 768px) {
-            .compact-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-
+        .app-container { padding: 24px 20px 100px 20px; }
+        .menu-section { margin-bottom: 35px; scroll-margin-top: 130px; animation: fadeInUp 0.6s ease; }
+        .section-headline { font-size: 24px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .section-headline i { color: var(--accent); font-size: 20px; }
+        .section-headline::after { content: ''; flex-grow: 1; height: 1px; background: var(--border-color); }
+        .compact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        @media (min-width: 768px) { .compact-grid { grid-template-columns: repeat(4, 1fr); } }
+        
         .dish-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -388,73 +371,24 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
         }
 
-        .dish-card:active {
-            transform: scale(0.97);
-            box-shadow: none;
-            border-color: #ccc;
-        }
-
-        .dish-img-holder {
-            position: relative;
-            width: 100%;
-            padding-top: 85%;
-            background: #fdfdfd;
-            overflow: hidden;
-        }
-
-        .dish-img-holder img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .dish-details {
-            padding: 12px;
+        .dish-img-holder { position: relative; width: 100%; padding-top: 85%; background: #fdfdfd; }
+        .dish-img-holder img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .dish-details { padding: 12px; display: flex; flex-direction: column; flex-grow: 1; }
+        .dish-title { font-size: 15px; font-weight: 700; color: var(--text-main); height: 38px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .dish-size-tag { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
+        .dish-row-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; min-height: 32px; }
+        .dish-cost { font-size: 16px; font-weight: 800; }
+        
+        /* Стили для многофункциональной кнопки добавления / счетчика в сетке */
+        .card-action-container {
             display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .dish-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 4px;
-            line-height: 1.25;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            height: 38px;
-        }
-
-        .dish-size-tag {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .dish-row-bottom {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-top: auto;
-        }
-
-        .dish-cost {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-main);
+            justify-content: flex-end;
+            min-width: 32px;
         }
 
         .plus-action-btn {
@@ -463,23 +397,54 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            font-size: 16px;
-            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 14px;
+            color: var(--text-main);
             transition: all 0.2s ease;
         }
 
         .plus-action-btn:active {
             background: var(--text-main);
             color: #ffffff;
-            transform: scale(0.9);
+        }
+
+        /* Инлайн-виджет счетчика для карточки товара в каталоге (- 1 +) */
+        .inline-counter-widget {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f5f5f7;
+            padding: 3px 6px;
+            border-radius: 20px;
+            animation: scaleIn 0.2s ease;
+        }
+
+        .inline-counter-btn {
+            background: none;
+            border: none;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+        }
+
+        .inline-counter-value {
+            font-size: 13px;
+            font-weight: 700;
+            min-width: 14px;
+            text-align: center;
         }
 
         /* -------------------------------------------------------------
-           5. АНИМИРОВАННЫЕ МОДАЛЬНЫЕ ОКНА (iOS КАРТОЧНЫЙ СТИЛЬ)
+           5. АНИМИРОВАННЫЕ МОДАЛЬНЫЕ ОКНА И ШТОРКИ (iOS BOTTOM SHEET)
            ------------------------------------------------------------- */
         .sheet-mask {
             position: fixed;
@@ -504,110 +469,27 @@
             border-radius: var(--radius-lg) var(--radius-lg) 0 0;
             overflow: hidden;
             position: relative;
-            box-shadow: var(--shadow-lg);
             animation: slideUpSheet 0.35s cubic-bezier(0.15, 1, 0.3, 1);
             max-height: 92vh;
             display: flex;
             flex-direction: column;
         }
 
-        @keyframes slideUpSheet {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .sheet-indicator {
-            width: 36px;
-            height: 5px;
-            background: #e0e0e0;
-            border-radius: 3px;
-            margin: 10px auto;
-            flex-shrink: 0;
-        }
-
-        .sheet-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 32px;
-            height: 32px;
-            background: rgba(255,255,255,0.9);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-radius: 50%;
-            border: none;
-            font-size: 20px;
-            font-weight: 300;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .sheet-scroll-content {
-            overflow-y: auto;
-            flex-grow: 1;
-            padding: 0 24px 34px 24px;
-        }
-
-        .sheet-preview-img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-            background: #f9f9f9;
-        }
-
-        .sheet-meta-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .sheet-stats-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            background: #f5f5f7;
-            padding: 12px;
-            border-radius: var(--radius-sm);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .stat-pill font {
-            display: block;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .stat-pill span {
-            font-size: 10px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .sheet-description {
-            font-size: 15px;
-            color: #4a4a4a;
-            line-height: 1.5;
-            margin-bottom: 30px;
-        }
-
-        .sheet-footer-sticky {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border-color);
-            padding: 16px 24px 30px 24px;
-            background: #ffffff;
-        }
+        @keyframes slideUpSheet { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .sheet-indicator { width: 36px; height: 5px; background: #e0e0e0; border-radius: 3px; margin: 10px auto; flex-shrink: 0; }
+        .sheet-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; background: rgba(255,255,255,0.9); border-radius: 50%; border: none; font-size: 20px; display: flex; align-items: center; justify-content: center; z-index: 10; cursor: pointer; }
+        .sheet-scroll-content { overflow-y: auto; flex-grow: 1; padding: 0 24px 34px 24px; }
+        .sheet-preview-img { width: 100%; height: 240px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 20px; }
+        .sheet-meta-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+        
+        .sheet-stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #f5f5f7; padding: 12px; border-radius: var(--radius-sm); margin-bottom: 20px; text-align: center; }
+        .stat-pill font { display: block; font-size: 13px; font-weight: 700; }
+        .stat-pill span { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+        .sheet-description { font-size: 15px; color: #4a4a4a; line-height: 1.5; margin-bottom: 30px; }
+        .sheet-footer-sticky { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding: 16px 24px 30px 24px; background: #ffffff; }
 
         /* -------------------------------------------------------------
-           6. ТРЕНДОВАЯ МОБИЛЬНАЯ КОРЗИНА И ВСПЛЫВАЮЩАЯ ПАНЕЛЬ
+           6. ТРЕНДОВАЯ МОБИЛЬНАЯ ПЛАВАЮЩАЯ КОРЗИНА
            ------------------------------------------------------------- */
         .floating-basket-bar {
             position: fixed;
@@ -626,178 +508,40 @@
             display: none;
             align-items: center;
             justify-content: space-between;
-            animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: scaleIn 0.3s ease;
         }
 
-        .basket-left-side {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .basket-indicator-num {
-            background: var(--accent);
-            color: #ffffff;
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-weight: 800;
-        }
-
-        .basket-scroll-list {
-            max-height: 260px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-        }
-
-        .basket-item-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .basket-item-meta h4 {
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .basket-item-meta p {
-            font-size: 13px;
-            color: var(--accent);
-            font-weight: 700;
-            margin-top: 2px;
-        }
-
-        .counter-widget {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #f5f5f7;
-            padding: 6px 12px;
-            border-radius: 30px;
-        }
-
-        .counter-btn {
-            background: none;
-            border: none;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .counter-value {
-            font-size: 14px;
-            font-weight: 700;
-            min-width: 14px;
-            text-align: center;
-        }
-
-        .basket-cost-info {
-            background: #f9f9f9;
-            padding: 16px;
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-        }
-
-        .cost-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            margin-bottom: 6px;
-        }
-
-        .cost-row.grand-total {
-            font-size: 18px;
-            font-weight: 800;
-            border-top: 1px solid var(--border-color);
-            padding-top: 10px;
-            margin-top: 10px;
-            margin-bottom: 0;
-        }
-
-        .whatsapp-submit-btn {
-            background: #25d366;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
-        }
-
-        .whatsapp-submit-btn:active {
-            background: #1ebe57;
-        }
+        .basket-left-side { display: flex; align-items: center; gap: 12px; }
+        .basket-indicator-num { background: var(--accent); color: #ffffff; font-size: 12px; padding: 2px 8px; border-radius: 10px; font-weight: 800; }
+        .basket-scroll-list { max-height: 260px; overflow-y: auto; margin-bottom: 20px; }
+        .basket-item-card { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border-color); }
+        .basket-item-meta h4 { font-size: 15px; font-weight: 700; }
+        .basket-item-meta p { font-size: 13px; color: var(--accent); font-weight: 700; margin-top: 2px; }
+        
+        .counter-widget { display: flex; align-items: center; gap: 12px; background: #f5f5f7; padding: 6px 12px; border-radius: 30px; color: #000; }
+        .counter-btn { background: none; border: none; font-size: 16px; font-weight: 700; cursor: pointer; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+        .counter-value { font-size: 14px; font-weight: 700; min-width: 14px; text-align: center; }
+        
+        .basket-cost-info { background: #f9f9f9; padding: 16px; border-radius: var(--radius-md); margin-bottom: 20px; }
+        .cost-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
+        .cost-row.grand-total { font-size: 18px; font-weight: 800; border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 10px; }
+        
+        .whatsapp-submit-btn { background: #25d366; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
         /* -------------------------------------------------------------
-           7. ОПРОСНИКИ И СТАТУСЫ ПОСЛЕ ЗАКАЗА (ИНТЕРАКТИВ)
+           7. ИНТЕРФЕЙС ОПРОСНИКА И СТАТУСОВ ПОДТВЕРЖДЕНИЯ
            ------------------------------------------------------------- */
-        .status-dialog-box {
-            text-align: center;
-            padding: 20px 10px;
-        }
-
-        .status-dialog-box i.main-icon {
-            font-size: 54px;
-            margin-bottom: 16px;
-        }
-
+        .status-dialog-box { text-align: center; padding: 20px 10px; }
+        .status-dialog-box i.main-icon { font-size: 54px; margin-bottom: 16px; }
         .status-dialog-box i.fa-circle-question { color: #0066cc; }
         .status-dialog-box i.fa-circle-check { color: #25d366; }
-
-        .status-dialog-box h3 {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .status-dialog-box p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 24px;
-            line-height: 1.4;
-        }
-
-        .choice-buttons-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .btn-choice {
-            padding: 16px;
-            border-radius: var(--radius-md);
-            font-size: 16px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-choice.yes {
-            background: #25d366;
-            color: #ffffff;
-        }
-
-        .btn-choice.yes:active { background: #1ebe57; }
-
-        .btn-choice.no {
-            background: #f5f5f7;
-            color: var(--text-main);
-        }
-
-        .btn-choice.no:active { background: #e8e8ed; }
+        .status-dialog-box h3 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+        .status-dialog-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
+        .choice-buttons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        
+        .btn-choice { padding: 16px; border-radius: var(--radius-md); font-size: 16px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-choice.yes { background: #25d366; color: #ffffff; }
+        .btn-choice.no { background: #f5f5f7; color: var(--text-main); }
     </style>
 </head>
 <body>
@@ -814,18 +558,37 @@
                     <i class="fa-regular fa-user"></i>
                     <input type="text" id="joinName" required placeholder="Введите ваше имя">
                 </div>
+                
                 <div class="form-group">
                     <label>Номер телефона</label>
                     <i class="fa-solid fa-phone"></i>
-                    <input type="tel" id="joinPhone" required placeholder="+7 (707) 123-45-67">
+                    <input type="tel" id="joinPhone" required placeholder="+7 (___) ___-__-__">
                 </div>
-                <div class="form-group">
-                    <label>Точный адрес доставки</label>
-                    <i class="fa-solid fa-location-dot"></i>
-                    <input type="text" id="joinAddress" required placeholder="Улица, дом, квартира">
+
+                <div class="form-group select-wrapper">
+                    <label>Тип жилья</label>
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <select id="housingType" onchange="toggleHousingFields()">
+                        <option value="apartment">Квартира / Офис</option>
+                        <option value="private">Частный дом</option>
+                    </select>
                 </div>
+                
+                <div class="address-grid-fields" id="addressFieldsContainer">
+                    <div class="form-group">
+                        <label>Улица и № дома</label>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <input type="text" id="joinStreet" required placeholder="Например: ул. Абулхаир хана, 45">
+                    </div>
+                    <div class="form-group entrance-box" id="entranceFieldWrapper">
+                        <label>Подъезд / Кв.</label>
+                        <i class="fa-solid fa-door-closed"></i>
+                        <input type="text" id="joinApartment" placeholder="Подъезд 2, кв 14">
+                    </div>
+                </div>
+
                 <div class="map-hint-box">
-                    <strong>📍 Подсказка от BLA BLA:</strong> Скопируйте точный адрес из поисковика Яндекс.Карт или Google Maps и просто вставьте сюда. Водитель приедет быстрее!
+                    <strong>📍 Подсказка от BLA BLA:</strong> Для частных домов поле подъезда автоматически скрывается. Водитель приедет быстрее, если указать точный номер дома!
                 </div>
                 <button type="submit" class="btn-animate">
                     <i class="fa-solid fa-circle-check"></i> Сохранить и смотреть меню
@@ -845,7 +608,6 @@
     </header>
 
     <nav class="categories-carousel" id="dynamicTabs"></nav>
-
     <main class="app-container" id="sectionsTarget"></main>
 
     <div class="floating-basket-bar" id="basketTriggerBar" onclick="displayBasketModal()">
@@ -860,21 +622,17 @@
         <div class="bottom-sheet" onclick="event.stopPropagation()">
             <div class="sheet-indicator"></div>
             <button class="sheet-close" onclick="dismissDishModal(null)">&times;</button>
-            
             <div class="sheet-scroll-content">
                 <img class="sheet-preview-img" id="dishModalImg" src="" alt="">
                 <h3 class="sheet-meta-title" id="dishModalTitle">Название</h3>
-                
                 <div class="sheet-stats-row">
                     <div class="stat-pill"><font id="mWeight">0г</font><span>Вес</span></div>
                     <div class="stat-pill"><font id="mProt">0г</font><span>Белки</span></div>
                     <div class="stat-pill"><font id="mFat">0г</font><span>Жиры</span></div>
                     <div class="stat-pill"><font id="mCarb">0г</font><span>Угл.</span></div>
                 </div>
-                
                 <p class="sheet-description" id="dishModalDesc">Описание</p>
             </div>
-            
             <div class="sheet-footer-sticky">
                 <div class="dish-cost" id="dishModalPrice" style="font-size: 22px;">0 ₸</div>
                 <button class="btn-animate" id="dishModalAddBtn" style="width: auto; padding: 14px 28px; border-radius: 25px;">
@@ -888,15 +646,11 @@
         <div class="bottom-sheet" onclick="event.stopPropagation()">
             <div class="sheet-indicator"></div>
             <button class="sheet-close" onclick="dismissBasketModal(null)">&times;</button>
-            
             <div class="sheet-scroll-content" style="padding-top: 10px;">
                 <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;">
                     <i class="fa-solid fa-cart-flat-bed"></i> Ваш заказ
                 </h3>
-                
-                <div class="basket-scroll-list" id="basketRenderContainer">
-                    </div>
-
+                <div class="basket-scroll-list" id="basketRenderContainer"></div>
                 <div class="basket-cost-info">
                     <div class="cost-row">
                         <span>Доставка по Уральску</span>
@@ -907,7 +661,6 @@
                         <span id="basketFinalSum">0 ₸</span>
                     </div>
                 </div>
-
                 <button class="btn-animate whatsapp-submit-btn" onclick="submitOrderViaWhatsapp()">
                     <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> Перейти к заказу в WhatsApp
                 </button>
@@ -922,7 +675,6 @@
                 <i class="fa-regular fa-circle-question main-icon"></i>
                 <h3>Вы получили ответ оператора?</h3>
                 <p>Мы зафиксировали ваш переход в чат WhatsApp. Скажите, ответил ли вам наш менеджер и подтвердил ли он ваш заказ?</p>
-                
                 <div class="choice-buttons-grid">
                     <button class="btn-choice yes" onclick="processOperatorResponse(true)">
                         <i class="fa-solid fa-check"></i> Да, ответил
@@ -951,59 +703,117 @@
     </div>
 
     <script>
-        // Конфигурационный номер телефона ресторана BLA BLA (без +)
+        // Глобальный конфигурационный номер телефона ресторана BLA BLA (Казахстан)
         const CONFIG_WHATSAPP_NUMBER = "77058486656";
 
-        // Полное анимированное меню с качественными фотографиями еды
+/**
+         * ============================================================================
+         * КОРПОРАТИВНАЯ РАСШИРЕННАЯ БАЗА ДАННЫХ АКТУАЛЬНОГО МЕНЮ РЕСТОРАНА "BLA BLA"
+         * МАСШТАБИРОВАННАЯ СЕТКА: ОКОЛО 50 УНИКАЛЬНЫХ ПОЗИЦИЙ ДЛЯ ДОСТАВКИ В УРАЛЬСКЕ
+         * ============================================================================
+         */
+
         const RESTAURANT_MENU_DATABASE = {
             sushi: {
                 name: "Суши и Роллы",
                 icon: "fa-solid fa-shrimp",
                 items: [
-                    { id: 1001, name: "Филадельфия Премиум", price: 2990, weight: "320г", size: "8 кусочков", desc: "Увеличенная порция свежего слабосоленого лосося, нежнейший премиальный сливочный сыр Cremette, спелый мягкий авокадо и японский рис.", prot: "9.5", fat: "11.2", carb: "21.5", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
-                    { id: 1002, name: "Калифорния в Тобико", price: 2490, weight: "290г", size: "8 кусочков", desc: "Мясо снежного краба, свежий хрустящий огурчик, майонез и обильная обсыпка из яркой оранжевой икры летучей рыбы Тобико.", prot: "7.1", fat: "8.4", carb: "25.0", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80" },
-                    { id: 1003, name: "Канада с копченым Угрем", price: 3490, weight: "310г", size: "8 кусочков", desc: "Сливочный сыр, огурчик, ролл укрыт пластами подкопченного угря, полит густым соусом Унаги и посыпан обжаренным кунжутом.", prot: "10.4", fat: "13.9", carb: "22.1", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80" },
-                    { id: 1004, name: "Запеченный Босс-Ролл", price: 2890, weight: "330г", size: "8 кусочков", desc: "Теплый ролл с тигровой креветкой и авокадо под нежной запеченной сырной шапочкой со специальным спайси-соусом.", prot: "11.0", fat: "14.5", carb: "23.4", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&q=80" }
+                    { id: 1001, name: "Филадельфия Премиум", price: 2990, weight: "320г", size: "8 кусочков", desc: "Увеличенная порция свежайшего слабосоленого лосося премиального атлантического вылова, нежнейший сливочный сыр Cremette высокой жирности, спелый мягкий авокадо сорта Хасс и отборный японский рис.", prot: "9.5", fat: "11.2", carb: "21.5", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
+                    { id: 1002, name: "Калифорния в Тобико", price: 2490, weight: "290г", size: "8 кусочков", desc: "Натуральное сочное мясо снежного краба (сурими премиум-класса), свежий хрустящий огурчик, легкий домашний японский майонез. Ролл целиком обвалян в яркой хрустящей икре летучей рыбы Тобико.", prot: "7.1", fat: "8.4", carb: "25.0", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80" },
+                    { id: 1003, name: "Канада с копченым Угрем", price: 3490, weight: "310г", size: "8 кусочков", desc: "Сливочный сыр Cremette и соломка свежого огурца. Снаружи ролл полностью укрыт щедрыми пластами филе подкопченного морского угря, полит густым соусом Унаги и посыпан обжаренным золотистым кунжутом.", prot: "10.4", fat: "13.9", carb: "22.1", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80" },
+                    { id: 1004, name: "Запеченный Босс-Ролл", price: 2890, weight: "330г", size: "8 кусочков", desc: "Теплый запеченный ролл. В начинку входят крупные тигровые креветки, обжаренные в легком чесночном масле, и спелый авокадо. Ролл запекается под нежной воздушной сырной шапочкой на основе оригинального соуса Яки.", prot: "11.0", fat: "14.5", carb: "23.4", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&q=80" },
+                    { id: 1005, name: "Дракон Опаленный", price: 3690, weight: "315г", size: "8 кусочков", desc: "Фирменный ролл с эффектом карамелизации. Начинка из нежного камчатского краба и майонеза, обернутая слайсами лосося и угря, которые слегка опаливаются газовой горелкой для придания благородного аромата дымка.", prot: "12.1", fat: "15.1", carb: "20.8", img: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600&q=80" },
+                    { id: 1006, name: "Темпура Эби Кранч", price: 2690, weight: "340г", size: "8 кусочков", desc: "Горячий ролл, обжаренный во фритюре до золотистой корочки. Содержит хрустящую тигровую креветку в панировке сухарей Панко, сливочный сыр и зеленый лук. Подается с пикантным соусом Шрирача-майонез.", prot: "8.9", fat: "16.2", carb: "28.4", img: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&q=80" },
+                    { id: 1007, name: "Маки с Лососем", price: 1490, weight: "120г", size: "6 кусочков", desc: "Минималистичный классический тонкий ролл (хосомаки). Только три безупречных ингредиента: листы водорослей Нори премиум-качества, эталонный японский круглозерный рис и толстый брусочек свежего филе семги.", prot: "6.8", fat: "4.2", carb: "18.1", img: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80" },
+                    { id: 1008, name: "Маки с Огурцом", price: 990, weight: "115г", size: "6 кусочков", desc: "Легкий вегетарианский диетический ролл. Хрустящая соломка свежего огурца, бережно завернутая в заправленный рис и прессованные водоросли нори. Сверху ролл посыпается смесью белого обжаренного кунжута.", prot: "2.1", fat: "1.0", carb: "19.5", img: "https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=600&q=80" },
+                    { id: 1009, name: "Филадельфия Лайт", price: 2190, weight: "260г", size: "8 кусочков", desc: "Облегченная версия популярного ролла. Сливочный сыр, свежий огурчик, рис и нори. Верхняя часть ролла декорирована аккуратной полоской нежного лосося. Отличный выбор для легкого перекуса.", prot: "7.8", fat: "9.2", carb: "22.0", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
+                    { id: 1010, name: "Запеченная Филадельфия", price: 3190, weight: "340г", size: "8 кусочков", desc: "Классический ролл Филадельфия, отправленный в печь под пикантным соусом. Горячий лосось раскрывает свой вкус совершенно по-новому в сочетании с расплавленным нежным сливочным сыром.", prot: "10.2", fat: "14.8", carb: "20.1", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&q=80" }
                 ]
             },
             pizza: {
                 name: "Горячая Пицца",
                 icon: "fa-solid fa-pizza-slice",
                 items: [
-                    { id: 2001, name: "Пепперони из печи", price: 2790, weight: "450г", size: "30 см", desc: "Фирменное тонкое итальянское тесто, томатный соус, обилие оригинальной пикантной колбаски пепперони и сыр моцарелла.", prot: "13.1", fat: "15.2", carb: "27.4", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" },
-                    { id: 2002, name: "Сырный Царь (4 Сыра)", price: 3190, weight: "430г", size: "30 см", desc: "Сочетание четырех изысканных сыров: благородный сыр с голубой плесенью Дор Блю, пармезан, чеддер и классическая моцарелла.", prot: "14.5", fat: "16.9", carb: "24.1", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
-                    { id: 2003, name: "BBQ Мясное Изобилие", price: 3490, weight: "520г", size: "30 см", desc: "Сытная пицца с охотничьими колбасками, беконом, ветчиной, маринованным луком и пикантным дымным соусом Барбекю.", prot: "16.0", fat: "18.2", carb: "26.3", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" }
+                    { id: 2001, name: "Пепперони из печи", price: 2790, weight: "450г", size: "30 см", desc: "Настоящая итальянская классика на тонком воздушном тесте с характерными пышными бортиками. Фирменный соус из спелых неаполитанских томатов, двойная порция сыра Моцарелла и пикантные колбаски пепперони.", prot: "13.1", fat: "15.2", carb: "27.4", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" },
+                    { id: 2002, name: "Сырный Царь (4 Сыра)", price: 3190, weight: "430г", size: "30 см", desc: "В основе лежит нежный сливочный соус, на котором гармонично тает благородное сочетание четырех сыров: пикантный сыр с голубой плесенью Дор Блю, выдержанный пармезан, ароматный чеддер и тягучая моцарелла.", prot: "14.5", fat: "16.9", carb: "24.1", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
+                    { id: 2003, name: "BBQ Мясное Изобилие", price: 3490, weight: "520г", size: "30 см", desc: "Очень сытная пицца. Содержит слайсы подкопченного бекона, охотничьи колбаски, ветчину из индейки и сочные кусочки маринованной куриной грудки. Покрывается моцареллой и густой сеточкой соуса Барбекю.", prot: "16.0", fat: "18.2", carb: "26.3", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" },
+                    { id: 2004, name: "Маргарита Классик", price: 2190, weight: "410г", size: "30 см", desc: "Минималистичный состав, рождающий идеальный вкус: томатный соус, много фермерской моцареллы, кружочки свежих томатов черри, сушеный орегано и капли ароматного базиликового масла.", prot: "10.2", fat: "9.8", carb: "29.1", img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&q=80" },
+                    { id: 2005, name: "Цыпленок Ранч", price: 2890, weight: "480г", size: "30 см", desc: "Кусочки нежного филе цыпленка, обжаренного на гриле, сочные помидоры, кубики белого салатного лука, моцарелла. Все это запекается под знаменитым американским сливочно-чесночным соусом Ранч.", prot: "12.8", fat: "14.1", carb: "25.9", img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=600&q=80" },
+                    { id: 2006, name: "Грибная с Трюфельным маслом", price: 3290, weight: "460г", size: "30 см", desc: "Бланшированные шампиньоны, лесные грибы, обжаренный репчатый лук, сливочная основа, сыры моцарелла. После извлечения из каменной печи пицца сбрызгивается каплями натурального трюфельного масла.", prot: "11.4", fat: "15.6", carb: "23.8", img: "https://images.unsplash.com/photo-1571066811602-71683a3f680d?w=600&q=80" },
+                    { id: 2007, name: "Мексиканская Острая", price: 2990, weight: "490г", size: "30 см", desc: "Пицца с характером. Жгучий перец халапеньо, острые колбаски, сочный мясной фарш, болгарский перец, томатный соус и сыр моцарелла. Настоящий взрыв вкуса для любителей поострее.", prot: "14.1", fat: "16.2", carb: "25.0", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" },
+                    { id: 2008, name: "Гавайская с ананасом", price: 2690, weight: "460г", size: "30 см", desc: "Тропическое сочетание нежной ветчины из индейки и кусочков сочного сладкого ананаса под слоем классической моцареллы на белом или томатном соусе по выбору шефа.", prot: "11.2", fat: "10.5", carb: "28.3", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" }
                 ]
             },
             soups: {
                 name: "Супы и WOK лапша",
                 icon: "fa-solid fa-bowl-rice",
                 items: [
-                    { id: 3001, name: "Легендарный Том Ям", price: 2690, weight: "420г", size: "1 порция", desc: "Пряный и острый тайский суп на кокосовом молоке с добавлением тигровых креветок, грибов, томатов черри. Рис идет в комплекте.", prot: "6.2", fat: "7.1", carb: "10.5", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" },
-                    { id: 3002, name: "WOK Удон с Курицей", price: 1990, weight: "360г", desc: "Толстая пшеничная лапша удон, обжаренная в воке с сочными кусочками цыпленка, овощным миксом и классическим соусом Терияки.", size: "1 порция", prot: "9.1", fat: "6.4", carb: "33.8", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" }
+                    { id: 3001, name: "Легендарный Том Ям", price: 2690, weight: "420г", size: "1 порция", desc: "Пряный, кисло-острый тайский суп на кокосовом молоке. Начинка: крупные тигровые креветки, кальмары, грибы, томаты черри, кинза и лемонграсс. Отварной рис подается в комплекте отдельно.", prot: "6.2", fat: "7.1", carb: "10.5", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" },
+                    { id: 3002, name: "WOK Удон с Курицей", price: 1990, weight: "360г", size: "1 порция", desc: "Пшеничная толстая лапша удон, обжаренная на максимальном огне в сковороде вок. Смешивается соломкой болгарского перца, моркови, цукини, перьев зеленого лука и цыпленка в соусе Терияки.", prot: "9.1", fat: "6.4", carb: "33.8", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" },
+                    { id: 3003, name: "Рамен с Копченой Грудинкой", price: 2390, weight: "500г", size: "1 порция", desc: "Огромная порция согревающего азиатского супа. Наваристый свиной бульон, яичная лапша, слайсы нежной копченой грудинки, маринованное яйцо, водоросли нори, ростки сои и зеленый лук.", prot: "14.2", fat: "12.8", carb: "38.0", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80" },
+                    { id: 3004, name: "WOK Тяхан с Говядиной", price: 2290, weight: "350г", size: "1 порция", desc: "Рассыпчатый рис обжаривается в воке с добавлением куриного яйца, кукурузы, зеленого горошка, чеснока и мелко рубленной нежной вырезки молодой говядины. Заправляется устричным соусом.", prot: "11.5", fat: "8.9", carb: "35.2", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" },
+                    { id: 3005, name: "Мисо суп классический", price: 1190, weight: "300г", size: "1 порция", desc: "Традиционный легкий японский суп на основе пасты из ферментированных соевых бобов, бульона даси, с кубиками нежного тофу, водорослями вакаме и мелко нарезанным зеленым луком.", prot: "4.5", fat: "2.1", carb: "6.8", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" },
+                    { id: 3006, name: "WOK Соба с Морепродуктами", price: 2590, weight: "340г", size: "1 порция", desc: "Гречневая лапша соба, обжаренная в воке с тигровыми креветками, мидиями, кальмарами и миксом свежих овощей. Заправляется пикантным соусом на основе соевого соуса и мирина.", prot: "12.3", fat: "5.8", carb: "31.2", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" },
+                    { id: 3007, name: "Сливочный суп с лососем", price: 2190, weight: "380г", size: "1 порция", desc: "Нежнейший суп на основе сливок средней жирности с добавлением кусочков филе атлантического лосося, картофеля, моркови и свежей зелени. Прекрасно согревает в прохладную погоду.", prot: "10.8", fat: "13.2", carb: "11.0", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80" },
+                    { id: 3008, name: "WOK Фунчоза Веджи", price: 1790, weight: "330г", size: "1 порция", desc: "Тонкая стеклянная лапша фунчоза, обжаренная с древесными грибами, стручковой фасолью, болгарским перцем, морковью и кунжутом в легком чесночно-соевом соусе.", prot: "3.2", fat: "4.5", carb: "41.0", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" }
+                ]
+            },
+            snacks: {
+                name: "Закуски и Салаты",
+                icon: "fa-solid fa-leaf",
+                items: [
+                    { id: 4001, name: "Салат Цезарь с Цыпленком", price: 1990, weight: "220г", size: "1 порция", desc: "Хрустящие листья салата Романо, сочная грудка цыпленка гриль, томаты черри, пшеничные гренки, тертый пармезан и аутентичный соус Цезарь с анчоусами.", prot: "14.2", fat: "12.5", carb: "8.9", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&q=80" },
+                    { id: 4002, name: "Салат Чука с ореховым соусом", price: 1390, weight: "160г", size: "1 порция", desc: "Маринованные морские водоросли Чука, нарезанные тонкой соломкой, обжаренный кунжут, долька лимона. Подается с традиционным густым японским ореховым соусом Гамадари.", prot: "1.8", fat: "6.2", carb: "14.0", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80" },
+                    { id: 4003, name: "Картофель Фри хрустящий", price: 890, weight: "150г", size: "Стандарт", desc: "Золотистые ломтики отборного картофеля, обжаренные до идеальной хрустящей корочки. Слегка приправлены морской солью. Подается горячим.", prot: "3.5", fat: "9.8", carb: "32.0", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" },
+                    { id: 4004, name: "Картофельные Дольки", price: 990, weight: "160г", size: "Стандарт", desc: "Ароматные картофельные дольки, запеченные в кожуре со специями, паприкой, сушеным чесноком и травами. Хрустящие снаружи и мягкие внутри.", prot: "3.8", fat: "8.5", carb: "30.1", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" },
+                    { id: 4005, name: "Куриные Наггетсы", price: 1190, weight: "180г", size: "7 штук", desc: "Нежное рубленое филе цыпленка в хрустящей панировке из сухарей. Обжариваются во фритюре до красивого золотистого цвета. Любимая детская закуска.", prot: "15.0", fat: "11.2", carb: "16.4", img: "https://images.unsplash.com/photo-1562967914-608f82629a7a?w=600&q=80" },
+                    { id: 4006, name: "Сырные палочки Моцарелла", price: 1490, weight: "170г", size: "5 штук", desc: "Палочки из натурального тягучего сыра моцарелла в плотной хрустящей панировке. При укусе сыр аппетитно тянется. Рекомендуется есть горячими.", prot: "12.4", fat: "16.8", carb: "19.2", img: "https://images.unsplash.com/photo-1531749668029-2db88e4b76ce?w=600&q=80" },
+                    { id: 4007, name: "Креветки Темпура", price: 2290, weight: "140г", size: "5 штук", desc: "Отборные королевские креветки, очищенные и обжаренные в воздушном, невесомом японском кляре темпура. Подаются с легким соевым соусом.", prot: "16.1", fat: "7.4", carb: "15.0", img: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&q=80" },
+                    { id: 4008, name: "Цезарь с Креветками", price: 2490, weight: "210г", size: "1 порция", desc: "Премиальная вариация салата Цезарь. Вместо птицы добавляются крупные тигровые креветки, обжаренные на гриле с чесноком и прованскими травами.", prot: "13.8", fat: "11.9", carb: "9.2", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&q=80" }
+                ]
+            },
+            combos: {
+                name: "Сет-Комбо",
+                icon: "fa-solid fa-box",
+                items: [
+                    { id: 5001, name: "Сет Классик Ролл", price: 6990, weight: "920г", size: "24 кусочка", desc: "Большой классический набор для компании. Включает в себя три полноценных популярных ролла: Филадельфия Премиум, Калифорния в Тобико и Маки с огурцом.", prot: "28.0", fat: "31.0", carb: "85.0", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80" },
+                    { id: 5002, name: "Сет Горячая Темпура", price: 7490, weight: "1050г", size: "24 кусочка", desc: "Три сытных горячих темпурных ролла, обжаренных во фритюре: Темпура с лососем, Темпура с угрем и запеченный сырный Босс-ролл. Доезжает горячим!", prot: "31.2", fat: "38.5", carb: "92.0", img: "https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&q=80" },
+                    { id: 5003, name: "Комбо Пицца + Роллы", price: 5490, weight: "870г", size: "Пицца + Ролл", desc: "Идеальный комбо-набор для двоих: горячая ароматная пицца Пепперони (30 см) и порция нежного ролла Филадельфия Лайт. Выгодно и вкусно.", prot: "24.5", fat: "29.8", carb: "71.0", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
+                    { id: 5004, name: "Семейный Комбо Микс", price: 9990, weight: "1600г", size: "2 Пиццы + Ролл", desc: "Огромный сытный набор: пицца Цыпленок Ранч, пицца Маргарита, ролл Калифорния и порция картофеля фри. Идеально для семейного ужина.", prot: "45.0", fat: "51.0", carb: "160.0", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" },
+                    { id: 5005, name: "Мини Сет Маки", price: 3290, weight: "450г", size: "18 кусочков", desc: "Легкий мини-сет из простых одинарных роллов: маки с лососем, маки с тунцом и маки со свежим огурцом. Отличный выбор для обеда в офисе.", prot: "15.2", fat: "8.4", carb: "54.0", img: "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80" },
+                    { id: 5006, name: "Сет Филадельфия Мания", price: 8990, weight: "1100г", size: "32 кусочка", desc: "Настоящий рай для любителей лосося. Четыре вариации Филадельфии: Филадельфия Премиум, Филадельфия Лайт, Запеченная Филадельфия и Филадельфия в кунжуте.", prot: "38.0", fat: "42.1", carb: "110.0", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
+                    { id: 5007, name: "Party Сет ХХL", price: 14990, weight: "2100г", size: "56 кусочков", desc: "Мега-сет для большой и голодной компании. Семь разнообразных роллов на любой вкус, включая острые, запеченные, классические и вегетарианские.", prot: "68.0", fat: "74.0", carb: "245.0", img: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600&q=80" },
+                    { id: 5008, name: "WOK Сет на двоих", price: 4190, weight: "720г", size: "2 коробочки", desc: "Две полноценные коробочки вок: лапша удон с нежным цыпленком терияки и рис тяхан с сочной говядиной. Сытный горячий обед гарантирован.", prot: "20.6", fat: "15.3", carb: "69.0", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" }
                 ]
             },
             drinks: {
                 name: "Напитки и Десерты",
                 icon: "fa-solid fa-ice-cream",
                 items: [
-                    { id: 4001, name: "Фирменный Морс BLA BLA", price: 890, weight: "500мл", size: "1 бутылка", desc: "Натуральный домашний морс, сваренный из спелых лесных ягод: дикой клюквы, ежевики и брусники. Мягкая сладость.", prot: "0.2", fat: "0.0", carb: "11.8", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&q=80" },
-                    { id: 4002, name: "Нежный Чизкейк Нью-Йорк", price: 1290, weight: "150г", size: "1 кусочек", desc: "Классический американский творожно-сырный десерт на хрустящей песочной основе. Тает во рту.", prot: "5.4", fat: "18.2", carb: "29.0", img: "https://images.unsplash.com/photo-1524351199679-46cddf530c04?w=600&q=80" }
+                    { id: 6001, name: "Фирменный Морс BLA BLA", price: 890, weight: "500мл", size: "1 бутылка", desc: "Крафтовый напиток собственного приготовления. Варится из ягод дикой клюквы, ежевики и брусники. Обладает приятной кислинкой и витаминами.", prot: "0.2", fat: "0.0", carb: "11.8", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&q=80" },
+                    { id: 6002, name: "Нежный Чизкейк Нью-Йорк", price: 1290, weight: "150г", size: "1 кусочек", desc: "Кондитерский десерт. Творожно-сырная масса на основе оригинального крем-чиза, обладающая бархатистой текстурой, на подложке из песочного печенья.", prot: "5.4", fat: "18.2", carb: "29.0", img: "https://images.unsplash.com/photo-1524351199679-46cddf530c04?w=600&q=80" },
+                    { id: 6003, name: "Домашний Лимонад Цитрус", price: 990, weight: "500мл", size: "1 бутылка", desc: "Натуральный цитрусовый микс. Свежевыжатый сок спелых апельсинов, лайма и лимона с добавлением веточек мяты и тростникового сиропа. Подается холодным.", prot: "0.1", fat: "0.0", carb: "14.5", img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=80" },
+                    { id: 6004, name: "Кока-Кола Классик", price: 690, weight: "500мл", size: "1 бутылка", desc: "Традиционный легендарный газированный напиток в пластиковой бутылке. Подается сильно охлажденным, идеально дополняет пиццу и бургеры.", prot: "0.0", fat: "0.0", carb: "10.6", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&q=80" },
+                    { id: 6005, name: "Вода Tassay без газа", price: 490, weight: "500мл", size: "1 бутылка", desc: "Природная минеральная питьевая вода высшего качества, добываемая из экологически чистых подземных источников Казахстана. Не содержит газа.", prot: "0.0", fat: "0.0", carb: "0.0", img: "https://images.unsplash.com/photo-1608885898957-a599fb1698d6?w=600&q=80" },
+                    { id: 6006, name: "Вода Tassay с газом", price: 490, weight: "500мл", size: "1 бутылка", desc: "Природная питьевая минеральная вода Tassay, прошедшая бережную фильтрацию и насыщенная углекислым газом для приятного освежающего эффекта.", prot: "0.0", fat: "0.0", carb: "0.0", img: "https://images.unsplash.com/photo-1608885898957-a599fb1698d6?w=600&q=80" },
+                    { id: 6007, name: "Шоколадный Брауни", price: 1190, weight: "130г", size: "1 кусочек", desc: "Влажный, супершоколадный американский десерт с добавлением кусочков грецкого ореха и какао премиум-качества. Слегка разогревается перед подачей.", prot: "4.8", fat: "19.5", carb: "33.2", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80" },
+                    { id: 6008, name: "Сок Gracio Яблоко", price: 890, weight: "1л", size: "1 коробка", desc: "Натуральный стопроцентный яблочный сок без добавления искусственного сахара, красителей и консервантов. Приятный вкус спелых зеленых яблок.", prot: "0.0", fat: "0.0", carb: "11.5", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&q=80" }
                 ]
             }
         };
 
+        // Состояние приложения (Корзина и Переменные верификации)
         let userCartArray = [];
-        let currentlyActiveDish = null;
-        let isWaitingForVerification = false; // Флаг отслеживания отправленного заказа
+        let isWaitingForVerification = false;
 
         window.addEventListener('DOMContentLoaded', () => {
             renderAppNavigation();
             renderAppItems();
+            setupPhoneMask();
             verifyUserSessionData();
             refreshCartState();
 
-            // Мониторинг фокуса/возвращения пользователя на вкладку браузера
+            // Отслеживание возврата пользователя из приложения WhatsApp
             document.addEventListener('visibilitychange', () => {
                 if (document.visibilityState === 'visible' && isWaitingForVerification) {
                     showOperatorCheckModal();
@@ -1011,19 +821,50 @@
             });
         });
 
-        // Генерация верхних табов категорий
+        // Строгая интерактивная маска для ввода мобильного телефона: +7 (707) 123-45-67
+        function setupPhoneMask() {
+            const input = document.getElementById('joinPhone');
+            input.addEventListener('input', function (e) {
+                let matrix = "+7 (___) ___-__-__",
+                    i = 0,
+                    def = matrix.replace(/\D/g, ""),
+                    val = this.value.replace(/\D/g, "");
+                if (def.length >= val.length) val = def;
+                this.value = matrix.replace(/./g, function (a) {
+                    return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
+                });
+            });
+        }
+
+        // Динамическое переключение полей ввода адреса (Логика исчезновения подъезда)
+        function toggleHousingFields() {
+            const type = document.getElementById('housingType').value;
+            const container = document.getElementById('addressFieldsContainer');
+            const wrapper = document.getElementById('entranceFieldWrapper');
+            const apartmentInput = document.getElementById('joinApartment');
+
+            if (type === 'private') {
+                container.classList.remove('two-cols');
+                wrapper.classList.add('hidden');
+                apartmentInput.removeAttribute('required');
+                apartmentInput.value = ''; // Сбрасываем значение, так как это частный сектор
+            } else {
+                container.classList.add('two-cols');
+                wrapper.classList.remove('hidden');
+                apartmentInput.setAttribute('required', 'required');
+            }
+        }
+
+        // Рендеринг верхних переключателей категорий меню
         function renderAppNavigation() {
             const container = document.getElementById('dynamicTabs');
             container.innerHTML = '';
-
             Object.keys(RESTAURANT_MENU_DATABASE).forEach((key, index) => {
                 const group = RESTAURANT_MENU_DATABASE[key];
                 const badge = document.createElement('a');
                 badge.className = `cat-badge ${index === 0 ? 'active' : ''}`;
                 badge.innerHTML = `<i class="${group.icon}"></i> ${group.name}`;
                 badge.href = `#sec_${key}`;
-                badge.id = `tab_trigger_${key}`;
-                
                 badge.onclick = (e) => {
                     e.preventDefault();
                     document.querySelectorAll('.cat-badge').forEach(b => b.classList.remove('active'));
@@ -1034,11 +875,10 @@
             });
         }
 
-        // Рендер каталога блюд с фото
+        // Рендеринг витрины товаров с интеллектуальными кнопками управления
         function renderAppItems() {
             const target = document.getElementById('sectionsTarget');
             target.innerHTML = '';
-
             Object.keys(RESTAURANT_MENU_DATABASE).forEach(key => {
                 const group = RESTAURANT_MENU_DATABASE[key];
                 const section = document.createElement('section');
@@ -1057,76 +897,103 @@
                     const card = document.createElement('div');
                     card.className = 'dish-card';
                     card.onclick = () => displayDishModal(dish);
-
                     card.innerHTML = `
-                        <div class="dish-img-holder">
-                            <img src="${dish.img}" alt="${dish.name}" loading="lazy">
-                        </div>
+                        <div class="dish-img-holder"><img src="${dish.img}" alt="${dish.name}"></div>
                         <div class="dish-details">
                             <div class="dish-title">${dish.name}</div>
                             <div class="dish-size-tag">${dish.weight} ${dish.size ? '• ' + dish.size : ''}</div>
                             <div class="dish-row-bottom">
                                 <div class="dish-cost">${dish.price} ₸</div>
-                                <button class="plus-action-btn" onclick="event.stopPropagation(); addItemToCart(${dish.id})">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
+                                <div class="card-action-container" id="action_container_${dish.id}">
+                                    </div>
                             </div>
                         </div>
                     `;
                     grid.appendChild(card);
+                    // Обновляем состояние кнопки для каждого блюда сразу после вставки в DOM
+                    updateCardActionButton(dish.id);
                 });
-
                 section.appendChild(grid);
                 target.appendChild(section);
             });
         }
 
-        // -------------------------------------------------------------
-        // УПРАВЛЕНИЕ СЕССИЯМИ LOCALSTORAGE (УРАЛЬСК)
-        // -------------------------------------------------------------
+        // Функция обновления отображения кнопки на карточке (Обычный плюс ИЛИ виджет "- 1 +")
+        function updateCardActionButton(id) {
+            const container = document.getElementById(`action_container_${id}`);
+            if (!container) return;
+
+            const cartItem = userCartArray.find(x => x.product.id === id);
+
+            if (cartItem && cartItem.count > 0) {
+                // Если товар в корзине — выводим полноценный интерактивный виджет количества
+                container.innerHTML = `
+                    <div class="inline-counter-widget" onclick="event.stopPropagation();">
+                        <button class="inline-counter-btn" onclick="changeBasketItemCount(${id}, -1)"><i class="fa-solid fa-minus"></i></button>
+                        <div class="inline-counter-value">${cartItem.count}</div>
+                        <button class="inline-counter-btn" onclick="changeBasketItemCount(${id}, 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                `;
+            } else {
+                // Если товара нет в корзине — выводим стандартную кнопку плюса
+                container.innerHTML = `
+                    <button class="plus-action-btn" onclick="event.stopPropagation(); addItemToCart(${id})">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                `;
+            }
+        }
+
+        // Проверка сессии пользователя и сохраненного адреса в локальном хранилище браузера
         function verifyUserSessionData() {
             const uName = localStorage.getItem('bb_client_name');
             const uPhone = localStorage.getItem('bb_client_phone');
-            const uAddr = localStorage.getItem('bb_client_address');
-
+            const uStreet = localStorage.getItem('bb_client_street');
             const overlay = document.getElementById('userInitOverlay');
             const shortcut = document.getElementById('profileShortCut');
 
-            if (uName && uPhone && uAddr) {
+            if (uName && uPhone && uStreet) {
                 overlay.style.display = 'none';
                 shortcut.innerHTML = `<i class="fa-solid fa-user-check"></i> ${uName}`;
             } else {
                 overlay.style.display = 'flex';
-                shortcut.innerHTML = `<i class="fa-solid fa-location-crosshairs"></i> Указать адрес`;
+                toggleHousingFields();
             }
         }
 
+        // Валидация и сохранение детального адреса доставки при первом входе
         function handleUserSubmit(event) {
             event.preventDefault();
             const name = document.getElementById('joinName').value.trim();
             const phone = document.getElementById('joinPhone').value.trim();
-            const addr = document.getElementById('joinAddress').value.trim();
+            const type = document.getElementById('housingType').value;
+            const street = document.getElementById('joinStreet').value.trim();
+            const apartment = document.getElementById('joinApartment').value.trim();
 
-            if (name && phone && addr) {
+            if (name && phone && street) {
                 localStorage.setItem('bb_client_name', name);
                 localStorage.setItem('bb_client_phone', phone);
-                localStorage.setItem('bb_client_address', addr);
+                localStorage.setItem('bb_client_housing_type', type);
+                localStorage.setItem('bb_client_street', street);
+                localStorage.setItem('bb_client_apartment', apartment);
                 verifyUserSessionData();
             }
         }
 
+        // Возможность ручного изменения контактных данных адреса
         function reOpenAddressForm() {
             document.getElementById('joinName').value = localStorage.getItem('bb_client_name') || '';
             document.getElementById('joinPhone').value = localStorage.getItem('bb_client_phone') || '';
-            document.getElementById('joinAddress').value = localStorage.getItem('bb_client_address') || '';
+            document.getElementById('housingType').value = localStorage.getItem('bb_client_housing_type') || 'apartment';
+            document.getElementById('joinStreet').value = localStorage.getItem('bb_client_street') || '';
+            document.getElementById('joinApartment').value = localStorage.getItem('bb_client_apartment') || '';
+            
+            toggleHousingFields();
             document.getElementById('userInitOverlay').style.display = 'flex';
         }
 
-        // -------------------------------------------------------------
-        // СИСТЕМА МОДАЛЬНЫХ ОКОН (ВЫЕЗЖАЮЩИЕ КАРТОЧКИ)
-        // -------------------------------------------------------------
+        // Открытие карточки подробного описания KБЖУ блюда
         function displayDishModal(dish) {
-            currentlyActiveDish = dish;
             document.getElementById('dishModalImg').src = dish.img;
             document.getElementById('dishModalTitle').innerText = dish.name;
             document.getElementById('mWeight').innerText = dish.weight;
@@ -1135,66 +1002,56 @@
             document.getElementById('mCarb').innerText = dish.carb + 'г';
             document.getElementById('dishModalDesc').innerText = dish.desc;
             document.getElementById('dishModalPrice').innerText = `${dish.price} ₸`;
-
-            document.getElementById('dishModalAddBtn').onclick = () => {
-                addItemToCart(dish.id);
-                dismissDishModal(null);
-            };
-
+            document.getElementById('dishModalAddBtn').onclick = () => { addItemToCart(dish.id); dismissDishModal(null); };
             document.getElementById('dishModalElement').style.display = 'flex';
         }
 
-        function dismissDishModal(e) {
-            if (!e || e.target === document.getElementById('dishModalElement')) {
-                document.getElementById('dishModalElement').style.display = 'none';
-            }
-        }
+        function dismissDishModal(e) { if (!e || e.target === document.getElementById('dishModalElement')) document.getElementById('dishModalElement').style.display = 'none'; }
 
-        // -------------------------------------------------------------
-        // ЛОГИКА ВЗАИМОДЕЙСТВИЯ С КОРЗИНОЙ И СЧЕТЧИКАМИ
-        // -------------------------------------------------------------
+        // Поиск конкретного идентификатора товара в древовидной базе данных
         function findProduct(id) {
-            for (let category in RESTAURANT_MENU_DATABASE) {
-                const item = RESTAURANT_MENU_DATABASE[category].items.find(x => x.id === id);
+            for (let cat in RESTAURANT_MENU_DATABASE) {
+                const item = RESTAURANT_MENU_DATABASE[cat].items.find(x => x.id === id);
                 if (item) return item;
             }
             return null;
         }
 
+        // Добавление элемента в корзину
         function addItemToCart(id) {
             const product = findProduct(id);
             if (!product) return;
-
             const duplicate = userCartArray.find(x => x.product.id === id);
-            if (duplicate) {
-                duplicate.count++;
-            } else {
-                userCartArray.push({ product, count: 1 });
-            }
+            if (duplicate) duplicate.count++; else userCartArray.push({ product, count: 1 });
+            
+            // Синхронизируем состояние кнопок
             refreshCartState();
+            updateCardActionButton(id);
         }
 
+        // Инкремент / декремент количества товаров в корзине и на витрине
         function changeBasketItemCount(id, delta) {
             const index = userCartArray.findIndex(x => x.product.id === id);
             if (index === -1) return;
-
             userCartArray[index].count += delta;
+            
             if (userCartArray[index].count <= 0) {
                 userCartArray.splice(index, 1);
             }
+            
+            // Синхронно обновляем все связанные элементы интерфейса
             refreshCartState();
-            if (document.getElementById('basketModalElement').style.display === 'flex') {
-                renderBasketContents();
-            }
+            updateCardActionButton(id);
+            if (document.getElementById('basketModalElement').style.display === 'flex') renderBasketContents();
         }
 
+        // Обновление общего статуса плавающей корзины
         function refreshCartState() {
             const bar = document.getElementById('basketTriggerBar');
             const qtyBadge = document.getElementById('basketItemsQty');
             const totalCostText = document.getElementById('basketTotalCost');
-
-            const sumQty = userCartArray.reduce((acc, current) => acc + current.count, 0);
-            const sumPrice = userCartArray.reduce((acc, current) => acc + (current.product.price * current.count), 0);
+            const sumQty = userCartArray.reduce((acc, c) => acc + c.count, 0);
+            const sumPrice = userCartArray.reduce((acc, c) => acc + (c.product.price * c.count), 0);
 
             if (sumQty > 0) {
                 bar.style.display = 'flex';
@@ -1204,132 +1061,165 @@
                 bar.style.display = 'none';
                 dismissBasketModal(null);
             }
-        }
 
-        function displayBasketModal() {
-            renderBasketContents();
-            document.getElementById('basketModalElement').style.display = 'flex';
-        }
-
-        function dismissBasketModal(e) {
-            if (!e || e.target === document.getElementById('basketModalElement')) {
-                document.getElementById('basketModalElement').style.display = 'none';
+            // Перепроверяем отображение кнопок на всех видимых карточках
+            for (let cat in RESTAURANT_MENU_DATABASE) {
+                RESTAURANT_MENU_DATABASE[cat].items.forEach(dish => {
+                    updateCardActionButton(dish.id);
+                });
             }
         }
 
+        // Отображение и закрытие модальной корзины
+        function displayBasketModal() { renderBasketContents(); document.getElementById('basketModalElement').style.display = 'flex'; }
+        function dismissBasketModal(e) { if (!e || e.target === document.getElementById('basketModalElement')) document.getElementById('basketModalElement').style.display = 'none'; }
+
+        // Генерация списка выбранных позиций внутри корзины
         function renderBasketContents() {
             const list = document.getElementById('basketRenderContainer');
             const sumText = document.getElementById('basketFinalSum');
             list.innerHTML = '';
-
-            let finalSumCalculated = 0;
+            let finalSum = 0;
 
             userCartArray.forEach(item => {
-                const rowTotal = item.product.price * item.count;
-                finalSumCalculated += rowTotal;
-
-                const itemRow = document.createElement('div');
-                itemRow.className = 'basket-item-card';
-                itemRow.innerHTML = `
-                    <div class="basket-item-meta">
-                        <h4>${item.product.name}</h4>
-                        <p>${item.product.price} ₸</p>
-                    </div>
+                finalSum += item.product.price * item.count;
+                const row = document.createElement('div');
+                row.className = 'basket-item-card';
+                row.innerHTML = `
+                    <div class="basket-item-meta"><h4>${item.product.name}</h4><p>${item.product.price} ₸</p></div>
                     <div class="counter-widget">
                         <button class="counter-btn" onclick="changeBasketItemCount(${item.product.id}, -1)"><i class="fa-solid fa-minus"></i></button>
                         <div class="counter-value">${item.count}</div>
                         <button class="counter-btn" onclick="changeBasketItemCount(${item.product.id}, 1)"><i class="fa-solid fa-plus"></i></button>
                     </div>
                 `;
-                list.appendChild(itemRow);
+                list.appendChild(row);
             });
-
-            sumText.innerText = `${finalSumCalculated} ₸`;
+            sumText.innerText = `${finalSum} ₸`;
         }
 
-        // -------------------------------------------------------------
-        // ИНТЕГРАЦИЯ С WHATSAPP - ОТПРАВКА СФОРМИРОВАННОГО ЗАКАЗА
-        // -------------------------------------------------------------
-        function submitOrderViaWhatsapp() {
-            const name = localStorage.getItem('bb_client_name');
-            const phone = localStorage.getItem('bb_client_phone');
-            const address = localStorage.getItem('bb_client_address');
+        // Функция для показа красивого Toast-уведомления вместо системного alert
+        function showNotification(message) {
+            // Ищем, есть ли уже существующий toast, чтобы не дублировать
+            let toast = document.getElementById('custom-toast-alert');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'custom-toast-alert';
+                // Применяем стили в соответствии с дизайном BLA BLA
+                Object.assign(toast.style, {
+                    position: 'fixed',
+                    bottom: '100px',
+                    left: '50%',
+                    transform: 'translateX(-50%) translateY(20px)',
+                    background: 'var(--text-main)',
+                    color: '#ffffff',
+                    padding: '14px 24px',
+                    borderRadius: 'var(--radius-md)',
+                    boxShadow: 'var(--shadow-lg)',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    zIndex: '10000',
+                    textAlign: 'center',
+                    whiteSpace: 'nowrap',
+                    opacity: '0',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    pointerEvents: 'none'
+                });
+                document.body.appendChild(toast);
+            }
+            
+            toast.innerText = message;
+            // Анимация появления
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(-50%) translateY(0)';
+            }, 50);
 
-            if (!name || !phone || !address) {
-                alert("Пожалуйста, заполните контактные данные!");
+            // Автоматическое плавное исчезновение через 3 секунды
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+            }, 3000);
+        }
+
+        // Модифицированная отправка заказа в WhatsApp с красивыми уведомлениями
+        function submitOrderViaWhatsapp() {
+            const name = document.getElementById('joinName').value.trim();
+            const phone = document.getElementById('joinPhone').value.trim();
+            const street = document.getElementById('joinStreet').value.trim();
+            const housingType = document.getElementById('housingType').value;
+            const apartment = document.getElementById('joinApartment').value.trim();
+
+            // Проверка базовых полей
+            if (!name || !phone || !street) {
+                showNotification("⚠️ Подтвердите контакты и адрес доставки!");
                 reOpenAddressForm();
                 return;
             }
 
+            // Умная проверка типа жилья и форматирование
+            let addressResult = "";
+            if (housingType === "private") {
+                addressResult = `${street} (Частный дом)`;
+            } else {
+                if (!apartment) {
+                    showNotification("🏢 Укажите номер квартиры или офиса!");
+                    reOpenAddressForm();
+                    return;
+                }
+                addressResult = `${street}, кв/офис: ${apartment}`;
+            }
+
             if (userCartArray.length === 0) {
-                alert("Ваша корзина пуста!");
+                showNotification("🛒 Ваша корзина пуста!");
                 return;
             }
 
-            let textPattern = `*🚀 НОВЫЙ ЗАКАЗ В BLA BLA RESTAURANT*\n\n`;
-            textPattern += `👤 *Имя клиента:* ${name}\n`;
-            textPattern += `📞 *Контактный телефон:* ${phone}\n`;
-            textPattern += `📍 *Адрес доставки (г. Уральск):* ${address}\n\n`;
-            textPattern += `📦 *Выбранные блюда:*\n`;
+            // Формирование шаблона сообщения для WhatsApp
+            let textPattern = `*🚀 НОВЫЙ ЗАКАЗ В BLA BLA RESTAURANT*\\n\\n`;
+            textPattern += `👤 *Имя клиента:* ${name}\\n`;
+            textPattern += `📞 *Контактный телефон:* ${phone}\\n`;
+            textPattern += `📍 *Адрес доставки (г. Уральск):* ${addressResult}\\n\\n`;
+            textPattern += `📦 *Выбранные блюда:*\\n`;
 
             let costCounter = 0;
             userCartArray.forEach((item, index) => {
                 const blockPrice = item.product.price * item.count;
                 costCounter += blockPrice;
-                textPattern += `${index + 1}. ${item.product.name} — *${item.count} шт.* (${item.product.price} ₸/шт) на общую сумму _${blockPrice} ₸_\n`;
+                textPattern += `${index + 1}. ${item.product.name} — *${item.count} шт.* (${item.product.price} ₸/шт) на общую сумму _${blockPrice} ₸_\\n`;
             });
 
-            textPattern += `\n💵 *Итого к оплате:* *${costCounter} ₸*\n`;
-            textPattern += `🛵 *Доставка:* Бесплатно по Уральску\n\n`;
+            textPattern += `\\n💵 *Итого к оплате:* *${costCounter} ₸*\\n`;
+            textPattern += `🛵 *Доставка:* Бесплатно по Уральску\\n\\n`;
             textPattern += `_Пожалуйста, подтвердите получение заказа и сообщите ориентировочное время прибытия курьера._`;
 
-            // Устанавливаем статус ожидания перед перенаправлением
             isWaitingForVerification = true;
-            
-            // Плавное закрытие корзины перед уходом в мессенджер
             document.getElementById('basketModalElement').style.display = 'none';
 
-            const finalUrlString = `https://wa.me/${CONFIG_WHATSAPP_NUMBER}?text=${encodeURIComponent(textPattern).replace(/%5Cn/g, '%0A')}`;
-            window.open(finalUrlString, '_blank');
+            const finalUrl = `https://wa.me/${CONFIG_WHATSAPP_NUMBER}?text=${encodeURIComponent(textPattern)}`;
+            window.open(finalUrl, '_blank');
 
-            // Запасной триггер: если вкладка не скрылась, выводим опросник через 3 секунды
-            setTimeout(() => {
-                if (isWaitingForVerification) {
-                    showOperatorCheckModal();
-                }
-            }, 3000);
+            setTimeout(() => { if (isWaitingForVerification) showOperatorCheckModal(); }, 3000);
         }
 
-        // -------------------------------------------------------------
-        // УПРАВЛЕНИЕ ИНТЕРАКТИВНЫМИ ДИАЛОГАМИ ОБРАТНОЙ СВЯЗИ
-        // -------------------------------------------------------------
-        function showOperatorCheckModal() {
-            document.getElementById('operatorCheckModal').style.display = 'flex';
-        }
+        // Показ окна проверки ответа оператора
+        function showOperatorCheckModal() { document.getElementById('operatorCheckModal').style.display = 'flex'; }
 
+        // Логика фиксации успешного оформления
         function processOperatorResponse(answeredSuccess) {
-            // Скрываем окно опроса оператора
             document.getElementById('operatorCheckModal').style.display = 'none';
             isWaitingForVerification = false;
 
             if (answeredSuccess) {
-                // Если оператор ответил успешно: очищаем корзину и радуем клиента
                 userCartArray = [];
                 refreshCartState();
-                
-                // Открываем модальное окно «Приятного аппетита»
                 document.getElementById('orderSuccessModal').style.display = 'flex';
             } else {
-                // Если оператор не ответил: возвращаем в корзину для корректировки или повторной отправки
                 displayBasketModal();
             }
         }
 
-        function dismissSuccessModal(e) {
-            if (!e || e.target === document.getElementById('orderSuccessModal')) {
-                document.getElementById('orderSuccessModal').style.display = 'none';
-            }
-        }
+        function dismissSuccessModal(e) { if (!e || e.target === document.getElementById('orderSuccessModal')) document.getElementById('orderSuccessModal').style.display = 'none'; }
     </script>
 </body>
 </html>
