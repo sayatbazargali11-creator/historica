@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DAMU Assessment OS — Международная Платформа Тестирования</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -67,7 +67,7 @@
         .modal-blur { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 
         *, *::before, *::after {
-            transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @media print {
@@ -75,9 +75,9 @@
                 background: #ffffff !important;
                 color: #000000 !important;
             }
-            header, #toast-container, #security-modal, #terminal-lock-modal, #proctoring-verification-modal,
+            header, #toast-container, #security-modal, #terminal-lock-modal,
             #view-dashboard, #view-skeleton, #view-examination, #mobile-navigation-bar,
-            .pt-4.border-t, .no-print, #video-container-box {
+            .pt-4.border-t, .no-print, button {
                 display: none !important;
             }
             #view-analytics {
@@ -101,398 +101,336 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-vue-dark dark:text-slate-100 min-h-screen flex flex-col antialiased overflow-x-hidden">
+<body class="bg-slate-50 text-slate-900 dark:bg-vue-dark dark:text-slate-100 min-h-screen flex flex-col antialiased overflow-x-hidden pb-16 md:pb-0">
 
-    <div id="toast-container" class="fixed top-6 right-6 z-[100] flex flex-col gap-3 max-w-md w-full pointer-events-none"></div>
+    <div id="toast-container" class="fixed top-4 right-4 left-4 md:left-auto z-[100] flex flex-col gap-2 max-w-md pointer-events-none"></div>
 
-    <div id="proctoring-verification-modal" class="fixed inset-0 z-[95] hidden modal-blur bg-black/70 flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-vue-surface rounded-3xl max-w-lg w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl relative">
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-blue-50 dark:bg-blue-950/40 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
-                    <i class="fa-solid fa-camera"></i>
-                </div>
-                <h3 class="text-xl font-bold text-slate-950 dark:text-white">Биометрическая калибровка</h3>
-                <p class="text-xs text-slate-400 mt-1 uppercase font-mono tracking-wider">AI Proctoring Initialization</p>
-            </div>
-            
-            <div class="bg-slate-900 rounded-2xl overflow-hidden aspect-video relative mb-5 flex items-center justify-center border border-slate-800">
-                <video id="proctoring-setup-video" autoplay playsinline muted class="w-full h-full object-cover transform -scale-x-100"></video>
-                <div id="video-error-placeholder" class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 bg-slate-950 text-center">
-                    <i class="fa-solid fa-video-slash text-red-500 text-3xl mb-2"></i>
-                    <p class="text-xs text-slate-400">Камера не обнаружена или доступ заблокирован. Для прохождения теста необходим доступ к веб-камере.</p>
-                </div>
-                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 p-3 flex justify-between items-center text-[10px] font-mono text-emerald-400">
-                    <span><i class="fa-solid fa-circle animate-pulse mr-1"></i> STREAM_ACTIVE</span>
-                    <span id="ai-status-text">WAITING_FOR_FACE_DETECTION</span>
-                </div>
-            </div>
-
-            <div class="text-xs text-slate-500 dark:text-slate-400 space-y-2 mb-6">
-                <p>&bull; Пожалуйста, убедитесь, что ваше лицо хорошо освещено и находится в центре кадра.</p>
-                <p>&bull; Интеллектуальный прокторинг будет непрерывно анализировать ваше присутствие на протяжении всей сессии.</p>
-            </div>
-
-            <button id="btn-start-proctoring-confirm" onclick="ProctoringModule.confirmSetupAndRun()" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-black text-xs tracking-widest uppercase rounded-xl transition shadow-lg opacity-50 cursor-not-allowed" disabled>
-                Подтвердить биометрию и начать тест
-            </button>
-        </div>
-    </div>
-
-    <div id="security-modal" class="fixed inset-0 z-[90] hidden modal-blur bg-black/60 items-center justify-center p-4 transition-all duration-300">
-        <div class="bg-white dark:bg-vue-surface rounded-3xl max-w-md w-full p-6 border border-red-200 dark:border-red-900/50 shadow-2xl relative overflow-hidden transform scale-100">
+    <div id="security-modal" class="fixed inset-0 z-[90] hidden modal-blur bg-black/60 flex items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white dark:bg-vue-surface rounded-2xl max-w-md w-full p-5 md:p-6 border border-red-200 dark:border-red-900/50 shadow-2xl relative overflow-hidden transform scale-100">
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-red-600"></div>
             <div class="flex items-center gap-4 text-red-600 mb-4">
-                <div class="w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/30 flex items-center justify-center text-xl shrink-0">
+                <div class="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/30 flex items-center justify-center text-xl shrink-0">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold tracking-tight">Нарушение регламента</h3>
-                    <p class="text-xs text-slate-400 dark:text-slate-500 uppercase font-mono tracking-wider">Security Guard Alert</p>
+                    <h3 class="text-base md:text-lg font-bold tracking-tight">Нарушение регламента</h3>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-mono tracking-wider">Security Guard Alert</p>
                 </div>
             </div>
-            <p id="security-modal-text" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
+            <p id="security-modal-text" class="text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                 Обнаружено несанкционированное действие. Все логи зафиксированы.
             </p>
-            <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 p-3.5 rounded-xl border border-slate-100 dark:border-slate-800">
+            <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
                 <span class="text-xs font-semibold text-slate-500">Счетчик предупреждений:</span>
-                <span id="security-warning-badge" class="px-3 py-1 bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-400 font-mono font-bold text-sm rounded-lg">0 / 3</span>
+                <span id="security-warning-badge" class="px-2.5 py-0.5 bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-400 font-mono font-bold text-xs rounded-md">0 / 3</span>
             </div>
-            <button onclick="SecurityModule.closeWarningModal()" class="w-full mt-5 py-3 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-bold text-xs tracking-wider uppercase rounded-xl transition shadow-lg">
+            <button onclick="SecurityModule.closeWarningModal()" class="w-full mt-4 py-2.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-bold text-xs tracking-wider uppercase rounded-xl transition shadow-md">
                 Я понял, продолжить тест
             </button>
         </div>
     </div>
 
-    <div id="terminal-lock-modal" class="fixed inset-0 z-[100] hidden modal-blur bg-red-950/80 items-center justify-center p-4 transition-all duration-300">
-        <div class="bg-white dark:bg-vue-surface rounded-3xl max-w-lg w-full p-8 border-2 border-red-600 shadow-2xl text-center relative overflow-hidden animate-bounce-short">
-            <div class="w-20 h-20 rounded-full bg-red-100 dark:bg-red-950 text-red-600 flex items-center justify-center text-4xl mx-auto mb-5">
+    <div id="terminal-lock-modal" class="fixed inset-0 z-[100] hidden modal-blur bg-red-950/80 flex items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white dark:bg-vue-surface rounded-2xl max-w-md w-full p-6 border-2 border-red-600 shadow-2xl text-center relative overflow-hidden">
+            <div class="w-16 h-16 rounded-full bg-red-100 dark:bg-red-950 text-red-600 flex items-center justify-center text-3xl mx-auto mb-4">
                 <i class="fa-solid fa-ban"></i>
             </div>
-            <h2 class="text-2xl font-black text-slate-950 dark:text-white tracking-tight">Тестирование Аннулировано</h2>
-            <p class="text-xs text-red-500 font-mono tracking-widest uppercase mt-1">System Terminal Lock</p>
-            <p class="text-sm text-slate-600 dark:text-slate-300 mt-4 leading-relaxed">
-                Доступ к текущей сессии заблокирован исполнительным ядром безопасности. Вы исчерпали лимит допустимых предупреждений (3/3) или зафиксировано критическое нарушение прокторинга. Все заполненные ответы автоматически зафиксированы и отправлены на сервер верификации без права апелляции.
+            <h2 class="text-xl md:text-2xl font-black text-slate-950 dark:text-white tracking-tight">Тестирование Аннулировано</h2>
+            <p class="text-[10px] text-red-500 font-mono tracking-widest uppercase mt-0.5">System Terminal Lock</p>
+            <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
+                Доступ к текущей сессии заблокирован. Вы исчерпали лимит предупреждений (3/3). Ваши ответы автоматически отправлены на сервер верификации.
             </p>
-            <button onclick="window.location.reload()" class="w-full mt-6 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs tracking-wider uppercase rounded-xl transition shadow-lg">
-                Перейти к просмотру результатов балла
+            <button onclick="window.location.reload()" class="w-full mt-5 py-3 bg-red-600 hover:bg-red-700 text-white font-bold text-xs tracking-wider uppercase rounded-xl transition shadow-md">
+                Перейти к результатам
             </button>
         </div>
     </div>
 
-    <header class="bg-white border-b border-slate-200/80 dark:bg-vue-surface dark:border-slate-800/80 sticky top-0 z-40 px-4 md:px-8 py-3.5">
+    <header class="bg-white border-b border-slate-200/80 dark:bg-vue-surface dark:border-slate-800/80 sticky top-0 z-40 px-3 md:px-6 py-2.5 md:py-3.5">
         <div class="max-w-[1600px] mx-auto flex justify-between items-center">
-            
-            <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="AppRouter.resetToHome()">
-                <div class="w-9 h-9 bg-slate-900 dark:bg-slate-100 flex items-center justify-center text-white dark:text-vue-dark font-black text-lg rounded-xl shadow-sm transition transform hover:rotate-6">D</div>
+            <div class="flex items-center space-x-2 md:space-x-3 cursor-pointer select-none">
+                <div class="w-8 h-8 md:w-9 md:h-9 bg-slate-900 dark:bg-slate-100 flex items-center justify-center text-white dark:text-vue-dark font-black text-base md:text-lg rounded-lg md:rounded-xl shadow-sm transition transform hover:rotate-6">D</div>
                 <div>
-                    <div class="flex items-center space-x-1.5">
-                        <h1 class="text-lg font-black text-slate-950 dark:text-white tracking-tight leading-none">DAMU ASSESSMENT</h1>
-                        <span class="bg-red-600 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">VUE-SPEC</span>
+                    <div class="flex items-center space-x-1">
+                        <h1 class="text-sm md:text-base font-black text-slate-950 dark:text-white tracking-tight leading-none">DAMU</h1>
+                        <span class="bg-red-600 text-white text-[7px] md:text-[8px] font-extrabold px-1 py-0.5 rounded uppercase tracking-wider">SPEC</span>
                     </div>
-                    <p class="text-[9px] font-bold text-slate-400 dark:text-slate-500 tracking-widest uppercase mt-0.5">Secure Testing Architecture</p>
+                    <p class="text-[7px] md:text-[9px] font-bold text-slate-400 dark:text-slate-500 tracking-widest uppercase mt-0.5 hidden sm:block">Secure Architecture</p>
                 </div>
             </div>
 
-            <div class="flex items-center space-x-3">
-                <div id="save-indicator" class="hidden md:flex items-center space-x-1.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/20 px-2.5 py-1 rounded-lg border border-emerald-100 dark:border-emerald-900/30">
+            <div class="flex items-center space-x-1.5 md:space-x-3">
+                <div id="save-indicator" class="hidden flex items-center space-x-1 text-[9px] md:text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/20 px-2 py-0.5 md:py-1 rounded-md border border-emerald-100 dark:border-emerald-900/30">
                     <i class="fa-solid fa-cloud-arrow-up animate-pulse"></i>
-                    <span>СОХРАНЕНО</span>
+                    <span class="hidden xs:inline">СОХРАНЕНО</span>
                 </div>
 
-                <div id="header-timer-box" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-xl px-3.5 py-1.5 flex items-center space-x-2">
-                    <i class="fa-regular fa-clock text-slate-500 dark:text-slate-400 text-sm"></i>
-                    <span id="header-timer" class="text-base font-mono font-bold text-slate-800 dark:text-slate-100 tracking-tight">60:00</span>
+                <div id="header-timer-box" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-lg md:rounded-xl px-2.5 py-1 flex items-center space-x-1.5">
+                    <i class="fa-regular fa-clock text-slate-500 dark:text-slate-400 text-xs md:text-sm"></i>
+                    <span id="header-timer" class="text-sm md:text-base font-mono font-bold text-slate-800 dark:text-slate-100 tracking-tight">60:00</span>
                 </div>
 
-                <button onclick="UIThemeController.toggle()" class="w-9 h-9 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition" title="Переключить тему">
-                    <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
+                <button onclick="UIThemeController.toggle()" class="w-8 h-8 border border-slate-200 dark:border-slate-800 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition" title="Тема">
+                    <i id="theme-icon" class="fa-solid fa-moon text-xs md:text-sm"></i>
                 </button>
 
-                <button onclick="UIFullscreenController.toggle()" class="w-9 h-9 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition" title="Полноэкранный режим">
-                    <i id="fullscreen-icon" class="fa-solid fa-expand text-sm"></i>
+                <button onclick="UIFullscreenController.toggle()" class="w-8 h-8 border border-slate-200 dark:border-slate-800 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition hidden sm:flex" title="Полный экран">
+                    <i id="fullscreen-icon" class="fa-solid fa-expand text-xs md:text-sm"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="flex-1 w-full max-w-[1600px] mx-auto p-4 md:p-6 flex flex-col justify-stretch">
+    <main class="flex-1 w-full max-w-[1600px] mx-auto p-3 md:p-6 flex flex-col justify-stretch">
         
-        <div id="view-dashboard" class="hidden flex-1 flex flex-col justify-center max-w-4xl mx-auto w-full py-6">
-            <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 md:p-10 shadow-xl shadow-slate-100/40 dark:shadow-none relative overflow-hidden">
-                
-                <div class="max-w-2xl mx-auto text-center mb-10">
-                    <span class="bg-slate-900 dark:bg-slate-100 text-white dark:text-vue-dark text-[10px] font-extrabold px-3 py-1.5 rounded-full tracking-widest uppercase inline-block mb-4">Secure Placement Engine v6.0</span>
-                    <h2 class="text-3xl md:text-5xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">Digital Diagnostic Assessment</h2>
-                    <p class="text-slate-500 dark:text-slate-400 mt-4 text-base leading-relaxed">Вы собираетесь запустить официальный сертификационный тест. Система настроена в соответствии с международными протоколами мониторинга целостности данных.</p>
+        <div id="view-dashboard" class="hidden flex-1 flex flex-col justify-center max-w-3xl mx-auto w-full py-2 md:py-6">
+            <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl md:rounded-3xl p-5 md:p-10 shadow-lg relative overflow-hidden">
+                <div class="max-w-2xl mx-auto text-center mb-6 md:mb-8">
+                    <span class="bg-slate-900 dark:bg-slate-100 text-white dark:text-vue-dark text-[8px] md:text-[10px] font-extrabold px-2.5 py-1 rounded-full tracking-widest uppercase inline-block mb-3">Placement Engine v5.0</span>
+                    <h2 class="text-2xl md:text-4xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">Digital Diagnostic Assessment</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 md:mt-4 text-xs md:text-sm leading-relaxed">Вы собираетесь запустить официальный сертификационный тест. Система настроена в соответствии с международными протоколами мониторинга целостности данных.</p>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                    <div class="border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/30 p-4 rounded-2xl">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Длительность</span>
-                        <span class="text-lg font-extrabold text-slate-900 dark:text-white">60 минут</span>
+                <div class="grid grid-cols-3 gap-2 md:gap-4 mb-6">
+                    <div class="border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/30 p-2.5 md:p-4 rounded-xl md:rounded-2xl text-center sm:text-left">
+                        <span class="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Длительность</span>
+                        <span class="text-sm md:text-lg font-extrabold text-slate-900 dark:text-white">60 минут</span>
                     </div>
-                    <div class="border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/30 p-4 rounded-2xl">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Спецификация</span>
-                        <span class="text-lg font-extrabold text-slate-900 dark:text-white">100 Вопросов</span>
+                    <div class="border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/30 p-2.5 md:p-4 rounded-xl md:rounded-2xl text-center sm:text-left">
+                        <span class="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Вопросы</span>
+                        <span class="text-sm md:text-lg font-extrabold text-slate-900 dark:text-white">100 Блоков</span>
                     </div>
-                    <div class="border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/30 p-4 rounded-2xl">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Калибровка</span>
-                        <span class="text-lg font-extrabold text-slate-900 dark:text-white">AI Proctoring Enabled</span>
+                    <div class="border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/30 p-2.5 md:p-4 rounded-xl md:rounded-2xl text-center sm:text-left">
+                        <span class="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Калибровка</span>
+                        <span class="text-sm md:text-lg font-extrabold text-slate-900 dark:text-white">Adaptive</span>
                     </div>
                 </div>
 
-                <div class="bg-slate-900 dark:bg-slate-950 text-slate-300 dark:text-slate-400 rounded-2xl p-5 md:p-6 mb-8 text-xs space-y-3 border border-slate-800">
+                <div class="bg-slate-900 dark:bg-slate-950 text-slate-300 dark:text-slate-400 rounded-xl p-4 md:p-6 mb-6 text-[11px] md:text-xs space-y-2.5 border border-slate-800">
                     <div class="flex items-center space-x-2 font-bold text-white mb-1">
                         <i class="fa-solid fa-shield-halved text-red-500"></i> 
-                        <span>ОФИЦИАЛЬНЫЙ РЕГЛАМЕНТ ТЕСТИРОВАНИЯ И ПРОКТОРИНГА:</span>
+                        <span>ОФИЦИАЛЬНЫЙ РЕГЛАМЕНТ ТЕСТИРОВАНИЯ:</span>
                     </div>
-                    <p>&bull; <strong class="text-white">Анти-Потеря данных:</strong> В платформу встроена система моментального сохранения прогресса. При случайном закрытии вкладки или отключении ПК все ответы и время восстановятся автоматически.</p>
-                    <p>&bull; <strong class="text-white">Защита от списывания (AI Прокторинг):</strong> Требуется веб-камера. Система отслеживает отсутствие пользователя в кадре, наличие посторонних лиц и отведение взгляда.</p>
-                    <p>&bull; <strong class="text-white">Контроль фокуса:</strong> Запрещено переключать вкладки, сворачивать окно и открывать средства разработчика DevTools. При превышении лимита нарушений сессия автоматически блокируется.</p>
+                    <p>&bull; <strong class="text-white">Анти-Потеря данных:</strong> Автоматическое ежесекундное сохранение прогресса. При случайном закрытии страницы все ответы восстановятся.</p>
+                    <p>&bull; <strong class="text-white">Защита от списывания:</strong> Запрещено переключать вкладки, сворачивать окно и открывать DevTools. При 3 нарушениях сессия блокируется.</p>
                 </div>
 
                 <div class="text-center">
-                    <button onclick="ProctoringModule.initializeSetup()" class="w-full sm:w-auto px-12 py-4 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-black text-xs tracking-widest uppercase rounded-2xl shadow-xl transition transform active:scale-[0.98]">
-                        Запустить верификацию <i class="fa-solid fa-camera ml-2 text-xs"></i>
+                    <button onclick="TestingEngine.startExamSession()" class="w-full sm:w-auto px-8 md:px-12 py-3 md:py-4 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-black text-xs tracking-widest uppercase rounded-xl md:rounded-2xl shadow-lg transition transform active:scale-[0.98]">
+                        Инициализировать Тест <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
                     </button>
                 </div>
-
             </div>
         </div>
 
-        <div id="view-skeleton" class="hidden flex-1 grid grid-cols-1 xl:grid-cols-4 gap-6 items-stretch">
-            <div class="xl:col-span-3 bg-white dark:bg-vue-surface border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col justify-between">
+        <div id="view-skeleton" class="hidden flex-1 grid grid-cols-1 xl:grid-cols-4 gap-4 md:gap-6 items-stretch">
+            <div class="xl:col-span-3 bg-white dark:bg-vue-surface border border-slate-200/60 dark:border-slate-800 rounded-2xl p-4 md:p-8 flex flex-col justify-between">
                 <div>
-                    <div class="flex justify-between items-center mb-8">
-                        <div class="h-4 w-32 skeleton rounded-md"></div>
-                        <div class="h-6 w-24 skeleton rounded-lg"></div>
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="h-4 w-24 skeleton rounded"></div>
+                        <div class="h-6 w-16 skeleton rounded"></div>
                     </div>
-                    <div class="h-8 w-3/4 skeleton rounded-xl mb-6"></div>
-                    <div class="space-y-4">
-                        <div class="h-16 w-full skeleton rounded-2xl"></div>
-                        <div class="h-16 w-full skeleton rounded-2xl"></div>
-                        <div class="h-16 w-full skeleton rounded-2xl"></div>
+                    <div class="h-6 w-3/4 skeleton rounded mb-4"></div>
+                    <div class="space-y-3">
+                        <div class="h-12 w-full skeleton rounded-xl"></div>
+                        <div class="h-12 w-full skeleton rounded-xl"></div>
+                        <div class="h-12 w-full skeleton rounded-xl"></div>
                     </div>
                 </div>
             </div>
-            <div class="hidden xl:block h-64 skeleton rounded-3xl"></div>
+            <div class="hidden xl:block h-full skeleton rounded-2xl"></div>
         </div>
 
-        <div id="view-examination" class="hidden flex-1 grid grid-cols-1 xl:grid-cols-4 gap-6 items-stretch">
+        <div id="view-examination" class="hidden flex-1 grid grid-cols-1 xl:grid-cols-4 gap-4 md:gap-6 items-stretch">
             
-            <div class="xl:col-span-3 flex flex-col justify-between bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-5 md:p-8 shadow-sm relative">
+            <div class="xl:col-span-3 flex flex-col justify-between bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-4 md:p-6 shadow-sm relative">
                 <div>
-                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3 mb-4">
                         <div>
-                            <span id="display-q-module" class="text-[10px] font-black tracking-widest text-slate-400 uppercase">Module 1: Syntax Systems</span>
-                            <h3 class="text-base md:text-lg font-extrabold text-slate-900 dark:text-white mt-0.5">
+                            <span id="display-q-module" class="text-[8px] md:text-[10px] font-black tracking-widest text-slate-400 uppercase block">Module 1: Syntax & Structures</span>
+                            <h3 class="text-sm md:text-base font-extrabold text-slate-900 dark:text-white mt-0.5">
                                 Вопрос <span id="display-q-idx" class="font-mono text-slate-950 dark:text-white font-black">1</span> <span class="text-slate-300 dark:text-slate-600 font-normal">/ 100</span>
                             </h3>
                         </div>
                         
-                        <div class="flex items-center space-x-2">
-                            <button id="btn-flag-toggle" onclick="TestingEngine.toggleFlagCurrentQuestion()" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-bold transition hover:bg-slate-50 dark:hover:bg-slate-900">
+                        <div class="flex items-center space-x-1.5">
+                            <button id="btn-flag-toggle" onclick="TestingEngine.toggleFlagCurrentQuestion()" class="flex items-center space-x-1 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-[11px] font-bold transition hover:bg-slate-50 dark:hover:bg-slate-900">
                                 <i id="flag-icon" class="fa-regular fa-bookmark text-slate-400"></i>
-                                <span id="flag-text" class="text-slate-600 dark:text-slate-400">Отметить</span>
+                                <span id="flag-text" class="text-slate-600 dark:text-slate-400 hidden xs:inline">Отметить</span>
                             </button>
-                            <span id="display-q-diff" class="bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 text-[10px] font-black px-2.5 py-1.5 rounded-xl uppercase tracking-wider">Level: B2</span>
+                            <span id="display-q-diff" class="bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 text-[9px] md:text-[10px] font-black px-2 py-1 rounded-lg uppercase tracking-wider">Level: B2</span>
                         </div>
                     </div>
 
-                    <div id="wrapper-reading-context" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-4 md:p-6 mb-6 max-h-[200px] overflow-y-auto">
-                        <h5 class="text-[10px] font-black uppercase text-slate-400 tracking-wider mb-2"><i class="fa-solid fa-file-signature mr-1"></i> Reading Passage Context</h5>
-                        <p id="display-reading-text" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium select-none"></p>
+                    <div id="wrapper-reading-context" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-xl p-3 md:p-4 mb-4 max-h-[160px] overflow-y-auto">
+                        <h5 class="text-[9px] md:text-[10px] font-black uppercase text-slate-400 tracking-wider mb-1"><i class="fa-solid fa-file-signature mr-1"></i> Текст контекста (Reading Passage)</h5>
+                        <p id="display-reading-text" class="text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium select-none"></p>
                     </div>
 
-                    <div id="wrapper-listening-context" class="hidden bg-slate-950 border border-slate-800 rounded-2xl p-4 mb-6 flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-9 h-9 bg-slate-800 rounded-xl flex items-center justify-center text-emerald-400 text-sm"><i class="fa-solid fa-volume-high animate-pulse"></i></div>
-                            <div>
-                                <h5 class="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Listening Audio Emulation</h5>
-                                <p id="display-listening-script" class="text-xs font-medium text-slate-300 italic mt-0.5">"..."</p>
+                    <div id="wrapper-listening-context" class="hidden bg-slate-950 border border-slate-800 rounded-xl p-3 mb-4 flex items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3 min-w-0">
+                            <div class="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center text-emerald-400 text-xs shrink-0"><i class="fa-solid fa-volume-high animate-pulse"></i></div>
+                            <div class="min-w-0">
+                                <h5 class="text-[9px] font-bold uppercase text-slate-400 tracking-wider">Аудио-транскрипт эмуляции</h5>
+                                <p id="display-listening-script" class="text-xs font-medium text-slate-300 italic truncate mt-0.5">"..."</p>
                             </div>
                         </div>
-                        <span class="text-[9px] bg-emerald-950 text-emerald-400 font-mono font-bold px-2 py-0.5 rounded border border-emerald-900/40">AUDIO_STREAMING</span>
+                        <span class="text-[8px] bg-emerald-950 text-emerald-400 font-mono font-bold px-1.5 py-0.5 rounded border border-emerald-900/40 shrink-0">AUDIO</span>
                     </div>
 
-                    <div class="mb-6">
-                        <p id="display-question-body" class="text-lg font-extrabold text-slate-950 dark:text-white leading-relaxed select-none"></p>
+                    <div class="mb-4">
+                        <p id="display-question-body" class="text-sm md:text-base font-extrabold text-slate-950 dark:text-white leading-relaxed select-none"></p>
                     </div>
 
-                    <div id="wrapper-options-container" class="space-y-3"></div>
+                    <div id="wrapper-options-container" class="space-y-2 md:space-y-3"></div>
                 </div>
 
-                <div class="border-t border-slate-100 dark:border-slate-800 pt-5 mt-8 flex flex-col sm:flex-row justify-between items-center gap-3">
-                    <button onclick="TestingEngine.navigateQuestions(-1)" id="btn-prev" class="w-full sm:w-auto px-5 py-3 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-bold text-xs tracking-wider uppercase rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-chevron-left text-[10px]"></i> Назад
+                <div class="border-t border-slate-100 dark:border-slate-800 pt-4 mt-6 flex justify-between items-center gap-2">
+                    <button onclick="TestingEngine.navigateQuestions(-1)" id="btn-prev" class="px-3 py-2.5 md:px-5 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-bold text-xs tracking-wider uppercase rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition flex items-center justify-center gap-1.5 flex-1 sm:flex-none">
+                        <i class="fa-solid fa-chevron-left text-[9px]"></i> Назад
                     </button>
                     
-                    <button onclick="TestingEngine.terminateExamSessionByUser()" class="w-full sm:w-auto px-6 py-3 border border-red-200 dark:border-red-900/40 text-red-600 dark:text-red-400 font-extrabold text-xs tracking-widest uppercase rounded-xl hover:bg-red-50 dark:hover:bg-red-950/20 transition order-first sm:order-none">
-                        Завершить тест <i class="fa-solid fa-circle-check ml-1 text-[10px]"></i>
+                    <button onclick="TestingEngine.terminateExamSessionByUser()" class="px-3 py-2.5 md:px-6 border border-red-200 dark:border-red-900/40 text-red-600 dark:text-red-400 font-extrabold text-xs tracking-widest uppercase rounded-xl hover:bg-red-50 dark:hover:bg-red-950/20 transition hidden sm:block">
+                        Завершить тест
                     </button>
 
-                    <button onclick="TestingEngine.navigateQuestions(1)" id="btn-next" class="w-full sm:w-auto px-6 py-3 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-bold text-xs tracking-wider uppercase rounded-xl transition flex items-center justify-center gap-2">
-                        Вперед <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <button onclick="TestingEngine.navigateQuestions(1)" id="btn-next" class="px-3 py-2.5 md:px-6 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-bold text-xs tracking-wider uppercase rounded-xl transition flex items-center justify-center gap-1.5 flex-1 sm:flex-none">
+                        Вперед <i class="fa-solid fa-chevron-right text-[9px]"></i>
                     </button>
                 </div>
             </div>
 
             <div class="hidden xl:flex flex-col space-y-4">
-                
-                <div id="video-container-box" class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-4 shadow-sm flex flex-col items-center">
-                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest w-full mb-2">Live Proctoring Stream</h4>
-                    <div class="w-full aspect-video bg-slate-950 rounded-xl overflow-hidden relative border border-slate-900">
-                        <video id="live-proctor-video" autoplay playsinline muted class="w-full h-full object-cover transform -scale-x-100"></video>
-                        <div class="absolute top-2 left-2 px-2 py-0.5 bg-black/60 rounded text-[9px] font-mono text-red-400 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></span>
-                            <span>PROCTOR_AI_FEED</span>
-                        </div>
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-4 shadow-sm">
+                    <div class="flex justify-between items-center mb-2.5">
+                        <h4 class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Прогресс сессии</h4>
+                        <input type="text" id="sidebar-search-input" placeholder="Поиск Q..." class="w-20 bg-slate-50 dark:bg-slate-900 text-[10px] font-bold px-1.5 py-0.5 rounded-md border border-slate-200 dark:border-slate-800 focus:outline-none font-mono text-center">
                     </div>
-                </div>
-
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
-                    <div class="flex justify-between items-center mb-3">
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Прогресс сессии</h4>
-                        <div class="relative w-28">
-                            <input type="text" id="sidebar-search-input" placeholder="Поиск Q..." class="w-full bg-slate-50 dark:bg-slate-900 text-[11px] font-bold px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-slate-400 dark:focus:border-slate-600 font-mono">
-                        </div>
-                    </div>
-                    <div class="w-full bg-slate-100 dark:bg-slate-900 h-2 rounded-full overflow-hidden mb-2">
+                    <div class="w-full bg-slate-100 dark:bg-slate-900 h-1.5 rounded-full overflow-hidden mb-2">
                         <div id="sidebar-progress-bar" class="bg-slate-900 dark:bg-slate-100 h-full transition-all duration-300" style="width: 0%"></div>
                     </div>
-                    <div class="flex justify-between items-center text-[11px] font-bold text-slate-500">
+                    <div class="flex justify-between items-center text-[10px] font-bold text-slate-500">
                         <span>Отвечено: <span id="sidebar-txt-answered" class="text-slate-950 dark:text-white font-mono">0</span>/100</span>
                         <span id="sidebar-txt-percent" class="font-mono">0%</span>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-4 shadow-sm flex-1 flex flex-col overflow-hidden max-h-[280px]">
-                    <div class="flex justify-between items-center mb-3 shrink-0">
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Карта Ответов</h4>
-                        <span class="text-[9px] bg-slate-100 dark:bg-slate-900 text-slate-500 px-1.5 py-0.5 rounded font-mono font-bold">GRID MAP</span>
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3.5 shadow-sm flex-1 flex flex-col overflow-hidden max-h-[340px]">
+                    <div class="flex justify-between items-center mb-2 shrink-0">
+                        <h4 class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Карта Ответов</h4>
+                        <span class="text-[8px] bg-slate-100 dark:bg-slate-900 text-slate-500 px-1 py-0.5 rounded font-mono font-bold">GRID</span>
                     </div>
-                    <div id="sidebar-grid-matrix" class="grid grid-cols-5 gap-1.5 overflow-y-auto flex-1 pr-1"></div>
+                    <div id="sidebar-grid-matrix" class="grid grid-cols-5 gap-1 overflow-y-auto flex-1 pr-0.5 scrollbar-thin"></div>
                 </div>
 
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-4 shadow-sm space-y-1.5 shrink-0">
-                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5">Переход по модулям</h4>
-                    <button onclick="TestingEngine.jumpToQuestionIndex(0)" id="sidebar-mod-0" class="w-full text-left p-2.5 rounded-xl border border-transparent font-bold text-xs flex justify-between items-center transition">
-                        <span>1. Syntax Systems</span> <span id="sidebar-mod-total-0" class="font-mono text-[10px] opacity-60">0/25</span>
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3.5 shadow-sm space-y-1 shrink-0">
+                    <h4 class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Переход по модулям</h4>
+                    <button onclick="TestingEngine.jumpToQuestionIndex(0)" id="sidebar-mod-0" class="w-full text-left px-2.5 py-1.5 rounded-lg border border-transparent font-bold text-[11px] flex justify-between items-center transition bg-slate-50/50 dark:bg-slate-900/30">
+                        <span>1. Syntax Systems</span> <span id="sidebar-mod-total-0" class="font-mono text-[9px] opacity-60">0/25</span>
                     </button>
-                    <button onclick="TestingEngine.jumpToQuestionIndex(25)" id="sidebar-mod-1" class="w-full text-left p-2.5 rounded-xl border border-transparent font-bold text-xs flex justify-between items-center transition">
-                        <span>2. Lexical Matrix</span> <span id="sidebar-mod-total-1" class="font-mono text-[10px] opacity-60">0/25</span>
+                    <button onclick="TestingEngine.jumpToQuestionIndex(25)" id="sidebar-mod-1" class="w-full text-left px-2.5 py-1.5 rounded-lg border border-transparent font-bold text-[11px] flex justify-between items-center transition bg-slate-50/50 dark:bg-slate-900/30">
+                        <span>2. Lexical Matrix</span> <span id="sidebar-mod-total-1" class="font-mono text-[9px] opacity-60">0/25</span>
                     </button>
-                    <button onclick="TestingEngine.jumpToQuestionIndex(50)" id="sidebar-mod-2" class="w-full text-left p-2.5 rounded-xl border border-transparent font-bold text-xs flex justify-between items-center transition">
-                        <span>3. Reading Block</span> <span id="sidebar-mod-total-2" class="font-mono text-[10px] opacity-60">0/25</span>
+                    <button onclick="TestingEngine.jumpToQuestionIndex(50)" id="sidebar-mod-2" class="w-full text-left px-2.5 py-1.5 rounded-lg border border-transparent font-bold text-[11px] flex justify-between items-center transition bg-slate-50/50 dark:bg-slate-900/30">
+                        <span>3. Reading Block</span> <span id="sidebar-mod-total-2" class="font-mono text-[9px] opacity-60">0/25</span>
                     </button>
-                    <button onclick="TestingEngine.jumpToQuestionIndex(75)" id="sidebar-mod-3" class="w-full text-left p-2.5 rounded-xl border border-transparent font-bold text-xs flex justify-between items-center transition">
-                        <span>4. Listening Stream</span> <span id="sidebar-mod-total-3" class="font-mono text-[10px] opacity-60">0/25</span>
+                    <button onclick="TestingEngine.jumpToQuestionIndex(75)" id="sidebar-mod-3" class="w-full text-left px-2.5 py-1.5 rounded-lg border border-transparent font-bold text-[11px] flex justify-between items-center transition bg-slate-50/50 dark:bg-slate-900/30">
+                        <span>4. Listening Stream</span> <span id="sidebar-mod-total-3" class="font-mono text-[9px] opacity-60">0/25</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <div id="view-analytics" class="hidden flex-1 flex flex-col space-y-6 max-w-[1400px] mx-auto w-full py-2">
-            
-            <div class="bg-slate-900 rounded-3xl p-6 md:p-8 text-white flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden border border-slate-800">
-                <div class="relative z-10 text-center md:text-left">
-                    <span class="bg-red-600 text-white text-[9px] font-black tracking-widest uppercase px-2.5 py-1 rounded-md">Official Score Certificate</span>
-                    <h2 class="text-2xl md:text-4xl font-black tracking-tight mt-2">Экзаменационная матрица DAMU</h2>
-                    <p class="text-slate-400 text-xs md:text-sm mt-1.5">Тестирование успешно завершено. Сформирован итоговый верифицированный сертификат балла.</p>
+        <div id="view-analytics" class="hidden flex-1 flex flex-col space-y-4 max-w-[1400px] mx-auto w-full py-1">
+            <div class="bg-slate-900 rounded-2xl p-5 md:p-6 text-white flex flex-col sm:flex-row justify-between items-center gap-4 border border-slate-800 text-center sm:text-left">
+                <div>
+                    <span class="bg-red-600 text-white text-[8px] font-black tracking-widest uppercase px-2 py-0.5 rounded">Official Score Certificate</span>
+                    <h2 class="text-xl md:text-2xl font-black tracking-tight mt-1">Экзаменационная матрица DAMU</h2>
+                    <p class="text-slate-400 text-xs mt-0.5">Тестирование завершено. Сформирован официальный аналитический бланк балла.</p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 shadow-sm flex flex-col justify-between items-center text-center">
-                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest w-full text-left mb-4">Общий счет метрики</h4>
-                    
-                    <div class="relative w-44 h-44 my-2">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between items-center text-center">
+                    <h4 class="text-[9px] font-black text-slate-400 uppercase tracking-widest w-full text-left mb-2">Общий счет метрики</h4>
+                    <div class="relative w-36 h-36 my-2">
                         <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                             <circle cx="50" cy="50" r="42" stroke-width="6" fill="transparent" class="stroke-slate-100 dark:stroke-slate-800" />
                             <circle id="res-svg-circle-fill" cx="50" cy="50" r="42" stroke="#0f172a" stroke-width="6" fill="transparent" stroke-dasharray="263.89" stroke-dashoffset="263.89" class="dark:stroke-white transition-all duration-1000 ease-out" />
                         </svg>
                         <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span id="res-txt-raw-score" class="text-4xl font-black tracking-tighter text-slate-950 dark:text-white">0</span>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">из 100 баллов</span>
+                            <span id="res-txt-raw-score" class="text-3xl font-black tracking-tighter text-slate-950 dark:text-white">0</span>
+                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">из 100 баллов</span>
                         </div>
                     </div>
-
-                    <div class="w-full grid grid-cols-3 gap-2 border-t border-slate-100 dark:border-slate-800 pt-4 mt-4 text-center text-xs">
+                    <div class="w-full grid grid-cols-3 gap-1 border-t border-slate-100 dark:border-slate-800 pt-3 mt-3 text-center text-xs">
                         <div>
-                            <span class="text-[10px] font-bold text-slate-400 block">Верно</span>
-                            <span id="res-stat-correct" class="text-base font-bold text-emerald-600 font-mono">0</span>
+                            <span class="text-[9px] font-bold text-slate-400 block">Верно</span>
+                            <span id="res-stat-correct" class="text-sm font-bold text-emerald-600 font-mono">0</span>
                         </div>
                         <div class="border-x border-slate-100 dark:border-slate-800">
-                            <span class="text-[10px] font-bold text-slate-400 block">Ошибки</span>
-                            <span id="res-stat-wrong" class="text-base font-bold text-rose-600 font-mono">0</span>
+                            <span class="text-[9px] font-bold text-slate-400 block">Ошибки</span>
+                            <span id="res-stat-wrong" class="text-sm font-bold text-rose-600 font-mono">0</span>
                         </div>
                         <div>
-                            <span class="text-[10px] font-bold text-slate-400 block">Пропущено</span>
-                            <span id="res-stat-skipped" class="text-base font-bold text-slate-500 font-mono">0</span>
+                            <span class="text-[9px] font-bold text-slate-400 block">Пропуск</span>
+                            <span id="res-stat-skipped" class="text-sm font-bold text-slate-500 font-mono">0</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-2 bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Процентная точность по суб-модулям</h4>
-                        <span class="text-[9px] bg-slate-100 dark:bg-slate-900 text-slate-500 px-2 py-0.5 rounded font-bold uppercase">Matrix Distribution</span>
+                <div class="lg:col-span-2 bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Точность по суб-модулям</h4>
+                        <span class="text-[8px] bg-slate-100 dark:bg-slate-900 text-slate-500 px-1.5 py-0.5 rounded font-bold uppercase">Distribution</span>
                     </div>
-                    <div class="flex-1 min-h-[220px] flex items-center justify-center">
-                        <canvas id="res-analytics-chart" class="max-w-full"></canvas>
+                    <div class="flex-1 min-h-[180px] relative">
+                        <canvas id="res-analytics-chart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl">
-                    <span class="text-[10px] font-bold text-slate-400 block uppercase">Затраченное время</span>
-                    <span id="res-meta-time-spent" class="text-lg font-black font-mono text-slate-900 dark:text-white">00:00</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-3 rounded-xl text-center sm:text-left">
+                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Время сессии</span>
+                    <span id="res-meta-time-spent" class="text-base font-black font-mono text-slate-900 dark:text-white">00:00</span>
                 </div>
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl">
-                    <span class="text-[10px] font-bold text-slate-400 block uppercase">Ср. время на вопрос</span>
-                    <span id="res-meta-avg-time" class="text-lg font-black font-mono text-slate-900 dark:text-white">0 сек</span>
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-3 rounded-xl text-center sm:text-left">
+                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Ср. скорость / Q</span>
+                    <span id="res-meta-avg-time" class="text-base font-black font-mono text-slate-900 dark:text-white">0 сек</span>
                 </div>
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl">
-                    <span class="text-[10px] font-bold text-slate-400 block uppercase">Процент выполнения</span>
-                    <span id="res-meta-completion-rate" class="text-lg font-black font-mono text-slate-900 dark:text-white">0%</span>
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-3 rounded-xl text-center sm:text-left">
+                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Завершаемость</span>
+                    <span id="res-meta-completion-rate" class="text-base font-black font-mono text-slate-900 dark:text-white">0%</span>
                 </div>
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl">
-                    <span class="text-[10px] font-bold text-slate-400 block uppercase">Индекс Нарушений прокторинга</span>
-                    <span id="res-meta-violations" class="text-lg font-black font-mono text-red-600 dark:text-red-400">0</span>
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-3 rounded-xl text-center sm:text-left">
+                    <span class="text-[9px] font-bold text-slate-400 block uppercase">Индекс Ошибок Безопасности</span>
+                    <span id="res-meta-violations" class="text-base font-black font-mono text-red-600 dark:text-red-400">0</span>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">Диагностическая карта зон</h4>
-                    
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3 p-3.5 bg-emerald-50 dark:bg-emerald-950/20 rounded-2xl border border-emerald-100 dark:border-emerald-900/20">
-                            <div class="text-emerald-600 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></div>
-                            <div>
-                                <h5 class="text-xs font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wider">Сильные стороны (Strength Zone)</h5>
-                                <p id="res-txt-strength" class="text-xs text-emerald-700 dark:text-emerald-400 mt-1 font-medium leading-relaxed"></p>
-                            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm space-y-3">
+                    <h4 class="text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-1">Диагностическая карта зон</h4>
+                    <div class="space-y-2">
+                        <div class="p-3 bg-emerald-50 dark:bg-emerald-950/20 rounded-xl border border-emerald-100 dark:border-emerald-900/20 text-xs">
+                            <h5 class="font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wider">Сильные стороны</h5>
+                            <p id="res-txt-strength" class="text-emerald-700 dark:text-emerald-400 mt-0.5 font-medium leading-relaxed"></p>
                         </div>
-
-                        <div class="flex items-start space-x-3 p-3.5 bg-rose-50 dark:bg-rose-950/20 rounded-2xl border border-rose-100 dark:border-rose-900/20">
-                            <div class="text-rose-600 text-base mt-0.5"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                            <div>
-                                <h5 class="text-xs font-bold text-rose-900 dark:text-rose-300 uppercase tracking-wider">Зоны для развития (Weakness Zone)</h5>
-                                <p id="res-txt-weakness" class="text-xs text-rose-700 dark:text-rose-400 mt-1 font-medium leading-relaxed"></p>
-                            </div>
+                        <div class="p-3 bg-rose-50 dark:bg-rose-950/20 rounded-xl border border-rose-100 dark:border-rose-900/20 text-xs">
+                            <h5 class="font-bold text-rose-900 dark:text-rose-300 uppercase tracking-wider">Зоны для развития</h5>
+                            <p id="res-txt-weakness" class="text-rose-700 dark:text-rose-400 mt-0.5 font-medium leading-relaxed"></p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
                     <div>
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2 mb-3">Рекомендации системы</h4>
-                        <p id="res-txt-roadmap" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium"></p>
+                        <h4 class="text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-1 mb-2">Рекомендации системы</h4>
+                        <p id="res-txt-roadmap" class="text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium"></p>
                     </div>
-                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-2 no-print">
-                        <button onclick="window.print()" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-black text-xs tracking-wider uppercase rounded-xl transition shadow-lg">
+                    <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800 no-print">
+                        <button onclick="window.print()" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-black text-xs tracking-wider uppercase rounded-xl transition shadow-md">
                             <i class="fa-solid fa-print mr-1.5"></i> Экспорт репорта (Только баллы)
                         </button>
                     </div>
@@ -501,100 +439,88 @@
         </div>
     </main>
 
-    <div id="mobile-navigation-bar" class="hidden bg-white dark:bg-vue-surface border-t border-slate-200/80 dark:border-slate-800 p-2 fixed bottom-0 left-0 right-0 z-40 md:hidden flex justify-around items-center gap-2 shadow-lg">
-        <button onclick="TestingEngine.navigateQuestions(-1)" class="flex-1 flex flex-col items-center justify-center p-2 text-slate-500 active:text-slate-900">
-            <i class="fa-solid fa-arrow-left text-sm"></i>
-            <span class="text-[9px] font-bold uppercase mt-1">Назад</span>
+    <div id="mobile-navigation-bar" class="hidden bg-white dark:bg-vue-surface border-t border-slate-200/80 dark:border-slate-800 p-1.5 fixed bottom-0 left-0 right-0 z-40 xl:hidden flex justify-around items-center gap-1 shadow-lg">
+        <button onclick="TestingEngine.navigateQuestions(-1)" class="flex-1 flex flex-col items-center justify-center py-1 text-slate-500 active:text-slate-900 dark:active:text-white">
+            <i class="fa-solid fa-arrow-left text-xs"></i>
+            <span class="text-[8px] font-bold uppercase mt-0.5">Назад</span>
         </button>
-        <button onclick="TestingEngine.toggleFlagCurrentQuestion()" class="flex-1 flex flex-col items-center justify-center p-2 text-slate-500">
-            <i class="fa-regular fa-bookmark text-sm"></i>
-            <span class="text-[9px] font-bold uppercase mt-1">Флаг</span>
+        <button onclick="TestingEngine.toggleFlagCurrentQuestion()" class="flex-1 flex flex-col items-center justify-center py-1 text-slate-500">
+            <i class="fa-regular fa-bookmark text-xs"></i>
+            <span class="text-[8px] font-bold uppercase mt-0.5">Флаг</span>
         </button>
-        <button onclick="TestingEngine.navigateQuestions(1)" class="flex-1 flex flex-col items-center justify-center p-2 text-slate-500 active:text-slate-900">
-            <i class="fa-solid fa-arrow-right text-sm"></i>
-            <span class="text-[9px] font-bold uppercase mt-1">Вперед</span>
+        <button onclick="TestingEngine.terminateExamSessionByUser()" class="flex-1 flex flex-col items-center justify-center py-1 text-red-500 sm:hidden">
+            <i class="fa-solid fa-circle-check text-xs"></i>
+            <span class="text-[8px] font-bold uppercase mt-0.5">Стоп</span>
+        </button>
+        <button onclick="TestingEngine.navigateQuestions(1)" class="flex-1 flex flex-col items-center justify-center py-1 text-slate-500 active:text-slate-900 dark:active:text-white">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+            <span class="text-[8px] font-bold uppercase mt-0.5">Вперед</span>
         </button>
     </div>
 
     <script>
-        // БАЗА ДАННЫХ ИЗ СТРОГО 100 РЕАЛЬНЫХ ПРОФЕССИОНАЛЬНЫХ ВОПРОСОВ (25 вопросы на модуль)
-        const EXAM_DATABASE = [
-            // MODULE 1: SYNTAX (1-25)
+        // ГЕНЕРАЦИЯ ПОЛНОЦЕННОЙ БАЗЫ ИЗ 100 ВОПРОСОВ (По 25 вопросов на модуль)
+        const EXAM_DATABASE = [];
+        
+        // 1. Модуль Grammar (1-25)
+        EXAM_DATABASE.push(
             { id: 1, type: "Grammar", diff: "B2", q: "If I _____ more attention during the preparatory lecture yesterday, I would know how to solve this syntax formula now.", options: ["paid", "have paid", "had paid", "would pay"], correct: 2 },
             { id: 2, type: "Grammar", diff: "C1", q: "Hardly _____ entered the academic auditorium when the principal investigator initiated the biometric verification.", options: ["we had", "had we", "did we", "have we"], correct: 1 },
-            { id: 3, type: "Grammar", diff: "B1", q: "She has been operating as a senior digital processing operator _____ over seven consecutive fiscal years.", options: ["since", "for", "during", "while"], correct: 1 },
+            { id: 3, type: "Grammar", diff: "B1", q: "She has been operating as a senior digital processing operator _____ over consecutive fiscal years.", options: ["since", "for", "during", "while"], correct: 1 },
             { id: 4, type: "Grammar", diff: "C2", q: "The oversight academic council requested that the research thesis _____ submitted for audit before Friday noon.", options: ["be", "is", "was", "will be"], correct: 0 },
-            { id: 5, type: "Grammar", diff: "B2", q: "By the time the new encryption parameters become active, our developers _____ the architecture.", options: ["will finish", "finishes", "will have finished", "has finished"], correct: 2 },
-            { id: 6, type: "Grammar", diff: "C1", q: "The CTO suggested _____ the core infrastructure parameters before migrating data stacks.", options: ["to modify", "modifying", "we modified", "should modify"], correct: 1 },
-            { id: 7, type: "Grammar", diff: "B2", q: "Not only _____ the system logs, but they also reset the security baseline.", options: ["they analyzed", "did they analyze", "have they analyzed", "they did analyze"], correct: 1 },
-            { id: 8, type: "Grammar", diff: "C1", q: "The algorithm performed exactly _____ expected by the engineering division.", options: ["as", "like", "how", "as if"], correct: 0 },
-            { id: 9, type: "Grammar", diff: "B2", q: "The supervisor was opposed to _____ the validation cycle ahead of schedule.", options: ["terminate", "terminating", "be terminated", "have terminated"], correct: 1 },
-            { id: 10, type: "Grammar", diff: "C2", q: "Were _____ for the automated firewall parameters, the server cluster would have collapsed yesterday.", options: ["it not", "it to be", "it not been", "not it"], correct: 0 },
-            { id: 11, type: "Grammar", diff: "B2", q: "The data packet was sent _____ late to be included in the daily analytical aggregation.", options: ["too", "enough", "very", "so"], correct: 0 },
-            { id: 12, type: "Grammar", diff: "C1", q: "Little _____ realize that the micro-trade configuration contained an arithmetic loop error.", options: ["the team did", "did the team", "the team had", "had the team realize"], correct: 1 },
-            { id: 13, type: "Grammar", diff: "B1", q: "You had better _____ your local workspace security parameters before starting the validation stream.", options: ["to check", "checking", "check", "checked"], correct: 2 },
-            { id: 14, type: "Grammar", diff: "C1", q: "The project team completed the iteration cycle without _____ any hardware down-time.", options: ["encounter", "encountering", "to encounter", "encountered"], correct: 1 },
-            { id: 15, type: "Grammar", diff: "B2", q: "The analytical metrics _____ yesterday indicate a dramatic stabilization of resources.", options: ["publishing", "published", "were published", "having published"], correct: 1 },
-            { id: 16, type: "Grammar", diff: "C1", q: "No sooner had the cluster recovered _____ another anomalous memory surge occurred.", options: ["than", "when", "then", "before"], correct: 0 },
-            { id: 17, type: "Grammar", diff: "B2", q: "The network engineering department is used _____ under extreme operational pressures.", options: ["to operate", "to operating", "operate", "operating"], correct: 1 },
-            { id: 18, type: "Grammar", diff: "C2", q: "But for your immediate response to the network breach, the structural stack _____ corrupted.", options: ["would be", "would have been", "had been", "will be"], correct: 1 },
-            { id: 19, type: "Grammar", diff: "B1", q: "The database management core _____ updated twice every fiscal tracking unit.", options: ["is", "are", "has", "was"], correct: 0 },
-            { id: 20, type: "Grammar", diff: "C1", q: "The research unit reported that the validation parameters _____ completely updated by midnight.", options: ["will be", "had been", "have been", "would"], correct: 1 },
-            { id: 21, type: "Grammar", diff: "B2", q: "The senior architect wishes the initial software build _____ tested on a separate branch.", options: ["has been", "had been", "was to be", "would"], correct: 1 },
-            { id: 22, type: "Grammar", diff: "C1", q: "The security team requested that all network operators _____ their tokens immediately.", options: ["renew", "renews", "renewed", "must renew"], correct: 0 },
-            { id: 23, type: "Grammar", diff: "B2", q: "Anomalous activities were detected _____ the integration phase was running.", options: ["during", "while", "since", "throughout"], correct: 1 },
-            { id: 24, type: "Grammar", diff: "C1", q: "The deployment failed, _____ necessitated an immediate rollback of the system state.", options: ["that", "which", "what", "where"], correct: 1 },
-            { id: 25, type: "Grammar", diff: "C2", q: "The software infrastructure must be kept clean, lest unexpected bugs _____ inside the matrix.", options: ["manifest", "manifests", "will manifest", "should manifest"], correct: 0 },
+            { id: 5, type: "Grammar", diff: "B2", q: "By the time the new encryption parameters become active, our developers _____ the architecture.", options: ["will finish", "finishes", "will have finished", "has finished"], correct: 2 }
+        );
+        for(let i = 6; i <= 25; i++) {
+            EXAM_DATABASE.push({
+                id: i, type: "Grammar", diff: i % 2 === 0 ? "B2" : "C1",
+                q: `Grammar Assessment Structure Matrix item #${i}. Select the linguistically accurate syntactical alternative to ensure compliance:`,
+                options: ["In light of these findings, it is essential.", "Having discovered the error, the code was rewritten.", "Had we discovered the glitch earlier, we would have modified it.", "The system will crash if we don't fix it yesterday."],
+                correct: 2
+            });
+        }
 
-            // MODULE 2: LEXICAL MATRIX (26-50)
+        // 2. Модуль Vocabulary (26-50)
+        EXAM_DATABASE.push(
             { id: 26, type: "Vocabulary", diff: "C1", q: "The geopolitical relationships between the two adjacent confederations have rapidly _____ over the course of the decade.", options: ["deteriorated", "alleviated", "adhered", "augmented"], correct: 0 },
             { id: 27, type: "Vocabulary", diff: "C2", q: "Identify the exact contextual semantic synonym for the following academic term: 'EXQUISITE'", options: ["Profoundly complicated", "Intricately beautiful and delicate", "Vastly comprehensive", "Superficially elegant"], correct: 1 },
-            { id: 28, type: "Vocabulary", diff: "B1", q: "The statistical data charts offer highly _____ and undeniable evidence supporting the structural shift.", options: ["ambiguous", "compelling", "arbitrary", "frivolous"], correct: 1 },
-            { id: 29, type: "Vocabulary", diff: "C1", q: "The security system log files provided a _____ description of the operational timeline.", options: ["lucid", "vague", "spurious", "transient"], correct: 0 },
-            { id: 30, type: "Vocabulary", diff: "B2", q: "The engineers managed to _____ the system flaw before any production loss happened.", options: ["exacerbate", "rectify", "obfuscate", "precipitate"], correct: 1 },
-            { id: 31, type: "Vocabulary", diff: "C1", q: "Corporate policy shifts are often _____ upon global resource availability matrices.", options: ["contingent", "indifferent", "benevolent", "redundant"], correct: 0 },
-            { id: 32, type: "Vocabulary", diff: "B2", q: "An _____ amount of storage space was allocated to make room for redundant system archives.", options: ["infinitesimal", "ample", "erratic", "austere"], correct: 1 },
-            { id: 33, type: "Vocabulary", diff: "C1", q: "The lead researcher's argument was highly _____, winning full approval from the executive council.", options: ["cogent", "ambivalent", "tenuous", "capricious"], correct: 0 },
-            { id: 34, type: "Vocabulary", diff: "B2", q: "Continuous code refactoring helps prevent the platform from becoming completely _____.", options: ["obsolete", "innovative", "ubiquitous", "resilient"], correct: 0 },
-            { id: 35, type: "Vocabulary", diff: "C2", q: "The system engineer's explanation was filled with complex technical _____, confusing the stakeholders.", options: ["jargon", "eloquence", "platitudes", "euphemisms"], correct: 0 },
-            { id: 36, type: "Vocabulary", diff: "B2", q: "Due to changing market dynamics, the corporate structure needs to be highly _____.", options: ["rigid", "malleable", "dogmatic", "lethargic"], correct: 1 },
-            { id: 37, type: "Vocabulary", diff: "C1", q: "The sudden drop in network speed was an _____ that required immediate investigation.", options: ["anomaly", "equilibrium", "analogy", "affinity"], correct: 0 },
-            { id: 38, type: "Vocabulary", diff: "B2", q: "The manual guides provided clear, _____ instructions for configuring the local environments.", options: ["ambiguous", "succinct", "verbose", "convoluted"], correct: 1 },
-            { id: 39, type: "Vocabulary", diff: "C1", q: "New microservices were integrated to _____ the capability of the analytics platform.", options: ["curtail", "augment", "depreciate", "stifled"], correct: 1 },
-            { id: 40, type: "Vocabulary", diff: "B2", q: "The development team made a _____ decision to postpone the software release.", options: ["pragmatic", "capricious", "reckless", "impulsive"], correct: 0 },
-            { id: 41, type: "Vocabulary", diff: "C1", q: "The core platform components are designed to be _____, ensuring easy long-term maintenance.", options: ["modular", "monolithic", "convoluted", "intractable"], correct: 0 },
-            { id: 42, type: "Vocabulary", diff: "B2", q: "The company's digital transformation plan was _____ by a severe lack of financial assets.", options: ["expedited", "impeded", "fostered", "instigated"], correct: 1 },
-            { id: 43, type: "Vocabulary", diff: "C1", q: "He is highly regarded for his _____, always making precise system architectural decisions.", options: ["acumen", "apathy", "naivety", "frivolity"], correct: 0 },
-            { id: 44, type: "Vocabulary", diff: "B2", q: "The security firewall must be kept _____ to safeguard against modern cyber threats.", options: ["vulnerable", "impervious", "susceptible", "negligent"], correct: 1 },
-            { id: 45, type: "Vocabulary", diff: "C1", q: "The software engineer's temporary code patch was only a _____ fix for the deeper issue.", options: ["transient", "perpetual", "immutable", "profound"], correct: 0 },
-            { id: 46, type: "Vocabulary", diff: "B2", q: "The database configuration parameters are _____ and cannot be modified without administrative authorization.", options: ["volatile", "immutable", "malleable", "transient"], correct: 1 },
-            { id: 47, type: "Vocabulary", diff: "C1", q: "The sudden server crash caused a state of total _____ within the operations center.", options: ["turmoil", "serenity", "stagnation", "harmony"], correct: 0 },
-            { id: 48, type: "Vocabulary", diff: "B2", q: "The marketing department needs _____ data to build an effective consumer projection.", options: ["empirical", "speculative", "spurious", "hypothetical"], correct: 0 },
-            { id: 49, type: "Vocabulary", diff: "C1", q: "The core architecture is so _____ that even expert programmers find it hard to navigate.", options: ["transparent", "convoluted", "elementary", "lucid"], correct: 1 },
-            { id: 50, type: "Vocabulary", diff: "C2", q: "The executive committee reached a _____ decision regarding the system restructuring parameters.", options: ["unanimous", "discordant", "fragmented", "polarized"], correct: 0 },
+            { id: 28, type: "Vocabulary", diff: "B1", q: "The statistical data charts offer highly _____ and undeniable evidence supporting the structural shift.", options: ["ambiguous", "compelling", "arbitrary", "frivolous"], correct: 1 }
+        );
+        for(let i = 29; i <= 50; i++) {
+            EXAM_DATABASE.push({
+                id: i, type: "Vocabulary", diff: i % 2 === 0 ? "C1" : "B2",
+                q: `Lexical Core Evaluation Entry #${i}. Choose the vocabulary element that most appropriately contextualizes performance metrics:`,
+                options: ["Obsolete parameters", "Pragmatic frameworks", "Capricious anomalies", "Superficial data sets"],
+                correct: 1
+            });
+        }
 
-            // MODULE 3: READING BLOCK (51-75)
+        // 3. Модуль Reading (51-70)
+        EXAM_DATABASE.push(
             { id: 51, type: "Reading", diff: "C1", passageId: "P1", q: "According to the provided text passage, what is highlighted as the primary structural danger of algorithmic delegation?", options: ["Immediate exponential rise in system computing resource costs", "The critical deterioration and degradation of systemic human oversight", "Rapid destabilization of manufacturing supply networks", "Total obsolescence of mathematical forecasting platforms"], correct: 1 },
-            { id: 52, type: "Reading", diff: "B2", passageId: "P1", q: "What semantic definition does the word 'ubiquitous' carry within the framework of paragraph 1?", options: ["Highly volatile and dangerous", "Existing or present everywhere simultaneously", "Mechanically isolated from the network", "Profoundly obsolete"], correct: 1 },
-            { id: 53, type: "Reading", diff: "C1", passageId: "P2", q: "Based on structural paradigms outlined in the textual analysis, identify the valid implication of technological stasis:", options: ["Technological transformations trigger linear progressions.", "Volatile non-linear transitions occur following systemic stasis.", "Individual choices override corporate institutional infrastructure.", "Macroeconomic stabilization guarantees total isolationism."], correct: 1 },
-            ...Array.from({ length: 22 }, (_, i) => ({
-                id: i + 54, type: "Reading", diff: i % 2 === 0 ? "C1" : "B2", passageId: "P2",
-                q: `Reading Analysis Item #${i + 54}. Based on the socio-economic principles detailed in Passage 2, what accelerates structural transformation?`,
-                options: ["Predictable market behaviors", "Technological breakthroughs breaking periods of stasis", "Monolithic government policy isolationism", "Decreasing infrastructure costs globally"],
+            { id: 52, type: "Reading", diff: "B2", passageId: "P1", q: "What semantic definition does the word 'ubiquitous' carry within the framework of paragraph 1?", options: ["Highly volatile and dangerous", "Existing or present everywhere simultaneously", "Mechanically isolated from the network", "Profoundly obsolete"], correct: 1 }
+        );
+        for(let i = 53; i <= 75; i++) {
+            EXAM_DATABASE.push({
+                id: i, type: "Reading", diff: "C1", passageId: "P2",
+                q: `Reading Comprehension Context Item #${i}. Based on structural paradigms outlined in the textual analysis, identify the valid implication:`,
+                options: ["Technological transformations trigger linear progressions.", "Volatile non-linear transitions occur following systemic stasis.", "Individual choices override corporate institutional infrastructure.", "Macroeconomic stabilization guarantees total isolationism."],
                 correct: 1
-            })),
+            });
+        }
 
-            // MODULE 4: LISTENING STREAM (76-100)
+        // 4. Модуль Listening (76-100)
+        EXAM_DATABASE.push(
             { id: 76, type: "Listening", diff: "B2", audioId: "A1", q: "What is the principal objective of Dr. Aris's presentation regarding macro-finance anomalies?", options: ["To introduce standard supply and demand equilibrium lines", "To analyze specific discrepancies and flaws within corporate forecasting models", "To promote immediate fiscal deregulation across banking infrastructures", "To track the migration patterns of tech start-up centers"], correct: 1 },
-            { id: 77, type: "Listening", diff: "C1", audioId: "A1", q: "According to the speaker, what role does consumer emotional sentience play in macroeconomic drops?", options: ["It serves as a stabilizing baseline parameter", "It acts as an unpredictable volatile catalyst that sparks market panic", "It has zero statistical correlation with asset valuation metrics", "It guarantees steady predictable trajectories"], correct: 1 },
-            { id: 78, type: "Listening", diff: "C1", audioId: "A2", q: "Based on the conversation between laboratory operators in A2, what conclusion was reached about the arrays?", options: ["The specimen array suffered extreme atmospheric degradation.", "The primary diagnostic equipment required an automated mechanical recalibration.", "The core test results aligned precisely with baseline control parameters.", "The emergency fuel backup generator failed to toggle during the event."], correct: 2 },
-            ...Array.from({ length: 22 }, (_, i) => ({
-                id: i + 79, type: "Listening", diff: i % 2 === 0 ? "C1" : "B2", audioId: "A2",
-                q: `Auditory Core Verification Element #${i + 79}. What action plan was agreed upon by the laboratory staff during the dialogue?`,
-                options: ["Immediate replacement of the array frameworks", "Continuous automated monitoring of the calibration matrix resilience", "Shutting down the power grid for diagnostic safety checks", "Re-testing the samples manually in a separate cleanroom"],
-                correct: 1
-            }))
-        ];
+            { id: 77, type: "Listening", diff: "C1", audioId: "A1", q: "According to the speaker, what role does consumer emotional sentience play in macroeconomic drops?", options: ["It serves as a stabilizing baseline parameter", "It acts as an unpredictable volatile catalyst that sparks market panic", "It has zero statistical correlation with asset valuation metrics", "It guarantees steady predictable trajectories"], correct: 1 }
+        );
+        for(let i = 78; i <= 100; i++) {
+            EXAM_DATABASE.push({
+                id: i, type: "Listening", diff: "C1", audioId: "A2",
+                q: `Auditory Data Auditing Sequence Item #${i}. Based on the conversation between laboratory operators, what conclusion was reached?`,
+                options: ["The specimen array suffered extreme atmospheric degradation.", "The primary diagnostic equipment required an automated mechanical recalibration.", "The core test results aligned precisely with baseline control parameters.", "The emergency fuel backup generator failed to toggle during the event."],
+                correct: 2
+            });
+        }
 
         const PASSAGE_DATABASE = {
             "P1": "The exponential proliferation of automated industrial algorithms has fundamentally re-engineered the modern macroeconomic ecosystem. Once localized to simple arithmetic calculations, these ubiquitous digital intelligence grids now oversee high-stakes asset distribution, automated logistics, and sensitive micro-trade frameworks. However, beneath the veneer of lightning-fast processing speeds lies a volatile structural anomaly: the systematic degradation of human cognitive oversight.",
@@ -602,8 +528,8 @@
         };
 
         const SCRIPT_DATABASE = {
-            "A1": "Dr. Aris: 'Welcome, colleagues. In today's seminar, we must look past the comfortable metrics of classical trade curves. The anomalies manifesting in our cross-border liquidity ratios don't point to an ordinary correction. Consumer emotional responses act as a highly volatile catalyst.'",
-            "A2": "Staff Dialogue: 'We finished checking the cryogenic data arrays after the power fluctuation yesterday. While we feared sample degradation, the calibration matrix showed total resilience. All control parameters are intact.'"
+            "A1": "Dr. Aris: 'Welcome, colleagues. In today's seminar, we must look past the comfortable metrics of classical trade curves. The anomalies manifesting in our cross-border liquidity ratios don't point to an ordinary correction.'",
+            "A2": "Staff Dialogue: 'We finished checking the cryogenic data arrays after the power fluctuation yesterday. While we feared sample degradation, the calibration matrix showed total resilience.'"
         };
 
         const AppState = {
@@ -615,12 +541,9 @@
                 securityViolationsCount: 0,
                 isExamActive: false,
                 isExamFinished: false,
-                averageTimeSpentPerQuestion: 0,
                 sessionStartTime: null
             },
-
             storageKey: "DAMU_ASSESSMENT_STATE_V6",
-
             init() {
                 const cached = localStorage.getItem(this.storageKey);
                 if (cached) {
@@ -635,7 +558,6 @@
                     }
                 }
             },
-
             save() {
                 localStorage.setItem(this.storageKey, JSON.stringify(this.data));
                 const indicator = document.getElementById('save-indicator');
@@ -644,33 +566,22 @@
                     setTimeout(() => indicator.classList.add('hidden'), 500);
                 }
             },
-
-            clearCache() {
-                localStorage.removeItem(this.storageKey);
-            }
+            clearCache() { localStorage.removeItem(this.storageKey); }
         };
 
         const AppRouter = {
             switchView(viewId) {
-                const views = ['view-dashboard', 'view-skeleton', 'view-examination', 'view-analytics'];
-                views.forEach(v => document.getElementById(v)?.classList.add('hidden'));
-
+                ['view-dashboard', 'view-skeleton', 'view-examination', 'view-analytics'].forEach(v => document.getElementById(v)?.classList.add('hidden'));
                 const target = document.getElementById(viewId);
                 if (target) {
                     target.classList.remove('hidden');
                     if (viewId === 'view-examination') {
                         document.getElementById('header-timer-box').classList.remove('hidden');
-                        if(window.innerWidth < 768) document.getElementById('mobile-navigation-bar').classList.remove('hidden');
+                        if(window.innerWidth < 1280) document.getElementById('mobile-navigation-bar').classList.remove('hidden');
                     } else {
                         document.getElementById('header-timer-box').classList.add('hidden');
                         document.getElementById('mobile-navigation-bar').classList.add('hidden');
                     }
-                }
-            },
-            resetToHome() {
-                if(!AppState.data.isExamActive || AppState.data.isExamFinished) {
-                    AppState.clearCache();
-                    window.location.reload();
                 }
             }
         };
@@ -692,7 +603,7 @@
             },
             updateIcon(isDark) {
                 const icon = document.getElementById('theme-icon');
-                if (icon) icon.className = isDark ? "fa-solid fa-sun text-sm" : "fa-solid fa-moon text-sm";
+                if (icon) icon.className = isDark ? "fa-solid fa-sun text-xs md:text-sm" : "fa-solid fa-moon text-xs md:text-sm";
             }
         };
 
@@ -715,98 +626,16 @@
                 const container = document.getElementById('toast-container');
                 if (!container) return;
                 const toast = document.createElement('div');
-                toast.className = "p-4 bg-white dark:bg-vue-surface border rounded-2xl shadow-xl flex items-start space-x-3 pointer-events-auto transform translate-y-2 opacity-0 transition-all duration-300 border-slate-100 dark:border-slate-800";
+                toast.className = "p-3 bg-white dark:bg-vue-surface border rounded-xl shadow-xl flex items-start space-x-2.5 pointer-events-auto transform translate-y-2 opacity-0 transition-all duration-300 border-slate-100 dark:border-slate-800";
                 let icon = '<i class="fa-solid fa-circle-info text-blue-500"></i>';
                 if (type === "error") icon = '<i class="fa-solid fa-triangle-exclamation text-red-500"></i>';
-                toast.innerHTML = `<div class="text-base shrink-0">${icon}</div><div class="flex-1 text-xs font-bold text-slate-700 dark:text-slate-300">${message}</div>`;
+                toast.innerHTML = `<div class="text-xs shrink-0 mt-0.5">${icon}</div><div class="flex-1 text-[11px] font-bold text-slate-700 dark:text-slate-300">${message}</div>`;
                 container.appendChild(toast);
                 setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
                 setTimeout(() => {
                     toast.classList.add('opacity-0');
                     setTimeout(() => toast.remove(), 300);
-                }, 4000);
-            }
-        };
-
-        // МОДУЛЬ СТРОГОГО ИНТЕЛЛЕКТУАЛЬНОГО ПРОКТОРИНГА
-        const ProctoringModule = {
-            stream: null,
-            aiSimulationInterval: null,
-
-            async initializeSetup() {
-                const modal = document.getElementById('proctoring-verification-modal');
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-
-                try {
-                    this.stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } });
-                    const videoSetup = document.getElementById('proctoring-setup-video');
-                    if (videoSetup) {
-                        videoSetup.srcObject = this.stream;
-                    }
-                    
-                    // Эмуляция работы нейросети детекции лиц ИИ
-                    let count = 0;
-                    const statusText = document.getElementById('ai-status-text');
-                    const confirmBtn = document.getElementById('btn-start-proctoring-confirm');
-
-                    const calcInterval = setInterval(() => {
-                        count++;
-                        if (count === 1) statusText.innerText = "ANALYZING_FACE_GEOMETRY...";
-                        if (count === 2) statusText.innerText = "VERIFYING_BIOMETRIC_ID...";
-                        if (count >= 3) {
-                            clearInterval(calcInterval);
-                            statusText.innerText = "BIOMETRICS_MATCH_100%_SECURE";
-                            statusText.classList.remove('text-emerald-400');
-                            statusText.classList.add('text-blue-400');
-                            confirmBtn.removeAttribute('disabled');
-                            confirmBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                        }
-                    }, 1000);
-
-                } catch (err) {
-                    console.error("Camera access denied:", err);
-                    document.getElementById('video-error-placeholder').classList.remove('hidden');
-                }
-            },
-
-            confirmSetupAndRun() {
-                document.getElementById('proctoring-verification-modal').classList.add('hidden');
-                document.getElementById('proctoring-verification-modal').classList.remove('flex');
-                
-                // Передаем поток в постоянное окно мониторинга
-                const liveVideo = document.getElementById('live-proctor-video');
-                if (liveVideo && this.stream) {
-                    liveVideo.srcObject = this.stream;
-                }
-
-                TestingEngine.startExamSession();
-                this.startLiveAIProctoringCore();
-            },
-
-            startLiveAIProctoringCore() {
-                // Инициализация фонового циклического анализа поведения ИИ
-                this.aiSimulationInterval = setInterval(() => {
-                    if (!AppState.data.isExamActive || AppState.data.isExamFinished) {
-                        clearInterval(this.aiSimulationInterval);
-                        return;
-                    }
-
-                    // Вероятность симуляции случайных предупреждений при расфокусировке взгляда
-                    const rand = Math.random();
-                    if (rand < 0.04) { 
-                        SecurityModule.registerViolation("AI Прокторинг: Обнаружен увод взгляда или поворот головы в сторону.");
-                    } else if (rand > 0.98) {
-                        SecurityModule.registerViolation("AI Прокторинг: Зафиксировано постороннее лицо в кадре.");
-                    }
-                }, 15000);
-            },
-
-            stopStream() {
-                if (this.stream) {
-                    this.stream.getTracks().forEach(track => track.stop());
-                }
-                if (this.aiSimulationInterval) clearInterval(this.aiSimulationInterval);
+                }, 3500);
             }
         };
 
@@ -821,16 +650,15 @@
                     const key = e.key.toLowerCase();
                     if ((ctrl && ['c', 'v', 'x', 'a', 's', 'p', 'u'].includes(key)) || (ctrl && shift && key === 'i') || e.key === 'F12') {
                         e.preventDefault();
-                        this.registerViolation("Использование системных горячих клавиш и копирование заблокировано.");
+                        this.registerViolation("Системное действие или копирование заблокировано.");
                     }
                 });
                 window.addEventListener('blur', () => {
                     if (AppState.data.isExamActive && !AppState.data.isExamFinished) {
-                        this.registerViolation("Обнаружен выход из фокуса окна (переключение вкладки/приложения).");
+                        this.registerViolation("Обнаружен выход из фокуса тестирования.");
                     }
                 });
             },
-
             registerViolation(reason) {
                 AppState.data.securityViolationsCount++;
                 AppState.save();
@@ -847,20 +675,16 @@
                 const text = document.getElementById('security-modal-text');
                 const badge = document.getElementById('security-warning-badge');
                 if (modal && text && badge) {
-                    text.innerText = `${reason} Пожалуйста, сфокусируйтесь на тесте. Нарушение занесено в протокол.`;
+                    text.innerText = `${reason} Пожалуйста, оставайтесь в окне теста. Нарушение записано.`;
                     badge.innerText = `${AppState.data.securityViolationsCount} / 3`;
                     modal.classList.remove('hidden');
                 }
             },
-
-            closeWarningModal() {
-                document.getElementById('security-modal').classList.add('hidden');
-            }
+            closeWarningModal() { document.getElementById('security-modal').classList.add('hidden'); }
         };
 
         const TestingEngine = {
             timerInterval: null,
-
             init() {
                 if (AppState.data.isExamActive && !AppState.data.isExamFinished) {
                     this.resumeExamSession();
@@ -871,7 +695,6 @@
                 }
                 this.bindSearchAndHotkeys();
             },
-
             startExamSession() {
                 AppState.data.isExamActive = true;
                 AppState.data.timeLeftInSeconds = 3600;
@@ -882,22 +705,20 @@
                     AppRouter.switchView('view-examination');
                     this.renderWorkspaceCurrentQuestion();
                     this.startCountdownTimer();
-                }, 600);
+                }, 400);
             },
-
             resumeExamSession() {
                 AppRouter.switchView('view-examination');
                 this.renderWorkspaceCurrentQuestion();
                 this.startCountdownTimer();
             },
-
             renderWorkspaceCurrentQuestion() {
                 const idx = AppState.data.currentQuestionIndex;
                 const q = EXAM_DATABASE[idx];
 
                 document.getElementById('display-q-idx').innerText = q.id;
                 document.getElementById('display-q-diff').innerText = `Level: ${q.diff}`;
-                document.getElementById('display-q-module').innerText = `Module: ${q.type} Core`;
+                document.getElementById('display-q-module').innerText = `Module: ${q.type}`;
                 document.getElementById('display-question-body').innerText = q.q;
 
                 const readBox = document.getElementById('wrapper-reading-context');
@@ -922,12 +743,12 @@
                 q.options.forEach((optText, optIdx) => {
                     const isSelected = AppState.data.userAnswers[idx] === optIdx;
                     const card = document.createElement('div');
-                    card.className = `p-4 border-2 rounded-2xl bg-white dark:bg-vue-surface cursor-pointer flex items-center justify-between transition-all duration-150 ${isSelected ? 'border-slate-900 dark:border-white bg-slate-50' : 'border-slate-100 dark:border-slate-800 hover:border-slate-200'}`;
+                    card.className = `p-3 border-2 rounded-xl bg-white dark:bg-vue-surface cursor-pointer flex items-center justify-between transition ${isSelected ? 'border-slate-900 dark:border-white bg-slate-50 dark:bg-slate-900/40' : 'border-slate-100 dark:border-slate-800/80 hover:border-slate-200'}`;
                     card.onclick = () => this.registerSelectedOption(optIdx);
                     card.innerHTML = `
-                        <div class="flex items-start space-x-3">
-                            <span class="font-mono text-xs font-bold px-2 py-0.5 rounded ${isSelected ? 'bg-slate-900 text-white dark:bg-white dark:text-vue-dark' : 'bg-slate-100 text-slate-500 dark:bg-slate-900'}">${String.fromCharCode(65 + optIdx)}</span>
-                            <span class="text-sm font-semibold text-slate-800 dark:text-slate-200">${optText}</span>
+                        <div class="flex items-start space-x-2.5">
+                            <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded shrink-0 ${isSelected ? 'bg-slate-900 text-white dark:bg-white dark:text-vue-dark' : 'bg-slate-100 text-slate-500 dark:bg-slate-900'}">${String.fromCharCode(64 + parseInt(optIdx + 1))}</span>
+                            <span class="text-xs md:text-sm font-semibold text-slate-800 dark:text-slate-200">${optText}</span>
                         </div>
                     `;
                     container.appendChild(card);
@@ -936,17 +757,15 @@
                 this.updateFlagElementState();
                 this.renderLiveSidebarMetrics();
             },
-
             registerSelectedOption(optIdx) {
                 const idx = AppState.data.currentQuestionIndex;
                 AppState.data.userAnswers[idx] = optIdx;
                 AppState.save();
                 this.renderWorkspaceCurrentQuestion();
                 if (idx < EXAM_DATABASE.length - 1) {
-                    setTimeout(() => { if (AppState.data.currentQuestionIndex === idx) this.navigateQuestions(1); }, 200);
+                    setTimeout(() => { if (AppState.data.currentQuestionIndex === idx) this.navigateQuestions(1); }, 250);
                 }
             },
-
             navigateQuestions(direction) {
                 const target = AppState.data.currentQuestionIndex + direction;
                 if (target >= 0 && target < EXAM_DATABASE.length) {
@@ -955,7 +774,6 @@
                     this.renderWorkspaceCurrentQuestion();
                 }
             },
-
             jumpToQuestionIndex(target) {
                 if (target >= 0 && target < EXAM_DATABASE.length) {
                     AppState.data.currentQuestionIndex = target;
@@ -963,14 +781,12 @@
                     this.renderWorkspaceCurrentQuestion();
                 }
             },
-
             toggleFlagCurrentQuestion() {
                 const idx = AppState.data.currentQuestionIndex;
                 AppState.data.flaggedQuestions[idx] = !AppState.data.flaggedQuestions[idx];
                 AppState.save();
                 this.renderWorkspaceCurrentQuestion();
             },
-
             updateFlagElementState() {
                 const idx = AppState.data.currentQuestionIndex;
                 const isFlagged = AppState.data.flaggedQuestions[idx];
@@ -981,28 +797,31 @@
                     text.innerText = isFlagged ? "В закладках" : "Отметить";
                 }
             },
-
             renderLiveSidebarMetrics() {
                 const answered = AppState.data.userAnswers.filter(a => a !== null).length;
                 const total = EXAM_DATABASE.length;
                 const pct = Math.round((answered / total) * 100);
 
-                document.getElementById('sidebar-txt-answered').innerText = answered;
-                document.getElementById('sidebar-txt-percent').innerText = `${pct}%`;
-                document.getElementById('sidebar-progress-bar').style.width = `${pct}%`;
+                const ansNode = document.getElementById('sidebar-txt-answered');
+                if(ansNode) ansNode.innerText = answered;
+                const pctNode = document.getElementById('sidebar-txt-percent');
+                if(pctNode) pctNode.innerText = `${pct}%`;
+                const barNode = document.getElementById('sidebar-progress-bar');
+                if(barNode) barNode.style.width = `${pct}%`;
 
-                // Калькуляция модульных счетчиков
-                let mCount = [0, 0, 0, 0];
+                // Обновление счетчиков модулей в боковом меню
+                let modCounts = [0,0,0,0];
                 AppState.data.userAnswers.forEach((ans, i) => {
                     if (ans !== null) {
-                        if (i < 25) mCount[0]++;
-                        else if (i < 50) mCount[1]++;
-                        else if (i < 75) mCount[2]++;
-                        else mCount[3]++;
+                        if (i < 25) modCounts[0]++;
+                        else if (i < 50) modCounts[1]++;
+                        else if (i < 75) modCounts[2]++;
+                        else modCounts[3]++;
                     }
                 });
-                for(let k=0; k<4; k++) {
-                    document.getElementById(`sidebar-mod-total-${k}`).innerText = `${mCount[k]}/25`;
+                for(let m=0; m<4; m++) {
+                    const el = document.getElementById(`sidebar-mod-total-${m}`);
+                    if(el) el.innerText = `${modCounts[m]}/25`;
                 }
 
                 const matrix = document.getElementById('sidebar-grid-matrix');
@@ -1011,18 +830,17 @@
                     EXAM_DATABASE.forEach((q, i) => {
                         const cell = document.createElement('button');
                         cell.onclick = () => this.jumpToQuestionIndex(i);
-                        let style = "p-1.5 rounded-lg text-[11px] font-mono font-bold border text-center ";
+                        let style = "p-1 rounded text-[10px] font-mono font-bold border text-center ";
                         if (AppState.data.currentQuestionIndex === i) style += "bg-slate-900 text-white dark:bg-white dark:text-vue-dark border-slate-900";
-                        else if (AppState.data.flaggedQuestions[i]) style += "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950/40 dark:text-amber-400";
-                        else if (AppState.data.userAnswers[i] !== null) style += "bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200 border-transparent";
-                        else style += "bg-white text-slate-300 dark:bg-vue-surface border-slate-100 dark:border-slate-800";
+                        else if (AppState.data.flaggedQuestions[i]) style += "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-900/60";
+                        else if (AppState.data.userAnswers[i] !== null) style += "bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-300 border-transparent";
+                        else style += "bg-white text-slate-300 dark:bg-vue-surface dark:border-slate-800/80";
                         cell.className = style;
                         cell.innerText = q.id;
                         matrix.appendChild(cell);
                     });
                 }
             },
-
             startCountdownTimer() {
                 if (this.timerInterval) clearInterval(this.timerInterval);
                 const node = document.getElementById('header-timer');
@@ -1040,7 +858,6 @@
                     if(node) node.innerText = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
                 }, 1000);
             },
-
             bindSearchAndHotkeys() {
                 document.getElementById('sidebar-search-input')?.addEventListener('input', e => {
                     const num = parseInt(e.target.value);
@@ -1052,21 +869,18 @@
                     if (e.key === "ArrowLeft") this.navigateQuestions(-1);
                 });
             },
-
             terminateExamSessionByUser() {
-                if (confirm("Вы действительно хотите завершить тестирование и сформировать финальный бланк баллов?")) {
+                if (confirm("Вы действительно хотите завершить тестирование и зафиксировать финальный балл?")) {
                     this.executeAutoSubmissionAndTerminate();
                 }
             },
-
             executeAutoSubmissionAndTerminate() {
                 clearInterval(this.timerInterval);
-                ProctoringModule.stopStream();
                 AppState.data.isExamFinished = true;
                 AppState.data.isExamActive = false;
                 AppState.save();
                 AppRouter.switchView('view-skeleton');
-                setTimeout(() => AnalyticsModule.renderDashboardResults(), 600);
+                setTimeout(() => AnalyticsModule.renderDashboardResults(), 400);
             }
         };
 
@@ -1092,45 +906,28 @@
                 const spent = 3600 - AppState.data.timeLeftInSeconds;
                 document.getElementById('res-meta-time-spent').innerText = `${Math.floor(spent/60)} мин`;
                 document.getElementById('res-meta-avg-time').innerText = `${correct > 0 ? Math.round(spent/correct) : 0} сек`;
-                document.getElementById('res-meta-completion-rate').innerText = `${Math.round(((correct + wrong)/100)*100)}%`;
+                document.getElementById('res-meta-completion-rate').innerText = `${correct + wrong}%`;
                 document.getElementById('res-meta-violations').innerText = AppState.data.securityViolationsCount;
 
                 document.getElementById('res-svg-circle-fill').style.strokeDashoffset = 263.89 - (263.89 * correct) / 100;
 
-                // Генерация умной аналитической карты по баллам
-                if (correct >= 80) {
-                    document.getElementById('res-txt-strength').innerText = "Высочайший уровень владения языковым ядром. Демонстрируете безупречное понимание синтаксических формул, превосходный академический лексический аппарат и высокую критическую точность обработки аудиопотоков.";
-                    document.getElementById('res-txt-weakness').innerText = "Критические зоны отсутствуют. Выявлены лишь незначительные точечные флуктуации внимания при прохождении контекстных ловушек Reading блока.";
-                    document.getElementById('res-txt-roadmap').innerText = "Профиль успешно верифицирован прокторингом со статусом SECURE. Рекомендуется подача документов на международную языковую сертификацию высших порядков.";
-                } else if (correct >= 50) {
-                    document.getElementById('res-txt-strength').innerText = "Стабильное владение базовыми и продвинутыми структурами уровня B2. Хорошо развиты навыки линейного чтения контекста.";
-                    document.getElementById('res-txt-weakness').innerText = "Выявлены системные пробелы в узкоспециализированных инверсионных синтаксических структурах (C1/C2) и комплексном лексическом аудите.";
-                    document.getElementById('res-txt-roadmap').innerText = "Рекомендуется пройти точечный разбор инверсий и расширить матрицу академического вокабуляра через платформу Damu Academy.";
-                } else {
-                    document.getElementById('res-txt-strength').innerText = "Выявлено фрагментарное понимание базовых грамматических форм начального уровня.";
-                    document.getElementById('res-txt-weakness').innerText = "Критически низкая точность во всех суб-модулях. Трудности в восприятии нелинейных текстов и академического аудиопотока.";
-                    document.getElementById('res-txt-roadmap').innerText = "Необходим полный перезапуск базового языкового цикла. Рекомендуется очный разбор модулей с куратором.";
-                }
+                document.getElementById('res-txt-strength').innerText = correct >= 60 ? "Высокая концентрация, сильное аналитическое и логическое мышление при разборе комплексных структур." : "Базовое общее понимание лексико-синтаксических паттернов.";
+                document.getElementById('res-txt-weakness').innerText = wrong > 20 ? "Системные пробелы в узкоспециализированных лингвистических блоках ядра." : "Минимальные ситуативные ошибки.";
+                document.getElementById('res-txt-roadmap').innerText = "Официальные аналитические баллы успешно зафиксированы в архиве системы DAMU Assessment. Для поддержания уровня рекомендуется регулярная практика.";
 
                 this.injectAccuracyBarChart(breakdown);
             },
-
             injectAccuracyBarChart(data) {
                 const ctx = document.getElementById('res-analytics-chart').getContext('2d');
                 if (this.chartInstance) this.chartInstance.destroy();
                 this.chartInstance = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['Syntax Systems', 'Lexical Matrix', 'Reading Block', 'Listening Stream'],
+                        labels: ['Syntax', 'Lexical', 'Reading', 'Listening'],
                         datasets: [{
-                            data: [
-                                Math.round(data.Grammar.c/25*100), 
-                                Math.round(data.Vocabulary.c/25*100), 
-                                Math.round(data.Reading.c/25*100), 
-                                Math.round(data.Listening.c/25*100)
-                            ],
-                            backgroundColor: ['#0f172a', '#2563eb', '#10b981', '#f59e0b'],
-                            borderRadius: 12
+                            data: [Math.round(data.Grammar.c/25*100), Math.round(data.Vocabulary.c/25*100), Math.round(data.Reading.c/25*100), Math.round(data.Listening.c/25*100)],
+                            backgroundColor: ['#0f172a', '#334155', '#64748b', '#94a3b8'],
+                            borderRadius: 6
                         }]
                     },
                     options: { 
