@@ -3,50 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAMU ACADEMY — Инновационная Платформа Английского Языка</title>
+    <title>DAMU ACADEMY — Премиальное онлайн-обучение английскому языку</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
-        /* --- ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ И ПРЕМИУМ СТИЛИ --- */
+        /* --- ДИЗАЙН-СИСТЕМА И ПЕРЕМЕННЫЕ (APPLE + DUOLINGO PREMIUM) --- */
         :root {
-            --primary: #c1272d;
-            --primary-hover: #9e1e23;
-            --dark: #111111;
-            --light: #ffffff;
-            --gray-light: #f8f9fa;
-            --gray-border: #e9ecef;
-            --text-muted: #6c757d;
-            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --primary: #c1272d;           /* Фирменный красный цвет DAMU */
+            --primary-hover: #a31f24;     /* Глубокий красный для ховеров */
+            --primary-light: rgba(193, 39, 45, 0.05);
+            --bg-white: #ffffff;          /* Абсолютно белый фон */
+            --bg-soft: #f5f5f7;           /* Светло-серый премиальный тон */
+            --bg-card-hover: #fafafa;
+            --text-dark: #1d1d1f;         /* Глубокий графитовый (Apple style) */
+            --text-medium: #424245;       /* Благородный серый */
+            --text-muted: #86868b;        /* Светло-серый для описаний */
+            --border-color: #e8e8ed;      /* Тонкие аккуратные границы */
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --font-main: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
+            --transition-premium: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             --transition-fast: all 0.25s ease;
         }
 
+        /* --- БАЗОВЫЕ НАСТРОЙКИ СТРАНИЦЫ --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
             scroll-behavior: smooth;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            font-family: var(--font-main);
         }
 
         body {
-            background-color: var(--light);
-            color: var(--dark);
+            background-color: var(--bg-white);
             overflow-x: hidden;
         }
 
         .container {
-            width: 90%;
-            max-width: 1240px;
+            width: 100%;
+            max-width: 1280px;
             margin: 0 auto;
+            padding: 0 24px;
         }
 
-        /* Классы для анимации при скролле */
+        section {
+            padding: 120px 0;
+            background-color: var(--bg-white);
+            position: relative;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- АНИМАЦИИ ПРИ СКРОЛЛЕ --- */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
-            transition: var(--transition-smooth);
+            transform: translateY(40px);
+            transition: var(--transition-premium);
         }
 
         .reveal.active {
@@ -54,617 +86,586 @@
             transform: translateY(0);
         }
 
-        /* --- ШАПКА И НАВИГАЦИЯ --- */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* --- ПРЕМИАЛЬНЫЕ КНОПКИ --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.1px;
+            transition: var(--transition-premium);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--bg-white);
+            box-shadow: 0 4px 20px rgba(193, 39, 45, 0.15);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(193, 39, 45, 0.25);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-soft);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-white);
+            border-color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        /* --- СТИЛИ ЗАГОЛОВКОВ --- */
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 70px auto;
+        }
+
+        .section-header span {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        /* --- 1. ШАПКА САЙТА (HEADER) --- */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(232, 232, 237, 0.5);
             transition: var(--transition-fast);
         }
 
-        .nav-wrapper {
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            z-index: 1100;
         }
 
         .logo img {
-            height: 48px;
-            display: block;
+            height: 42px;
             object-fit: contain;
         }
 
-        .nav-desktop {
+        .nav-menu {
             display: flex;
-            list-style: none;
             align-items: center;
-            gap: 35px;
+            list-style: none;
+            gap: 24px;
         }
 
-        .nav-desktop a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
+        .nav-item a {
             font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 500;
+            color: var(--text-medium);
             transition: var(--transition-fast);
+            position: relative;
+            padding: 8px 0;
         }
 
-        .nav-desktop a:hover:not(.btn-nav) {
+        .nav-item a:hover {
             color: var(--primary);
         }
 
-        .btn-nav {
-            background: var(--dark);
-            color: var(--light) !important;
-            padding: 12px 26px;
-            border-radius: 50px;
-            font-weight: 700 !important;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .header-actions {
+            display: flex;
+            align-items: center;
         }
 
-        .btn-nav:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(193, 39, 45, 0.3);
+        .header-actions .btn {
+            padding: 10px 24px;
+            font-size: 14px;
         }
 
-        /* Бургер Кнопка */
+        /* ГАМБУРГЕР КНОПКА */
         .hamburger {
             display: none;
             flex-direction: column;
             justify-content: space-between;
-            width: 28px;
-            height: 18px;
+            width: 24px;
+            height: 16px;
             background: transparent;
             border: none;
             cursor: pointer;
-            z-index: 2000;
+            z-index: 1100;
+            padding: 0;
         }
 
         .hamburger span {
             width: 100%;
-            height: 2.5px;
-            background-color: var(--dark);
-            border-radius: 4px;
+            height: 2px;
+            background-color: var(--text-dark);
+            border-radius: 2px;
             transition: var(--transition-fast);
             transform-origin: left;
         }
 
         .hamburger.active span:nth-child(1) { transform: rotate(45deg); }
-        .hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg); }
 
-        /* Полноэкранное Мобильное Меню */
-        .mobile-overlay {
+        /* ВЫЕЗЖАЮЩЕЕ МЕНЮ СПРАВА */
+        .mobile-menu-overlay {
             position: fixed;
             top: 0;
-            left: 0;
-            width: 100vw;
+            right: 0;
+            width: 100%;
             height: 100vh;
-            background: var(--light);
-            z-index: 1500;
+            background-color: rgba(255, 255, 255, 0.98);
+            z-index: 1050;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
+            padding: 40px;
             transform: translateX(100%);
-            transition: var(--transition-smooth);
+            transition: var(--transition-premium);
         }
 
-        .mobile-overlay.active {
-            transform: translateX(0);
-        }
+        .mobile-menu-overlay.active { transform: translateX(0); }
 
-        .mobile-menu {
+        .mobile-nav-list {
             list-style: none;
-            text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 24px;
         }
 
-        .mobile-menu a {
-            text-decoration: none;
-            color: var(--dark);
-            font-size: 32px;
-            font-weight: 800;
-            text-transform: uppercase;
+        .mobile-nav-item a {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
             transition: var(--transition-fast);
         }
 
-        .mobile-menu a:hover {
-            color: var(--primary);
-            padding-left: 10px;
-        }
+        .mobile-nav-item a:hover { color: var(--primary); }
 
-        /* --- ГЛАВНЫЙ ЭКРАН (HERO) --- */
+        /* --- 2. HERO SECTION --- */
         .hero {
-            padding: 180px 0 100px 0;
-            min-height: 95vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            background: radial-gradient(circle at 90% 10%, rgba(193, 39, 45, 0.03) 0%, transparent 40%);
+            padding-top: 140px;
+            padding-bottom: 80px;
+            overflow: hidden;
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 60px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
             align-items: center;
         }
 
+        .hero-content { position: relative; z-index: 2; }
+
         .hero-content h1 {
-            font-size: 64px;
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -1px;
-            margin-bottom: 25px;
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .hero-content h1 span {
-            color: var(--primary);
-            position: relative;
-        }
+        .hero-content h1 span { color: var(--primary); }
 
         .hero-content p {
             font-size: 18px;
-            color: var(--text-muted);
-            line-height: 1.7;
+            line-height: 1.6;
+            color: var(--text-medium);
             margin-bottom: 40px;
-            max-width: 600px;
+            max-width: 540px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
         }
 
-        .hero-actions {
+        .hero-btns {
             display: flex;
-            gap: 20px;
+            gap: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
 
-        .btn-main {
-            display: inline-block;
-            padding: 18px 38px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 16px;
-            text-decoration: none;
-            transition: var(--transition-smooth);
-            border: 2px solid transparent;
-        }
+        .hero-image-wrapper { position: relative; display: flex; justify-content: center; align-items: center; }
 
-        .btn-main-primary {
-            background: var(--primary);
-            color: var(--light);
-            box-shadow: 0 10px 30px rgba(193, 39, 45, 0.25);
-        }
-
-        .btn-main-primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(193, 39, 45, 0.4);
-        }
-
-        .btn-main-secondary {
-            background: transparent;
-            color: var(--dark);
-            border-color: var(--dark);
-        }
-
-        .btn-main-secondary:hover {
-            background: var(--dark);
-            color: var(--light);
-            transform: translateY(-4px);
-        }
-
-        .hero-visual {
-            position: relative;
-            display: flex;
-            justify-content: center;
-        }
-
-        .main-sphere {
-            width: 420px;
-            height: 420px;
-            background: var(--gray-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--gray-border);
-            position: relative;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .main-sphere i {
-            font-size: 130px;
-            color: var(--primary);
-        }
-
-        .badge-floating {
+        .hero-bg-logo {
             position: absolute;
-            background: var(--light);
-            padding: 15px 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 120%;
+            height: 120%;
+            opacity: 0.04;
+            z-index: 1;
+            pointer-events: none;
+            object-fit: contain;
+            animation: parallaxFloat 12s ease-in-out infinite;
+        }
+
+        .hero-card {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 440px;
+            transform: rotate(1deg);
+            animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+            transition: var(--transition-premium);
+        }
+
+        .hero-card:hover {
+            transform: scale(1.03) rotate(0deg);
+            box-shadow: 0 30px 60px rgba(193, 39, 45, 0.08);
+            border-color: rgba(193, 39, 45, 0.2);
+        }
+
+        .hero-card-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+
+        .hero-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-weight: 700;
-            font-size: 14px;
-            animation: floatReverse 5s ease-in-out infinite;
-        }
-
-        .b-1 { top: 40px; left: -30px; }
-        .b-2 { bottom: 40px; right: -20px; }
-
-        .badge-floating i {
+            justify-content: center;
             font-size: 20px;
-            color: #ffc107;
         }
 
-        /* --- ИНТЕРАКТИВНЫЙ ТЕСТ (QUIZ SECTION) --- */
+        .hero-card h3 { font-size: 20px; font-weight: 700; color: var(--text-dark); }
+        .hero-card p { font-size: 15px; color: var(--text-medium); line-height: 1.5; }
+
+        .hero-stats {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item h4 { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .stat-item p { font-size: 13px; color: var(--text-muted); }
+
+        @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes parallaxFloat {
+            0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+            50% { transform: translateY(-20px) scale(1.05) rotate(3deg); }
+        }
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(60px) rotate(4deg); }
+            to { opacity: 1; transform: translateY(0) rotate(1deg); }
+        }
+
+        /* --- ИНТЕРАКТИВНЫЙ ТЕСТ И АНАЛИЗАТОР УРОВНЯ --- */
         .quiz-section {
-            padding: 120px 0;
-            background: var(--gray-light);
-            border-top: 1px solid var(--gray-border);
-            border-bottom: 1px solid var(--gray-border);
+            background-color: var(--bg-soft);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .quiz-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--light);
-            border-radius: 32px;
+        .quiz-card-box {
+            background-color: var(--bg-white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
             padding: 50px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.04);
-            border: 1px solid var(--gray-border);
+            max-width: 840px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
             position: relative;
             overflow: hidden;
         }
 
-        .quiz-progress {
-            height: 6px;
-            width: 100%;
-            background: var(--gray-border);
+        .quiz-timeline {
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: var(--border-color);
         }
 
-        .quiz-progress-bar {
+        .quiz-timeline-bar {
             height: 100%;
             width: 0%;
-            background: var(--primary);
-            transition: width 0.4s ease;
+            background-color: var(--primary);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .quiz-step {
-            display: none;
-        }
+        .quiz-node { display: none; }
+        .quiz-node.active { display: block; animation: nodeIn 0.5s ease forwards; }
 
-        .quiz-step.active {
-            display: block;
-            animation: fadeIn 0.5s ease forwards;
-        }
+        .quiz-node h3 { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--text-dark); }
 
-        .quiz-question {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 30px;
-            margin-top: 15px;
+        .quiz-input-group { margin-bottom: 30px; }
+        .quiz-input-group input {
+            width: 100%;
+            padding: 18px 24px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--border-color);
+            font-size: 16px;
+            font-family: var(--font-main);
+            color: var(--text-dark);
+            transition: var(--transition-fast);
         }
+        .quiz-input-group input:focus { border-color: var(--primary); }
 
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .option-btn {
-            background: var(--light);
-            border: 2px solid var(--gray-border);
-            padding: 20px 25px;
-            border-radius: 16px;
+        .quiz-variants { display: flex; flex-direction: column; gap: 14px; }
+        .variant-btn {
+            width: 100%;
+            background-color: var(--bg-white);
+            border: 2px solid var(--border-color);
+            padding: 18px 24px;
+            border-radius: var(--radius-md);
             text-align: left;
             font-size: 16px;
             font-weight: 600;
+            color: var(--text-dark);
             cursor: pointer;
             transition: var(--transition-fast);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+        .variant-btn:hover { background-color: var(--bg-soft); border-color: var(--text-dark); }
+        .variant-btn.selected { border-color: var(--primary); background-color: var(--primary-light); color: var(--primary); }
 
-        .option-btn:hover {
-            border-color: var(--dark);
-            background: var(--gray-light);
-        }
-
-        .option-btn.selected {
-            border-color: var(--primary);
-            background: rgba(193, 39, 45, 0.03);
-            color: var(--primary);
-        }
-
-        /* Экран результатов и Сертификат */
-        .result-screen {
-            text-align: center;
-        }
-
-        .certificate-box {
-            background: white;
-            border: 10px double var(--dark);
+        /* Дизайн Сертификата */
+        .certificate-wrapper {
+            border: 8px double var(--text-dark);
             padding: 40px;
             margin: 30px auto;
-            max-width: 650px;
+            max-width: 680px;
+            background-color: var(--bg-white);
             position: relative;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            text-align: center;
         }
-
-        .certificate-box::before {
+        .certificate-wrapper::before {
             content: '';
             position: absolute;
-            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            top: 4px; left: 4px; right: 4px; bottom: 4px;
             border: 2px solid var(--primary);
             pointer-events: none;
         }
+        .cert-header-title { font-size: 26px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        .cert-subtitle { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-top: 14px; }
+        .cert-user { font-size: 24px; font-weight: 700; color: var(--text-dark); border-bottom: 2px solid var(--border-color); display: inline-block; padding: 4px 30px; margin: 20px 0; }
+        .cert-level-display { font-size: 34px; font-weight: 800; color: var(--text-dark); margin: 15px 0; }
+        .cert-discount-info { font-size: 14px; font-weight: 600; color: var(--text-medium); margin-top: 10px; }
+        .cert-coupon { background-color: var(--primary); color: white; display: inline-block; padding: 10px 24px; font-weight: 700; border-radius: 6px; margin-top: 20px; letter-spacing: 0.5px; font-size: 14px; }
 
-        .cert-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            color: var(--primary);
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 20px;
+        .cert-utility-btns { display: flex; justify-content: center; gap: 16px; margin-top: 32px; }
+        .cert-utility-btns .btn { padding: 14px 28px; font-size: 14px; }
+
+        @keyframes nodeIn { from { opacity: 0; transform: scale(0.99) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        /* --- 3. О КУРСЕ --- */
+        .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .about-card { background-color: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 48px 36px; transition: var(--transition-premium); }
+        .about-card:hover { border-color: transparent; background-color: var(--bg-soft); transform: translateY(-8px); }
+        .about-icon { width: 64px; height: 64px; border-radius: var(--radius-md); background-color: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 32px; transition: var(--transition-fast); }
+        .about-card:hover .about-icon { background-color: var(--primary); color: var(--bg-white); }
+        .about-card h3 { font-size: 22px; font-weight: 700; color: var(--text-dark); margin-bottom: 16px; }
+        .about-card p { font-size: 15px; color: var(--text-medium); line-height: 1.6; }
+
+        /* --- 4. ПРОГРАММА ОБУЧЕНИЯ --- */
+        .program-grid { display: flex; flex-direction: column; gap: 20px; max-width: 900px; margin: 0 auto; }
+        .program-card { background-color: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 30px 40px; display: grid; grid-template-columns: 0.8fr 1.5fr 1fr; align-items: center; gap: 24px; cursor: pointer; transition: var(--transition-premium); }
+        .program-card:hover { transform: scale(1.025); border-color: var(--primary); box-shadow: 0 15px 35px rgba(193, 39, 45, 0.05); }
+        .prog-badge { font-size: 14px; font-weight: 700; color: var(--primary); background-color: var(--primary-light); padding: 8px 16px; border-radius: 30px; display: inline-block; text-align: center; width: fit-content; }
+        .program-card h3 { font-size: 22px; font-weight: 700; color: var(--text-dark); }
+        .program-card p { font-size: 15px; color: var(--text-medium); }
+
+        /* --- 5. ФУНКЦИИ КУРСА (10 ФУНКЦИЙ) --- */
+        .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .feature-item { background-color: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 32px; display: flex; gap: 24px; align-items: flex-start; transition: var(--transition-premium); }
+        .feature-item:hover { transform: translateY(-4px); border-color: rgba(193, 39, 45, 0.2); background-color: var(--bg-card-hover); }
+        .feature-mini-icon { width: 48px; height: 48px; border-radius: 50%; background-color: var(--bg-soft); color: var(--text-dark); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; transition: var(--transition-fast); }
+        .feature-item:hover .feature-mini-icon { background-color: var(--primary-light); color: var(--primary); }
+        .feature-text h3 { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+        .feature-text p { font-size: 14px; color: var(--text-medium); line-height: 1.5; }
+
+        /* --- 6. ПРЕПОДАВАТЕЛИ --- */
+        .teachers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .teacher-card { background-color: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; text-align: center; transition: var(--transition-premium); }
+        .teacher-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.02); }
+        .teacher-avatar-box { width: 120px; height: 120px; border-radius: 50%; background-color: var(--bg-soft); margin: 0 auto 24px auto; display: flex; align-items: center; justify-content: center; font-size: 42px; color: var(--text-muted); border: 2px solid var(--border-color); }
+        .teacher-card h3 { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+        .teacher-specialty { font-size: 13px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .teacher-info { font-size: 14px; color: var(--text-medium); line-height: 1.5; margin-bottom: 20px; }
+        .teacher-rating { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 14px; font-weight: 700; color: var(--text-dark); }
+        .teacher-rating i { color: #ffcc00; }
+
+        /* --- 7. ОТЗЫВЫ УЧЕНИКОВ --- */
+        .reviews-slider-container { max-width: 800px; margin: 0 auto; position: relative; overflow: hidden; padding: 20px 0; }
+        .reviews-track { display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); width: 100%; }
+        .review-slide { min-width: 100%; padding: 0 10px; box-sizing: border-box; }
+        .review-card { background-color: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 50px; text-align: center; }
+        .review-avatar { width: 80px; height: 80px; border-radius: 50%; background-color: var(--bg-soft); margin: 0 auto 20px auto; display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--text-muted); }
+        .review-stars { color: #ffcc00; margin-bottom: 16px; font-size: 14px; }
+        .review-text { font-size: 18px; line-height: 1.6; color: var(--text-dark); font-weight: 500; margin-bottom: 24px; font-style: italic; }
+        .review-author { font-size: 15px; font-weight: 700; color: var(--text-medium); }
+        .slider-controls { display: flex; justify-content: center; gap: 16px; margin-top: 40px; }
+        .slider-btn { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border-color); background-color: var(--bg-white); color: var(--text-dark); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-fast); }
+        .slider-btn:hover { border-color: var(--text-dark); background-color: var(--bg-soft); }
+
+        /* --- 8. ТАРИФЫ --- */
+        .tariffs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; align-items: flex-start; }
+        .tariff-card { background-color: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 48px 36px; position: relative; transition: var(--transition-premium); }
+        .tariff-card:hover { transform: translateY(-8px); }
+        .tariff-card.popular { border-color: var(--primary); box-shadow: 0 20px 40px rgba(193, 39, 45, 0.04); }
+        .popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background-color: var(--primary); color: var(--bg-white); padding: 6px 18px; font-size: 12px; font-weight: 700; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tariff-name { font-size: 22px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; }
+        .tariff-price { margin-bottom: 32px; }
+        .tariff-price .amount { font-size: 42px; font-weight: 800; color: var(--text-dark); letter-spacing: -1px; }
+        .tariff-price .period { font-size: 14px; color: var(--text-muted); }
+        .tariff-features { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+        .tariff-features li { font-size: 14px; color: var(--text-medium); display: flex; align-items: center; gap: 12px; }
+        .tariff-features i { color: var(--primary); font-size: 14px; }
+        .tariff-card .btn { width: 100%; }
+
+        /* --- 9. FAQ ИСПРАВЛЕННЫЙ И ОПТИМИЗИРОВАННЫЙ --- */
+        .faq-wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+        .faq-item { border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background-color: var(--bg-white); transition: var(--transition-fast); }
+        .faq-trigger { width: 100%; padding: 24px 32px; background-color: var(--bg-white); border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 18px; font-weight: 600; color: var(--text-dark); transition: var(--transition-fast); }
+        .faq-trigger:hover { background-color: var(--bg-soft); }
+        
+        .faq-icon-box { width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-soft); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-dark); transition: var(--transition-premium); }
+        .faq-item.active .faq-icon-box { transform: rotate(180deg); background-color: var(--primary); color: var(--bg-white); }
+
+        /* Контейнер обрезки без внутренних отступов */
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1); background-color: var(--bg-white); }
+        /* Изолированный контейнер с отступами для корректного подсчета высоты */
+        .faq-content-inner { padding: 4px 32px 24px 32px; }
+        .faq-content-inner p { font-size: 15px; line-height: 1.6; color: var(--text-medium); }
+
+        /* --- 10. ФУТЕР (FOOTER) --- */
+        footer { background-color: var(--bg-white); border-top: 1px solid var(--border-color); padding: 80px 0 40px 0; }
+        .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 0.8fr 1.2fr; gap: 40px; margin-bottom: 60px; }
+        .footer-info p { font-size: 14px; line-height: 1.6; color: var(--text-medium); margin-top: 20px; max-width: 260px; }
+        .footer-logo img { height: 38px; object-fit: contain; }
+        .footer-col h4 { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dark); margin-bottom: 24px; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-links a { font-size: 14px; color: var(--text-medium); transition: var(--transition-fast); }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-contacts p { font-size: 14px; color: var(--text-medium); margin-bottom: 12px; }
+        .footer-socials { display: flex; gap: 12px; margin-top: 20px; }
+        .social-link { width: 40px; height: 40px; border-radius: 50%; background-color: var(--bg-soft); color: var(--text-medium); display: flex; align-items: center; justify-content: center; font-size: 16px; transition: var(--transition-fast); }
+        .social-link:hover { background-color: var(--primary); color: var(--bg-white); transform: translateY(-2px); }
+        .footer-bottom { border-top: 1px solid var(--border-color); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .footer-bottom p { font-size: 13px; color: var(--text-muted); }
+
+        /* СТИЛИ ПЕЧАТИ ДЛЯ ИДЕАЛЬНОГО PDF СЕРТИФИКАТА */
+        @media print {
+            body * { display: none !important; }
+            #certificate-print-zone, #certificate-print-zone * { display: block !important; }
+            #certificate-print-zone { position: absolute; left: 0; top: 0; width: 100%; border: none !important; }
+            .certificate-wrapper { border: 10px double #111 !important; box-shadow: none !important; }
+            .cert-utility-btns { display: none !important; }
         }
 
-        .cert-name {
-            font-size: 22px;
-            font-weight: 700;
-            border-bottom: 2px solid var(--dark);
-            display: inline-block;
-            padding: 5px 30px;
-            margin: 15px 0;
+        /* --- АДАПТИВНОСТЬ --- */
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 60px; text-align: center; }
+            .hero-content p { margin-left: auto; margin-right: auto; }
+            .hero-btns { justify-content: center; }
+            .hero-image-wrapper { order: -1; }
+            .hero-card { margin: 0 auto; transform: none; }
+            .about-grid { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: 1fr; }
+            .teachers-grid { grid-template-columns: repeat(2, 1fr); }
+            .tariffs-grid { grid-template-columns: 1fr; max-width: 450px; margin: 0 auto; gap: 40px; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        .cert-level {
-            font-size: 38px;
-            font-weight: 900;
-            color: var(--dark);
-            margin: 15px 0;
-        }
-
-        .promo-badge {
-            background: var(--primary);
-            color: white;
-            display: inline-block;
-            padding: 10px 20px;
-            font-weight: 800;
-            border-radius: 6px;
-            margin-top: 20px;
-            letter-spacing: 1px;
-        }
-
-        .cert-actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .btn-cert {
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            transition: var(--transition-fast);
-        }
-
-        .btn-download { background: var(--dark); color: white; }
-        .btn-share { background: #007bff; color: white; }
-        .btn-download:hover, .btn-share:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        /* --- КАРТА (MAP SECTION) --- */
-        .map-section {
-            padding: 100px 0;
-            background: var(--light);
-        }
-
-        .map-wrapper {
-            width: 100%;
-            height: 480px;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-            border: 1px solid var(--gray-border);
-        }
-
-        /* Стильный фильтр для придания карте дизайнерского черно-белого вида */
-        .map-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            filter: grayscale(100%) invert(92%) contrast(95%);
-        }
-
-        /* --- ПРЕМИАЛЬНЫЙ ФУТЕР --- */
-        footer {
-            background: var(--dark);
-            color: var(--light);
-            padding: 80px 0 30px 0;
-            border-top: 4px solid var(--primary);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .footer-col h3 {
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-            color: var(--primary);
-        }
-
-        .footer-col p {
-            color: #a0a0a0;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .footer-logo img {
-            height: 40px;
-            margin-bottom: 20px;
-            filter: brightness(0) invert(1);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #a0a0a0;
-            text-decoration: none;
-            font-size: 14px;
-            transition: var(--transition-fast);
-        }
-
-        .footer-links a:hover {
-            color: var(--light);
-            padding-left: 5px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            width: 40px;
-            height: 40px;
-            background: #222;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--light);
-            text-decoration: none;
-            transition: var(--transition-fast);
-        }
-
-        .social-icons a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .newsletter-form {
-            display: flex;
-            margin-top: 15px;
-        }
-
-        .newsletter-form input {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            background: #222;
-            color: white;
-            border-radius: 8px 0 0 8px;
-            font-size: 14px;
-        }
-
-        .newsletter-form button {
-            background: var(--primary);
-            border: none;
-            color: white;
-            padding: 0 25px;
-            border-radius: 0 8px 8px 0;
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-
-        .newsletter-form button:hover {
-            background: var(--primary-hover);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #222;
-            padding-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: #666;
-        }
-
-        /* --- АНИМАЦИИ КЛЮЧЕВЫХ КАДРОВ --- */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        @keyframes floatReverse {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* --- АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА --- */
-        @media (max-width: 992px) {
-            .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-            .hero-content h1 { font-size: 44px; }
-            .hero-actions { justify-content: center; }
-            .main-sphere { width: 300px; height: 300px; margin: 0 auto; }
-            .main-sphere i { font-size: 90px; }
-            .nav-desktop { display: none; }
+        @media (max-width: 768px) {
+            section { padding: 80px 0; }
+            .section-header h2 { font-size: 30px; }
+            .hero-content h1 { font-size: 38px; }
+            .nav-menu, .header-actions { display: none; }
             .hamburger { display: flex; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .quiz-container { padding: 30px 20px; }
-        }
-
-        @media (max-width: 576px) {
-            .hero-actions { flex-direction: column; }
+            .about-grid { grid-template-columns: 1fr; }
+            .program-card { grid-template-columns: 1fr; text-align: center; padding: 30px; }
+            .prog-badge { margin: 0 auto; }
+            .teachers-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+            .review-card { padding: 30px 20px; }
             .footer-grid { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
-            .cert-actions { flex-direction: column; }
-            .certificate-box { padding: 20px 10px; }
-            .cert-level { font-size: 28px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .quiz-card-box { padding: 30px 20px; }
+            .certificate-wrapper { padding: 20px 10px; }
+            .cert-level-display { font-size: 26px; }
         }
     </style>
 </head>
 <body>
 
     <header id="header">
-        <div class="container nav-wrapper">
+        <div class="container header-container">
             <a href="#" class="logo">
-                <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU ACADEMY">
+                <img src="image_2cf79d.png" alt="DAMU ACADEMY">
             </a>
-            <ul class="nav-desktop">
-                <li><a href="#about">О нас</a></li>
-                <li><a href="#test">Определить Уровень</a></li>
-                <li><a href="#map">Контакты</a></li>
-                <li><a href="#test" class="btn-nav">Пройти Тест</a></li>
+            
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#">Главная</a></li>
+                <li class="nav-item"><a href="#about">О курсе</a></li>
+                <li class="nav-item"><a href="#program">Программа</a></li>
+                <li class="nav-item"><a href="#teachers">Преподаватели</a></li>
+                <li class="nav-item"><a href="#reviews">Отзывы</a></li>
+                <li class="nav-item"><a href="#tariffs">Тарифы</a></li>
+                <li class="nav-item"><a href="#faq">Контакты</a></li>
             </ul>
-            <button class="hamburger" id="menu-btn">
+
+            <div class="header-actions">
+                <a href="#analyzer-zone" class="btn btn-primary">Пройти тест</a>
+            </div>
+
+            <button class="hamburger" id="hamburger-toggle" aria-label="Открыть меню">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -672,265 +673,632 @@
         </div>
     </header>
 
-    <div class="mobile-overlay" id="mobile-menu">
-        <ul class="mobile-menu">
-            <li><a href="#about" class="m-link">О нас</a></li>
-            <li><a href="#test" class="m-link">Пройти Тест</a></li>
-            <li><a href="#map" class="m-link">Контакты</a></li>
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item"><a href="#" class="mobile-link">Главная</a></li>
+            <li class="mobile-nav-item"><a href="#about" class="mobile-link">О курсе</a></li>
+            <li class="mobile-nav-item"><a href="#program" class="mobile-link">Программа</a></li>
+            <li class="mobile-nav-item"><a href="#teachers" class="mobile-link">Преподаватели</a></li>
+            <li class="mobile-nav-item"><a href="#reviews" class="mobile-link">Отзывы</a></li>
+            <li class="mobile-nav-item"><a href="#tariffs" class="mobile-link">Тарифы</a></li>
+            <li class="mobile-nav-item"><a href="#faq" class="mobile-link">Контакты</a></li>
         </ul>
     </div>
 
-    <section class="hero" id="about">
+    <section class="hero">
+        <img src="image_2cf79d.png" alt="DAMU Background" class="hero-bg-logo">
         <div class="container hero-grid">
             <div class="hero-content">
-                <h1>Умное Обучение в <span>DAMU ACADEMY</span></h1>
-                <p>Мы создали систему, объединяющую классическое образование и геймифицированные интерактивные тесты. Узнай свой уровень английского языка прямо сейчас, забери персональный сертификат и гарантированную скидку на обучение!</p>
-                <div class="hero-actions">
-                    <a href="#test" class="btn-main btn-main-primary">Сдать Тест</a>
-                    <a href="#map" class="btn-main btn-main-secondary">Где мы находимся?</a>
+                <h1>Английский язык, который открывает <span>новые возможности</span></h1>
+                <p>Изучайте английский с современной системой обучения, интерактивной практикой и всесторонней поддержкой опытных преподавателей.</p>
+                <div class="hero-btns">
+                    <a href="#analyzer-zone" class="btn btn-primary">Начать бесплатно</a>
+                    <a href="#program" class="btn btn-secondary">Посмотреть программу</a>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="main-sphere">
-                    <i class="fa-solid fa-flag-usa"></i>
-                    <div class="badge-floating b-1"><i class="fa-solid fa-star"></i> Interactive Quiz</div>
-                    <div class="badge-floating b-2"><i class="fa-solid fa-graduation-cap"></i> Cambridge Ed.</div>
+            <div class="hero-image-wrapper">
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <div class="hero-card-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div>
+                            <h3>DAMU Метод</h3>
+                            <p>Интерактив и фокус на результат</p>
+                        </div>
+                    </div>
+                    <p>Наша платформа сочетает лучшие мировые EdTech практики, позволяя заговорить на английском уверенно уже через несколько недель регулярных занятий.</p>
+                    <div class="hero-stats">
+                        <div class="stat-item"><h4>98%</h4><p>Успешных кейсов</p></div>
+                        <div class="stat-item"><h4>12 тыс+</h4><p>Студентов</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="analyzer-zone" class="quiz-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span>Тестирование</span>
+                <h2>Определите свой уровень</h2>
+            </div>
+
+            <div class="quiz-card-box">
+                <div class="quiz-timeline"><div class="quiz-timeline-bar" id="quiz-progress-bar"></div></div>
+
+                <div class="quiz-node active" id="node-0">
+                    <h3>Как к вам обращаться?</h3>
+                    <p style="color: var(--text-medium); margin-bottom: 20px;">Введите ваше имя для автоматического формирования именного сертификата соответствия CEFR.</p>
+                    <div class="quiz-input-group">
+                        <input type="text" id="username-field" placeholder="Ваше имя и фамилия">
+                    </div>
+                    <button class="btn btn-primary" onclick="initQuiz()">Начать тест</button>
+                </div>
+
+                <div class="quiz-node" id="node-1">
+                    <h3>Вопрос 1: "I ___ coffee every morning before work."</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" onclick="forwardQuiz(0, this)"><span>drink</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" onclick="forwardQuiz(0, this)"><span>drinks</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" onclick="forwardQuiz(1, this)"><span>am drinking</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node" id="node-2">
+                    <h3>Вопрос 2: "If I had known about the meeting, I ___."</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" onclick="forwardQuiz(0, this)"><span>will come</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" onclick="forwardQuiz(1, this)"><span>would have come</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" onclick="forwardQuiz(0, this)"><span>came</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node" id="node-3">
+                    <h3>Вопрос 3: Выберите синоним к слову "Meticulous":</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" onclick="finishQuiz(0, this)"><span>Lazy</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" onclick="finishQuiz(1, this)"><span>Careful and precise</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" onclick="finishQuiz(0, this)"><span>Very fast</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node text-center" id="node-result">
+                    <div id="certificate-print-zone">
+                        <div class="certificate-wrapper">
+                            <div class="cert-header-title">Damu Academy Certificate</div>
+                            <div class="cert-subtitle">Настоящий документ подтверждает, что</div>
+                            <div class="cert-user" id="rendered-name">Студент</div>
+                            <div class="cert-subtitle">успешно прошёл комплексный языковой анализ и подтвердил уровень:</div>
+                            <div class="cert-level-display" id="rendered-level">B1 (Intermediate)</div>
+                            <div class="cert-discount-info">Вам начислена персональная скидка на любой курс обучения</div>
+                            <div class="cert-coupon" id="rendered-promo">PROMO: DAMU-B1-2026</div>
+                        </div>
+                    </div>
+                    <div class="cert-utility-btns">
+                        <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-file-pdf" style="margin-right: 8px;"></i> Сохранить в PDF / Печать</button>
+                        <button class="btn btn-secondary" onclick="triggerShare()"><i class="fa-solid fa-share-nodes" style="margin-right: 8px;"></i> Поделиться результатом</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <span>О платформе</span>
+                <h2>Инновационный подход к обучению</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-card reveal delay-1">
+                    <div class="about-icon"><i class="fa-solid fa-circle-question"></i></div>
+                    <h3>Почему DAMU?</h3>
+                    <p>Мы отказались от скучных учебников в пользу геймификации, разговорных сессий и адаптивной программы, которая подстраивается под ваш личный темп.</p>
+                </div>
+                <div class="about-card reveal delay-2">
+                    <div class="about-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3>Кому подойдет?</h3>
+                    <p>Студентам, школьникам и амбициозным специалистам, стремящимся сдать международные экзамены, переехать за границу или получить престижную работу.</p>
+                </div>
+                <div class="about-card reveal delay-3">
+                    <div class="about-icon"><i class="fa-solid fa-award"></i></div>
+                    <h3>Ваш результат</h3>
+                    <p>Преодоление языкового барьера, чистая грамматика, расширенный словарный запас и официальный сертификат, подтверждающий ваш новый уровень.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="quiz-section" id="test">
+    <section id="program">
         <div class="container">
-            <div style="text-align: center; margin-bottom: 50px;">
-                <h2 style="font-size: 36px; font-weight: 900; text-transform: uppercase;">Анализатор Уровня Языка</h2>
-                <p style="color: var(--text-muted); margin-top: 10px;">Ответьте на 3 вопроса, чтобы мгновенно сформировать сертификат со скидкой</p>
+            <div class="section-header reveal">
+                <span>Шаги к успеху</span>
+                <h2>Уровни обучения программы</h2>
             </div>
-
-            <div class="quiz-container">
-                <div class="quiz-progress">
-                    <div class="quiz-progress-bar" id="progress"></div>
+            <div class="program-grid">
+                <div class="program-card reveal delay-1">
+                    <div class="prog-badge">Уровень A1</div>
+                    <h3>Beginner</h3>
+                    <p>Базовые фразы, алфавит, умение строить простейшие предложения и понимать медленную речь.</p>
                 </div>
-
-                <div class="quiz-step active" id="step-0">
-                    <h3 class="quiz-question">Как вас зовут? (Для именного сертификата)</h3>
-                    <input type="text" id="student-name" placeholder="Введите ваше имя" style="width: 100%; padding: 18px; border-radius: 12px; border: 2px solid var(--gray-border); font-size: 16px; font-weight: 600; margin-bottom: 25px; outline: none;">
-                    <button class="btn-main btn-main-primary" onclick="startQuiz()" style="width: 100%; border:none; cursor:pointer;">Начать Анализ</button>
+                <div class="program-card reveal delay-2">
+                    <div class="prog-badge">Уровень A2</div>
+                    <h3>Elementary</h3>
+                    <p>Бытовые темы, простое общение в путешествиях, понимание базовой грамматики и времен.</p>
                 </div>
-
-                <div class="quiz-step" id="step-1">
-                    <h3 class="quiz-question">1. Choose the correct form: "She ___ to the cinema yesterday."</h3>
-                    <div class="quiz-options">
-                        <button class="option-btn" onclick="nextStep(0)">go</button>
-                        <button class="option-btn" onclick="nextStep(1)">went</button>
-                        <button class="option-btn" onclick="nextStep(0)">has gone</button>
-                    </div>
+                <div class="program-card reveal delay-3">
+                    <div class="prog-badge">Уровень B1</div>
+                    <h3>Pre-Intermediate</h3>
+                    <p>Свободное обсуждение знакомых тем, просмотр блогов и легких фильмов с субтитрами.</p>
                 </div>
-
-                <div class="quiz-step" id="step-2">
-                    <h3 class="quiz-question">2. Complete the sentence: "If it rains tomorrow, we ___ at home."</h3>
-                    <div class="quiz-options">
-                        <button class="option-btn" onclick="nextStep(0)">stay</button>
-                        <button class="option-btn" onclick="nextStep(0)">would stay</button>
-                        <button class="option-btn" onclick="nextStep(1)">will stay</button>
-                    </div>
+                <div class="program-card reveal delay-4">
+                    <div class="prog-badge">Уровень B2</div>
+                    <h3>Intermediate</h3>
+                    <p>Уверенное выражение мыслей, ведение переписки, чтение адаптированной литературы.</p>
                 </div>
-
-                <div class="quiz-step" id="step-3">
-                    <h3 class="quiz-question">3. What is the antonym of the word "Generous"?</h3>
-                    <div class="quiz-options">
-                        <button class="option-btn" onclick="calculateResult(1)">Stingy</button>
-                        <button class="option-btn" onclick="calculateResult(0)">Kind</button>
-                        <button class="option-btn" onclick="calculateResult(0)">Lazy</button>
-                    </div>
+                <div class="program-card reveal">
+                    <div class="prog-badge">Уровень C1</div>
+                    <h3>Upper-Intermediate</h3>
+                    <p>Свободный беглый язык, обсуждение сложных профессиональных тем, подготовка к IELTS/TOEFL.</p>
                 </div>
-
-                <div class="quiz-step result-screen" id="step-result">
-                    <h3 style="font-size: 28px; font-weight: 800; color: #28a745;"><i class="fa-solid fa-circle-check"></i> Анализ завершен!</h3>
-                    <p style="color: var(--text-muted); margin-top: 5px;">Ваш персональный документ успешно сгенерирован системой</p>
-                    
-                    <div class="certificate-box" id="certificate">
-                        <div class="cert-title">Damu Academy Certificate</div>
-                        <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted);">Настоящим подтверждается, что</p>
-                        <div class="cert-name" id="cert-user-name">Студент</div>
-                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">прошел независимый тест и показал уровень знания языка:</p>
-                        <div class="cert-level" id="cert-user-level">B1 (Intermediate)</div>
-                        <div style="margin: 20px 0; border-top: 1px dashed var(--gray-border);"></div>
-                        <p style="font-size: 13px; font-weight: 600;">Бонус за прохождение: Грант-скидка 20% на любой курс</p>
-                        <div class="promo-badge" id="cert-promo">PROMO: DAMU-B1-2026</div>
-                    </div>
-
-                    <div class="cert-actions">
-                        <button class="btn-cert btn-download" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i> Скачать PDF / Печать</button>
-                        <button class="btn-cert btn-share" onclick="shareCert()"><i class="fa-solid fa-share-nodes"></i> Поделиться результатом</button>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <section class="map-section" id="map">
+    <section id="features">
         <div class="container">
-            <div class="reveal" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-size: 32px; font-weight: 900; text-transform: uppercase;">Где нас найти?</h2>
-                <p style="color: var(--text-muted); margin-top: 10px;">Ждем вас в нашем современном кампусе</p>
+            <div class="section-header reveal">
+                <span>Экосистема</span>
+                <h2>10 ключевых преимуществ DAMU</h2>
             </div>
-            <div class="map-wrapper reveal">
-                <iframe src="https://www.google.com/maps/embed?pb=!11m18!1m12!1m3!1d2564.7972418449176!2d69.1145!3d54.8667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424346bc!2z0JrQsNC30LDRhdGB0YLQsNC9!5e0!3m2!1sru!2skz!4v1710000000000!5m2!1sru!2skz" allowfullscreen="" loading="lazy"></iframe>
+            <div class="features-grid">
+                <div class="feature-item reveal delay-1">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-video"></i></div>
+                    <div class="feature-text">
+                        <h3>Онлайн-уроки с преподавателем</h3>
+                        <p>Индивидуальные и групповые живые сессии на нашей удобной платформе.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal delay-2">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <div class="feature-text">
+                        <h3>Интерактивные задания</h3>
+                        <p>Специальные упражнения в стиле лучших приложений для закрепления материала.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal delay-3">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-user-check"></i></div>
+                    <div class="feature-text">
+                        <h3>Проверка домашней работы</h3>
+                        <p>Детальный разбор ваших ответов экспертами с подробными рекомендациями.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal delay-4">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-comments"></i></div>
+                    <div class="feature-text">
+                        <h3>Разговорный клуб Speaking Club</h3>
+                        <p>Регулярная языковая практика со сверстниками и носителями языка.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-laptop"></i></div>
+                    <div class="feature-text">
+                        <h3>Личный кабинет ученика</h3>
+                        <p>Удобное расписание, баланс занятий, библиотека материалов в одном месте.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="feature-text">
+                        <h3>Отслеживание прогресса</h3>
+                        <p>Наглядная аналитика вашего роста знаний с искусственным интеллектом.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-paste"></i></div>
+                    <div class="feature-text">
+                        <h3>Тестирование уровня</h3>
+                        <p>Регулярные срезы знаний для точного контроля усвоения пройденных тем.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-clock"></i></div>
+                    <div class="feature-text">
+                        <h3>Видео-уроки 24/7</h3>
+                        <p>Доступ к записанной базе знаний и лекциям в абсолютно любое время суток.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-certificate"></i></div>
+                    <div class="feature-text">
+                        <h3>Сертификат после окончания курса</h3>
+                        <p>Документ, подтверждающий ваш уровень по общеевропейским стандартам CEFR.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-headset"></i></div>
+                    <div class="feature-text">
+                        <h3>Поддержка куратора</h3>
+                        <p>Персональный наставник всегда на связи, чтобы ответить на любые ваши вопросы.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="teachers">
+        <div class="container">
+            <div class="section-header reveal">
+                <span>Команда</span>
+                <h2>Ваши наставники</h2>
+            </div>
+            <div class="teachers-grid">
+                <div class="teacher-card reveal delay-1">
+                    <div class="teacher-avatar-box"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3>Александр Вернер</h3>
+                    <div class="teacher-specialty">Опыт: 8 лет</div>
+                    <p class="teacher-info">Сертифицированный преподаватель CELTA. Эксперт по подготовке к международному экзамену IELTS.</p>
+                    <div class="teacher-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                </div>
+                <div class="teacher-card reveal delay-2">
+                    <div class="teacher-avatar-box"><i class="fa-solid fa-user-nurse"></i></div>
+                    <h3>Эмили Кларк</h3>
+                    <div class="teacher-specialty">Носитель языка (США)</div>
+                    <p class="teacher-info">Специализируется на американском произношении, живой разговорной речи и бизнес-английском.</p>
+                    <div class="teacher-rating"><i class="fa-solid fa-star"></i> 5.0</div>
+                </div>
+                <div class="teacher-card reveal delay-3">
+                    <div class="teacher-avatar-box"><i class="fa-solid fa-user-graduate"></i></div>
+                    <h3>Диана Ахметова</h3>
+                    <div class="teacher-specialty">Опыт: 5 лет</div>
+                    <p class="teacher-info">Магистр лингвистики. Разработала уникальную авторскую методику быстрого запоминания слов.</p>
+                    <div class="teacher-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews">
+        <div class="container">
+            <div class="section-header reveal">
+                <span>Истории успеха</span>
+                <h2>Отзывы наших студентов</h2>
+            </div>
+            
+            <div class="reviews-slider-container reveal">
+                <div class="reviews-track" id="reviews-track">
+                    <div class="review-slide">
+                        <div class="review-card">
+                            <div class="review-avatar"><i class="fa-solid fa-face-smile"></i></div>
+                            <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="review-text">"Занимаюсь на платформе DAMU уже 3 месяца. Очень нравится формат интерактивных заданий, это безумно затягивает. Мой английский поднялся с абсолютного нуля до уверенного Elementary!"</p>
+                            <div class="review-author">Аружан Маратова</div>
+                        </div>
+                    </div>
+                    <div class="review-slide">
+                        <div class="review-card">
+                            <div class="review-avatar"><i class="fa-solid fa-face-smile-beam"></i></div>
+                            <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="review-text">"Благодаря разговорным клубам я наконец-то перестала бояться говорить на английском. Большое спасибо преподавателям за поддержку и крутую атмосферу на каждом занятии."</p>
+                            <div class="review-author">Екатерина Ким</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prev-btn" aria-label="Назад"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="slider-btn" id="next-btn" aria-label="Вперед"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tariffs">
+        <div class="container">
+            <div class="section-header reveal">
+                <span>Инвестиция в будущее</span>
+                <h2>Тарифные планы</h2>
+            </div>
+            <div class="tariffs-grid">
+                <div class="tariff-card reveal delay-1">
+                    <div class="tariff-name">Start</div>
+                    <div class="tariff-price"><span class="amount">19 900 ₸</span><span class="period"> / мес</span></div>
+                    <ul class="tariff-features">
+                        <li><i class="fa-solid fa-check"></i> Доступ к видео-урокам</li>
+                        <li><i class="fa-solid fa-check"></i> Интерактивная платформа</li>
+                        <li><i class="fa-solid fa-check"></i> Автоматические тесты</li>
+                        <li style="opacity: 0.4;"><i class="fa-solid fa-xmark" style="color: var(--text-muted);"></i> Speaking club</li>
+                    </ul>
+                    <button class="btn btn-secondary">Выбрать тариф</button>
+                </div>
+                
+                <div class="tariff-card popular reveal delay-2">
+                    <div class="popular-badge">Популярный</div>
+                    <div class="tariff-name">Standard</div>
+                    <div class="tariff-price"><span class="amount">34 900 ₸</span><span class="period"> / мес</span></div>
+                    <ul class="tariff-features">
+                        <li><i class="fa-solid fa-check"></i> Доступ к видео-урокам</li>
+                        <li><i class="fa-solid fa-check"></i> Интерактивная платформа</li>
+                        <li><i class="fa-solid fa-check"></i> Проверка домашних заданий</li>
+                        <li><i class="fa-solid fa-check"></i> Разговорный клуб (4/мес)</li>
+                    </ul>
+                    <button class="btn btn-primary">Выбрать тариф</button>
+                </div>
+
+                <div class="tariff-card reveal delay-3">
+                    <div class="tariff-name">Premium</div>
+                    <div class="tariff-price"><span class="amount">59 900 ₸</span><span class="period"> / мес</span></div>
+                    <ul class="tariff-features">
+                        <li><i class="fa-solid fa-check"></i> Все функции Standard</li>
+                        <li><i class="fa-solid fa-check"></i> Безлимитный Speaking Club</li>
+                        <li><i class="fa-solid fa-check"></i> Личный куратор на связи</li>
+                        <li><i class="fa-solid fa-check"></i> 4 индивидуальных урока</li>
+                    </ul>
+                    <button class="btn btn-secondary">Выбрать тариф</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container">
+            <div class="section-header reveal">
+                <span>Вопросы и ответы</span>
+                <h2>Часто задаваемые вопросы</h2>
+            </div>
+            <div class="faq-wrapper">
+                <div class="faq-item reveal">
+                    <button class="faq-trigger">
+                        <span>Как проходит обучение?</span>
+                        <div class="faq-icon-box"><i class="fa-solid fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Обучение проходит полностью в онлайн-формате на интерактивной IT-платформе DAMU. Вы изучаете видео-уроки, выполняете практические геймифицированные задания и посещаете разговорные клубы.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-trigger">
+                        <span>Сколько длится курс?</span>
+                        <div class="faq-icon-box"><i class="fa-solid fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Средняя продолжительность прохождения одного полноценного уровня владения языком составляет от 2 до 4 месяцев в зависимости от выбранного темпа и регулярности ваших занятий.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-trigger">
+                        <span>Можно ли учиться с телефона?</span>
+                        <div class="faq-icon-box"><i class="fa-solid fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Да, наша образовательная платформа на 100% оптимизирована и адаптирована под любые мобильные устройства. Вы можете комфортно учиться прямо со своего смартфона в дороге или дома.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-trigger">
+                        <span>Есть ли пробный урок?</span>
+                        <div class="faq-icon-box"><i class="fa-solid fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Конечно! Вы можете зарегистрироваться на платформе и бесплатно получить доступ к первому ознакомительному модулю курса, чтобы оценить удобство нашей экосистемы.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container footer-grid">
-            <div class="footer-col">
-                <div class="footer-logo">
+            <div class="footer-col footer-info">
+                <a href="#" class="footer-logo">
                     <img src="image_2cf79d.png" alt="DAMU ACADEMY">
-                </div>
-                <p>Мы меняем представление о языковом образовании, превращая обучение в увлекательное технологичное путешествие.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                </div>
+                </a>
+                <p>Современное интеллектуальное пространство для изучения английского языка студентами по всему миру.</p>
             </div>
             <div class="footer-col">
-                <h3>Навигация</h3>
+                <h4>Навигация</h4>
                 <ul class="footer-links">
-                    <li><a href="#about">О компании</a></li>
-                    <li><a href="#test">Анализатор уровня</a></li>
-                    <li><a href="#map">Наш адрес</a></li>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#about">О курсе</a></li>
+                    <li><a href="#program">Программа</a></li>
+                    <li><a href="#tariffs">Тарифы</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h3>Поддержка</h3>
+                <h4>Помощь</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Задать вопрос</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                     <li><a href="#">Политика конфиденциальности</a></li>
-                    <li><a href="#">Условия обучения</a></li>
+                    <li><a href="#">Публичная оферта</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h3>Будь в курсе событий</h3>
-                <p>Подпишись на наши полезные материалы и лайфхаки по изучению английского.</p>
-                <div class="newsletter-form">
-                    <input type="email" placeholder="Ваш Email">
-                    <button><i class="fa-solid fa-paper-plane"></i></button>
+                <h4>Контакты</h4>
+                <div class="footer-contacts">
+                    <p>support@damu.edu</p>
+                    <p>+7 (777) 123-45-67</p>
+                </div>
+                <div class="footer-socials">
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#" class="social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
         <div class="container footer-bottom">
-            <div>© 2026 DAMU ACADEMY. Все права защищены.</div>
-            <div>Designed with ❤️ для будущих лидеров</div>
+            <p>© 2026 DAMU ACADEMY. Все права защищены.</p>
+            <p>Designed with absolute quality</p>
         </div>
     </footer>
 
     <script>
-        // --- 1. Мобильное Бургер Меню ---
-        const menuBtn = document.getElementById('menu-btn');
+        // --- 1. Мобильное Бургер-Меню ---
+        const hamburger = document.getElementById('hamburger-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        const mLinks = document.querySelectorAll('.m-link');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        menuBtn.addEventListener('click', () => {
-            menuBtn.classList.toggle('active');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         });
 
-        mLinks.forEach(link => {
+        mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
-                menuBtn.classList.remove('active');
+                hamburger.classList.remove('active');
                 mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                document.body.style.overflow = '';
             });
         });
 
-        // --- 2. Логика Интерактивного Теста (Квиза) ---
-        let currentStep = 0;
-        let score = 0;
-        let userName = "Студент";
+        // --- 2. Раскрывающийся FAQ (ИСПРАВЛЕННЫЙ АЛГОРИТМ) ---
+        const faqItems = document.querySelectorAll('.faq-item');
 
-        function updateProgress() {
-            const totalSteps = 3;
-            const percentage = currentStep > 0 ? ((currentStep - 1) / totalSteps) * 100 : 0;
-            document.getElementById('progress').style.width = percentage + '%';
+        faqItems.forEach(item => {
+            const trigger = item.querySelector('.faq-trigger');
+            const content = item.querySelector('.faq-content');
+
+            trigger.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Сначала закрываем все остальные аккордеоны
+                faqItems.forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-content').style.maxHeight = null;
+                });
+
+                // Если текущий аккордеон не был активен, то открываем его
+                if (!isActive) {
+                    item.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+
+        // --- 3. ЛОГИКА ТЕСТИРОВАНИЯ И СЕРТИФИКАТА ---
+        let currentQuizNode = 0;
+        let quizScore = 0;
+        let candidateName = "Студент";
+
+        function refreshQuizProgress() {
+            const totalQuestions = 3;
+            const progressPercent = currentQuizNode > 0 ? ((currentQuizNode - 1) / totalQuestions) * 100 : 0;
+            document.getElementById('quiz-progress-bar').style.width = progressPercent + '%';
         }
 
-        function startQuiz() {
-            const nameInput = document.getElementById('student-name').value.trim();
-            if(nameInput !== "") {
-                userName = nameInput;
+        function initQuiz() {
+            const inputVal = document.getElementById('username-field').value.trim();
+            if (inputVal !== "") {
+                candidateName = inputVal;
             }
-            document.getElementById('step-0').classList.remove('active');
-            currentStep = 1;
-            document.getElementById('step-1').classList.add('active');
-            updateProgress();
+            document.getElementById('node-0').classList.remove('active');
+            currentQuizNode = 1;
+            document.getElementById('node-1').classList.add('active');
+            refreshQuizProgress();
         }
 
-        function nextStep(points) {
-            score += points;
-            document.getElementById(`step-${currentStep}`).classList.remove('active');
-            currentStep++;
-            document.getElementById(`step-${currentStep}`).add('active');
-            updateProgress();
-        }
-
-        function nextStep(points) {
-            score += points;
-            document.getElementById(`step-${currentStep}`).classList.remove('active');
-            currentStep++;
-            document.getElementById(`step-${currentStep}`).classList.add('active');
-            updateProgress();
-        }
-
-        function calculateResult(points) {
-            score += points;
-            document.getElementById(`step-${currentStep}`).classList.remove('active');
+        function forwardQuiz(points, btnElement) {
+            quizScore += points;
             
-            // Расчет уровня на основе баллов
-            let level = "A2 (Elementary)";
-            let promo = "DAMU-START-10";
-            if(score === 2) {
-                level = "B1 (Intermediate)";
-                promo = "DAMU-PRO-15";
-            } else if(score === 3) {
-                level = "B2 (Upper-Intermediate)";
-                promo = "DAMU-MAX-20";
-            }
+            // Визуальный отклик на выбор варианта
+            btnElement.classList.add('selected');
+            btnElement.querySelector('i').className = 'fa-solid fa-circle-check';
 
-            document.getElementById('cert-user-name').innerText = userName;
-            document.getElementById('cert-user-level').innerText = level;
-            document.getElementById('cert-promo').innerText = `PROMO: ${promo}`;
-
-            document.getElementById('step-result').classList.add('active');
-            document.getElementById('progress').style.width = '100%';
+            setTimeout(() => {
+                document.getElementById(`node-${currentQuizNode}`).classList.remove('active');
+                currentQuizNode++;
+                document.getElementById(`node-${currentQuizNode}`).classList.add('active');
+                refreshQuizProgress();
+            }, 350);
         }
 
-        function shareCert() {
+        function finishQuiz(points, btnElement) {
+            quizScore += points;
+            btnElement.classList.add('selected');
+            btnElement.querySelector('i').className = 'fa-solid fa-circle-check';
+
+            setTimeout(() => {
+                document.getElementById(`node-${currentQuizNode}`).classList.remove('active');
+                
+                // Определение результатов анализа
+                let calculatedLevel = "A2 (Elementary)";
+                let dynamicPromo = "DAMU-START-10";
+                
+                if (quizScore === 2) {
+                    calculatedLevel = "B1 (Intermediate)";
+                    dynamicPromo = "DAMU-PRO-15";
+                } else if (quizScore === 3) {
+                    calculatedLevel = "B2 (Upper-Intermediate)";
+                    dynamicPromo = "DAMU-MAX-20";
+                }
+
+                // Инъекция в сертификат
+                document.getElementById('rendered-name').innerText = candidateName;
+                document.getElementById('rendered-level').innerText = calculatedLevel;
+                document.getElementById('rendered-promo').innerText = `PROMO: ${dynamicPromo}`;
+
+                document.getElementById('node-result').classList.add('active');
+                document.getElementById('quiz-progress-bar').style.width = '100%';
+            }, 350);
+        }
+
+        function triggerShare() {
             if (navigator.share) {
                 navigator.share({
                     title: 'Мой результат в DAMU ACADEMY',
-                    text: `Я прошел тест и подтвердил свой уровень английского! Проверь и ты!`,
+                    text: `Я успешно подтвердил свой уровень английского языка на платформе DAMU. Пройди тест и получи скидку!`,
                     url: window.location.href
                 }).catch(console.error);
             } else {
-                alert("Ссылка скопирована! Отправьте её друзьям, чтобы поделиться вашим достижением.");
+                navigator.clipboard.writeText(window.location.href);
+                alert("Ссылка на платформу успешно скопирована в буфер обмена! Поделитесь ей с друзьями.");
             }
         }
 
-        // --- 3. Анимация появления элементов при скролле (Intersection Observer) ---
+        // --- 4. Слайдер отзывов ---
+        const track = document.getElementById('reviews-track');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const slides = document.querySelectorAll('.review-slide');
+        let slideIndex = 0;
+
+        function updateSlider() {
+            track.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            slideIndex = (slideIndex + 1) % slides.length;
+            updateSlider();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+            updateSlider();
+        });
+
+        // --- 5. Появление контента при скролле (Scroll Reveal) ---
         const revealElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('active');
+
+        function checkReveal() {
+            const triggerBottom = window.innerHeight * 0.85;
+            revealElements.forEach(el => {
+                const elTop = el.getBoundingClientRect().top;
+                if(elTop < triggerBottom) {
+                    el.classList.add('active');
                 }
             });
-        }, { threshold: 0.15 });
+        }
 
-        revealElements.forEach(el => observer.observe(el));
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', checkReveal);
     </script>
 </body>
 </html>
