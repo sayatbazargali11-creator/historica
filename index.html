@@ -16,6 +16,7 @@
             --primary: #c1272d;           /* Фирменный красный цвет DAMU */
             --primary-hover: #a31f24;     /* Глубокий красный для ховеров */
             --primary-light: rgba(193, 39, 45, 0.05);
+            --primary-glow: rgba(193, 39, 45, 0.3);
             --bg-white: #ffffff;          /* Абсолютно белый фон */
             --bg-soft: #f5f5f7;           /* Светло-серый премиальный тон */
             --bg-card-hover: #fafafa;
@@ -25,9 +26,11 @@
             --border-color: #e8e8ed;      /* Тонкие аккуратные границы */
             --radius-lg: 24px;
             --radius-md: 16px;
+            --radius-sm: 12px;
             --font-main: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
             --transition-premium: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             --transition-fast: all 0.25s ease;
+            --blur-premium: blur(20px);
         }
 
         /* --- БАЗОВЫЕ НАСТРОЙКИ СТРАНИЦЫ --- */
@@ -49,6 +52,14 @@
         body {
             background-color: var(--bg-white);
             overflow-x: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        body.modal-open {
+            overflow: hidden !important;
+            position: fixed;
+            width: 100%;
+            height: 100%;
         }
 
         .container {
@@ -91,7 +102,7 @@
         .delay-3 { transition-delay: 0.3s; }
         .delay-4 { transition-delay: 0.4s; }
 
-        /* --- ПРЕМИАЛЬНЫЕ КНОПКИ --- */
+        /* --- ПРЕМИАЛЬНЫЕ КНОПКИ С LOADING СОСТОЯНИЕМ --- */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -104,6 +115,12 @@
             transition: var(--transition-premium);
             cursor: pointer;
             border: 1px solid transparent;
+            position: relative;
+            user-select: none;
+        }
+
+        .btn:active {
+            transform: scale(0.96) translateY(0) !important;
         }
 
         .btn-primary {
@@ -128,6 +145,29 @@
             background-color: var(--bg-white);
             border-color: var(--text-dark);
             transform: translateY(-2px);
+        }
+
+        /* Состояние загрузки на кнопках */
+        .btn.loading {
+            color: transparent !important;
+            pointer-events: none;
+        }
+        .btn.loading::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-top: -10px;
+            margin-left: -10px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: btn-spin 0.6s linear infinite;
+        }
+        @keyframes btn-spin {
+            to { transform: rotate(360deg); }
         }
 
         /* --- СТИЛИ ЗАГОЛОВКОВ --- */
@@ -162,8 +202,8 @@
             left: 0;
             width: 100%;
             background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: var(--blur-premium);
+            -webkit-backdrop-filter: var(--blur-premium);
             z-index: 1000;
             border-bottom: 1px solid rgba(232, 232, 237, 0.5);
             transition: var(--transition-fast);
@@ -252,6 +292,7 @@
             width: 100%;
             height: 100vh;
             background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: var(--blur-premium);
             z-index: 1050;
             display: flex;
             flex-direction: column;
@@ -268,6 +309,7 @@
             display: flex;
             flex-direction: column;
             gap: 24px;
+            text-align: center;
         }
 
         .mobile-nav-item a {
@@ -278,6 +320,41 @@
         }
 
         .mobile-nav-item a:hover { color: var(--primary); }
+
+        /* Уведомление возврата (Аналитика) */
+        .welcome-back-banner {
+            background: linear-gradient(135deg, var(--text-dark) 0%, #2c2c2e 100%);
+            color: white;
+            padding: 14px 24px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1001;
+            margin-top: 80px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            animation: fadeInDown 0.5s ease;
+        }
+        .welcome-back-banner span strong { color: #ffcc00; }
+        .welcome-back-banner .close-banner {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: 0.2s;
+            font-size: 16px;
+        }
+        .welcome-back-banner .close-banner:hover { opacity: 1; }
+
+        @keyframes fadeInDown {
+            from { opacity:0; transform: translateY(-20px); }
+            to { opacity:1; transform: translateY(0); }
+        }
 
         /* --- 2. HERO SECTION --- */
         .hero {
@@ -454,7 +531,7 @@
             color: var(--text-dark);
             transition: var(--transition-fast);
         }
-        .quiz-input-group input:focus { border-color: var(--primary); }
+        .quiz-input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
 
         .quiz-variants { display: flex; flex-direction: column; gap: 14px; }
         .variant-btn {
@@ -476,34 +553,70 @@
         .variant-btn:hover { background-color: var(--bg-soft); border-color: var(--text-dark); }
         .variant-btn.selected { border-color: var(--primary); background-color: var(--primary-light); color: var(--primary); }
 
-        /* Дизайн Сертификата */
-        .certificate-wrapper {
-            border: 8px double var(--text-dark);
-            padding: 40px;
-            margin: 30px auto;
-            max-width: 680px;
-            background-color: var(--bg-white);
-            position: relative;
+        /* НОВЫЙ КРАСИВЫЙ БЛОК РЕЗУЛЬТАТА ТЕСТА (ВМЕСТО СЕРТИФИКАТА) */
+        .quiz-result-view {
             text-align: center;
+            padding: 20px 0;
         }
-        .certificate-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 4px; left: 4px; right: 4px; bottom: 4px;
-            border: 2px solid var(--primary);
-            pointer-events: none;
+        .quiz-result-header {
+            margin-bottom: 32px;
         }
-        .cert-header-title { font-size: 26px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
-        .cert-subtitle { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-top: 14px; }
-        .cert-user { font-size: 24px; font-weight: 700; color: var(--text-dark); border-bottom: 2px solid var(--border-color); display: inline-block; padding: 4px 30px; margin: 20px 0; }
-        .cert-level-display { font-size: 34px; font-weight: 800; color: var(--text-dark); margin: 15px 0; }
-        .cert-discount-info { font-size: 14px; font-weight: 600; color: var(--text-medium); margin-top: 10px; }
-        .cert-coupon { background-color: var(--primary); color: white; display: inline-block; padding: 10px 24px; font-weight: 700; border-radius: 6px; margin-top: 20px; letter-spacing: 0.5px; font-size: 14px; }
-
-        .cert-utility-btns { display: flex; justify-content: center; gap: 16px; margin-top: 32px; }
-        .cert-utility-btns .btn { padding: 14px 28px; font-size: 14px; }
-
-        @keyframes nodeIn { from { opacity: 0; transform: scale(0.99) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .quiz-result-header i {
+            font-size: 54px;
+            color: #24b47e;
+            margin-bottom: 16px;
+            animation: scalePulse 1.5s infinite ease-in-out;
+        }
+        @keyframes scalePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .quiz-result-header h4 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+        .quiz-result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto 40px auto;
+        }
+        .result-meta-card {
+            background-color: var(--bg-soft);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-fast);
+        }
+        .result-meta-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--text-muted);
+        }
+        .result-meta-card .label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .result-meta-card .value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .result-meta-card.highlighted {
+            grid-column: span 2;
+            background: var(--primary-light);
+            border-color: rgba(193, 39, 45, 0.2);
+        }
+        .result-meta-card.highlighted .value {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 800;
+        }
 
         /* --- 3. О КУРСЕ --- */
         .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
@@ -522,7 +635,7 @@
         .program-card h3 { font-size: 22px; font-weight: 700; color: var(--text-dark); }
         .program-card p { font-size: 15px; color: var(--text-medium); }
 
-        /* --- 5. ФУНКЦИИ КУРСА (10 ФУНКЦИЙ) --- */
+        /* --- 5. ФУНКЦИИ КУРСА --- */
         .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .feature-item { background-color: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 32px; display: flex; gap: 24px; align-items: flex-start; transition: var(--transition-premium); }
         .feature-item:hover { transform: translateY(-4px); border-color: rgba(193, 39, 45, 0.2); background-color: var(--bg-card-hover); }
@@ -555,6 +668,40 @@
         .slider-btn { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border-color); background-color: var(--bg-white); color: var(--text-dark); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-fast); }
         .slider-btn:hover { border-color: var(--text-dark); background-color: var(--bg-soft); }
 
+        /* --- 7.5. ПРОФЕССИОНАЛЬНЫЙ СТА БЛОК --- */
+        .cta-premium-section {
+            background: linear-gradient(135deg, #1d1d1f 0%, #000000 100%);
+            color: var(--bg-white);
+            padding: 90px 0;
+            overflow: hidden;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .cta-premium-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        .cta-premium-content h2 {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .cta-premium-content p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            line-height: 1.5;
+        }
+        .cta-premium-box .btn-primary {
+            box-shadow: 0 10px 30px rgba(193, 39, 45, 0.4);
+            flex-shrink: 0;
+        }
+
         /* --- 8. ТАРИФЫ --- */
         .tariffs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; align-items: flex-start; }
         .tariff-card { background-color: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 48px 36px; position: relative; transition: var(--transition-premium); }
@@ -570,20 +717,121 @@
         .tariff-features i { color: var(--primary); font-size: 14px; }
         .tariff-card .btn { width: 100%; }
 
-        /* --- 9. FAQ ИСПРАВЛЕННЫЙ И ОПТИМИЗИРОВАННЫЙ --- */
-        .faq-wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
-        .faq-item { border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background-color: var(--bg-white); transition: var(--transition-fast); }
-        .faq-trigger { width: 100%; padding: 24px 32px; background-color: var(--bg-white); border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 18px; font-weight: 600; color: var(--text-dark); transition: var(--transition-fast); }
+        /* --- 9. СОВРЕМЕННЫЙ FAQ С КАТЕГОРИЯМИ И ПОИСКОМ --- */
+        .faq-section {
+            background-color: var(--bg-soft);
+            border-top: 1px solid var(--border-color);
+        }
+        .faq-search-wrapper {
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            position: relative;
+        }
+        .faq-search-wrapper i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+        .faq-search-input {
+            width: 100%;
+            padding: 16px 20px 16px 54px;
+            font-family: var(--font-main);
+            font-size: 15px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            transition: var(--transition-fast);
+        }
+        .faq-search-input:focus {
+            border-color: var(--text-dark);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .faq-category-btn {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .faq-category-btn:hover {
+            background-color: var(--bg-soft);
+            color: var(--text-dark);
+        }
+        .faq-category-btn.active {
+            background-color: var(--text-dark);
+            color: var(--bg-white);
+            border-color: var(--text-dark);
+        }
+        .faq-wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; min-height: 150px; }
+        .faq-item { 
+            border: 1px solid var(--border-color); 
+            border-radius: var(--radius-md); 
+            overflow: hidden; 
+            background-color: var(--bg-white); 
+            transition: var(--transition-fast); 
+        }
+        .faq-item.hidden-by-filter {
+            display: none !important;
+        }
+        .faq-trigger { 
+            width: 100%; 
+            padding: 24px 32px; 
+            background-color: var(--bg-white); 
+            border: none; 
+            text-align: left; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-weight: 600; 
+            color: var(--text-dark); 
+            transition: var(--transition-fast); 
+        }
         .faq-trigger:hover { background-color: var(--bg-soft); }
         
-        .faq-icon-box { width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-soft); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-dark); transition: var(--transition-premium); }
+        .faq-icon-box { 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%; 
+            background-color: var(--bg-soft); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 14px; 
+            color: var(--text-dark); 
+            transition: var(--transition-premium); 
+        }
         .faq-item.active .faq-icon-box { transform: rotate(180deg); background-color: var(--primary); color: var(--bg-white); }
+        .faq-item .faq-icon-box i::before { content: "\f067"; } /* Плюс по умолчанию */
+        .faq-item.active .faq-icon-box i::before { content: "\f068"; } /* Минус при открытии */
 
-        /* Контейнер обрезки без внутренних отступов */
         .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1); background-color: var(--bg-white); }
-        /* Изолированный контейнер с отступами для корректного подсчета высоты */
         .faq-content-inner { padding: 4px 32px 24px 32px; }
         .faq-content-inner p { font-size: 15px; line-height: 1.6; color: var(--text-medium); }
+        
+        .faq-empty-state {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            display: none;
+            font-size: 15px;
+        }
 
         /* --- 10. ФУТЕР (FOOTER) --- */
         footer { background-color: var(--bg-white); border-top: 1px solid var(--border-color); padding: 80px 0 40px 0; }
@@ -601,14 +849,138 @@
         .footer-bottom { border-top: 1px solid var(--border-color); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; }
         .footer-bottom p { font-size: 13px; color: var(--text-muted); }
 
-        /* СТИЛИ ПЕЧАТИ ДЛЯ ИДЕАЛЬНОГО PDF СЕРТИФИКАТА */
-        @media print {
-            body * { display: none !important; }
-            #certificate-print-zone, #certificate-print-zone * { display: block !important; }
-            #certificate-print-zone { position: absolute; left: 0; top: 0; width: 100%; border: none !important; }
-            .certificate-wrapper { border: 10px double #111 !important; box-shadow: none !important; }
-            .cert-utility-btns { display: none !important; }
+        /* --- ПОП-АП ОКНА (APPLE PREMIUM MODALS) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: var(--blur-premium);
+            -webkit-backdrop-filter: var(--blur-premium);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 20px;
         }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .modal-overlay.active .modal-container {
+            transform: scale(1) translateY(0);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text-dark);
+            transition: var(--transition-fast);
+        }
+        .modal-close-btn:hover {
+            background-color: var(--text-dark);
+            color: var(--bg-white);
+        }
+        .modal-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+        .modal-subtitle {
+            font-size: 15px;
+            color: var(--text-medium);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        .modal-form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .modal-form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-medium);
+            margin-bottom: 8px;
+        }
+        .modal-form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: rgba(255,255,255,0.8);
+            font-family: var(--font-main);
+            font-size: 15px;
+            transition: var(--transition-fast);
+        }
+        .modal-form-group input:focus {
+            border-color: var(--text-dark);
+            background-color: var(--bg-white);
+        }
+        .modal-result-summary {
+            background-color: rgba(0,0,0,0.03);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        .modal-result-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            padding: 6px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .modal-result-line:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .modal-container .btn {
+            width: 100%;
+        }
+
+        /* Системные окна успеха / ошибок */
+        .status-popup-content {
+            text-align: center;
+        }
+        .status-popup-content i {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .status-popup-content i.success-icon { color: #24b47e; }
+        .status-popup-content i.error-icon { color: var(--primary); }
 
         /* --- АДАПТИВНОСТЬ --- */
         @media (max-width: 1024px) {
@@ -622,6 +994,7 @@
             .teachers-grid { grid-template-columns: repeat(2, 1fr); }
             .tariffs-grid { grid-template-columns: 1fr; max-width: 450px; margin: 0 auto; gap: 40px; }
             .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .cta-premium-box { flex-direction: column; text-align: center; }
         }
 
         @media (max-width: 768px) {
@@ -638,8 +1011,7 @@
             .footer-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
             .quiz-card-box { padding: 30px 20px; }
-            .certificate-wrapper { padding: 20px 10px; }
-            .cert-level-display { font-size: 26px; }
+            .cta-premium-content h2 { font-size: 28px; }
         }
     </style>
 </head>
@@ -650,7 +1022,6 @@
             <a href="#" class="logo">
                 <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU ACADEMY">
             </a>
-            
             <ul class="nav-menu">
                 <li class="nav-item"><a href="#">Главная</a></li>
                 <li class="nav-item"><a href="#about">О курсе</a></li>
@@ -658,20 +1029,23 @@
                 <li class="nav-item"><a href="#teachers">Преподаватели</a></li>
                 <li class="nav-item"><a href="#reviews">Отзывы</a></li>
                 <li class="nav-item"><a href="#tariffs">Тарифы</a></li>
-                <li class="nav-item"><a href="#faq">Контакты</a></li>
+                <li class="nav-item"><a href="#faq">FAQ</a></li>
             </ul>
-
             <div class="header-actions">
-                <a href="#analyzer-zone" class="btn btn-primary">Пройти тест</a>
+                <a href="#analyzer-zone" class="btn btn-primary cta-action-trigger">Пройти тест</a>
             </div>
-
-            <button class="hamburger" id="hamburger-toggle" aria-label="Открыть меню">
+            <button class="hamburger" id="hamburger-toggle" aria-label="Открыть menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
     </header>
+
+    <div class="welcome-back-banner" id="welcome-banner">
+        <span id="welcome-banner-text">С возвращением! Рады видеть вас снова.</span>
+        <button class="close-banner" id="close-welcome-banner" aria-label="Закрыть плашку"><i class="fa-solid fa-xmark"></i></button>
+    </div>
 
     <div class="mobile-menu-overlay" id="mobile-menu">
         <ul class="mobile-nav-list">
@@ -681,18 +1055,21 @@
             <li class="mobile-nav-item"><a href="#teachers" class="mobile-link">Преподаватели</a></li>
             <li class="mobile-nav-item"><a href="#reviews" class="mobile-link">Отзывы</a></li>
             <li class="mobile-nav-item"><a href="#tariffs" class="mobile-link">Тарифы</a></li>
-            <li class="mobile-nav-item"><a href="#faq" class="mobile-link">Контакты</a></li>
+            <li class="mobile-nav-item"><a href="#faq" class="mobile-link">FAQ</a></li>
+            <li class="mobile-nav-item" style="margin-top: 20px;">
+                <a href="#analyzer-zone" class="btn btn-primary mobile-link" style="color: white; font-size: 16px;">Пройти тест</a>
+            </li>
         </ul>
     </div>
 
     <section class="hero">
-        <img src="image_2cf79d.png" alt="DAMU Background" class="hero-bg-logo">
+        <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU Background" class="hero-bg-logo">
         <div class="container hero-grid">
             <div class="hero-content">
                 <h1>Английский язык, который открывает <span>новые возможности</span></h1>
                 <p>Изучайте английский с современной системой обучения, интерактивной практикой и всесторонней поддержкой опытных преподавателей.</p>
                 <div class="hero-btns">
-                    <a href="#analyzer-zone" class="btn btn-primary">Начать бесплатно</a>
+                    <a href="#analyzer-zone" class="btn btn-primary cta-action-trigger">Начать бесплатно</a>
                     <a href="#program" class="btn btn-secondary">Посмотреть программу</a>
                 </div>
             </div>
@@ -701,82 +1078,174 @@
                     <div class="hero-card-header">
                         <div class="hero-card-icon"><i class="fa-solid fa-bolt"></i></div>
                         <div>
-                            <h3>DAMU Метод</h3>
-                            <p>Интерактив и фокус на результат</p>
+                            <h3>Быстрый старт</h3>
+                            <p>Достигайте целей быстрее</p>
                         </div>
                     </div>
-                    <p>Наша платформа сочетает лучшие мировые EdTech практики, позволяя заговорить на английском уверенно уже через несколько недель регулярных занятий.</p>
+                    <p>Индивидуальная траектория, интерактивные домашние задания и разговорные клубы каждый день.</p>
                     <div class="hero-stats">
-                        <div class="stat-item"><h4>98%</h4><p>Успешных кейсов</p></div>
-                        <div class="stat-item"><h4>12 тыс+</h4><p>Студентов</p></div>
+                        <div class="stat-item">
+                            <h4>98%</h4>
+                            <p>Успешных студентов</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>12+</h4>
+                            <p>Разговорных клубов</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="analyzer-zone" class="quiz-section">
+    <section class="quiz-section" id="analyzer-zone">
         <div class="container">
             <div class="section-header reveal">
-                <span>Тестирование</span>
-                <h2>Определите свой уровень</h2>
+                <span>Интерактивный тест</span>
+                <h2>Определите свой точный уровень</h2>
             </div>
 
-            <div class="quiz-card-box">
-                <div class="quiz-timeline"><div class="quiz-timeline-bar" id="quiz-progress-bar"></div></div>
+            <div class="quiz-card-box reveal">
+                <div class="quiz-timeline">
+                    <div class="quiz-timeline-bar" id="quiz-progress"></div>
+                </div>
 
-                <div class="quiz-node active" id="node-0">
-                    <h3>Как к вам обращаться?</h3>
-                    <p style="color: var(--text-medium); margin-bottom: 20px;">Введите ваше имя для автоматического формирования именного сертификата соответствия CEFR.</p>
+                <div class="quiz-node active" id="node-step-1">
+                    <h3>Давайте познакомимся! Как вас зовут?</h3>
                     <div class="quiz-input-group">
-                        <input type="text" id="username-field" placeholder="Ваше имя и фамилия">
+                        <input type="text" id="student-name-input" placeholder="Введите ваше имя..." autocomplete="off">
                     </div>
-                    <button class="btn btn-primary" onclick="initQuiz()">Начать тест</button>
+                    <button class="btn btn-primary" id="start-quiz-btn">Начать тестирование</button>
                 </div>
 
-                <div class="quiz-node" id="node-1">
-                    <h3>Вопрос 1: "I ___ coffee every morning before work."</h3>
+                <div class="quiz-node" id="node-q1" data-correct="2">
+                    <h3>1. Выберите правильный вариант: She ___ to the gym every single day.</h3>
                     <div class="quiz-variants">
-                        <button class="variant-btn" onclick="forwardQuiz(0, this)"><span>drink</span> <i class="fa-regular fa-circle"></i></button>
-                        <button class="variant-btn" onclick="forwardQuiz(0, this)"><span>drinks</span> <i class="fa-regular fa-circle"></i></button>
-                        <button class="variant-btn" onclick="forwardQuiz(1, this)"><span>am drinking</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="1"><span>A) go</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) goes</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) going</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) gone</span> <i class="fa-regular fa-circle"></i></button>
                     </div>
                 </div>
 
-                <div class="quiz-node" id="node-2">
-                    <h3>Вопрос 2: "If I had known about the meeting, I ___."</h3>
+                <div class="quiz-node" id="node-q2" data-correct="3">
+                    <h3>2. Выберите правильный вариант: Where ___ you yesterday evening?</h3>
                     <div class="quiz-variants">
-                        <button class="variant-btn" onclick="forwardQuiz(0, this)"><span>will come</span> <i class="fa-regular fa-circle"></i></button>
-                        <button class="variant-btn" onclick="forwardQuiz(1, this)"><span>would have come</span> <i class="fa-regular fa-circle"></i></button>
-                        <button class="variant-btn" onclick="forwardQuiz(0, this)"><span>came</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="1"><span>A) was</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) are</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) were</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) did</span> <i class="fa-regular fa-circle"></i></button>
                     </div>
                 </div>
 
-                <div class="quiz-node" id="node-3">
-                    <h3>Вопрос 3: Выберите синоним к слову "Meticulous":</h3>
+                <div class="quiz-node" id="node-q3" data-correct="1">
+                    <h3>3. Выберите правильный вариант: I have been studying English ___ three years.</h3>
                     <div class="quiz-variants">
-                        <button class="variant-btn" onclick="finishQuiz(0, this)"><span>Lazy</span> <i class="fa-regular fa-circle"></i></button>
-                        <button class="variant-btn" onclick="finishQuiz(1, this)"><span>Careful and precise</span> <i class="fa-regular fa-circle"></i></button>
-                        <button class="variant-btn" onclick="finishQuiz(0, this)"><span>Very fast</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="1"><span>A) for</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) since</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) during</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) from</span> <i class="fa-regular fa-circle"></i></button>
                     </div>
                 </div>
 
-                <div class="quiz-node text-center" id="node-result">
-                    <div id="certificate-print-zone">
-                        <div class="certificate-wrapper">
-                            <div class="cert-header-title">Damu Academy Certificate</div>
-                            <div class="cert-subtitle">Настоящий документ подтверждает, что</div>
-                            <div class="cert-user" id="rendered-name">Студент</div>
-                            <div class="cert-subtitle">успешно прошёл комплексный языковой анализ и подтвердил уровень:</div>
-                            <div class="cert-level-display" id="rendered-level">B1 (Intermediate)</div>
-                            <div class="cert-discount-info">Вам начислена персональная скидка на любой курс обучения</div>
-                            <div class="cert-coupon" id="rendered-promo">PROMO: DAMU-B1-2026</div>
+                <div class="quiz-node" id="node-q4" data-correct="4">
+                    <h3>4. Выберите правильный вариант: If it ___ tomorrow, we will stay at home.</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" data-ans="1"><span>A) rain</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) will rain</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) rained</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) rains</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node" id="node-q5" data-correct="2">
+                    <h3>5. Выберите вариант: This movie is much ___ than the previous one.</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" data-ans="1"><span>A) good</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) better</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) best</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) more good</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node" id="node-q6" data-correct="3">
+                    <h3>6. Выберите вариант: You ___ wrap your signature in code blocks if required.</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" data-ans="1"><span>A) shouldn't</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) would</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) ought to</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) had rather</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node" id="node-q7" data-correct="1">
+                    <h3>7. Выберите вариант: By the time you arrive, the meeting ___ finished.</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" data-ans="1"><span>A) will have</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) is going to</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) had</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) will be</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node" id="node-q8" data-correct="3">
+                    <h3>8. Выберите правильный синоним к слову "Meticulous":</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" data-ans="1"><span>A) Careless</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) Fast</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) Thorough and careful</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) Aggressive</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node" id="node-q9" data-correct="2">
+                    <h3>9. Выберите вариант: I look forward to ___ from you soon.</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" data-ans="1"><span>A) hear</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) hearing</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) heard</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) be hearing</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node" id="node-q10" data-correct="4">
+                    <h3>10. Выберите вариант: Hardly ___ entered the room when the lights went out.</h3>
+                    <div class="quiz-variants">
+                        <button class="variant-btn" data-ans="1"><span>A) I had</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="2"><span>B) did I have</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="3"><span>C) I have</span> <i class="fa-regular fa-circle"></i></button>
+                        <button class="variant-btn" data-ans="4"><span>D) had I</span> <i class="fa-regular fa-circle"></i></button>
+                    </div>
+                </div>
+
+                <div class="quiz-node quiz-result-view" id="node-result-display">
+                    <div class="quiz-result-header">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <h4>Ваш результат готов!</h4>
+                    </div>
+                    <div class="quiz-result-grid">
+                        <div class="result-meta-card">
+                            <span class="label">Имя студента</span>
+                            <span class="value" id="res-student-name">—</span>
+                        </div>
+                        <div class="result-meta-card">
+                            <span class="label">Правильные ответы</span>
+                            <span class="value" id="res-score-count">0 / 10</span>
+                        </div>
+                        <div class="result-meta-card">
+                            <span class="label">Процент успеха</span>
+                            <span class="value" id="res-percentage">0%</span>
+                        </div>
+                        <div class="result-meta-card">
+                            <span class="label">Уровень по CEFR</span>
+                            <span class="value" id="res-cefr-level">—</span>
+                        </div>
+                        <div class="result-meta-card highlighted">
+                            <span class="label">Ваша персональная скидка</span>
+                            <span class="value" id="res-discount-value">0%</span>
                         </div>
                     </div>
-                    <div class="cert-utility-btns">
-                        <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-file-pdf" style="margin-right: 8px;"></i> Сохранить в PDF / Печать</button>
-                        <button class="btn btn-secondary" onclick="triggerShare()"><i class="fa-solid fa-share-nodes" style="margin-right: 8px;"></i> Поделиться результатом</button>
-                    </div>
+                    <button class="btn btn-primary" id="open-discount-modal-btn">Получить персональную скидку</button>
                 </div>
 
             </div>
@@ -786,173 +1255,163 @@
     <section id="about">
         <div class="container">
             <div class="section-header reveal">
-                <span>О платформе</span>
-                <h2>Инновационный подход к обучению</h2>
+                <span>Обучение будущего</span>
+                <h2>Преимущества DAMU ACADEMY</h2>
             </div>
             <div class="about-grid">
                 <div class="about-card reveal delay-1">
-                    <div class="about-icon"><i class="fa-solid fa-circle-question"></i></div>
-                    <h3>Почему DAMU?</h3>
-                    <p>Мы отказались от скучных учебников в пользу геймификации, разговорных сессий и адаптивной программы, которая подстраивается под ваш личный темп.</p>
+                    <div class="about-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3>Премиум формат</h3>
+                    <p>Занятия на ультрасовременной интерактивной платформе, разработанной по методологии лучших университетов мира.</p>
                 </div>
                 <div class="about-card reveal delay-2">
-                    <div class="about-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <h3>Кому подойдет?</h3>
-                    <p>Студентам, школьникам и амбициозным специалистам, стремящимся сдать международные экзамены, переехать за границу или получить престижную работу.</p>
+                    <div class="about-icon"><i class="fa-solid fa-comments"></i></div>
+                    <h3>Разговорная практика</h3>
+                    <p>Преодолейте языковой барьер с первой недели обучения благодаря неограниченному доступу к разговорным клубам.</p>
                 </div>
                 <div class="about-card reveal delay-3">
-                    <div class="about-icon"><i class="fa-solid fa-award"></i></div>
-                    <h3>Ваш результат</h3>
-                    <p>Преодоление языкового барьера, чистая грамматика, расширенный словарный запас и официальный сертификат, подтверждающий ваш новый уровень.</p>
+                    <div class="about-icon"><i class="fa-solid fa-user-shield"></i></div>
+                    <h3>Контроль прогресса</h3>
+                    <p>Личный куратор отслеживает каждый ваш шаг, корректирует программу и мотивирует двигаться вперед.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="program">
+    <section id="program" style="background-color: var(--bg-soft);">
         <div class="container">
             <div class="section-header reveal">
-                <span>Шаги к успеху</span>
-                <h2>Уровни обучения программы</h2>
+                <span>План развития</span>
+                <h2>Гибкая программа обучения</h2>
             </div>
             <div class="program-grid">
+                <div class="program-card reveal">
+                    <span class="prog-badge">Модуль 1</span>
+                    <h3>Основы коммуникации</h3>
+                    <p>Построение базового словарного запаса, изучение фундаментальной грамматики и простейших бытовых диалогов.</p>
+                </div>
                 <div class="program-card reveal delay-1">
-                    <div class="prog-badge">Уровень A1</div>
-                    <h3>Beginner</h3>
-                    <p>Базовые фразы, алфавит, умение строить простейшие предложения и понимать медленную речь.</p>
+                    <span class="prog-badge">Модуль 2</span>
+                    <h3>Свободное общение</h3>
+                    <p>Разбор комплексных грамматических конструкций, ведение дискуссий, подготовка к путешествиям и собеседованиям.</p>
                 </div>
                 <div class="program-card reveal delay-2">
-                    <div class="prog-badge">Уровень A2</div>
-                    <h3>Elementary</h3>
-                    <p>Бытовые темы, простое общение в путешествиях, понимание базовой грамматики и времен.</p>
-                </div>
-                <div class="program-card reveal delay-3">
-                    <div class="prog-badge">Уровень B1</div>
-                    <h3>Pre-Intermediate</h3>
-                    <p>Свободное обсуждение знакомых тем, просмотр блогов и легких фильмов с субтитрами.</p>
-                </div>
-                <div class="program-card reveal delay-4">
-                    <div class="prog-badge">Уровень B2</div>
-                    <h3>Intermediate</h3>
-                    <p>Уверенное выражение мыслей, ведение переписки, чтение адаптированной литературы.</p>
-                </div>
-                <div class="program-card reveal">
-                    <div class="prog-badge">Уровень C1</div>
-                    <h3>Upper-Intermediate</h3>
-                    <p>Свободный беглый язык, обсуждение сложных профессиональных тем, подготовка к IELTS/TOEFL.</p>
+                    <span class="prog-badge">Модуль 3</span>
+                    <h3>Бизнес и академический английский</h3>
+                    <p>Освоение деловой переписки, идиом, публичных выступлений и подготовка к сдаче международных экзаменов.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="features">
+    <section>
         <div class="container">
             <div class="section-header reveal">
                 <span>Экосистема</span>
-                <h2>10 ключевых преимуществ DAMU</h2>
+                <h2>10 ключевых функций платформы</h2>
             </div>
             <div class="features-grid">
-                <div class="feature-item reveal delay-1">
+                <div class="feature-item reveal">
                     <div class="feature-mini-icon"><i class="fa-solid fa-video"></i></div>
                     <div class="feature-text">
-                        <h3>Онлайн-уроки с преподавателем</h3>
-                        <p>Индивидуальные и групповые живые сессии на нашей удобной платформе.</p>
+                        <h3>HD Видеоуроки</h3>
+                        <p>Доступ к лекциям высокой четкости в любое удобное время с любого устройства.</p>
                     </div>
                 </div>
-                <div class="feature-item reveal delay-2">
+                <div class="feature-item reveal delay-1">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="feature-text">
+                        <h3>Умные интерактивные карточки</h3>
+                        <p>Интервальное повторение слов на основе продвинутых ИИ-алгоритмов.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <div class="feature-text">
+                        <h3>Адаптивный интерфейс</h3>
+                        <p>Идеальное отображение на смартфонах, планшетах и компьютерах.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal delay-1">
+                    <div class="feature-mini-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="feature-text">
+                        <h3>Закрытое комьюнити</h3>
+                        <p>Общение с единомышленниками, обмен опытом и взаимная поддержка студентов.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
                     <div class="feature-mini-icon"><i class="fa-solid fa-gamepad"></i></div>
                     <div class="feature-text">
-                        <h3>Интерактивные задания</h3>
-                        <p>Специальные упражнения в стиле лучших приложений для закрепления материала.</p>
+                        <h3>Геймификация</h3>
+                        <p>Зарабатывайте достижения, повышайте рейтинг и соревнуйтесь в лигах.</p>
                     </div>
                 </div>
-                <div class="feature-item reveal delay-3">
-                    <div class="feature-mini-icon"><i class="fa-solid fa-user-check"></i></div>
-                    <div class="feature-text">
-                        <h3>Проверка домашней работы</h3>
-                        <p>Детальный разбор ваших ответов экспертами с подробными рекомендациями.</p>
-                    </div>
-                </div>
-                <div class="feature-item reveal delay-4">
-                    <div class="feature-mini-icon"><i class="fa-solid fa-comments"></i></div>
-                    <div class="feature-text">
-                        <h3>Разговорный клуб Speaking Club</h3>
-                        <p>Регулярная языковая практика со сверстниками и носителями языка.</p>
-                    </div>
-                </div>
-                <div class="feature-item reveal">
-                    <div class="feature-mini-icon"><i class="fa-solid fa-laptop"></i></div>
-                    <div class="feature-text">
-                        <h3>Личный кабинет ученика</h3>
-                        <p>Удобное расписание, баланс занятий, библиотека материалов в одном месте.</p>
-                    </div>
-                </div>
-                <div class="feature-item reveal">
+                <div class="feature-item reveal delay-1">
                     <div class="feature-mini-icon"><i class="fa-solid fa-chart-line"></i></div>
                     <div class="feature-text">
-                        <h3>Отслеживание прогресса</h3>
-                        <p>Наглядная аналитика вашего роста знаний с искусственным интеллектом.</p>
+                        <h3>Глубокая аналитика</h3>
+                        <p>Еженедельные автоматические отчеты об усвоении грамматического материала.</p>
                     </div>
                 </div>
                 <div class="feature-item reveal">
-                    <div class="feature-mini-icon"><i class="fa-solid fa-paste"></i></div>
+                    <div class="feature-mini-icon"><i class="fa-solid fa-microphone"></i></div>
                     <div class="feature-text">
-                        <h3>Тестирование уровня</h3>
-                        <p>Регулярные срезы знаний для точного контроля усвоения пройденных тем.</p>
+                        <h3>Распознавание речи</h3>
+                        <p>Технологичная тренировка произношения слов внутри личного кабинета.</p>
                     </div>
                 </div>
-                <div class="feature-item reveal">
+                <div class="feature-item reveal delay-1">
                     <div class="feature-mini-icon"><i class="fa-solid fa-clock"></i></div>
                     <div class="feature-text">
-                        <h3>Видео-уроки 24/7</h3>
-                        <p>Доступ к записанной базе знаний и лекциям в абсолютно любое время суток.</p>
+                        <h3>Гибкое расписание</h3>
+                        <p>Вы сами выбираете дни и точное время для разговорных сессий.</p>
                     </div>
                 </div>
                 <div class="feature-item reveal">
-                    <div class="feature-mini-icon"><i class="fa-solid fa-certificate"></i></div>
+                    <div class="feature-mini-icon"><i class="fa-solid fa-file-invoice"></i></div>
                     <div class="feature-text">
-                        <h3>Сертификат после окончания курса</h3>
-                        <p>Документ, подтверждающий ваш уровень по общеевропейским стандартам CEFR.</p>
+                        <h3>Электронный трекер</h3>
+                        <p>Удобный визуальный календарь для закрепления привычки регулярных занятий.</p>
                     </div>
                 </div>
-                <div class="feature-item reveal">
+                <div class="feature-item reveal delay-1">
                     <div class="feature-mini-icon"><i class="fa-solid fa-headset"></i></div>
                     <div class="feature-text">
-                        <h3>Поддержка куратора</h3>
-                        <p>Персональный наставник всегда на связи, чтобы ответить на любые ваши вопросы.</p>
+                        <h3>Поддержка 24/7</h3>
+                        <p>Технические специалисты и кураторы готовы ответить на любой вопрос мгновенно.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="teachers">
+    <section id="teachers" style="background-color: var(--bg-soft);">
         <div class="container">
             <div class="section-header reveal">
-                <span>Команда</span>
+                <span>Эксперты</span>
                 <h2>Ваши наставники</h2>
             </div>
             <div class="teachers-grid">
                 <div class="teacher-card reveal delay-1">
                     <div class="teacher-avatar-box"><i class="fa-solid fa-user-tie"></i></div>
-                    <h3>Александр Вернер</h3>
-                    <div class="teacher-specialty">Опыт: 8 лет</div>
-                    <p class="teacher-info">Сертифицированный преподаватель CELTA. Эксперт по подготовке к международному экзамену IELTS.</p>
-                    <div class="teacher-rating"><i class="fa-solid fa-star"></i> 4.9</div>
-                </div>
-                <div class="teacher-card reveal delay-2">
-                    <div class="teacher-avatar-box"><i class="fa-solid fa-user-nurse"></i></div>
-                    <h3>Эмили Кларк</h3>
-                    <div class="teacher-specialty">Носитель языка (США)</div>
-                    <p class="teacher-info">Специализируется на американском произношении, живой разговорной речи и бизнес-английском.</p>
+                    <h3>Данияр Утепов</h3>
+                    <p class="teacher-specialty">Основатель / Руководитель</p>
+                    <p class="teacher-info">10+ лет опыта преподавания, сертифицированный эксперт, разработал авторские методики ускоренного освоения CEFR.</p>
                     <div class="teacher-rating"><i class="fa-solid fa-star"></i> 5.0</div>
                 </div>
-                <div class="teacher-card reveal delay-3">
-                    <div class="teacher-avatar-box"><i class="fa-solid fa-user-graduate"></i></div>
-                    <h3>Диана Ахметова</h3>
-                    <div class="teacher-specialty">Опыт: 5 лет</div>
-                    <p class="teacher-info">Магистр лингвистики. Разработала уникальную авторскую методику быстрого запоминания слов.</p>
+                <div class="teacher-card reveal delay-2">
+                    <div class="teacher-avatar-box"><i class="fa-solid fa-user-astronaut"></i></div>
+                    <h3>Алина Серикова</h3>
+                    <p class="teacher-specialty">Старший методист</p>
+                    <p class="teacher-info">Специализируется на подготовке к IELTS и TOEFL. Выпускница Кембриджских программ повышения квалификации.</p>
                     <div class="teacher-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                </div>
+                <div class="teacher-card reveal delay-3">
+                    <div class="teacher-avatar-box"><i class="fa-solid fa-user-doctor"></i></div>
+                    <h3>Джеймс Уотсон</h3>
+                    <p class="teacher-specialty">Носитель языка</p>
+                    <p class="teacher-info">Преподаватель из Лондона. Ставит безупречное британское произношение и обучает живой разговорной лексике.</p>
+                    <div class="teacher-rating"><i class="fa-solid fa-star"></i> 5.0</div>
                 </div>
             </div>
         </div>
@@ -961,147 +1420,279 @@
     <section id="reviews">
         <div class="container">
             <div class="section-header reveal">
-                <span>Истории успеха</span>
-                <h2>Отзывы наших студентов</h2>
+                <span>Результаты</span>
+                <h2>Что говорят наши студенты</h2>
             </div>
-            
             <div class="reviews-slider-container reveal">
                 <div class="reviews-track" id="reviews-track">
                     <div class="review-slide">
                         <div class="review-card">
-                            <div class="review-avatar"><i class="fa-solid fa-face-smile"></i></div>
+                            <div class="review-avatar"><i class="fa-solid fa-face-smile-beam"></i></div>
                             <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="review-text">"Занимаюсь на платформе DAMU уже 3 месяца. Очень нравится формат интерактивных заданий, это безумно затягивает. Мой английский поднялся с абсолютного нуля до уверенного Elementary!"</p>
-                            <div class="review-author">Аружан Маратова</div>
+                            <p class="review-text">"За 3 месяца обучения в DAMU ACADEMY я подняла свой уровень с нуля до уверенного разговорного B1. Курс устроен просто потрясающе!"</p>
+                            <p class="review-author">— Мадина К.</p>
                         </div>
                     </div>
                     <div class="review-slide">
                         <div class="review-card">
-                            <div class="review-avatar"><i class="fa-solid fa-face-smile-beam"></i></div>
+                            <div class="review-avatar"><i class="fa-solid fa-face-grin-stars"></i></div>
                             <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="review-text">"Благодаря разговорным клубам я наконец-то перестала бояться говорить на английском. Большое спасибо преподавателям за поддержку и крутую атмосферу на каждом занятии."</p>
-                            <div class="review-author">Екатерина Ким</div>
+                            <p class="review-text">"Разговорные клубы каждый день — это лучшее решение. Пропал страх говорить на английском. Рекомендую абсолютно всем!"</p>
+                            <p class="review-author">— Руслан М.</p>
                         </div>
                     </div>
                 </div>
-
                 <div class="slider-controls">
-                    <button class="slider-btn" id="prev-btn" aria-label="Назад"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="slider-btn" id="next-btn" aria-label="Вперед"><i class="fa-solid fa-chevron-right"></i></button>
+                    <button class="slider-btn" id="prev-btn" aria-label="Предыдущий слайд"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="slider-btn" id="next-btn" aria-label="Следующий слайд"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="tariffs">
+    <section id="tariffs" style="background-color: var(--bg-soft);">
         <div class="container">
             <div class="section-header reveal">
-                <span>Инвестиция в будущее</span>
-                <h2>Тарифные планы</h2>
+                <span>Инвестиция в себя</span>
+                <h2>Доступные тарифные планы</h2>
             </div>
             <div class="tariffs-grid">
-                <div class="tariff-card reveal delay-1">
-                    <div class="tariff-name">Start</div>
-                    <div class="tariff-price"><span class="amount">19 900 ₸</span><span class="period"> / мес</span></div>
+                <div class="tariff-card reveal">
+                    <h3 class="tariff-name">Базовый</h3>
+                    <div class="tariff-price">
+                        <span class="amount">29 900 ₸</span>
+                        <span class="period">/ месяц</span>
+                    </div>
                     <ul class="tariff-features">
-                        <li><i class="fa-solid fa-check"></i> Доступ к видео-урокам</li>
-                        <li><i class="fa-solid fa-check"></i> Интерактивная платформа</li>
-                        <li><i class="fa-solid fa-check"></i> Автоматические тесты</li>
-                        <li style="opacity: 0.4;"><i class="fa-solid fa-xmark" style="color: var(--text-muted);"></i> Speaking club</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Все интерактивные уроки</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Автоматическая проверка ДЗ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Поддержка в общем чате</li>
                     </ul>
-                    <button class="btn btn-secondary">Выбрать тариф</button>
+                    <button class="btn btn-secondary cta-action-trigger">Выбрать тариф</button>
                 </div>
-                
-                <div class="tariff-card popular reveal delay-2">
-                    <div class="popular-badge">Популярный</div>
-                    <div class="tariff-name">Standard</div>
-                    <div class="tariff-price"><span class="amount">34 900 ₸</span><span class="period"> / мес</span></div>
+                <div class="tariff-card popular reveal">
+                    <div class="popular-badge">Популярно</div>
+                    <h3 class="tariff-name">Премиум</h3>
+                    <div class="tariff-price">
+                        <span class="amount">49 900 ₸</span>
+                        <span class="period">/ месяц</span>
+                    </div>
                     <ul class="tariff-features">
-                        <li><i class="fa-solid fa-check"></i> Доступ к видео-урокам</li>
-                        <li><i class="fa-solid fa-check"></i> Интерактивная платформа</li>
-                        <li><i class="fa-solid fa-check"></i> Проверка домашних заданий</li>
-                        <li><i class="fa-solid fa-check"></i> Разговорный клуб (4/мес)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Все функции Базового</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Безлимитные разговорные клубы</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Личный куратор-наставник</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Индивидуальный план</li>
                     </ul>
-                    <button class="btn btn-primary">Выбрать тариф</button>
+                    <button class="btn btn-primary cta-action-trigger">Выбрать тариф</button>
                 </div>
-
-                <div class="tariff-card reveal delay-3">
-                    <div class="tariff-name">Premium</div>
-                    <div class="tariff-price"><span class="amount">59 900 ₸</span><span class="period"> / мес</span></div>
+                <div class="tariff-card reveal">
+                    <h3 class="tariff-name">VIP</h3>
+                    <div class="tariff-price">
+                        <span class="amount">99 900 ₸</span>
+                        <span class="period">/ месяц</span>
+                    </div>
                     <ul class="tariff-features">
-                        <li><i class="fa-solid fa-check"></i> Все функции Standard</li>
-                        <li><i class="fa-solid fa-check"></i> Безлимитный Speaking Club</li>
-                        <li><i class="fa-solid fa-check"></i> Личный куратор на связи</li>
-                        <li><i class="fa-solid fa-check"></i> 4 индивидуальных урока</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Все функции Премиум</li>
+                        <li><i class="fa-solid fa-circle-check"></i> 8 индивидуальных уроков с носителем</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Прямая связь с методистом</li>
                     </ul>
-                    <button class="btn btn-secondary">Выбрать тариф</button>
+                    <button class="btn btn-secondary cta-action-trigger">Выбрать тариф</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="faq">
+    <section class="cta-premium-section">
+        <div class="container">
+            <div class="cta-premium-box reveal">
+                <div class="cta-premium-content">
+                    <h2>Узнай свой уровень английского за 3 минуты</h2>
+                    <p>Пройдите бесплатное интерактивное тестирование, определите слабые стороны в грамматике и заберите персональную скидку на обучение прямо сейчас.</p>
+                </div>
+                <a href="#analyzer-zone" class="btn btn-primary">Пройти бесплатный тест</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
         <div class="container">
             <div class="section-header reveal">
                 <span>Вопросы и ответы</span>
                 <h2>Часто задаваемые вопросы</h2>
             </div>
-            <div class="faq-wrapper">
-                <div class="faq-item reveal">
+
+            <div class="faq-search-wrapper reveal">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="faq-search-field" class="faq-search-input" placeholder="Поиск вопроса...">
+            </div>
+
+            <div class="faq-categories reveal">
+                <button class="faq-category-btn active" data-cat="all">Все вопросы</button>
+                <button class="faq-category-btn" data-cat="learning">Об обучении</button>
+                <button class="faq-category-btn" data-cat="payment">Оплата</button>
+                <button class="faq-category-btn" data-cat="testing">Тестирование</button>
+                <button class="faq-category-btn" data-cat="support">Поддержка</button>
+            </div>
+
+            <div class="faq-wrapper reveal">
+                
+                <div class="faq-item" data-category="learning">
                     <button class="faq-trigger">
                         <span>Как проходит обучение?</span>
-                        <div class="faq-icon-box"><i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
                     </button>
                     <div class="faq-content">
                         <div class="faq-content-inner">
-                            <p>Обучение проходит полностью в онлайн-формате на интерактивной IT-платформе DAMU. Вы изучаете видео-уроки, выполняете практические геймифицированные задания и посещаете разговорные клубы.</p>
+                            <p>Обучение проходит в полностью интерактивном формате на нашей премиальной EdTech-платформе. Вы смотрите короткие видеоуроки, выполняете практические задания и посещаете разговорные клубы в удобное для вас время.</p>
                         </div>
                     </div>
                 </div>
-                <div class="faq-item reveal">
+
+                <div class="faq-item" data-category="learning">
                     <button class="faq-trigger">
                         <span>Сколько длится курс?</span>
-                        <div class="faq-icon-box"><i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
                     </button>
                     <div class="faq-content">
                         <div class="faq-content-inner">
-                            <p>Средняя продолжительность прохождения одного полноценного уровня владения языком составляет от 2 до 4 месяцев в зависимости от выбранного темпа и регулярности ваших занятий.</p>
+                            <p>Длительность курса зависит от выбранной вами программы и текущего уровня. В среднем, прохождение одного полноценного языкового уровня по системе CEFR занимает от 2 до 4 месяцев регулярных занятий.</p>
                         </div>
                     </div>
                 </div>
-                <div class="faq-item reveal">
+
+                <div class="faq-item" data-category="learning">
                     <button class="faq-trigger">
-                        <span>Можно ли учиться с телефона?</span>
-                        <div class="faq-icon-box"><i class="fa-solid fa-chevron-down"></i></div>
+                        <span>Есть ли домашние задания?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
                     </button>
                     <div class="faq-content">
                         <div class="faq-content-inner">
-                            <p>Да, наша образовательная платформа на 100% оптимизирована и адаптирована под любые мобильные устройства. Вы можете комфортно учиться прямо со своего смартфона в дороге или дома.</p>
+                            <p>Да, после каждого теоретического блока предусмотрены интерактивные домашние задания для закрепления материала. Они проверяются платформой автоматически, а сложные творческие кейсы разбирает ваш куратор.</p>
                         </div>
                     </div>
                 </div>
-                <div class="faq-item reveal">
+
+                <div class="faq-item" data-category="learning">
                     <button class="faq-trigger">
-                        <span>Есть ли пробный урок?</span>
-                        <div class="faq-icon-box"><i class="fa-solid fa-chevron-down"></i></div>
+                        <span>Можно ли заниматься с телефона?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
                     </button>
                     <div class="faq-content">
                         <div class="faq-content-inner">
-                            <p>Конечно! Вы можете зарегистрироваться на платформе и бесплатно получить доступ к первому ознакомительному модулю курса, чтобы оценить удобство нашей экосистемы.</p>
+                            <p>Абсолютно. Платформа имеет 100% адаптивность и оптимизирована под iOS и Android. Вы можете комфортно учиться со смартфона, планшета или ноутбука в любой точке мира.</p>
                         </div>
                     </div>
                 </div>
+
+                <div class="faq-item" data-category="payment">
+                    <button class="faq-trigger">
+                        <span>Какие есть тарифы?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>У нас предусмотрено 3 основных тарифа: Базовый (самостоятельное обучение), Премиум (с безлимитными разговорными клубами и куратором) и VIP (включающий персональные занятия с носителями языка).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="payment">
+                    <button class="faq-trigger">
+                        <span>Можно ли оплатить частями?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Да, мы предоставляем беспроцентную банковскую рассрочку на 3, 6, 12 или 24 месяца через ведущие банки-партнеры. Оформление занимает всего пару минут и не содержит скрытых переплат.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="payment">
+                    <button class="faq-trigger">
+                        <span>Есть ли скидки?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Да! Прямо сейчас на сайте работает умный интерактивный тест. В зависимости от набранных баллов вы можете гарантированно забрать скидку от 5% до 25% на любой выбранный тарифный план.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="testing">
+                    <button class="faq-trigger">
+                        <span>Как работает тест?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Тест состоит из 10 вопросов разной сложности, охватывающих грамматику и лексику от уровня Beginner до Advanced. Алгоритм рассчитывает процент правильных ответов и автоматически сопоставляет его с шкалой CEFR.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="testing">
+                    <button class="faq-trigger">
+                        <span>Можно ли пройти повторно?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Да, вы можете проходить тестирование повторно, если хотите улучшить свои показатели. Платформа обновит ваши данные в локальной памяти браузера и зафиксирует самый свежий результат.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="testing">
+                    <button class="faq-trigger">
+                        <span>Как рассчитывается скидка?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Скидка привязана к точности ваших ответов: 0-30% правильных ответов дают скидку 5%, 31-50% — 10%, 51-75% — 15%, 76-90% — 20%, а 91-100% идеального прохождения принесут вам максимальную скидку 25%.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="support">
+                    <button class="faq-trigger">
+                        <span>Как связаться с менеджером?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Вы можете нажать на любую кнопку обратной связи на сайте или пройти тест — в конце вам будет предложено мгновенно открыть диалог с менеджером в WhatsApp с автоматически заполненными данными о вашем результате.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="support">
+                    <button class="faq-trigger">
+                        <span>Когда отвечает куратор?</span>
+                        <div class="faq-icon-box"><i class="fa-solid"></i></div>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            <p>Наши персональные кураторы находятся на связи ежедневно с 09:00 до 21:00. Ответы на технические или организационные вопросы в чатах обычно занимают не более 15 минут.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-empty-state" id="faq-empty">Ничего не найдено по вашему запросу. Попробуйте сформулировать иначе.</div>
+
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container footer-grid">
-            <div class="footer-col footer-info">
+            <div class="footer-info">
                 <a href="#" class="footer-logo">
-                    <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU ACADEMY">
+                    <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU">
                 </a>
-                <p>Современное интеллектуальное пространство для изучения английского языка студентами по всему миру.</p>
+                <p>Премиальное онлайн-обучение английскому языку для тех, кто ценит свое время и нацелен на глобальный результат.</p>
             </div>
             <div class="footer-col">
                 <h4>Навигация</h4>
@@ -1113,192 +1704,570 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Помощь</h4>
+                <h4>Документы</h4>
                 <ul class="footer-links">
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#">Политика конфиденциальности</a></li>
                     <li><a href="#">Публичная оферта</a></li>
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                    <li><a href="#">Пользовательское соглашение</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Контакты</h4>
                 <div class="footer-contacts">
-                    <p>support@damu.edu</p>
-                    <p>+7 (777) 123-45-67</p>
+                    <p><i class="fa-solid fa-envelope" style="color: var(--primary); margin-right: 8px;"></i> info@damuacademy.kz</p>
+                    <p><i class="fa-solid fa-phone" style="color: var(--primary); margin-right: 8px;"></i> +7 (777) 123-4567</p>
                 </div>
                 <div class="footer-socials">
                     <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
                     <a href="#" class="social-link" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
-                    <a href="#" class="social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
         <div class="container footer-bottom">
-            <p>© 2026 DAMU ACADEMY. Все права защищены.</p>
-            <p>Designed with absolute quality</p>
+            <p>&copy; 2026 DAMU ACADEMY. Все права защищены.</p>
+            <p>Дизайн и разработка в стиле Apple Premium</p>
         </div>
     </footer>
 
+
+    <div class="modal-overlay" id="modal-discount-form">
+        <div class="modal-container">
+            <button class="modal-close-btn" aria-label="Закрыть окно"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="modal-title">Получить скидку</h3>
+            <p class="modal-subtitle">Заполните форму, чтобы связаться с менеджером и зафиксировать за собой персональные условия обучения.</p>
+            
+            <div class="modal-result-summary">
+                <div class="modal-result-line"><span>Уровень:</span> <span id="md-level">B1</span></div>
+                <div class="modal-result-line"><span>Правильные ответы:</span> <span id="md-score">8/10</span></div>
+                <div class="modal-result-line"><span>Персональная скидка:</span> <span id="md-discount">15%</span></div>
+            </div>
+
+            <form id="discount-submit-form" onsubmit="return false;">
+                <div class="modal-form-group">
+                    <label for="m-phone">Ваш номер телефона (WhatsApp)</label>
+                    <input type="tel" id="m-phone" placeholder="+7 (700) 000-0000" required>
+                </div>
+                <button type="submit" class="btn btn-primary" id="send-whatsapp-btn">Написать менеджеру</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-general-lead">
+        <div class="modal-container">
+            <button class="modal-close-btn" aria-label="Закрыть окно"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="modal-title">Консультация</h3>
+            <p class="modal-subtitle">Оставьте ваши контакты. Наш ведущий методист свяжется с вами в течение 15 минут для подробной консультации.</p>
+            
+            <form id="general-lead-form" onsubmit="return false;">
+                <div class="modal-form-group">
+                    <label for="gl-name">Ваше имя</label>
+                    <input type="text" id="gl-name" placeholder="Александр" required>
+                </div>
+                <div class="modal-form-group">
+                    <label for="gl-phone">Номер телефона</label>
+                    <input type="tel" id="gl-phone" placeholder="+7 (700) 000-0000" required>
+                </div>
+                <button type="submit" class="btn btn-primary" id="gl-submit-btn">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-status-success">
+        <div class="modal-container status-popup-content">
+            <button class="modal-close-btn" aria-label="Закрыть окно"><i class="fa-solid fa-xmark"></i></button>
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <h3 class="modal-title">Заявка принята!</h3>
+            <p class="modal-subtitle" style="margin-bottom: 0;">Спасибо за ваше обращение. Ваши данные успешно сохранены, а скидка зафиксирована в системе.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-status-error">
+        <div class="modal-container status-popup-content">
+            <button class="modal-close-btn" aria-label="Закрыть окно"><i class="fa-solid fa-xmark"></i></button>
+            <i class="fa-solid fa-circle-exclamation error-icon"></i>
+            <h3 class="modal-title">Произошла ошибка</h3>
+            <p class="modal-subtitle" style="margin-bottom: 0;" id="error-modal-message">Пожалуйста, проверьте правильность заполнения полей формы и попробуйте отправить запрос еще раз.</p>
+        </div>
+    </div>
+
+
     <script>
-        // --- 1. Мобильное Бургер-Меню ---
-        const hamburger = document.getElementById('hamburger-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+        document.addEventListener('DOMContentLoaded', () => {
+            'use strict';
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        });
+            // ==========================================
+            // 1. АНАЛИТИКА И РАБОТА С LOCALSTORAGE
+            // ==========================================
+            const welcomeBanner = document.getElementById('welcome-banner');
+            const welcomeBannerText = document.getElementById('welcome-banner-text');
+            const closeWelcomeBanner = document.getElementById('close-welcome-banner');
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
+            const checkLocalStorageAnalytics = () => {
+                try {
+                    const savedName = localStorage.getItem('damu_student_name');
+                    const savedLevel = localStorage.getItem('damu_last_level');
+                    const savedDiscount = localStorage.getItem('damu_discount');
 
-        // --- 2. Раскрывающийся FAQ (ИСПРАВЛЕННЫЙ АЛГОРИТМ) ---
-        const faqItems = document.querySelectorAll('.faq-item');
+                    if (savedName && savedLevel) {
+                        welcomeBannerText.innerHTML = `С возвращением, <strong>${escapeHTML(savedName)}</strong>! Ваш последний результат тестирования: <strong>${escapeHTML(savedLevel)}</strong> (Скидка ${escapeHTML(savedDiscount || '5')}%).`;
+                        welcomeBanner.style.display = 'flex';
+                    }
+                } catch (e) {
+                    console.error("LocalStorage не доступен или заблокирован в браузере:", e);
+                }
+            };
 
-        faqItems.forEach(item => {
-            const trigger = item.querySelector('.faq-trigger');
-            const content = item.querySelector('.faq-content');
+            if (closeWelcomeBanner) {
+                closeWelcomeBanner.addEventListener('click', () => {
+                    welcomeBanner.style.display = 'none';
+                });
+            }
 
-            trigger.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
+            // Вспомогательная очистка строк для предотвращения XSS
+            function escapeHTML(str) {
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+                );
+            }
+
+
+            // ==========================================
+            // 2. МОБИЛЬНОЕ МЕНЮ (HAMBURGER & SCROLL LOCK)
+            // ==========================================
+            const hamburgerToggle = document.getElementById('hamburger-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            const toggleMobileMenu = () => {
+                hamburgerToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
                 
-                // Сначала закрываем все остальные аккордеоны
-                faqItems.forEach(i => {
-                    i.classList.remove('active');
-                    i.querySelector('.faq-content').style.maxHeight = null;
+                if (mobileMenu.classList.contains('active')) {
+                    document.body.classList.add('modal-open');
+                } else {
+                    document.body.classList.remove('modal-open');
+                }
+            };
+
+            if (hamburgerToggle && mobileMenu) {
+                hamburgerToggle.addEventListener('click', toggleMobileMenu);
+            }
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+
+            // ==========================================
+            // 3. ИНТЕРАКТИВНЫЙ ТЕСТ: КЛЮЧЕВАЯ ЛОГИКА И СКИДКИ
+            // ==========================================
+            let currentStep = 1;
+            let totalQuestions = 10;
+            let userScore = 0;
+            let studentName = '';
+
+            // Селекторы шагов теста
+            const startQuizBtn = document.getElementById('start-quiz-btn');
+            const studentNameInput = document.getElementById('student-name-input');
+            const quizProgressBar = document.getElementById('quiz-progress');
+
+            // Ноды вопросов
+            const questionNodes = [
+                document.getElementById('node-q1'),
+                document.getElementById('node-q2'),
+                document.getElementById('node-q3'),
+                document.getElementById('node-q4'),
+                document.getElementById('node-q5'),
+                document.getElementById('node-q6'),
+                document.getElementById('node-q7'),
+                document.getElementById('node-q8'),
+                document.getElementById('node-q9'),
+                document.getElementById('node-q10')
+            ];
+
+            // Обновление прогресс-бара
+            const updateQuizProgress = (stepNumber) => {
+                // Всего 11 шагов (Имя + 10 вопросов + Результат)
+                let percentage = ((stepNumber - 1) / totalQuestions) * 100;
+                if (stepNumber > 11) percentage = 100;
+                quizProgressBar.style.width = `${percentage}%`;
+            };
+
+            // Шаг 1 -> Старт вопросов
+            if (startQuizBtn) {
+                startQuizBtn.addEventListener('click', () => {
+                    const rawName = studentNameInput.value.trim();
+                    if (!rawName) {
+                        showStatusModal('error', 'Пожалуйста, введите ваше имя для начала тестирования.');
+                        return;
+                    }
+                    studentName = rawName;
+                    
+                    // Переход к первому вопросу
+                    document.getElementById('node-step-1').classList.remove('active');
+                    questionNodes[0].classList.add('active');
+                    currentStep = 2;
+                    updateQuizProgress(currentStep);
+                });
+            }
+
+            // Обработка кликов по вариантам ответов
+            questionNodes.forEach((node, index) => {
+                if (!node) return;
+                const variants = node.querySelectorAll('.variant-btn');
+                const correctAnswer = parseInt(node.getAttribute('data-correct'), 10);
+
+                variants.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // Эффект выделения кнопки
+                        variants.forEach(v => {
+                            v.classList.remove('selected');
+                            v.querySelector('i').className = 'fa-regular fa-circle';
+                        });
+                        btn.classList.add('selected');
+                        btn.querySelector('i').className = 'fa-solid fa-circle-dot';
+
+                        // Задержка перед переходом для микроанимации
+                        setTimeout(() => {
+                            const chosenAnswer = parseInt(btn.getAttribute('data-ans'), 10);
+                            if (chosenAnswer === correctAnswer) {
+                                userScore++;
+                            }
+
+                            // Переход на следующий шаг
+                            node.classList.remove('active');
+                            currentStep++;
+
+                            if (index < totalQuestions - 1) {
+                                // К следующему вопросу
+                                questionNodes[index + 1].classList.add('active');
+                                updateQuizProgress(currentStep);
+                            } else {
+                                // К экрану результатов
+                                showQuizFinalResults();
+                            }
+                        }, 350);
+                    });
+                });
+            });
+
+            // Расчет и вывод результатов (Новая логика процентов, баллов и уровней)
+            const showQuizFinalResults = () => {
+                const finalPercentage = Math.round((userScore / totalQuestions) * 100);
+                let cefrLevel = 'A1 Beginner';
+                let discountValue = 5;
+
+                // Градация результатов по ТЗ
+                if (finalPercentage <= 30) {
+                    cefrLevel = 'A1 Beginner';
+                    discountValue = 5;
+                } else if (finalPercentage <= 50) {
+                    cefrLevel = 'A2 Elementary';
+                    discountValue = 10;
+                } else if (finalPercentage <= 75) {
+                    cefrLevel = 'B1 Intermediate';
+                    discountValue = 15;
+                } else if (finalPercentage <= 90) {
+                    cefrLevel = 'B2 Upper Intermediate';
+                    discountValue = 20;
+                } else {
+                    cefrLevel = 'C1 Advanced';
+                    discountValue = 25;
+                }
+
+                // Заполнение полей вывода результатов
+                document.getElementById('res-student-name').textContent = studentName;
+                document.getElementById('res-score-count').textContent = `${userScore} / ${totalQuestions}`;
+                document.getElementById('res-percentage').textContent = `${finalPercentage}%`;
+                document.getElementById('res-cefr-level').textContent = cefrLevel;
+                document.getElementById('res-discount-value').textContent = `${discountValue}%`;
+
+                // Сохранение в localStorage аналитику без сервера
+                try {
+                    localStorage.setItem('damu_student_name', studentName);
+                    localStorage.setItem('damu_last_level', cefrLevel);
+                    localStorage.setItem('damu_discount', discountValue.toString());
+                    localStorage.setItem('damu_percent', finalPercentage.toString());
+                    localStorage.setItem('damu_score', userScore.toString());
+                } catch(e) {
+                    console.warn("Не удалось сохранить данные в localStorage:", e);
+                }
+
+                // Активация финального экрана результатов
+                document.getElementById('node-result-display').classList.add('active');
+                quizProgressBar.style.width = '100%';
+
+                // Подготовка данных для модального окна фиксации скидки
+                document.getElementById('md-level').textContent = cefrLevel;
+                document.getElementById('md-score').textContent = `${userScore} / 10`;
+                document.getElementById('md-discount').textContent = `${discountValue}%`;
+            };
+
+
+            // ==========================================
+            // 4. СОВРЕМЕННЫЕ ПОП-АП ОКНА И WHATSAPP СВЯЗЬ
+            // ==========================================
+            const modalDiscountForm = document.getElementById('modal-discount-form');
+            const modalGeneralLead = document.getElementById('modal-general-lead');
+            const modalStatusSuccess = document.getElementById('modal-status-success');
+            const modalStatusError = document.getElementById('modal-status-error');
+            
+            const openDiscountModalBtn = document.getElementById('open-discount-modal-btn');
+            const closeButtons = document.querySelectorAll('.modal-close-btn, .modal-overlay');
+
+            // Показ статусного окна
+            const showStatusModal = (type, message = '') => {
+                // Закрываем активные формы
+                modalDiscountForm.classList.remove('active');
+                modalGeneralLead.classList.remove('active');
+
+                if (type === 'success') {
+                    modalStatusSuccess.classList.add('active');
+                } else {
+                    if (message) {
+                        document.getElementById('error-modal-message').textContent = message;
+                    }
+                    modalStatusError.classList.add('active');
+                }
+                document.body.classList.add('modal-open');
+            };
+
+            // Открытие окна скидки
+            if (openDiscountModalBtn) {
+                openDiscountModalBtn.addEventListener('click', () => {
+                    modalDiscountForm.classList.add('active');
+                    document.body.classList.add('modal-open');
+                });
+            }
+
+            // Перехват кнопок триггеров на тарифах и шапке для открытия общей формы заявки
+            const ctaTriggers = document.querySelectorAll('.cta-action-trigger');
+            ctaTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    const href = trigger.getAttribute('href');
+                    if (href && href.startsWith('#')) return; // Позволяем тесту скроллиться normal
+                    
+                    e.preventDefault();
+                    modalGeneralLead.classList.add('active');
+                    document.body.classList.add('modal-open');
+                });
+            });
+
+            // Закрытие окон при кликах по крестику или оверлею
+            closeButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if (e.target === btn || btn.classList.contains('modal-close-btn') || btn.closest('.modal-close-btn')) {
+                        modalDiscountForm.classList.remove('active');
+                        modalGeneralLead.classList.remove('active');
+                        modalStatusSuccess.classList.remove('active');
+                        modalStatusError.classList.remove('active');
+                        document.body.classList.remove('modal-open');
+                    }
+                });
+            });
+
+            // Логика кнопки "Написать менеджеру" через WhatsApp API
+            const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
+            if (sendWhatsappBtn) {
+                sendWhatsappBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const phoneInput = document.getElementById('m-phone').value.trim();
+                    if (!phoneInput) {
+                        showStatusModal('error', 'Пожалуйста, введите корректный номер телефона WhatsApp для связи.');
+                        return;
+                    }
+
+                    // Анимация загрузки на кнопке
+                    sendWhatsappBtn.classList.add('loading');
+
+                    setTimeout(() => {
+                        sendWhatsappBtn.classList.remove('loading');
+                        
+                        // Извлечение сохраненных данных
+                        const name = localStorage.getItem('damu_student_name') || studentName || 'Студент';
+                        const score = localStorage.getItem('damu_score') || userScore || '0';
+                        const percent = localStorage.getItem('damu_percent') || '0';
+                        const discount = localStorage.getItem('damu_discount') || '5';
+                        const level = localStorage.getItem('damu_last_level') || 'A1 Beginner';
+
+                        // Формирование текста сообщения по ТЗ
+                        const textMessage = `Здравствуйте!\nЯ прошёл тест DAMU ACADEMY.\nМой результат:\nИмя: ${name}\nУровень: ${level}\nБаллы: ${score} / 10\nПроцент: ${percent}%\nПолученная скидка: ${discount}%`;
+                        
+                        // Ссылка на официальный шлюз WhatsApp API (Номер менеджера заглушка, заменяется при деплое)
+                        const managerPhone = '77771234567'; 
+                        const url = `https://api.whatsapp.com/send?phone=${managerPhone}&text=${encodeURIComponent(textMessage)}`;
+                        
+                        // Открытие диалога в новой вкладке
+                        window.open(url, '_blank');
+
+                        // Показ окна успешного завершения операции
+                        showStatusModal('success');
+                    }, 800);
+                });
+            }
+
+            // Отправка формы общего лида (тарифы / консультация)
+            const glSubmitBtn = document.getElementById('gl-submit-btn');
+            if (glSubmitBtn) {
+                glSubmitBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('gl-name').value.trim();
+                    const phone = document.getElementById('gl-phone').value.trim();
+
+                    if (!name || !phone) {
+                        showStatusModal('error', 'Все поля формы обязательны для заполнения.');
+                        return;
+                    }
+
+                    glSubmitBtn.classList.add('loading');
+                    setTimeout(() => {
+                        glSubmitBtn.classList.remove('loading');
+                        showStatusModal('success');
+                    }, 1000);
+                });
+            }
+
+
+            // ==========================================
+            // 5. ИСПРАВЛЕННЫЙ FAQ: ОПТИМИЗАЦИЯ, ФИЛЬТРЫ И ПОИСК
+            // ==========================================
+            const faqItems = document.querySelectorAll('.faq-item');
+            const faqCategoryBtns = document.querySelectorAll('.faq-category-btn');
+            const faqSearchField = document.getElementById('faq-search-field');
+            const faqEmptyState = document.getElementById('faq-empty');
+
+            // Плавный Аккордеон с закрытием предыдущих вкладок
+            faqItems.forEach(item => {
+                const trigger = item.querySelector('.faq-trigger');
+                const content = item.querySelector('.faq-content');
+
+                if (trigger && content) {
+                    trigger.addEventListener('click', () => {
+                        const isActive = item.classList.contains('active');
+
+                        // Закрываем все остальные открытые вкладки FAQ
+                        faqItems.forEach(otherItem => {
+                            if (otherItem !== item && otherItem.classList.contains('active')) {
+                                otherItem.classList.remove('active');
+                                otherItem.querySelector('.faq-content').style.maxHeight = '0';
+                            }
+                        });
+
+                        // Переключаем текущую вкладку
+                        if (isActive) {
+                            item.classList.remove('active');
+                            content.style.maxHeight = '0';
+                        } else {
+                            item.classList.add('active');
+                            content.style.maxHeight = `${content.scrollHeight}px`;
+                        }
+                    });
+                }
+            });
+
+            // Функция комплексной фильтрации (Поиск + Категории)
+            const filterFAQ = () => {
+                const activeCategory = document.querySelector('.faq-category-btn.active').getAttribute('data-cat');
+                const searchQuery = faqSearchField.value.toLowerCase().trim();
+                let visibleCount = 0;
+
+                faqItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    const questionText = item.querySelector('.faq-trigger span').textContent.toLowerCase();
+                    const answerText = item.querySelector('.faq-content-inner p').textContent.toLowerCase();
+
+                    const matchesCategory = (activeCategory === 'all' || itemCategory === activeCategory);
+                    const matchesSearch = (!searchQuery || questionText.includes(searchQuery) || answerText.includes(searchQuery));
+
+                    if (matchesCategory && matchesSearch) {
+                        item.classList.remove('hidden-by-filter');
+                        visibleCount++;
+                    } else {
+                        item.classList.add('hidden-by-filter');
+                        // Сворачиваем, если скрывается
+                        item.classList.remove('active');
+                        item.querySelector('.faq-content').style.maxHeight = '0';
+                    }
                 });
 
-                // Если текущий аккордеон не был активен, то открываем его
-                if (!isActive) {
-                    item.classList.add('active');
-                    content.style.maxHeight = content.scrollHeight + "px";
+                // Отображение пустой заглушки
+                if (visibleCount === 0) {
+                    faqEmptyState.style.display = 'block';
+                } else {
+                    faqEmptyState.style.display = 'none';
                 }
+            };
+
+            // Обработчики категорий FAQ
+            faqCategoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    faqCategoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterFAQ();
+                });
             });
-        });
 
-        // --- 3. ЛОГИКА ТЕСТИРОВАНИЯ И СЕРТИФИКАТА ---
-        let currentQuizNode = 0;
-        let quizScore = 0;
-        let candidateName = "Студент";
-
-        function refreshQuizProgress() {
-            const totalQuestions = 3;
-            const progressPercent = currentQuizNode > 0 ? ((currentQuizNode - 1) / totalQuestions) * 100 : 0;
-            document.getElementById('quiz-progress-bar').style.width = progressPercent + '%';
-        }
-
-        function initQuiz() {
-            const inputVal = document.getElementById('username-field').value.trim();
-            if (inputVal !== "") {
-                candidateName = inputVal;
+            // Обработчик ввода поисковой строки FAQ (живой поиск)
+            if (faqSearchField) {
+                faqSearchField.addEventListener('input', filterFAQ);
             }
-            document.getElementById('node-0').classList.remove('active');
-            currentQuizNode = 1;
-            document.getElementById('node-1').classList.add('active');
-            refreshQuizProgress();
-        }
 
-        function forwardQuiz(points, btnElement) {
-            quizScore += points;
+
+            // ==========================================
+            // 6. ОТЗЫВЫ: БЕЗОПАСНЫЙ СЛАЙДЕР С ТРЕКОМ
+            // ==========================================
+            const track = document.getElementById('reviews-track');
+            const nextBtn = document.getElementById('next-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const slides = document.querySelectorAll('.review-slide');
+            let slideIndex = 0;
+
+            const updateSlider = () => {
+                if (track && slides.length > 0) {
+                    track.style.transform = `translateX(-${slideIndex * 100}%)`;
+                }
+            };
+
+            if (nextBtn && prevBtn && slides.length > 0) {
+                nextBtn.addEventListener('click', () => {
+                    slideIndex = (slideIndex + 1) % slides.length;
+                    updateSlider();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+                    updateSlider();
+                });
+            }
+
+
+            // ==========================================
+            // 7. МИКРОАНИМАЦИИ ПРИ СКРОЛЛЕ (SCROLL REVEAL)
+            // ==========================================
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const checkReveal = () => {
+                const triggerBottom = window.innerHeight * 0.85;
+                revealElements.forEach(el => {
+                    const elTop = el.getBoundingClientRect().top;
+                    if (elTop < triggerBottom) {
+                        el.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', checkReveal);
             
-            // Визуальный отклик на выбор варианта
-            btnElement.classList.add('selected');
-            btnElement.querySelector('i').className = 'fa-solid fa-circle-check';
-
-            setTimeout(() => {
-                document.getElementById(`node-${currentQuizNode}`).classList.remove('active');
-                currentQuizNode++;
-                document.getElementById(`node-${currentQuizNode}`).classList.add('active');
-                refreshQuizProgress();
-            }, 350);
-        }
-
-        function finishQuiz(points, btnElement) {
-            quizScore += points;
-            btnElement.classList.add('selected');
-            btnElement.querySelector('i').className = 'fa-solid fa-circle-check';
-
-            setTimeout(() => {
-                document.getElementById(`node-${currentQuizNode}`).classList.remove('active');
-                
-                // Определение результатов анализа
-                let calculatedLevel = "A2 (Elementary)";
-                let dynamicPromo = "DAMU-START-10";
-                
-                if (quizScore === 2) {
-                    calculatedLevel = "B1 (Intermediate)";
-                    dynamicPromo = "DAMU-PRO-15";
-                } else if (quizScore === 3) {
-                    calculatedLevel = "B2 (Upper-Intermediate)";
-                    dynamicPromo = "DAMU-MAX-20";
-                }
-
-                // Инъекция в сертификат
-                document.getElementById('rendered-name').innerText = candidateName;
-                document.getElementById('rendered-level').innerText = calculatedLevel;
-                document.getElementById('rendered-promo').innerText = `PROMO: ${dynamicPromo}`;
-
-                document.getElementById('node-result').classList.add('active');
-                document.getElementById('quiz-progress-bar').style.width = '100%';
-            }, 350);
-        }
-
-        function triggerShare() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Мой результат в DAMU ACADEMY',
-                    text: `Я успешно подтвердил свой уровень английского языка на платформе DAMU. Пройди тест и получи скидку!`,
-                    url: window.location.href
-                }).catch(console.error);
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Ссылка на платформу успешно скопирована в буфер обмена! Поделитесь ей с друзьями.");
-            }
-        }
-
-        // --- 4. Слайдер отзывов ---
-        const track = document.getElementById('reviews-track');
-        const nextBtn = document.getElementById('next-btn');
-        const prevBtn = document.getElementById('prev-btn');
-        const slides = document.querySelectorAll('.review-slide');
-        let slideIndex = 0;
-
-        function updateSlider() {
-            track.style.transform = `translateX(-${slideIndex * 100}%)`;
-        }
-
-        nextBtn.addEventListener('click', () => {
-            slideIndex = (slideIndex + 1) % slides.length;
-            updateSlider();
+            // Инициализирующий запуск
+            checkReveal();
+            checkLocalStorageAnalytics();
         });
-
-        prevBtn.addEventListener('click', () => {
-            slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-            updateSlider();
-        });
-
-        // --- 5. Появление контента при скролле (Scroll Reveal) ---
-        const revealElements = document.querySelectorAll('.reveal');
-
-        function checkReveal() {
-            const triggerBottom = window.innerHeight * 0.85;
-            revealElements.forEach(el => {
-                const elTop = el.getBoundingClientRect().top;
-                if(elTop < triggerBottom) {
-                    el.classList.add('active');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', checkReveal);
-        window.addEventListener('load', checkReveal);
     </script>
 </body>
 </html>
