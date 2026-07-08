@@ -3,1081 +3,934 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAMU Assessment OS — Международная Платформа Тестирования</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>DAMU ACADEMY — Инновационная Платформа Английского Языка</title>
     
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        vue: {
-                            dark: '#0a0f1d',
-                            surface: '#131c31',
-                            accent: '#3b82f6'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
-        
+        /* --- ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ И ПРЕМИУМ СТИЛИ --- */
+        :root {
+            --primary: #c1272d;
+            --primary-hover: #9e1e23;
+            --dark: #111111;
+            --light: #ffffff;
+            --gray-light: #f8f9fa;
+            --gray-border: #e9ecef;
+            --text-muted: #6c757d;
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            user-select: none !important;
-            -webkit-user-select: none !important;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
         }
 
-        /* Блокировка стандартного выделения */
-        ::selection { background: transparent; }
-        ::-moz-selection { background: transparent; }
-
-        /* Кастомный премиальный скроллбар */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 100px; }
-        .dark ::-webkit-scrollbar-thumb { background: #334155; }
-
-        /* Изоляция скелетонов */
-        .skeleton {
-            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-            background-size: 200% 100%;
-            animation: skeleton-loading 1.4s ease infinite;
-        }
-        .dark .skeleton {
-            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
-            background-size: 200% 100%;
-            animation: skeleton-loading 1.4s ease infinite;
-        }
-        @keyframes skeleton-loading {
-            0 { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        .container {
+            width: 90%;
+            max-width: 1240px;
+            margin: 0 auto;
         }
 
-        .modal-blur { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-
-        *, *::before, *::after {
-            transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Классы для анимации при скролле */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-smooth);
         }
 
-        /* Анимация сканирующей линии для Face ID */
-        @keyframes scan-movement {
-            0% { top: 0%; }
-            50% { top: 100%; }
-            100% { top: 0%; }
-        }
-        .face-scanner-active-line {
-            animation: scan-movement 2s infinite linear;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* ===================================================================================
-           СТИЛИ ДЛЯ СТРОГОЙ ПЕЧАТИ ТОЛЬКО СЕРТИФИКАТА С БАЛЛАМИ
-           =================================================================================== */
-        @media print {
-            body, html {
-                background: #ffffff !important;
-                color: #000000 !important;
-            }
-            header, #toast-container, #security-modal, #terminal-lock-modal, #face-auth-modal,
-            #view-dashboard, #view-skeleton, #view-examination, #mobile-navigation-bar,
-            .pt-4.border-t, .no-print {
-                display: none !important;
-            }
-            #view-analytics {
-                display: block !important;
-                max-width: 100% !important;
-                width: 100% !important;
-                position: absolute;
-                top: 0; left: 0;
-                margin: 0 !important;
-                padding: 20px !important;
-            }
-            .bg-slate-900 {
-                background: #0f172a !important;
-                color: #ffffff !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .border {
-                border: 1px solid #e2e8f0 !important;
-            }
+        /* --- ШАПКА И НАВИГАЦИЯ --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition-fast);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo img {
+            height: 48px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .nav-desktop {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .nav-desktop a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: var(--transition-fast);
+        }
+
+        .nav-desktop a:hover:not(.btn-nav) {
+            color: var(--primary);
+        }
+
+        .btn-nav {
+            background: var(--dark);
+            color: var(--light) !important;
+            padding: 12px 26px;
+            border-radius: 50px;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-nav:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(193, 39, 45, 0.3);
+        }
+
+        /* Бургер Кнопка */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 2000;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2.5px;
+            background-color: var(--dark);
+            border-radius: 4px;
+            transition: var(--transition-fast);
+            transform-origin: left;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg); }
+
+        /* Полноэкранное Мобильное Меню */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--light);
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(100%);
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-overlay.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu {
+            list-style: none;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 32px;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: var(--transition-fast);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+            padding-left: 10px;
+        }
+
+        /* --- ГЛАВНЫЙ ЭКРАН (HERO) --- */
+        .hero {
+            padding: 180px 0 100px 0;
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at 90% 10%, rgba(193, 39, 45, 0.03) 0%, transparent 40%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-main {
+            display: inline-block;
+            padding: 18px 38px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            border: 2px solid transparent;
+        }
+
+        .btn-main-primary {
+            background: var(--primary);
+            color: var(--light);
+            box-shadow: 0 10px 30px rgba(193, 39, 45, 0.25);
+        }
+
+        .btn-main-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(193, 39, 45, 0.4);
+        }
+
+        .btn-main-secondary {
+            background: transparent;
+            color: var(--dark);
+            border-color: var(--dark);
+        }
+
+        .btn-main-secondary:hover {
+            background: var(--dark);
+            color: var(--light);
+            transform: translateY(-4px);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-sphere {
+            width: 420px;
+            height: 420px;
+            background: var(--gray-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--gray-border);
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .main-sphere i {
+            font-size: 130px;
+            color: var(--primary);
+        }
+
+        .badge-floating {
+            position: absolute;
+            background: var(--light);
+            padding: 15px 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 700;
+            font-size: 14px;
+            animation: floatReverse 5s ease-in-out infinite;
+        }
+
+        .b-1 { top: 40px; left: -30px; }
+        .b-2 { bottom: 40px; right: -20px; }
+
+        .badge-floating i {
+            font-size: 20px;
+            color: #ffc107;
+        }
+
+        /* --- ИНТЕРАКТИВНЫЙ ТЕСТ (QUIZ SECTION) --- */
+        .quiz-section {
+            padding: 120px 0;
+            background: var(--gray-light);
+            border-top: 1px solid var(--gray-border);
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--light);
+            border-radius: 32px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.04);
+            border: 1px solid var(--gray-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-progress {
+            height: 6px;
+            width: 100%;
+            background: var(--gray-border);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            transition: width 0.4s ease;
+        }
+
+        .quiz-step {
+            display: none;
+        }
+
+        .quiz-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .quiz-question {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            margin-top: 15px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: var(--light);
+            border: 2px solid var(--gray-border);
+            padding: 20px 25px;
+            border-radius: 16px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-btn:hover {
+            border-color: var(--dark);
+            background: var(--gray-light);
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: rgba(193, 39, 45, 0.03);
+            color: var(--primary);
+        }
+
+        /* Экран результатов и Сертификат */
+        .result-screen {
+            text-align: center;
+        }
+
+        .certificate-box {
+            background: white;
+            border: 10px double var(--dark);
+            padding: 40px;
+            margin: 30px auto;
+            max-width: 650px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+
+        .certificate-box::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 2px solid var(--primary);
+            pointer-events: none;
+        }
+
+        .cert-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .cert-name {
+            font-size: 22px;
+            font-weight: 700;
+            border-bottom: 2px solid var(--dark);
+            display: inline-block;
+            padding: 5px 30px;
+            margin: 15px 0;
+        }
+
+        .cert-level {
+            font-size: 38px;
+            font-weight: 900;
+            color: var(--dark);
+            margin: 15px 0;
+        }
+
+        .promo-badge {
+            background: var(--primary);
+            color: white;
+            display: inline-block;
+            padding: 10px 20px;
+            font-weight: 800;
+            border-radius: 6px;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+
+        .cert-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-cert {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition-fast);
+        }
+
+        .btn-download { background: var(--dark); color: white; }
+        .btn-share { background: #007bff; color: white; }
+        .btn-download:hover, .btn-share:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* --- КАРТА (MAP SECTION) --- */
+        .map-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .map-wrapper {
+            width: 100%;
+            height: 480px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            border: 1px solid var(--gray-border);
+        }
+
+        /* Стильный фильтр для придания карте дизайнерского черно-белого вида */
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: grayscale(100%) invert(92%) contrast(95%);
+        }
+
+        /* --- ПРЕМИАЛЬНЫЙ ФУТЕР --- */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 80px 0 30px 0;
+            border-top: 4px solid var(--primary);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        .footer-col p {
+            color: #a0a0a0;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #a0a0a0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--light);
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: #222;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: #222;
+            color: white;
+            border-radius: 8px 0 0 8px;
+            font-size: 14px;
+        }
+
+        .newsletter-form button {
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 0 25px;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-hover);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #222;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* --- АНИМАЦИИ КЛЮЧЕВЫХ КАДРОВ --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes floatReverse {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА --- */
+        @media (max-width: 992px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+            .hero-content h1 { font-size: 44px; }
+            .hero-actions { justify-content: center; }
+            .main-sphere { width: 300px; height: 300px; margin: 0 auto; }
+            .main-sphere i { font-size: 90px; }
+            .nav-desktop { display: none; }
+            .hamburger { display: flex; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .quiz-container { padding: 30px 20px; }
+        }
+
+        @media (max-width: 576px) {
+            .hero-actions { flex-direction: column; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .cert-actions { flex-direction: column; }
+            .certificate-box { padding: 20px 10px; }
+            .cert-level { font-size: 28px; }
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-vue-dark dark:text-slate-100 min-h-screen flex flex-col antialiased overflow-x-hidden">
+<body>
 
-    <div id="toast-container" class="fixed top-6 right-6 z-[100] flex flex-col gap-3 max-w-md w-full pointer-events-none"></div>
-
-    <div id="face-auth-modal" class="fixed inset-0 z-[95] hidden modal-blur bg-black/70 flex items-center justify-center p-4 transition-all duration-300">
-        <div class="bg-white dark:bg-vue-surface rounded-3xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl relative text-center">
-            <div class="absolute top-0 left-0 right-0 h-1.5 bg-blue-600"></div>
-            <h3 class="text-xl font-bold text-slate-950 dark:text-white mb-2">Биометрический контроль</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Пожалуйста, посмотрите в камеру и зафиксируйте положение лица для прохождения верификации личности.</p>
-            
-            <div class="relative w-48 h-48 mx-auto bg-slate-100 dark:bg-slate-900 rounded-full border-4 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center overflow-hidden mb-5 shadow-inner">
-                <div id="face-scanner-line" class="absolute left-0 right-0 h-0.5 bg-emerald-500 shadow-[0_0_10px_#10b981] face-scanner-active-line w-full hidden z-10"></div>
-                <i id="face-icon-placeholder" class="fa-solid fa-user-shield text-5xl text-slate-400 dark:text-slate-600"></i>
-                <video id="face-video-stream" class="hidden w-full h-full object-cover rounded-full transform scale-x-[-1]"></video>
-            </div>
-
-            <div id="face-status-text" class="text-xs font-mono font-bold text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/50 py-2 px-3 rounded-xl border border-slate-100 dark:border-slate-800/60 mb-5">
-                Ожидание инициализации биометрического оборудования...
-            </div>
-
-            <button id="btn-start-face-scan" onclick="BiometricModule.startScanSequence()" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-black text-xs tracking-wider uppercase rounded-xl transition shadow-lg flex items-center justify-center gap-2">
-                <i class="fa-solid fa-camera"></i> Включить камеру и пройти Face ID
+    <header id="header">
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">
+                <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU ACADEMY">
+            </a>
+            <ul class="nav-desktop">
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#test">Определить Уровень</a></li>
+                <li><a href="#map">Контакты</a></li>
+                <li><a href="#test" class="btn-nav">Пройти Тест</a></li>
+            </ul>
+            <button class="hamburger" id="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
-        </div>
-    </div>
-
-    <div id="security-modal" class="fixed inset-0 z-[90] hidden modal-blur bg-black/60 items-center justify-center p-4 transition-all duration-300">
-        <div class="bg-white dark:bg-vue-surface rounded-3xl max-w-md w-full p-6 border border-red-200 dark:border-red-900/50 shadow-2xl relative overflow-hidden transform scale-100">
-            <div class="absolute top-0 left-0 right-0 h-1.5 bg-red-600"></div>
-            <div class="flex items-center gap-4 text-red-600 mb-4">
-                <div class="w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/30 flex items-center justify-center text-xl shrink-0">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold tracking-tight">Нарушение регламента</h3>
-                    <p class="text-xs text-slate-400 dark:text-slate-500 uppercase font-mono tracking-wider">Security Guard Alert</p>
-                </div>
-            </div>
-            <p id="security-modal-text" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
-                Обнаружено несанкционированное действие. Все логи зафиксированы.
-            </p>
-            <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 p-3.5 rounded-xl border border-slate-100 dark:border-slate-800">
-                <span class="text-xs font-semibold text-slate-500">Счетчик предупреждений:</span>
-                <span id="security-warning-badge" class="px-3 py-1 bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-400 font-mono font-bold text-sm rounded-lg">0 / 3</span>
-            </div>
-            <button onclick="SecurityModule.closeWarningModal()" class="w-full mt-5 py-3 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-bold text-xs tracking-wider uppercase rounded-xl transition shadow-lg">
-                Я понял, продолжить тест
-            </button>
-        </div>
-    </div>
-
-    <div id="terminal-lock-modal" class="fixed inset-0 z-[100] hidden modal-blur bg-red-950/80 items-center justify-center p-4 transition-all duration-300">
-        <div class="bg-white dark:bg-vue-surface rounded-3xl max-w-lg w-full p-8 border-2 border-red-600 shadow-2xl text-center relative overflow-hidden">
-            <div class="w-20 h-20 rounded-full bg-red-100 dark:bg-red-950 text-red-600 flex items-center justify-center text-4xl mx-auto mb-5">
-                <i class="fa-solid fa-ban"></i>
-            </div>
-            <h2 class="text-2xl font-black text-slate-950 dark:text-white tracking-tight">Тестирование Аннулировано</h2>
-            <p class="text-xs text-red-500 font-mono tracking-widest uppercase mt-1">System Terminal Lock</p>
-            <p class="text-sm text-slate-600 dark:text-slate-300 mt-4 leading-relaxed">
-                Доступ к текущей сессии заблокирован исполнительным ядром безопасности. Вы исчерпали лимит допустимых предупреждений (3/3). Все заполненные ответы автоматически зафиксированы и отправлены на сервер верификации.
-            </p>
-            <button onclick="window.location.reload()" class="w-full mt-6 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs tracking-wider uppercase rounded-xl transition shadow-lg">
-                Перейти к просмотру результатов балла
-            </button>
-        </div>
-    </div>
-
-    <header class="bg-white border-b border-slate-200/80 dark:bg-vue-surface dark:border-slate-800/80 sticky top-0 z-40 px-4 md:px-8 py-3.5">
-        <div class="max-w-[1600px] mx-auto flex justify-between items-center">
-            
-            <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="AppRouter.resetToHome()">
-                <div class="w-9 h-9 bg-slate-900 dark:bg-slate-100 flex items-center justify-center text-white dark:text-vue-dark font-black text-lg rounded-xl shadow-sm transition transform hover:rotate-6">D</div>
-                <div>
-                    <div class="flex items-center space-x-1.5">
-                        <h1 class="text-lg font-black text-slate-950 dark:text-white tracking-tight leading-none">DAMU ASSESSMENT</h1>
-                        <span class="bg-red-600 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">VUE-SPEC</span>
-                    </div>
-                    <p class="text-[9px] font-bold text-slate-400 dark:text-slate-500 tracking-widest uppercase mt-0.5">Secure Testing Architecture</p>
-                </div>
-            </div>
-
-            <div class="flex items-center space-x-3">
-                
-                <div id="save-indicator" class="hidden md:flex items-center space-x-1.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/20 px-2.5 py-1 rounded-lg border border-emerald-100 dark:border-emerald-900/30">
-                    <i class="fa-solid fa-cloud-arrow-up animate-pulse"></i>
-                    <span>СОХРАНЕНО</span>
-                </div>
-
-                <div id="header-timer-box" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-xl px-3.5 py-1.5 flex items-center space-x-2">
-                    <i class="fa-regular fa-clock text-slate-500 dark:text-slate-400 text-sm"></i>
-                    <span id="header-timer" class="text-base font-mono font-bold text-slate-800 dark:text-slate-100 tracking-tight">60:00</span>
-                </div>
-
-                <button onclick="UIThemeController.toggle()" class="w-9 h-9 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition" title="Переключить тему">
-                    <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
-                </button>
-
-                <button onclick="UIFullscreenController.toggle()" class="w-9 h-9 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition" title="Полноэкранный режим">
-                    <i id="fullscreen-icon" class="fa-solid fa-expand text-sm"></i>
-                </button>
-            </div>
-
         </div>
     </header>
 
-    <main class="flex-1 w-full max-w-[1600px] mx-auto p-4 md:p-6 flex flex-col justify-stretch">
-        
-        <div id="view-dashboard" class="hidden flex-1 flex flex-col justify-center max-w-4xl mx-auto w-full py-6">
-            <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 md:p-10 shadow-xl shadow-slate-100/40 dark:shadow-none relative overflow-hidden">
-                
-                <div class="max-w-2xl mx-auto text-center mb-10">
-                    <span class="bg-slate-900 dark:bg-slate-100 text-white dark:text-vue-dark text-[10px] font-extrabold px-3 py-1.5 rounded-full tracking-widest uppercase inline-block mb-4">Secure Placement Engine v5.0</span>
-                    <h2 class="text-3xl md:text-5xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">Digital Diagnostic Assessment</h2>
-                    <p class="text-slate-500 dark:text-slate-400 mt-4 text-base leading-relaxed">Вы собираетесь запустить официальный сертификационный тест. Система настроена в соответствии с международными протоколами мониторинга целостности данных.</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                    <div class="border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/30 p-4 rounded-2xl">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Длительность</span>
-                        <span class="text-lg font-extrabold text-slate-900 dark:text-white">60 минут</span>
-                    </div>
-                    <div class="border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/30 p-4 rounded-2xl">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Спецификация</span>
-                        <span class="text-lg font-extrabold text-slate-900 dark:text-white">100 Вопросов</span>
-                    </div>
-                    <div class="border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/30 p-4 rounded-2xl">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Калибровка</span>
-                        <span class="text-lg font-extrabold text-slate-900 dark:text-white">Adaptive Evaluation</span>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 dark:bg-slate-950 text-slate-300 dark:text-slate-400 rounded-2xl p-5 md:p-6 mb-8 text-xs space-y-3 border border-slate-800">
-                    <div class="flex items-center space-x-2 font-bold text-white mb-1">
-                        <i class="fa-solid fa-shield-halved text-red-500"></i> 
-                        <span>ОФИЦИАЛЬНЫЙ РЕГЛАМЕНТ ТЕСТИРОВАНИЯ:</span>
-                    </div>
-                    <p>&bull; <strong class="text-white">Анти-Потеря данных:</strong> В платформу встроена система моментального сохранения прогресса. При случайном закрытии вкладки все ответы восстановятся автоматически.</p>
-                    <p>&bull; <strong class="text-white">Биометрический Face ID:</strong> Запуск теста требует обязательного прохождения контроля личности через оптический датчик / веб-камеру.</p>
-                    <p>&bull; <strong class="text-white">Защита от списывания:</strong> Запрещено переключать вкладки, сворачивать окно и открывать DevTools.</p>
-                </div>
-
-                <div class="text-center">
-                    <button onclick="TestingEngine.startExamSession()" class="w-full sm:w-auto px-12 py-4 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-black text-xs tracking-widest uppercase rounded-2xl shadow-xl transition transform active:scale-[0.98]">
-                        Инициализировать Тест <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                    </button>
-                </div>
-
-            </div>
-        </div>
-
-        <div id="view-skeleton" class="hidden flex-1 grid grid-cols-1 xl:grid-cols-4 gap-6 items-stretch">
-            <div class="xl:col-span-3 bg-white dark:bg-vue-surface border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-8">
-                        <div class="h-4 w-32 skeleton rounded-md"></div>
-                        <div class="h-6 w-24 skeleton rounded-lg"></div>
-                    </div>
-                    <div class="h-8 w-3/4 skeleton rounded-xl mb-6"></div>
-                    <div class="space-y-4">
-                        <div class="h-16 w-full skeleton rounded-2xl"></div>
-                        <div class="h-16 w-full skeleton rounded-2xl"></div>
-                        <div class="h-16 w-full skeleton rounded-2xl"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="hidden xl:block h-64 skeleton rounded-3xl"></div>
-        </div>
-
-        <div id="view-examination" class="hidden flex-1 grid grid-cols-1 xl:grid-cols-4 gap-6 items-stretch">
-            
-            <div class="xl:col-span-3 flex flex-col justify-between bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-5 md:p-8 shadow-sm relative">
-                <div>
-                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
-                        <div>
-                            <span id="display-q-module" class="text-[10px] font-black tracking-widest text-slate-400 uppercase">Module 1: Syntax & Structures</span>
-                            <h3 class="text-base md:text-lg font-extrabold text-slate-900 dark:text-white mt-0.5">
-                                Вопрос <span id="display-q-idx" class="font-mono text-slate-950 dark:text-white font-black">1</span> <span class="text-slate-300 dark:text-slate-600 font-normal">/ 100</span>
-                            </h3>
-                        </div>
-                        
-                        <div class="flex items-center space-x-2">
-                            <button id="btn-flag-toggle" onclick="TestingEngine.toggleFlagCurrentQuestion()" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-bold transition hover:bg-slate-50 dark:hover:bg-slate-900">
-                                <i id="flag-icon" class="fa-regular fa-bookmark text-slate-400"></i>
-                                <span id="flag-text" class="text-slate-600 dark:text-slate-400">Отметить</span>
-                            </button>
-                            <span id="display-q-diff" class="bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 text-[10px] font-black px-2.5 py-1.5 rounded-xl uppercase tracking-wider">Level: B2</span>
-                        </div>
-                    </div>
-
-                    <div id="wrapper-reading-context" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-4 md:p-6 mb-6 max-h-[200px] overflow-y-auto">
-                        <h5 class="text-[10px] font-black uppercase text-slate-400 tracking-wider mb-2"><i class="fa-solid fa-file-signature mr-1"></i> Reading Passage Context</h5>
-                        <p id="display-reading-text" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium select-none"></p>
-                    </div>
-
-                    <div id="wrapper-listening-context" class="hidden bg-slate-950 border border-slate-800 rounded-2xl p-4 mb-6 flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-9 h-9 bg-slate-800 rounded-xl flex items-center justify-center text-emerald-400 text-sm"><i class="fa-solid fa-volume-high animate-pulse"></i></div>
-                            <div>
-                                <h5 class="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Listening Audio Emulation</h5>
-                                <p id="display-listening-script" class="text-xs font-medium text-slate-300 italic mt-0.5">"..."</p>
-                            </div>
-                        </div>
-                        <span class="text-[9px] bg-emerald-950 text-emerald-400 font-mono font-bold px-2 py-0.5 rounded border border-emerald-900/40">AUDIO_STREAMING</span>
-                    </div>
-
-                    <div class="mb-6">
-                        <p id="display-question-body" class="text-lg font-extrabold text-slate-950 dark:text-white leading-relaxed select-none"></p>
-                    </div>
-
-                    <div id="wrapper-options-container" class="space-y-3"></div>
-                </div>
-
-                <div class="border-t border-slate-100 dark:border-slate-800 pt-5 mt-8 flex flex-col sm:flex-row justify-between items-center gap-3">
-                    <button onclick="TestingEngine.navigateQuestions(-1)" id="btn-prev" class="w-full sm:w-auto px-5 py-3 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-bold text-xs tracking-wider uppercase rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-chevron-left text-[10px]"></i> Назад
-                    </button>
-                    
-                    <button onclick="TestingEngine.terminateExamSessionByUser()" class="w-full sm:w-auto px-6 py-3 border border-red-200 dark:border-red-900/40 text-red-600 dark:text-red-400 font-extrabold text-xs tracking-widest uppercase rounded-xl hover:bg-red-50 dark:hover:bg-red-950/20 transition order-first sm:order-none">
-                        Завершить тест <i class="fa-solid fa-circle-check ml-1 text-[10px]"></i>
-                    </button>
-
-                    <button onclick="TestingEngine.navigateQuestions(1)" id="btn-next" class="w-full sm:w-auto px-6 py-3 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-bold text-xs tracking-wider uppercase rounded-xl transition flex items-center justify-center gap-2">
-                        Вперед <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                    </button>
-                </div>
-
-            </div>
-
-            <div class="hidden xl:flex flex-col space-y-4">
-                
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
-                    <div class="flex justify-between items-center mb-3">
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Прогресс сессии</h4>
-                        <div class="relative w-28">
-                            <input type="text" id="sidebar-search-input" placeholder="Поиск Q..." class="w-full bg-slate-50 dark:bg-slate-900 text-[11px] font-bold px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-800 focus:outline-none focus:border-slate-400 dark:focus:border-slate-600 font-mono">
-                        </div>
-                    </div>
-                    <div class="w-full bg-slate-100 dark:bg-slate-900 h-2 rounded-full overflow-hidden mb-2">
-                        <div id="sidebar-progress-bar" class="bg-slate-900 dark:bg-slate-100 h-full transition-all duration-300" style="width: 0%"></div>
-                    </div>
-                    <div class="flex justify-between items-center text-[11px] font-bold text-slate-500">
-                        <span>Отвечено: <span id="sidebar-txt-answered" class="text-slate-950 dark:text-white font-mono">0</span>/100</span>
-                        <span id="sidebar-txt-percent" class="font-mono">0%</span>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-4 shadow-sm flex-1 flex flex-col overflow-hidden max-h-[350px]">
-                    <div class="flex justify-between items-center mb-3 shrink-0">
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Карта Ответов</h4>
-                        <span class="text-[9px] bg-slate-100 dark:bg-slate-900 text-slate-500 px-1.5 py-0.5 rounded font-mono font-bold">GRID MAP</span>
-                    </div>
-                    <div id="sidebar-grid-matrix" class="grid grid-cols-5 gap-1.5 overflow-y-auto flex-1 pr-1"></div>
-                </div>
-
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-4 shadow-sm space-y-1.5 shrink-0">
-                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5">Переход по модулям</h4>
-                    <button onclick="TestingEngine.jumpToQuestionIndex(0)" id="sidebar-mod-0" class="w-full text-left p-2.5 rounded-xl border border-transparent font-bold text-xs flex justify-between items-center transition">
-                        <span>1. Syntax Systems</span> <span id="sidebar-mod-total-0" class="font-mono text-[10px] opacity-60">0/25</span>
-                    </button>
-                    <button onclick="TestingEngine.jumpToQuestionIndex(25)" id="sidebar-mod-1" class="w-full text-left p-2.5 rounded-xl border border-transparent font-bold text-xs flex justify-between items-center transition">
-                        <span>2. Lexical Matrix</span> <span id="sidebar-mod-total-1" class="font-mono text-[10px] opacity-60">0/25</span>
-                    </button>
-                    <button onclick="TestingEngine.jumpToQuestionIndex(50)" id="sidebar-mod-2" class="w-full text-left p-2.5 rounded-xl border border-transparent font-bold text-xs flex justify-between items-center transition">
-                        <span>3. Reading Block</span> <span id="sidebar-mod-total-2" class="font-mono text-[10px] opacity-60">0/25</span>
-                    </button>
-                    <button onclick="TestingEngine.jumpToQuestionIndex(75)" id="sidebar-mod-3" class="w-full text-left p-2.5 rounded-xl border border-transparent font-bold text-xs flex justify-between items-center transition">
-                        <span>4. Listening Stream</span> <span id="sidebar-mod-total-3" class="font-mono text-[10px] opacity-60">0/25</span>
-                    </button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div id="view-analytics" class="hidden flex-1 flex flex-col space-y-6 max-w-[1400px] mx-auto w-full py-2">
-            
-            <div class="bg-slate-900 rounded-3xl p-6 md:p-8 text-white flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden border border-slate-800">
-                <div class="relative z-10 text-center md:text-left">
-                    <span class="bg-red-600 text-white text-[9px] font-black tracking-widest uppercase px-2.5 py-1 rounded-md">Official Score Certificate</span>
-                    <h2 class="text-2xl md:text-4xl font-black tracking-tight mt-2">Экзаменационная матрица DAMU</h2>
-                    <p class="text-slate-400 text-xs md:text-sm mt-1.5">Тестирование успешно завершено. Сформирован итоговый сертификат балла.</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-                
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 shadow-sm flex flex-col justify-between items-center text-center">
-                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest w-full text-left mb-4">Общий счет метрики</h4>
-                    
-                    <div class="relative w-44 h-44 my-2">
-                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="42" stroke-width="6" fill="transparent" class="stroke-slate-100 dark:stroke-slate-800" />
-                            <circle id="res-svg-circle-fill" cx="50" cy="50" r="42" stroke="#0f172a" stroke-width="6" fill="transparent" stroke-dasharray="263.89" stroke-dashoffset="263.89" class="dark:stroke-white transition-all duration-1000 ease-out" />
-                        </svg>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span id="res-txt-raw-score" class="text-4xl font-black tracking-tighter text-slate-950 dark:text-white">0</span>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">из 100 баллов</span>
-                        </div>
-                    </div>
-
-                    <div class="w-full grid grid-cols-3 gap-2 border-t border-slate-100 dark:border-slate-800 pt-4 mt-4 text-center text-xs">
-                        <div>
-                            <span class="text-[10px] font-bold text-slate-400 block">Верно</span>
-                            <span id="res-stat-correct" class="text-base font-bold text-emerald-600 font-mono">0</span>
-                        </div>
-                        <div class="border-x border-slate-100 dark:border-slate-800">
-                            <span class="text-[10px] font-bold text-slate-400 block">Ошибки</span>
-                            <span id="res-stat-wrong" class="text-base font-bold text-rose-600 font-mono">0</span>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-bold text-slate-400 block">Пропущено</span>
-                            <span id="res-stat-skipped" class="text-base font-bold text-slate-500 font-mono">0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-2 bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Процентная точность по суб-модулям</h4>
-                        <span class="text-[9px] bg-slate-100 dark:bg-slate-900 text-slate-500 px-2 py-0.5 rounded font-bold uppercase">Matrix Distribution</span>
-                    </div>
-                    <div class="flex-1 min-h-[220px] flex items-center justify-center">
-                        <canvas id="res-analytics-chart" class="max-w-full"></canvas>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl">
-                    <span class="text-[10px] font-bold text-slate-400 block uppercase">Затраченное время</span>
-                    <span id="res-meta-time-spent" class="text-lg font-black font-mono text-slate-900 dark:text-white">00:00</span>
-                </div>
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl">
-                    <span class="text-[10px] font-bold text-slate-400 block uppercase">Ср. время на вопрос</span>
-                    <span id="res-meta-avg-time" class="text-lg font-black font-mono text-slate-900 dark:text-white">0 сек</span>
-                </div>
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl">
-                    <span class="text-[10px] font-bold text-slate-400 block uppercase">Процент выполнения</span>
-                    <span id="res-meta-completion-rate" class="text-lg font-black font-mono text-slate-900 dark:text-white">0%</span>
-                </div>
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl">
-                    <span class="text-[10px] font-bold text-slate-400 block uppercase">Индекс Нарушений</span>
-                    <span id="res-meta-violations" class="text-lg font-black font-mono text-red-600 dark:text-red-400">0</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">Диагностическая карта зон</h4>
-                    
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3 p-3.5 bg-emerald-50 dark:bg-emerald-950/20 rounded-2xl border border-emerald-100 dark:border-emerald-900/20">
-                            <div class="text-emerald-600 text-base mt-0.5"><i class="fa-solid fa-circle-check"></i></div>
-                            <div>
-                                <h5 class="text-xs font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wider">Сильные стороны (Strength Zone)</h5>
-                                <p id="res-txt-strength" class="text-xs text-emerald-700 dark:text-emerald-400 mt-1 font-medium leading-relaxed"></p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-3 p-3.5 bg-rose-50 dark:bg-rose-950/20 rounded-2xl border border-rose-100 dark:border-rose-900/20">
-                            <div class="text-rose-600 text-base mt-0.5"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                            <div>
-                                <h5 class="text-xs font-bold text-rose-900 dark:text-rose-300 uppercase tracking-wider">Зоны для развития (Weakness Zone)</h5>
-                                <p id="res-txt-weakness" class="text-xs text-rose-700 dark:text-rose-400 mt-1 font-medium leading-relaxed"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-vue-surface border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2 mb-3">Рекомендации системы</h4>
-                        <p id="res-txt-roadmap" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium"></p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row gap-3 no-print">
-                        <button onclick="window.print()" class="flex-1 py-3.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-vue-dark font-black text-xs tracking-wider uppercase rounded-xl transition shadow-lg">
-                            <i class="fa-solid fa-print mr-1.5"></i> Экспорт репорта
-                        </button>
-                        <button onclick="AppState.clearCache(); window.location.reload();" class="flex-1 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-black text-xs tracking-wider uppercase rounded-xl transition shadow-lg flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-rotate-left"></i> Сдать заново
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-    <div id="mobile-navigation-bar" class="hidden bg-white dark:bg-vue-surface border-t border-slate-200/80 dark:border-slate-800 p-2 fixed bottom-0 left-0 right-0 z-40 md:hidden flex justify-around items-center gap-2 shadow-lg">
-        <button onclick="TestingEngine.navigateQuestions(-1)" class="flex-1 flex flex-col items-center justify-center p-2 text-slate-500 active:text-slate-900">
-            <i class="fa-solid fa-arrow-left text-sm"></i>
-            <span class="text-[9px] font-bold uppercase mt-1">Назад</span>
-        </button>
-        <button onclick="TestingEngine.toggleFlagCurrentQuestion()" class="flex-1 flex flex-col items-center justify-center p-2 text-slate-500">
-            <i class="fa-regular fa-bookmark text-sm"></i>
-            <span class="text-[9px] font-bold uppercase mt-1">Флаг</span>
-        </button>
-        <button onclick="TestingEngine.navigateQuestions(1)" class="flex-1 flex flex-col items-center justify-center p-2 text-slate-500 active:text-slate-900">
-            <i class="fa-solid fa-arrow-right text-sm"></i>
-            <span class="text-[9px] font-bold uppercase mt-1">Вперед</span>
-        </button>
+    <div class="mobile-overlay" id="mobile-menu">
+        <ul class="mobile-menu">
+            <li><a href="#about" class="m-link">О нас</a></li>
+            <li><a href="#test" class="m-link">Пройти Тест</a></li>
+            <li><a href="#map" class="m-link">Контакты</a></li>
+        </ul>
     </div>
 
+    <section class="hero" id="about">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <h1>Умное Обучение в <span>DAMU ACADEMY</span></h1>
+                <p>Мы создали систему, объединяющую классическое образование и геймифицированные интерактивные тесты. Узнай свой уровень английского языка прямо сейчас, забери персональный сертификат и гарантированную скидку на обучение!</p>
+                <div class="hero-actions">
+                    <a href="#test" class="btn-main btn-main-primary">Сдать Тест</a>
+                    <a href="#map" class="btn-main btn-main-secondary">Где мы находимся?</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="main-sphere">
+                    <i class="fa-solid fa-flag-usa"></i>
+                    <div class="badge-floating b-1"><i class="fa-solid fa-star"></i> Interactive Quiz</div>
+                    <div class="badge-floating b-2"><i class="fa-solid fa-graduation-cap"></i> Cambridge Ed.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="quiz-section" id="test">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 style="font-size: 36px; font-weight: 900; text-transform: uppercase;">Анализатор Уровня Языка</h2>
+                <p style="color: var(--text-muted); margin-top: 10px;">Ответьте на 3 вопроса, чтобы мгновенно сформировать сертификат со скидкой</p>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-progress">
+                    <div class="quiz-progress-bar" id="progress"></div>
+                </div>
+
+                <div class="quiz-step active" id="step-0">
+                    <h3 class="quiz-question">Как вас зовут? (Для именного сертификата)</h3>
+                    <input type="text" id="student-name" placeholder="Введите ваше имя" style="width: 100%; padding: 18px; border-radius: 12px; border: 2px solid var(--gray-border); font-size: 16px; font-weight: 600; margin-bottom: 25px; outline: none;">
+                    <button class="btn-main btn-main-primary" onclick="startQuiz()" style="width: 100%; border:none; cursor:pointer;">Начать Анализ</button>
+                </div>
+
+                <div class="quiz-step" id="step-1">
+                    <h3 class="quiz-question">1. Choose the correct form: "She ___ to the cinema yesterday."</h3>
+                    <div class="quiz-options">
+                        <button class="option-btn" onclick="nextStep(0)">go</button>
+                        <button class="option-btn" onclick="nextStep(1)">went</button>
+                        <button class="option-btn" onclick="nextStep(0)">has gone</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" id="step-2">
+                    <h3 class="quiz-question">2. Complete the sentence: "If it rains tomorrow, we ___ at home."</h3>
+                    <div class="quiz-options">
+                        <button class="option-btn" onclick="nextStep(0)">stay</button>
+                        <button class="option-btn" onclick="nextStep(0)">would stay</button>
+                        <button class="option-btn" onclick="nextStep(1)">will stay</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" id="step-3">
+                    <h3 class="quiz-question">3. What is the antonym of the word "Generous"?</h3>
+                    <div class="quiz-options">
+                        <button class="option-btn" onclick="calculateResult(1)">Stingy</button>
+                        <button class="option-btn" onclick="calculateResult(0)">Kind</button>
+                        <button class="option-btn" onclick="calculateResult(0)">Lazy</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step result-screen" id="step-result">
+                    <h3 style="font-size: 28px; font-weight: 800; color: #28a745;"><i class="fa-solid fa-circle-check"></i> Анализ завершен!</h3>
+                    <p style="color: var(--text-muted); margin-top: 5px;">Ваш персональный документ успешно сгенерирован системой</p>
+                    
+                    <div class="certificate-box" id="certificate">
+                        <div class="cert-title">Damu Academy Certificate</div>
+                        <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted);">Настоящим подтверждается, что</p>
+                        <div class="cert-name" id="cert-user-name">Студент</div>
+                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">прошел независимый тест и показал уровень знания языка:</p>
+                        <div class="cert-level" id="cert-user-level">B1 (Intermediate)</div>
+                        <div style="margin: 20px 0; border-top: 1px dashed var(--gray-border);"></div>
+                        <p style="font-size: 13px; font-weight: 600;">Бонус за прохождение: Грант-скидка 20% на любой курс</p>
+                        <div class="promo-badge" id="cert-promo">PROMO: DAMU-B1-2026</div>
+                    </div>
+
+                    <div class="cert-actions">
+                        <button class="btn-cert btn-download" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i> Скачать PDF / Печать</button>
+                        <button class="btn-cert btn-share" onclick="shareCert()"><i class="fa-solid fa-share-nodes"></i> Поделиться результатом</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section" id="map">
+        <div class="container">
+            <div class="reveal" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 32px; font-weight: 900; text-transform: uppercase;">Где нас найти?</h2>
+                <p style="color: var(--text-muted); margin-top: 10px;">Ждем вас в нашем современном кампусе</p>
+            </div>
+            <div class="map-wrapper reveal">
+                <iframe src="https://www.google.com/maps/embed?pb=!11m18!1m12!1m3!1d2564.7972418449176!2d69.1145!3d54.8667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424346bc!2z0JrQsNC30LDRhdGB0YLQsNC9!5e0!3m2!1sru!2skz!4v1710000000000!5m2!1sru!2skz" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="image_2cf79d.png" alt="DAMU ACADEMY">
+                </div>
+                <p>Мы меняем представление о языковом образовании, превращая обучение в увлекательное технологичное путешествие.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Навигация</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">О компании</a></li>
+                    <li><a href="#test">Анализатор уровня</a></li>
+                    <li><a href="#map">Наш адрес</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Поддержка</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Задать вопрос</a></li>
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                    <li><a href="#">Условия обучения</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Будь в курсе событий</h3>
+                <p>Подпишись на наши полезные материалы и лайфхаки по изучению английского.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Ваш Email">
+                    <button><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <div>© 2026 DAMU ACADEMY. Все права защищены.</div>
+            <div>Designed with ❤️ для будущих лидеров</div>
+        </div>
+    </footer>
+
     <script>
-        const EXAM_DATABASE = [
-            { id: 1, type: "Grammar", diff: "B2", q: "If I _____ more attention during the preparatory lecture yesterday, I would know how to solve this syntax formula now.", options: ["paid", "have paid", "had paid", "would pay"], correct: 2 },
-            { id: 2, type: "Grammar", diff: "C1", q: "Hardly _____ entered the academic auditorium when the principal investigator initiated the biometric verification.", options: ["we had", "had we", "did we", "have we"], correct: 1 },
-            { id: 3, type: "Grammar", diff: "B1", q: "She has been operating as a senior digital processing operator _____ over consecutive fiscal years.", options: ["since", "for", "during", "while"], correct: 1 },
-            { id: 4, type: "Grammar", diff: "C2", q: "The oversight academic council requested that the research thesis _____ submitted for audit before Friday noon.", options: ["be", "is", "was", "will be"], correct: 0 },
-            { id: 5, type: "Grammar", diff: "B2", q: "By the time the new encryption parameters become active, our developers _____ the architecture.", options: ["will finish", "finishes", "will have finished", "has finished"], correct: 2 },
-            ...Array.from({ length: 20 }, (_, i) => ({
-                id: i + 6, type: "Grammar", diff: i % 2 === 0 ? "B2" : "C1",
-                q: `Grammar Assessment Structure Matrix item #${i + 6}. Select the linguistically accurate syntactical alternative to ensure conditional compliance:`,
-                options: ["In light of these findings, it is essential.", "Having discovered the error, the code was rewritten.", "Had we discovered the glitch earlier, we would have modified it.", "The system will crash if we don't fix it yesterday."],
-                correct: 2
-            })),
-            { id: 26, type: "Vocabulary", diff: "C1", q: "The geopolitical relationships between the two adjacent confederations have rapidly _____ over the course of the decade.", options: ["deteriorated", "alleviated", "adhered", "augmented"], correct: 0 },
-            { id: 27, type: "Vocabulary", diff: "C2", q: "Identify the exact contextual semantic synonym for the following academic term: 'EXQUISITE'", options: ["Profoundly complicated", "Intricately beautiful and delicate", "Vastly comprehensive", "Superficially elegant"], correct: 1 },
-            { id: 28, type: "Vocabulary", diff: "B1", q: "The statistical data charts offer highly _____ and undeniable evidence supporting the structural shift.", options: ["ambiguous", "compelling", "arbitrary", "frivolous"], correct: 1 },
-            ...Array.from({ length: 22 }, (_, i) => ({
-                id: i + 29, type: "Vocabulary", diff: i % 2 === 0 ? "C1" : "B2",
-                q: `Lexical Core Evaluation Entry #${i + 29}. Choose the vocabulary element that most appropriately contextualizes academic performance metrics:`,
-                options: ["Obsolete parameters", "Pragmatic frameworks", "Capricious anomalies", "Superficial data sets"],
-                correct: 1
-            })),
-            { id: 51, type: "Reading", diff: "C1", passageId: "P1", q: "According to the provided text passage, what is highlighted as the primary structural danger of algorithmic delegation?", options: ["Immediate exponential rise in system computing resource costs", "The critical deterioration and degradation of systemic human oversight", "Rapid destabilization of manufacturing supply networks", "Total obsolescence of mathematical forecasting platforms"], correct: 1 },
-            { id: 52, type: "Reading", diff: "B2", passageId: "P1", q: "What semantic definition does the word 'ubiquitous' carry within the framework of paragraph 1?", options: ["Highly volatile and dangerous", "Existing or present everywhere simultaneously", "Mechanically isolated from the network", "Profoundly obsolete"], correct: 1 },
-            ...Array.from({ length: 23 }, (_, i) => ({
-                id: i + 53, type: "Reading", diff: "C1", passageId: "P2",
-                q: `Reading Comprehension Context Item #${i + 53}. Based on structural paradigms outlined in the textual analysis, identify the valid implication:`,
-                options: ["Technological transformations trigger linear progressions.", "Volatile non-linear transitions occur following systemic stasis.", "Individual choices override corporate institutional infrastructure.", "Macroeconomic stabilization guarantees total isolationism."],
-                correct: 1
-            })),
-            { id: 76, type: "Listening", diff: "B2", audioId: "A1", q: "What is the principal objective of Dr. Aris's presentation regarding macro-finance anomalies?", options: ["To introduce standard supply and demand equilibrium lines", "To analyze specific discrepancies and flaws within corporate forecasting models", "To promote immediate fiscal deregulation across banking infrastructures", "To track the migration patterns of tech start-up centers"], correct: 1 },
-            { id: 77, type: "Listening", diff: "C1", audioId: "A1", q: "According to the speaker, what role does consumer emotional sentience play in macroeconomic drops?", options: ["It serves as a stabilizing baseline parameter", "It acts as an unpredictable volatile catalyst that sparks market panic", "It has zero statistical correlation with asset valuation metrics", "It guarantees steady predictable trajectories"], correct: 1 },
-            ...Array.from({ length: 22 }, (_, i) => ({
-                id: i + 78, type: "Listening", diff: "C1", audioId: "A2",
-                q: `Auditory Data Auditing Sequence Item #${i + 78}. Based on the conversation between laboratory operators, what conclusion was reached?`,
-                options: ["The specimen array suffered extreme atmospheric degradation.", "The primary diagnostic equipment required an automated mechanical recalibration.", "The core test results aligned precisely with baseline control parameters.", "The emergency fuel backup generator failed to toggle during the event."],
-                correct: 2
-            }))
-        ];
+        // --- 1. Мобильное Бургер Меню ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mLinks = document.querySelectorAll('.m-link');
 
-        const PASSAGE_DATABASE = {
-            "P1": "The exponential proliferation of automated industrial algorithms has fundamentally re-engineered the modern macroeconomic ecosystem. Once localized to simple arithmetic calculations, these ubiquitous digital intelligence grids now oversee high-stakes asset distribution, automated logistics, and sensitive micro-trade frameworks. However, beneath the veneer of lightning-fast processing speeds lies a volatile structural anomaly: the systematic degradation of human cognitive oversight.",
-            "P2": "Socio-economic analysis demonstrates that historical institutional paradigms rarely transition smoothly. Instead, structural frameworks experience extended periods of stasis followed by volatile, non-linear transformations triggered by technological breakthroughs."
-        };
-
-        const SCRIPT_DATABASE = {
-            "A1": "Dr. Aris: 'Welcome, colleagues. In today's seminar, we must look past the comfortable metrics of classical trade curves. The anomalies manifesting in our cross-border liquidity ratios don't point to an ordinary correction.'",
-            "A2": "Staff Dialogue: 'We finished checking the cryogenic data arrays after the power fluctuation yesterday. While we feared sample degradation, the calibration matrix showed total resilience.'"
-        };
-
-        const AppState = {
-            data: {
-                currentQuestionIndex: 0,
-                userAnswers: Array(EXAM_DATABASE.length).fill(null),
-                flaggedQuestions: Array(EXAM_DATABASE.length).fill(false),
-                timeLeftInSeconds: 3600,
-                securityViolationsCount: 0,
-                isExamActive: false,
-                isExamFinished: false,
-                averageTimeSpentPerQuestion: 0,
-                sessionStartTime: null
-            },
-
-            storageKey: "DAMU_ASSESSMENT_STATE_V6",
-
-            init() {
-                const cached = localStorage.getItem(this.storageKey);
-                if (cached) {
-                    try {
-                        const parsed = JSON.parse(cached);
-                        if(parsed && typeof parsed.timeLeftInSeconds === 'number') {
-                            this.data = parsed;
-                            ToastController.show("Состояние сессии и таймер восстановлены.", "info");
-                        }
-                    } catch (e) {
-                        this.clearCache();
-                    }
-                }
-            },
-
-            save() {
-                localStorage.setItem(this.storageKey, JSON.stringify(this.data));
-                const indicator = document.getElementById('save-indicator');
-                if (indicator) {
-                    indicator.classList.remove('hidden');
-                    setTimeout(() => indicator.classList.add('hidden'), 500);
-                }
-            },
-
-            clearCache() {
-                localStorage.removeItem(this.storageKey);
-            }
-        };
-
-        const AppRouter = {
-            switchView(viewId) {
-                const views = ['view-dashboard', 'view-skeleton', 'view-examination', 'view-analytics'];
-                views.forEach(v => document.getElementById(v)?.classList.add('hidden'));
-
-                const target = document.getElementById(viewId);
-                if (target) {
-                    target.classList.remove('hidden');
-                    if (viewId === 'view-examination') {
-                        document.getElementById('header-timer-box').classList.remove('hidden');
-                        if(window.innerWidth < 768) document.getElementById('mobile-navigation-bar').classList.remove('hidden');
-                    } else {
-                        document.getElementById('header-timer-box').classList.add('hidden');
-                        document.getElementById('mobile-navigation-bar').classList.add('hidden');
-                    }
-                }
-            },
-            resetToHome() {
-                if(!AppState.data.isExamActive || AppState.data.isExamFinished) {
-                    AppState.clearCache();
-                    window.location.reload();
-                }
-            }
-        };
-
-        /* ===================================================================================
-           М О Д У Л Ь   Б И О М Е Т Р И И   ( F A C E   I D )
-           =================================================================================== */
-        const BiometricModule = {
-            localStream: null,
-            
-            startScanSequence() {
-                const btn = document.getElementById('btn-start-face-scan');
-                const status = document.getElementById('face-status-text');
-                const line = document.getElementById('face-scanner-line');
-                const icon = document.getElementById('face-icon-placeholder');
-                const video = document.getElementById('face-video-stream');
-
-                btn.disabled = true;
-                btn.classList.add('opacity-40', 'cursor-not-allowed');
-                status.innerText = "Запрос полномочий к мультимедиа-датчикам...";
-
-                // Попытка подключить настоящий стрим веб-камеры
-                navigator.mediaDevices.getUserMedia({ video: { width: 400, height: 400 } })
-                    .then(stream => {
-                        this.localStream = stream;
-                        video.srcObject = stream;
-                        video.classList.remove('hidden');
-                        video.play();
-                        icon.classList.add('hidden');
-                        line.classList.remove('hidden');
-                        this.triggerProcessingSteps(true);
-                    })
-                    .catch(() => {
-                        // Резервный программный симулятор при отсутствии камеры
-                        status.innerText = "Камера не обнаружена. Запуск отказоустойчивой нейросети...";
-                        line.classList.remove('hidden');
-                        this.triggerProcessingSteps(false);
-                    });
-            },
-
-            triggerProcessingSteps(isRealCam) {
-                const status = document.getElementById('face-status-text');
-                const steps = [
-                    "Захват кадра: обнаружение антропометрических контуров лица...",
-                    "Калибровка: развертывание 3D-матрицы ключевых узлов личности...",
-                    "Аналитика: сравнение хэш-сигнатур с реестром DAMU Secure...",
-                    "Статус: Верификация успешна! Личность подтверждена."
-                ];
-
-                let current = 0;
-                const timer = setInterval(() => {
-                    if (current < steps.length) {
-                        status.innerText = steps[current];
-                        current++;
-                    } else {
-                        clearInterval(timer);
-                        document.getElementById('face-scanner-line').classList.add('hidden');
-                        
-                        // Останавливаем веб-камеру, чтобы освободить датчик
-                        if (this.localStream) {
-                            this.localStream.getTracks().forEach(track => track.stop());
-                        }
-
-                        setTimeout(() => {
-                            document.getElementById('face-auth-modal').classList.add('hidden');
-                            TestingEngine.proceedToExamAfterVerification();
-                        }, 800);
-                    }
-                }, 1200);
-            }
-        };
-
-        const UIThemeController = {
-            init() {
-                if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    document.documentElement.classList.add('dark');
-                    this.updateIcon(true);
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    this.updateIcon(false);
-                }
-            },
-            toggle() {
-                const isDark = document.documentElement.classList.toggle('dark');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                this.updateIcon(isDark);
-            },
-            updateIcon(isDark) {
-                const icon = document.getElementById('theme-icon');
-                if (icon) icon.className = isDark ? "fa-solid fa-sun text-sm" : "fa-solid fa-moon text-sm";
-            }
-        };
-
-        const UIFullscreenController = {
-            toggle() {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().catch(() => {});
-                } else {
-                    document.exitFullscreen();
-                }
-                setTimeout(() => {
-                    const icon = document.getElementById('fullscreen-icon');
-                    if (icon) icon.className = document.fullscreenElement ? "fa-solid fa-compress text-sm" : "fa-solid fa-expand text-sm";
-                }, 150);
-            }
-        };
-
-        const ToastController = {
-            show(message, type = "info") {
-                const container = document.getElementById('toast-container');
-                if (!container) return;
-                const toast = document.createElement('div');
-                toast.className = "p-4 bg-white dark:bg-vue-surface border rounded-2xl shadow-xl flex items-start space-x-3 pointer-events-auto transform translate-y-2 opacity-0 transition-all duration-300 border-slate-100 dark:border-slate-800";
-                let icon = '<i class="fa-solid fa-circle-info text-blue-500"></i>';
-                if (type === "error") icon = '<i class="fa-solid fa-triangle-exclamation text-red-500"></i>';
-                toast.innerHTML = `<div class="text-base shrink-0">${icon}</div><div class="flex-1 text-xs font-bold text-slate-700 dark:text-slate-300">${message}</div>`;
-                container.appendChild(toast);
-                setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
-                setTimeout(() => {
-                    toast.classList.add('opacity-0');
-                    setTimeout(() => toast.remove(), 300);
-                }, 4000);
-            }
-        };
-
-        const SecurityModule = {
-            init() {
-                document.addEventListener('contextmenu', e => e.preventDefault());
-                document.addEventListener('dragstart', e => e.preventDefault());
-                document.addEventListener('drop', e => e.preventDefault());
-                document.addEventListener('keydown', e => {
-                    const ctrl = e.ctrlKey || e.metaKey;
-                    const shift = e.shiftKey;
-                    const key = e.key.toLowerCase();
-                    if ((ctrl && ['c', 'v', 'x', 'a', 's', 'p', 'u'].includes(key)) || (ctrl && shift && key === 'i') || e.key === 'F12') {
-                        e.preventDefault();
-                        this.registerViolation("Использование системных горячих клавиш и копирование заблокировано.");
-                    }
-                });
-                window.addEventListener('blur', () => {
-                    if (AppState.data.isExamActive && !AppState.data.isExamFinished) {
-                        this.registerViolation("Обнаружен выход из фокуса окна (переключение вкладки/приложения).");
-                    }
-                });
-            },
-
-            registerViolation(reason) {
-                AppState.data.securityViolationsCount++;
-                AppState.save();
-                ToastController.show(reason, "error");
-
-                if (AppState.data.securityViolationsCount >= 3) {
-                    document.getElementById('security-modal').classList.add('hidden');
-                    document.getElementById('terminal-lock-modal').classList.remove('hidden');
-                    TestingEngine.executeAutoSubmissionAndTerminate();
-                    return;
-                }
-
-                const modal = document.getElementById('security-modal');
-                const text = document.getElementById('security-modal-text');
-                const badge = document.getElementById('security-warning-badge');
-                if (modal && text && badge) {
-                    text.innerText = `${reason} Пожалуйста, сфокусируйтесь на тесте. Нарушение занесено в протокол.`;
-                    badge.innerText = `${AppState.data.securityViolationsCount} / 3`;
-                    modal.classList.remove('hidden');
-                }
-            },
-
-            closeWarningModal() {
-                document.getElementById('security-modal').classList.add('hidden');
-            }
-        };
-
-        const TestingEngine = {
-            timerInterval: null,
-
-            init() {
-                if (AppState.data.isExamActive && !AppState.data.isExamFinished) {
-                    this.resumeExamSession();
-                } else if (AppState.data.isExamFinished) {
-                    AnalyticsModule.renderDashboardResults();
-                } else {
-                    AppRouter.switchView('view-dashboard');
-                }
-                this.bindSearchAndHotkeys();
-            },
-
-            startExamSession() {
-                // Вместо мгновенного пуска активируем слой Face ID биометрии
-                document.getElementById('face-auth-modal').classList.remove('hidden');
-                // Сброс графических состояний кнопки внутри модального окна на случай перезапуска
-                const btn = document.getElementById('btn-start-face-scan');
-                btn.disabled = false;
-                btn.classList.remove('opacity-40', 'cursor-not-allowed');
-                document.getElementById('face-status-text').innerText = "Ожидание запуска биометрического оборудования...";
-                document.getElementById('face-icon-placeholder').classList.remove('hidden');
-                document.getElementById('face-video-stream').classList.add('hidden');
-            },
-
-            proceedToExamAfterVerification() {
-                AppState.data.isExamActive = true;
-                AppState.data.timeLeftInSeconds = 3600;
-                AppState.data.sessionStartTime = Date.now();
-                AppState.save();
-                AppRouter.switchView('view-skeleton');
-                setTimeout(() => {
-                    AppRouter.switchView('view-examination');
-                    this.renderWorkspaceCurrentQuestion();
-                    this.startCountdownTimer();
-                }, 600);
-            },
-
-            resumeExamSession() {
-                AppRouter.switchView('view-examination');
-                this.renderWorkspaceCurrentQuestion();
-                this.startCountdownTimer();
-            },
-
-            renderWorkspaceCurrentQuestion() {
-                const idx = AppState.data.currentQuestionIndex;
-                const q = EXAM_DATABASE[idx];
-
-                document.getElementById('display-q-idx').innerText = q.id;
-                document.getElementById('display-q-diff').innerText = `Level: ${q.diff}`;
-                document.getElementById('display-q-module').innerText = `Module: ${q.type} Core`;
-                document.getElementById('display-question-body').innerText = q.q;
-
-                const readBox = document.getElementById('wrapper-reading-context');
-                const listBox = document.getElementById('wrapper-listening-context');
-
-                if (q.type === "Reading") {
-                    readBox.classList.remove('hidden');
-                    document.getElementById('display-reading-text').innerText = PASSAGE_DATABASE[q.passageId] || PASSAGE_DATABASE["P1"];
-                    listBox.classList.add('hidden');
-                } else if (q.type === "Listening") {
-                    listBox.classList.remove('hidden');
-                    document.getElementById('display-listening-script').innerText = SCRIPT_DATABASE[q.audioId] || SCRIPT_DATABASE["A1"];
-                    readBox.classList.add('hidden');
-                } else {
-                    readBox.classList.add('hidden');
-                    listBox.classList.add('hidden');
-                }
-
-                const container = document.getElementById('wrapper-options-container');
-                container.innerHTML = '';
-
-                q.options.forEach((optText, optIdx) => {
-                    const isSelected = AppState.data.userAnswers[idx] === optIdx;
-                    const card = document.createElement('div');
-                    card.className = `p-4 border-2 rounded-2xl bg-white dark:bg-vue-surface cursor-pointer flex items-center justify-between transition-all duration-150 ${isSelected ? 'border-slate-900 dark:border-white bg-slate-50' : 'border-slate-100 dark:border-slate-800 hover:border-slate-200'}`;
-                    card.onclick = () => this.registerSelectedOption(optIdx);
-                    card.innerHTML = `
-                        <div class="flex items-start space-x-3">
-                            <span class="font-mono text-xs font-bold px-2 py-0.5 rounded ${isSelected ? 'bg-slate-900 text-white dark:bg-white dark:text-vue-dark' : 'bg-slate-100 text-slate-500 dark:bg-slate-900'}">${String.fromCharCode(65 + optIdx)}</span>
-                            <span class="text-sm font-semibold text-slate-800 dark:text-slate-200">${optText}</span>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-
-                this.updateFlagElementState();
-                this.renderLiveSidebarMetrics();
-            },
-
-            registerSelectedOption(optIdx) {
-                const idx = AppState.data.currentQuestionIndex;
-                AppState.data.userAnswers[idx] = optIdx;
-                AppState.save();
-                this.renderWorkspaceCurrentQuestion();
-                if (idx < EXAM_DATABASE.length - 1) {
-                    setTimeout(() => { if (AppState.data.currentQuestionIndex === idx) this.navigateQuestions(1); }, 200);
-                }
-            },
-
-            navigateQuestions(direction) {
-                const target = AppState.data.currentQuestionIndex + direction;
-                if (target >= 0 && target < EXAM_DATABASE.length) {
-                    AppState.data.currentQuestionIndex = target;
-                    AppState.save();
-                    this.renderWorkspaceCurrentQuestion();
-                }
-            },
-
-            jumpToQuestionIndex(target) {
-                if (target >= 0 && target < EXAM_DATABASE.length) {
-                    AppState.data.currentQuestionIndex = target;
-                    AppState.save();
-                    this.renderWorkspaceCurrentQuestion();
-                }
-            },
-
-            toggleFlagCurrentQuestion() {
-                const idx = AppState.data.currentQuestionIndex;
-                AppState.data.flaggedQuestions[idx] = !AppState.data.flaggedQuestions[idx];
-                AppState.save();
-                this.renderWorkspaceCurrentQuestion();
-            },
-
-            updateFlagElementState() {
-                const idx = AppState.data.currentQuestionIndex;
-                const isFlagged = AppState.data.flaggedQuestions[idx];
-                const icon = document.getElementById('flag-icon');
-                const text = document.getElementById('flag-text');
-                if (icon && text) {
-                    icon.className = isFlagged ? "fa-solid fa-bookmark text-amber-500" : "fa-regular fa-bookmark text-slate-400";
-                    text.innerText = isFlagged ? "В закладках" : "Отметить";
-                }
-            },
-
-            renderLiveSidebarMetrics() {
-                const answered = AppState.data.userAnswers.filter(a => a !== null).length;
-                const total = EXAM_DATABASE.length;
-                const pct = Math.round((answered / total) * 100);
-
-                document.getElementById('sidebar-txt-answered').innerText = answered;
-                document.getElementById('sidebar-txt-percent').innerText = `${pct}%`;
-                document.getElementById('sidebar-progress-bar').style.width = `${pct}%`;
-
-                const matrix = document.getElementById('sidebar-grid-matrix');
-                if (matrix) {
-                    matrix.innerHTML = '';
-                    EXAM_DATABASE.forEach((q, i) => {
-                        const cell = document.createElement('button');
-                        cell.onclick = () => this.jumpToQuestionIndex(i);
-                        let style = "p-1.5 rounded-lg text-[11px] font-mono font-bold border text-center ";
-                        if (AppState.data.currentQuestionIndex === i) style += "bg-slate-900 text-white dark:bg-white dark:text-vue-dark";
-                        else if (AppState.data.flaggedQuestions[i]) style += "bg-amber-100 text-amber-800 border-amber-300";
-                        else if (AppState.data.userAnswers[i] !== null) style += "bg-slate-200 text-slate-800";
-                        else style += "bg-white text-slate-300 dark:bg-vue-surface";
-                        cell.className = style;
-                        cell.innerText = q.id;
-                        matrix.appendChild(cell);
-                    });
-                }
-            },
-
-            startCountdownTimer() {
-                if (this.timerInterval) clearInterval(this.timerInterval);
-                const node = document.getElementById('header-timer');
-                this.timerInterval = setInterval(() => {
-                    if (AppState.data.timeLeftInSeconds <= 0) {
-                        clearInterval(this.timerInterval);
-                        this.executeAutoSubmissionAndTerminate();
-                        return;
-                    }
-                    AppState.data.timeLeftInSeconds--;
-                    AppState.save();
-
-                    let mins = Math.floor(AppState.data.timeLeftInSeconds / 60);
-                    let secs = AppState.data.timeLeftInSeconds % 60;
-                    if(node) node.innerText = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
-                }, 1000);
-            },
-
-            bindSearchAndHotkeys() {
-                document.getElementById('sidebar-search-input')?.addEventListener('input', e => {
-                    const num = parseInt(e.target.value);
-                    if (num && num >= 1 && num <= EXAM_DATABASE.length) this.jumpToQuestionIndex(num - 1);
-                });
-                document.addEventListener('keydown', e => {
-                    if (!AppState.data.isExamActive || AppState.data.isExamFinished) return;
-                    if (e.key === "ArrowRight") this.navigateQuestions(1);
-                    if (e.key === "ArrowLeft") this.navigateQuestions(-1);
-                });
-            },
-
-            terminateExamSessionByUser() {
-                if (confirm("Вы действительно хотите завершить тестирование и сформировать финальный бланк баллов?")) {
-                    this.executeAutoSubmissionAndTerminate();
-                }
-            },
-
-            executeAutoSubmissionAndTerminate() {
-                clearInterval(this.timerInterval);
-                AppState.data.isExamFinished = true;
-                AppState.data.isExamActive = false;
-                AppState.save();
-                AppRouter.switchView('view-skeleton');
-                setTimeout(() => AnalyticsModule.renderDashboardResults(), 600);
-            }
-        };
-
-        const AnalyticsModule = {
-            chartInstance: null,
-            renderDashboardResults() {
-                AppRouter.switchView('view-analytics');
-                let correct = 0, wrong = 0, skipped = 0;
-                let breakdown = { Grammar: {c:0, t:25}, Vocabulary: {c:0, t:25}, Reading: {c:0, t:25}, Listening: {c:0, t:25} };
-
-                EXAM_DATABASE.forEach((q, i) => {
-                    const ans = AppState.data.userAnswers[i];
-                    if (ans === null) skipped++;
-                    else if (ans === q.correct) { correct++; breakdown[q.type].c++; }
-                    else wrong++;
-                });
-
-                document.getElementById('res-txt-raw-score').innerText = correct;
-                document.getElementById('res-stat-correct').innerText = correct;
-                document.getElementById('res-stat-wrong').innerText = wrong;
-                document.getElementById('res-stat-skipped').innerText = skipped;
-
-                const spent = 3600 - AppState.data.timeLeftInSeconds;
-                document.getElementById('res-meta-time-spent').innerText = `${Math.floor(spent/60)} мин`;
-                document.getElementById('res-meta-avg-time').innerText = `${correct > 0 ? Math.round(spent/correct) : 0} сек`;
-                document.getElementById('res-meta-completion-rate').innerText = `${correct + wrong}%`;
-                document.getElementById('res-meta-violations').innerText = AppState.data.securityViolationsCount;
-
-                document.getElementById('res-svg-circle-fill').style.strokeDashoffset = 263.89 - (263.89 * correct) / 100;
-
-                document.getElementById('res-txt-strength').innerText = correct >= 50 ? "Высокая концентрация и аналитическое мышление при разборе комплексных структур." : "Базовое понимание общих вопросов.";
-                document.getElementById('res-txt-weakness').innerText = wrong > 20 ? "Системные пробелы в узкоспециализированных модулях ядра." : "Незначительные ситуативные ошибки.";
-                document.getElementById('res-txt-roadmap').innerText = "Официальные баллы зафиксированы в архивной базе данных. Для улучшения параметров рекомендуется регулярный разбор модулей.";
-
-                this.injectAccuracyBarChart(breakdown);
-            },
-
-            injectAccuracyBarChart(data) {
-                const ctx = document.getElementById('res-analytics-chart').getContext('2d');
-                if (this.chartInstance) this.chartInstance.destroy();
-                this.chartInstance = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Syntax', 'Lexical', 'Reading', 'Listening'],
-                        datasets: [{
-                            data: [Math.round(data.Grammar.c/25*100), Math.round(data.Vocabulary.c/25*100), Math.round(data.Reading.c/25*100), Math.round(data.Listening.c/25*100)],
-                            backgroundColor: ['#0f172a', '#334155', '#64748b', '#94a3b8'],
-                            borderRadius: 8
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-                });
-            }
-        };
-
-        window.addEventListener('DOMContentLoaded', () => {
-            UIThemeController.init();
-            AppState.init();
-            SecurityModule.init();
-            TestingEngine.init();
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
         });
+
+        mLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // --- 2. Логика Интерактивного Теста (Квиза) ---
+        let currentStep = 0;
+        let score = 0;
+        let userName = "Студент";
+
+        function updateProgress() {
+            const totalSteps = 3;
+            const percentage = currentStep > 0 ? ((currentStep - 1) / totalSteps) * 100 : 0;
+            document.getElementById('progress').style.width = percentage + '%';
+        }
+
+        function startQuiz() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            if(nameInput !== "") {
+                userName = nameInput;
+            }
+            document.getElementById('step-0').classList.remove('active');
+            currentStep = 1;
+            document.getElementById('step-1').classList.add('active');
+            updateProgress();
+        }
+
+        function nextStep(points) {
+            score += points;
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).add('active');
+            updateProgress();
+        }
+
+        function nextStep(points) {
+            score += points;
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        function calculateResult(points) {
+            score += points;
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            
+            // Расчет уровня на основе баллов
+            let level = "A2 (Elementary)";
+            let promo = "DAMU-START-10";
+            if(score === 2) {
+                level = "B1 (Intermediate)";
+                promo = "DAMU-PRO-15";
+            } else if(score === 3) {
+                level = "B2 (Upper-Intermediate)";
+                promo = "DAMU-MAX-20";
+            }
+
+            document.getElementById('cert-user-name').innerText = userName;
+            document.getElementById('cert-user-level').innerText = level;
+            document.getElementById('cert-promo').innerText = `PROMO: ${promo}`;
+
+            document.getElementById('step-result').classList.add('active');
+            document.getElementById('progress').style.width = '100%';
+        }
+
+        function shareCert() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Мой результат в DAMU ACADEMY',
+                    text: `Я прошел тест и подтвердил свой уровень английского! Проверь и ты!`,
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                alert("Ссылка скопирована! Отправьте её друзьям, чтобы поделиться вашим достижением.");
+            }
+        }
+
+        // --- 3. Анимация появления элементов при скролле (Intersection Observer) ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => observer.observe(el));
     </script>
 </body>
+</html>
