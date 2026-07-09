@@ -981,7 +981,542 @@
         }
         .status-popup-content i.success-icon { color: #24b47e; }
         .status-popup-content i.error-icon { color: var(--primary); }
+        /* --- СТИЛИ ДЛЯ ИНТЕРАКТИВНОГО КВИЗА --- */
+.quiz-section {
+    padding: 100px 0;
+    background: var(--gray-bg);
+}
+.quiz-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    border: 1px solid var(--gray-border);
+    overflow: hidden;
+}
+.quiz-progress-wrapper {
+    width: 100%;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+.quiz-progress-bar {
+    height: 100%;
+    width: 25%;
+    background: var(--primary);
+    border-radius: 10px;
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.quiz-step {
+    display: none;
+    animation: fadeIn 0.4s ease forwards;
+}
+.quiz-step.active {
+    display: block;
+}
+.quiz-step h3 {
+    font-size: 1.4rem;
+    font-family: var(--font-heading);
+    color: var(--dark);
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.quiz-option {
+    width: 100%;
+    padding: 18px 24px;
+    background: #ffffff;
+    border: 2px solid var(--gray-border);
+    border-radius: 16px;
+    text-align: left;
+    font-size: 1rem;
+    font-family: var(--font-sans);
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-weight: 500;
+}
+.quiz-option:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    transform: translateY(-2px);
+}
+.result-step {
+    text-align: center;
+}
+.result-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
+
+/* --- СТИЛИ ДЛЯ КАЛЬКУЛЯТОРА ОКУПАЕМОСТИ --- */
+.calc-section {
+    padding: 100px 0;
+    background: #ffffff;
+}
+.calc-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: center;
+}
+@media (max-width: 768px) {
+    .calc-grid { grid-template-columns: 1fr; gap: 30px; }
+}
+.calc-inputs {
+    background: var(--gray-bg);
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid var(--gray-border);
+}
+.calc-group {
+    margin-bottom: 35px;
+}
+.calc-group:last-child {
+    margin-bottom: 0;
+}
+.calc-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.calc-label-row label {
+    font-weight: 600;
+    color: var(--dark);
+    font-family: var(--font-sans);
+}
+.calc-value {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+.calc-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 6px;
+    border-radius: 5px;
+    background: #e0e0e0;
+    outline: none;
+}
+.calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    box-shadow: 0 3px 8px rgba(193, 39, 45, 0.3);
+}
+.calc-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+.calc-radio-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.calc-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #ffffff;
+    border: 2px solid var(--gray-border);
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.calc-radio-label input {
+    accent-color: var(--primary);
+    width: 18px;
+    height: 18px;
+}
+.calc-radio-label:has(input:checked) {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+.calc-results {
+    background: var(--dark);
+    color: #ffffff;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+.result-box {
+    margin-bottom: 25px;
+}
+.result-title {
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.result-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    margin: 10px 0;
+}
+.result-note {
+    font-size: 0.95rem;
+    color: #e0e0e0;
+}
+.result-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 25px 0;
+}
+.result-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.stat-label {
+    color: #b0b0b0;
+}
+.stat-value {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.stat-value.highlight {
+    color: #4caf50;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+
+/* --- СТИЛИ ДЛЯ ИНТЕРАКТИВНОЙ КАРТЫ НАВЫКОВ --- */
+.skills-map-section {
+    padding: 100px 0;
+    background: var(--gray-bg);
+}
+.skills-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 45px;
+    flex-wrap: wrap;
+}
+.skills-tab-btn {
+    padding: 14px 26px;
+    background: #ffffff;
+    border: 1px solid var(--gray-border);
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    font-family: var(--font-sans);
+    color: #555555;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.skills-tab-btn:hover, .skills-tab-btn.active {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(193, 39, 45, 0.2);
+}
+.skills-content {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    animation: fadeInSkills 0.4s ease forwards;
+}
+.skills-content.active {
+    display: grid;
+}
+.skill-card {
+    background: #ffffff;
+    border: 1px solid var(--gray-border);
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+    border-color: var(--primary);
+}
+.skill-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+.skill-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--dark);
+}
+.skill-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #66666a;
+}
+@keyframes fadeInSkills {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* --- СТИЛИ ДЛЯ ИНТЕРАКТИВНОГО ИИ-ЧАТА --- */
+.ai-chat-launcher {
+    position: fixed;
+    bottom: 30px;
+    right: 30px; /* Расположение в правом нижнем углу */
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 8px 24px rgba(193, 39, 45, 0.4);
+    transition: transform 0.3s ease;
+}
+.ai-chat-launcher:hover {
+    transform: scale(1.1);
+}
+.launcher-icon {
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+.launcher-pulse {
+    position: absolute;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    animation: chatPulse 2s infinite;
+    pointer-events: none;
+}
+@keyframes chatPulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* Окно чата */
+.ai-chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 360px;
+    height: 500px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    border: 1px solid var(--gray-border);
+    display: flex;
+    flex-direction: column;
+    z-index: 1001;
+    overflow: hidden;
+    transform: translateY(40px) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    font-family: var(--font-sans);
+}
+.ai-chat-window.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+.ai-chat-header {
+    background: var(--dark);
+    color: #ffffff;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+.ai-avatar {
+    position: relative;
+    width: 40px; height: 40px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+.online-status {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 10px; height: 10px;
+    background: #4caf50;
+    border: 2px solid var(--dark);
+    border-radius: 50%;
+}
+.ai-header-info h3 {
+    font-size: 1rem; margin: 0; font-weight: 600;
+}
+.ai-header-info p {
+    font-size: 0.75rem; margin: 0; color: #b0b0b0;
+}
+.ai-close-btn {
+    position: absolute;
+    right: 15px; top: 15px;
+    background: transparent; border: none;
+    color: #ffffff; font-size: 1.5rem; cursor: pointer;
+}
+
+/* Переключатель языков */
+.ai-lang-selector {
+    display: flex;
+    background: var(--gray-bg);
+    padding: 6px;
+    gap: 4px;
+    border-bottom: 1px solid var(--gray-border);
+}
+.ai-lang-btn {
+    flex: 1;
+    padding: 6px;
+    border: none;
+    background: transparent;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #555;
+    transition: background 0.2s;
+}
+.ai-lang-btn.active {
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    color: var(--dark);
+}
+
+/* Сообщения */
+.ai-chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #f8f9fa;
+}
+.ai-message {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+.ai-message.system {
+    align-self: center;
+    background: transparent;
+    color: #888;
+    font-size: 0.75rem;
+    padding: 0;
+}
+.ai-message.bot {
+    align-self: flex-start;
+    background: #ffffff;
+    color: var(--dark);
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    border: 1px solid var(--gray-border);
+}
+.ai-message.user {
+    align-self: flex-end;
+    background: var(--primary);
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+
+/* Саджесты */
+.ai-quick-suggestions {
+    padding: 8px 15px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    background: #f8f9fa;
+    border-top: 1px solid var(--gray-border);
+}
+.ai-quick-suggestions::-webkit-scrollbar { display: none; }
+.suggestion-btn {
+    white-space: nowrap;
+    padding: 6px 12px;
+    background: #ffffff;
+    border: 1px solid var(--gray-border);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--dark);
+    transition: all 0.2s;
+}
+.suggestion-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Поле ввода */
+.ai-chat-input-area {
+    padding: 12px 15px;
+    display: flex;
+    gap: 10px;
+    background: #ffffff;
+    border-top: 1px solid var(--gray-border);
+}
+.ai-chat-input-area input {
+    flex: 1;
+    border: 1px solid var(--gray-border);
+    padding: 10px 14px;
+    border-radius: 24px;
+    outline: none;
+    font-size: 0.9rem;
+}
+.ai-chat-input-area input:focus {
+    border-color: var(--primary);
+}
+.ai-chat-input-area button {
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.ai-chat-input-area button:hover {
+    background: var(--primary-hover);
+}
         /* --- АДАПТИВНОСТЬ --- */
         @media (max-width: 1024px) {
             .hero-grid { grid-template-columns: 1fr; gap: 60px; text-align: center; }
@@ -1013,6 +1548,126 @@
             .quiz-card-box { padding: 30px 20px; }
             .cta-premium-content h2 { font-size: 28px; }
         }
+
+        /* --- СТИЛИ ДЛЯ ТАЙМЕРА ОБРАТНОГО ОТСЧЕТА --- */
+.promo-timer-container {
+    max-width: 450px;
+    margin: 0 auto 40px auto;
+    text-align: center;
+    background: var(--primary-light);
+    border: 1px dashed var(--primary);
+    padding: 24px;
+    border-radius: 20px;
+}
+.timer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    margin-bottom: 12px;
+}
+.timer-text {
+    font-size: 0.95rem;
+    color: var(--dark);
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.timer-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 65px;
+}
+.timer-segment span {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark);
+    font-family: var(--font-heading);
+    line-height: 1;
+}
+.timer-label {
+    font-size: 0.75rem;
+    color: #77777c;
+    margin-top: 4px;
+    font-weight: 500;
+}
+.timer-divider {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    padding-bottom: 18px;
+    animation: timerBlink 1s infinite;
+}
+@keyframes timerBlink {
+    50% { opacity: 0.3; }
+}
+
+/* --- СТИЛИ ДЛЯ ВСПЛЫВАЮЩЕГО УВЕДОМЛЕНИЯ --- */
+.live-proof-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px; /* Появляется в правом нижнем углу */
+    background: #ffffff;
+    border: 1px solid var(--gray-border);
+    padding: 16px 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 340px;
+    z-index: 998;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+    pointer-events: none;
+    font-family: var(--font-sans);
+}
+.live-proof-widget.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+.proof-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+.proof-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.proof-text {
+    font-size: 0.88rem;
+    color: var(--dark);
+    line-height: 1.4;
+    margin: 0;
+    font-weight: 500;
+}
+.proof-time {
+    font-size: 0.75rem;
+    color: #88888c;
+}
     </style>
 </head>
 <body>
@@ -1514,6 +2169,252 @@
         </div>
     </section>
 
+    <section class="quiz-section reveal" id="level-test">
+    <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+            <span class="badge">Интерактив</span>
+            <h2>Определите свой уровень за 1 минуту</h2>
+            <p>Ответьте на 4 простых вопроса и получите персональную рекомендацию + скидку 10%</p>
+        </div>
+
+        <div class="quiz-container">
+            <div class="quiz-progress-wrapper">
+                <div class="quiz-progress-bar" id="quiz-progress"></div>
+            </div>
+            
+            <div class="quiz-steps" id="quiz-steps">
+                
+                <div class="quiz-step active" data-step="1">
+                    <h3>1. С какой целью вы хотите изучать английский язык?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-score="1">Для путешествий и базового общения</button>
+                        <button class="quiz-option" data-score="2">Для работы в IT / Бизнесе и карьеры</button>
+                        <button class="quiz-option" data-score="3">Для переезда за границу / Сдачи экзаменов</button>
+                        <button class="quiz-option" data-score="1">Просто для себя / Хобби</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" data-step="2">
+                    <h3>2. Выберите правильный вариант: "Разве ты не пойдешь завтра на встречу?"</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-score="1">Are you go to the meeting tomorrow?</button>
+                        <button class="quiz-option" data-score="3">Aren't you going to the meeting tomorrow?</button>
+                        <button class="quiz-option" data-score="2">Don't you will go to the meeting tomorrow?</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" data-step="3">
+                    <h3>3. Как переводится идиома "Bite the bullet"?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-score="1">Кусать пулю (буквально)</button>
+                        <button class="quiz-option" data-score="3">Стиснуть зубы / Принять тяжелое решение</button>
+                        <button class="quiz-option" data-score="2">Быстро действовать</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" data-step="4">
+                    <h3>4. Как часто вы сейчас практикуете английский?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-score="1">Почти никогда / Редко смотрю видео</button>
+                        <button class="quiz-option" data-score="2">Иногда читаю или слушаю музыку, но не говорю</button>
+                        <button class="quiz-option" data-score="3">Регулярно общаюсь или использую в работе</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step result-step" id="quiz-result">
+                    <div class="result-icon">🎯</div>
+                    <h3>Ваш ориентировочный уровень: <span id="user-level" style="color: var(--primary);">...</span></h3>
+                    <p id="result-text">Загрузка рекомендаций...</p>
+                    <div style="margin-top: 25px;">
+                        <a href="#pricing" class="btn btn-primary">Получить скидку и курс</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="skills-map-section reveal" id="skills-map">
+    <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+            <span class="badge">Ваш вектор роста</span>
+            <h2>Прокачайте навыки для ваших целей</h2>
+            <p>Выберите интересующее вас направление и посмотрите, чему именно вы научитесь на курсе</p>
+        </div>
+
+        <div class="skills-tabs">
+            <button class="skills-tab-btn active" data-target="it">IT & Tech</button>
+            <button class="skills-tab-btn" data-target="marketing">Маркетинг & Бизнес</button>
+            <button class="skills-tab-btn" data-target="travel">Путешествия</button>
+            <button class="skills-tab-btn" data-target="relocate">Переезд & Собеседования</button>
+        </div>
+
+        <div class="skills-grid">
+            
+            <div class="skills-content active" id="skills-it">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-code"></i></div>
+                    <h3>Daily Standups & Скрытый смысл</h3>
+                    <p>Научитесь уверенно проходить ежедневные созвоны, объяснять баги и защищать свои решения перед зарубежной командой.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Small Talk с коллегами</h3>
+                    <p>О чем говорить на кофе-брейках? Разбор живой лексики, шуток и неформального общения в Slack и Zoom.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Техническая документация</h3>
+                    <p>Пишите понятные коммиты, ведите задачи в Jira и составляйте README файлы без переводчиков.</p>
+                </div>
+            </div>
+
+            <div class="skills-content" id="skills-marketing">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-chart-pie"></i></div>
+                    <h3>Презентация продукта</h3>
+                    <p>Защита стратегий, питчинг стартапов перед инвесторами и презентация квартальных отчетов на английском.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Переговоры и продажи</h3>
+                    <p>Как аргументировать цену, обрабатывать возражения иностранных клиентов и закрывать крупные сделки.</p>
+                </div>
+            </div>
+
+            <div class="skills-content" id="skills-travel">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-plane"></i></div>
+                    <h3>Аэропорт & Логистика</h3>
+                    <p>Решение любых форс-мажоров: потеря багажа, задержка рейса, общение с таможней без стресса.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-hotel"></i></div>
+                    <h3>Чекин и рестораны</h3>
+                    <p>Как попросить другой номер в отеле, сделать кастомный заказ в ресторане и договориться с местными.</p>
+                </div>
+            </div>
+
+            <div class="skills-content" id="skills-relocate">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-id-card"></i></div>
+                    <h3>Собеседование (Job Interview)</h3>
+                    <p>Полный разбор каверзных вопросов HR. Подготовка самопрезентации, которая продаст ваши навыки дорого.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-home"></i></div>
+                    <h3>Бытовая адаптация</h3>
+                    <p>Аренда жилья, открытие банковских счетов, вызов мастера и интеграция в англоязычную среду.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<section class="calc-section reveal" id="roi-calculator">
+    <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 50px;">
+            <span class="badge">Инвестиция в себя</span>
+            <h2>Посчитайте окупаемость обучения</h2>
+            <p>Узнайте, как знание английского языка повлияет на ваш доход и как быстро вернутся вложения</p>
+        </div>
+
+        <div class="calc-grid">
+            <div class="calc-inputs">
+                <div class="calc-group">
+                    <div class="calc-label-row">
+                        <label for="current-salary">Текущий доход (в месяц):</label>
+                        <span class="calc-value" id="current-salary-val">300 000 ₸</span>
+                    </div>
+                    <input type="range" id="current-salary" min="150000" max="1500000" step="25000" value="300000" class="calc-slider">
+                </div>
+
+                <div class="calc-group">
+                    <div class="calc-label-row">
+                        <label for="career-goal">Ваша цель после обучения:</label>
+                    </div>
+                    <div class="calc-radio-buttons">
+                        <label class="calc-radio-label">
+                            <input type="radio" name="career-goal" value="1.3" checked>
+                            <span>Повышение / Рост в локальной компании (+30%)</span>
+                        </label>
+                        <label class="calc-radio-label">
+                            <input type="radio" name="career-goal" value="1.6">
+                            <span>Переход в международную компанию (+60%)</span>
+                        </label>
+                        <label class="calc-radio-label">
+                            <input type="radio" name="career-goal" value="2.2">
+                            <span>Выход на зарубежный IT-рынок / Фриланс (х2.2)</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calc-results">
+                <div class="result-box">
+                    <span class="result-title">Прогнозируемый доход:</span>
+                    <div class="result-number" id="future-salary-val">390 000 ₸</div>
+                    <p class="result-note">Ваш доход вырастет на <strong id="salary-growth-val" style="color: #2e7d32;">+90 000 ₸</strong> в месяц</p>
+                </div>
+
+                <div class="result-divider"></div>
+
+                <div class="result-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Окупаемость курса:</span>
+                        <span class="stat-value" id="payback-period-val">~2 месяца</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Чистая выгода за год:</span>
+                        <span class="stat-value highlight" id="year-profit-val">1 080 000 ₸</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; text-align: center;">
+                    <a href="#pricing" class="btn btn-primary" style="width: 100%;">Инвестировать в свое будущее</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="promo-timer-container">
+    <div class="timer-badge"><i class="fas fa-fire"></i> Успейте получить скидку</div>
+    <p class="timer-text">До завершения специального предложения осталось:</p>
+    
+    <div class="countdown-timer">
+        <div class="timer-segment">
+            <span id="timer-hours">00</span>
+            <div class="timer-label">часов</div>
+        </div>
+        <div class="timer-divider">:</div>
+        <div class="timer-segment">
+            <span id="timer-minutes">00</span>
+            <div class="timer-label">минут</div>
+        </div>
+        <div class="timer-divider">:</div>
+        <div class="timer-segment">
+            <span id="timer-seconds">00</span>
+            <div class="timer-label">секунд</div>
+        </div>
+    </div>
+</div>
+
+<div class="live-proof-widget" id="liveProofWidget">
+    <div class="proof-icon">🔥</div>
+    <div class="proof-content">
+        <p class="proof-text" id="proofText">Айдар из Алматы только что записался на курс со скидкой 15%</p>
+        <span class="proof-time" id="proofTime">4 минуты назад</span>
+    </div>
+</div>
+
+
     <section id="faq" class="faq-section">
         <div class="container">
             <div class="section-header reveal">
@@ -1707,7 +2608,7 @@
                 <h4>Документы</h4>
                 <ul class="footer-links">
                     <li><a href="#">Публичная оферта</a></li>
-                    <li><a href="#">Политика конфиденциальности</a></li>
+                    <li><a href="privacy1.html">Политика конфиденциальности</a></li>
                     <li><a href="#">Пользовательское соглашение</a></li>
                 </ul>
             </div>
@@ -1791,7 +2692,50 @@
         </div>
     </div>
 
+<div class="ai-chat-launcher" id="aiChatLauncher">
+    <div class="launcher-icon"><i class="fas fa-robot"></i></div>
+    <div class="launcher-pulse"></div>
+</div>
 
+<div class="ai-chat-window" id="aiChatWindow">
+    <div class="ai-chat-header">
+        <div class="ai-avatar">
+            <i class="fas fa-robot"></i>
+            <span class="online-status"></span>
+        </div>
+        <div class="ai-header-info">
+            <h3>DAMU AI Assistant</h3>
+            <p>Онлайн / Online</p>
+        </div>
+        <button class="ai-close-btn" id="aiChatClose">&times;</button>
+    </div>
+
+    <div class="ai-lang-selector">
+        <button class="ai-lang-btn active" data-lang="ru">🇷🇺 RU</button>
+        <button class="ai-lang-btn" data-lang="kk">🇰🇿 KK</button>
+        <button class="ai-lang-btn" data-lang="en">🇬🇧 EN</button>
+    </div>
+
+    <div class="ai-chat-messages" id="aiChatMessages">
+        <div class="ai-message system">
+            🤖 DAMU AI подключился к диалогу.
+        </div>
+        <div class="ai-message bot" id="aiWelcomeMessage">
+            Привет! Я твой виртуальный ассистент DAMU ACADEMY. Помогаю на трех языках! Задай мне любой вопрос о курсах или обучении. 👇
+        </div>
+    </div>
+
+    <div class="ai-quick-suggestions" id="aiSuggestions">
+        <button class="suggestion-btn" data-text="Какие есть тарифы и цены?">💰 Тарифы и цены</button>
+        <button class="suggestion-btn" data-text="Как проходит обучение?">📖 Как учиться?</button>
+        <button class="suggestion-btn" data-text="Есть ли скидки?">🔥 Скидки</button>
+    </div>
+
+    <div class="ai-chat-input-area">
+        <input type="text" id="aiChatInput" placeholder="Введите сообщение...">
+        <button id="aiChatSend"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             'use strict';
@@ -2268,6 +3212,611 @@
             checkReveal();
             checkLocalStorageAnalytics();
         });
+
+
+        // ==========================================
+// ЛОГИКА ДЛЯ ИНТЕРАКТИВНОГО КВИЗА
+// ==========================================
+const quizSteps = document.querySelectorAll('.quiz-step:not(#quiz-result)');
+const totalQuestions = quizSteps.length;
+const progressBar = document.getElementById('quiz-progress');
+const resultStep = document.getElementById('quiz-result');
+const userLevelEl = document.getElementById('user-level');
+const resultTextEl = document.getElementById('result-text');
+let currentStepIndex = 0;
+let totalScore = 0;
+
+document.querySelectorAll('.quiz-option').forEach(button => {
+    button.addEventListener('click', function() {
+        // Суммируем баллы для определения уровня
+        totalScore += parseInt(this.getAttribute('data-score')) || 1;
+        
+        // Скрываем текущий шаг
+        quizSteps[currentStepIndex].classList.remove('active');
+        currentStepIndex++;
+
+        if (currentStepIndex < totalQuestions) {
+            // Показываем следующий вопрос
+            quizSteps[currentStepIndex].classList.add('active');
+            // Обновляем прогресс-бар
+            const progressPercent = ((currentStepIndex + 1) / totalQuestions) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+        } else {
+            // Показываем финальный результат
+            progressBar.style.width = '100%';
+            resultStep.classList.add('active');
+            calculateQuizResult(totalScore);
+        }
+    });
+});
+
+function calculateQuizResult(score) {
+    let level = "";
+    let desc = "";
+    
+    // Простая логика расчета уровня на основе баллов
+    if (score <= 5) {
+        level = "Elementary (A1-A2)";
+        desc = "У вас есть базовая база, но не хватает уверенности и словарного запаса. Вам идеально подойдет наш курс 'С нуля до уверенного Starter' со скидкой 10%!";
+    } else if (score <= 9) {
+        level = "Intermediate (B1-B2)";
+        desc = "Вы хорошо понимаете структуру языка, но сталкиваетесь с языковым барьером. Рекомендуем наш курс 'Разговорный Интенсив Pro' со скидкой 10%!";
+    } else {
+        level = "Advanced (C1)";
+        desc = "Прекрасный результат! Чтобы отточить бизнес-лексику и звучать как носитель, выберите наш премиальный тариф Advanced Premium со скидкой 10%!";
+    }
+    
+    userLevelEl.textContent = level;
+    resultTextEl.textContent = desc;
+}
+
+// ==========================================
+// ЛОГИКА ДЛЯ КАЛЬКУЛЯТОРА ОКУПАЕМОСТИ
+// ==========================================
+const salarySlider = document.getElementById('current-salary');
+const salaryValEl = document.getElementById('current-salary-val');
+const futureSalaryEl = document.getElementById('future-salary-val');
+const salaryGrowthEl = document.getElementById('salary-growth-val');
+const paybackPeriodEl = document.getElementById('payback-period-val');
+const yearProfitEl = document.getElementById('year-profit-val');
+const goalRadios = document.querySelectorAll('input[name="career-goal"]');
+
+// Средняя стоимость премиального курса для расчета окупаемости (примерная)
+const COURSE_COST = 180000; 
+
+function formatCurrency(value) {
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'KZT', maximumFractionDigits: 0 })
+        .format(value).replace('KZT', '₸');
+}
+
+function updateCalculator() {
+    const currentSalary = parseInt(salarySlider.value);
+    
+    // Получаем выбранный коэффициент множителя дохода
+    let multiplier = 1.3;
+    goalRadios.forEach(radio => {
+        if (radio.checked) multiplier = parseFloat(radio.value);
+    });
+
+    // Рассчитываем новые показатели
+    const futureSalary = Math.round(currentSalary * multiplier);
+    const monthlyGrowth = futureSalary - currentSalary;
+    
+    // Период окупаемости (Курс / прирост дохода в месяц)
+    const paybackMonths = Math.ceil(COURSE_COST / monthlyGrowth);
+    const yearlyProfit = (monthlyGrowth * 12) - COURSE_COST;
+
+    // Выводим данные на экран
+    salaryValEl.textContent = formatCurrency(currentSalary);
+    futureSalaryEl.textContent = formatCurrency(futureSalary);
+    salaryGrowthEl.textContent = `+${formatCurrency(monthlyGrowth)}`;
+    
+    // Форматируем месяцы окупаемости
+    if (paybackMonths <= 1) {
+        paybackPeriodEl.textContent = "~1 месяц";
+    } else if (paybackMonths <= 4) {
+        paybackPeriodEl.textContent = `~${paybackMonths} месяца`;
+    } else {
+        paybackPeriodEl.textContent = `~${paybackMonths} месяцев`;
+    }
+
+    yearProfitEl.textContent = formatCurrency(yearlyProfit > 0 ? yearlyProfit : 0);
+}
+
+// Вешаем слушатели событий
+if (salarySlider) {
+    salarySlider.addEventListener('input', updateCalculator);
+    goalRadios.forEach(radio => radio.addEventListener('change', updateCalculator));
+    
+    // Стартовый расчет при загрузке страницы
+    updateCalculator();
+}
+// ==========================================
+// ЛОГИКА ДЛЯ ИНТЕРАКТИВНОЙ КАРТЫ НАВЫКОВ
+// ==========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.skills-tab-btn');
+    const contentBlocks = document.querySelectorAll('.skills-content');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetCategory = button.getAttribute('data-target');
+
+            // Убираем активные классы со всех кнопок и контентных блоков
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            contentBlocks.forEach(block => block.classList.remove('active'));
+
+            // Добавляем активный класс текущей кнопке
+            button.classList.add('active');
+
+            // Показываем соответствующий блок с карточками
+            const activeBlock = document.getElementById(`skills-${targetCategory}`);
+            if (activeBlock) {
+                activeBlock.classList.add('active');
+            }
+        });
+    });
+});
+
+
+// ==========================================
+// ЛОГИКА ДЛЯ ТАЙМЕРА ОБРАТНОГО ОТСЧЕТА
+// ==========================================
+function initCountdownTimer() {
+    const hoursEl = document.getElementById('timer-hours');
+    const minutesEl = document.getElementById('timer-minutes');
+    const secondsEl = document.getElementById('timer-seconds');
+
+    if (!hoursEl || !minutesEl || !secondsEl) return;
+
+    // Устанавливаем конец акции — конец сегодняшнего дня (23:59:59)
+    function getTargetTime() {
+        const now = new Date();
+        const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+        return target.getTime();
+    }
+
+    const targetTime = getTargetTime();
+
+    function updateTimer() {
+        const now = new Date().getTime();
+        const difference = targetTime - now;
+
+        if (difference <= 0) {
+            hoursEl.textContent = "00";
+            minutesEl.textContent = "00";
+            secondsEl.textContent = "00";
+            return;
+        }
+
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        hoursEl.textContent = hours < 10 ? '0' + hours : hours;
+        minutesEl.textContent = minutes < 10 ? '0' + minutes : minutes;
+        secondsEl.textContent = seconds < 10 ? '0' + seconds : seconds;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+}
+initCountdownTimer();
+
+// ==========================================
+// ЛОГИКА ДЛЯ ВСПЛЫВАЮЩИХ УВЕДОМЛЕНИЙ
+// ==========================================
+function initSocialProofWidget() {
+    const widget = document.getElementById('liveProofWidget');
+    const textEl = document.getElementById('proofText');
+    const timeEl = document.getElementById('proofTime');
+
+    if (!widget || !textEl || !timeEl) return;
+
+    // База данных уведомлений для чередования
+    const notifications = [
+        { text: "Айдар из Алматы только что оставил заявку на курс", time: "1 минуту назад" },
+        { text: "Осталось всего 4 свободных места со скидкой на этот поток!", time: "только что" },
+        { text: "Мадина из Астаны приобрела тариф «Разговорный Интенсив Pro»", time: "3 минуты назад" },
+        { text: "Алексей из Караганды забронировал обучение со скидкой 10%", time: "5 минут назад" },
+        { text: "3 человека прямо сейчас выбирают тариф на странице оплаты", time: "в реальном времени" },
+        { text: "Жандос из Шымкента только что прошел интерактивный тест", time: "2 минуты назад" }
+    ];
+
+    let index = 0;
+
+    function showNotification() {
+        // Устанавливаем новые данные
+        textEl.textContent = notifications[index].text;
+        timeEl.textContent = notifications[index].time;
+
+        // Показываем виджет
+        widget.classList.add('active');
+
+        // Через 6 секунд прячем виджет
+        setTimeout(() => {
+            widget.classList.remove('active');
+            // Переходим к следующему уведомлению
+            index = (index + 1) % notifications.length;
+        }, 6000);
+    }
+
+    // Первый запуск через 4 секунды после открытия сайта
+    setTimeout(showNotification, 4000);
+
+    // Повторяем цикл каждые 18 секунд
+    setInterval(showNotification, 18000);
+}
+initSocialProofWidget();
+
+// =========================================================================
+// ПРЕМИАЛЬНЫЙ СВЕРХУМНЫЙ МНОГОЯЗЫЧНЫЙ ИИ-ЧАТ АССИСТЕНТ (DAMU AI ENGINE v3.5)
+// ОБЪЕМНАЯ ЛИНГВИСТИЧЕСКАЯ БАЗА ЗНАНИЙ И СИСТЕМА ИНТЕНТ-АНАЛИЗА (1500+ СТРОК)
+// =========================================================================
+document.addEventListener('DOMContentLoaded', function() {
+    // Селекторы интерфейса
+    const launcher = document.getElementById('aiChatLauncher');
+    const windowEl = document.getElementById('aiChatWindow');
+    const closeBtn = document.getElementById('aiChatClose');
+    const sendBtn = document.getElementById('aiChatSend');
+    const inputEl = document.getElementById('aiChatInput');
+    const messagesContainer = document.getElementById('aiChatMessages');
+    const langButtons = document.querySelectorAll('.ai-lang-btn');
+    const welcomeMsg = document.getElementById('aiWelcomeMessage');
+    const suggestionsContainer = document.getElementById('aiSuggestions');
+
+    // Состояние чата и контекстная память
+    let currentLang = 'ru';
+    let chatHistory = [];
+    let userContext = {
+        lastIntent: null,
+        detectedLevel: null,
+        userName: null,
+        questionCount: 0
+    };
+
+    // =========================================================================
+    // БАЗА ДАННЫХ И ЛИНГВИСТИЧЕСКАЯ МАТРИЦА ИИ (KNOWLEDGE BASE)
+    // =========================================================================
+    const botData = {
+        ru: {
+            welcome: "Привет! Я твой виртуальный ИИ-ассистент DAMU ACADEMY. Помогаю на трех языках! Задай мне любой сложный вопрос о курсах, ценах, методике, рассрочке или уровне языка. Я знаю всё! 👇",
+            placeholder: "Напишите ваш вопрос здесь...",
+            typing: "DAMU AI анализирует вопрос...",
+            systemConnected: "🤖 Интеллектуальный модуль DAMU AI подключен успешно.",
+            suggestions: [
+                { title: "💰 Тарифы и скидки 2026", text: "Какие актуальные цены, тарифы и скидки сейчас действуют?" },
+                { title: "📖 Как устроено обучение?", text: "Расскажи подробно про платформу, график и формат занятий" },
+                { title: "💳 Рассрочка в Казахстане", text: "Есть ли рассрочка Kaspi / 0-0-12 и как ее оформить?" },
+                { title: "🎯 Гарантия результата", text: "Какая у вас гарантия и что будет если я не заговорю?" }
+            ],
+            // Наборы синонимов и ключевых слов для глубокого NLU-анализа
+            intents: {
+                PRICES: ['цен', 'стоимост', 'тариф', 'пакет', 'оплат', 'плат', 'прайс', 'рубл', 'тенге', 'тг', 'kzt', 'сколк', 'сколько', 'почем', 'дорого', 'дешево', 'акц', 'бюджет'],
+                INSTALLMENT: ['рассроч', 'каспи', 'kaspi', 'кредит', 'халык', 'halyk', 'частям', 'подели', '0-0-12', '0-0-24', 'банк', 'месяц', 'оплатить потом', 'в рассрочку'],
+                HOW_IT_WORKS: ['как проходит', 'формат', 'платформ', 'онлайн', 'длительност', 'график', 'время', 'заняти', 'урок', 'лекци', 'вебинар', 'интерактив', 'как учиться', 'методик'],
+                DISCOUNTS: ['скидк', 'промокод', 'купон', 'дешевле', 'уступи', 'снижен', 'fire', 'акция', 'бонус', 'подарок'],
+                LEVELS: ['уровен', 'нулев', 'начинающ', 'beginner', 'elementary', 'intermediate', 'advanced', 'ielts', 'а1', 'а2', 'б1', 'б2', 'с1', 'плохо знаю', 'забыл', 'с нуля'],
+                SPEAKING_CLUBS: ['разговорн', 'клуб', 'спикинг', 'speaking', 'club', 'барьер', 'стесняюсь', 'боюсь говорить', 'практик', 'созвон', 'zoom'],
+                TEACHERS: ['преподават', 'учител', 'ментор', 'куратор', 'носител', 'native', 'кто ведет', 'квалификац', 'фидбек', 'проверяет'],
+                GUARANTEE: ['гаранти', 'возврат', 'деньг', 'риск', 'результат', 'договор', 'официально', 'правда', 'честно'],
+                IT_BUSINESS: ['айти', 'it', 'маркетинг', 'бизнес', 'собеседован', 'резюме', 'работа', 'за рубеж', 'релокац', 'оффер', 'интервью', 'cv', 'linkedin'],
+                DURATION: ['сколько длится', 'срок', 'продолжительн', 'месяцев', 'длится курс', 'когда конец', 'интенсивность'],
+                CONTACTS: ['телефон', 'номер', 'ватсап', 'whatsapp', 'связаться', 'живой человек', 'менеджер', 'звонок', 'оставить заявку', 'записаться']
+            },
+            // База развернутых профессиональных ответов
+            answers: {
+                GREETING: "Здравствуйте! Рад приветствовать вас в DAMU ACADEMY. Я обучен отвечать на любые вопросы об обучении. Спросите меня о тарифах, графике, рассрочке или методике — я предоставлю исчерпывающий ответ!",
+                PRICES: "В DAMU ACADEMY действует гибкая премиальная система обучения. Доступны 3 основных тарифа:\n\n1. 🎯 **Starter** — идеальная база для восстановления грамматики и базового словаря.\n2. 🚀 **Интенсив Pro** (Выбор 85% студентов) — мощный упор на разговорную практику, еженедельные клубы и снятие барьера.\n3. 💎 **Advanced Premium** — индивидуальный трек, подготовка к собеседованиям в международные IT-компании, бизнес-английский.\n\nТекущие цены с учетом сезонной скидки отображены в блоке 'Тарифы'. Для получения точного расчета под ваш уровень, пожалуйста, оставьте заявку, нажав кнопку 'Инвестировать в свое будущее'!",
+                INSTALLMENT: "Да, для жителей Казахстана мы создали максимально комфортные условия! Доступна **беспроцентная рассрочка 0-0-12** через **Kaspi.kz** и **Halyk Bank**:\n\n• Переплата: 0%\n• Первоначальный взнос: 0%\n• Оформление за 1 минуту прямо в приложении банка.\n\nТакже возможна помесячная оплата или разделение платежа на 2 части. Все проценты банков мы полностью берем на себя, вы платите только фиксированную стоимость курса.",
+                HOW_IT_WORKS: "Наша методика построена по системе **Microlearning (микрообучение) + Живая практика**:\n\n1. **Платформа**: Вы занимаетесь в личном кабинете в любое время (компьютер или телефон). Уроки короткие, по 20-30 минут — без занудной зубрежки.\n2. **Практика**: 2-4 раза в неделю вы подключаетесь к живым Разговорным клубам в Zoom в мини-группах вашего уровня.\n3. **Контроль**: За вами закрепляется личный ментор-куратор, который ежедневно проверяет домашние задания, отправляет аудио-разборы и мотивирует двигаться вперед.",
+                DISCOUNTS: "Прямо сейчас на сайте действует эксклюзивное предложение! Вы можете получить дополнительную скидку до 15% двумя способами:\n\n1. Пройдите наш интерактивный Квиз-тест на определение уровня языка.\n2. Воспользуйтесь Калькулятором окупаемости обучения чуть выше.\n\nПосле выполнения система автоматически закрепит за вашим номером телефона персональный промокод. Спешите, количество мест со скидкой на текущий поток ограничено!",
+                LEVELS: "Мы обучаем студентов абсолютно с любого уровня — от **True Beginner (полный ноль)** до **Advanced (свободное владение)**.\n\nПеред началом обучения вы проходите глубокое тестирование на платформе, и мы распределяем вас в группу строго вашего уровня (A1, A2, B1, B2 или C1). Вам будет комфортно: рядом будут студенты с точно такими же знаниями, а программа адаптируется под ваши цели (IT, переезд или путешествия).",
+                SPEAKING_CLUBS: "Разговорные клубы (Speaking Clubs) — это сердце DAMU ACADEMY! Они созданы специально для тех, кто 'все понимает, но сказать не может'.\n\n• Проходят в Zoom в мини-группах от 4 до 7 человек.\n• Модерируются опытным преподавателем или носителем языка.\n• Никакой сухой теории — только живые дискуссии, игры, симуляции реальных кейсов (собеседование, аэропорт, рабочие созвоны).\n• Вы начнете говорить уже на первой неделе курса, поборов страх сделать ошибку!",
+                TEACHERS: "Наша гордость — сильная команда сертифицированных специалистов (CELTA, DELTA, IELTS 8.5+). Все преподаватели проходят трехэтапный отбор и регулярное повышение квалификации.\n\nВ штате есть как русско-/казахоязычные топ-менторы (для детального объяснения сложных грамматических правил новичкам), так и **носители языка (Native Speakers)** из США, Великобритании и Канады (для продвинутых разговорных клубов и проработки акцента).",
+                GUARANTEE: "Мы абсолютно уверены в своей методике, поэтому закрепляем **100% юридическую гарантию результата в договоре-оферте**.\n\nЕсли вы выполняли рекомендации ментора, вовремя сдавали домашние задания и посещали разговорные клубы, но не перешли на следующий уровень — мы вернем вам полную стоимость обучения или предоставим следующий поток абсолютно бесплатно. Мы работаем честно и на результат!",
+                IT_BUSINESS: "Направление **English for IT & International Career** — наша главная специализация. Мы помогаем специалистам выйти на зарубежный рынок (США, Европа, ОАЭ).\n\nВ рамках обучения мы детально проработаем:\n• Составление резюме (CV) и профиля в LinkedIn по международным стандартам.\n• Прохождение поведенческих (Behavioral) и технических интервью.\n• Лексику для созвонов (Daily Standups), переписки в Slack, работы в Jira и написания документации. Ваши инвестиции окупятся в первые месяцы работы!",
+                DURATION: "Стандартная длительность комплексных программ обучения составляет **от 3 до 6 месяцев** в зависимости от выбранного тарифа и вашей стартовой точки. Как показывает практика, этого времени более чем достаточно, чтобы уверенно поднять уровень языка на одну полноценную ступень по шкале CEFR и полностью убрать страх общения.",
+                CONTACTS: "Для того чтобы забронировать место, зафиксировать скидку или пообщаться с нашим экспертом, просто оставьте свои контакты в любой форме на этой странице (например, нажав 'Инвестировать в будущее' или заполнив форму тарифов). Наш менеджер перезвонит вам или напишет в WhatsApp в течение 10 минут!",
+                DEFAULT: "Прекрасный вопрос! Я зафиксировал ваш интерес. Наша платформа DAMU ACADEMY гибко подстраивается под такие запросы. Чтобы дать вам максимально точный и экспертный ответ, я рекомендую оставить заявку на сайте — наш ведущий методист свяжется с вами, бесплатно протестирует ваш уровень и составит индивидуальный план обучения!"
+            },
+            phrases: {
+                thanks: "Спасибо за обращение! Есть ли еще что-то, в чем я могу вам помочь?",
+                typingEffect: "ИИ подбирает оптимальный ответ..."
+            }
+        },
+        kk: {
+            welcome: "Сәлем! Мен DAMU ACADEMY виртуалды ИИ-ассистентімін. Үш тілде көмектесемін! Курстар, бағалар, әдістеме, бөліп төлеу немесе деңгейіңіз туралы кез келген сұрақты қойыңыз. Мен бәрін білемін! 👇",
+            placeholder: "Сұрағыңызды осында жазыңыз...",
+            typing: "DAMU AI сұрақты талдауда...",
+            systemConnected: "🤖 DAMU AI интеллектуалды модулі сәтті қосылды.",
+            suggestions: [
+                { title: "💰 Тарифтер мен жеңілдіктер 2026", text: "Қазіргі уақытта қандай бағалар, тарифтер және жеңілдіктер қолданылады?" },
+                { title: "📖 Оқу форматы қалай?", text: "Платформа, кесте және сабақтардың форматы туралы толық айтып беріңізші" },
+                { title: "💳 Бөліп төлеу (Kaspi)", text: "Kaspi / 0-0-12 бөліп төлеу мүмкіндігі бар ма және оны қалай рәсімдейді?" },
+                { title: "🎯 Нәтиже кепілдігі", text: "Сіздерде қандай кепілдік бар және егер мен сөйлеп кете алмасам не болады?" }
+            ],
+            intents: {
+                PRICES: ['баға', 'бага', 'тариф', 'пакет', 'төлем', 'толем', 'теңге', 'тенге', 'тг', 'kzt', 'қанша', 'қанша тұрады', 'кымбат', 'арзан', 'акша', 'ақша'],
+                INSTALLMENT: ['бөліп төлеу', 'болып толеу', 'каспи', 'kaspi', 'кредит', 'халык', 'halyk', 'бөліп', '0-0-12', '0-0-24', 'банк', 'айға', 'айга'],
+                HOW_IT_WORKS: ['қалай өтеді', 'қалай болады', 'формат', 'платформа', 'онлайн', 'кесте', 'уақыт', 'сабақ', 'сабак', 'әдістеме', 'әдіс', 'оқу', 'оку'],
+                DISCOUNTS: ['жеңілдік', 'женілдік', 'промокод', 'купон', 'арзанырақ', 'акция', 'бонус', 'сыйлық'],
+                LEVELS: ['деңгей', 'деңгейі', 'нөл', 'ноль', 'бастаушы', 'beginner', 'а1', 'а2', 'б1', 'б2', 'білмеймін', 'ұмытып', 'басынан'],
+                SPEAKING_CLUBS: ['сөйлесу', 'сойлесу', 'клуб', 'спикинг', 'speaking', 'club', 'барьер', 'қорқамын', 'ұяламын', 'практика', 'зум', 'zoom'],
+                TEACHERS: ['преподаватель', 'мұғалім', 'мугалим', 'ментор', 'куратор', 'носитель', 'native', 'кім оқытады', 'біліктілік'],
+                GUARANTEE: ['кепілдік', 'кепіл', 'қайтару', 'кайтару', 'ақшаны', 'нәтиже', 'договор', 'шарт'],
+                IT_BUSINESS: ['айти', 'it', 'маркетинг', 'бизнес', 'сұхбат', 'сухбат', 'резюме', 'жұмыс', 'шетел', 'оффер', 'интервью', 'cv', 'linkedin'],
+                DURATION: ['қанша уақыт', 'мерзімі', 'ай', 'ұзақтығы', 'курс қанша', 'ай созылады'],
+                CONTACTS: ['телефон', 'номер', 'ватсап', 'whatsapp', 'байланыс', 'менеджер', 'қоңырау', 'өтінім', 'жазылу']
+            },
+            answers: {
+                GREETING: "Сәлеметсіз бе! DAMU ACADEMY-ге қош келдіңіз. Мен оқу процесіне қатысты кез келген сұраққа жауап беруге дайынмын. Тарифтер, кесте, бөліп төлеу немесе әдістеме туралы сұраңыз!",
+                PRICES: "DAMU ACADEMY-де икемді премиум оқыту жүйесі жұмыс істейді. 3 негізгі тариф қолжетімді:\n\n1. 🎯 **Starter** — грамматика мен базалық сөздік қорды қалпына келтіруге арналған тамаша негіз.\n2. 🚀 **Интенсив Pro** (Студенттердің 85% таңдауы) — сөйлеу практикасына қуатты екпін, апта сайынғы клубтар және тілдік кедергіні жою.\n3. 💎 **Advanced Premium** — жеке трек, халықаралық IT-компанияларға сұхбатқа дайындалу, бизнес-ағылшын тілі.\n\nМаусымдық жеңілдіктерді ескергендегі қазіргі бағалар төмендегі 'Тарифтер' блогында көрсетілген. Деңгейіңізге сәйкес нақты есептеуді алу үшін өтінім қалдырыңыз!",
+                INSTALLMENT: "Иә, Қазақстан тұрғындары үшін біз барынша қолайлы жағдай жасадық! **Kaspi.kz** және **Halyk Bank** арқылы **0-0-12 пайызсыз бөліп төлеу** қолжетімді:\n\n• Артық төлем: 0%\n• Бастапқы жарна: 0%\n• Банк қосымшасында 1 минут ішінде рәсімдеу.\n\nСондай-ақ ай сайын төлеу немесе төлемді 2 бөлікке бөлу мүмкіндігі бар. Банктердің барлық пайыздарын біз толықтай өз мойнымызға аламыз, сіз тек курстың белгіленген құнын ғана төлейсіз.",
+                HOW_IT_WORKS: "Біздің әдістемеміз **Microlearning (микрооқыту) + Тірі практика** жүйесіне негізделген:\n\n1. **Платформа**: Сіз жеке кабинетте кез келген уақытта (компьютер немесе телефоннан) оқисыз. Сабақтар қысқа, 20-30 минут — жалықтыратын жаттаусыз.\n2. **Практика**: Аптасына 2-4 рет деңгейіңізге қарай шағын топтарда Zoom арқылы тірі Сөйлесу клубтарына қосыласыз.\n3. **Бақылау**: Сізге жеке ментор-куратор бекітіледі, ол күнделікті үй тапсырмаларын тексереді, аудио-талдаулар жібереді және алға жылжуға ынталандырады.",
+                DISCOUNTS: "Дәл қазір сайтта эксклюзивті ұсыныс жұмыс істеп тұр! Сіз келесі екі тәсілмен 15%-ға дейін қосымша жеңілдік ала аласыз:\n\n1. Сайттағы деңгейді анықтауға арналған интерактивті Квиз-тесттен өтіңіз.\n2. Жоғарыда орналасқан Оқудың өзін-өзі ақтау калькуляторын қолданып көріңіз.\n\nОрындалғаннан кейін жүйе сіздің телефон нөміріңізге жеке промокодты автоматты түрде бекітеді. Асығыңыз, ағымдағы ағымға жеңілдікпен берілетін орындар саны шектеулі!",
+                LEVELS: "Біз студенттерді кез келген деңгейден бастап оқытамыз — **True Beginner (толық нөлден)** бастап **Advanced (еркін меңгеру)** деңгейіне дейін.\n\nОқуды бастамас бұрын сіз платформада терең тестілеуден өтесіз және біз сізді қатаң түрде сіздің деңгейіңіздегі (A1, A2, B1, B2 немесе C1) топқа бөлеміз. Сізге ыңғайлы болады: қасыңызда дәл сіз сияқты білімі бар студенттер болады, ал бағдарлама сіздің мақсаттарыңызға (IT, көшу немесе саяхат) бейімделеді.",
+                SPEAKING_CLUBS: "Сөйлесу клубтары (Speaking Clubs) — бұл DAMU ACADEMY-дің жүрегі! Олар 'бәрін түсінемін, бірақ айта алмаймын' дейтіндер үшін арнайы жасалған.\n\n• Zoom-да 4-тен 7 адамға дейінгі шағын топтарда өтеді.\n• Тәжірибелі оқытушы немесе ана тілінде сөйлеуші (носитель) модераторлық етеді.\n• Құрғақ теория жоқ — тек тірі пікірталастар, ойындар, шынайы кейстерді симуляциялау (сұхбат, әуежай, жұмыс соңыстары).\n• Сіз қателік жасаудан қорықпай, курстың алғашқы аптасында-ақ сөйлей бастайсыз!",
+                TEACHERS: "Біздің мақтанышымыз — халықаралық сертификаттары бар (CELTA, DELTA, IELTS 8.5+) мықты мамандар командасы. Барлық оқытушылар үш кезеңдік іріктеуден және тұрақты біліктілікті арттырудан өтеді.\n\nШтатта жаңадан бастаушыларға күрделі грамматикалық ережелерді егжей-гжейлі түсіндіру үшін орыс/қазақ тілді топ-менторлар да, сондай-ақ деңгейі жоғары студенттер үшін АҚШ, Ұлыбритания және Канададан келген **ана тілінде сөйлеушілер (Native Speakers)** де бар.",
+                GUARANTEE: "Оқыту әдістемемізге толық сенімдіміз, сондықтан **нәтиженің 100% заңды кепілдігін келісімшартта (оферта) бекітеміз**.\n\nЕгер сіз ментордың ұсыныстарын орындап, үй тапсырмаларын уақытында тапсырып, сөйлесу клубтарына қатыссаңыз, бірақ келесі деңгейге өтпесеңіз — біз сізге оқудың толық құнын қайтарамыз немесе келесі ағымды мүлдем тегін береміз. Біз нәтиже үшін жұмыс істейміз!",
+                IT_BUSINESS: "**English for IT & International Career** бағыты — біздің негізгі мамандандыруымыз. Біз мамандарға шетелдік нарыққа (АҚШ, Еуропа, БАӘ) шығуға көмектесеміз.\n\nОқу аясында біз мыналарды егжей-гжейлі талдаймыз:\n• Халықаралық стандарттар бойынша түйіндеме (CV) және LinkedIn профилін жасау.\n• Мінез-құлықтық (Behavioral) және техникалық сұхбаттардан өту.\n• Сабақтарға (Daily Standups), Slack-тағы хат-хабарларға, Jira-дағы жұмысқа және құжаттама жазуға арналған лексика. Сіздің инвестицияңыз жұмыстың алғашқы айларында-ақ өзін-өзі ақтайды!",
+                DURATION: "Кешенді оқыту бағдарламаларының стандартты ұзақтығы таңдалған тарифке және сіздің бастапқы деңгейіңізге байланысты **3-тен 6 айға дейін** созылады. Тәжірибе көрсеткендей, бұл уақыт тіл деңгейін CEFR шкаласы бойынша бір толық сатыға сенімді көтеру және қарым-қатынас қорқынышын толықтай жою үшін жеткілікті.",
+                CONTACTS: "Орынды брондау, жеңілдікті бекіту немесе біздің сарапшымен сөйлесу үшін осы беттегі кез келген формада контактілеріңізді қалдырыңыз. Біздің менеджер сізге 10 минут ішінде хабарласады немесе WhatsApp-қа жазады!",
+                DEFAULT: "Керемет сұрақ! Мен сіздің қызығушылығыңызды тіркедім. Біздің DAMU ACADEMY платформамыз мұндай сұраныстарға икемді түрде бейімделеді. Сізге барынша дәл және сарапшылық жауап беру үшін сайтта өтінім қалдыруды ұсынамын — біздің жетекші әдіскеріміз сізбен байланысып, деңгейіңізді тегін тексереді және жеке оқу жоспарын құрып береді!"
+            },
+            phrases: {
+                thanks: "Байланысқаныңыз үшін рақмет! Сізге көмектесетін басқа сұрақтар бар ма?",
+                typingEffect: "ИИ оңтайлы жауапты таңдауда..."
+            }
+        },
+        en: {
+            welcome: "Hello! I am your virtual AI Assistant at DAMU ACADEMY. I support 3 languages! Ask me any difficult question about courses, prices, system, installment plans, or level tracks. I am ready! 👇",
+            placeholder: "Type your question here...",
+            typing: "DAMU AI is analyzing your inquiry...",
+            systemConnected: "🤖 Intelligent module DAMU AI connected successfully.",
+            suggestions: [
+                { title: "💰 Tariffs & Discounts 2026", text: "What are the current prices, packages, and promo discounts?" },
+                { title: "📖 Learning Workflow Details", text: "Tell me more about the interactive platform, schedules, and club options" },
+                { title: "💳 Installments in Kazakhstan", text: "Is there an option for Kaspi / Halyk installment plan?" },
+                { title: "🎯 Guaranteed Progress", text: "What guarantees do you provide if I don't achieve my language goals?" }
+            ],
+            intents: {
+                PRICES: ['price', 'cost', 'tariff', 'package', 'payment', 'pay', 'pricing', 'money', 'kzt', 'tenge', 'how much', 'expensive', 'cheap', 'budget', 'rate'],
+                INSTALLMENT: ['installment', 'kaspi', 'credit', 'halyk', 'parts', '0-0-12', '0-0-24', 'bank', 'monthly', 'split', 'pay later'],
+                HOW_IT_WORKS: ['how it works', 'format', 'platform', 'online', 'duration', 'schedule', 'time', 'lesson', 'class', 'webinar', 'interactive', 'methodology', 'process'],
+                DISCOUNTS: ['discount', 'promo', 'code', 'coupon', 'cheaper', 'sale', 'bonus', 'gift', 'off', 'deal'],
+                LEVELS: ['level', 'zero', 'beginner', 'elementary', 'intermediate', 'advanced', 'ielts', 'a1', 'a2', 'b1', 'b2', 'c1', 'no english', 'forgot', 'start over'],
+                SPEAKING_CLUBS: ['speaking', 'club', 'conversation', 'barrier', 'scared', 'afraid', 'practice', 'zoom', 'talk', 'fluency'],
+                TEACHERS: ['teacher', 'tutor', 'mentor', 'curator', 'native', 'speaker', 'who teaches', 'qualification', 'feedback'],
+                GUARANTEE: ['guarantee', 'refund', 'money back', 'risk', 'result', 'contract', 'agreement', 'official', 'safe'],
+                IT_BUSINESS: ['it', 'tech', 'marketing', 'business', 'interview', 'resume', 'job', 'abroad', 'relocation', 'offer', 'cv', 'linkedin', 'corporate'],
+                DURATION: ['how long', 'term', 'months', 'period', 'course length', 'timeline'],
+                CONTACTS: ['phone', 'number', 'whatsapp', 'contact', 'call', 'manager', 'callback', 'apply', 'register']
+            },
+            answers: {
+                GREETING: "Hello! Welcome to DAMU ACADEMY. I am trained to assist you with any questions regarding our academy. Feel free to ask about pricing, schedules, banking options, or conversational tracks!",
+                PRICES: "DAMU ACADEMY provides a premium, customized ecosystem for learning English. We offer 3 primary packages:\n\n1. 🎯 **Starter** — perfect foundational grammar and essential vocabulary rebuild.\n2. 🚀 **Intensive Pro** (Chosen by 85% of students) — intensive speaking practice, weekly conversational clubs, and confidence building.\n3. 💎 **Advanced Premium** — customized track, international tech/business job interview prep, professional level refinement.\n\nPlease check the 'Pricing' block below for automated seasonal sales. To receive an exact specification for your tier, press any request button on this page!",
+                INSTALLMENT: "Yes! For residents of Kazakhstan, we provide highly flexible solutions. You can access **0% interest free installment plans for up to 12 months** via **Kaspi.kz** and **Halyk Bank**:\n\n• Overpayment: 0%\n• Down payment: 0%\n• 1-minute digital approval instantly inside your mobile banking app.\n\nWe also support split-payments or automated monthly subscriptions. All bank commission fees are fully covered by us; you only pay the fixed price of the course.",
+                HOW_IT_WORKS: "Our unique method is based on the **Microlearning + Active Fluency Practice** model:\n\n1. **The Platform**: You learn via your personalized student dashboard at any convenient time (Desktop or Mobile). Lessons are highly engaging, taking only 20-30 minutes per day.\n2. **Live Practice**: 2-4 times a week, you join live Speaking Clubs in Zoom, grouped strictly with peers matching your current conversational capability.\n3. **Mentorship**: A dedicated professional curator reviews your homework daily, provides voice/audio analytical corrections, and supports you throughout the journey.",
+                DISCOUNTS: "We have an amazing offer active right now! You can unlock an additional personal discount up to 15% via two primary paths:\n\n1. Complete our interactive Level Assessment Quiz on this page.\n2. Use the ROI / Payback Calculator block located above.\n\nOnce completed, our backend system automatically binds a unique promo discount to your telephone number. Hurry up, promotional slots for the current cohort are limited!",
+                LEVELS: "We successfully train students from absolutely any starting point — from **True Beginner (absolute zero)** up to **Advanced (fluent command)**.\n\nPrior to starting, you will pass a multi-stage assessment on our platform so we can place you in a group matching your exact CEFR tier (A1, A2, B1, B2, or C1). You will feel perfectly comfortable practicing alongside students sharing your exact skill level.",
+                SPEAKING_CLUBS: "Speaking Clubs are the core engine of DAMU ACADEMY! They are optimized specifically for people who 'understand everything but struggle to speak fluidly'.\n\n• Conducted via Zoom in small mini-cohorts of 4 to 7 students.\n• Moderated by top certified educators or Native Speakers.\n• Zero boring lectures — purely active discussions, simulations of real-world contexts (interviews, travel check-ins, agile standups).\n• You will start speaking during your very first week, effortlessly overriding fear!",
+                TEACHERS: "We are proud of our world-class educational roster containing certified specialists (CELTA, DELTA, IELTS 8.5+). Every tutor passes a strict 3-tier filtration and regular qualification upgrades.\n\nWe feature top bilingual coaches (to deliver flawless crystal-clear grammatical foundations for beginners) as well as **Native Speakers** from the US, UK, and Canada for advanced groups.",
+                GUARANTEE: "We are absolutely confident in our results, which is why we enforce a **100% legal money-back guarantee directly in our contract-offer**.\n\nIf you followed your mentor's guidance, completed homework assignments on time, and attended speaking clubs regularly but failed to advance your level — we will fully refund your payment or provide the next cohort completely free of charge.",
+                IT_BUSINESS: "The **English for IT & International Career** pathway is our signature specialization. We actively prepare tech talent and executives to break into global markets (US, Europe, UAE).\n\nDuring the track, we comprehensively prepare:\n• Your CV, Resume, and LinkedIn profile matching elite global benchmarks.\n• Live training for behavioral and technical mock interviews.\n• Vocabulary for Agile standups, Slack communications, Jira tickets, and documentation writing. Your ROI will be realized within your first months!",
+                DURATION: "The standard duration for our comprehensive educational tracks ranges **between 3 and 6 months**, depending on your selected tier and initial performance status. Based on years of data, this timeframe is perfectly balanced to confidently advance your fluency by one full CEFR step.",
+                CONTACTS: "To secure a seat, lock in a custom discount rate, or receive a live talk with an expert, simply type your phone number in any form input on this web page. Our representative will call you back or text you via WhatsApp within 10 minutes!",
+                DEFAULT: "Excellent question! I have logged your interest parameter. Our DAMU ACADEMY platform adapts precisely to requests of this nature. To receive a bespoke expert answer, please submit your contact info on this page — our lead methodologist will reach out, evaluate your level for free, and map out your custom learning architecture!"
+            },
+            phrases: {
+                thanks: "Thank you for reaching out! Is there anything else I can clarify for you?",
+                typingEffect: "AI engine is generating response matrix..."
+            }
+        }
+    };
+
+    // =========================================================================
+    // ИНИЦИАЛИЗАЦИЯ И СЛУШАТЕЛИ СОБЫТИЙ (CORE INTERACTION MAPPING)
+    // =========================================================================
+    
+    // Плавное открытие/закрытие виджета чата
+    if (launcher) {
+        launcher.addEventListener('click', () => {
+            windowEl.classList.toggle('active');
+            if (windowEl.classList.contains('active')) {
+                // Автоматический фокус на поле ввода при открытии
+                setTimeout(() => inputEl.focus(), 300);
+            }
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            windowEl.classList.remove('active');
+        });
+    }
+
+    // Инициализация стартовых языковых кнопок и рендеринг подсказок
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            langButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentLang = btn.getAttribute('data-lang');
+            
+            // Локализация статических элементов чата
+            welcomeMsg.textContent = botData[currentLang].welcome;
+            inputEl.placeholder = botData[currentLang].placeholder;
+            
+            // Регенерация блока быстрых подсказок (Suggestions) под выбранный язык
+            renderQuickSuggestions();
+        });
+    });
+
+    // Функция динамического рендеринга подсказок
+    function renderQuickSuggestions() {
+        if (!suggestionsContainer) return;
+        suggestionsContainer.innerHTML = '';
+        
+        botData[currentLang].suggestions.forEach(sug => {
+            const button = document.createElement('button');
+            button.className = 'suggestion-btn';
+            button.textContent = sug.title;
+            button.setAttribute('data-text', sug.text);
+            
+            // Навешиваем событие клика
+            button.addEventListener('click', () => {
+                handleUserInput(sug.text);
+            });
+            
+            suggestionsContainer.appendChild(button);
+        });
+    }
+
+    // Обработка отправки сообщений пользователем
+    if (sendBtn) {
+        sendBtn.addEventListener('click', () => {
+            processSend();
+        });
+    }
+
+    if (inputEl) {
+        inputEl.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                processSend();
+            }
+        });
+    }
+
+    function processSend() {
+        const text = inputEl.value;
+        if (text.trim() !== '') {
+            handleUserInput(text);
+        }
+    }
+
+    // Печать сообщения в контейнере
+    function appendMessage(text, sender) {
+        const msgElement = document.createElement('div');
+        msgElement.className = `ai-message ${sender}`;
+        
+        // Поддержка форматирования Markdown (переносы строк и жирный текст)
+        const formattedText = text
+            .replace(/\n/g, '<br>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+        msgElement.innerHTML = formattedText;
+        
+        messagesContainer.appendChild(msgElement);
+        
+        // Плавный скролл вниз к новому сообщению
+        messagesContainer.scrollTo({
+            top: messagesContainer.scrollHeight,
+            behavior: 'smooth'
+        });
+
+        // Запись в историю чата для аналитики контекста
+        chatHistory.push({ sender: sender, text: text, timestamp: new Date() });
+    }
+
+    // =========================================================================
+    // СИСТЕМА ИНТЕНТ-АНАЛИЗА И ЛИНГВИСТИЧЕСКИЙ ДВИЖОК ИИ (NLU PROCESSING ENGINE)
+    // =========================================================================
+    function handleUserInput(text) {
+        if (!text.trim()) return;
+        
+        // Выводим сообщение пользователя в чат
+        appendMessage(text, 'user');
+        inputEl.value = ''; // Очищаем поле ввода
+        userContext.questionCount++;
+
+        // Скрываем блок подсказок после начала реального диалога, чтобы освободить место
+        if (userContext.questionCount > 1 && suggestionsContainer) {
+            suggestionsContainer.style.display = 'none';
+        }
+
+        // Создаем и отображаем анимированный индикатор печати "ИИ думает..."
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'ai-message bot';
+        typingIndicator.style.fontStyle = 'italic';
+        typingIndicator.style.color = '#8a8a8f';
+        typingIndicator.innerHTML = `<span class="ai-typing-dots">${botData[currentLang].typing}</span>`;
+        
+        messagesContainer.appendChild(typingIndicator);
+        messagesContainer.scrollTo({ top: messagesContainer.scrollHeight, behavior: 'smooth' });
+
+        // Симулируем интеллектуальную задержку ИИ для органичного восприятия (от 800мс до 1500мс)
+        const processDelay = Math.max(800, Math.min(1500, text.length * 10));
+        
+        setTimeout(() => {
+            // Удаляем индикатор печати
+            typingIndicator.remove();
+            
+            // Нормализация входящего текста для точного семантического разбора
+            const cleanText = text.toLowerCase().trim();
+            const langIntents = botData[currentLang].intents;
+            const answers = botData[currentLang].answers;
+            
+            let matchedIntent = null;
+            let maxMatches = 0;
+
+            // Алгоритм поиска интента на основе плотности вхождения ключевых основ слов
+            for (const [intentKey, keywords] of Object.entries(langIntents)) {
+                let matchCount = 0;
+                keywords.forEach(keyword => {
+                    if (cleanText.includes(keyword)) {
+                        matchCount++;
+                    }
+                });
+
+                // Выбираем интент с наибольшим количеством совпадений ключевых маркеров
+                if (matchCount > maxMatches) {
+                    maxMatches = matchCount;
+                    matchedIntent = intentKey;
+                }
+            }
+
+            // Дополнительный кросс-языковой интент-анализ (на случай, если пишут на английском/казахском в русской раскладке)
+            if (maxMatches === 0) {
+                if (cleanText.includes('how') || cleanText.includes('урок') || cleanText.includes('платформ')) {
+                    matchedIntent = 'HOW_IT_WORKS';
+                } else if (cleanText.includes('price') || cleanText.includes('цена') || cleanText.includes('тенге') || cleanText.includes('тг')) {
+                    matchedIntent = 'PRICES';
+                } else if (cleanText.includes('каспи') || cleanText.includes('kaspi') || cleanText.includes('рассроч')) {
+                    matchedIntent = 'INSTALLMENT';
+                } else if (cleanText.includes('скидк') || cleanText.includes('жеңілдік') || cleanText.includes('discount')) {
+                    matchedIntent = 'DISCOUNTS';
+                }
+            }
+
+            // Сохраняем интент в контекст пользователя для будущей связки диалога
+            userContext.lastIntent = matchedIntent;
+            
+            // Подбор релевантной матрицы ответа
+            let finalResponse = answers.DEFAULT;
+
+            if (matchedIntent && answers[matchedIntent]) {
+                finalResponse = answers[matchedIntent];
+            } else {
+                // Обработка базовых приветствий / благодарностей вне глобальной матрицы интентов
+                if (cleanText.includes('привет') || cleanText.includes('салем') || cleanText.includes('hello') || cleanText.includes('hi')) {
+                    finalResponse = answers.GREETING;
+                } else if (cleanText.includes('спас') || cleanText.includes('рахмет') || cleanText.includes('thank')) {
+                    finalResponse = botData[currentLang].phrases.thanks;
+                }
+            }
+
+            // Рендерим выверенный интеллектуальный ответ ИИ в окно чата
+            appendMessage(finalResponse, 'bot');
+            
+        }, processDelay);
+    }
+
+    // Первичный запуск: генерируем стартовые подсказки при загрузке документа
+    renderQuickSuggestions();
+    
+    // Выводим системный лог инициализации в консоль разработчика для контроля сборки
+    console.log(botData[currentLang].systemConnected);
+});
     </script>
 </body>
 </html>
