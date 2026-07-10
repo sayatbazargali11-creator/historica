@@ -51,7 +51,7 @@
             --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Тёмная тема */
+        /* Тёмная тема (Переключатель через класс .dark-theme на body) */
         body.dark-theme {
             --bg-main: #090d16;
             --glass-bg: rgba(15, 23, 42, 0.75);
@@ -104,12 +104,16 @@
             width: 6px;
             height: 6px;
         }
-        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
         ::-webkit-scrollbar-thumb {
             background: rgba(148, 163, 184, 0.3);
             border-radius: 20px;
         }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(5, 150, 105, 0.5); }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(5, 150, 105, 0.5);
+        }
 
         /* Базовые компоненты Glassmorphism */
         .glass-card {
@@ -121,7 +125,9 @@
             box-shadow: 0 10px 30px var(--glass-shadow);
             transition: var(--transition-smooth);
         }
-        .glass-card:hover { box-shadow: 0 15px 35px var(--glass-shadow-thick); }
+        .glass-card:hover {
+            box-shadow: 0 15px 35px var(--glass-shadow-thick);
+        }
 
         /* Кнопки */
         .btn-premium {
@@ -145,7 +151,9 @@
             box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
             opacity: 0.95;
         }
-        .btn-premium:active { transform: translateY(0); }
+        .btn-premium:active {
+            transform: translateY(0);
+        }
         .btn-secondary {
             background: var(--accent-light);
             border: 1px solid rgba(5, 150, 105, 0.15);
@@ -167,51 +175,6 @@
         }
 
         /* ==========================================================================
-           КРАСИВЫЙ КАСШТОМНЫЙ АЛЕРТ (PREMIUM TOAST NOTIFICATION)
-           ========================================================================== */
-        .premium-toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 16px 24px;
-            border-radius: var(--radius-md);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            z-index: 10000;
-            transform: translateY(100px) scale(0.9);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-        }
-        .premium-toast.show {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .premium-toast i {
-            font-size: 20px;
-        }
-        .premium-toast.success i { color: #10b981; }
-        .premium-toast.error i { color: #ef4444; }
-        .premium-toast.info i { color: #3b82f6; }
-        .toast-content h5 {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-        .toast-content p {
-            font-size: 12.5px;
-            color: #94a3b8;
-        }
-
-        /* ==========================================================================
            2. HEADER (ВЕРХНЯЯ НАВИГАЦИОННАЯ ПАНЕЛЬ)
            ========================================================================== */
         header {
@@ -225,9 +188,15 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            border-radius: 0;
+            border-top: none;
+            border-left: none;
+            border-right: none;
             background: rgba(255, 255, 255, 0.75);
         }
-        body.dark-theme header { background: rgba(15, 23, 42, 0.75); }
+        body.dark-theme header {
+            background: rgba(15, 23, 42, 0.75);
+        }
 
         .header-left {
             display: flex;
@@ -281,7 +250,9 @@
             align-items: center;
             gap: 8px;
         }
-        .nav-hub-btn:hover { color: var(--text-main); }
+        .nav-hub-btn:hover {
+            color: var(--text-main);
+        }
         .nav-hub-btn.active {
             background: white;
             color: var(--accent-green);
@@ -354,9 +325,19 @@
             font-size: 15px;
             box-shadow: 0 4px 10px rgba(5,150,105,0.2);
         }
-        .user-meta-info { display: flex; flex-direction: column; }
-        .user-name { font-size: 13px; font-weight: 700; color: var(--text-main); }
-        .user-role { font-size: 11px; color: var(--text-muted); }
+        .user-meta-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .user-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .user-role {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
 
         /* ==========================================================================
            3. ОСНОВНОЙ РАБОЧИЙ ПРОСТРАНСТВЕННЫЙ LAYOUT (SPA ARCHITECTURE)
@@ -364,20 +345,23 @@
         .workspace-container {
             margin-top: var(--header-height);
             flex-grow: 1;
-            display: none;
+            display: none; /* Контролируется через JS */
             max-width: 1920px;
             width: 100%;
             margin-left: auto;
             margin-right: auto;
             animation: viewFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .workspace-container.active-view { display: grid; }
+        .workspace-container.active-view {
+            display: grid;
+        }
 
         @keyframes viewFadeIn {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Специфическая сетка для режима Видеоплеера */
         #video-learning-hub-view {
             grid-template-columns: 1fr var(--sidebar-width);
             gap: 28px;
@@ -393,17 +377,19 @@
             gap: 24px;
         }
 
+        /* Продвинутый видеоконтейнер с поддержкой кастомного оверлея */
         .cinema-player-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 56.25%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
             border-radius: var(--radius-lg);
             overflow: hidden;
             background: #000;
             box-shadow: 0 25px 55px rgba(15, 23, 42, 0.12);
             border: 1px solid rgba(255,255,255,0.05);
         }
-        .cinema-player-wrapper iframe {
+        .cinema-player-wrapper iframe,
+        .cinema-player-wrapper video {
             position: absolute;
             top: 0;
             left: 0;
@@ -412,7 +398,10 @@
             border: none;
         }
 
-        .current-lesson-details { padding: 28px; }
+        /* Информационный блок текущего урока */
+        .current-lesson-details {
+            padding: 28px;
+        }
         .lesson-breadcrumbs {
             display: flex;
             align-items: center;
@@ -422,7 +411,11 @@
             margin-bottom: 14px;
             font-weight: 500;
         }
-        .lesson-breadcrumbs .current-topic { color: var(--accent-green); font-weight: 600; }
+        .lesson-breadcrumbs i { font-size: 10px; }
+        .lesson-breadcrumbs .current-topic {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
         .current-lesson-details h1 {
             font-size: 28px;
             font-weight: 800;
@@ -447,8 +440,13 @@
             font-weight: 500;
         }
         .stat-pill i { color: var(--accent-green); }
-        .lesson-description-text { font-size: 14.5px; color: var(--text-muted); line-height: 1.7; }
+        .lesson-description-text {
+            font-size: 14.5px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
 
+        /* Мультивкладки под плеером */
         .utility-tabs-navigator {
             display: flex;
             border-bottom: 1px solid var(--glass-border);
@@ -456,7 +454,9 @@
             background: rgba(255,255,255,0.3);
             border-radius: var(--radius-md) var(--radius-md) 0 0;
         }
-        body.dark-theme .utility-tabs-navigator { background: rgba(15,23,42,0.2); }
+        body.dark-theme .utility-tabs-navigator {
+            background: rgba(15,23,42,0.2);
+        }
         .util-tab-trigger {
             background: none;
             border: none;
@@ -483,11 +483,19 @@
             background: var(--accent-gradient);
             border-radius: 3px;
         }
-        .utility-panes-content { padding: 28px; min-height: 280px; }
+        .utility-panes-content {
+            padding: 28px;
+            min-height: 280px;
+        }
         .sub-pane { display: none; animation: viewFadeIn 0.3s ease; }
         .sub-pane.active { display: block; }
 
-        .grid-materials { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+        /* Вкладка: Материалы */
+        .grid-materials {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
         .download-card {
             background: white;
             border: 1px solid var(--glass-border);
@@ -516,7 +524,10 @@
             justify-content: center;
             font-size: 20px;
         }
-        .download-card.archive .file-icon-box { background: rgba(245, 158, 11, 0.08); color: #f59e0b; }
+        .download-card.archive .file-icon-box {
+            background: rgba(245, 158, 11, 0.08);
+            color: #f59e0b;
+        }
         .file-details h4 {
             font-size: 13.5px;
             font-weight: 700;
@@ -527,9 +538,17 @@
             text-overflow: ellipsis;
             max-width: 170px;
         }
-        .file-details span { font-size: 11.5px; color: var(--text-muted); }
+        .file-details span {
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
 
-        .timeline-interactive-list { display: flex; flex-direction: column; gap: 10px; }
+        /* Вкладка: Таймкоды */
+        .timeline-interactive-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
         .timeline-node {
             display: flex;
             align-items: center;
@@ -541,80 +560,314 @@
             transition: var(--transition-smooth);
             border: 1px solid transparent;
         }
-        .timeline-node:hover { background: var(--accent-light); border-color: rgba(5, 150, 105, 0.1); }
-        .node-left { display: flex; align-items: center; gap: 16px; }
+        .timeline-node:hover {
+            background: var(--accent-light);
+            border-color: rgba(5, 150, 105, 0.1);
+        }
+        .node-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
         .node-timestamp {
-            font-family: var(--font-mono); font-size: 12.5px; font-weight: 700; color: white;
-            background: var(--bg-darker); padding: 4px 10px; border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 12.5px;
+            font-weight: 700;
+            color: white;
+            background: var(--bg-darker);
+            padding: 4px 10px;
+            border-radius: 6px;
         }
         body.dark-theme .node-timestamp { background: var(--accent-green); }
-        .hw-question-title { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 18px; line-height: 1.5; }
-        .math-expr-block {
-            background: var(--bg-main); padding: 14px; border-radius: var(--radius-sm);
-            font-family: var(--font-mono); font-size: 15px; color: var(--accent-green);
-            margin-bottom: 20px; border-left: 4px solid var(--accent-green);
-            display: flex; align-items: center; justify-content: center;
+        .timeline-node:hover .node-timestamp {
+            background: var(--accent-gradient);
         }
-        .hw-variants-column { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+        .node-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+        .node-duration {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* Вкладка: Интерактивное домашнее задание */
+        .homework-panel-box {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+        }
+        body.dark-theme .homework-panel-box { background: rgba(30,41,59,0.3); }
+        
+        .hw-question-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+        .math-expr-block {
+            background: var(--bg-main);
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 15px;
+            color: var(--accent-green);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hw-variants-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
         .hw-variant-selector {
-            border: 1px solid var(--glass-border); padding: 16px 20px; border-radius: var(--radius-sm);
-            display: flex; align-items: center; gap: 14px; font-size: 14px; font-weight: 500;
-            cursor: pointer; transition: var(--transition-smooth); background: white;
+            border: 1px solid var(--glass-border);
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            background: white;
         }
         body.dark-theme .hw-variant-selector { background: rgba(15,23,42,0.4); }
-        .hw-variant-selector input { accent-color: var(--accent-green); width: 18px; height: 18px; }
-        
-        .hw-variant-selector.state-correct { background: #d1fae5 !important; border-color: #10b981 !important; color: #065f46 !important; }
-        .hw-variant-selector.state-wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+        .hw-variant-selector:hover {
+            background: var(--bg-main);
+            border-color: var(--text-muted);
+        }
+        .hw-variant-selector input {
+            accent-color: var(--accent-green);
+            width: 18px;
+            height: 18px;
+        }
+        .hw-variant-selector.state-correct {
+            background: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #065f46 !important;
+        }
+        .hw-variant-selector.state-wrong {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b !important;
+        }
 
-        .live-chat-wrapper { display: flex; flex-direction: column; gap: 16px; height: 380px; }
-        .chat-scrollable-zone { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 8px; }
-        .chat-msg-bubble { max-width: 75%; padding: 14px 16px; border-radius: var(--radius-sm); font-size: 13.5px; line-height: 1.5; }
-        .chat-msg-bubble.mentor { background: rgba(148, 163, 184, 0.1); align-self: flex-start; border-radius: 4px var(--radius-sm) var(--radius-sm) var(--radius-sm); color: var(--text-main); }
-        .chat-msg-bubble.student { background: var(--text-main); color: white; align-self: flex-end; border-radius: var(--radius-sm) 4px var(--radius-sm) var(--radius-sm); }
-        .chat-sender-form { display: flex; gap: 10px; }
+        /* Вкладка: Живой Чат поддержки */
+        .live-chat-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 380px;
+        }
+        .chat-scrollable-zone {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-right: 8px;
+        }
+        .chat-msg-bubble {
+            max-width: 75%;
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13.5px;
+            line-height: 1.5;
+        }
+        .chat-msg-bubble.mentor {
+            background: rgba(148, 163, 184, 0.1);
+            align-self: flex-start;
+            border-radius: 4px var(--radius-sm) var(--radius-sm) var(--radius-sm);
+            color: var(--text-main);
+        }
+        .chat-msg-bubble.student {
+            background: var(--text-main);
+            color: white;
+            align-self: flex-end;
+            border-radius: var(--radius-sm) 4px var(--radius-sm) var(--radius-sm);
+        }
+        body.dark-theme .chat-msg-bubble.student {
+            background: var(--accent-gradient);
+        }
+        .chat-sender-form {
+            display: flex;
+            gap: 10px;
+        }
         .chat-sender-form input {
-            flex-grow: 1; border: 1px solid var(--glass-border); background: white; padding: 14px 18px;
-            border-radius: var(--radius-sm); font-size: 13.5px; outline: none; color: var(--text-main); transition: var(--transition-smooth);
+            flex-grow: 1;
+            border: 1px solid var(--glass-border);
+            background: white;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 13.5px;
+            outline: none;
+            color: var(--text-main);
+            transition: var(--transition-smooth);
+        }
+        body.dark-theme .chat-sender-form input { background: rgba(15,23,42,0.5); }
+        .chat-sender-form input:focus {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(5,150,105,0.1);
         }
         .btn-send-message {
-            background: var(--accent-gradient); color: white; border: none; width: 48px; height: 48px;
-            border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: var(--transition-smooth);
         }
+        .btn-send-message:hover { transform: scale(1.03); }
 
         /* ==========================================================================
-           5. ПРАВАЯ ЗОНА: КУРС ПЛАНЫ С ГОРЯЩИМИ ЗЕЛЕНЫМИ ГАЛОЧКАМИ
+           5. ПРАВАЯ ЗОНА: КУРС ПЛАНЫ (ACCORDION & LESSONS MANAGER)
            ========================================================================== */
         .course-outline-sidebar {
-            display: flex; flex-direction: column; max-height: calc(100vh - var(--header-height) - 56px);
-            position: sticky; top: calc(var(--header-height) + 28px);
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - var(--header-height) - 56px);
+            position: sticky;
+            top: calc(var(--header-height) + 28px);
         }
-        .sidebar-header-title { padding: 24px 28px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
-        .sidebar-header-title h2 { font-size: 16px; font-weight: 800; }
-        .total-badge-lessons { font-size: 11px; background: var(--accent-light); color: var(--accent-green); padding: 4px 10px; border-radius: 20px; font-weight: 700; }
+        .sidebar-header-title {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sidebar-header-title h2 {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+        .total-badge-lessons {
+            font-size: 11px;
+            background: var(--accent-light);
+            color: var(--accent-green);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
 
-        .scrollable-modules-accordion { overflow-y: auto; flex-grow: 1; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-        .accordion-module-card { border-radius: var(--radius-sm); overflow: hidden; background: rgba(255,255,255,0.4); border: 1px solid rgba(226,232,240,0.5); transition: var(--transition-smooth); }
-        .accordion-module-card.expanded-state { background: white; border-color: var(--glass-border); }
+        .scrollable-modules-accordion {
+            overflow-y: auto;
+            flex-grow: 1;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .accordion-module-card {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: rgba(255,255,255,0.4);
+            border: 1px solid rgba(226,232,240,0.5);
+            transition: var(--transition-smooth);
+        }
+        body.dark-theme .accordion-module-card { background: rgba(15,23,42,0.2); }
+        .accordion-module-card.expanded-state {
+            background: white;
+            border-color: var(--glass-border);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+        }
+        body.dark-theme .accordion-module-card.expanded-state { background: rgba(30,41,59,0.3); }
 
-        .module-header-toggle-btn { width: 100%; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; background: transparent; border: none; cursor: pointer; }
-        .module-title-meta-group h3 { font-size: 13.5px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
-        .module-title-meta-group span { font-size: 11.5px; color: var(--text-muted); }
-        .sub-lessons-tray-list { display: none; padding: 4px 8px 12px 8px; background: var(--bg-main); flex-direction: column; gap: 4px; }
+        .module-header-toggle-btn {
+            width: 100%;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+        }
+        .module-title-meta-group h3 {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        .module-title-meta-group span {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .module-chevron-icon {
+            font-size: 12px;
+            color: var(--text-muted);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .accordion-module-card.expanded-state .module-chevron-icon {
+            transform: rotate(180deg);
+            color: var(--accent-green);
+        }
+
+        .sub-lessons-tray-list {
+            display: none;
+            padding: 4px 8px 12px 8px;
+            background: var(--bg-main);
+            border-top: 1px solid rgba(226,232,240,0.4);
+            flex-direction: column;
+            gap: 4px;
+        }
         body.dark-theme .sub-lessons-tray-list { background: rgba(15,23,42,0.6); }
-        .accordion-module-card.expanded-state .sub-lessons-tray-list { display: flex; }
+        .accordion-module-card.expanded-state .sub-lessons-tray-list {
+            display: flex;
+        }
 
         .lesson-nav-row {
-            width: 100%; padding: 12px 14px; border-radius: 10px; display: flex; align-items: center;
-            justify-content: space-between; background: transparent; border: 1px solid transparent; cursor: pointer; transition: var(--transition-smooth);
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: left;
         }
-        .lesson-nav-row:hover { background: white; border-color: var(--glass-border); }
-        .lesson-nav-row.currently-playing { background: var(--accent-light) !important; border-color: rgba(5, 150, 105, 0.15) !important; }
+        .lesson-nav-row:hover {
+            background: white;
+            border-color: var(--glass-border);
+        }
+        body.dark-theme .lesson-nav-row:hover { background: rgba(30,41,59,0.5); }
         
-        /* КРАСИВЫЙ СТИЛЬ ДЛЯ ЗЕЛЕНЫХ ГОРЯЩИХ ГАЛОЧЕК УРОКА */
+        .lesson-nav-row.currently-playing {
+            background: var(--accent-light) !important;
+            border-color: rgba(5, 150, 105, 0.15) !important;
+        }
+        
+        .lesson-meta-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 80%;
+        }
         .round-status-indicator {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             border: 2px solid var(--text-light);
             display: flex;
@@ -623,65 +876,199 @@
             font-size: 10px;
             color: transparent;
             flex-shrink: 0;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: transparent;
+            transition: var(--transition-smooth);
         }
-        /* Когда выполнен: Горит зеленым */
         .lesson-nav-row.is-completed .round-status-indicator {
-            background: var(--success) !important;
-            border-color: var(--success) !important;
-            color: white !important;
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
-            transform: scale(1.08);
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
         }
-        /* Когда просто выбран текущим */
         .lesson-nav-row.currently-playing .round-status-indicator {
             border-color: var(--accent-green);
             color: var(--accent-green);
         }
         
-        .lesson-nav-title-text { font-size: 13px; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .lesson-nav-row.currently-playing .lesson-nav-title-text { color: var(--accent-green); font-weight: 700; }
-        .lesson-nav-duration-badge { font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); }
+        .lesson-nav-title-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .lesson-nav-row.currently-playing .lesson-nav-title-text {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+        .lesson-nav-duration-badge {
+            font-size: 11px;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
 
         /* ==========================================================================
-           6. ТРЕHАЖЕР ТЕСТИРОВАНИЯ
+           6. ВТОРОЙ ЭКРАН: ТРЕНАЖЕР ТЕСТИРОВАНИЯ (ҰБТ СИМУЛЯТОР)
            ========================================================================== */
-        #testing-simulator-view { grid-template-columns: var(--sidebar-width) 1fr; gap: 28px; padding: 28px; }
-        .test-sidebar-status { display: flex; flex-direction: column; gap: 20px; }
-        .timer-box-premium { padding: 24px; text-align: center; background: var(--bg-darker); color: white; border-radius: var(--radius-md); }
-        .timer-box-premium span { font-family: var(--font-mono); font-size: 32px; font-weight: 800; color: #10b981; }
-        .questions-matrix-card { padding: 24px; }
-        .grid-questions-matrix { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        #testing-simulator-view {
+            grid-template-columns: var(--sidebar-width) 1fr;
+            gap: 28px;
+            padding: 28px;
+        }
+        
+        .test-sidebar-status {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: fit-content;
+        }
+        .timer-box-premium {
+            padding: 24px;
+            text-align: center;
+            background: var(--bg-darker);
+            color: white;
+            border-radius: var(--radius-md);
+        }
+        .timer-box-premium div {
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .timer-box-premium span {
+            font-family: var(--font-mono);
+            font-size: 32px;
+            font-weight: 800;
+            color: #10b981;
+        }
+        
+        .questions-matrix-card {
+            padding: 24px;
+        }
+        .matrix-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+        .grid-questions-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
         .matrix-num-btn {
-            aspect-ratio: 1; border: 1px solid var(--glass-border); background: white; border-radius: 10px;
-            font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition-smooth);
+            aspect-ratio: 1;
+            border: 1px solid var(--glass-border);
+            background: white;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
         }
-        .matrix-num-btn.current { background: var(--text-main); color: white !important; }
-        .matrix-num-btn.answered { background: var(--accent-light); border-color: var(--accent-green); color: var(--accent-green); }
+        body.dark-theme .matrix-num-btn { background: rgba(15,23,42,0.3); }
+        .matrix-num-btn:hover { border-color: var(--text-main); }
+        .matrix-num-btn.current {
+            background: var(--text-main);
+            color: white !important;
+            border-color: var(--text-main);
+        }
+        body.dark-theme .matrix-num-btn.current { background: white; color: black !important; }
+        .matrix-num-btn.answered {
+            background: var(--accent-light);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
 
-        .test-content-body-card { padding: 32px; display: flex; flex-direction: column; gap: 24px; }
-        .test-q-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 16px; }
-        .test-q-index { font-size: 14px; font-weight: 800; color: var(--accent-green); }
-        .test-question-text { font-size: 18px; font-weight: 700; color: var(--text-main); }
-        .test-options-list { display: flex; flex-direction: column; gap: 12px; }
-        .test-option-row {
-            border: 1px solid var(--glass-border); padding: 18px 24px; border-radius: var(--radius-sm);
-            display: flex; align-items: center; gap: 16px; font-size: 15px; cursor: pointer; background: rgba(255,255,255,0.5); transition: var(--transition-smooth);
+        .test-content-body-card {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            height: fit-content;
         }
-        .test-option-row.selected-state { border-color: var(--accent-green); background: var(--accent-light); }
-        .test-actions-footer { display: flex; justify-content: space-between; border-top: 1px solid var(--glass-border); padding-top: 24px; }
+        .test-q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 16px;
+        }
+        .test-q-index {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            letter-spacing: 0.5px;
+        }
+        .test-question-text {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+        .test-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .test-option-row {
+            border: 1px solid var(--glass-border);
+            padding: 18px 24px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(255,255,255,0.5);
+            transition: var(--transition-smooth);
+        }
+        body.dark-theme .test-option-row { background: rgba(15,23,42,0.2); }
+        .test-option-row:hover { background: white; border-color: var(--text-main); }
+        body.dark-theme .test-option-row:hover { background: rgba(30,41,59,0.4); }
+        .test-option-row input {
+            accent-color: var(--accent-green);
+            width: 18px;
+            height: 18px;
+        }
+        .test-option-row.selected-state {
+            border-color: var(--accent-green);
+            background: var(--accent-light);
+        }
+
+        .test-actions-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 24px;
+            margin-top: 12px;
+        }
+
+        /* ==========================================================================
+           7. АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ
+           ========================================================================== */
+        @media (max-width: 1200px) {
+            #video-learning-hub-view, #testing-simulator-view {
+                grid-template-columns: 1fr;
+            }
+            .course-outline-sidebar {
+                max-height: none;
+                position: static;
+            }
+            header { padding: 0 16px; }
+            .header-center-tabs { display: none; } /* На мобильных переключение через меню */
+        }
     </style>
 </head>
 <body>
-
-    <div id="customToast" class="premium-toast">
-        <i id="toastIcon" class="fa-solid"></i>
-        <div class="toast-content">
-            <h5 id="toastTitle">Жүйелік хабарлама</h5>
-            <p id="toastMessage">Мәтін</p>
-        </div>
-    </div>
 
     <div class="bg-glow glow-1"></div>
     <div class="bg-glow glow-2"></div>
@@ -705,11 +1092,15 @@
         <div class="header-right">
             <div class="gamification-badge"><i class="fa-solid fa-bolt"></i> <span id="streakCount">5 күн қатар</span></div>
             <div class="gamification-badge xp"><i class="fa-solid fa-star"></i> <span id="xpScore">1,250 XP</span></div>
-            <button class="theme-toggle-btn" onclick="togglePremiumTheme()"><i class="fa-solid fa-moon" id="theme-ico"></i></button>
+            
+            <button class="theme-toggle-btn" onclick="togglePremiumTheme()" title="Түнгі режим">
+                <i class="fa-solid fa-moon" id="theme-ico"></i>
+            </button>
+
             <div class="user-profile-block">
                 <div class="user-avatar">A</div>
                 <div class="user-meta-info">
-                    <div class="user-name">Алихан С.</div>
+                    <div class="user-name" id="profileName">Алихан С.</div>
                     <div class="user-role">Оқушы • ID 4902</div>
                 </div>
             </div>
@@ -717,7 +1108,9 @@
     </header>
 
     <main id="video-learning-hub-view" class="workspace-container active-view">
+        
         <div class="main-stream-area">
+            
             <div class="cinema-player-wrapper">
                 <iframe id="globalIframeVideoPlayer" src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1" allowfullscreen></iframe>
             </div>
@@ -728,87 +1121,156 @@
                     <span>Алгебра</span> <i class="fa-solid fa-chevron-right"></i> 
                     <span class="current-topic" id="lbl-bread-topic">Көрсеткіштік теңдеулер</span>
                 </div>
-                <h1 id="lbl-main-lesson-title">Loading...</h1>
+                <h1 id="lbl-main-lesson-title">§ 1.1 Көрсеткіштік теңдеулерді шешу негіздері мен алғашқы қасиеттері</h1>
+                
                 <div class="lesson-quick-stats-row">
                     <div class="stat-pill"><i class="fa-regular fa-circle-play"></i> Күрделілік: Орташа</div>
-                    <div class="stat-pill"><i class="fa-regular fa-clock"></i> <span id="lbl-stat-duration">00:00 минут</span></div>
+                    <div class="stat-pill"><i class="fa-regular fa-clock"></i> <span id="lbl-stat-duration">24:15 минут</span></div>
                     <div class="stat-pill"><i class="fa-regular fa-star"></i> 4.9 Рейтинг</div>
                 </div>
-                <p class="lesson-description-text" id="lbl-main-lesson-description">Сипаттама</p>
+
+                <p class="lesson-description-text" id="lbl-main-lesson-description">
+                    Бұл тереңдетілген бейнесабақта біз көрсеткіштік теңдеулерді шешудің негізгі алгоритмдерін қарастырамыз. Негіздерін бірдей дәрежеге келтіру әдісі, жалпы көбейткішті жақша сыртына шығару және ҰБТ емтихандарында кездесетін арнайы комбинацияланған есептерді жылдам шығарудың лайфхактарымен бөлісеміз.
+                </p>
             </div>
 
             <div class="glass-card">
                 <div class="utility-tabs-navigator">
-                    <button class="util-tab-trigger active" onclick="switchSubPane(event, 'pane-materials')"><i class="fa-solid fa-file-pdf"></i> Файлдар</button>
-                    <button class="util-tab-trigger" onclick="switchSubPane(event, 'pane-timecodes')"><i class="fa-solid fa-clock-rotate-left"></i> Таймкод</button>
-                    <button class="util-tab-trigger" onclick="switchSubPane(event, 'pane-homework')"><i class="fa-solid fa-square-poll-vertical"></i> Сабақ Тапсырмасы</button>
-                    <button class="util-tab-trigger" onclick="switchSubPane(event, 'pane-mentor')"><i class="fa-solid fa-user-shield"></i> Куратор</button>
+                    <button class="util-tab-trigger active" onclick="switchSubPane(event, 'pane-materials')">
+                        <i class="fa-solid fa-file-pdf"></i> Файлдар мен Конспект
+                    </button>
+                    <button class="util-tab-trigger" onclick="switchSubPane(event, 'pane-timecodes')">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Интерактивті Таймкод
+                    </button>
+                    <button class="util-tab-trigger" onclick="switchSubPane(event, 'pane-homework')">
+                        <i class="fa-solid fa-square-poll-vertical"></i> Сабақ Тапсырмасы
+                    </button>
+                    <button class="util-tab-trigger" onclick="switchSubPane(event, 'pane-mentor')">
+                        <i class="fa-solid fa-user-shield"></i> Куратор Көмегі (Живой Чат)
+                    </button>
                 </div>
 
                 <div class="utility-panes-content">
+                    
                     <div id="pane-materials" class="sub-pane active">
                         <div class="grid-materials">
-                            <div class="download-card" onclick="showPremiumAlert('Жүктеу', 'Конспект сәтті жүктелді!', 'success')">
+                            <div class="download-card" onclick="alert('Файл жүктелуде...')">
                                 <div class="file-icon-box"><i class="fa-solid fa-file-pdf"></i></div>
-                                <div class="file-details"><h4>Теориялық Конспект.pdf</h4><span>3.1 MB</span></div>
+                                <div class="file-details">
+                                    <h4>Теориялық Конспект.pdf</h4>
+                                    <span>3.1 MB • Сызбалар мен ережелер</span>
+                                </div>
+                            </div>
+                            <div class="download-card archive" onclick="alert('Мұрағат жүктелуде...')">
+                                <div class="file-icon-box"><i class="fa-solid fa-file-zipper"></i></div>
+                                <div class="file-details">
+                                    <h4>Есептер Жинағы.zip</h4>
+                                    <span>5.4 MB • Өз бетімен шығаруға</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div id="pane-timecodes" class="sub-pane"><div class="timeline-interactive-list" id="dynamic-timecode-container"></div></div>
+
+                    <div id="pane-timecodes" class="sub-pane">
+                        <div class="timeline-interactive-list" id="dynamic-timecode-container">
+                            </div>
+                    </div>
+
                     <div id="pane-homework" class="sub-pane">
                         <div class="homework-panel-box">
-                            <div class="hw-question-title" id="lbl-hw-title">Сұрақ</div>
-                            <div class="math-expr-block" id="lbl-hw-math-expr">Формула</div>
-                            <div class="hw-variants-column" id="hw-variants-wrapper"></div>
-                            <div style="display:flex; justify-content:flex-end;"><button class="btn-premium" onclick="verifyLessonHomework()"><i class="fa-solid fa-circle-check"></i> Тексеру</button></div>
+                            <div class="hw-question-title" id="lbl-hw-title">Сабақты бекіту сұрағы: Берілген көрсеткіштік теңдеудің түбірін табыңыз:</div>
+                            <div class="math-expr-block" id="lbl-hw-math-expr">3^(x + 1) + 3^x = 36</div>
+                            
+                            <div class="hw-variants-column" id="hw-variants-wrapper">
+                                </div>
+
+                            <div style="display:flex; justify-content:flex-end;">
+                                <button class="btn-premium" onclick="verifyLessonHomework()"><i class="fa-solid fa-circle-check"></i> Жауапты жіберу</button>
+                            </div>
                         </div>
                     </div>
+
                     <div id="pane-mentor" class="sub-pane">
                         <div class="live-chat-wrapper">
-                            <div class="chat-scrollable-zone" id="chatStreamBox"><div class="chat-msg-bubble mentor">Саламатсыз ба! Сұрақтарыңыз болса жазыңыз.</div></div>
-                            <div class="chat-sender-form"><input type="text" id="txtChatInput" placeholder="Жазу..."><button class="btn-send-message" onclick="executeChatMessage()"><i class="fa-solid fa-paper-plane"></i></button></div>
+                            <div class="chat-scrollable-zone" id="chatStreamBox">
+                                <div class="chat-msg-bubble mentor">Саламатсыз ба! Бүгінгі сабақ немесе үй тапсырмасы бойынша түсінбеген сұрақтарыңыз болса жазыңыз. Нақты шығару жолын талдап беремін. 🚀</div>
+                            </div>
+                            <div class="chat-sender-form">
+                                <input type="text" id="txtChatInput" placeholder="Кураторға сұрақ жолдау немесе есеп нөмірін жазу...">
+                                <button class="btn-send-message" onclick="executeChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
 
         <div class="glass-card course-outline-sidebar">
-            <div class="sidebar-header-title"><h2>Курс бағдарламасы</h2><span class="total-badge-lessons" id="lbl-total-lessons-badge">4 сабақ</span></div>
-            <div class="scrollable-modules-accordion" id="globalCourseModulesAccordion"></div>
+            <div class="sidebar-header-title">
+                <h2>Курс бағдарламасы</h2>
+                <span class="total-badge-lessons" id="lbl-total-lessons-badge">12 сабақ</span>
+            </div>
+
+            <div class="scrollable-modules-accordion" id="globalCourseModulesAccordion">
+                </div>
         </div>
+
     </main>
 
     <main id="testing-simulator-view" class="workspace-container">
+        
         <div class="test-sidebar-status">
-            <div class="glass-card timer-box-premium"><div>Қалған уақыт</div><span id="testTimerClock">35:00</span></div>
+            <div class="glass-card timer-box-premium">
+                <div>Қалған уақыт</div>
+                <span id="testTimerClock">35:00</span>
+            </div>
+
             <div class="glass-card questions-matrix-card">
                 <div class="matrix-title">Сұрақтар картасы</div>
-                <div class="grid-questions-matrix" id="testMatrixContainer"></div>
-                <div style="margin-top:24px;"><button class="btn-premium" style="width:100%; justify-content:center; background:var(--danger);" onclick="finishGlobalTestSession()"><i class="fa-solid fa-flag-checkered"></i> Аяқтау</button></div>
+                <div class="grid-questions-matrix" id="testMatrixContainer">
+                    </div>
+                <div style="margin-top:24px;">
+                    <button class="btn-premium" style="width:100%; justify-content:center; background:var(--danger);" onclick="finishGlobalTestSession()">
+                        <i class="fa-solid fa-flag-checkered"></i> Тестті аяқтау
+                    </button>
+                </div>
             </div>
         </div>
+
         <div class="glass-card test-content-body-card">
-            <div class="test-q-header"><div class="test-q-index" id="lbl-test-question-index">Сұрақ №1</div></div>
-            <div class="test-question-text" id="lbl-test-question-text">Мәтін</div>
-            <div class="test-options-list" id="testOptionsListWrapper"></div>
+            <div class="test-q-header">
+                <div class="test-q-index" id="lbl-test-question-index">Сұрақ №1</div>
+                <div class="gamification-badge" style="background:rgba(99,102,241,0.08); color:#6366f1; border-color:rgba(99,102,241,0.1);">
+                    <i class="fa-solid fa-cube"></i> Математикалық сауаттылық
+                </div>
+            </div>
+
+            <div class="test-question-text" id="lbl-test-question-text">
+                Жүк машинасы белгілі бір қашықтықты 60 км/сағ жылдамдықпен 4 сағатта жүріп өтті. Дәл осы қашықтықты 3 сағатта жүріп өту үшін ол жылдамдықты сағатына неше шақырымға арттыруы керек?
+            </div>
+
+            <div class="test-options-list" id="testOptionsListWrapper">
+                </div>
+
             <div class="test-actions-footer">
-                <button class="btn-secondary" onclick="navigateTestQuestion(-1)"><i class="fa-solid fa-chevron-left"></i> Алдыңғы</button>
-                <button class="btn-premium" onclick="navigateTestQuestion(1)">Келесі <i class="fa-solid fa-chevron-right"></i></button>
+                <button class="btn-secondary" onclick="navigateTestQuestion(-1)"><i class="fa-solid fa-chevron-left"></i> Алдыңғы сұрақ</button>
+                <button class="btn-premium" onclick="navigateTestQuestion(1)">Келесі сұрақ <i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
+
     </main>
 
     <script>
         /* ==========================================
-           ДАННЫЕ И СТРУКТУРА КУРСА
+           БАЗА ДАННЫХ И СТРУКТУРА КОНТЕНТА (DATA OBJECTS)
            ========================================== */
         const COURSE_DATABASE = {
             modules: [
                 {
                     id: "mod-1",
-                    title: "1-модуль: Көрсеткіштік теңдеулер",
-                    duration: "3 сабақ",
+                    title: "1-модуль: Көрсеткіштік және логарифмдік теңдеулер",
+                    duration: "3 сабақ • 1 сағат 20 мин",
                     lessons: [
                         {
                             id: "les-1",
@@ -816,21 +1278,80 @@
                             topic: "Көрсеткіштік теңдеулер",
                             duration: "24:15",
                             videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                            completed: true, // Изначально выполненный урок загорится зеленым
-                            description: "Негіздерін бірдей дәрежеге келтіру әдісі мен алгоритмдері.",
-                            timecodes: [{ time: 0, stamp: "00:00", title: "Кіріспе" }, { time: 185, stamp: "03:05", title: "Қасиеттері" }],
-                            quiz: { question: "Теңдеуді шешіңіз: 3^(x + 1) + 3^x = 36", formula: "3^(x + 1) + 3^x = 36", variants: ["A) 1", "B) 2", "C) 3", "D) 0"], correct: "B" }
+                            completed: true,
+                            description: "Бұл сабақта біз негіздері бірдей және әртүрлі болатын көрсеткіштік теңдеулерді шешудің ең тиімді тәсілдерін, сондай-ақ ҰБТ емтиханында жиі кездесетін қиын логикалық есептерді талдаймыз.",
+                            timecodes: [
+                                { time: 0, stamp: "00:00", title: "Кіріспе мен сабақтың мақсаты" },
+                                { time: 185, stamp: "03:05", title: "Дәрежелердің негізгі 7 қасиеті" },
+                                { time: 490, stamp: "08:10", title: "1-мысал: Негіздерді теңестіру тәсілі" },
+                                { time: 865, stamp: "14:25", title: "Жалпы көбейткішті жақша сыртына шығару" }
+                            ],
+                            quiz: {
+                                question: "Теңдеуді шешіңіз: 3^(x + 1) + 3^x = 36. Айнымалы x мәні неге тең?",
+                                formula: "3^(x + 1) + 3^x = 36",
+                                variants: ["A) 1", "B) 2", "C) 3", "D) 0"],
+                                correct: "B"
+                            }
                         },
                         {
                             id: "les-2",
-                            title: "1.2 Жаңа айнымалы енгізу әдісі",
+                            title: "1.2 Жаңа айнымалы енгізу әдісі (Квадраттық)",
                             topic: "Көрсеткіштік теңдеулер",
                             duration: "32:40",
                             videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
                             completed: false,
-                            description: "Квадраттық теңдеулерге келтіру жолдары.",
-                            timecodes: [{ time: 0, stamp: "00:00", title: "Алмастыру логикасы" }],
-                            quiz: { question: "Теңдеуді шешіңіз: 4^x - 6*2^x + 8 = 0", formula: "4^x - 6*2^x + 8 = 0", variants: ["A) 2", "B = 3", "C) 4", "D) 1"], correct: "B" }
+                            description: "Көрсеткіштік теңдеулерді жаңа айнымалы енгізу арқылы квадраттық немесе бөлшек-рационал теңдеулерге келтіру жолдары. Ең көп қате жіберілетін жерлер.",
+                            timecodes: [
+                                { time: 0, stamp: "00:00", title: "Алмастыру логикасын түсіну" },
+                                { time: 420, stamp: "07:00", title: "Түбірлердің ОДЗ-ын тексеру ережесі" }
+                            ],
+                            quiz: {
+                                question: "Теңдеуді алмастыру әдісімен шешіңіз: 4^x - 6 * 2^x + 8 = 0. Түбірлерінің қосындысын табыңыз.",
+                                formula: "4^x - 6 * 2^x + 8 = 0",
+                                variants: ["A) 2", "B) 3", "C) 4", "D) 1"],
+                                correct: "B"
+                            }
+                        },
+                        {
+                            id: "les-3",
+                            title: "1.3 Логарифм анықтамасы және негізгі қасиеттері",
+                            topic: "Логарифмдер",
+                            duration: "28:10",
+                            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                            completed: false,
+                            description: "Логарифм ұғымы қайдан шықты? Оның көрсеткіштік функциямен байланысы және ҰБТ-да 100% келетін негізгі 10 формула.",
+                            timecodes: [
+                                { time: 0, stamp: "00:00", title: "Логарифм философиясы мен тарихы" }
+                            ],
+                            quiz: {
+                                question: "Есептеңіз: log_2(32) + log_3(1/9)",
+                                formula: "log_2(32) + log_3(1/9)",
+                                variants: ["A) 3", "B) 5", "C) 2", "D) 7"],
+                                correct: "A"
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: "mod-2",
+                    title: "2-модуль: Тригонометриялық функциялар мен теңдеулер",
+                    duration: "2 сабақ • 1 сағат 05 мин",
+                    lessons: [
+                        {
+                            id: "les-4",
+                            title: "2.1 Тригонометриялық шеңбер және ширектер",
+                            topic: "Тригонометрия",
+                            duration: "35:15",
+                            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                            completed: false,
+                            description: "Синус, косинус, тангенс пен котангенсті жаттанды формуласыз, тек қана бірлік шеңбер арқылы көз алдына елестету өнері.",
+                            timecodes: [{ time: 0, stamp: "00:00", title: "Шеңбер құпиясы" }],
+                            quiz: {
+                                question: "sin(150°) мәні неге тең?",
+                                formula: "sin(150°)",
+                                variants: ["A) 1/2", "B) -1/2", "C) √3/2", "D) -√3/2"],
+                                correct: "A"
+                            }
                         }
                     ]
                 }
@@ -838,61 +1359,91 @@
         };
 
         const SIMULATOR_TEST_DATABASE = [
-            { id: 1, question: "Жүк машинасы белгілі бір қашықтықты 60 км/сағ жылдамдықпен 4 сағатта жүріп өтті. 3 сағатта жүріп өту үшін жылдамдықты қаншаға арттыру керек?", variants: ["A) 10 км/сағ", "B) 20 км/сағ", "C) 15 км/сағ", "D) 25 км/сағ"], correct: "B", selected: null }
+            {
+                id: 1,
+                question: "Жүк машинасы белгілі бір қашықтықты 60 км/сағ жылдамдықпен 4 сағатта жүріп өтті. Дәл осы қашықтықты 3 сағатта жүріп өту үшін ол жылдамдықты сағатына неше шақырымға арттыруы керек?",
+                variants: ["A) 10 км/сағ", "B) 20 км/сағ", "C) 15 км/сағ", "D) 25 км/сағ"],
+                correct: "B",
+                selected: null
+            },
+            {
+                id: 2,
+                question: "Егер a + b = 7 және a * b = 12 болса, онда a^2 + b^2 өрнегінің мәнін анықтаңыз.",
+                variants: ["A) 25", "B) 49", "C) 37", "D) 23"],
+                correct: "A",
+                selected: null
+            },
+            {
+                id: 3,
+                question: "Арифметикалық прогрессияның үшінші мүшесі 10-ға, ал жетінші мүшесі 22-ге тең. Прогрессияның айырымын (d) табыңыз.",
+                variants: ["A) 2", "B) 3", "C) 4", "D) 5"],
+                correct: "B",
+                selected: null
+            },
+            {
+                id: 4,
+                question: "Қорапта 5 қызыл, 7 көк және 8 жасыл шар бар. Кездейсоқ алынған бір шардың көк болу ықтималдығын табыңыз.",
+                variants: ["A) 7/20", "B) 1/4", "C) 2/5", "D) 7/15"],
+                correct: "A",
+                selected: null
+            },
+            {
+                id: 5,
+                question: "Теңдеуді шешіңіз: log_5(x - 2) = 2.",
+                variants: ["A) 23", "B) 25", "C) 27", "D) 32"],
+                correct: "C",
+                selected: null
+            }
         ];
 
         let currentActiveLessonObj = COURSE_DATABASE.modules[0].lessons[0];
         let currentTestQuestionIndex = 0;
         let testTimerSeconds = 35 * 60;
+        let testTimerInterval = null;
 
         /* ==========================================
-           ФУНКЦИЯ КРАСИВОГО СТИЛЬНОГО АЛЕРТА (PREMIUM TOAST)
+           ИНИЦИАЛИЗАЦИЯ И ДИНАМИЧЕСКИЙ РЕНДЕРИНГ
            ========================================== */
-        function showPremiumAlert(title, message, type = 'info') {
-            const toast = document.getElementById("customToast");
-            const icon = document.getElementById("toastIcon");
-            
-            document.getElementById("toastTitle").textContent = title;
-            document.getElementById("toastMessage").textContent = message;
-            
-            toast.className = `premium-toast show ${type}`;
-            
-            if(type === 'success') icon.className = "fa-solid fa-circle-check";
-            else if(type === 'error') icon.className = "fa-solid fa-circle-xmark";
-            else icon.className = "fa-solid fa-circle-info";
-
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, 3500);
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
             renderCourseProgramAccordion();
             loadLessonDataIntoWorkspace(currentActiveLessonObj);
             renderTestSimulatorMatrix();
             loadTestQuestion(0);
-            setInterval(startTestTimerCountdown, 1000);
+            startTestTimerCountdown();
         });
 
+        // Переключатель ночной/дневной темы в стиле Apple
         function togglePremiumTheme() {
             document.body.classList.toggle("dark-theme");
+            const ico = document.getElementById("theme-ico");
+            if(document.body.classList.contains("dark-theme")) {
+                ico.className = "fa-solid fa-sun";
+            } else {
+                ico.className = "fa-solid fa-moon";
+            }
         }
 
+        // SPA-навигатор экранов между Видео и Тестами
         function switchLmsView(viewId) {
             document.querySelectorAll(".workspace-container").forEach(el => el.classList.remove("active-view"));
             document.querySelectorAll(".nav-hub-btn").forEach(el => el.classList.remove("active"));
+            
             document.getElementById(viewId).classList.add("active-view");
+            if(viewId === 'video-learning-hub-view') document.getElementById('btn-view-video').classList.add('active');
+            if(viewId === 'testing-simulator-view') document.getElementById('btn-view-test').classList.add('active');
         }
 
+        // Рендеринг вкладок под видеоплеером
         function switchSubPane(evt, paneId) {
             document.querySelectorAll(".sub-pane").forEach(el => el.classList.remove("active"));
             document.querySelectorAll(".util-tab-trigger").forEach(el => el.classList.remove("active"));
+            
             document.getElementById(paneId).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
 
         /* ==========================================
-           РЕНДЕРИНГ КУРСА И ЗЕЛЕНЫХ ГАЛОЧЕК
+           МОДУЛЬ БЕЙНЕСАБАҚТАР (VIDEO HUB ENGINE)
            ========================================== */
         function renderCourseProgramAccordion() {
             const container = document.getElementById("globalCourseModulesAccordion");
@@ -900,11 +1451,11 @@
             
             COURSE_DATABASE.modules.forEach((mod, modIdx) => {
                 const modCard = document.createElement("div");
-                modCard.className = "accordion-module-card expanded-state";
+                modCard.className = `accordion-module-card ${modIdx === 0 ? 'expanded-state' : ''}`;
+                modCard.id = `mod-card-${mod.id}`;
                 
                 let lessonsHtml = "";
                 mod.lessons.forEach(les => {
-                    // Если у урока completed === true, добавляем класс .is-completed (он зажигает зеленую галочку)
                     const compClass = les.completed ? "is-completed" : "";
                     const activeClass = les.id === currentActiveLessonObj.id ? "currently-playing" : "";
                     
@@ -920,137 +1471,244 @@
                 });
 
                 modCard.innerHTML = `
-                    <button class="module-header-toggle-btn">
-                        <div class="module-title-meta-group"><h3>${mod.title}</h3><span>${mod.duration}</span></div>
+                    <button class="module-header-toggle-btn" onclick="toggleAccordionDom('${mod.id}')">
+                        <div class="module-title-meta-group">
+                            <h3>${mod.title}</h3>
+                            <span>${mod.duration}</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down module-chevron-icon"></i>
                     </button>
-                    <div class="sub-lessons-tray-list">${lessonsHtml}</div>
+                    <div class="sub-lessons-tray-list">
+                        ${lessonsHtml}
+                    </div>
                 `;
                 container.appendChild(modCard);
             });
         }
 
+        function toggleAccordionDom(modId) {
+            const card = document.getElementById(`mod-card-${modId}`);
+            card.classList.toggle("expanded-state");
+        }
+
         function selectLessonFromSidebar(lessonId) {
+            let foundLesson = null;
             COURSE_DATABASE.modules.forEach(m => {
                 m.lessons.forEach(l => {
-                    if(l.id === lessonId) currentActiveLessonObj = l;
+                    if(l.id === lessonId) foundLesson = l;
                 });
             });
-            loadLessonDataIntoWorkspace(currentActiveLessonObj);
-            renderCourseProgramAccordion();
+            
+            if(foundLesson) {
+                currentActiveLessonObj = foundLesson;
+                loadLessonDataIntoWorkspace(foundLesson);
+                renderCourseProgramAccordion(); // Перерисовать статусы активности
+            }
         }
 
         function loadLessonDataIntoWorkspace(lesson) {
             document.getElementById("globalIframeVideoPlayer").src = lesson.videoUrl + "?enablejsapi=1";
             document.getElementById("lbl-main-lesson-title").textContent = lesson.title;
             document.getElementById("lbl-bread-topic").textContent = lesson.topic;
-            document.getElementById("lbl-stat-duration").textContent = lesson.duration;
+            document.getElementById("lbl-stat-duration").textContent = lesson.duration + " минут";
             document.getElementById("lbl-main-lesson-description").textContent = lesson.description;
 
-            // Таймкоды
+            // Рендер таймкодов сабака
             const tcContainer = document.getElementById("dynamic-timecode-container");
             tcContainer.innerHTML = "";
             lesson.timecodes.forEach(tc => {
                 const row = document.createElement("div");
                 row.className = "timeline-node";
-                row.innerHTML = `<div class="node-left"><span class="node-timestamp">${tc.stamp}</span><span class="node-title">${tc.title}</span></div>`;
+                row.onclick = () => seekVideoPlayer(tc.time);
+                row.innerHTML = `
+                    <div class="node-left">
+                        <span class="node-timestamp">${tc.stamp}</span>
+                        <span class="node-title">${tc.title}</span>
+                    </div>
+                    <span class="node-duration"><i class="fa-regular fa-circle-play"></i> Өту</span>
+                `;
                 tcContainer.appendChild(row);
             });
 
-            // Квиз домашнего задания
-            document.getElementById("lbl-hw-title").textContent = lesson.quiz.question;
+            // Рендер Квиза домашнего задания урока
+            document.getElementById("lbl-hw-title").textContent = "Сабақты бекіту сұрағы: " + lesson.quiz.question;
             document.getElementById("lbl-hw-math-expr").textContent = lesson.quiz.formula;
             
             const variantsWrapper = document.getElementById("hw-variants-wrapper");
             variantsWrapper.innerHTML = "";
             lesson.quiz.variants.forEach(variant => {
                 const char = variant.charAt(0);
-                variantsWrapper.innerHTML += `
-                    <label class="hw-variant-selector" id="variant-label-${char}">
-                        <input type="radio" name="lessonHwRadio" value="${char}"> ${variant}
-                    </label>
+                const label = document.createElement("label");
+                label.className = "hw-variant-selector";
+                label.id = `variant-label-${char}`;
+                label.innerHTML = `
+                    <input type="radio" name="lessonHwRadio" value="${char}"> ${variant}
                 `;
+                variantsWrapper.appendChild(label);
             });
         }
 
-        /* ПРОВЕРКА ДОМАШКИ -> СТАТУС ВЫПОЛНЕНИЯ УРОКА */
+        function seekVideoPlayer(seconds) {
+            const player = document.getElementById("globalIframeVideoPlayer");
+            player.contentWindow.postMessage(JSON.stringify({
+                "event": "command", "func": "seekTo", "args": [seconds, true]
+            }), "*");
+        }
+
         function verifyLessonHomework() {
             const selectedInput = document.querySelector('input[name="lessonHwRadio"]:checked');
             if(!selectedInput) {
-                showPremiumAlert("Жүйелік қате", "Жауап нұсқасын таңдаңыз!", "error");
+                alert("Жауап нұсқасын таңдаңыз!");
                 return;
             }
             
             const userAns = selectedInput.value;
             const correctAns = currentActiveLessonObj.quiz.correct;
+            
+            // Сброс стилей классов
+            document.querySelectorAll(".hw-variant-selector").forEach(el => {
+                el.classList.remove("state-correct", "state-wrong");
+            });
 
             if(userAns === correctAns) {
                 document.getElementById(`variant-label-${correctAns}`).classList.add("state-correct");
-                
-                // Изменяем статус урока на выполненный!
+                alert("Керемет! Жауабыңыз толықтай дұрыс. +50 XP есептелді.");
                 currentActiveLessonObj.completed = true;
-                
-                // Перерендериваем панель, чтобы зажечь зеленую галочку
                 renderCourseProgramAccordion();
-                
-                showPremiumAlert("Керемет!", "Жауабыңыз дұрыс! Сабақ орындалды, +50 XP.", "success");
             } else {
                 document.getElementById(`variant-label-${userAns}`).classList.add("state-wrong");
-                showPremiumAlert("Қате", "Нұсқа дұрыс емес, тағы бір рет талдап көріңіз.", "error");
+                document.getElementById(`variant-label-${correctAns}`).classList.add("state-correct");
+                alert("Қателік жіберілді. Шығару жолын қайта қараңыз.");
             }
         }
 
+        /* Чат модуль */
         function executeChatMessage() {
-            const text = document.getElementById("txtChatInput").value;
+            const input = document.getElementById("txtChatInput");
+            const text = input.value.trim();
             if(!text) return;
+
             const box = document.getElementById("chatStreamBox");
-            box.innerHTML += `<div class="chat-msg-bubble student">${text}</div>`;
-            document.getElementById("txtChatInput").value = "";
+            
+            const studentBubble = document.createElement("div");
+            studentBubble.className = "chat-msg-bubble student";
+            studentBubble.textContent = text;
+            box.appendChild(studentBubble);
+            
+            input.value = "";
+            box.scrollTop = box.scrollHeight;
+
+            // Ответ куратора-бота
             setTimeout(() => {
-                box.innerHTML += `<div class="chat-msg-bubble mentor">Куратор сұрағыңызды қабылдады!</div>`;
-            }, 1000);
+                const mentorBubble = document.createElement("div");
+                mentorBubble.className = "chat-msg-bubble mentor";
+                mentorBubble.textContent = "Сұрағыңыз қабылданды! Мен қазір есептің шешілу қадамдарын қағазға жазып, фото етіп осы жерге жолдаймын. 5 минут күте тұрыңыз.";
+                box.appendChild(mentorBubble);
+                box.scrollTop = box.scrollHeight;
+            }, 1200);
         }
 
-        /* ТЕСТ МОДУЛЬ */
+        /* ==========================================
+           МОДУЛЬ ТЕСТ ТРЕНАЖЕРЫ (SIMULATOR ENGINE)
+           ========================================== */
         function renderTestSimulatorMatrix() {
             const container = document.getElementById("testMatrixContainer");
             container.innerHTML = "";
+            
             SIMULATOR_TEST_DATABASE.forEach((q, idx) => {
-                container.innerHTML += `<button class="matrix-num-btn" id="matrix-btn-${idx}" onclick="loadTestQuestion(${idx})">${idx + 1}</button>`;
+                const btn = document.createElement("button");
+                btn.className = "matrix-num-btn";
+                btn.id = `matrix-btn-${idx}`;
+                btn.textContent = idx + 1;
+                btn.onclick = () => loadTestQuestion(idx);
+                
+                if(idx === currentTestQuestionIndex) btn.classList.add("current");
+                if(q.selected !== null) btn.classList.add("answered");
+                
+                container.appendChild(btn);
             });
         }
 
         function loadTestQuestion(index) {
+            if(index < 0 || index >= SIMULATOR_TEST_DATABASE.length) return;
+            
             currentTestQuestionIndex = index;
             const qData = SIMULATOR_TEST_DATABASE[index];
+            
+            document.getElementById("lbl-test-question-index").textContent = `Сұрақ №${index + 1}`;
             document.getElementById("lbl-test-question-text").textContent = qData.question;
+            
             const wrapper = document.getElementById("testOptionsListWrapper");
             wrapper.innerHTML = "";
-            qData.variants.forEach(v => {
-                const char = v.charAt(0);
-                wrapper.innerHTML += `<div class="test-option-row" onclick="selectTestOption('${char}')">${v}</div>`;
+            
+            qData.variants.forEach(variant => {
+                const char = variant.charAt(0);
+                const isSelected = qData.selected === char;
+                
+                const div = document.createElement("div");
+                div.className = `test-option-row ${isSelected ? 'selected-state' : ''}`;
+                div.onclick = () => selectTestOption(char);
+                div.innerHTML = `
+                    <input type="radio" name="testQRadio" value="${char}" ${isSelected ? 'checked' : ''}>
+                    <span>${variant}</span>
+                `;
+                wrapper.appendChild(div);
             });
+
+            // Обновить подсветку матрицы
+            document.querySelectorAll(".matrix-num-btn").forEach(btn => btn.classList.remove("current"));
+            const currentMatrixBtn = document.getElementById(`matrix-btn-${index}`);
+            if(currentMatrixBtn) currentMatrixBtn.classList.add("current");
         }
 
         function selectTestOption(char) {
-            SIMULATOR_TEST_DATABASE[currentTestQuestionIndex].selected = char;
-            showPremiumAlert("Жауап сақталды", `Сіз ${char} нұсқасын таңдадыңыз`, "info");
+            const qData = SIMULATOR_TEST_DATABASE[currentTestQuestionIndex];
+            qData.selected = char;
+            
+            // Перерисовать варианты для мгновенной обратной связи
+            loadTestQuestion(currentTestQuestionIndex);
+            
+            // Отметить в боковой матрице как отвеченный
+            const matrixBtn = document.getElementById(`matrix-btn-${currentTestQuestionIndex}`);
+            if(matrixBtn) matrixBtn.classList.add("answered");
         }
 
-        function navigateTestQuestion(dir) {
-            let next = currentTestQuestionIndex + dir;
-            if(next >= 0 && next < SIMULATOR_TEST_DATABASE.length) loadTestQuestion(next);
+        function navigateTestQuestion(direction) {
+            let targetIndex = currentTestQuestionIndex + direction;
+            if(targetIndex >= 0 && targetIndex < SIMULATOR_TEST_DATABASE.length) {
+                loadTestQuestion(targetIndex);
+            }
         }
 
         function startTestTimerCountdown() {
-            if(testTimerSeconds <= 0) return;
-            testTimerSeconds--;
-            let min = Math.floor(testTimerSeconds / 60);
-            let sec = testTimerSeconds % 60;
-            document.getElementById("testTimerClock").textContent = `${min}:${sec < 10 ? '0'+sec : sec}`;
+            const display = document.getElementById("testTimerClock");
+            testTimerInterval = setInterval(() => {
+                let minutes = Math.floor(testTimerSeconds / 60);
+                let seconds = testTimerSeconds % 60;
+                
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                
+                display.textContent = `${minutes}:${seconds}`;
+                
+                if(--testTimerSeconds < 0) {
+                    clearInterval(testTimerInterval);
+                    finishGlobalTestSession();
+                }
+            }, 1000);
         }
 
         function finishGlobalTestSession() {
-            showPremiumAlert("Аяқтау", "Тест аяқталды, нәтижеңіз өңделуде!", "success");
+            clearInterval(testTimerInterval);
+            let correctCount = 0;
+            let answeredCount = 0;
+            
+            SIMULATOR_TEST_DATABASE.forEach(q => {
+                if(q.selected !== null) answeredCount++;
+                if(q.selected === q.correct) correctCount++;
+            });
+            
+            alert(`Тест аяқталды!\n\nЖалпы сұрақтар саны: ${SIMULATOR_TEST_DATABASE.length}\nЖауап берілгені: ${answeredCount}\nДұрыс жауаптар: ${correctCount}\n\nНәтижеңіз профильге сақталды. +${correctCount * 20} XP!`);
             switchLmsView('video-learning-hub-view');
         }
     </script>
