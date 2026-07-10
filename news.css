@@ -1,0 +1,177 @@
+/* ==========================================================================
+   --- MODERN PREMIUM GREEN BLOG MODULE STYLES ---
+   ========================================================================== */
+
+/* Панель фильтров */
+.blog-filter-panel {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+.blog-pill {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+.blog-pill:hover {
+    background: #f8fafc;
+    color: var(--text-main);
+    border-color: #cbd5e1;
+}
+
+.blog-pill.active {
+    background: var(--accent-gradient) !important;
+    color: #ffffff !important;
+    border-color: var(--accent-green) !important;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+}
+
+/* Сетка блога */
+.blog-ultimate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* Элегантная карточка блога */
+.blog-premium-card {
+    background: #ffffff;
+    border: 1.5px solid rgba(226, 232, 240, 0.9);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+}
+
+.blog-premium-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-green);
+    box-shadow: 0 16px 32px rgba(5, 150, 105, 0.06);
+}
+
+/* Блок обложки */
+.blog-card-image-wrapper {
+    position: relative;
+    height: 160px;
+    width: 100%;
+}
+
+.blog-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    color: #ffffff;
+}
+
+/* Фирменные зеленые градиенты для обложек новостей */
+.animate-gradient-1 { background: linear-gradient(135deg, #047857 0%, #064e3b 100%); }
+.animate-gradient-2 { background: linear-gradient(135deg, #059669 0%, #047857 100%); }
+.animate-gradient-3 { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+.animate-gradient-4 { background: linear-gradient(135deg, #34d399 0%, #10b981 100%); }
+
+/* Баджи категорий (Все в зеленых премиальных тонах) */
+.blog-card-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    color: white;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(4, 78, 59, 0.15);
+}
+.news-badge { background: #064e3b; }
+.lifehack-badge { background: #059669; }
+.article-badge { background: #10b981; }
+
+/* Текстовая зона */
+.blog-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.blog-meta-top {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.blog-meta-top span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.blog-meta-top i {
+    color: var(--accent-green);
+}
+
+.blog-card-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.4;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.blog-card-excerpt {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Футер карточки */
+.blog-card-footer {
+    margin-top: auto;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 12px;
+}
+
+.blog-read-more {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-green);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap 0.2s ease;
+}
+
+.blog-premium-card:hover .blog-read-more {
+    gap: 9px;
+}
