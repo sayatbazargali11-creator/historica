@@ -1,2628 +1,1552 @@
 <!DOCTYPE html>
-<html lang="kk" data-theme="dark">
+<html lang="kk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAYAT MATH — Премиум білім беру платформасы</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
-    <style>
-        /* ==========================================================================
-           1. ДИЗАЙН-СИСТЕМА (LUXURY EMERALD & GOLD)
-           ========================================================================== */
-        :root {
-            --primary: #10b981; 
-            --primary-rgb: 16, 185, 129;
-            --primary-dark: #059669;
-            --accent: #f59e0b; 
-            --accent-rgb: 245, 158, 11;
-            
-            /* Светлая Тема */
-            --bg-main: #f8fafc;
-            --bg-surface: #ffffff;
-            --bg-card: rgba(255, 255, 255, 0.75);
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --glass-border: rgba(226, 232, 240, 0.8);
-            --glass-shadow: rgba(15, 23, 42, 0.04);
-            --glow-color: rgba(16, 185, 129, 0.15);
-            --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            --emerald-gradient: linear-gradient(135deg, #34d399 0%, #059669 100%);
-            --dark-gradient: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        }
-
-        [data-theme="dark"] {
-            /* Темная Тема (Obsidian Luxury) */
-            --bg-main: #030712;
-            --bg-surface: #0b0f19;
-            --bg-card: rgba(11, 15, 25, 0.65);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --glass-border: rgba(255, 255, 255, 0.07);
-            --glass-shadow: rgba(0, 0, 0, 0.6);
-            --glow-color: rgba(16, 185, 129, 0.25);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            overflow-x: hidden;
-            transition: background-color 0.4s ease, color 0.4s ease;
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, .font-serif {
-            font-family: 'Fraunces', serif;
-        }
-
-        /* Абстрактные световые сферы на фоне */
-        .bg-glow-sphere {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--glow-color) 0%, rgba(0,0,0,0) 70%);
-            filter: blur(80px);
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        .sphere-1 { top: -100px; right: -100px; }
-        .sphere-2 { top: 1200px; left: -200px; background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, rgba(0,0,0,0) 70%); }
-        .sphere-3 { bottom: 800px; right: -100px; }
-
-        /* Скроллбар */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-main);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--glass-border);
-            border-radius: 10px;
-            border: 2px solid var(--bg-main);
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
-
-        /* Премиум Контейнер */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Текстовые Градиенты */
-        .text-gradient-emerald {
-            background: var(--emerald-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .text-gradient-gold {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* ==========================================================================
-           2. ВЕРХНЯЯ ИНФО-ПАНЕЛЬ И НАВИГАЦИЯ (HEADER)
-           ========================================================================== */
-        .top-banner {
-            background: var(--emerald-gradient);
-            color: #ffffff;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-align: center;
-            padding: 0.6rem 1rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(5, 150, 105, 0.2);
-        }
-
-        .top-banner a {
-            color: #fff;
-            text-decoration: underline;
-            margin-left: 0.5rem;
-            font-weight: 700;
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            padding: 0.7rem 0;
-            box-shadow: 0 10px 30px var(--glass-shadow);
-        }
-
-        .nav-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            font-family: 'Fraunces', serif;
-            font-weight: 800;
-            font-size: 1.6rem;
-            color: var(--text-main);
-        }
-
-        .logo-icon {
-            width: 42px;
-            height: 42px;
-            background: var(--emerald-gradient);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 2.5rem;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--primary);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--emerald-gradient);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after, nav a.active::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-        }
-
-        /* Переключатель темы */
-        .theme-toggle {
-            background: none;
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            background: var(--bg-surface);
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 0 12px var(--glow-color);
-        }
-
-        /* Кнопка Премиум CTA */
-        .btn-premium {
-            background: var(--emerald-gradient);
-            color: white;
-            padding: 0.8rem 1.6rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-premium::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-premium:hover::before {
-            left: 100%;
-        }
-
-        .btn-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.5);
-        }
-
-        .btn-secondary {
-            background: var(--bg-surface);
-            color: var(--text-main);
-            border: 1px solid var(--glass-border);
-            padding: 0.8rem 1.6rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .burger-menu {
-            display: none;
-            font-size: 1.5rem;
-            color: var(--text-main);
-            cursor: pointer;
-        }
-
-        /* ==========================================================================
-           3. ГЛАВНЫЙ ЭКРАН (HERO SECTION)
-           ========================================================================== */
-        .hero {
-            padding: 6rem 0 4rem 0;
-            position: relative;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            color: var(--primary);
-            padding: 0.5rem 1.2rem;
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .hero h1 {
-            font-size: 3.8rem;
-            line-height: 1.1;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            color: var(--text-main);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            max-width: 580px;
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        /* Мини-статистика под кнопками */
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            border-top: 1px solid var(--glass-border);
-            padding-top: 2rem;
-        }
-
-        .stat-item h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .stat-item p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 0;
-            margin-top: 0.25rem;
-        }
-
-        /* Интерактивный UI Макет справа */
-        .hero-visual {
-            position: relative;
-        }
-
-        .luxury-card-wrapper {
-            position: relative;
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: 0 20px 50px var(--glass-shadow);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .luxury-card-wrapper:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Внутренние элементы макета */
-        .card-header-visual {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .profile-visual {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .avatar-visual {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            object-fit: cover;
-        }
-
-        .streak-counter {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            color: var(--accent);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        /* Виджет мини-графика */
-        .mini-chart {
-            background: rgba(15, 23, 42, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.25rem;
-            margin-top: 1.5rem;
-        }
-
-        [data-theme="dark"] .mini-chart {
-            background: rgba(255,255,255,0.02);
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-
-        .chart-bars {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            height: 100px;
-            padding-top: 1rem;
-        }
-
-        .chart-bar {
-            width: 12%;
-            background: var(--glass-border);
-            border-radius: 4px;
-            height: var(--h);
-            transition: all 1s ease;
-            position: relative;
-        }
-
-        .chart-bar.active {
-            background: var(--emerald-gradient);
-            box-shadow: 0 4px 12px var(--glow-color);
-        }
-
-        /* Плавающие карточки богатства */
-        .floating-badge {
-            position: absolute;
-            background: var(--bg-surface);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 10px 30px var(--glass-shadow);
-            border-radius: 16px;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            backdrop-filter: blur(10px);
-            z-index: 10;
-        }
-
-        .float-1 {
-            top: -20px;
-            left: -30px;
-            animation: float-anim 4s ease-in-out infinite alternate;
-        }
-
-        .float-2 {
-            bottom: -20px;
-            right: -20px;
-            animation: float-anim 4s ease-in-out infinite alternate-reverse;
-        }
-
-        @keyframes float-anim {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-12px); }
-        }
-
-        /* ==========================================================================
-           4. ПРЕИМУЩЕСТВА (PREMIUM ADVANTAGES GRID)
-           ========================================================================== */
-        .features {
-            padding: 6rem 0;
-            background: var(--bg-surface);
-            position: relative;
-            border-top: 1px solid var(--glass-border);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .section-title-wrap {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 4rem auto;
-        }
-
-        .section-badge {
-            color: var(--primary);
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.75rem;
-            display: inline-block;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 35px var(--glow-color);
-        }
-
-        .feature-icon-wrapper {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover .feature-icon-wrapper {
-            background: var(--emerald-gradient);
-            color: white;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-        }
-
-        .feature-card h3 {
-            font-size: 1.35rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* ==========================================================================
-           5. ИНТЕРАКТИВНАЯ ДОРОЖНАЯ КАРТА (ROADMAP)
-           ========================================================================== */
-        .roadmap-section {
-            padding: 6rem 0;
-            position: relative;
-        }
-
-        .roadmap-container {
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
-            gap: 4rem;
-            align-items: start;
-            margin-top: 3rem;
-        }
-
-        .roadmap-navigation {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .roadmap-step-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            padding: 1.5rem;
-            border-radius: 16px;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-        }
-
-        .roadmap-step-btn:hover {
-            border-color: var(--primary);
-            transform: translateX(5px);
-        }
-
-        .roadmap-step-btn.active {
-            background: var(--bg-surface);
-            border-color: var(--primary);
-            box-shadow: 0 10px 25px var(--glow-color);
-        }
-
-        .step-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--glass-border);
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .roadmap-step-btn.active .step-number {
-            background: var(--emerald-gradient);
-            color: white;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
-        .step-btn-info h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .step-btn-info p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        /* Панель детальной информации дорожной карты */
-        .roadmap-details-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 3rem;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 20px 40px var(--glass-shadow);
-        }
-
-        .roadmap-details-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .roadmap-details-title h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
-        }
-
-        .roadmap-duration {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--primary);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .roadmap-list {
-            list-style: none;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .roadmap-list-item {
-            display: flex;
-            align-items: start;
-            gap: 0.75rem;
-            font-size: 0.95rem;
-        }
-
-        .roadmap-list-item i {
-            color: var(--primary);
-            margin-top: 0.2rem;
-        }
-
-        .roadmap-footer-box {
-            background: rgba(15, 23, 42, 0.02);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        [data-theme="dark"] .roadmap-footer-box {
-            background: rgba(255,255,255,0.01);
-        }
-
-        .roadmap-footer-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .roadmap-footer-info i {
-            font-size: 1.5rem;
-            color: var(--accent);
-        }
-
-        /* ==========================================================================
-           6. ИНТЕРАКТИВНЫЙ МАТЕМАТИЧЕСКИЙ ТРЕНАЖЕР (MATH SIMULATOR)
-           ========================================================================== */
-        .math-lab {
-            padding: 6rem 0;
-            background: var(--bg-surface);
-            border-top: 1px solid var(--glass-border);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .math-lab-wrapper {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 3.5rem;
-            box-shadow: 0 30px 60px var(--glass-shadow);
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .lab-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .lab-header h3 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .lab-progress {
-            width: 100%;
-            height: 6px;
-            background: var(--glass-border);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 1.5rem;
-        }
-
-        .lab-progress-fill {
-            height: 100%;
-            width: 33%;
-            background: var(--emerald-gradient);
-            transition: width 0.4s ease;
-        }
-
-        .quiz-container {
-            min-height: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .quiz-question-box {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .question-badge {
-            background: rgba(16, 185, 129, 0.08);
-            border: 1px solid rgba(16, 185, 129, 0.15);
-            color: var(--primary);
-            padding: 0.35rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        .quiz-formula {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin: 1rem 0;
-            letter-spacing: 0.02em;
-        }
-
-        .quiz-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .quiz-option-btn {
-            background: var(--bg-surface);
-            border: 1px solid var(--glass-border);
-            padding: 1.2rem;
-            border-radius: 16px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .quiz-option-btn:hover {
-            border-color: var(--primary);
-            background: rgba(16, 185, 129, 0.03);
-            transform: translateY(-2px);
-        }
-
-        .quiz-option-btn.correct {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .quiz-option-btn.incorrect {
-            background: rgba(239, 68, 68, 0.15);
-            border-color: #ef4444;
-            color: #ef4444;
-        }
-
-        .quiz-feedback {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-weight: 600;
-            min-height: 24px;
-        }
-
-        /* Результаты Квиза */
-        .quiz-result-view {
-            text-align: center;
-            display: none;
-        }
-
-        .quiz-result-view i {
-            font-size: 4rem;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        /* ==========================================================================
-           7. ГАМИФИКАЦИЯ И СТРИК-КАЛЕНДАРЬ (GAMIFICATION SECTION)
-           ========================================================================== */
-        .gamification {
-            padding: 6rem 0;
-            position: relative;
-        }
-
-        .gamification-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .streak-calendar-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            box-shadow: 0 20px 45px var(--glass-shadow);
-        }
-
-        .streak-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .streak-card-title h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
-        }
-
-        .streak-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.6rem;
-        }
-
-        .streak-day-cell {
-            aspect-ratio: 1;
-            border-radius: 8px;
-            background: var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .streak-day-cell:hover {
-            transform: scale(1.1);
-            z-index: 2;
-        }
-
-        .streak-day-cell.active {
-            background: var(--emerald-gradient);
-            color: white;
-            box-shadow: 0 4px 12px var(--glow-color);
-        }
-
-        .streak-day-cell.legendary {
-            background: var(--gold-gradient);
-            color: white;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-        }
-
-        .gamification-info h2 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-        }
-
-        .gamification-info p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .badge-collection {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .badge-pill {
-            background: var(--bg-surface);
-            border: 1px solid var(--glass-border);
-            padding: 0.75rem 1.25rem;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .badge-pill i {
-            color: var(--accent);
-        }
-
-        /* ==========================================================================
-           8. ТАРИФНЫЕ ПЛАНЫ (PRICING SECTION)
-           ========================================================================== */
-        .pricing {
-            padding: 6rem 0;
-            background: var(--bg-surface);
-            border-top: 1px solid var(--glass-border);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .pricing-toggle-wrap {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 4rem;
-        }
-
-        .pricing-toggle-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .pricing-toggle-btn.active {
-            background: var(--emerald-gradient);
-            color: #ffffff;
-            border-color: var(--primary);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-            align-items: stretch;
-        }
-
-        .pricing-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 3rem 2.5rem;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px var(--glass-shadow);
-        }
-
-        .pricing-card.popular {
-            border-color: var(--accent);
-            background: var(--bg-surface);
-            box-shadow: 0 20px 45px rgba(245, 158, 11, 0.1);
-        }
-
-        .pricing-card.popular::before {
-            content: 'ЕҢ ТАНЫМАЛ';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gold-gradient);
-            color: white;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 0.4rem 1.2rem;
-            border-radius: 50px;
-            letter-spacing: 0.05em;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
-        }
-
-        .pricing-header {
-            margin-bottom: 2rem;
-        }
-
-        .pricing-header h3 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .pricing-header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .pricing-price {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: baseline;
-            gap: 0.25rem;
-        }
-
-        .pricing-price span {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-muted);
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            flex-grow: 1;
-        }
-
-        .pricing-features li {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.95rem;
-        }
-
-        .pricing-features li i {
-            color: var(--primary);
-        }
-
-        .pricing-features li.disabled {
-            color: var(--text-muted);
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
-
-        .pricing-features li.disabled i {
-            color: var(--text-muted);
-        }
-
-        .btn-pricing {
-            width: 100%;
-            padding: 1rem;
-            border-radius: 16px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: block;
-        }
-
-        .pricing-card.popular .btn-pricing {
-            background: var(--gold-gradient);
-            color: white;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-            border: none;
-        }
-
-        .pricing-card.popular .btn-pricing:hover {
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .pricing-card:not(.popular) .btn-pricing {
-            background: var(--bg-surface);
-            color: var(--text-main);
-            border: 1px solid var(--glass-border);
-        }
-
-        .pricing-card:not(.popular) .btn-pricing:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        /* ==========================================================================
-           9. ОТЗЫВЫ КЛИЕНТОВ (TESTIMONIALS SLIDER)
-           ========================================================================== */
-        .testimonials {
-            padding: 6rem 0;
-            position: relative;
-        }
-
-        .testimonials-slider-container {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .testimonials-track {
-            display: flex;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .testimonial-slide {
-            min-width: 100%;
-            box-sizing: border-box;
-            padding: 1rem;
-        }
-
-        .testimonial-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 3rem;
-            box-shadow: 0 20px 45px var(--glass-shadow);
-            position: relative;
-        }
-
-        .testimonial-card i.quote-icon {
-            font-size: 3rem;
-            background: var(--emerald-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0.15;
-            position: absolute;
-            top: 2rem;
-            right: 3rem;
-        }
-
-        .rating-stars {
-            color: var(--accent);
-            display: flex;
-            gap: 0.25rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .testimonial-content {
-            font-size: 1.25rem;
-            line-height: 1.8;
-            font-weight: 500;
-            margin-bottom: 2rem;
-            color: var(--text-main);
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .author-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary);
-        }
-
-        .author-name h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .author-name p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        /* Навигация слайдера */
-        .slider-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .slider-nav-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .slider-nav-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 4px 15px var(--glow-color);
-        }
-
-        .slider-dots {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .slider-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--glass-border);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .slider-dot.active {
-            background: var(--primary);
-            width: 24px;
-            border-radius: 10px;
-        }
-
-        /* ==========================================================================
-           10. ТАЙМЕР ОБРАТНОГО ОТСЧЕТА (COUNTDOWN BANNER)
-           ========================================================================== */
-        .countdown-section {
-            padding: 5rem 0;
-            background: var(--dark-gradient);
-            color: white;
-            border-radius: 30px;
-            margin: 6rem auto;
-            max-width: 1200px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        .countdown-inner {
-            position: relative;
-            z-index: 2;
-        }
-
-        .countdown-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .countdown-subtitle {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .countdown-grid {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .countdown-box {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 1.5rem;
-            min-width: 110px;
-        }
-
-        .countdown-number {
-            font-family: 'Fraunces', serif;
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--accent);
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .countdown-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* ==========================================================================
-           11. ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ (FAQ ACCORDIONS)
-           ========================================================================== */
-        .faq {
-            padding: 6rem 0;
-            position: relative;
-        }
-
-        .faq-max-width {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-header {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .faq-header:hover {
-            color: var(--primary);
-        }
-
-        .faq-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item.active .faq-icon {
-            background: var(--emerald-gradient);
-            color: white;
-            transform: rotate(180deg);
-        }
-
-        .faq-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            padding: 0 1.5rem;
-        }
-
-        .faq-item.active .faq-body {
-            padding: 0 1.5rem 1.5rem 1.5rem;
-        }
-
-        /* ==========================================================================
-           12. ПОДВАЛ (FOOTER)
-           ========================================================================== */
-        footer {
-            background: var(--bg-surface);
-            border-top: 1px solid var(--glass-border);
-            padding: 5rem 0 2rem 0;
-            color: var(--text-muted);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
-        }
-
-        .footer-about p {
-            margin-top: 1rem;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .footer-links h4 {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main);
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        .footer-newsletter h4 {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main);
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .newsletter-input {
-            background: var(--bg-main);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            padding: 0.8rem 1.2rem;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            flex-grow: 1;
-            outline: none;
-        }
-
-        .newsletter-input:focus {
-            border-color: var(--primary);
-        }
-
-        .btn-newsletter {
-            background: var(--emerald-gradient);
-            color: white;
-            border: none;
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-newsletter:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--glow-color);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid var(--glass-border);
-            padding-top: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--bg-main);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-main);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        /* ==========================================================================
-           13. АДАПТИВНОСТЬ (MOBILE RESPONSIVENESS)
-           ========================================================================== */
-        @media (max-width: 1024px) {
-            .hero-grid, .features-grid, .roadmap-container, .gamification-grid, .pricing-grid, .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-
-            .hero {
-                text-align: center;
-                padding: 4rem 0;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .hero p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-btns {
-                justify-content: center;
-            }
-
-            .hero-stats {
-                justify-content: center;
-            }
-
-            .float-1, .float-2 {
-                display: none;
-            }
-
-            .roadmap-navigation {
-                flex-direction: row;
-                overflow-x: auto;
-                padding-bottom: 1rem;
-            }
-
-            .roadmap-step-btn {
-                min-width: 250px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                display: none;
-            }
-
-            .burger-menu {
-                display: block;
-            }
-
-            .countdown-grid {
-                flex-wrap: wrap;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAYAT MATH — Премиум білім беру платформасы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ==========================================================================
+   1. ДИЗАЙН-СИСТЕМА (SVETLA/DARK + EMERALD)
+   ========================================================================== */
+:root {
+    --bg-main: #f8fafc;
+    --glass-bg: rgba(255, 255, 255, 0.82);
+    --glass-border: rgba(226, 232, 240, 0.85);
+    --glass-shadow: rgba(5, 150, 105, 0.04);
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --accent-green: #059669;
+    --accent-gradient: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    --accent-light: rgba(5, 150, 105, 0.06);
+    --font-premium: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+    --font-display: "Fraunces", var(--font-premium);
+    --danger: #ef4444;
+    --danger-light: rgba(239, 68, 68, 0.08);
+    --warning: #f59e0b;
+    --card-bg: #ffffff;
+    --divider: #f1f5f9;
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] {
+    --bg-main: #0a0f0d;
+    --glass-bg: rgba(17, 24, 22, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+    --text-main: #f1f5f4;
+    --text-muted: #94a3a0;
+    --accent-light: rgba(16, 185, 129, 0.12);
+    --card-bg: #111816;
+    --divider: rgba(255, 255, 255, 0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1, h2, h3, h4, h5, h6, .logo {
+    font-family: var(--font-premium);
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    width: 100%;
+}
+
+/* --- ФОНОВЫЕ СВЕЧЕНИЯ --- */
+.bg-glow { position: fixed; width: 70vw; height: 70vw; border-radius: 50%; filter: blur(160px); z-index: -1; opacity: 0.12; pointer-events: none; will-change: transform; }
+.glow-1 { top: -25%; right: -15%; background: #10b981; animation: pulseGlow 12s ease-in-out infinite alternate; }
+.glow-2 { bottom: -20%; left: -25%; background: #059669; animation: pulseGlow 16s ease-in-out infinite alternate 2s; }
+@keyframes pulseGlow { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.15) translate(3%, 5%); } }
+
+/* --- GLASS КАРТОЧКИ --- */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 12px 40px var(--glass-shadow);
+    transition: var(--transition-smooth);
+}
+.glass-card:hover { transform: translateY(-6px); border-color: rgba(5, 150, 105, 0.28); box-shadow: 0 30px 60px rgba(5, 150, 105, 0.1); }
+
+/* --- КНОПКИ --- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer; transition: var(--transition-smooth); border: none; outline: none; white-space: nowrap; }
+.btn-primary { background: var(--text-main); color: var(--bg-main); }
+.btn-primary:hover { background: var(--accent-green); color: #fff; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(5, 150, 105, 0.25); }
+.btn-secondary { background: var(--card-bg); color: var(--text-main); border: 1px solid var(--glass-border); box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+.btn-secondary:hover { border-color: var(--text-main); transform: translateY(-2px); }
+.btn-green { background: var(--accent-gradient); color: white; }
+.btn-green:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16, 185, 129, 0.3); }
+.btn-ghost { background: transparent; color: var(--text-muted); border: 1px dashed var(--glass-border); }
+.btn-ghost:hover { color: var(--text-main); border-color: var(--text-main); }
+.btn[disabled] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+.btn-full { width: 100%; }
+.btn-sm { padding: 8px 16px; font-size: 12px; border-radius: 10px; }
+
+/* ==========================================================================
+   2. HEADER & NAVIGATION
+   ========================================================================== */
+header { position: fixed; top: 24px; left: 0; right: 0; margin: 0 auto; width: calc(100% - 48px); max-width: 1232px; z-index: 9999; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; }
+.logo { font-size: 22px; letter-spacing: -0.8px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; font-weight: 900; user-select: none; }
+.nav-menu { display: flex; gap: 28px; list-style: none; align-items: center; }
+.nav-menu a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 14px; transition: color 0.3s ease; cursor: pointer; padding: 6px 4px; position: relative; }
+.nav-menu a::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: var(--accent-green); transition: all 0.3s ease; transform: translateX(-50%); }
+.nav-menu li.active a, .nav-menu a:hover { color: var(--text-main); font-weight: 600; }
+.nav-menu li.active a::after { width: 100%; }
+.header-actions { display: flex; align-items: center; gap: 14px; }
+.icon-btn { background: none; border: none; font-size: 19px; color: var(--text-main); cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; transition: background 0.2s; }
+.icon-btn:hover { background: rgba(127,127,127,0.08); }
+.icon-btn .badge { position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; background-color: var(--danger); border-radius: 50%; }
+.theme-toggle { position: relative; }
+.avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--accent-gradient); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.2); cursor: pointer; user-select: none; }
+.hamburger { display: none; flex-direction: column; justify-content: space-between; width: 22px; height: 16px; cursor: pointer; border: none; background: none; padding: 0; z-index: 100001; }
+.hamburger span { width: 100%; height: 2px; background-color: var(--text-main); border-radius: 2px; transition: var(--transition-smooth); }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+/* ==========================================================================
+   3. MAIN VIEW MANAGEMENT
+   ========================================================================== */
+main { margin-top: 140px; flex-grow: 1; position: relative; z-index: 10; }
+.app-view { display: none; opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.app-view.active-view { display: block; opacity: 1; transform: translateY(0); }
+section { padding: 30px 0 70px 0; }
+.section-title { margin-bottom: 48px; text-align: center; }
+.section-title h2 { font-size: 36px; font-weight: 800; letter-spacing: -1.2px; margin-bottom: 14px; font-family: var(--font-display); }
+.section-title p { color: var(--text-muted); font-size: 16px; max-width: 600px; margin: 0 auto; }
+.eyebrow { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-green); background: var(--accent-light); padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+
+/* ==========================================================================
+   4. VIEW 1: БАСТЫ БЕТ
+   ========================================================================== */
+.hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; padding-bottom: 40px; }
+.hero-content h1 { font-size: 54px; font-weight: 700; line-height: 1.12; letter-spacing: -2px; margin-bottom: 24px; font-family: var(--font-display); }
+.hero-content h1 em { font-style: italic; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-content p { font-size: 18px; color: var(--text-muted); line-height: 1.65; margin-bottom: 32px; max-width: 520px; }
+.hero-btns { display: flex; gap: 16px; margin-bottom: 28px; }
+.hero-countdown { display: inline-flex; gap: 18px; padding: 14px 20px; }
+.hero-countdown .cd-cell { text-align: center; min-width: 46px; }
+.hero-countdown .cd-cell strong { display: block; font-size: 20px; font-weight: 800; color: var(--accent-green); font-variant-numeric: tabular-nums; }
+.hero-countdown .cd-cell span { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; }
+
+/* --- ИНТЕРАКТИВНЫЙ ГРАФИК ФУНКЦИЙ (сигнатурный элемент) --- */
+.grapher-card { padding: 26px; position: relative; }
+.grapher-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 10px; }
+.grapher-head h3 { font-size: 15px; font-family: var(--font-premium); }
+.grapher-select { background: var(--accent-light); color: var(--accent-green); border: none; border-radius: 10px; padding: 7px 12px; font-size: 12px; font-weight: 700; cursor: pointer; }
+#functionCanvas { width: 100%; height: 260px; display: block; border-radius: 14px; cursor: crosshair; touch-action: none; }
+.grapher-readout { display: flex; justify-content: space-between; margin-top: 12px; font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.grapher-readout strong { color: var(--accent-green); }
+
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.feature-card { padding: 32px; display: flex; flex-direction: column; gap: 20px; }
+.feature-icon-wrapper { width: 52px; height: 52px; border-radius: 14px; background: var(--accent-light); color: var(--accent-green); display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1px solid rgba(5, 150, 105, 0.15); }
+
+/* --- MARQUEE --- */
+.marquee-viewport { width: 100%; overflow: hidden; padding: 20px 0; position: relative; mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); }
+.marquee-track { display: flex; gap: 24px; width: max-content; animation: infiniteScroll 44s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+@keyframes infiniteScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.review-node { width: 360px; padding: 24px; flex-shrink: 0; }
+.review-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.review-score { font-size: 32px; font-weight: 800; color: var(--accent-green); line-height: 1; }
+.review-score span { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+/* ==========================================================================
+   5. VIEW 2: КУРСТАР
+   ========================================================================== */
+.catalog-toolbar { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+.catalog-filter-bar { display: flex; gap: 10px; flex-wrap: wrap; }
+.filter-tab { padding: 10px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; cursor: pointer; background: var(--card-bg); border: 1px solid var(--glass-border); transition: var(--transition-smooth); color: var(--text-main); }
+.filter-tab.active-tab, .filter-tab:hover { background: var(--text-main); color: var(--bg-main); border-color: var(--text-main); }
+.catalog-search { display: flex; align-items: center; gap: 10px; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px 16px; min-width: 230px; }
+.catalog-search input { border: none; outline: none; background: transparent; color: var(--text-main); font-size: 13px; width: 100%; }
+.catalog-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); display: none; }
+.catalog-empty.show { display: block; }
+.courses-layout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; }
+.course-node { display: flex; flex-direction: column; overflow: hidden; height: 100%; }
+.course-banner { height: 190px; background: #0f172a; position: relative; display: flex; align-items: center; justify-content: center; font-size: 54px; }
+.course-tags { position: absolute; top: 16px; left: 16px; display: flex; gap: 8px; }
+.tag-pill { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; color: white; border: 1px solid rgba(255,255,255,0.1); }
+.course-details { padding: 26px; flex-grow: 1; display: flex; flex-direction: column; }
+.course-details h3 { font-size: 19px; margin-bottom: 10px; }
+.course-details p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 22px; flex-grow: 1; }
+.course-metrics-row { display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid var(--divider); }
+.metric-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+/* ==========================================================================
+   6. VIEW 3: ТЕСТТЕР (РАБОЧИЙ ДВИЖОК)
+   ========================================================================== */
+.testing-hero-panel { background: linear-gradient(135deg, #065f46 0%, #022c22 100%); color: white; border-radius: var(--border-radius-lg); padding: 48px; display: grid; grid-template-columns: 1.3fr 0.7fr; align-items: center; gap: 40px; margin-bottom: 48px; }
+.testing-hero-panel h2 { color: white; font-size: 34px; margin-bottom: 14px; font-family: var(--font-display); }
+.testing-hero-panel p { color: rgba(255,255,255,0.8); font-size: 15px; margin-bottom: 22px; line-height: 1.6; }
+.quiz-cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.quiz-card { padding: 28px; }
+.quiz-category-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.5px; margin-bottom: 12px; display: block; }
+.quiz-card h3 { font-size: 18px; margin-bottom: 16px; }
+.quiz-info-row { display: flex; gap: 16px; margin-bottom: 24px; font-size: 13px; color: var(--text-muted); }
+
+.quiz-runner { display: none; padding: 40px; max-width: 720px; margin: 0 auto; }
+.quiz-runner.active { display: block; }
+.quiz-progress-track { height: 6px; background: var(--divider); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+.quiz-progress-fill { height: 100%; background: var(--accent-gradient); width: 0%; transition: width 0.4s ease; }
+.quiz-meta-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 18px; font-weight: 600; }
+.quiz-question-text { font-size: 21px; font-weight: 700; margin-bottom: 26px; line-height: 1.4; }
+.quiz-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+.quiz-option { text-align: left; padding: 16px 20px; border-radius: 14px; border: 1.5px solid var(--glass-border); background: var(--card-bg); cursor: pointer; font-size: 14px; color: var(--text-main); transition: var(--transition-smooth); display: flex; align-items: center; gap: 12px; }
+.quiz-option:hover { border-color: var(--accent-green); }
+.quiz-option .opt-letter { width: 26px; height: 26px; border-radius: 50%; background: var(--accent-light); color: var(--accent-green); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.quiz-option.correct { border-color: var(--accent-green); background: var(--accent-light); }
+.quiz-option.incorrect { border-color: var(--danger); background: var(--danger-light); }
+.quiz-option[disabled] { cursor: default; }
+.quiz-nav-row { display: flex; justify-content: flex-end; }
+.quiz-result { display: none; text-align: center; padding: 20px 0; }
+.quiz-result.show { display: block; }
+.quiz-result .score-ring-wrap { margin: 0 auto 24px auto; width: 160px; height: 160px; position: relative; }
+.quiz-result .score-ring-wrap strong { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 30px; font-family: var(--font-display); }
+
+/* ==========================================================================
+   7. VIEW 4: ЖОО
+   ========================================================================== */
+.joo-search-container { max-width: 640px; margin: 0 auto 28px auto; display: flex; background: var(--card-bg); border: 1px solid var(--glass-border); padding: 8px 12px 8px 24px; border-radius: 20px; align-items: center; gap: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.01); }
+.joo-search-container input { border: none; outline: none; width: 100%; font-size: 15px; color: var(--text-main); background: transparent; }
+.joo-region-tabs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 36px; }
+.uni-grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; }
+.uni-node-card { padding: 28px; }
+.uni-meta-header { display: flex; gap: 16px; align-items: center; margin-bottom: 18px; }
+.uni-avatar-box { width: 52px; height: 52px; background: var(--accent-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--accent-green); }
+.uni-title-wrapper h3 { font-size: 18px; font-weight: 700; }
+.uni-title-wrapper span { font-size: 12px; color: var(--text-muted); }
+.uni-specs-table { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border-top: 1px solid var(--divider); margin-top: 20px; padding-top: 16px; }
+.spec-cell span { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.spec-cell strong { font-size: 15px; color: var(--accent-green); }
+
+/* ==========================================================================
+   8. VIEW 5: БЛОГ
+   ========================================================================== */
+.blog-headline-card { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; margin-bottom: 56px; align-items: center; }
+.blog-art-cover { height: 340px; border-radius: var(--border-radius-lg); background: linear-gradient(135deg, #10b981 0%, #047857 100%); display: flex; align-items: center; justify-content: center; font-size: 76px; }
+.blog-filter-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 36px; }
+.blog-regular-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+.blog-item { padding: 24px; }
+.blog-item h3 { font-size: 18px; margin: 12px 0; line-height: 1.4; }
+.blog-item-footer { display: flex; justify-content: space-between; border-top: 1px solid var(--divider); padding-top: 16px; margin-top: 20px; font-size: 12px; color: var(--text-muted); }
+
+/* ==========================================================================
+   9. VIEW 6: КІТАПТАР
+   ========================================================================== */
+.books-layout-structure { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; }
+.book-node-item { padding: 24px; text-align: center; }
+.book-spine-mock { width: 140px; height: 200px; background: var(--accent-gradient); border-radius: 12px; margin: 0 auto 20px auto; box-shadow: 0 12px 24px rgba(5,150,105,0.15); display: flex; align-items: center; justify-content: center; font-size: 48px; position: relative; }
+.book-spine-mock::before { content: ''; position: absolute; left: 0; top: 0; width: 10px; height: 100%; background: rgba(0,0,0,0.12); border-radius: 12px 0 0 12px; }
+.book-node-item h3 { font-size: 16px; margin-bottom: 4px; }
+.book-meta-desc { font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 10px; }
+.book-stars { color: var(--warning); font-size: 12px; margin-bottom: 16px; }
+
+/* ==========================================================================
+   10. VIEW 7: ТАРИФТАР (PRICING) — жаңа блок
+   ========================================================================== */
+.pricing-toggle-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 40px; }
+.pricing-switch { width: 52px; height: 28px; border-radius: 20px; background: var(--divider); position: relative; cursor: pointer; border: 1px solid var(--glass-border); }
+.pricing-switch::after { content: ''; position: absolute; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-gradient); top: 2px; left: 2px; transition: var(--transition-smooth); }
+.pricing-switch.yearly::after { left: 27px; }
+.save-chip { font-size: 11px; font-weight: 700; color: var(--accent-green); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; }
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; align-items: stretch; }
+.price-card { padding: 36px 30px; display: flex; flex-direction: column; position: relative; }
+.price-card.featured { border-color: var(--accent-green); box-shadow: 0 20px 50px rgba(5,150,105,0.14); }
+.price-card .plan-badge { position: absolute; top: -14px; right: 28px; background: var(--accent-gradient); color: #fff; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 20px; }
+.price-card h3 { font-size: 20px; margin-bottom: 6px; }
+.price-card .plan-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 22px; }
+.price-card .plan-amount { font-size: 42px; font-weight: 800; font-family: var(--font-display); margin-bottom: 4px; }
+.price-card .plan-amount span { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+.price-card .plan-period { font-size: 12px; color: var(--text-muted); margin-bottom: 26px; }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; flex-grow: 1; }
+.plan-features li { display: flex; gap: 10px; font-size: 13.5px; color: var(--text-main); align-items: flex-start; }
+.plan-features li i { color: var(--accent-green); margin-top: 2px; }
+
+/* ==========================================================================
+   11. FAQ ACCORDION — жаңа блок
+   ========================================================================== */
+.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.faq-item { padding: 4px 8px; overflow: hidden; }
+.faq-question { width: 100%; background: none; border: none; padding: 20px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; font-size: 15.5px; font-weight: 600; color: var(--text-main); }
+.faq-question i { color: var(--accent-green); transition: transform 0.3s ease; flex-shrink: 0; margin-left: 16px; }
+.faq-item.open .faq-question i { transform: rotate(45deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding: 0 16px; }
+.faq-item.open .faq-answer { max-height: 260px; padding: 0 16px 20px 16px; }
+.faq-answer p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+
+/* ==========================================================================
+   12. VIEW: ЛИЧНЫЙ КАБИНЕТ + ПРОГРЕСС
+   ========================================================================== */
+.dashboard-layout { display: grid; grid-template-columns: 300px 1fr; gap: 32px; align-items: start; }
+.dash-sidebar { padding: 32px; text-align: center; }
+.dash-user-pic { width: 88px; height: 88px; border-radius: 50%; background: var(--accent-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 800; margin: 0 auto 16px auto; box-shadow: 0 8px 20px rgba(5,150,105,0.15); }
+.dash-sidebar-menu { list-style: none; text-align: left; margin-top: 32px; display: flex; flex-direction: column; gap: 8px; }
+.dash-sidebar-menu li { padding: 12px 16px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; transition: var(--transition-smooth); color: var(--text-muted); }
+.dash-sidebar-menu li.active-row, .dash-sidebar-menu li:hover { background: var(--accent-light); color: var(--accent-green); font-weight: 600; }
+.dash-main-core { padding: 40px; }
+.dash-section-headline { font-size: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--divider); padding-bottom: 10px; }
+.dash-stats-panel { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.stat-cube { background: var(--accent-light); border: 1px solid var(--glass-border); padding: 20px; border-radius: 16px; text-align: center; }
+.stat-cube span { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.stat-cube strong { font-size: 26px; color: var(--accent-green); font-weight: 800; }
+.form-grid-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.input-wrapper { margin-bottom: 16px; }
+.input-wrapper label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
+.input-wrapper input { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--glass-border); outline: none; font-size: 14px; background: var(--card-bg); color: var(--text-main); transition: border 0.2s; }
+.input-wrapper input:focus { border-color: var(--accent-green); }
+
+.progress-ring-block { display: flex; align-items: center; gap: 28px; margin-bottom: 32px; flex-wrap: wrap; }
+.progress-ring-wrap { position: relative; width: 128px; height: 128px; flex-shrink: 0; }
+.progress-ring-wrap strong { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; font-family: var(--font-display); }
+.streak-calendar { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; flex-grow: 1; min-width: 220px; }
+.streak-cell { aspect-ratio: 1; border-radius: 5px; background: var(--divider); }
+.streak-cell[data-level="1"] { background: rgba(16,185,129,0.25); }
+.streak-cell[data-level="2"] { background: rgba(16,185,129,0.55); }
+.streak-cell[data-level="3"] { background: var(--accent-green); }
+
+/* ==========================================================================
+   13. WINDOW SYSTEMS
+   ========================================================================== */
+.notification-hub { position: relative; }
+.notification-dropdown-box { position: absolute; top: 52px; right: 0; width: 340px; padding: 20px; display: none; z-index: 99999; }
+.nd-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--divider); }
+.nd-row:last-child { border: none; }
+.nd-icon { width: 32px; height: 32px; background: var(--accent-light); color: var(--accent-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+.profile-dropdown-box { position: absolute; top: 52px; right: 0; width: 240px; padding: 16px; display: none; z-index: 99999; }
+.pdb-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.pdb-list li { padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 13.5px; display: flex; align-items: center; gap: 10px; transition: background 0.2s; }
+.pdb-list li:hover { background: var(--accent-light); color: var(--accent-green); }
+.overlay-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.35); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 999999; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-container { background: var(--card-bg); border-radius: 28px; padding: 40px; max-width: 460px; width: 100%; position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.25); }
+.modal-close-trigger { position: absolute; top: 24px; right: 24px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted); }
+
+/* --- TOAST NOTIFICATIONS --- */
+.toast-stack { position: fixed; bottom: 24px; right: 24px; z-index: 9999999; display: flex; flex-direction: column; gap: 10px; }
+.toast { padding: 14px 18px; border-radius: 14px; display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 500; min-width: 260px; box-shadow: 0 12px 30px rgba(0,0,0,0.15); animation: toastIn 0.35s cubic-bezier(0.16,1,0.3,1); }
+.toast.success { background: #052e21; color: #86efac; border: 1px solid rgba(16,185,129,0.4); }
+.toast.error { background: #2c0f0f; color: #fca5a5; border: 1px solid rgba(239,68,68,0.4); }
+.toast i { font-size: 16px; }
+@keyframes toastIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+.toast.hide { animation: toastOut 0.3s ease forwards; }
+@keyframes toastOut { to { opacity: 0; transform: translateX(30px); } }
+
+/* ==========================================================================
+   14. FOOTER
+   ========================================================================== */
+footer { background: var(--card-bg); border-top: 1px solid var(--glass-border); padding: 60px 0 30px 0; margin-top: 80px; position: relative; z-index: 10; }
+.footer-grid-wrapper { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+.footer-editorial p { color: var(--text-muted); font-size: 14px; margin-top: 16px; line-height: 1.6; max-width: 300px; }
+.footer-column h4 { font-size: 15px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-main); }
+.footer-column ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-column ul a { text-decoration: none; color: var(--text-muted); font-size: 14px; transition: color 0.2s; cursor: pointer; }
+.footer-column ul a:hover { color: var(--accent-green); }
+.newsletter-row { display: flex; gap: 8px; margin-top: 16px; max-width: 300px; }
+.newsletter-row input { flex-grow: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--glass-border); background: var(--bg-main); color: var(--text-main); font-size: 13px; outline: none; }
+.footer-base { border-top: 1px solid var(--divider); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); }
+
+/* ==========================================================================
+   15. RESPONSIVE
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+    .dashboard-layout { grid-template-columns: 1fr; }
+    .blog-headline-card { grid-template-columns: 1fr; }
+    .form-grid-settings { grid-template-columns: 1fr; }
+}
+@media screen and (max-width: 912px) {
+    .hamburger { display: flex; }
+    .nav-menu { position: fixed; top: 0; right: -100%; width: 85%; max-width: 340px; height: 100vh; background: var(--card-bg); backdrop-filter: blur(24px); flex-direction: column; justify-content: center; gap: 28px; padding: 40px; box-shadow: -10px 0 40px rgba(0,0,0,0.06); transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 100000; }
+    .nav-menu.open { right: 0; }
+    .hero { grid-template-columns: 1fr; text-align: center; gap: 32px; }
+    .hero-content p { margin: 0 auto 32px auto; }
+    .hero-btns, .hero-countdown { justify-content: center; }
+    .hero-countdown { margin: 0 auto 28px auto; }
+    .footer-grid-wrapper { grid-template-columns: 1fr 1fr; }
+    .testing-hero-panel { grid-template-columns: 1fr; text-align: center; }
+    .catalog-toolbar { justify-content: center; }
+}
+@media screen and (max-width: 576px) {
+    .footer-grid-wrapper { grid-template-columns: 1fr; }
+    .footer-base { flex-direction: column; gap: 16px; text-align: center; }
+    header { padding: 14px 20px; width: calc(100% - 24px); top: 12px; }
+    .hero-content h1 { font-size: 36px; }
+    .streak-calendar { grid-template-columns: repeat(7, 1fr); }
+}
+</style>
 </head>
 <body>
 
-    <div class="bg-glow-sphere sphere-1"></div>
-    <div class="bg-glow-sphere sphere-2"></div>
-    <div class="bg-glow-sphere sphere-3"></div>
+<div class="bg-glow glow-1"></div>
+<div class="bg-glow glow-2"></div>
 
-    <div class="top-banner">
-        ҰБТ-2027 дайындық марафоны басталды! <span>Сынақ сабағына тегін жазыл:</span>
-        <a href="#pricing">Өтінім беру <i class="fa-solid fa-arrow-right-long"></i></a>
+<header class="glass-card">
+    <div class="logo" onclick="switchView('hero-view')">SAYAT MATH</div>
+    <ul class="nav-menu" id="navMenu">
+        <li class="nav-item active" id="m-hero"><a onclick="switchView('hero-view')">Басты бет</a></li>
+        <li class="nav-item" id="m-courses"><a onclick="switchView('courses-view')">Курстар</a></li>
+        <li class="nav-item" id="m-test"><a onclick="switchView('test-view')">Тесттер</a></li>
+        <li class="nav-item" id="m-universities"><a onclick="switchView('universities-view')">ЖОО</a></li>
+        <li class="nav-item" id="m-pricing"><a onclick="switchView('pricing-view')">Тарифтер</a></li>
+        <li class="nav-item" id="m-blog"><a onclick="switchView('blog-view')">Блог</a></li>
+        <li class="nav-item" id="m-books"><a onclick="switchView('books-view')">Кітаптар</a></li>
+    </ul>
+    <div class="header-actions">
+        <button class="icon-btn theme-toggle" id="themeToggleBtn" aria-label="Тақырыпты ауыстыру" title="Жарық/қараңғы режим">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+        <div class="notification-hub">
+            <button class="icon-btn" id="notifButton" aria-label="Хабарламалар">
+                <i class="fa-regular fa-bell"></i>
+                <span class="badge"></span>
+            </button>
+            <div class="notification-dropdown-box glass-card" id="notifBox">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                    <h4 style="font-size:14px;">Хабарламалар</h4>
+                    <span style="font-size:11px; color:var(--accent-green); cursor:pointer;" onclick="clearNotifications()">Тазалау</span>
+                </div>
+                <div id="notifListBody">
+                    <div class="nd-row">
+                        <div class="nd-icon"><i class="fa-solid fa-bell"></i></div>
+                        <div>
+                            <p style="font-size:12px; line-height:1.4;"><strong>Жаңа сабақ жүктелді:</strong> Тригонометриялық теңдеулер жүйесі.</p>
+                            <span style="font-size:10px; color:var(--text-muted);">2 минут бұрын</span>
+                        </div>
+                    </div>
+                    <div class="nd-row">
+                        <div class="nd-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div>
+                            <p style="font-size:12px; line-height:1.4;">Сіздің үй тапсырмаңыз сәтті тексерілді. Балл: 9/10</p>
+                            <span style="font-size:10px; color:var(--text-muted);">1 сағат бұрын</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="position:relative;">
+            <div class="avatar" id="avatarButton">S</div>
+            <div class="profile-dropdown-box glass-card" id="profileBox">
+                <div style="padding-bottom:12px; margin-bottom:8px; border-bottom:1px solid var(--divider);">
+                    <p style="font-size:13px; font-weight:700;">Sayat Student</p>
+                    <span style="font-size:11px; color:var(--text-muted);">ID: 459821</span>
+                </div>
+                <ul class="pdb-list">
+                    <li onclick="switchView('profile-view')"><i class="fa-regular fa-circle-user"></i> Жеке кабинет</li>
+                    <li onclick="switchView('courses-view')"><i class="fa-solid fa-list-check"></i> Менің курстарым</li>
+                    <li onclick="openAuthModal()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Шығу</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="openAuthModal()">Кіру</button>
+        <button class="hamburger" id="hamburgerMenuButton" aria-label="Мәзір">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<main class="container">
+
+    <!-- ============ HERO VIEW ============ -->
+    <div id="hero-view" class="app-view active-view">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Математика әлеміне <br><em>премиум жолдама.</em></h1>
+                <p>ҰБТ мен халықаралық емтихандарға ең тиімді, заманауи әрі түсінікті форматта дайындалуға арналған интеллектуалды білім ордасы. Біз формулаларды жаттатпаймыз, біз оларды түсіндіреміз.</p>
+                <div class="hero-btns">
+                    <button class="btn btn-green" onclick="switchView('courses-view')">Оқуды бастау <i class="fa-solid fa-arrow-right"></i></button>
+                    <button class="btn btn-secondary" onclick="openAuthModal()">Тегін сынақ сабағы</button>
+                </div>
+                <div class="glass-card hero-countdown" id="untCountdown">
+                    <div class="cd-cell"><strong id="cdDays">--</strong><span>күн</span></div>
+                    <div class="cd-cell"><strong id="cdHours">--</strong><span>сағат</span></div>
+                    <div class="cd-cell"><strong id="cdMin">--</strong><span>мин</span></div>
+                    <div class="cd-cell"><strong id="cdSec">--</strong><span>сек</span></div>
+                    <div class="cd-cell" style="min-width:120px; text-align:left; align-self:center;"><span style="text-transform:none; font-size:11px;">келесі ҰБТ тапсыру мерзіміне дейін</span></div>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <div class="glass-card grapher-card">
+                    <div class="grapher-head">
+                        <h3><i class="fa-solid fa-chart-line" style="color:var(--accent-green)"></i> Функция графигі</h3>
+                        <select class="grapher-select" id="funcSelector" onchange="drawFunction()">
+                            <option value="quad">f(x) = x²</option>
+                            <option value="sin">f(x) = sin(x)·3</option>
+                            <option value="cube">f(x) = x³/4</option>
+                            <option value="sqrt">f(x) = √x</option>
+                        </select>
+                    </div>
+                    <canvas id="functionCanvas" width="480" height="260" onmousemove="graphHover(event)" onmouseleave="graphLeave()"></canvas>
+                    <div class="grapher-readout">
+                        <span>Тінтуірді график үстіне апарыңыз</span>
+                        <span id="graphReadout">x: — , f(x): —</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">
+                <span class="eyebrow">Мүмкіндіктер</span>
+                <h2>Біздің басты артықшылықтарымыз</h2>
+                <p>Нәтижелі оқу жүйесін қамтамасыз ететін негізгі функциялар мен модульдер</p>
+            </div>
+            <div class="features-grid">
+                <div class="glass-card feature-card">
+                    <div class="feature-icon-wrapper"><i class="fa-solid fa-clapperboard"></i></div>
+                    <h3>4K Бейне-дәрістер</h3>
+                    <p>Күрделі тақырыптарды қарапайым тілмен жеткізетін, нақты мысалдармен құралған бейнематериалдар жиынтығы.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon-wrapper"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h3>Интерактивті Кері Байланыс</h3>
+                    <p>Әр есептің астында кураторлар мен мұғалімдерден лезде көмек алуға мүмкіндік беретін хат алмасу жүйесі.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon-wrapper"><i class="fa-solid fa-chart-pie"></i></div>
+                    <h3>Терең Аналитика</h3>
+                    <p>Жасанды интеллект көмегімен сіздің осал тақырыптарыңызды анықтап, қайталауға арналған жеке тапсырмалар жинағы.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon-wrapper"><i class="fa-solid fa-fire"></i></div>
+                    <h3>Оқу стригі (Streak)</h3>
+                    <p>Күн сайынғы тұрақты жаттығу әдетін қалыптастыратын, жеке кабинетте көрінетін прогресс-күнтізбе.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">
+                <span class="eyebrow">Нәтижелер</span>
+                <h2>Үздік түлектеріміздің нәтижелері</h2>
+                <p>Жыл сайын біздің мыңдаған оқушыларымыз грант иегері атанады</p>
+            </div>
+            <div class="marquee-viewport">
+                <div class="marquee-track" id="marqueeTrack">
+                    <div class="glass-card review-node">
+                        <div class="review-top">
+                            <div class="review-score">139 <span>балл</span></div>
+                            <span style="font-size:11px; padding:4px 8px; background:var(--accent-light); color:var(--accent-green); border-radius:10px; font-weight:600;">+42 балл өсім</span>
+                        </div>
+                        <p style="font-size:14px; line-height:1.5; font-style:italic; color:var(--text-muted); margin-bottom:16px;">"Математикадан қорқынышымды жеңдім. Есептерді формула жаттамай шығару керемет әдіс екен!"</p>
+                        <h4 style="font-size:14px;">Ербол Асылхан</h4>
+                        <span style="font-size:11px; color:var(--text-muted);">Астана IT Университеті</span>
+                    </div>
+                    <div class="glass-card review-node">
+                        <div class="review-top">
+                            <div class="review-score">140 <span>балл</span></div>
+                            <span style="font-size:11px; padding:4px 8px; background:var(--accent-light); color:var(--accent-green); border-radius:10px; font-weight:600;">ГРАНТ</span>
+                        </div>
+                        <p style="font-size:14px; line-height:1.5; font-style:italic; color:var(--text-muted); margin-bottom:16px;">"Саят ағайдың курстары арқылы ҰБТ-да математика бөлімін 100% қатесіз орындап шықтым."</p>
+                        <h4 style="font-size:14px;">Мадина Серікбол</h4>
+                        <span style="font-size:11px; color:var(--text-muted);">КазНУ им. Аль-Фараби</span>
+                    </div>
+                    <div class="glass-card review-node">
+                        <div class="review-top">
+                            <div class="review-score">137 <span>балл</span></div>
+                            <span style="font-size:11px; padding:4px 8px; background:var(--accent-light); color:var(--accent-green); border-radius:10px; font-weight:600;">+38 балл өсім</span>
+                        </div>
+                        <p style="font-size:14px; line-height:1.5; font-style:italic; color:var(--text-muted); margin-bottom:16px;">"Стереометрия бойынша визуалды түсіндірмелер бәрін орнына қойды. Ұсынамын!"</p>
+                        <h4 style="font-size:14px;">Дана Қажымұрат</h4>
+                        <span style="font-size:11px; color:var(--text-muted);">Nazarbayev University</span>
+                    </div>
+                    <!-- дубликат үшін тегіс скролл -->
+                    <div class="glass-card review-node">
+                        <div class="review-top">
+                            <div class="review-score">139 <span>балл</span></div>
+                            <span style="font-size:11px; padding:4px 8px; background:var(--accent-light); color:var(--accent-green); border-radius:10px; font-weight:600;">+42 балл өсім</span>
+                        </div>
+                        <p style="font-size:14px; line-height:1.5; font-style:italic; color:var(--text-muted); margin-bottom:16px;">"Математикадан қорқынышымды жеңдім. Есептерді формула жаттамай шығару керемет әдіс екен!"</p>
+                        <h4 style="font-size:14px;">Ербол Асылхан</h4>
+                        <span style="font-size:11px; color:var(--text-muted);">Астана IT Университеті</span>
+                    </div>
+                    <div class="glass-card review-node">
+                        <div class="review-top">
+                            <div class="review-score">140 <span>балл</span></div>
+                            <span style="font-size:11px; padding:4px 8px; background:var(--accent-light); color:var(--accent-green); border-radius:10px; font-weight:600;">ГРАНТ</span>
+                        </div>
+                        <p style="font-size:14px; line-height:1.5; font-style:italic; color:var(--text-muted); margin-bottom:16px;">"Саят ағайдың курстары арқылы ҰБТ-да математика бөлімін 100% қатесіз орындап шықтым."</p>
+                        <h4 style="font-size:14px;">Мадина Серікбол</h4>
+                        <span style="font-size:11px; color:var(--text-muted);">КазНУ им. Аль-Фараби</span>
+                    </div>
+                    <div class="glass-card review-node">
+                        <div class="review-top">
+                            <div class="review-score">137 <span>балл</span></div>
+                            <span style="font-size:11px; padding:4px 8px; background:var(--accent-light); color:var(--accent-green); border-radius:10px; font-weight:600;">+38 балл өсім</span>
+                        </div>
+                        <p style="font-size:14px; line-height:1.5; font-style:italic; color:var(--text-muted); margin-bottom:16px;">"Стереометрия бойынша визуалды түсіндірмелер бәрін орнына қойды. Ұсынамын!"</p>
+                        <h4 style="font-size:14px;">Дана Қажымұрат</h4>
+                        <span style="font-size:11px; color:var(--text-muted);">Nazarbayev University</span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <header id="mainHeader">
-        <div class="container nav-wrapper">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <i class="fa-solid fa-square-root-variable"></i>
+    <!-- ============ COURSES VIEW ============ -->
+    <div id="courses-view" class="app-view">
+        <section>
+            <div class="section-title">
+                <span class="eyebrow">Каталог</span>
+                <h2>Барлық білім беру бағдарламалары</h2>
+                <p>Өзіңізге сәйкес деңгейді таңдап, кәсіби математика әлеміне қадам басыңыз</p>
+            </div>
+            <div class="catalog-toolbar">
+                <div class="catalog-filter-bar" id="courseFilterBar">
+                    <div class="filter-tab active-tab" data-cat="all" onclick="filterCourses('all', this)">Барлығы</div>
+                    <div class="filter-tab" data-cat="unt" onclick="filterCourses('unt', this)">ҰБТ Дайындық</div>
+                    <div class="filter-tab" data-cat="olymp" onclick="filterCourses('olymp', this)">Олимпиадалар</div>
+                    <div class="filter-tab" data-cat="school" onclick="filterCourses('school', this)">Мектеп бағдарламасы</div>
                 </div>
-                <span>SAYAT MATH</span>
-            </a>
-            
-            <nav>
-                <a href="#features" class="active">Артықшылықтары</a>
-                <a href="#roadmap">Оқу бағдарламасы</a>
-                <a href="#mathlab">Математикалық лаб</a>
-                <a href="#gamification">Стрик жүйесі</a>
-                <a href="#pricing">Бағалар</a>
-                <a href="#faq">Сұрақ-жауап</a>
-            </nav>
-
-            <div class="header-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Тақырыпты өзгерту">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-                <a href="#pricing" class="btn-premium">
-                    <i class="fa-solid fa-crown"></i>
-                    <span>Бастау</span>
-                </a>
-                <div class="burger-menu">
-                    <i class="fa-solid fa-bars"></i>
+                <div class="catalog-search">
+                    <i class="fa-solid fa-magnifying-glass" style="color:var(--text-muted)"></i>
+                    <input type="text" id="courseSearchInput" placeholder="Курс іздеу..." oninput="filterCourses(null, null)">
                 </div>
             </div>
-        </div>
-    </header>
-
-    <section class="hero">
-        <div class="container hero-grid">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <i class="fa-solid fa-sparkles"></i>
-                    <span>Кәсіби білім беру платформасы</span>
-                </div>
-                <h1>Математиканы <span class="text-gradient-emerald">Премиум</span> деңгейде меңгеріңіз</h1>
-                <p>Ең заманауи интерактивті платформа, геймификацияланған есеп шығару жүйесі және жеке менторлық арқылы ҰБТ-дан ең жоғары баллға жетесіз.</p>
-                
-                <div class="hero-btns">
-                    <a href="#pricing" class="btn-premium">
-                        <i class="fa-solid fa-bolt"></i>
-                        <span>Оқуды бастау</span>
-                    </a>
-                    <a href="#mathlab" class="btn-secondary">
-                        <i class="fa-solid fa-gamepad"></i>
-                        <span>Сынақ тапсырмасы</span>
-                    </a>
-                </div>
-
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <h4>14,000+</h4>
-                        <p>Оқушылар сенімі</p>
-                    </div>
-                    <div class="stat-item">
-                        <h4>98.2%</h4>
-                        <p>Грантқа түсу көрсеткіші</p>
-                    </div>
-                    <div class="stat-item">
-                        <h4>45+</h4>
-                        <p>Бейнесабақ модулі</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-visual">
-                <div class="floating-badge float-1">
-                    <div class="logo-icon" style="width: 32px; height: 32px; font-size: 0.9rem; background: var(--gold-gradient);">
-                        <i class="fa-solid fa-trophy"></i>
-                    </div>
-                    <div>
-                        <div style="font-weight: 700; font-size: 0.85rem;">Олимпиада деңгейі</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">Ең үздік әдістемелер</div>
-                    </div>
-                </div>
-
-                <div class="floating-badge float-2">
-                    <div class="logo-icon" style="width: 32px; height: 32px; font-size: 0.9rem;">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <div style="font-weight: 700; font-size: 0.85rem;">+45% Прогресс</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">Бірінші айдағы өсім</div>
-                    </div>
-                </div>
-
-                <div class="luxury-card-wrapper">
-                    <div class="card-header-visual">
-                        <div class="profile-visual">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Студент" class="avatar-visual">
-                            <div>
-                                <h4 style="font-size: 0.95rem; font-weight: 700;">Айару Нұрланқызы</h4>
-                                <p style="font-size: 0.8rem; color: var(--text-muted);">Қазақстан Республикасы</p>
-                            </div>
-                        </div>
-                        <div class="streak-counter">
-                            <i class="fa-solid fa-fire-flame-curved"></i>
-                            <span>15 күн стрик</span>
+            <div class="courses-layout-grid" id="coursesGrid">
+                <div class="glass-card course-node" data-cat="unt" data-name="алгебра анализ бастамалары функция туынды интеграл">
+                    <div class="course-banner">📈<div class="course-tags"><span class="tag-pill">ҰБТ</span></div></div>
+                    <div class="course-details">
+                        <h3>Алгебра мен Анализ Бастамалары</h3>
+                        <p>Функциялар, туынды, интеграл және көрсеткіштік теңдеулерді терең талдау курсы.</p>
+                        <div class="course-metrics-row">
+                            <span class="metric-item"><i class="fa-regular fa-circle-play"></i> 32 сабақ</span>
+                            <button class="btn btn-primary btn-sm" onclick="openAuthModal()">Жазылу</button>
                         </div>
                     </div>
-
-                    <div style="margin-top: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight:600; margin-bottom: 0.5rem;">
-                            <span>Апталық деңгей мақсаты</span>
-                            <span class="text-gradient-emerald">80% Орындалды</span>
-                        </div>
-                        <div style="width:100%; height:8px; background: var(--glass-border); border-radius: 10px; overflow:hidden;">
-                            <div style="width: 80%; height: 100%; background: var(--emerald-gradient);"></div>
+                </div>
+                <div class="glass-card course-node" data-cat="unt" data-name="стереометрия кеңістік көпжақтар цилиндр конус шар">
+                    <div class="course-banner" style="background:#1e1b4b;">🔮<div class="course-tags"><span class="tag-pill">ҰБТ</span></div></div>
+                    <div class="course-details">
+                        <h3>Стереометрия және Кеңістік</h3>
+                        <p>Көпжақтар, цилиндр, конус және шар тәрізді фигуралардың көлемі мен ауданын визуалды түрде есептеу.</p>
+                        <div class="course-metrics-row">
+                            <span class="metric-item"><i class="fa-regular fa-circle-play"></i> 20 сабақ</span>
+                            <button class="btn btn-primary btn-sm" onclick="openAuthModal()">Жазылу</button>
                         </div>
                     </div>
-
-                    <div class="mini-chart">
-                        <div class="chart-header">
-                            <span style="font-size: 0.85rem; font-weight: 700;">Жетістік динамикасы</span>
-                            <span style="font-size: 0.8rem; color: var(--primary); font-weight: 600;">ҰБТ 138/140 балл</span>
+                </div>
+                <div class="glass-card course-node" data-cat="olymp" data-name="олимпиада логика есептер теория сандар">
+                    <div class="course-banner" style="background:#7c2d12;">🏆<div class="course-tags"><span class="tag-pill">Олимпиада</span></div></div>
+                    <div class="course-details">
+                        <h3>Олимпиадалық Есептер Шеберханасы</h3>
+                        <p>Республикалық олимпиадаларға қатысушыларға арналған күрделі логикалық және сандар теориясы есептері.</p>
+                        <div class="course-metrics-row">
+                            <span class="metric-item"><i class="fa-regular fa-circle-play"></i> 45 сабақ</span>
+                            <button class="btn btn-primary btn-sm" onclick="openAuthModal()">Жазылу</button>
                         </div>
-                        <div class="chart-bars">
-                            <div class="chart-bar" style="--h: 30%"></div>
-                            <div class="chart-bar" style="--h: 45%"></div>
-                            <div class="chart-bar" style="--h: 60%"></div>
-                            <div class="chart-bar active" style="--h: 80%"></div>
-                            <div class="chart-bar" style="--h: 70%"></div>
-                            <div class="chart-bar active" style="--h: 95%"></div>
+                    </div>
+                </div>
+                <div class="glass-card course-node" data-cat="school" data-name="мектеп бағдарламасы 8 сынып негіздер">
+                    <div class="course-banner" style="background:#0c4a6e;">📘<div class="course-tags"><span class="tag-pill">Мектеп</span></div></div>
+                    <div class="course-details">
+                        <h3>8-9 Сынып: Негіздерді Нығайту</h3>
+                        <p>Мектеп бағдарламасындағы алгебра мен геометрия негіздерін жүйелі қайталау курсы.</p>
+                        <div class="course-metrics-row">
+                            <span class="metric-item"><i class="fa-regular fa-circle-play"></i> 28 сабақ</span>
+                            <button class="btn btn-primary btn-sm" onclick="openAuthModal()">Жазылу</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card course-node" data-cat="unt" data-name="тригонометрия теңдеу теңсіздік бірлік шеңбер">
+                    <div class="course-banner" style="background:#365314;">📐<div class="course-tags"><span class="tag-pill">ҰБТ</span></div></div>
+                    <div class="course-details">
+                        <h3>Тригонометрия: Толық Курс</h3>
+                        <p>Бірлік шеңберден бастап күрделі тригонометриялық теңдеулер жүйесіне дейінгі жол.</p>
+                        <div class="course-metrics-row">
+                            <span class="metric-item"><i class="fa-regular fa-circle-play"></i> 24 сабақ</span>
+                            <button class="btn btn-primary btn-sm" onclick="openAuthModal()">Жазылу</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card course-node" data-cat="olymp" data-name="комбинаторика ықтималдық теория">
+                    <div class="course-banner" style="background:#581c87;">🎲<div class="course-tags"><span class="tag-pill">Олимпиада</span></div></div>
+                    <div class="course-details">
+                        <h3>Комбинаторика және Ықтималдық</h3>
+                        <p>Есептеу принциптерінен бастап күрделі ықтималдық үлестірімдеріне дейінгі олимпиадалық дайындық.</p>
+                        <div class="course-metrics-row">
+                            <span class="metric-item"><i class="fa-regular fa-circle-play"></i> 18 сабақ</span>
+                            <button class="btn btn-primary btn-sm" onclick="openAuthModal()">Жазылу</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="catalog-empty" id="catalogEmptyState">
+                <i class="fa-solid fa-magnifying-glass" style="font-size:32px; color:var(--text-muted); margin-bottom:14px;"></i>
+                <p>Сұранысыңызға сәйкес курс табылмады. Басқа кілт сөзбен қайталап көріңіз.</p>
+            </div>
+        </section>
+    </div>
 
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-title-wrap">
-                <span class="section-badge">Платформа ерекшеліктері</span>
-                <h2 class="section-title">Неліктен біздің жүйе тиімді?</h2>
-                <p class="section-subtitle">Математиканы құр жаттамай, оның логикалық жүйесін түсінуге бағытталған заманауи технологиялық шешімдер.</p>
+    <!-- ============ TEST VIEW (РАБОЧИЙ ДВИЖОК) ============ -->
+    <div id="test-view" class="app-view">
+        <section>
+            <div class="testing-hero-panel">
+                <div>
+                    <h2>Біліміңді нақты уақытта сына</h2>
+                    <p>ҰБТ форматына толық сәйкес келетін тест тапсырмаларын орындап, лезде нәтиже мен дұрыс жауаптарды көріңіз.</p>
+                    <button class="btn btn-secondary" style="color:var(--accent-green)" onclick="startQuiz('unt14')">Демо-тестті бастау</button>
+                </div>
+                <div style="font-size:90px; text-align:center;">🧮</div>
             </div>
 
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i class="fa-solid fa-microchip-ai"></i>
+            <div class="quiz-cards-container" id="quizCatalog">
+                <div class="glass-card quiz-card">
+                    <span class="quiz-category-label">ҰБТ Профиль</span>
+                    <h3>Математика: Нұсқа №14</h3>
+                    <div class="quiz-info-row">
+                        <span><i class="fa-regular fa-clock"></i> 150 минут</span>
+                        <span><i class="fa-regular fa-file-lines"></i> 5 сұрақ (демо)</span>
                     </div>
-                    <h3>Ақылды талдау жүйесі</h3>
-                    <p>Жасанды интеллект сіздің қателеріңізді автоматты түрде анықтап, дәл сол тақырыпқа арнайы жаттығулар жинағын құрастырады.</p>
+                    <button class="btn btn-primary btn-full" onclick="startQuiz('unt14')">Бастау</button>
                 </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i class="fa-solid fa-graduation-cap"></i>
+                <div class="glass-card quiz-card">
+                    <span class="quiz-category-label">Логикалық анализ</span>
+                    <h3>Мат. Сауаттылық: Сынақ №5</h3>
+                    <div class="quiz-info-row">
+                        <span><i class="fa-regular fa-clock"></i> 60 минут</span>
+                        <span><i class="fa-regular fa-file-lines"></i> 5 сұрақ (демо)</span>
                     </div>
-                    <h3>Кәсіби авторлық контент</h3>
-                    <p>Барлық бейнесабақтар мен теориялық материалдар отандық және шетелдік олимпиадалық жүлдегерлермен бірлесіп жазылған.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <h3>Жеке кураторлық бақылау</h3>
-                    <p>Тәулік бойы жұмыс істейтін тәлімгерлер тобы кез келген қиын есептің шешу жолын видео немесе дауыстық хабарламамен түсіндіреді.</p>
+                    <button class="btn btn-primary btn-full" onclick="startQuiz('logic5')">Бастау</button>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="roadmap" class="roadmap-section">
-        <div class="container">
-            <div class="section-title-wrap">
-                <span class="section-badge">Оқу Траекториясы</span>
-                <h2 class="section-title">SAYAT MATH дайындық бағдарламасы</h2>
-                <p class="section-subtitle">Біз ең күрделі математикалық тақырыптарды кезең-кезеңмен, қарапайымнан қиынға қарай бөліп оқытамыз.</p>
-            </div>
-
-            <div class="roadmap-container">
-                <div class="roadmap-navigation">
-                    <button class="roadmap-step-btn active" onclick="switchRoadmap(1)">
-                        <div class="step-number">01</div>
-                        <div class="step-btn-info">
-                            <h4>Базалық Алгебра</h4>
-                            <p>Фундаменталды теория және формулалар</p>
-                        </div>
-                    </button>
-
-                    <button class="roadmap-step-btn" onclick="switchRoadmap(2)">
-                        <div class="step-number">02</div>
-                        <div class="step-btn-info">
-                            <h4>Тригонометрия және Анализ</h4>
-                            <p>Күрделі функциялар мен графиктік талдау</p>
-                        </div>
-                    </button>
-
-                    <button class="roadmap-step-btn" onclick="switchRoadmap(3)">
-                        <div class="step-number">03</div>
-                        <div class="step-btn-info">
-                            <h4>Геометрия мен Стереометрия</h4>
-                            <p>Кеңістіктік ойлау және дәлелдеу әдістері</p>
-                        </div>
-                    </button>
+            <div class="glass-card quiz-runner" id="quizRunner">
+                <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+                <div class="quiz-meta-row">
+                    <span id="quizMetaLeft">Сұрақ 1 / 5</span>
+                    <span id="quizMetaRight">Балл: 0</span>
                 </div>
-
-                <div class="roadmap-details-card" id="roadmapDetails">
-                    <div class="roadmap-details-header">
-                        <div class="roadmap-details-title">
-                            <h3 id="rmTitle">Базалық Алгебра және Теңдеулер</h3>
-                            <p style="color: var(--text-muted); font-size: 0.9rem;" id="rmSubtitle">Математиканың іргетасын қалаушы бағдарлама</p>
-                        </div>
-                        <div class="roadmap-duration" id="rmDuration">4 Апта</div>
-                    </div>
-
-                    <ul class="roadmap-list" id="rmList">
-                        <li class="roadmap-list-item"><i class="fa-solid fa-circle-check"></i> Көпмүшелерді көбейткіштерге жіктеу әдістері</li>
-                        <li class="roadmap-list-item"><i class="fa-solid fa-circle-check"></i> Рационал және иррационал теңдеулер жүйесі</li>
-                        <li class="roadmap-list-item"><i class="fa-solid fa-circle-check"></i> Көрсеткіштік және логарифмдік функциялар</li>
-                        <li class="roadmap-list-item"><i class="fa-solid fa-circle-check"></i> Арифметикалық және геометриялық прогрессиялар</li>
-                    </ul>
-
-                    <div class="roadmap-footer-box">
-                        <div class="roadmap-footer-info">
-                            <i class="fa-solid fa-award"></i>
-                            <div>
-                                <div style="font-weight: 700; font-size: 0.95rem;" id="rmAward">Аралық Тестілеу Сертификаты</div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);">Осы кезеңді бітірген соң беріледі</div>
-                            </div>
-                        </div>
-                        <a href="#pricing" class="btn-premium" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
-                            <span>Бағдарламаға жазылу</span>
-                        </a>
-                    </div>
+                <div class="quiz-question-text" id="quizQuestionText"></div>
+                <div class="quiz-options" id="quizOptionsList"></div>
+                <div class="quiz-nav-row">
+                    <button class="btn btn-ghost" onclick="exitQuiz()">Тоқтату</button>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="mathlab" class="math-lab">
-        <div class="container">
-            <div class="section-title-wrap">
-                <span class="section-badge">Интерактивті симулятор</span>
-                <h2 class="section-title">Математикалық лаборатория</h2>
-                <p class="section-subtitle">Біздің платформаның мүмкіндіктерін дәл қазір тегін тексеріп көріңіз.</p>
+            <div class="glass-card quiz-result" id="quizResultBox">
+                <div class="score-ring-wrap">
+                    <svg width="160" height="160" viewBox="0 0 160 160">
+                        <circle cx="80" cy="80" r="70" stroke="var(--divider)" stroke-width="12" fill="none"/>
+                        <circle id="resultRingCircle" cx="80" cy="80" r="70" stroke="var(--accent-green)" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="440" transform="rotate(-90 80 80)"/>
+                    </svg>
+                    <strong id="resultRingText">0%</strong>
+                </div>
+                <h3 id="resultTitle" style="margin-bottom:8px;">Нәтиже</h3>
+                <p style="color:var(--text-muted); margin-bottom:24px;" id="resultSubtitle">Сіздің балыңыз</p>
+                <div style="display:flex; gap:12px; justify-content:center;">
+                    <button class="btn btn-secondary" onclick="exitQuiz()">Каталогқа оралу</button>
+                    <button class="btn btn-green" id="retryQuizBtn">Қайта тапсыру</button>
+                </div>
             </div>
+        </section>
+    </div>
 
-            <div class="math-lab-wrapper">
-                <div class="lab-header">
-                    <h3>Тапсырманы орындап, жетістікке жетіңіз</h3>
-                    <div class="lab-progress">
-                        <div class="lab-progress-fill" id="labProgress"></div>
+    <!-- ============ UNIVERSITIES VIEW ============ -->
+    <div id="universities-view" class="app-view">
+        <section>
+            <div class="section-title">
+                <span class="eyebrow">ЖОО каталогы</span>
+                <h2>Қазақстан университеттерінің каталогы</h2>
+                <p>Болашақ мамандығыңыз бен грант деңгейлерін таңдауға көмекші интерактивті база</p>
+            </div>
+            <div class="joo-search-container">
+                <i class="fa-solid fa-magnifying-glass" style="color:var(--text-muted)"></i>
+                <input type="text" id="uniSearchInput" placeholder="Университет атауын енгізіңіз (мысалы: SDU, KBTU...)" onkeyup="uniFiltering()">
+            </div>
+            <div class="joo-region-tabs" id="uniRegionTabs">
+                <div class="filter-tab active-tab" data-region="all" onclick="setUniRegion('all', this)">Барлық аймақ</div>
+                <div class="filter-tab" data-region="almaty" onclick="setUniRegion('almaty', this)">Алматы</div>
+                <div class="filter-tab" data-region="astana" onclick="setUniRegion('astana', this)">Астана</div>
+                <div class="filter-tab" data-region="other" onclick="setUniRegion('other', this)">Басқа қалалар</div>
+            </div>
+            <div class="uni-grid-layout" id="uniBoxStructure">
+                <div class="glass-card uni-node-card" data-keyword="sdu сулейман демирель сду" data-region="other">
+                    <div class="uni-meta-header">
+                        <div class="uni-avatar-box">🏫</div>
+                        <div class="uni-title-wrapper"><h3>SDU University</h3><span>Қаскелең қ., Халықаралық</span></div>
+                    </div>
+                    <div class="uni-specs-table">
+                        <div class="spec-cell"><span>Орташа грант балы</span><strong>114 балл</strong></div>
+                        <div class="spec-cell"><span>Бейінді пән</span><strong>Мат + Физ / Инф</strong></div>
                     </div>
                 </div>
-
-                <div class="quiz-container">
-                    <div id="quizPlayView">
-                        <div class="quiz-question-box">
-                            <span class="question-badge" id="quizLabel">1-ші сұрақ (Логарифмдер)</span>
-                            <div class="quiz-formula" id="quizQuestion">\log_2(x) = 5</div>
-                            <p style="color: var(--text-muted); font-size: 0.95rem;">Теңдеудің шешімін тауып, төмендегі нұсқалардың бірін таңдаңыз.</p>
-                        </div>
-
-                        <div class="quiz-options" id="quizOptions">
-                            <button class="quiz-option-btn" onclick="checkAnswer(this, 1)">x = 10</button>
-                            <button class="quiz-option-btn" onclick="checkAnswer(this, 2)">x = 25</button>
-                            <button class="quiz-option-btn" onclick="checkAnswer(this, 3)">x = 32</button>
-                            <button class="quiz-option-btn" onclick="checkAnswer(this, 4)">x = 64</button>
-                        </div>
-
-                        <div class="quiz-feedback" id="quizFeedback"></div>
+                <div class="glass-card uni-node-card" data-keyword="kbtu кбту кбту халықаралық британ" data-region="almaty">
+                    <div class="uni-meta-header">
+                        <div class="uni-avatar-box">💻</div>
+                        <div class="uni-title-wrapper"><h3>КБТУ (KBTU)</h3><span>Алматы қ., Техникалық флагман</span></div>
                     </div>
-
-                    <div id="quizResultView" class="quiz-result-view">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <h3 class="text-gradient-gold" style="font-size: 1.8rem; margin-bottom: 0.5rem;">Керемет нәтиже!</h3>
-                        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Сіз барлық сынақ сұрақтарын тамаша орындап шықтыңыз.</p>
-                        <a href="#pricing" class="btn-premium">
-                            <i class="fa-solid fa-gift"></i>
-                            <span>Премиум курстарды ашу</span>
-                        </a>
+                    <div class="uni-specs-table">
+                        <div class="spec-cell"><span>Орташа грант балы</span><strong>119 балл</strong></div>
+                        <div class="spec-cell"><span>Бейінді пән</span><strong>Мат + Физ</strong></div>
+                    </div>
+                </div>
+                <div class="glass-card uni-node-card" data-keyword="nu назарбаев университеті nazarbayev" data-region="astana">
+                    <div class="uni-meta-header">
+                        <div class="uni-avatar-box">🎓</div>
+                        <div class="uni-title-wrapper"><h3>Nazarbayev University</h3><span>Астана қ., Зерттеу университеті</span></div>
+                    </div>
+                    <div class="uni-specs-table">
+                        <div class="spec-cell"><span>Орташа грант балы</span><strong>125 балл</strong></div>
+                        <div class="spec-cell"><span>Бейінді пән</span><strong>Мат + Физ/Хим</strong></div>
+                    </div>
+                </div>
+                <div class="glass-card uni-node-card" data-keyword="кaзну казну аль-фараби" data-region="almaty">
+                    <div class="uni-meta-header">
+                        <div class="uni-avatar-box">🏛️</div>
+                        <div class="uni-title-wrapper"><h3>ҚазҰУ им. Әл-Фараби</h3><span>Алматы қ., Классикалық</span></div>
+                    </div>
+                    <div class="uni-specs-table">
+                        <div class="spec-cell"><span>Орташа грант балы</span><strong>117 балл</strong></div>
+                        <div class="spec-cell"><span>Бейінді пән</span><strong>Мат + Физ</strong></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <section id="gamification" class="gamification">
-        <div class="container gamification-grid">
-            <div class="streak-calendar-card">
-                <div class="streak-card-header">
-                    <div class="streak-card-title">
-                        <h3>Менің күнделікті белсенділігім</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted);">Күн сайын есеп шығарып, жалын статусын ұстап тұрыңыз</p>
-                    </div>
-                    <div class="streak-counter" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%); color: var(--primary); border-color: rgba(16, 185, 129, 0.3);">
-                        <i class="fa-solid fa-calendar-check"></i>
-                        <span>30 Күн Белсенді</span>
-                    </div>
-                </div>
-
-                <div class="streak-grid" id="streakGrid">
-                    </div>
+    <!-- ============ PRICING VIEW (ЖАҢА) ============ -->
+    <div id="pricing-view" class="app-view">
+        <section>
+            <div class="section-title">
+                <span class="eyebrow">Тарифтер</span>
+                <h2>Мақсатыңызға сай жоспарды таңдаңыз</h2>
+                <p>Тегін тестілеу арқылы бастап, кез келген уақытта тарифіңізді жаңартыңыз</p>
             </div>
-
-            <div class="gamification-info">
-                <div class="hero-badge">
-                    <i class="fa-solid fa-gamepad"></i>
-                    <span>Оқу Геймификациясы</span>
-                </div>
-                <h2>Күнделікті Стрик жүйесімен оқыңыз</h2>
-                <p>Оқу процесін қызықты ойынға айналдырдық! Күн сайын платформада тапсырмаларды орындап, жетістіктер (badges) жинаңыз, лигаларда жарысыңыз және құнды сыйлықтар ұтып алыңыз.</p>
-                
-                <div class="badge-collection">
-                    <div class="badge-pill">
-                        <i class="fa-solid fa-medal"></i>
-                        <span>Олимпиада шыңы</span>
-                    </div>
-                    <div class="badge-pill">
-                        <i class="fa-solid fa-bolt-lightning"></i>
-                        <span>Жылдам шешуші</span>
-                    </div>
-                    <div class="badge-pill">
-                        <i class="fa-solid fa-fire"></i>
-                        <span>Стрик патшасы</span>
-                    </div>
-                </div>
+            <div class="pricing-toggle-row">
+                <span style="font-size:14px; font-weight:600;">Айлық</span>
+                <div class="pricing-switch" id="pricingSwitch" onclick="togglePricing()"></div>
+                <span style="font-size:14px; font-weight:600;">Жылдық</span>
+                <span class="save-chip">-20% үнемдеу</span>
             </div>
-        </div>
-    </section>
-
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <div class="section-title-wrap">
-                <span class="section-badge">Премиум тарифтер</span>
-                <h2 class="section-title">Қолжетімді бағамен сапалы оқу</h2>
-                <p class="section-subtitle">Сіздің мақсатыңыз бен мүмкіндігіңізге сәйкес келетін оңтайлы тарифті таңдаңыз.</p>
-            </div>
-
-            <div class="pricing-toggle-wrap">
-                <button class="pricing-toggle-btn active" id="btnMonthly">Айына</button>
-                <button class="pricing-toggle-btn" id="btnYearly">Жылдық (30% үнемдеу)</button>
-            </div>
-
             <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Базалық пакет</h3>
-                        <p>Математика негіздерін өз бетінше меңгеруге арналған пакет</p>
-                    </div>
-                    <div class="pricing-price" id="priceBasic">
-                        14,900 <span>₸ / ай</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fa-solid fa-circle-check"></i> 100+ бейнесабақтар жинағы</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Айына 2 рет бақылау тестілеуі</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Интерактивті симулятор құралы</li>
-                        <li class="disabled"><i class="fa-solid fa-circle-xmark"></i> Тәулік бойы кураторлық көмек</li>
-                        <li class="disabled"><i class="fa-solid fa-circle-xmark"></i> VIP Олимпиадалық чат</li>
+                <div class="glass-card price-card">
+                    <h3>Старт</h3>
+                    <p class="plan-desc">Мектеп бағдарламасын жаттыққысы келетіндерге</p>
+                    <div class="plan-amount"><span class="price-val" data-monthly="0" data-yearly="0">0</span> <span>₸</span></div>
+                    <div class="plan-period">мәңгілік тегін</div>
+                    <ul class="plan-features">
+                        <li><i class="fa-solid fa-check"></i> 3 негізгі курсқа қолжетімділік</li>
+                        <li><i class="fa-solid fa-check"></i> Апталық 1 демо-тест</li>
+                        <li><i class="fa-solid fa-check"></i> Қауымдастық форумы</li>
                     </ul>
-                    <a href="#" class="btn-pricing">Бастау</a>
+                    <button class="btn btn-secondary btn-full" onclick="openAuthModal()">Тегін бастау</button>
                 </div>
-
-                <div class="pricing-card popular">
-                    <div class="pricing-header">
-                        <h3>Premium Sayat</h3>
-                        <p>ҰБТ-дан 135+ балл жинауға арналған кешенді бағдарлама</p>
-                    </div>
-                    <div class="pricing-price" id="pricePremium">
-                        24,900 <span>₸ / ай</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fa-solid fa-circle-check"></i> Барлық бейнесабақтар және теория</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Апталық жеке кураторлық қоңырау</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Ақылды AI-қатемен жұмыс аналитикасы</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Тәулік бойы кураторлық көмек</li>
-                        <li class="disabled"><i class="fa-solid fa-circle-xmark"></i> Саят Нұрланұлынан жеке менторлық</li>
+                <div class="glass-card price-card featured">
+                    <span class="plan-badge">Танымал</span>
+                    <h3>PRO</h3>
+                    <p class="plan-desc">ҰБТ-ға толық дайындалатын оқушыларға</p>
+                    <div class="plan-amount"><span class="price-val" data-monthly="7900" data-yearly="6320">7900</span> <span>₸/ай</span></div>
+                    <div class="plan-period">жылдық жоспарда −20%</div>
+                    <ul class="plan-features">
+                        <li><i class="fa-solid fa-check"></i> Барлық курстарға толық қолжетімділік</li>
+                        <li><i class="fa-solid fa-check"></i> Шексіз тесттер мен талдау</li>
+                        <li><i class="fa-solid fa-check"></i> Жеке кураторлық кері байланыс</li>
+                        <li><i class="fa-solid fa-check"></i> Прогресс-аналитика және стрик</li>
                     </ul>
-                    <a href="#" class="btn-pricing">Премиумды ашу</a>
+                    <button class="btn btn-green btn-full" onclick="openAuthModal()">PRO-ға жазылу</button>
                 </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>VIP Менторлық</h3>
-                        <p>Жеке оқыту және жоғары нәтижеге кепілдік беретін эксклюзивті жоспар</p>
-                    </div>
-                    <div class="pricing-price" id="priceVip">
-                        49,900 <span>₸ / ай</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fa-solid fa-circle-check"></i> Премиум тарифтің барлық мүмкіндігі</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Саят Нұрланұлынан жеке менторлық</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Шетелдік оқу орындарына түсу консалтингі</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Тәуліктік жеке VIP сұрақ-жауап желісі</li>
-                        <li><i class="fa-solid fa-circle-check"></i> ҰБТ аппеляциясы кезіндегі заңдық қолдау</li>
+                <div class="glass-card price-card">
+                    <h3>Отбасылық</h3>
+                    <p class="plan-desc">2-3 балаға бірге дайындалатын отбасыларға</p>
+                    <div class="plan-amount"><span class="price-val" data-monthly="14900" data-yearly="11920">14900</span> <span>₸/ай</span></div>
+                    <div class="plan-period">3 профильге дейін</div>
+                    <ul class="plan-features">
+                        <li><i class="fa-solid fa-check"></i> PRO жоспарының барлық мүмкіндіктері</li>
+                        <li><i class="fa-solid fa-check"></i> Ата-анаға арналған бақылау тақтасы</li>
+                        <li><i class="fa-solid fa-check"></i> Топтық жеңілдіктер</li>
                     </ul>
-                    <a href="#" class="btn-pricing">VIP тіркелу</a>
+                    <button class="btn btn-secondary btn-full" onclick="openAuthModal()">Байланысу</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-title-wrap">
-                <span class="section-badge">Біздің мақтаныштарымыз</span>
-                <h2 class="section-title">Оқушыларымыз бен ата-аналар лебізі</h2>
-                <p class="section-subtitle">Бізбен бірге армандарына қол жеткізген жас дарындардың шынайы оқиғалары.</p>
+        <section>
+            <div class="section-title">
+                <span class="eyebrow">Сұрақ-жауап</span>
+                <h2>Жиі қойылатын сұрақтар</h2>
             </div>
-
-            <div class="testimonials-slider-container">
-                <div class="testimonials-track" id="testimonialsTrack">
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <i class="fa-solid fa-quote-right quote-icon"></i>
-                            <div class="rating-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <div class="testimonial-content">
-                                "SAYAT MATH платформасының арқасында мен математикадан мүлдем қорықпайтын болдым. Қарапайым тілмен күрделі теңдеулерді шешуді үйрендім және ҰБТ сынағында 138 балл жинап, МУИТ грантына түстім!"
-                            </div>
-                            <div class="testimonial-author">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="Анель" class="author-avatar">
-                                <div class="author-name">
-                                    <h4>Анель Сүлейменова</h4>
-                                    <p>МУИТ 1-курс студенті, Алматы қаласы</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <i class="fa-solid fa-quote-right quote-icon"></i>
-                            <div class="rating-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <div class="testimonial-content">
-                                "Баламның математикаға ынтасын аша алмап едік, осы платформадағы стрик жүйесі мен геймификация балама қатты ұнады. Қазір ол есептерді ойын ойнағандай құмартып шығарады. Рақмет сіздерге!"
-                            </div>
-                            <div class="testimonial-author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="Бауыржан" class="author-avatar">
-                                <div class="author-name">
-                                    <h4>Бауыржан Сапарбаев</h4>
-                                    <p>Оқушының ата-анасы, Астана қаласы</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="faq-list" id="faqList">
+                <div class="glass-card faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">Тегін жоспардан PRO-ға қашан ауысуға болады? <i class="fa-solid fa-plus"></i></button>
+                    <div class="faq-answer"><p>Кез келген уақытта. Жаңарту сәтінен бастап барлық курстар мен шексіз тесттер бірден ашылады, ал төлем келесі айлық циклден бастап есептеледі.</p></div>
                 </div>
-
-                <div class="slider-controls">
-                    <button class="slider-nav-btn" id="slidePrev"><i class="fa-solid fa-arrow-left"></i></button>
-                    <div class="slider-dots" id="sliderDots"></div>
-                    <button class="slider-nav-btn" id="slideNext"><i class="fa-solid fa-arrow-right"></i></button>
+                <div class="glass-card faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">Жазылымнан бас тартсам, ақша қайтарыла ма? <i class="fa-solid fa-plus"></i></button>
+                    <div class="faq-answer"><p>Иә, жазылған алғашқы 7 күн ішінде толық қайтарым кепілдігі қолданылады. Кейінгі мерзімдерде пайдаланылмаған айлар пропорционалды түрде қайтарылады.</p></div>
+                </div>
+                <div class="glass-card faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">Отбасылық жоспарда әр балаға жеке статистика бола ма? <i class="fa-solid fa-plus"></i></button>
+                    <div class="faq-answer"><p>Иә, әр профильдің оқу прогресі, тест нәтижелері және стрик-күнтізбесі бір-бірінен бөлек сақталады, ал ата-ана барлығын жалпы тақтадан бақылай алады.</p></div>
+                </div>
+                <div class="glass-card faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">Мобильді қосымша бар ма? <i class="fa-solid fa-plus"></i></button>
+                    <div class="faq-answer"><p>Платформа толығымен адаптивті веб-форматта жұмыс істейді, сондықтан телефон мен планшетте қосымшасыз-ақ ыңғайлы қолдануға болады.</p></div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <section class="container">
-        <div class="countdown-section">
-            <div class="countdown-inner">
-                <h2 class="countdown-title">Премиум Жеңілдік Уақыты Аяқталуда</h2>
-                <p class="countdown-subtitle">Төмендегі уақыт біткенге дейін тіркеліп, 30% жеңілдік пен тегін кураторлық пакетті алып қалыңыз!</p>
-                <div class="countdown-grid">
-                    <div class="countdown-box">
-                        <div class="countdown-number" id="cdDays">00</div>
-                        <div class="countdown-label">Күн</div>
-                    </div>
-                    <div class="countdown-box">
-                        <div class="countdown-number" id="cdHours">00</div>
-                        <div class="countdown-label">Сағат</div>
-                    </div>
-                    <div class="countdown-box">
-                        <div class="countdown-number" id="cdMin">00</div>
-                        <div class="countdown-label">Минут</div>
-                    </div>
-                    <div class="countdown-box">
-                        <div class="countdown-number" id="cdSec">00</div>
-                        <div class="countdown-label">Секунд</div>
-                    </div>
-                </div>
-                <a href="#pricing" class="btn-premium" style="background: var(--gold-gradient); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);">
-                    <i class="fa-solid fa-fire"></i>
-                    <span>Орынды брондау</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="faq">
-        <div class="container faq-max-width">
-            <div class="section-title-wrap">
-                <span class="section-badge">Сұрақтар мен жауаптар</span>
-                <h2 class="section-title">Қосымша мәліметтер</h2>
-                <p class="section-subtitle">Бізге оқушылар мен ата-аналардан жиі қойылатын маңызды сұрақтардың жауабы.</p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-header">
-                    <span>Оқу форматы қалай өтеді?</span>
-                    <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
-                </div>
-                <div class="faq-body">
-                    Платформадағы бейнесабақтар алдын ала жазылған, сіз кез келген уақытта көре аласыз. Сондай-ақ аптасына 2 рет тікелей эфирде сұрақ-жауап сессиялары өтеді. Күн сайын платформада үй тапсырмалары мен тесттер орындалады.
+    <!-- ============ BLOG VIEW ============ -->
+    <div id="blog-view" class="app-view">
+        <section>
+            <div class="blog-headline-card">
+                <div class="blog-art-cover">💡</div>
+                <div>
+                    <span style="background:var(--accent-light); color:var(--accent-green); padding:4px 12px; border-radius:6px; font-size:12px; font-weight:700;">Эксперттік мақала</span>
+                    <h2 style="font-size:28px; margin:14px 0;">ҰБТ-ға дайындық кезінде уақытты басқару (Time Management)</h2>
+                    <p style="color:var(--text-muted); line-height:1.6; margin-bottom:20px;">Күніне неше сағат математикамен айналысу керек және мидың шаршауын қалай алдын алуға болады? Помодоро әдісі мен смарт-жоспарлау.</p>
+                    <button class="btn btn-primary" onclick="openAuthModal()">Толық оқу</button>
                 </div>
             </div>
-
-            <div class="faq-item">
-                <div class="faq-header">
-                    <span>Нәтижеге кепілдік бар ма?</span>
-                    <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+            <div class="blog-filter-row">
+                <div class="filter-tab active-tab" onclick="filterBlog('all', this)">Барлығы</div>
+                <div class="filter-tab" onclick="filterBlog('lifehack', this)">Лайфхак</div>
+                <div class="filter-tab" onclick="filterBlog('motivation', this)">Мотивация</div>
+                <div class="filter-tab" onclick="filterBlog('news', this)">Жаңалықтар</div>
+            </div>
+            <div class="blog-regular-grid" id="blogGrid">
+                <div class="glass-card blog-item" data-cat="lifehack">
+                    <span style="font-size:11px; font-weight:600; color:var(--accent-green);">Лайфхак</span>
+                    <h3>Тригонометрия формулаларын ұмытпаудың құпиясы</h3>
+                    <p style="font-size:14px; color:var(--text-muted); line-height:1.5;">Күрделі синус пен косинустардың байланысын логикалық түрде есте сақтау тәсілдері.</p>
+                    <div class="blog-item-footer"><span>14 Шілде, 2026</span><span>4 мин оқу</span></div>
                 </div>
-                <div class="faq-body">
-                    Иә, біз өз әдістемемізге сенімдіміз. Егер сіз Premium немесе VIP тарифте оқып, барлық тапсырмаларды 90% орындап, бірақ ҰБТ балыңыз көтерілмесе, біз келісімшарт негізінде ақшаңызды толық қайтарып береміз.
+                <div class="glass-card blog-item" data-cat="motivation">
+                    <span style="font-size:11px; font-weight:600; color:var(--accent-green);">Мотивация</span>
+                    <h3>«Мен математикаға қабілетсізбін» деген ойдан қалай арылуға болады</h3>
+                    <p style="font-size:14px; color:var(--text-muted); line-height:1.5;">Психологтармен бірге дайындалған нақты қадамдар мен шынайы оқушы кейстері.</p>
+                    <div class="blog-item-footer"><span>10 Шілде, 2026</span><span>6 мин оқу</span></div>
+                </div>
+                <div class="glass-card blog-item" data-cat="news">
+                    <span style="font-size:11px; font-weight:600; color:var(--accent-green);">Жаңалық</span>
+                    <h3>2027 жылғы ҰБТ форматына енгізілетін өзгерістер</h3>
+                    <p style="font-size:14px; color:var(--text-muted); line-height:1.5;">Министрліктің жаңа хабарламасына сәйкес тест құрылымындағы негізгі айырмашылықтар.</p>
+                    <div class="blog-item-footer"><span>2 Шілде, 2026</span><span>3 мин оқу</span></div>
+                </div>
+                <div class="glass-card blog-item" data-cat="lifehack">
+                    <span style="font-size:11px; font-weight:600; color:var(--accent-green);">Лайфхак</span>
+                    <h3>Интегралды есте сақтаудың 3 визуалды әдісі</h3>
+                    <p style="font-size:14px; color:var(--text-muted); line-height:1.5;">Ауданды табу ұғымын графикпен байланыстырып түсіндіру арқылы формула жаттамай-ақ есте сақтау.</p>
+                    <div class="blog-item-footer"><span>28 Маусым, 2026</span><span>5 мин оқу</span></div>
                 </div>
             </div>
+        </section>
+    </div>
 
-            <div class="faq-item">
-                <div class="faq-header">
-                    <span>Бөліп төлеу қарастырылған ба?</span>
-                    <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+    <!-- ============ BOOKS VIEW ============ -->
+    <div id="books-view" class="app-view">
+        <section>
+            <div class="section-title">
+                <span class="eyebrow">Кітапхана</span>
+                <h2>Тегін математикалық оқулықтар кітапханасы</h2>
+                <p>Теориялық біліміңізді нығайтуға арналған электронды формулалар мен нұсқаулықтар жинағы</p>
+            </div>
+            <div class="books-layout-structure">
+                <div class="glass-card book-node-item">
+                    <div class="book-spine-mock">📚</div>
+                    <h3>ҰБТ Шпаргалкасы</h3>
+                    <span class="book-meta-desc">Барлық формулалар жиынтығы</span>
+                    <div class="book-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i> 4.5</div>
+                    <button class="btn btn-primary btn-full" onclick="openAuthModal()"><i class="fa-solid fa-download"></i> Жүктеу (PDF)</button>
                 </div>
-                <div class="faq-body">
-                    Иә, бізде Kaspi Red және Kaspi Бөліп төлеу (0-0-12 / 0-0-24) арқылы пайызсыз бөліп төлеу мүмкіндігі қарастырылған. Толық ақпаратты кураторыңыздан біле аласыз.
+                <div class="glass-card book-node-item">
+                    <div class="book-spine-mock" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%);">📐</div>
+                    <h3>Логикалық есептер 100</h3>
+                    <span class="book-meta-desc">Авторлық түсіндірмелерімен</span>
+                    <div class="book-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> 4.0</div>
+                    <button class="btn btn-primary btn-full" onclick="openAuthModal()"><i class="fa-solid fa-download"></i> Жүктеу (PDF)</button>
+                </div>
+                <div class="glass-card book-node-item">
+                    <div class="book-spine-mock" style="background:linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%);">🔺</div>
+                    <h3>Стереометрия: Толық Атлас</h3>
+                    <span class="book-meta-desc">200+ сызбамен көрсетілген</span>
+                    <div class="book-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> 5.0</div>
+                    <button class="btn btn-primary btn-full" onclick="openAuthModal()"><i class="fa-solid fa-download"></i> Жүктеу (PDF)</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <footer>
-        <div class="container footer-grid">
-            <div class="footer-about">
-                <a href="#" class="logo">
-                    <div class="logo-icon">
-                        <i class="fa-solid fa-square-root-variable"></i>
-                    </div>
-                    <span>SAYAT MATH</span>
-                </a>
-                <p>Еліміздегі ең үздік математикалық және ҰБТ дайындау платформасы. Біз сапалы білім беруді қолжетімді етеміз.</p>
-            </div>
-
-            <div class="footer-links">
-                <h4>Қызметтер</h4>
-                <ul>
-                    <li><a href="#features">Платформа туралы</a></li>
-                    <li><a href="#roadmap">Бағдарлама</a></li>
-                    <li><a href="#pricing">Тарифтер</a></li>
-                    <li><a href="#faq">Жиі қойылатын сұрақтар</a></li>
+    <!-- ============ PROFILE VIEW ============ -->
+    <div id="profile-view" class="app-view">
+        <section class="dashboard-layout">
+            <div class="glass-card dash-sidebar">
+                <div class="dash-user-pic">S</div>
+                <h3>Sayat Student</h3>
+                <span style="font-size:12px; color:var(--accent-green); background:var(--accent-light); padding:4px 10px; border-radius:20px; font-weight:600; display:inline-block; margin-top:6px;">PRO Жазылым</span>
+                <ul class="dash-sidebar-menu">
+                    <li class="active-row"><i class="fa-regular fa-id-card"></i> Басты ақпарат</li>
+                    <li onclick="switchView('courses-view')"><i class="fa-solid fa-graduation-cap"></i> Белсенді курстарым</li>
+                    <li onclick="openAuthModal()"><i class="fa-solid fa-sliders"></i> Теңшеулер</li>
                 </ul>
             </div>
+            <div class="glass-card dash-main-core">
+                <div class="dash-section-headline">Менің оқу көрсеткіштерім</div>
+                <div class="progress-ring-block">
+                    <div class="progress-ring-wrap">
+                        <svg width="128" height="128" viewBox="0 0 128 128">
+                            <circle cx="64" cy="64" r="56" stroke="var(--divider)" stroke-width="10" fill="none"/>
+                            <circle cx="64" cy="64" r="56" stroke="var(--accent-green)" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="352" stroke-dashoffset="102" transform="rotate(-90 64 64)"/>
+                        </svg>
+                        <strong>71%</strong>
+                    </div>
+                    <div class="streak-calendar" id="streakCalendar"></div>
+                </div>
+                <div class="dash-stats-panel">
+                    <div class="stat-cube"><span>Аяқталған дәрістер</span><strong>16 / 50</strong></div>
+                    <div class="stat-cube"><span>Тесттердің орташа балы</span><strong>35 / 40</strong></div>
+                    <div class="stat-cube"><span>Рейтингтегі орны</span><strong>#12</strong></div>
+                    <div class="stat-cube"><span>Ағымдағы стрик</span><strong>9 күн</strong></div>
+                </div>
+                <div class="dash-section-headline">Жеке деректерді өңдеу</div>
+                <div class="form-grid-settings">
+                    <div class="input-wrapper"><label>Толық аты-жөніңіз</label><input type="text" value="Sayat Student"></div>
+                    <div class="input-wrapper"><label>Байланыс телефоны</label><input type="text" value="+7 (777) 123-45-67"></div>
+                </div>
+                <button class="btn btn-green" style="margin-top:12px;" onclick="saveProfileSettings()">Өзгерістерді сақтау</button>
+            </div>
+        </section>
+    </div>
 
-            <div class="footer-links">
-                <h4>Құқықтық ақпарат</h4>
+</main>
+
+<div class="overlay-mask" id="authenticationOverlay">
+    <div class="modal-container">
+        <button class="modal-close-trigger" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+        <h3 style="text-align:center; font-size:22px; margin-bottom:8px;">Платформаға кіру</h3>
+        <p style="text-align:center; font-size:14px; color:var(--text-muted); margin-bottom:24px; line-height:1.5;">Жеке оқу кабинетіңізге өту және материалдарды жүктеу үшін телефон нөміріңізді енгізіңіз.</p>
+        <div class="input-wrapper">
+            <label>Ұялы телефон</label>
+            <input type="tel" id="loginPhoneNumberField" placeholder="+7 (700) 000-00-00">
+        </div>
+        <button class="btn btn-green btn-full" style="padding:14px; margin-top:8px;" onclick="submitAuthData()">Жалғастыру <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid-wrapper">
+            <div class="footer-editorial">
+                <div class="logo">SAYAT MATH</div>
+                <p>Премиум сапалы математикалық білім берудің көшбасшы интеллектуалды орталық жүйесі.</p>
+                <div class="newsletter-row">
+                    <input type="email" id="newsletterEmail" placeholder="Email мекенжайыңыз">
+                    <button class="btn btn-primary btn-sm" onclick="subscribeNewsletter()">Жазылу</button>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Платформа</h4>
                 <ul>
-                    <li><a href="#">Оферта келісімшарты</a></li>
-                    <li><a href="#">Құпиялылық саясаты</a></li>
-                    <li><a href="#">Төлем және қайтару</a></li>
-                    <li><a href="#">Сертификаттар</a></li>
+                    <li><a onclick="switchView('courses-view')">Курстар каталогы</a></li>
+                    <li><a onclick="switchView('test-view')">Онлайн Тесттер</a></li>
+                    <li><a onclick="switchView('books-view')">Оқулықтар</a></li>
+                    <li><a onclick="switchView('pricing-view')">Тарифтер</a></li>
                 </ul>
             </div>
-
-            <div class="footer-newsletter">
-                <h4>Байланыста болыңыз</h4>
-                <p>Маңызды жеңілдіктер мен тегін марафондар туралы бірінші болып біліңіз.</p>
-                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Тіркелгеніңіз үшін рақмет!');">
-                    <input type="email" placeholder="Sizdin@email.com" class="newsletter-input" required>
-                    <button type="submit" class="btn-newsletter"><i class="fa-solid fa-paper-plane"></i></button>
-                </form>
+            <div class="footer-column">
+                <h4>Ақпарат</h4>
+                <ul>
+                    <li><a onclick="switchView('blog-view')">Блог және Жаңалықтар</a></li>
+                    <li><a onclick="openAuthModal()">Қолдау орталығы</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Байланыс</h4>
+                <ul>
+                    <li><a href="tel:+77771234567">+7 (777) 123-45-67</a></li>
+                    <li><a href="mailto:info@sayatmath.kz">info@sayatmath.kz</a></li>
+                </ul>
             </div>
         </div>
-
-        <div class="container footer-bottom">
-            <div>
-                © 2026 SAYAT MATH. Барлық құқықтар қорғалған.
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
-                <a href="#" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+        <div class="footer-base">
+            <p>&copy; 2026 SAYAT MATH. Барлық құқықтар қорғалған. Premium Education Ecosystem.</p>
+            <div style="display:flex; gap:16px; font-size:16px;">
+                <a href="#" style="color:var(--text-muted);"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color:var(--text-muted);"><i class="fa-brands fa-telegram"></i></a>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script>
-        /* ==========================================================================
-           1. ПЕРЕКЛЮЧЕНИЕ ТЕМЫ (THEME TOGGLE SYSTEM)
-           ========================================================================== */
-        const themeToggle = document.getElementById('themeToggle');
-        const root = document.documentElement;
-        
-        // Проверяем сохраненную тему пользователя
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        root.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
+<div class="toast-stack" id="toastStack"></div>
 
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = root.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            root.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
+<script>
+/* ==========================================================================
+   0. TOAST-ХАБАРЛАМА ЖҮЙЕСІ (alert() орнына)
+   ========================================================================== */
+function showToast(message, type) {
+    const stack = document.getElementById('toastStack');
+    const el = document.createElement('div');
+    el.className = 'toast ' + (type || 'success');
+    el.innerHTML = '<i class="fa-solid ' + (type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-check') + '"></i><span>' + message + '</span>';
+    stack.appendChild(el);
+    setTimeout(() => {
+        el.classList.add('hide');
+        setTimeout(() => el.remove(), 300);
+    }, 3200);
+}
 
-        function updateThemeIcon(theme) {
-            const icon = themeToggle.querySelector('i');
-            if (theme === 'dark') {
-                icon.className = 'fa-solid fa-sun';
-            } else {
-                icon.className = 'fa-solid fa-moon';
-            }
+/* ==========================================================================
+   1. ТАҚЫРЫП АУЫСТЫРУ (жарық/қараңғы) — жад ішінде сақталады
+   ========================================================================== */
+let currentTheme = 'light';
+function applyTheme(theme) {
+    currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('themeIcon').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+}
+document.getElementById('themeToggleBtn').addEventListener('click', () => {
+    applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+});
+// Ескерту: бұл алдын ала қарау ортасында localStorage қолданылмайды.
+// Жеке серверде орналастырғанда таңдауды сақтау үшін localStorage.setItem қосуға болады.
+
+/* ==========================================================================
+   2. ЭКРАН АУЫСТЫРУ (VIEW ROUTER)
+   ========================================================================== */
+function switchView(targetViewId) {
+    document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active-view'));
+    const target = document.getElementById(targetViewId);
+    if (target) {
+        target.classList.add('active-view');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+    const viewMenuMap = {
+        'hero-view': 'm-hero', 'courses-view': 'm-courses', 'test-view': 'm-test',
+        'universities-view': 'm-universities', 'pricing-view': 'm-pricing',
+        'blog-view': 'm-blog', 'books-view': 'm-books'
+    };
+    const matchedMenuId = viewMenuMap[targetViewId];
+    if (matchedMenuId) {
+        const activeItem = document.getElementById(matchedMenuId);
+        if (activeItem) activeItem.classList.add('active');
+    }
+    const navMenu = document.getElementById('navMenu');
+    const hamburgerBtn = document.getElementById('hamburgerMenuButton');
+    if (navMenu) navMenu.classList.remove('open');
+    if (hamburgerBtn) hamburgerBtn.classList.remove('open');
+}
+
+const hamburgerBtn = document.getElementById('hamburgerMenuButton');
+const navMenu = document.getElementById('navMenu');
+if (hamburgerBtn && navMenu) {
+    hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('open');
+        navMenu.classList.toggle('open');
+    });
+}
+
+const notifButton = document.getElementById('notifButton');
+const notifBox = document.getElementById('notifBox');
+const avatarButton = document.getElementById('avatarButton');
+const profileBox = document.getElementById('profileBox');
+if (notifButton && notifBox) {
+    notifButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        notifBox.style.display = notifBox.style.display === 'block' ? 'none' : 'block';
+        if (profileBox) profileBox.style.display = 'none';
+    });
+}
+if (avatarButton && profileBox) {
+    avatarButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        profileBox.style.display = profileBox.style.display === 'block' ? 'none' : 'block';
+        if (notifBox) notifBox.style.display = 'none';
+    });
+}
+document.addEventListener('click', () => {
+    if (notifBox) notifBox.style.display = 'none';
+    if (profileBox) profileBox.style.display = 'none';
+});
+function clearNotifications() {
+    document.getElementById('notifListBody').innerHTML = '<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:20px 0;">Жаңа хабарлама жоқ.</p>';
+    document.querySelector('#notifButton .badge').style.display = 'none';
+    showToast('Хабарламалар тазаланды');
+}
+
+/* ==========================================================================
+   3. АУТЕНТИФИКАЦИЯ МОДАЛЫ
+   ========================================================================== */
+const authOverlay = document.getElementById('authenticationOverlay');
+function openAuthModal() { if (authOverlay) authOverlay.style.display = 'flex'; }
+function closeAuthModal() { if (authOverlay) authOverlay.style.display = 'none'; }
+function submitAuthData() {
+    const val = document.getElementById('loginPhoneNumberField').value;
+    if (val.trim().replace(/\D/g, '').length >= 10) {
+        showToast('Сұранысыңыз сәтті қабылданды! Менеджер жақын арада байланысады.');
+        closeAuthModal();
+    } else {
+        showToast('Нөмірді дұрыс форматта енгізіңіз.', 'error');
+    }
+}
+function saveProfileSettings() { showToast('Профиль деректері сәтті сақталды.'); }
+function subscribeNewsletter() {
+    const val = document.getElementById('newsletterEmail').value;
+    if (val.includes('@') && val.includes('.')) {
+        showToast('Жаңалықтарға жазылу сәтті рәсімделді!');
+        document.getElementById('newsletterEmail').value = '';
+    } else {
+        showToast('Дұрыс email мекенжайын енгізіңіз.', 'error');
+    }
+}
+
+/* ==========================================================================
+   4. КУРСТАР: ФИЛЬТР + ІЗДЕУ (комбинацияланған)
+   ========================================================================== */
+let activeCourseCat = 'all';
+function filterCourses(cat, tabEl) {
+    if (cat !== null) {
+        activeCourseCat = cat;
+        document.querySelectorAll('#courseFilterBar .filter-tab').forEach(t => t.classList.remove('active-tab'));
+        tabEl.classList.add('active-tab');
+    }
+    const query = document.getElementById('courseSearchInput').value.trim().toLowerCase();
+    const cards = document.querySelectorAll('#coursesGrid .course-node');
+    let visibleCount = 0;
+    cards.forEach(card => {
+        const matchesCat = activeCourseCat === 'all' || card.getAttribute('data-cat') === activeCourseCat;
+        const matchesQuery = !query || card.getAttribute('data-name').includes(query) || card.querySelector('h3').textContent.toLowerCase().includes(query);
+        const show = matchesCat && matchesQuery;
+        card.style.display = show ? 'flex' : 'none';
+        if (show) visibleCount++;
+    });
+    document.getElementById('catalogEmptyState').classList.toggle('show', visibleCount === 0);
+}
+
+/* ==========================================================================
+   5. ЖОО: ІЗДЕУ + АЙМАҚ ФИЛЬТРІ
+   ========================================================================== */
+let activeUniRegion = 'all';
+function setUniRegion(region, tabEl) {
+    activeUniRegion = region;
+    document.querySelectorAll('#uniRegionTabs .filter-tab').forEach(t => t.classList.remove('active-tab'));
+    tabEl.classList.add('active-tab');
+    uniFiltering();
+}
+function uniFiltering() {
+    const normalizeStr = document.getElementById('uniSearchInput').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.uni-node-card');
+    cards.forEach(card => {
+        const keywords = card.getAttribute('data-keyword') || '';
+        const region = card.getAttribute('data-region') || '';
+        const matchesRegion = activeUniRegion === 'all' || region === activeUniRegion;
+        const matchesQuery = !normalizeStr || keywords.includes(normalizeStr);
+        card.style.display = (matchesRegion && matchesQuery) ? 'block' : 'none';
+    });
+}
+
+/* ==========================================================================
+   6. БЛОГ ФИЛЬТРІ
+   ========================================================================== */
+function filterBlog(cat, tabEl) {
+    document.querySelectorAll('.blog-filter-row .filter-tab').forEach(t => t.classList.remove('active-tab'));
+    tabEl.classList.add('active-tab');
+    document.querySelectorAll('#blogGrid .blog-item').forEach(item => {
+        item.style.display = (cat === 'all' || item.getAttribute('data-cat') === cat) ? 'block' : 'none';
+    });
+}
+
+/* ==========================================================================
+   7. FAQ АККОРДЕОН
+   ========================================================================== */
+function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('#faqList .faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+}
+
+/* ==========================================================================
+   8. PRICING TOGGLE (АЙЛЫҚ / ЖЫЛДЫҚ)
+   ========================================================================== */
+let pricingYearly = false;
+function togglePricing() {
+    pricingYearly = !pricingYearly;
+    document.getElementById('pricingSwitch').classList.toggle('yearly', pricingYearly);
+    document.querySelectorAll('.price-val').forEach(el => {
+        const val = pricingYearly ? el.getAttribute('data-yearly') : el.getAttribute('data-monthly');
+        el.textContent = Number(val).toLocaleString('ru-RU');
+    });
+}
+
+/* ==========================================================================
+   9. ТЕСТ ҚОЗҒАЛТҚЫШЫ (РАБОЧИЙ QUIZ ENGINE)
+   ========================================================================== */
+const QUIZ_BANKS = {
+    unt14: [
+        { q: 'f(x) = x² − 4x + 3 функциясының түбірлерін тап.', options: ['x=1, x=3', 'x=−1, x=−3', 'x=2, x=6', 'x=0, x=4'], correct: 0 },
+        { q: '(2x³)′ туындысын есепте.', options: ['6x²', '2x²', '6x', '3x²'], correct: 0 },
+        { q: 'log₂8 өрнегінің мәні неге тең?', options: ['2', '3', '4', '8'], correct: 1 },
+        { q: 'sin(30°) мәнін тап.', options: ['1', '0.5', '√3/2', '0'], correct: 1 },
+        { q: '∫₀¹ 2x dx интегралының мәні неге тең?', options: ['1', '2', '0.5', '0'], correct: 0 }
+    ],
+    logic5: [
+        { q: '2, 6, 12, 20, 30, ... қатарының келесі мүшесі қандай?', options: ['36', '40', '42', '44'], correct: 2 },
+        { q: '5 адам бір-бірімен қанша рет қол алысады (әрқайсысы басқасымен бір рет)?', options: ['10', '15', '20', '25'], correct: 0 },
+        { q: 'Егер барлық А — В болса және кейбір В — С болса, онда міндетті түрде...', options: ['барлық А — С', 'кейбір А — С болуы мүмкін', 'ешбір А — С емес', 'дәлел жеткіліксіз, бірақ А мен С байланыссыз'], correct: 3 },
+        { q: '3 монета лақтырғанда кемінде 2 герб түсу ықтималдығы қандай?', options: ['1/2', '1/4', '3/8', '1/8'], correct: 0 },
+        { q: 'Тізбек: 1, 4, 9, 16, 25 — бұл қандай сандар?', options: ['жай сандар', 'тақ сандар', 'толық квадраттар', 'фибоначчи сандары'], correct: 2 }
+    ]
+};
+
+let quizState = { bank: null, index: 0, score: 0, locked: false };
+
+function startQuiz(bankKey) {
+    quizState = { bank: bankKey, index: 0, score: 0, locked: false };
+    document.getElementById('quizCatalog').style.display = 'none';
+    document.getElementById('quizResultBox').classList.remove('show');
+    document.getElementById('quizRunner').classList.add('active');
+    renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+    const questions = QUIZ_BANKS[quizState.bank];
+    const q = questions[quizState.index];
+    quizState.locked = false;
+    document.getElementById('quizMetaLeft').textContent = 'Сұрақ ' + (quizState.index + 1) + ' / ' + questions.length;
+    document.getElementById('quizMetaRight').textContent = 'Балл: ' + quizState.score;
+    document.getElementById('quizProgressFill').style.width = ((quizState.index) / questions.length * 100) + '%';
+    document.getElementById('quizQuestionText').textContent = q.q;
+    const letters = ['A', 'B', 'C', 'D'];
+    const list = document.getElementById('quizOptionsList');
+    list.innerHTML = '';
+    q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.innerHTML = '<span class="opt-letter">' + letters[i] + '</span><span>' + opt + '</span>';
+        btn.onclick = () => selectQuizOption(i, btn);
+        list.appendChild(btn);
+    });
+}
+
+function selectQuizOption(i, btnEl) {
+    if (quizState.locked) return;
+    quizState.locked = true;
+    const questions = QUIZ_BANKS[quizState.bank];
+    const q = questions[quizState.index];
+    const allOptions = document.querySelectorAll('#quizOptionsList .quiz-option');
+    allOptions.forEach(o => o.setAttribute('disabled', 'true'));
+    if (i === q.correct) {
+        btnEl.classList.add('correct');
+        quizState.score++;
+    } else {
+        btnEl.classList.add('incorrect');
+        allOptions[q.correct].classList.add('correct');
+    }
+    document.getElementById('quizMetaRight').textContent = 'Балл: ' + quizState.score;
+    setTimeout(() => {
+        if (quizState.index < questions.length - 1) {
+            quizState.index++;
+            renderQuizQuestion();
+        } else {
+            finishQuiz();
         }
+    }, 900);
+}
 
-        /* ==========================================================================
-           2. СТРИК-КАЛЕНДАРЬ (STREAK CALENDAR GENERATOR)
-           ========================================================================== */
-        function initStreakCalendar() {
-            const grid = document.getElementById('streakGrid');
-            if (!grid) return;
+function finishQuiz() {
+    const questions = QUIZ_BANKS[quizState.bank];
+    document.getElementById('quizRunner').classList.remove('active');
+    document.getElementById('quizProgressFill').style.width = '100%';
+    const pct = Math.round((quizState.score / questions.length) * 100);
+    document.getElementById('resultRingText').textContent = pct + '%';
+    const circle = document.getElementById('resultRingCircle');
+    const circumference = 440;
+    circle.style.strokeDashoffset = circumference - (circumference * pct / 100);
+    document.getElementById('resultTitle').textContent = pct >= 80 ? 'Тамаша нәтиже!' : (pct >= 50 ? 'Жаман емес!' : 'Тағы жаттығу керек');
+    document.getElementById('resultSubtitle').textContent = quizState.score + ' / ' + questions.length + ' дұрыс жауап';
+    document.getElementById('quizResultBox').classList.add('show');
+    document.getElementById('retryQuizBtn').onclick = () => startQuiz(quizState.bank);
+    showToast(pct >= 50 ? 'Тест сәтті аяқталды!' : 'Тест аяқталды, қайталап көріңіз.', pct >= 50 ? 'success' : 'error');
+}
 
-            // Генерируем 28 дней активности
-            for (let i = 1; i <= 28; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'streak-day-cell';
-                cell.textContent = i;
-                
-                // Случайная раскраска активности для демо (богатый UI)
-                if (i % 4 === 0) {
-                    cell.classList.add('legendary');
-                    cell.setAttribute('title', `Күн ${i}: Керемет белсенділік!`);
-                } else if (i % 3 === 0 || i === 1 || i === 5) {
-                    cell.classList.add('active');
-                    cell.setAttribute('title', `Күн ${i}: Стрик жалғасуда!`);
-                } else {
-                    cell.setAttribute('title', `Күн ${i}: Орындалмады`);
-                }
+function exitQuiz() {
+    document.getElementById('quizRunner').classList.remove('active');
+    document.getElementById('quizResultBox').classList.remove('show');
+    document.getElementById('quizCatalog').style.display = 'grid';
+}
 
-                grid.appendChild(cell);
-            }
+/* ==========================================================================
+   10. ИНТЕРАКТИВТІ ФУНКЦИЯ ГРАФИГІ (HERO CANVAS)
+   ========================================================================== */
+const FUNC_MAP = {
+    quad: x => x * x,
+    sin: x => Math.sin(x) * 3,
+    cube: x => (x * x * x) / 4,
+    sqrt: x => x >= 0 ? Math.sqrt(x) * 2 : NaN
+};
+
+function getGraphColors() {
+    const styles = getComputedStyle(document.documentElement);
+    return {
+        axis: styles.getPropertyValue('--text-muted').trim() || '#64748b',
+        curve: styles.getPropertyValue('--accent-green').trim() || '#059669',
+        grid: currentTheme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(15,23,42,0.05)'
+    };
+}
+
+function drawFunction(hoverX) {
+    const canvas = document.getElementById('functionCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    const colors = getGraphColors();
+    ctx.clearRect(0, 0, w, h);
+
+    const scale = 22;
+    const originX = w / 2, originY = h / 2;
+
+    // Тор сызықтары
+    ctx.strokeStyle = colors.grid;
+    ctx.lineWidth = 1;
+    for (let gx = originX % scale; gx < w; gx += scale) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke(); }
+    for (let gy = originY % scale; gy < h; gy += scale) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke(); }
+
+    // Осьтер
+    ctx.strokeStyle = colors.axis;
+    ctx.globalAlpha = 0.5;
+    ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.moveTo(0, originY); ctx.lineTo(w, originY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(originX, 0); ctx.lineTo(originX, h); ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Функция қисығы
+    const fnKey = document.getElementById('funcSelector').value;
+    const fn = FUNC_MAP[fnKey];
+    ctx.strokeStyle = colors.curve;
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    let started = false;
+    for (let px = 0; px <= w; px++) {
+        const x = (px - originX) / scale;
+        const y = fn(x);
+        if (isNaN(y)) { started = false; continue; }
+        const py = originY - y * scale;
+        if (py < -50 || py > h + 50) { started = false; continue; }
+        if (!started) { ctx.moveTo(px, py); started = true; } else { ctx.lineTo(px, py); }
+    }
+    ctx.stroke();
+
+    // Тінтуір нүктесі
+    if (typeof hoverX === 'number') {
+        const y = fn(hoverX);
+        if (!isNaN(y)) {
+            const px = originX + hoverX * scale;
+            const py = originY - y * scale;
+            ctx.fillStyle = colors.curve;
+            ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = colors.curve; ctx.globalAlpha = 0.3; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, h); ctx.stroke();
+            ctx.globalAlpha = 1;
+            document.getElementById('graphReadout').innerHTML = 'x: <strong>' + hoverX.toFixed(2) + '</strong>, f(x): <strong>' + y.toFixed(2) + '</strong>';
         }
-        initStreakCalendar();
+    }
+}
 
-        /* ==========================================================================
-           3. ДОРОЖНАЯ КАРТА ОБУЧЕНИЯ (ROADMAP SWITCHER)
-           ========================================================================== */
-        const roadmapData = {
-            1: {
-                title: "Базалық Алгебра және Теңдеулер",
-                subtitle: "Математиканың іргетасын қалаушы бағдарлама",
-                duration: "4 Апта",
-                award: "Аралық Тестілеу Сертификаты",
-                items: [
-                    "Көпмүшелерді көбейткіштерге жіктеу әдістері",
-                    "Рационал және иррационал теңдеулер жүйесі",
-                    "Көрсеткіштік және логарифмдік функциялар",
-                    "Арифметикалық және геометриялық прогрессиялар"
-                ]
-            },
-            2: {
-                title: "Тригонометрия және Функциялар",
-                subtitle: "Күрделі функциялар мен графиктік талдау",
-                duration: "5 Апта",
-                award: "Алгоритмдер шебері ордені",
-                items: [
-                    "Тригонометриялық формулалардың жиынтығы",
-                    "Тригонометриялық теңдеулер мен теңсіздіктер",
-                    "Функцияның туындысы және зерттеу әдістері",
-                    "Күрделі шектер мен интегралдар"
-                ]
-            },
-            3: {
-                title: "Кеңістіктік Стереометрия",
-                subtitle: "Кеңістіктік ойлау және 3D фигураларды талдау",
-                duration: "3 Апта",
-                award: "Кеңістік Архитекторы мәртебесі",
-                items: [
-                    "Стереометрия аксиомалары мен салдарлары",
-                    "Көпжақтардың ауданы мен көлемі (призма, пирамида)",
-                    "Айналу денелері (цилиндр, конус, шар)",
-                    "Векторлық координаттық әдістер"
-                ]
-            }
-        };
+function graphHover(evt) {
+    const canvas = document.getElementById('functionCanvas');
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const px = (evt.clientX - rect.left) * scaleX;
+    const scale = 22;
+    const originX = canvas.width / 2;
+    const x = (px - originX) / scale;
+    drawFunction(x);
+}
+function graphLeave() {
+    document.getElementById('graphReadout').textContent = 'x: — , f(x): —';
+    drawFunction();
+}
+drawFunction();
 
-        function switchRoadmap(step) {
-            // Убираем активные классы со всех кнопок
-            const buttons = document.querySelectorAll('.roadmap-step-btn');
-            buttons.forEach((btn, idx) => {
-                if (idx + 1 === step) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
+/* ==========================================================================
+   11. ҰБТ КЕРІ САНАУЫШ (COUNTDOWN)
+   ========================================================================== */
+function updateCountdown() {
+    // Келесі шартты ҰБТ күні: ағымдағы жылдың 1 қыркүйегі (демо мақсатында)
+    const now = new Date();
+    let target = new Date(now.getFullYear(), 8, 1, 9, 0, 0);
+    if (target < now) target = new Date(now.getFullYear() + 1, 8, 1, 9, 0, 0);
+    const diff = target - now;
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    document.getElementById('cdDays').textContent = d;
+    document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
+    document.getElementById('cdMin').textContent = String(m).padStart(2, '0');
+    document.getElementById('cdSec').textContent = String(s).padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
 
-            // Обновляем контент плавно
-            const card = document.getElementById('roadmapDetails');
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(10px)';
-
-            setTimeout(() => {
-                const data = roadmapData[step];
-                document.getElementById('rmTitle').textContent = data.title;
-                document.getElementById('rmSubtitle').textContent = data.subtitle;
-                document.getElementById('rmDuration').textContent = data.duration;
-                document.getElementById('rmAward').textContent = data.award;
-
-                const list = document.getElementById('rmList');
-                list.innerHTML = '';
-                data.items.forEach(item => {
-                    const li = document.createElement('li');
-                    li.className = 'roadmap-list-item';
-                    li.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${item}`;
-                    list.appendChild(li);
-                });
-
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 200);
-        }
-
-        /* ==========================================================================
-           4. ТРЕНАЖЕР С ЗАДАЧАМИ (MATH LAB SIMULATOR)
-           ========================================================================== */
-        let quizStep = 1;
-        const quizQuestions = {
-            1: {
-                label: "1-ші сұрақ (Логарифмдер)",
-                formula: "\\log_2(x) = 5",
-                options: ["x = 10", "x = 25", "x = 32", "x = 64"],
-                correct: 3 // х = 32
-            },
-            2: {
-                label: "2-ші сұрақ (Теңдеулер жүйесі)",
-                formula: "3^x = 27",
-                options: ["x = 2", "x = 3", "x = 9", "x = 1"],
-                correct: 2 // х = 3
-            },
-            3: {
-                label: "Соңғы сұрақ (Туынды)",
-                formula: "f'(x) \\text{ where } f(x) = x^2",
-                options: ["f'(x) = 2x", "f'(x) = x^3", "f'(x) = 2", "f'(x) = 1"],
-                correct: 1 // f'(x) = 2x
-            }
-        };
-
-        function checkAnswer(btn, optionIndex) {
-            const currentQ = quizQuestions[quizStep];
-            const feedback = document.getElementById('quizFeedback');
-            const options = document.getElementById('quizOptions').querySelectorAll('button');
-
-            // Блокируем остальные кнопки во время проверки
-            options.forEach(b => b.style.pointerEvents = 'none');
-
-            if (optionIndex === currentQ.correct) {
-                btn.classList.add('correct');
-                feedback.innerHTML = `<span style="color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Өте дұрыс! Келесі сұраққа өтуде...</span>`;
-                
-                setTimeout(() => {
-                    nextQuestion();
-                }, 1500);
-            } else {
-                btn.classList.add('incorrect');
-                feedback.innerHTML = `<span style="color: #ef4444;"><i class="fa-solid fa-circle-xmark"></i> Қате, дұрыс жауапты тауып көріңіз!</span>`;
-                setTimeout(() => {
-                    btn.classList.remove('incorrect');
-                    feedback.innerHTML = '';
-                    options.forEach(b => b.style.pointerEvents = 'all');
-                }, 1500);
-            }
-        }
-
-        function nextQuestion() {
-            quizStep++;
-            const progress = document.getElementById('labProgress');
-            const feedback = document.getElementById('quizFeedback');
-            feedback.innerHTML = '';
-
-            if (quizStep > 3) {
-                // Показываем результат
-                document.getElementById('quizPlayView').style.display = 'none';
-                document.getElementById('quizResultView').style.display = 'block';
-                progress.style.width = '100%';
-                return;
-            }
-
-            // Переключаем прогресс-бар
-            progress.style.width = `${(quizStep / 3) * 100}%`;
-
-            const currentQ = quizQuestions[quizStep];
-            document.getElementById('quizLabel').textContent = currentQ.label;
-            document.getElementById('quizQuestion').textContent = currentQ.formula;
-
-            const options = document.getElementById('quizOptions').querySelectorAll('button');
-            options.forEach((btn, idx) => {
-                btn.className = 'quiz-option-btn';
-                btn.style.pointerEvents = 'all';
-                btn.textContent = currentQ.options[idx];
-            });
-        }
-
-        /* ==========================================================================
-           5. ТАРИФНЫЙ КАЛЬКУЛЯТОР / ПЕРЕКЛЮЧАТЕЛЬ (MONTHLY / YEARLY TOGGLE)
-           ========================================================================== */
-        const btnMonthly = document.getElementById('btnMonthly');
-        const btnYearly = document.getElementById('btnYearly');
-
-        btnMonthly.addEventListener('click', () => {
-            btnMonthly.classList.add('active');
-            btnYearly.classList.remove('active');
-            updatePrices(false);
-        });
-
-        btnYearly.addEventListener('click', () => {
-            btnYearly.classList.add('active');
-            btnMonthly.classList.remove('active');
-            updatePrices(true);
-        });
-
-        function updatePrices(isYearly) {
-            const basic = document.getElementById('priceBasic');
-            const premium = document.getElementById('pricePremium');
-            const vip = document.getElementById('priceVip');
-
-            if (isYearly) {
-                basic.innerHTML = '9,900 <span>₸ / ай (жылдық)</span>';
-                premium.innerHTML = '17,900 <span>₸ / ай (жылдық)</span>';
-                vip.innerHTML = '34,900 <span>₸ / ай (жылдық)</span>';
-            } else {
-                basic.innerHTML = '14,900 <span>₸ / ай</span>';
-                premium.innerHTML = '24,900 <span>₸ / ай</span>';
-                vip.innerHTML = '49,900 <span>₸ / ай</span>';
-            }
-        }
-
-        /* ==========================================================================
-           6. СЛАЙДЕР ОТЗЫВОВ (SWIPEABLE TESTIMONIALS SLIDER)
-           ========================================================================== */
-        const track = document.getElementById('testimonialsTrack');
-        const slides = Array.from(track.children);
-        const nextButton = document.getElementById('slideNext');
-        const prevButton = document.getElementById('slidePrev');
-        const dotsNav = document.getElementById('sliderDots');
-        let currentSlideIndex = 0;
-
-        // Создаем точки переключения
-        slides.forEach((_, idx) => {
-            const dot = document.createElement('div');
-            dot.className = 'slider-dot' + (idx === 0 ? ' active' : '');
-            dot.addEventListener('click', () => moveToSlide(idx));
-            dotsNav.appendChild(dot);
-        });
-
-        const dots = Array.from(dotsNav.children);
-
-        function moveToSlide(targetIndex) {
-            track.style.transform = `translateX(-${targetIndex * 100}%)`;
-            dots[currentSlideIndex].classList.remove('active');
-            dots[targetIndex].classList.add('active');
-            currentSlideIndex = targetIndex;
-        }
-
-        nextButton.addEventListener('click', () => {
-            let nextIndex = currentSlideIndex + 1;
-            if (nextIndex >= slides.length) nextIndex = 0;
-            moveToSlide(nextIndex);
-        });
-
-        prevButton.addEventListener('click', () => {
-            let prevIndex = currentSlideIndex - 1;
-            if (prevIndex < 0) prevIndex = slides.length - 1;
-            moveToSlide(prevIndex);
-        });
-
-        /* ==========================================================================
-           7. ЖИВОЙ ТАЙМЕР ОБРАТНОГО ОТСЧЕТА (COUNTDOWN)
-           ========================================================================== */
-        function updateCountdown() {
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 3); // Акция длится 3 дня от текущего захода
-            
-            function tick() {
-                const now = new Date();
-                const difference = targetDate - now;
-
-                if (difference <= 0) {
-                    clearInterval(interval);
-                    return;
-                }
-
-                const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((difference % (1000 * 60)) / 1000);
-
-                document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
-                document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
-                document.getElementById('cdMin').textContent = String(m).padStart(2, '0');
-                document.getElementById('cdSec').textContent = String(s).padStart(2, '0');
-            }
-
-            const interval = setInterval(tick, 1000);
-            tick();
-        }
-        updateCountdown();
-
-        /* ==========================================================================
-           8. АККОРДЕОНЫ (FAQ SYSTEM)
-           ========================================================================== */
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const header = item.querySelector('.faq-header');
-            header.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                
-                // Закрываем все остальные вопросы
-                faqItems.forEach(innerItem => {
-                    innerItem.classList.remove('active');
-                    innerItem.querySelector('.faq-body').style.maxHeight = '0';
-                });
-
-                if (!isActive) {
-                    item.classList.add('active');
-                    const body = item.querySelector('.faq-body');
-                    body.style.maxHeight = body.scrollHeight + 'px';
-                }
-            });
-        });
-
-        /* ==========================================================================
-           9. ЭФФЕКТ СКРОЛЛА ДЛЯ ШАПКИ (HEADER SCROLL EFFECT)
-           ========================================================================== */
-        const header = document.getElementById('mainHeader');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-    </script>
+/* ==========================================================================
+   12. СТРИК-КҮНТІЗБЕ (PROFILE VIEW)
+   ========================================================================== */
+function buildStreakCalendar() {
+    const wrap = document.getElementById('streakCalendar');
+    if (!wrap) return;
+    // Демо-деректер: соңғы 30 күндегі белсенділік деңгейі (0-3)
+    const pattern = [2,3,1,0,2,3,3,1,0,2,3,2,1,0,3,3,2,1,2,3,0,1,2,3,3,2,1,0,2,3];
+    pattern.forEach(level => {
+        const cell = document.createElement('div');
+        cell.className = 'streak-cell';
+        cell.setAttribute('data-level', level);
+        wrap.appendChild(cell);
+    });
+}
+buildStreakCalendar();
+</script>
 </body>
 </html>
