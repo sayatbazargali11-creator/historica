@@ -3,2019 +3,735 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astana IT University — Инновационное Образование и Цифровое Будущее</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>DAMU Academy — Образование Будущего</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ==========================================================================
-           1. CSS-ПЕРЕМЕННЫЕ И ДИЗАЙН-СИСТЕМА (PREMIUM LIGHT THEME)
-           ========================================================================== */
+        /* --- Переменные бренда --- */
         :root {
-            /* Палитра цветов */
-            --bg-main: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
-            --bg-dark: #091524;
-            
-            --brand-primary: #0a2540;   /* Премиальный глубокий синий (AITU Core) */
-            --brand-secondary: #635bff; /* Цифровой индиго для акцентов */
-            --accent-cyan: #00d2c4;      /* Фирменный бирюзовый IT-цвет */
-            --accent-orange: #ff7a00;    /* Цвет для дедлайнов и важных меток */
-            
-            /* Текстовые цвета */
-            --text-main: #1e293b;
-            --text-muted: #475569;
-            --text-light: #94a3b8;
-            --text-white: #ffffff;
-            
-            /* Элементы интерфейса */
-            --border-color: #e2e8f0;
-            --border-hover: #cbd5e1;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 10px 30px rgba(10, 37, 64, 0.06);
-            --shadow-lg: 0 20px 50px rgba(10, 37, 64, 0.12);
-            
-            /* Анимации и геометрия */
-            --radius-sm: 6px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            --max-width: 1280px;
+            --primary-red: #D1232A;      /* Основной красный DAMU */
+            --dark-red: #9E161B;         /* Темно-красный для ховеров */
+            --white: #FFFFFF;            /* Белый */
+            --light-gray: #F8F9FA;       /* Фоновый светло-серый */
+            --dark-gray: #1E1E1E;        /* Цвет текста/темный фон */
+            --text-muted: #6C757D;       /* Вспомогательный текст */
+            --transition: all 0.3s ease;
         }
 
-        /* ==========================================================================
-           2. БАЗОВЫЙ СБРОС И СТИЛИЗАЦИЯ СТРАНИЦЫ
-           ========================================================================== */
-        *, *::before, *::after {
+        /* --- Базовые стили --- */
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: var(--white);
+            color: var(--dark-gray);
             line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: var(--brand-primary);
-            font-weight: 700;
-            line-height: 1.25;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-            transition: var(--transition);
         }
 
-        ul, ol {
+        ul {
             list-style: none;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
         .container {
-            width: 100%;
-            max-width: var(--max-width);
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 20px;
         }
 
-        /* Вспомогательный класс для скрытия скролла */
-        .no-scroll {
-            overflow: hidden;
-        }
-
-        /* ==========================================================================
-           3. КОМПОНЕНТЫ И КНОПКИ (UI KIT)
-           ========================================================================== */
+        /* --- Кнопки --- */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 28px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            display: inline-block;
+            padding: 12px 28px;
             font-weight: 600;
-            font-size: 0.95rem;
-            border-radius: var(--radius-md);
-            cursor: pointer;
+            border-radius: 4px;
             transition: var(--transition);
-            border: 1px solid transparent;
-            white-space: nowrap;
+            cursor: pointer;
+            text-align: center;
         }
 
         .btn-primary {
-            background-color: var(--brand-primary);
-            color: var(--text-white);
-            box-shadow: var(--shadow-sm);
+            background-color: var(--primary-red);
+            color: var(--white);
+            border: 2px solid var(--primary-red);
         }
 
         .btn-primary:hover {
-            background-color: #14395c;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(10, 37, 64, 0.15);
+            background-color: var(--dark-red);
+            border-color: var(--dark-red);
         }
 
         .btn-secondary {
-            background-color: var(--bg-secondary);
-            color: var(--brand-primary);
-            border: 1px solid var(--border-color);
+            background-color: transparent;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
         }
 
         .btn-secondary:hover {
-            background-color: var(--bg-tertiary);
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
+            background-color: var(--primary-red);
+            color: var(--white);
         }
 
-        .btn-accent {
-            background-color: var(--accent-cyan);
-            color: var(--brand-primary);
-            box-shadow: 0 4px 14px rgba(0, 210, 196, 0.2);
-        }
-
-        .btn-accent:hover {
-            background-color: #00bdae;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 210, 196, 0.3);
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-cyan {
-            background-color: rgba(0, 210, 196, 0.1);
-            color: #009c91;
-        }
-
-        .badge-orange {
-            background-color: rgba(255, 122, 0, 0.1);
-            color: var(--accent-orange);
-        }
-
-        /* Заголовки секций */
-        .section-title-block {
-            text-align: center;
-            max-width: 750px;
-            margin: 0 auto 64px;
-        }
-
-        .section-title-block .badge {
-            margin-bottom: 16px;
-        }
-
-        .section-title-block h2 {
-            font-size: 2.5rem;
-            color: var(--brand-primary);
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
-        }
-
-        .section-title-block p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        /* ==========================================================================
-           4. ВЕРХНЯЯ ПАНЕЛЬ И НАВИГАЦИЯ (HEADER & TOPBAR)
-           ========================================================================== */
-        .topbar {
-            background-color: var(--brand-primary);
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 0.85rem;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .topbar-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .topbar-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        .topbar-links a i {
-            color: var(--accent-cyan);
-            margin-right: 8px;
-        }
-
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .topbar-nav a:hover {
-            color: #fff;
-        }
-
-        .lang-selector a {
-            margin-left: 8px;
-            font-weight: 600;
-            opacity: 0.6;
-        }
-
-        .lang-selector a.active {
-            opacity: 1;
-            color: var(--accent-cyan);
-        }
-
-        /* Основной Header */
+        /* --- Шапка (Header) --- */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 900;
-            border-bottom: 1px solid var(--border-color);
-            padding: 16px 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
             transition: var(--transition);
         }
 
         header.scrolled {
             padding: 10px 0;
-            box-shadow: var(--shadow-sm);
+            background-color: var(--white);
         }
 
-        .header-wrapper {
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* Логотип */
-        .brand-logo {
+        .logo img {
+            height: 45px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-menu {
             display: flex;
             align-items: center;
-            gap: 14px;
-        }
-
-        .logo-emblem {
-            width: 46px;
-            height: 46px;
-            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.4rem;
-            box-shadow: 0 4px 12px rgba(99, 91, 255, 0.2);
-        }
-
-        .logo-meta h2 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--brand-primary);
-        }
-
-        .logo-meta p {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            font-weight: 600;
-            margin-top: -2px;
-        }
-
-        /* Навигационное меню */
-        .main-nav {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-item {
-            position: relative;
+            gap: 30px;
         }
 
         .nav-link {
-            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--brand-primary);
-            padding: 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            font-size: 14px;
+            color: var(--dark-gray);
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
         }
 
-        .nav-link i {
-            font-size: 0.75rem;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-red);
             transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
         }
 
         .nav-link:hover {
-            color: var(--brand-secondary);
+            color: var(--primary-red);
         }
 
-        /* Мега-меню выпадающий список */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(15px);
-            background-color: #fff;
-            min-width: 260px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-color);
-            padding: 16px;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-        }
-
-        .nav-item:hover .dropdown-menu {
-            opacity: 1;
-            pointer-events: all;
-            transform: translateX(-50%) translateY(5px);
-        }
-
-        .nav-item:hover .nav-link i {
-            transform: rotate(180deg);
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 10px 14px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-main);
-            border-radius: var(--radius-sm);
-        }
-
-        .dropdown-menu a:hover {
-            background-color: var(--bg-secondary);
-            color: var(--brand-secondary);
-            padding-left: 18px;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        /* Бургер меню */
-        .burger-btn {
+        /* Бургер-меню */
+        .hamburger {
             display: none;
+            cursor: pointer;
             flex-direction: column;
             gap: 6px;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            padding: 4px;
-            z-index: 999;
         }
 
-        .burger-btn span {
-            width: 28px;
-            height: 2.5px;
-            background-color: var(--brand-primary);
-            border-radius: 2px;
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-gray);
             transition: var(--transition);
         }
 
-        /* ==========================================================================
-           5. ГЛАВНЫЙ ЭКРАН (HERO PREMIUM)
-           ========================================================================== */
-        .hero-section {
-            padding: 80px 0 100px;
-            background: radial-gradient(circle at 90% 10%, rgba(99, 91, 255, 0.04) 0%, transparent 50%),
-                        radial-gradient(circle at 10% 80%, rgba(0, 210, 196, 0.03) 0%, transparent 40%);
+        /* --- Главный баннер (Hero Section) --- */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            background: linear-gradient(135deg, #FFF 60%, #FFF5F5 100%);
             position: relative;
             overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            right: -10%;
+            top: -10%;
+            width: 50%;
+            height: 120%;
+            background: rgba(209, 35, 42, 0.03);
+            transform: skewX(-15deg);
+            z-index: 1;
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 64px;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
-        .hero-info-side h1 {
-            font-size: clamp(2.5rem, 4.5vw, 3.8rem);
-            letter-spacing: -1.5px;
-            line-height: 1.15;
-            margin-bottom: 24px;
-        }
-
-        .hero-info-side h1 span {
-            background: linear-gradient(120deg, var(--brand-secondary), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-info-side p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            max-width: 580px;
-        }
-
-        .hero-cta-group {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 48px;
-        }
-
-        /* Текстовые микро-достижения в Hero */
-        .hero-mini-achievements {
-            display: flex;
-            gap: 32px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 32px;
-        }
-
-        .mini-ach-card h4 {
-            font-size: 1.5rem;
+        .hero-content h1 {
+            font-size: 48px;
             font-weight: 800;
-            color: var(--brand-secondary);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
         }
 
-        .mini-ach-card p {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-bottom: 0;
-            font-weight: 500;
+        .hero-content h1 span {
+            color: var(--primary-red);
         }
 
-        /* Правая графическая часть Hero (Композиция) */
-        .hero-media-side {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .abstract-canvas {
-            width: 440px;
-            height: 440px;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
-            animation: shapeMorph 12s ease-in-out infinite alternate;
-            position: relative;
-            box-shadow: inset 0 0 40px rgba(255,255,255,0.8);
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-
-        .floating-card {
-            position: absolute;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(0,0,0,0.02);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            animation: elementFloat 5s ease-in-out infinite;
-        }
-
-        .f-card-1 {
-            top: 40px;
-            left: -20px;
-            animation-delay: 0s;
-        }
-
-        .f-card-2 {
-            bottom: 60px;
-            right: -10px;
-            animation-delay: 2s;
-        }
-
-        .floating-card i {
-            width: 44px;
-            height: 44px;
-            border-radius: var(--radius-sm);
-            background-color: rgba(99, 91, 255, 0.1);
-            color: var(--brand-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .floating-card-info h5 {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .floating-card-info p {
-            font-size: 0.8rem;
+        .hero-content p {
+            font-size: 18px;
             color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 600px;
         }
 
-        /* ==========================================================================
-           6. СЕКЦИЯ СТАТИСТИКИ (STATS COUNTERS)
-           ========================================================================== */
-        .stats-section {
-            background-color: var(--bg-secondary);
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Стилизованная абстрактная фигура в духе логотипа */
+        .hero-shape-container {
+            width: 320px;
+            height: 320px;
+            position: relative;
+            background: var(--primary-red);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: morph 8s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 30px rgba(209, 35, 42, 0.2);
+        }
+
+        .hero-shape-container::after {
+            content: 'DAMU';
+            font-weight: 800;
+            font-size: 32px;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        /* --- Секция "О нас" / Преимущества (Stats) --- */
+        .stats {
+            background-color: var(--primary-red);
+            color: var(--white);
             padding: 60px 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            position: relative;
         }
 
-        .stats-wrapper-grid {
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        .counter-box {
+            gap: 30px;
             text-align: center;
-            padding: 20px;
-            position: relative;
         }
 
-        .counter-box:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: -12px;
-            top: 25%;
-            height: 50%;
-            width: 1px;
-            background-color: var(--border-color);
-        }
-
-        .counter-box h3 {
-            font-size: 2.8rem;
+        .stat-item h3 {
+            font-size: 42px;
             font-weight: 800;
-            color: var(--brand-primary);
-            margin-bottom: 6px;
-            letter-spacing: -1px;
-        }
-
-        .counter-box h3 span {
-            color: var(--brand-secondary);
-        }
-
-        .counter-box p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* ==========================================================================
-           7. АКАДЕМИЧЕСКИЕ ПРОГРАММЫ (INTERACTIVE TABS SECTION)
-           ========================================================================== */
-        .programs-section {
-            padding: 100px 0;
-        }
-
-        /* Вкладки/Табы */
-        .tabs-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 48px;
-            background-color: var(--bg-secondary);
-            padding: 6px;
-            border-radius: var(--radius-md);
-            max-width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid var(--border-color);
-        }
-
-        .tab-trigger {
-            padding: 12px 24px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            border-radius: calc(var(--radius-md) - 4px);
-            transition: var(--transition);
-        }
-
-        .tab-trigger.active {
-            background-color: #fff;
-            color: var(--brand-primary);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* Контент вкладок */
-        .tab-content-panel {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out forwards;
-        }
-
-        .tab-content-panel.active {
-            display: block;
-        }
-
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .program-item-card {
-            background-color: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .program-item-card:hover {
-            border-color: transparent;
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-6px);
-        }
-
-        .program-card-top i {
-            font-size: 2.2rem;
-            color: var(--brand-secondary);
-            margin-bottom: 28px;
-            display: inline-block;
-        }
-
-        .program-item-card h4 {
-            font-size: 1.35rem;
-            margin-bottom: 14px;
-        }
-
-        .program-item-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 32px;
-        }
-
-        .program-card-meta-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 32px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-        }
-
-        .meta-tag {
-            font-size: 0.8rem;
-            background-color: var(--bg-secondary);
-            padding: 4px 10px;
-            border-radius: 4px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .program-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card-action-link {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--brand-primary);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .program-item-card:hover .card-action-link {
-            color: var(--brand-secondary);
-        }
-
-        .program-item-card:hover .card-action-link i {
-            transform: translateX(4px);
-        }
-
-        /* ==========================================================================
-           8. ПРЕИМУЩЕСТВА УНИВЕРСИТЕТА (BENTO GRID STYLE)
-           ========================================================================== */
-        .benefits-section {
-            background-color: var(--bg-secondary);
-            padding: 100px 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: minmax(220px, auto);
-            gap: 24px;
-        }
-
-        .bento-cell {
-            background-color: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .bento-cell:hover {
-            box-shadow: var(--shadow-md);
-            border-color: var(--border-hover);
-        }
-
-        .bento-cell-lg {
-            grid-column: span 2;
-        }
-
-        .bento-cell-tall {
-            grid-row: span 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .bento-icon-wrapper {
-            width: 56px;
-            height: 56px;
-            background-color: var(--bg-secondary);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: var(--brand-secondary);
-            margin-bottom: 24px;
-        }
-
-        .bento-cell h3 {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-        }
-
-        .bento-cell p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Специальные стили для контента внутри клеток Бенто */
-        .bento-flex-layout {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-            height: 100%;
-        }
-
-        .bento-flex-text {
-            flex: 1;
-        }
-
-        .bento-decor-graphic {
-            flex: 1;
-            background: linear-gradient(135deg, rgba(99,91,255,0.05), rgba(0,210,196,0.05));
-            height: 100%;
-            border-radius: var(--radius-md);
-            min-height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed var(--border-color);
-        }
-
-        /* ==========================================================================
-           9. ТАЙМЛАЙН ПОСТУПЛЕНИЯ (ADMISSION ROADMAP)
-           ========================================================================== */
-        .timeline-section {
-            padding: 100px 0;
-        }
-
-        .roadmap-container {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        .roadmap-container::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: var(--border-color);
-            transform: translateX(-50%);
-        }
-
-        .roadmap-node {
-            position: relative;
-            margin-bottom: 60px;
-            width: 50%;
-            padding: 0 40px;
-        }
-
-        .roadmap-node-left {
-            left: 0;
-            text-align: right;
-        }
-
-        .roadmap-node-right {
-            left: 50%;
-            text-align: left;
-        }
-
-        .node-marker {
-            position: absolute;
-            top: 4px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: #fff;
-            border: 4px solid var(--brand-secondary);
-            z-index: 10;
-        }
-
-        .roadmap-node-left .node-marker {
-            right: -10px;
-        }
-
-        .roadmap-node-right .node-marker {
-            left: -10px;
-        }
-
-        .node-box {
-            background-color: #fff;
-            padding: 28px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-        }
-
-        .node-box:hover {
-            box-shadow: var(--shadow-md);
-            border-color: var(--brand-secondary);
-        }
-
-        .node-box .step-number {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--brand-secondary);
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .node-box h4 {
-            font-size: 1.25rem;
             margin-bottom: 10px;
         }
 
-        .node-box p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
+        .stat-item p {
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.9;
         }
 
-        /* ==========================================================================
-           10. ЭКОСИСТЕМА ПАРТНЕРОВ (PARTNERS LOGO TICKER)
-           ========================================================================== */
-        .partners-section {
-            padding: 60px 0;
-            border-top: 1px solid var(--border-color);
-            background-color: #fff;
+        /* --- Секция "Программы обучения" (Programs) --- */
+        .programs {
+            padding: 100px 0;
+            background-color: var(--light-gray);
         }
 
-        .partners-header-text {
+        .section-header {
             text-align: center;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-light);
-            font-weight: 700;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
-        .partners-slider-track {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 48px;
-            opacity: 0.6;
-        }
-
-        .partner-logo-mock {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.3rem;
+        .section-header h2 {
+            font-size: 36px;
             font-weight: 800;
-            color: #94a3b8;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* ==========================================================================
-           11. ОТВЕТЫ НА ВОПРОСЫ (FAQ ACCORDION SECTION)
-           ========================================================================== */
-        .faq-section {
-            background-color: var(--bg-secondary);
-            padding: 100px 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .faq-max-width-holder {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-accordion-item {
-            background-color: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            margin-bottom: 16px;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .faq-header-trigger {
-            width: 100%;
-            padding: 24px;
-            background: transparent;
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        .faq-header-trigger h4 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--brand-primary);
-        }
-
-        .faq-icon-indicator {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: var(--bg-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--brand-primary);
-            font-size: 0.85rem;
-            transition: var(--transition);
-        }
-
-        .faq-body-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 0 24px;
-        }
-
-        .faq-body-content p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            padding-bottom: 24px;
-        }
-
-        /* Активное состояние аккордеона */
-        .faq-accordion-item.open {
-            border-color: var(--border-hover);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .faq-accordion-item.open .faq-icon-indicator {
-            transform: rotate(180deg);
-            background-color: var(--brand-primary);
-            color: #fff;
-        }
-
-        /* ==========================================================================
-           12. ИНФОРМАЦИОННЫЕ НОВОСТИ И МЕРОПРИЯТИЯ (NEWS HUB)
-           ========================================================================== */
-        .news-section {
-            padding: 100px 0;
-        }
-
-        .news-grid-layout {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .news-entry-card {
-            background-color: #fff;
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-        }
-
-        .news-entry-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-4px);
-        }
-
-        .news-card-image-stub {
-            height: 220px;
-            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            font-size: 1.1rem;
+            margin-bottom: 15px;
             position: relative;
+            display: inline-block;
         }
 
-        .news-card-body {
-            padding: 32px;
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .program-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-red);
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
+            justify-content: space-between;
         }
 
-        .news-date-meta {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--brand-secondary);
-            margin-bottom: 12px;
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(209, 35, 42, 0.1);
+        }
+
+        .program-body {
+            padding: 30px;
+        }
+
+        .program-tag {
+            display: inline-block;
+            background-color: rgba(209, 35, 42, 0.1);
+            color: var(--primary-red);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
             text-transform: uppercase;
         }
 
-        .news-card-body h3 {
-            font-size: 1.25rem;
-            margin-bottom: 14px;
-            line-height: 1.35;
+        .program-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
         }
 
-        .news-card-body p {
+        .program-card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 24px;
-            flex-grow: 1;
-        }
-
-        /* ==========================================================================
-           13. МОНУМЕНТАЛЬНЫЙ ПОДВАЛ САЙТА (MEGA FOOTER)
-           ========================================================================== */
-        footer {
-            background-color: var(--brand-primary);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 96px 0 32px;
-            font-size: 0.9rem;
-            border-top: 4px solid var(--brand-secondary);
-        }
-
-        .footer-primary-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr 0.8fr 1.2fr;
-            gap: 48px;
-            margin-bottom: 80px;
-        }
-
-        .footer-brand-col p {
-            margin-top: 20px;
-            margin-bottom: 28px;
-            line-height: 1.6;
-        }
-
-        .footer-socials {
-            display: flex;
-            gap: 12px;
-        }
-
-        .footer-socials a {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-sm);
-            background-color: rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.1rem;
-        }
-
-        .footer-socials a:hover {
-            background-color: var(--brand-secondary);
-            transform: translateY(-3px);
-        }
-
-        .footer-links-col h4 {
-            color: #fff;
-            font-size: 1.1rem;
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        .footer-links-col ul {
-            display: grid;
-            gap: 14px;
-        }
-
-        .footer-links-col ul a:hover {
-            color: #fff;
-            padding-left: 6px;
-        }
-
-        .footer-contacts-list li {
-            display: flex;
-            gap: 14px;
+            font-size: 14px;
             margin-bottom: 20px;
         }
 
-        .footer-contacts-list i {
-            color: var(--accent-cyan);
-            font-size: 1.05rem;
-            margin-top: 4px;
-        }
-
-        .footer-bottom-bar {
-            padding-top: 32px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .program-footer {
+            padding: 20px 30px;
+            background-color: #FAFBFB;
+            border-top: 1px solid #ECEFF1;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
         }
 
-        .footer-bottom-links {
-            display: flex;
-            gap: 24px;
+        .program-footer span {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--primary-red);
         }
 
-        /* ==========================================================================
-           14. МОДАЛЬНЫЕ ОКНА И ДИАЛОГИ (POPUP MODAL MODUL)
-           ========================================================================== */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(9, 21, 36, 0.6);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-window {
-            background-color: #fff;
-            max-width: 540px;
-            width: 100%;
-            border-radius: var(--radius-lg);
-            padding: 48px;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            transform: scale(0.9) translateY(20px);
-            transition: var(--transition);
-        }
-
-        .modal-overlay.active .modal-window {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-close-trigger {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            background: transparent;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--text-light);
-        }
-
-        .modal-close-trigger:hover {
-            color: var(--brand-primary);
-        }
-
-        .modal-window h3 {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-        }
-
-        .modal-window p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 32px;
-        }
-
-        .form-input-group {
-            margin-bottom: 20px;
-        }
-
-        .form-input-group label {
-            display: block;
-            font-size: 0.85rem;
+        .program-footer a {
+            font-size: 14px;
             font-weight: 600;
-            color: var(--brand-primary);
-            margin-bottom: 8px;
-        }
-
-        .form-control-field {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            outline: none;
+            color: var(--dark-gray);
             transition: var(--transition);
         }
 
-        .form-control-field:focus {
-            border-color: var(--brand-secondary);
-            box-shadow: 0 0 0 4px rgba(99, 91, 255, 0.1);
+        .program-footer a:hover {
+            color: var(--primary-red);
         }
 
-        /* ==========================================================================
-           15. КЛЮЧЕВАЯ АНИМАЦИЯ (KEYFRAMES CODES)
-           ========================================================================== */
-        @keyframes shapeMorph {
-            0% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
-            50% { border-radius: 70% 30% 52% 48% / 60% 40% 60% 40%; }
-            100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+        /* --- Подвал (Footer) --- */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 80px 0 30px 0;
         }
 
-        @keyframes elementFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .footer-brand p {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #A0A0A0;
+            max-width: 280px;
         }
 
-        /* ==========================================================================
-           16. АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА (RESPONSIVE CORRECTIONS)
-           ========================================================================== */
+        .footer-col h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary-red);
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #A0A0A0;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-red);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #777;
+        }
+
+        /* --- Адаптивность (Responsive) --- */
         @media (max-width: 1024px) {
             .hero-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
-                gap: 48px;
             }
-            .hero-info-side p { margin-left: auto; margin-right: auto; }
-            .hero-cta-group { justify-content: center; }
-            .hero-mini-achievements { justify-content: center; }
-            .hero-media-side { order: -1; }
-            
-            .programs-grid, .news-grid-layout, .bento-grid {
+            .hero-content p {
+                margin: 0 auto 30px auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-image {
+                display: none; /* Скрываем абстракцию на планшетах для лаконичности */
+            }
+            .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .bento-cell-lg { grid-column: span 2; }
-            .footer-primary-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
-            .burger-btn { display: flex; }
-            
-            .main-nav {
+            .nav-menu {
                 position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: #fff;
+                top: 75px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 75px);
+                background-color: var(--white);
                 flex-direction: column;
-                justify-content: center;
-                padding: 40px;
-                gap: 24px;
-                transform: translateX(100%);
+                padding: 40px 20px;
+                gap: 25px;
                 transition: var(--transition);
-                z-index: 998;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
             }
 
-            .main-nav.mobile-active {
-                transform: translateX(0);
+            .nav-menu.active {
+                left: 0;
             }
 
-            .topbar, .header-actions .btn { display: none; }
-            
-            .stats-wrapper-grid { grid-template-columns: repeat(2, 1fr); }
-            .counter-box:nth-child(2)::after { display: none; }
-            
-            .roadmap-container::before { left: 24px; }
-            .roadmap-node { width: 100%; padding-left: 56px; padding-right: 0; text-align: left !important; }
-            .node-marker { left: 14px !important; }
-            .roadmap-node-right { left: 0; }
+            .hamburger {
+                display: flex;
+            }
 
-            .programs-grid, .news-grid-layout, .bento-grid {
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
-            .bento-cell-lg { grid-column: span 1; }
-            .bento-flex-layout { flex-direction: column; }
-        }
 
-        @media (max-width: 480px) {
-            .stats-wrapper-grid { grid-template-columns: 1fr; }
-            .counter-box::after { display: none !important; }
-            .footer-primary-grid { grid-template-columns: 1fr; }
-            .modal-window { padding: 32px 20px; }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="topbar">
-        <div class="container topbar-wrapper">
-            <div class="topbar-links">
-                <a href="#"><i class="fa-solid fa-location-dot"></i> EXPO, Блок C1, г. Астана, Казахстан</a>
-                <a href="tel:+77172645710"><i class="fa-solid fa-phone"></i> +7 (7172) 64-57-10</a>
-            </div>
-            <div class="topbar-right">
-                <nav class="topbar-nav">
-                    <a href="#" style="margin-right: 16px;">Студентам</a>
-                    <a href="#">Преподавателям</a>
-                </nav>
-                <div class="lang-selector">
-                    <a href="#" class="active">RU</a>
-                    <a href="#">KK</a>
-                    <a href="#">EN</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <header id="mainHeader">
-        <div class="container header-wrapper">
-            <a href="#" class="brand-logo">
-                <div class="logo-emblem">
-                    <i class="fa-solid fa-gavel"></i>
-                </div>
-                <div class="logo-meta">
-                    <h2>ASTANA IT</h2>
-                    <p>University</p>
-                </div>
+    <header id="header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU Academy Logo">
             </a>
             
-            <nav class="main-nav" id="mainNav">
-                <div class="nav-item">
-                    <a href="#about" class="nav-link">Об Университете <i class="fa-solid fa-chevron-down"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="#about">История вуза</a>
-                        <a href="#benefits">Преимущества</a>
-                        <a href="#">Руководство</a>
-                        <a href="#">Вакансии академические</a>
-                    </div>
-                </div>
-                <div class="nav-item">
-                    <a href="#programs" class="nav-link">Обучение <i class="fa-solid fa-chevron-down"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="#programs">Бакалавриат</a>
-                        <a href="#programs">Магистратура</a>
-                        <a href="#programs">PhD Докторантура</a>
-                        <a href="#">Сертификационные курсы</a>
-                    </div>
-                </div>
-                <div class="nav-item"><a href="#roadmap" class="nav-link">Абитуриентам</a></div>
-                <div class="nav-item"><a href="#news" class="nav-link">Новости</a></div>
-                <div class="nav-item"><a href="#faq" class="nav-link">FAQ</a></div>
-            </nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#hero" class="nav-link active">Главная</a></li>
+                <li><a href="#programs" class="nav-link">Программы</a></li>
+                <li><a href="#about" class="nav-link">О нас</a></li>
+                <li><a href="#contacts" class="nav-link">Контакты</a></li>
+                <li><a href="#apply" class="btn btn-primary" style="padding: 8px 20px; font-size: 14px;">Подать заявку</a></li>
+            </ul>
 
-            <div class="header-actions">
-                <button class="btn btn-primary" onclick="toggleModal(true)">Подать Заявку</button>
-                <button class="burger-btn" id="burgerBtn" aria-label="Открыть меню">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </header>
 
-    <section class="hero-section">
-        <div class="container hero-grid">
-            <div class="hero-info-side">
-                <span class="badge badge-cyan">Лидер IT-образования</span>
-                <h1>Построй карьеру мирового уровня в <span>IT индустрии</span></h1>
-                <p>Высокотехнологичный кампус, углубленное обучение полностью на английском языке и прочные связи с гигантами мирового технологического рынка.</p>
-                <div class="hero-cta-group">
-                    <button class="btn btn-primary" onclick="toggleModal(true)">Подать документы</button>
-                    <a href="#programs" class="btn btn-secondary">Программы обучения</a>
-                </div>
-                <div class="hero-mini-achievements">
-                    <div class="mini-ach-card">
-                        <h4>3 года</h4>
-                        <p>Интенсивный бакалавриат</p>
-                    </div>
-                    <div class="mini-ach-card">
-                        <h4>94%</h4>
-                        <p>Трудоустройство выпускников</p>
-                    </div>
-                    <div class="mini-ach-card">
-                        <h4>ACCAS</h4>
-                        <p>Международная аккредитация</p>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-media-side">
-                <div class="abstract-canvas"></div>
-                <div class="floating-card f-card-1">
-                    <i class="fa-solid fa-code"></i>
-                    <div class="floating-card-info">
-                        <h5>Software Engineering</h5>
-                        <p>Топ востребованных профессий</p>
-                    </div>
-                </div>
-                <div class="floating-card f-card-2">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <div class="floating-card-info">
-                        <h5>Cyber Security</h5>
-                        <p>Защита корпоративных данных</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="stats-section">
-        <div class="container stats-wrapper-grid">
-            <div class="counter-box">
-                <h3><span>4000</span>+</h3>
-                <p>Активных Студентов</p>
-            </div>
-            <div class="counter-box">
-                <h3><span>15</span>+</h3>
-                <p>IT Специализаций</p>
-            </div>
-            <div class="counter-box">
-                <h3><span>50</span>+</h3>
-                <p>Зарубежных Вузов-Партнеров</p>
-            </div>
-            <div class="counter-box">
-                <h3><span>100</span>%</h3>
-                <p>Англоязычная Среда</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="programs-section" id="programs">
+    <section class="hero" id="hero">
         <div class="container">
-            <div class="section-title-block">
-                <span class="badge badge-cyan">Академические направления</span>
-                <h2>Направления, которые меняют мир</h2>
-                <p>Выберите академическую степень, отвечающую вашим амбициям в цифровой индустрии.</p>
-            </div>
-
-            <div class="tabs-container">
-                <button class="tab-trigger active" onclick="switchTab(event, 'bachelor')">Бакалавриат</button>
-                <button class="tab-trigger" onclick="switchTab(event, 'master')">Магистратура & PhD</button>
-                <button class="tab-trigger" onclick="switchTab(event, 'college')">IT Колледж</button>
-            </div>
-
-            <div id="bachelor" class="tab-content-panel active">
-                <div class="programs-grid">
-                    <div class="program-item-card">
-                        <div class="program-card-top">
-                            <i class="fa-solid fa-laptop-code"></i>
-                            <h4>Computer Science</h4>
-                            <p>Глубокое изучение алгоритмов, структур данных, разработки архитектур ПО и фундаментального программирования.</p>
-                        </div>
-                        <div>
-                            <div class="program-card-meta-list">
-                                <span class="meta-tag">3 года</span>
-                                <span class="meta-tag">English</span>
-                                <span class="meta-tag">Гранты</span>
-                            </div>
-                            <div class="program-card-footer">
-                                <a href="#" class="card-action-link">Подробнее <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="program-item-card">
-                        <div class="program-card-top">
-                            <i class="fa-solid fa-chart-pie"></i>
-                            <h4>Big Data Analytics</h4>
-                            <p>Анализ больших объемов информации, построение предиктивных ИИ моделей и систем машинного обучения.</p>
-                        </div>
-                        <div>
-                            <div class="program-card-meta-list">
-                                <span class="meta-tag">3 года</span>
-                                <span class="meta-tag">English</span>
-                                <span class="meta-tag">AI/ML</span>
-                            </div>
-                            <div class="program-card-footer">
-                                <a href="#" class="card-action-link">Подробнее <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="program-item-card">
-                        <div class="program-card-top">
-                            <i class="fa-solid fa-user-shield"></i>
-                            <h4>Cyber Security</h4>
-                            <p>Обеспечение кибербезопасности инфраструктур, аудит уязвимостей, предотвращение хакерских угроз.</p>
-                        </div>
-                        <div>
-                            <div class="program-card-meta-list">
-                                <span class="meta-tag">3 года</span>
-                                <span class="meta-tag">English</span>
-                                <span class="meta-tag">Безопасность</span>
-                            </div>
-                            <div class="program-card-footer">
-                                <a href="#" class="card-action-link">Подробнее <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Инновационное образование в <span>DAMU Academy</span></h1>
+                    <p>Мы готовим лидеров в сфере технологий, бизнеса и креативных индустрий. Получите востребованные навыки на стыке передовой практики и академических стандартов.</p>
+                    <div class="hero-buttons">
+                        <a href="#programs" class="btn btn-primary">Направления подготовки</a>
+                        <a href="#about" class="btn btn-secondary">Узнать больше</a>
                     </div>
                 </div>
-            </div>
-
-            <div id="master" class="tab-content-panel">
-                <div class="programs-grid">
-                    <div class="program-item-card">
-                        <div class="program-card-top">
-                            <i class="fa-solid fa-brain"></i>
-                            <h4>Project Management в IT</h4>
-                            <p>Управление сложными продуктовыми командами, внедрение гибких методологий Agile, Scrum и бюджетирование.</p>
-                        </div>
-                        <div>
-                            <div class="program-card-meta-list">
-                                <span class="meta-tag">1.5-2 года</span>
-                                <span class="meta-tag">Магистратура</span>
-                            </div>
-                            <div class="program-card-footer">
-                                <a href="#" class="card-action-link">Подробнее <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="program-item-card">
-                        <div class="program-card-top">
-                            <i class="fa-solid fa-microscope"></i>
-                            <h4>IT-Инженерия (PhD)</h4>
-                            <p>Научные исследования на стыке искусственного интеллекта, робототехники и обработки естественного языка.</p>
-                        </div>
-                        <div>
-                            <div class="program-card-meta-list">
-                                <span class="meta-tag">3 года</span>
-                                <span class="meta-tag">Докторантура</span>
-                            </div>
-                            <div class="program-card-footer">
-                                <a href="#" class="card-action-link">Подробнее <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="hero-image">
+                    <div class="hero-shape-container"></div>
                 </div>
             </div>
-
-            <div id="college" class="tab-content-panel">
-                <div class="programs-grid">
-                    <div class="program-item-card">
-                        <div class="program-card-top">
-                            <i class="fa-solid fa-terminal"></i>
-                            <h4>Прикладное программирование</h4>
-                            <p>Базовые основы веб-разработки (HTML, CSS, JavaScript, Python) для выпускников 9 и 11 классов.</p>
-                        </div>
-                        <div>
-                            <div class="program-card-meta-list">
-                                <span class="meta-tag">После 9 класса</span>
-                                <span class="meta-tag">Практика</span>
-                            </div>
-                            <div class="program-card-footer">
-                                <a href="#" class="card-action-link">Подробнее <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <section class="benefits-section" id="benefits">
+    <section class="stats" id="about">
         <div class="container">
-            <div class="section-title-block">
-                <span class="badge badge-orange">Экосистема AITU</span>
-                <h2>Преимущества, формирующие лидеров</h2>
-                <p>Мы создали уникальные условия, чтобы учебный процесс был максимально приближен к реалиям международного рынка.</p>
-            </div>
-
-            <div class="bento-grid">
-                <div class="bento-cell bento-cell-lg">
-                    <div class="bento-flex-layout">
-                        <div class="bento-flex-text">
-                            <div class="bento-icon-wrapper"><i class="fa-solid fa-building-columns"></i></div>
-                            <h3>Высокотехнологичный смарт-кампус</h3>
-                            <p>Наш кампус расположен на территории EXPO. В распоряжении студентов лаборатории виртуальной реальности, зоны 3D-моделирования и инкубаторы стартап-проектов.</p>
-                        </div>
-                        <div class="bento-decor-graphic">
-                            <span style="font-size: 0.85rem; color: var(--text-light); font-weight: 600;"><i class="fa-solid fa-images"></i> Interactive Render Overview</span>
-                        </div>
-                    </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>1500+</h3>
+                    <p>Студентов и выпускников</p>
                 </div>
-                
-                <div class="bento-cell bento-cell-tall">
-                    <div>
-                        <div class="bento-icon-wrapper"><i class="fa-solid fa-certificate"></i></div>
-                        <h3>Индустриальная сертификация</h3>
-                        <p>Параллельно с университетским дипломом наши студенты во время занятий сдают экзамены и получают международные сертификаты Cisco, Huawei, Oracle, Microsoft.</p>
-                    </div>
-                    <div style="font-size: 2rem; font-weight: 800; color: rgba(99,91,255,0.15); align-self: flex-end; margin-top: 20px;">
-                        CISCO / AWS / GOOGLE
-                    </div>
+                <div class="stat-item">
+                    <h3>94%</h3>
+                    <p>Трудоустройство после обучения</p>
                 </div>
-
-                <div class="bento-cell">
-                    <div class="bento-icon-wrapper"><i class="fa-solid fa-globe"></i></div>
-                    <h3>Семестр за рубежом</h3>
-                    <p>Программы академической мобильности (Erasmus+) позволяют обучаться в вузах Европы, Азии и США.</p>
+                <div class="stat-item">
+                    <h3>45+</h3>
+                    <p>Партнерских IT-компаний</p>
                 </div>
-
-                <div class="bento-cell bento-cell-lg">
-                    <div class="bento-icon-wrapper"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <h3>Обучение на английском языке</h3>
-                    <p>Все лекции, лабораторные и дипломные работы проводятся исключительно на английском языке, что открывает выпускникам двери в международные технологические консалтинговые компании и стартап-хабы.</p>
+                <div class="stat-item">
+                    <h3>12</h3>
+                    <p>Актуальных программ</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="timeline-section" id="roadmap">
+    <section class="programs" id="programs">
         <div class="container">
-            <div class="section-title-block">
-                <span class="badge badge-cyan">Пошаговое руководство</span>
-                <h2>Твой путь в Astana IT University</h2>
-                <p>Процесс подачи документов прозрачен и понятен. Следуйте этим четырем шагам для успешного зачисления.</p>
-            </div>
-
-            <div class="roadmap-container">
-                <div class="roadmap-node roadmap-node-left">
-                    <div class="node-marker"></div>
-                    <div class="node-box">
-                        <span class="step-number">Шаг 01</span>
-                        <h4>Сдача ЕНТ</h4>
-                        <p>Наберите необходимый проходной балл по профильным предметам (Физика + Математика или Информатика).</p>
-                    </div>
-                </div>
-                <div class="roadmap-node roadmap-node-right">
-                    <div class="node-marker"></div>
-                    <div class="node-box">
-                        <span class="step-number">Шаг 02</span>
-                        <h4>Регистрация на портале</h4>
-                        <p>Заполните анкету абитуриента в нашей онлайн-системе, прикрепив удостоверение и сертификат ЕНТ.</p>
-                    </div>
-                </div>
-                <div class="roadmap-node roadmap-node-left">
-                    <div class="node-marker"></div>
-                    <div class="node-box">
-                        <span class="step-number">Шаг 03</span>
-                        <h4>Конкурс грантов</h4>
-                        <p>Примите участие в распределении государственных образовательных грантов или внутренних стипендий.</p>
-                    </div>
-                </div>
-                <div class="roadmap-node roadmap-node-right">
-                    <div class="node-marker"></div>
-                    <div class="node-box">
-                        <span class="step-number">Шаг 04</span>
-                        <h4>Зачисление</h4>
-                        <p>Предоставьте оригиналы документов в приемную комиссию и получите статус студента AITU!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="partners-section">
-        <div class="container">
-            <div class="partners-header-text">Наши выпускники работают и стажируются в компаниях</div>
-            <div class="partners-slider-track">
-                <div class="partner-logo-mock"><i class="fa-brands fa-google"></i> Google</div>
-                <div class="partner-logo-mock"><i class="fa-brands fa-microsoft"></i> Microsoft</div>
-                <div class="partner-logo-mock"><i class="fa-brands fa-aws"></i> Amazon Web Services</div>
-                <div class="partner-logo-mock"><i class="fa-brands fa-huawei"></i> Huawei</div>
-                <div class="partner-logo-mock"><i class="fa-solid fa-cube"></i> Kaspi.kz</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="news-section" id="news">
-        <div class="container">
-            <div class="section-title-block">
-                <span class="badge badge-cyan">Жизнь университета</span>
-                <h2>Пресс-центр и События</h2>
-                <p>Узнавайте первыми о научных открытиях, хакатонах и визитах международных делегаций.</p>
-            </div>
-
-            <div class="news-grid-layout">
-                <div class="news-entry-card">
-                    <div class="news-card-image-stub">
-                        <i class="fa-solid fa-trophy" style="font-size: 3rem;"></i>
-                    </div>
-                    <div class="news-card-body">
-                        <span class="news-date-meta">15 Июля, 2026</span>
-                        <h3>Команда AITU заняла первое место на Центральноазиатском Хакатоне</h3>
-                        <p>Студенты 2 курса разработали ИИ-платформу для оптимизации логистических маршрутов и выиграли главный приз.</p>
-                        <a href="#" class="card-action-link" style="margin-top: auto;">Читать статью <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="news-entry-card">
-                    <div class="news-card-image-stub">
-                        <i class="fa-solid fa-handshake-angle" style="font-size: 3rem;"></i>
-                    </div>
-                    <div class="news-card-body">
-                        <span class="news-date-meta">10 Июля, 2026</span>
-                        <h3>Подписан меморандум о сотрудничестве с крупным IT-консорциумом</h3>
-                        <p>Новое партнерство открывает перед магистрантами возможность прохождения оплачиваемой стажировки за рубежом.</p>
-                        <a href="#" class="card-action-link" style="margin-top: auto;">Читать статью <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="news-entry-card">
-                    <div class="news-card-image-stub">
-                        <i class="fa-solid fa-compass-drafting" style="font-size: 3rem;"></i>
-                    </div>
-                    <div class="news-card-body">
-                        <span class="news-date-meta">02 Июля, 2026</span>
-                        <h3>Открытие лаборатории Передовых Роботизированных Систем</h3>
-                        <p>Лаборатория оснащена современными манипуляторами и сенсорами для проведения исследований в области IoT.</p>
-                        <a href="#" class="card-action-link" style="margin-top: auto;">Читать статью <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq-section" id="faq">
-        <div class="container">
-            <div class="section-title-block">
-                <span class="badge badge-orange">Вопросы и ответы</span>
-                <h2>Часто задаваемые вопросы</h2>
-                <p>Не нашли нужную информацию? Мы собрали ответы на самые популярные вопросы абитуриентов.</p>
-            </div>
-
-            <div class="faq-max-width-holder">
-                <div class="faq-accordion-item">
-                    <button class="faq-header-trigger" onclick="toggleFaq(this)">
-                        <h4>Каков проходной балл для поступления на грант?</h4>
-                        <div class="faq-icon-indicator"><i class="fa-solid fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-body-content">
-                        <p>Проходной балл ежегодно меняется в зависимости от конкурса и общего количества заявок в Министерстве. В среднем, для уверенного прохождения на IT-специальности рекомендуется иметь балл ЕНТ выше 105–110.</p>
-                    </div>
-                </div>
-
-                <div class="faq-accordion-item">
-                    <button class="faq-header-trigger" onclick="toggleFaq(this)">
-                        <h4>Возможно ли перевестись из другого университета?</h4>
-                        <div class="faq-icon-indicator"><i class="fa-solid fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-body-content">
-                        <p>Да, перевод возможен во время зимних или летних каникул. Главным условием является соответствие профильных дисциплин и отсутствие академической задолженности в текущем вузе.</p>
-                    </div>
-                </div>
-
-                <div class="faq-accordion-item">
-                    <button class="faq-header-trigger" onclick="toggleFaq(this)">
-                        <h4>Предоставляется ли студентам общежитие?</h4>
-                        <div class="faq-icon-indicator"><i class="fa-solid fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-body-content">
-                        <p>Университет имеет соглашения с современными хостелами и студенческими домами. В первую очередь места распределяются среди иногородних студентов из уязвимых социальных категорий и первокурсников.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container footer-primary-grid">
-            <div class="footer-brand-col">
-                <a href="#" class="brand-logo">
-                    <div class="logo-emblem" style="background: #fff; color: var(--brand-primary);">
-                        <i class="fa-solid fa-gavel"></i>
-                    </div>
-                    <div class="logo-meta">
-                        <h2 style="color: #fff;">ASTANA IT</h2>
-                        <p style="color: rgba(255,255,255,0.6);">University</p>
-                    </div>
-                </a>
-                <p>Мы формируем интеллектуальную IT-элиту нового поколения, способную конкурировать на мировых рынках цифровых технологий.</p>
-                <div class="footer-socials">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                </div>
+            <div class="section-header">
+                <h2>Наши программы</h2>
+                <p>Выберите будущую профессию в соответствии с мировыми трендами</p>
             </div>
             
-            <div class="footer-links-col">
-                <h4>Навигация</h4>
-                <ul>
-                    <li><a href="#about">Об Университете</a></li>
-                    <li><a href="#programs">Специальности</a></li>
-                    <li><a href="#benefits">Преимущества</a></li>
-                    <li><a href="#news">Новости и блоги</a></li>
-                </ul>
-            </div>
+            <div class="program-grid">
+                <div class="program-card">
+                    <div class="program-body">
+                        <span class="program-tag">Software</span>
+                        <h3>Разработка ПО & Алгоритмы</h3>
+                        <p>Глубокое изучение Computer Science, веб-технологий, мобильной разработки и проектирования высоконагруженных систем.</p>
+                    </div>
+                    <div class="program-footer">
+                        <span>4 года обучения</span>
+                        <a href="#">Подробнее &rarr;</a>
+                    </div>
+                </div>
 
-            <div class="footer-links-col">
-                <h4>Ресурсы</h4>
-                <ul>
-                    <li><a href="#">Портал Smart AITU</a></li>
-                    <li><a href="#">Электронная библиотека</a></li>
-                    <li><a href="#">Академический календарь</a></li>
-                    <li><a href="#">Центр карьеры</a></li>
-                </ul>
-            </div>
+                <div class="program-card">
+                    <div class="program-body">
+                        <span class="program-tag">Data Science</span>
+                        <h3>Анализ данных & AI</h3>
+                        <p>Машинное обучение, нейронные сети и обработка больших данных для решения сложнейших бизнес-задач.</p>
+                    </div>
+                    <div class="program-footer">
+                        <span>4 года обучения</span>
+                        <a href="#">Подробнее &rarr;</a>
+                    </div>
+                </div>
 
-            <div class="footer-links-col">
-                <h4>Контакты</h4>
-                <ul class="footer-contacts-list">
-                    <li>
-                        <i class="fa-solid fa-envelope"></i>
-                        <span>info@astanait.edu.kz<br>admission@astanait.edu.kz</span>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-phone"></i>
-                        <span>+7 (7172) 64-57-10<br>+7 (7172) 64-57-12</span>
-                    </li>
-                </ul>
+                <div class="program-card">
+                    <div class="program-body">
+                        <span class="program-tag">Management</span>
+                        <h3>IT-Менеджмент & Маркетинг</h3>
+                        <p>Управление цифровыми продуктами, гибкие методологии Scrum/Agile и масштабирование технологических стартапов.</p>
+                    </div>
+                    <div class="program-footer">
+                        <span>3 года обучения</span>
+                        <a href="#">Подробнее &rarr;</a>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="container footer-bottom-bar">
-            <p>&copy; 2026 Astana IT University. Все права защищены. Лицензия МОН РК №KZ43LAA00017345.</p>
-            <div class="footer-bottom-links">
-                <a href="#">Политика конфиденциальности</a>
-                <a href="#">Условия использования</a>
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU Academy Logo" style="height: 40px; filter: brightness(0) invert(1);">
+                    <p>Формируем новое поколение профессионалов, готовых к глобальным технологическим вызовам.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Ресурсы</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Абитуриентам</a></li>
+                        <li><a href="#">Студенческий портал</a></li>
+                        <li><a href="#">Карьерный центр</a></li>
+                        <li><a href="#">Библиотека</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Академия</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Вакансии</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@damu.edu" style="color: var(--primary-red); font-weight: 600;">info@damu.edu</a></li>
+                        <li><a href="tel:+77777777777">+7 (777) 777-77-77</a></li>
+                        <li style="color: #A0A0A0; font-size: 14px; margin-top: 10px;">проспект Республики, 10</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ТОО "DAMU Academy". Все права защищены.</p>
+                <p>Разработано в стиле Astana IT</p>
             </div>
         </div>
     </footer>
 
-    <div class="modal-overlay" id="applicationModal" onclick="handleOverlayClick(event)">
-        <div class="modal-window">
-            <button class="modal-close-trigger" onclick="toggleModal(false)"><i class="fa-solid fa-xmark"></i></button>
-            <h3>Подать заявку</h3>
-            <p>Заполните форму ниже, и специалисты нашей приемной комиссии свяжутся с вами в течение рабочего дня.</p>
-            
-            <form onsubmit="handleFormSubmit(event)">
-                <div class="form-input-group">
-                    <label for="clientName">Ваше имя и фамилия</label>
-                    <input type="text" id="clientName" class="form-control-field" placeholder="Иван Иванов" required>
-                </div>
-                <div class="form-input-group">
-                    <label for="clientPhone">Номер телефона</label>
-                    <input type="tel" id="clientPhone" class="form-control-field" placeholder="+7 (700) 000-00-00" required>
-                </div>
-                <div class="form-input-group">
-                    <label for="clientProgram">Программа обучения</label>
-                    <select id="clientProgram" class="form-control-field">
-                        <option value="cs">Computer Science (Бакалавриат)</option>
-                        <option value="bd">Big Data Analytics (Бакалавриат)</option>
-                        <option value="cs">Cyber Security (Бакалавриат)</option>
-                        <option value="pm">Project Management (Магистратура)</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Отправить форму</button>
-            </form>
-        </div>
-    </div>
-
     <script>
-        // Анимация шапки при скролле страницы (Сжатие и тень)
-        const headerElement = document.getElementById('mainHeader');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 40) {
-                headerElement.classList.add('scrolled');
-            } else {
-                headerElement.classList.remove('scrolled');
-            }
+        // Переключение мобильного меню (Бургер)
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
 
-        // Открытие/закрытие мобильного меню (Бургер-кнопка)
-        const burgerBtn = document.getElementById('burgerBtn');
-        const mainNav = document.getElementById('mainNav');
-
-        burgerBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('mobile-active');
-            burgerBtn.classList.toggle('active');
-            document.body.classList.toggle('no-scroll');
-        });
-
-        // Автоматическое закрытие мобильного меню при клике на внутреннюю ссылку
-        document.querySelectorAll('.main-nav a').forEach(link => {
+        // Закрытие меню при клике на ссылки
+        document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
-                mainNav.classList.remove('mobile-active');
-                burgerBtn.classList.remove('active');
-                document.body.classList.remove('no-scroll');
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
             });
         });
 
-        // Переключение вкладок академических программ
-        function switchTab(event, tabId) {
-            // Убираем активный класс у всех триггеров
-            document.querySelectorAll('.tab-trigger').forEach(trigger => {
-                trigger.classList.remove('active');
-            });
-            // Скрываем все панели с контентом
-            document.querySelectorAll('.tab-content-panel').forEach(panel => {
-                panel.classList.remove('active');
-            });
+        // Скролл-эффект для шапки и активных ссылок
+        const header = document.getElementById('header');
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
 
-            // Добавляем активность нажатой кнопке и панели
-            event.currentTarget.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-        }
-
-        // Логика развертывания аккордеона FAQ
-        function toggleFaq(triggerElement) {
-            const parentItem = triggerElement.parentElement;
-            const contentBody = parentItem.querySelector('.faq-body-content');
-
-            if (parentItem.classList.contains('open')) {
-                contentBody.style.maxHeight = null;
-                parentItem.classList.remove('open');
+        window.addEventListener('scroll', () => {
+            // Эффект сжатия шапки при скролле
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
             } else {
-                // Закрываем другие открытые элементы для экономии экранного места (Опционально)
-                document.querySelectorAll('.faq-accordion-item').forEach(item => {
-                    item.classList.remove('open');
-                    const body = item.querySelector('.faq-body-content');
-                    if (body) body.style.maxHeight = null;
-                });
-
-                parentItem.classList.add('open');
-                contentBody.style.maxHeight = contentBody.scrollHeight + "px";
+                header.classList.remove('scrolled');
             }
-        }
 
-        // Управление модальным окном подачи заявок
-        const applicationModal = document.getElementById('applicationModal');
+            // Подсветка активного пункта меню в зависимости от положения на странице
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
 
-        function toggleModal(show) {
-            if (show) {
-                applicationModal.classList.add('active');
-                document.body.classList.add('no-scroll');
-            } else {
-                applicationModal.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            }
-        }
-
-        function handleOverlayClick(event) {
-            // Закрываем окно только если клик пришелся на размытый фон, а не само окно
-            if (event.target === applicationModal) {
-                toggleModal(false);
-            }
-        }
-
-        // Обработка успешной отправки формы анкеты
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            alert('Спасибо! Ваша заявка успешно зарегистрирована. Наш менеджер свяжется с вами в ближайшее время.');
-            toggleModal(false);
-            event.target.reset(); // Очистка формы
-        }
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
