@@ -2,32 +2,48 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAMU Academy — Курсы английского языка</title>
-    <meta name="description" content="DAMU Academy — современные курсы английского языка: разговорный клуб, подготовка к IELTS, Business English и курсы для детей. Запишитесь на бесплатный пробный урок.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DAMU Academy — Премиальный Технологичный Портал</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
     <style>
         /* ==========================================================================
-           1. ПЕРЕМЕННЫЕ И БАЗОВЫЕ СТИЛИ (CSS VARIABLES & RESET)
+           1. НАСТРОЙКИ СТИЛЯ И ГРАДИЕНТОВ (PREMIUM THEMING)
            ========================================================================== */
         :root {
             --primary: #D1232A;
-            --primary-dark: #9E161B;
-            --primary-light: #FFEBEC;
-            --secondary: #1E1E1E;
-            --secondary-light: #2D2D2D;
+            --primary-grad: linear-gradient(135deg, #E11D48 0%, #9E161B 100%);
+            --primary-glow: rgba(225, 29, 72, 0.35);
+            --secondary: #0B0F19; /* Более глубокий премиальный темный */
+            --secondary-light: #1E293B;
             --white: #FFFFFF;
-            --light-bg: #F4F6F9;
+            --light-bg: #F8FAFC;
             --border-color: #E2E8F0;
-            --text-main: #2D3748;
-            --text-muted: #718096;
-            --success: #38A169;
-            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-            --shadow-md: 0 10px 25px rgba(209, 35, 42, 0.08);
-            --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --success: #10B981;
+            
+            --container-padding: 16px;
+            --font-title: clamp(26px, 7vw, 54px);
+            --font-subtitle: clamp(20px, 5vw, 32px);
+            --font-body: clamp(14px, 3vw, 16px);
+            
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-md: 0 12px 32px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 20px 48px rgba(11, 15, 25, 0.15);
+            --shadow-glow: 0 8px 24px var(--primary-glow);
+            
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (min-width: 768px) {
+            :root {
+                --container-padding: 40px;
+            }
         }
 
         * {
@@ -35,64 +51,94 @@
             margin: 0;
             padding: 0;
             font-family: 'Montserrat', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            background-color: var(--white);
+            color: var(--text-main);
+            font-size: var(--font-body);
+            line-height: 1.6;
             scroll-behavior: smooth;
         }
 
-        body {
-            background-color: var(--white);
-            color: var(--text-main);
-            line-height: 1.7;
-            overflow-x: hidden;
+        /* Премиальный скроллбар */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
+        ::-webkit-scrollbar-track {
+            background: var(--light-bg);
         }
-
-        ul {
-            list-style: none;
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 100px;
         }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
         }
 
         .container {
+            width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 30px;
+            padding: 0 var(--container-padding);
         }
 
-        /* Общие кнопки */
+        /* Премиум-кнопки с эффектом глубины и свечения */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
+            min-height: 52px;
             padding: 14px 32px;
-            font-weight: 700;
-            font-size: 14px;
+            font-weight: 800;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-radius: 4px;
+            letter-spacing: 1px;
+            border-radius: 12px;
             border: 2px solid transparent;
             cursor: pointer;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
             transition: var(--transition);
         }
 
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--white);
+        @media (min-width: 576px) {
+            .btn {
+                width: auto;
+            }
         }
 
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
+        .btn-primary {
+            background: var(--primary-grad);
+            color: var(--white);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #FF4B55 0%, #D1232A 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .btn-primary:active, .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 12px 28px rgba(225, 29, 72, 0.5);
+        }
+        .btn-primary:hover::before {
+            opacity: 1;
         }
 
         .btn-outline {
@@ -101,34 +147,37 @@
             color: var(--primary);
         }
 
-        .btn-outline:hover {
-            background-color: var(--primary);
+        .btn-outline:active, .btn-outline:hover {
+            background: var(--primary-grad);
             color: var(--white);
+            border-color: transparent;
+            box-shadow: var(--shadow-glow);
             transform: translateY(-2px);
         }
 
         /* Заголовки разделов */
         .section-header {
             text-align: center;
-            margin-bottom: 70px;
-            position: relative;
+            margin-bottom: 50px;
         }
 
         .section-header span {
             color: var(--primary);
-            font-weight: 800;
-            font-size: 14px;
+            font-weight: 900;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .section-header h2 {
-            font-size: 40px;
+            font-size: var(--font-subtitle);
             font-weight: 900;
             color: var(--secondary);
             text-transform: uppercase;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
         }
 
         .section-header h2::after {
@@ -136,150 +185,252 @@
             display: block;
             width: 80px;
             height: 5px;
-            background-color: var(--primary);
-            margin: 15px auto 0 auto;
-            border-radius: 2px;
+            background: var(--primary-grad);
+            margin: 16px auto 0 auto;
+            border-radius: 10px;
         }
 
         /* ==========================================================================
-           2. ШАПКА САЙТА (HEADER & MEGA MENU)
+           2. ЭФФЕКТ СТЕКЛА В ХЕДЕРЕ И ДРАЙВЕРЕ (GLASS DESIGN)
            ========================================================================== */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.98);
-            box-shadow: var(--shadow-sm);
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
             z-index: 1000;
+            height: 80px;
             transition: var(--transition);
         }
 
         header.scrolled {
-            padding: 5px 0;
-            background-color: var(--white);
-            box-shadow: var(--shadow-md);
+            height: 70px;
+            background-color: rgba(255, 255, 255, 0.95);
         }
 
         .nav-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            height: 100%;
+        }
+
+        header.scrolled .nav-wrapper {
+            height: 70px;
         }
 
         .logo img {
-            height: 55px;
+            height: 46px;
             width: auto;
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 35px;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link {
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--secondary);
-            padding: 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--primary);
-        }
-
-        /* Выпадающее мега-меню */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            width: 250px;
-            background-color: var(--white);
-            box-shadow: var(--shadow-lg);
-            border-top: 3px solid var(--primary);
-            padding: 15px 0;
-            opacity: 0;
-            visibility: hidden;
             transition: var(--transition);
-            border-radius: 0 0 4px 4px;
         }
 
-        .nav-item:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
+        header.scrolled .logo img {
+            height: 38px;
         }
 
-        .dropdown-item a {
-            display: block;
-            padding: 12px 25px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--secondary);
-        }
-
-        .dropdown-item a:hover {
-            background-color: var(--primary-light);
-            color: var(--primary);
-            padding-left: 30px;
-        }
-
-        /* Бургер-меню */
+        /* Анимированная бургер-кнопка */
         .burger {
-            display: none;
-            cursor: pointer;
+            width: 48px;
+            height: 48px;
+            display: flex;
             flex-direction: column;
-            gap: 6px;
-            z-index: 1001;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 7px;
+            cursor: pointer;
+            z-index: 1010;
+            background: rgba(15, 23, 42, 0.04);
+            border-radius: 12px;
+            padding-right: 12px;
+            transition: var(--transition);
+        }
+
+        .burger:hover {
+            background: rgba(15, 23, 42, 0.08);
         }
 
         .burger span {
-            width: 30px;
+            display: block;
             height: 3px;
             background-color: var(--secondary);
-            border-radius: 3px;
+            border-radius: 10px;
             transition: var(--transition);
         }
 
+        .burger span:nth-child(1) { width: 26px; }
+        .burger span:nth-child(2) { width: 18px; }
+        .burger span:nth-child(3) { width: 22px; }
+
+        .burger.active span:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
+            width: 26px;
+        }
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        .burger.active span:nth-child(3) {
+            transform: translateY(-10px) rotate(-45deg);
+            width: 26px;
+        }
+
+        /* Премиальный Drawer с размытием фона */
+        .mobile-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 380px;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: var(--shadow-lg);
+            z-index: 1005;
+            padding: 100px 30px 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .mobile-drawer.active {
+            right: 0;
+        }
+
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(11, 15, 25, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1004;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drawer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .drawer-link {
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            transition: var(--transition);
+        }
+
+        .drawer-link i {
+            color: var(--primary);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .drawer-link:hover {
+            color: var(--primary);
+            padding-left: 10px;
+        }
+
+        .drawer-link:hover i {
+            transform: translateX(5px);
+        }
+
+        .drawer-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .desktop-menu {
+            display: none;
+        }
+
+        @media (min-width: 992px) {
+            .burger, .mobile-drawer { display: none; }
+            .desktop-menu {
+                display: flex;
+                align-items: center;
+                gap: 35px;
+            }
+            .desktop-link {
+                font-weight: 800;
+                font-size: 13px;
+                text-transform: uppercase;
+                color: var(--secondary);
+                text-decoration: none;
+                letter-spacing: 1px;
+                position: relative;
+                padding: 6px 0;
+            }
+            .desktop-link::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--primary-grad);
+                transition: var(--transition);
+            }
+            .desktop-link:hover::after {
+                width: 100%;
+            }
+        }
+
         /* ==========================================================================
-           3. ГЛАВНЫЙ СЛАЙДЕР (HERO SECTION)
+           3. ТАЧ-СЛАЙДЕР С ТЕКСТУРОЙ И ЭФФЕКТАМИ ПОЯВЛЕНИЯ
            ========================================================================== */
         .hero-slider {
             position: relative;
             height: 100vh;
-            min-height: 700px;
-            overflow: hidden;
+            min-height: 600px;
             background-color: var(--secondary);
-        }
-
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 1s ease-in-out;
+            overflow: hidden;
             display: flex;
             align-items: center;
         }
 
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
+        .slides-container {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Фоновые абстракции в стиле Astana IT */
+        .slide {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
         .slide-bg {
             position: absolute;
             top: 0;
@@ -288,912 +439,918 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            filter: brightness(0.25);
+            filter: brightness(0.2);
             z-index: 1;
+            transform: scale(1.05);
+            transition: transform 8s ease-out;
         }
 
-        .slide-bg-vector {
-            position: absolute;
-            right: -10%;
-            bottom: -20%;
-            width: 70%;
-            height: 140%;
-            background: linear-gradient(135deg, rgba(209, 35, 42, 0.25) 0%, transparent 80%);
-            transform: skewX(-25deg);
-            z-index: 2;
+        /* Плавное приближение активного слайда */
+        .slide.active .slide-bg {
+            transform: scale(1);
         }
 
         .slide-content {
             position: relative;
-            z-index: 3;
+            z-index: 2;
             color: var(--white);
-            max-width: 800px;
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
         }
 
-        .slide-content span {
-            display: inline-block;
-            background-color: var(--primary);
-            padding: 6px 18px;
+        .slide.active .slide-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, rgba(209, 35, 42, 0.2) 0%, rgba(209, 35, 42, 0) 100%);
+            border-left: 3px solid var(--primary);
+            padding: 8px 18px;
+            font-size: 11px;
             font-weight: 800;
-            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 25px;
-            border-radius: 2px;
+            letter-spacing: 2px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
         }
 
         .slide-content h1 {
-            font-size: 56px;
+            font-size: var(--font-title);
             font-weight: 900;
             line-height: 1.15;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
         .slide-content p {
-            font-size: 18px;
-            opacity: 0.9;
-            margin-bottom: 40px;
-            font-weight: 300;
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 35px;
+            font-weight: 400;
+            line-height: 1.7;
         }
 
-        .slider-controls {
+        /* Индикаторы слайдов */
+        .slider-dots {
             position: absolute;
-            bottom: 50px;
-            right: 50%;
-            transform: translateX(50%);
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            gap: 15px;
-            z-index: 4;
+            gap: 14px;
+            z-index: 5;
         }
 
-        .slider-dot {
+        .dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background-color: rgba(255,255,255,0.4);
+            background-color: rgba(255,255,255,0.25);
             cursor: pointer;
             transition: var(--transition);
         }
 
-        .slider-dot.active {
+        .dot.active {
             background-color: var(--primary);
-            width: 35px;
+            width: 32px;
             border-radius: 10px;
+            box-shadow: 0 0 12px var(--primary);
+        }
+
+        .swipe-hint {
+            position: absolute;
+            bottom: 35px;
+            right: var(--container-padding);
+            color: rgba(255,255,255,0.3);
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @media (min-width: 768px) {
+            .swipe-hint { display: none; }
         }
 
         /* ==========================================================================
-           4. ИНТЕРАКТИВНЫЕ ЦИФРЫ (STATS SECTION)
+           4. ПРЕМИУМ-КАРТОЧКИ СТАТИСТИКИ С СИЛУЭТОМ
            ========================================================================== */
         .stats-section {
+            padding: 40px 0;
             background-color: var(--white);
-            padding: 80px 0;
             margin-top: -50px;
             position: relative;
             z-index: 10;
         }
 
-        .stats-card-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            background-color: var(--white);
+        .stats-wrapper {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             box-shadow: var(--shadow-lg);
-            padding: 50px;
-            border-radius: 8px;
-            border-bottom: 5px solid var(--primary);
+            border-radius: 20px;
+            padding: 35px 24px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            border: 1px solid rgba(255,255,255,0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-grad);
+        }
+
+        @media (min-width: 768px) {
+            .stats-wrapper {
+                grid-template-columns: repeat(4, 1fr);
+                padding: 50px 40px;
+            }
         }
 
         .stat-card {
             text-align: center;
-            border-right: 1px solid var(--border-color);
-        }
-
-        .stat-card:last-child {
-            border-right: none;
-        }
-
-        .stat-number {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--primary);
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-
-        .stat-card p {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* ==========================================================================
-           5. ФИЛЬТРУЕМЫЕ ПРОГРАММЫ (PROGRAMS ARCHIVE)
-           ========================================================================== */
-        .programs-section {
-            background-color: var(--light-bg);
-            padding: 100px 0;
-        }
-
-        .filter-controls {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 50px;
-        }
-
-        .filter-btn {
-            background-color: var(--white);
-            border: 2px solid var(--border-color);
-            padding: 10px 25px;
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: var(--transition);
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            border-color: var(--primary);
-            background-color: var(--primary);
-            color: var(--white);
-        }
-
-        .search-bar {
-            max-width: 600px;
-            margin: 0 auto 50px auto;
             position: relative;
         }
 
-        .search-bar input {
+        .stat-number {
+            font-size: clamp(32px, 7vw, 48px);
+            font-weight: 900;
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================================
+           5. АКТИВНЫЕ КАРТОЧКИ И ПОИСК КУРСОВ (GRID & CARDS)
+           ========================================================================== */
+        .programs-section {
+            background-color: var(--light-bg);
+            padding: 80px 0;
+        }
+
+        /* Фильтры с плавной горизонтальной прокруткой */
+        .filter-container {
             width: 100%;
-            padding: 15px 25px 15px 50px;
-            border: 2px solid var(--border-color);
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 500;
-            outline: none;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 15px;
+            margin-bottom: 35px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .filter-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            white-space: nowrap;
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
             transition: var(--transition);
         }
 
-        .search-bar input:focus {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-md);
+        .filter-btn.active, .filter-btn:active {
+            background: var(--primary-grad);
+            color: var(--white);
+            border-color: transparent;
+            box-shadow: var(--shadow-glow);
         }
 
-        .search-bar i {
+        /* Поле поиска премиум формата */
+        .search-container {
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            min-height: 56px;
+            padding: 14px 20px 14px 56px;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            font-size: 16px;
+            outline: none;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .search-container input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(209, 35, 42, 0.1);
+        }
+
+        .search-container i {
             position: absolute;
-            left: 20px;
+            left: 22px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
             font-size: 18px;
-        }
-
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 30px;
-        }
-
-        .program-item {
-            background-color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            border-top: 4px solid var(--primary);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
             transition: var(--transition);
         }
 
-        .program-item:hover {
-            transform: translateY(-8px);
+        .search-container input:focus + i {
+            color: var(--primary);
+        }
+
+        /* Сетка премиальных программ */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .programs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .programs-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .program-card {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 320px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        /* Декоративная линия верха */
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-grad);
+            transition: var(--transition);
+        }
+
+        .program-card:hover {
+            transform: translateY(-6px);
             box-shadow: var(--shadow-lg);
         }
 
-        .program-header {
-            padding: 30px 30px 15px 30px;
+        .program-card:hover::before {
+            height: 6px;
         }
 
-        .program-category {
+        .program-cat {
             font-size: 11px;
             font-weight: 800;
             color: var(--primary);
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            margin-bottom: 12px;
             display: block;
-            margin-bottom: 10px;
         }
 
-        .program-title {
-            font-size: 22px;
-            font-weight: 800;
+        .program-card h3 {
+            font-size: 20px;
+            font-weight: 900;
             color: var(--secondary);
+            margin-bottom: 14px;
             line-height: 1.3;
         }
 
-        .program-body {
-            padding: 0 30px 30px 30px;
+        .program-card p {
             font-size: 14px;
             color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.6;
         }
 
-        .program-details {
+        .program-meta {
             display: flex;
             gap: 20px;
-            padding: 20px 30px;
-            background-color: var(--light-bg);
-            border-top: 1px solid var(--border-color);
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--secondary);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            margin-bottom: 24px;
         }
 
-        .program-details i {
+        .program-meta span i {
             color: var(--primary);
-            margin-right: 5px;
-        }
-
-        .program-actions {
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-text-link {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--secondary);
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .btn-text-link:hover {
-            color: var(--primary);
+            margin-right: 6px;
         }
 
         /* ==========================================================================
-           6. КАЛЬКУЛЯТОР СТОИМОСТИ (TUITION CALCULATOR)
+           6. ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР
            ========================================================================== */
-        .calculator-section {
-            padding: 100px 0;
+        .calc-section {
+            padding: 80px 0;
             background-color: var(--white);
         }
 
-        .calc-wrapper {
+        .calc-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 50px;
+            grid-template-columns: 1fr;
+            gap: 35px;
             background-color: var(--light-bg);
-            border-radius: 12px;
-            padding: 50px;
-            box-shadow: var(--shadow-md);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
         }
 
-        .calc-form {
+        @media (min-width: 992px) {
+            .calc-grid {
+                grid-template-columns: 1.2fr 0.8fr;
+                padding: 50px;
+            }
+        }
+
+        .calc-inputs {
             display: flex;
             flex-direction: column;
             gap: 25px;
         }
 
-        .form-group {
+        .calc-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .form-group label {
-            font-weight: 700;
-            font-size: 14px;
+        .calc-group label {
+            font-size: 11px;
+            font-weight: 900;
             text-transform: uppercase;
             color: var(--secondary);
+            letter-spacing: 1px;
         }
 
-        .form-group select, .form-group input[type="text"] {
+        .calc-group select {
             width: 100%;
-            padding: 14px 20px;
+            min-height: 52px;
+            padding: 12px 20px;
             border: 2px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 12px;
             background-color: var(--white);
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             outline: none;
+            cursor: pointer;
             transition: var(--transition);
         }
 
-        .form-group select:focus {
+        .calc-group select:focus {
             border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(209, 35, 42, 0.08);
         }
 
-        .checkbox-group {
+        .calc-checkbox {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-top: 10px;
+            gap: 14px;
             cursor: pointer;
+            padding: 8px 0;
         }
 
-        .checkbox-group input {
-            width: 20px;
-            height: 20px;
+        .calc-checkbox input {
+            width: 24px;
+            height: 24px;
             accent-color: var(--primary);
-        }
-
-        .checkbox-group label {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text-main);
             cursor: pointer;
         }
 
-        .calc-result {
+        .calc-checkbox span {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        /* Премиальная стеклянная карточка вывода */
+        .calc-output {
             background-color: var(--secondary);
             color: var(--white);
-            border-radius: 8px;
-            padding: 40px;
+            border-radius: 20px;
+            padding: 35px 30px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            min-height: 260px;
+            box-shadow: var(--shadow-lg);
             position: relative;
             overflow: hidden;
         }
 
-        .calc-result::after {
+        .calc-output::before {
             content: '';
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, var(--primary) 0%, transparent 100%);
-            opacity: 0.3;
-            border-radius: 0 0 0 100%;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(209, 35, 42, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: 1;
+            pointer-events: none;
         }
 
-        .result-item {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 15px 0;
+        .calc-output > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .output-row {
             display: flex;
             justify-content: space-between;
-            font-size: 15px;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 14px;
         }
 
-        .result-item.total {
+        .output-row:last-of-type {
             border-bottom: none;
-            padding-top: 30px;
         }
 
-        .result-item.total span {
-            font-size: 20px;
+        .output-row span:last-child {
             font-weight: 800;
         }
 
-        .result-price {
-            font-size: 36px !important;
+        .output-total {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px dashed rgba(255,255,255,0.15);
+        }
+
+        .total-price {
+            font-size: clamp(30px, 6vw, 40px);
             font-weight: 900;
-            color: var(--primary);
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-top: 8px;
         }
 
         /* ==========================================================================
-           7. ШАГИ ПОСТУПЛЕНИЯ (ADMISSION STEPS)
+           7. ТАЙМЛАЙН С НЕОНОВЫМ СВЕЧЕНИЕМ
            ========================================================================== */
-        .admission-section {
+        .steps-section {
             background-color: var(--secondary);
             color: var(--white);
-            padding: 100px 0;
+            padding: 80px 0;
             position: relative;
+            overflow: hidden;
+        }
+
+        /* Фрактальный градиентный фон сзади */
+        .steps-section::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(209, 35, 42, 0.1) 0%, rgba(0,0,0,0) 75%);
+            pointer-events: none;
         }
 
         .timeline {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
             position: relative;
-            margin-top: 50px;
+            padding-left: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            top: 40px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: rgba(255,255,255,0.1);
-            z-index: 1;
+            top: 0;
+            left: 11px;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary) 0%, rgba(255,255,255,0.05) 100%);
         }
 
-        .timeline-step {
+        @media (min-width: 992px) {
+            .timeline {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                padding-left: 0;
+                gap: 35px;
+            }
+            .timeline::before {
+                top: 26px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(90deg, var(--primary) 0%, rgba(255,255,255,0.05) 100%);
+            }
+        }
+
+        .timeline-item {
             position: relative;
+        }
+
+        .timeline-badge {
+            position: absolute;
+            left: -35px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-grad);
+            border-radius: 50%;
+            border: 4px solid var(--secondary);
+            box-shadow: 0 0 10px var(--primary);
             z-index: 2;
-            text-align: center;
         }
 
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background-color: var(--secondary-light);
-            border: 4px solid var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px auto;
-            font-size: 24px;
+        @media (min-width: 992px) {
+            .timeline-badge {
+                position: static;
+                margin-bottom: 24px;
+            }
+        }
+
+        .timeline-item h3 {
+            font-size: 17px;
             font-weight: 900;
-            transition: var(--transition);
-        }
-
-        .timeline-step:hover .step-number {
-            background-color: var(--primary);
-            transform: scale(1.1);
-            box-shadow: 0 0 25px rgba(209, 35, 42, 0.5);
-        }
-
-        .timeline-step h3 {
-            font-size: 18px;
-            margin-bottom: 12px;
-            font-weight: 700;
             text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
-        .timeline-step p {
+        .timeline-item p {
             font-size: 14px;
-            opacity: 0.7;
+            color: #94A3B8;
+            line-height: 1.6;
         }
 
         /* ==========================================================================
-           8. ПРЕПОДАВАТЕЛИ И МЕНТОРЫ (FACULTY SECTION)
+           8. ШАГОВАЯ ФОРМА
            ========================================================================== */
-        .faculty-section {
-            padding: 100px 0;
+        .form-section {
+            padding: 80px 0;
             background-color: var(--light-bg);
         }
 
-        .faculty-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-        }
-
-        .faculty-card {
+        .step-form-container {
             background-color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .faculty-card:hover {
-            transform: translateY(-5px);
+            border-radius: 24px;
             box-shadow: var(--shadow-lg);
-        }
-
-        .faculty-img {
-            position: relative;
             overflow: hidden;
-            height: 300px;
-        }
-
-        .faculty-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .faculty-card:hover .faculty-img img {
-            transform: scale(1.08);
-        }
-
-        .faculty-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(30,30,30,0.9) 0%, transparent 70%);
-            display: flex;
-            align-items: flex-end;
-            padding: 20px;
-        }
-
-        .faculty-socials {
-            display: flex;
-            gap: 10px;
-            transform: translateY(50px);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .faculty-card:hover .faculty-socials {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .faculty-socials a {
-            width: 35px;
-            height: 35px;
-            background-color: var(--primary);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-
-        .faculty-socials a:hover {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .faculty-info {
-            padding: 25px;
-            text-align: center;
-        }
-
-        .faculty-info h3 {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--secondary);
-            margin-bottom: 5px;
-        }
-
-        .faculty-info p {
-            font-size: 13px;
-            color: var(--primary);
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        /* ==========================================================================
-           9. СТУДЕНЧЕСКАЯ ЖИЗНЬ / ГАЛЕРЕЯ (CAMPUS GALLERY)
-           ========================================================================== */
-        .gallery-section {
-            padding: 100px 0;
-            background-color: var(--white);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            height: 250px;
-            cursor: pointer;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-hover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(209, 35, 42, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: var(--transition);
-            color: var(--white);
-            padding: 20px;
-            text-align: center;
-        }
-
-        .gallery-item:hover .gallery-hover {
-            opacity: 1;
-        }
-
-        .gallery-hover h4 {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        /* ==========================================================================
-           10. МНОГОШАГОВАЯ ФОРМА ПОДАЧИ ЗАЯВКИ (MULTI-STEP APPLY FORM)
-           ========================================================================== */
-        .apply-section {
-            padding: 100px 0;
-            background-color: var(--light-bg);
-        }
-
-        .multistep-form-container {
-            max-width: 800px;
+            max-width: 720px;
             margin: 0 auto;
-            background-color: var(--white);
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
+            border: 1px solid rgba(15, 23, 42, 0.05);
         }
 
-        .form-progress {
-            display: flex;
+        .form-indicator {
             background-color: var(--secondary);
-            padding: 25px 40px;
-            justify-content: space-between;
+            padding: 24px;
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 4px solid var(--primary);
         }
 
-        .progress-step {
+        .indicator-dot {
             display: flex;
             align-items: center;
             gap: 10px;
-            color: rgba(255,255,255,0.4);
-            font-weight: 700;
-            font-size: 13px;
+            color: rgba(255,255,255,0.3);
+            font-size: 11px;
+            font-weight: 800;
             text-transform: uppercase;
-            position: relative;
+            letter-spacing: 1px;
+            transition: var(--transition);
         }
 
-        .progress-step.active {
+        .indicator-dot.active {
             color: var(--white);
         }
 
-        .progress-step.completed {
+        .indicator-dot.done {
             color: var(--primary);
         }
 
-        .progress-circle {
-            width: 30px;
-            height: 30px;
+        .indicator-num {
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             border: 2px solid currentColor;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: 900;
         }
 
-        .form-step-content {
-            padding: 50px;
+        .form-step {
+            padding: 30px 24px;
             display: none;
         }
 
-        .form-step-content.active {
+        @media (min-width: 768px) {
+            .form-step {
+                padding: 40px;
+            }
+        }
+
+        .form-step.active {
             display: block;
         }
 
-        .step-title {
-            font-size: 24px;
-            font-weight: 800;
+        .form-step h3 {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 25px;
             color: var(--secondary);
-            margin-bottom: 30px;
-            border-left: 5px solid var(--primary);
-            padding-left: 15px;
         }
 
-        .grid-2col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .input-grid {
+            display: flex;
+            flex-direction: column;
             gap: 20px;
         }
 
-        .form-navigation {
-            display: flex;
-            justify-content: space-between;
-            padding: 30px 50px;
-            background-color: #FAFBFB;
-            border-top: 1px solid var(--border-color);
-        }
-
-        /* ==========================================================================
-           11. ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ (FAQ SECTION)
-           ========================================================================== */
-        .faq-section {
-            padding: 100px 0;
-            background-color: var(--white);
-        }
-
-        .faq-accordion {
-            max-width: 900px;
-            margin: 0 auto;
+        .form-field {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 8px;
         }
 
-        .faq-item {
+        .form-field label {
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .form-field input, .form-field select {
+            width: 100%;
+            min-height: 52px;
+            padding: 12px 18px;
             border: 2px solid var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            outline: none;
+            background-color: var(--white);
             transition: var(--transition);
         }
 
-        .faq-question {
-            padding: 24px 30px;
+        .form-field input:focus, .form-field select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(209, 35, 42, 0.08);
+        }
+
+        .form-actions {
+            padding: 24px;
+            background-color: #F8FAFC;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-actions .btn {
+            flex: 1;
+        }
+
+        /* ==========================================================================
+           9. АККОРДЕОН FAQ (GENTLE SHADOWS)
+           ========================================================================== */
+        .faq-section {
+            padding: 80px 0;
             background-color: var(--white);
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            background-color: var(--white);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .faq-trigger {
+            width: 100%;
+            min-height: 64px;
+            padding: 18px 24px;
+            background: none;
+            border: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
-            font-weight: 700;
+            text-align: left;
             font-size: 16px;
+            font-weight: 800;
             color: var(--secondary);
-            user-select: none;
+            cursor: pointer;
         }
 
-        .faq-question:hover {
-            background-color: var(--light-bg);
-        }
-
-        .faq-icon {
-            width: 30px;
-            height: 30px;
+        .faq-icon-box {
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background-color: var(--light-bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 12px;
+            color: var(--text-muted);
             transition: var(--transition);
         }
 
         .faq-item.active {
-            border-color: var(--primary);
+            border-color: transparent;
+            box-shadow: var(--shadow-md);
         }
 
-        .faq-item.active .faq-question {
-            background-color: var(--primary-light);
-            color: var(--primary);
-        }
-
-        .faq-item.active .faq-icon {
-            background-color: var(--primary);
+        .faq-item.active .faq-icon-box {
+            background: var(--primary-grad);
             color: var(--white);
             transform: rotate(180deg);
+            box-shadow: var(--shadow-glow);
         }
 
-        .faq-answer {
+        .faq-panel {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
-            background-color: var(--white);
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .faq-answer-inner {
-            padding: 30px;
-            font-size: 15px;
+        .faq-content {
+            padding: 0 24px 24px 24px;
+            font-size: 14px;
             color: var(--text-muted);
-            line-height: 1.8;
-            border-top: 1px solid var(--border-color);
+            line-height: 1.7;
         }
 
         /* ==========================================================================
-           12. ПОДВАЛ САЙТА (FOOTER SYSTEM)
+           10. ПОДВАЛ (FOOTER)
            ========================================================================== */
         footer {
             background-color: var(--secondary);
             color: var(--white);
-            padding: 100px 0 40px 0;
+            padding: 70px 0 40px 0;
+            position: relative;
+            border-top: 4px solid var(--primary);
         }
 
         .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 50px;
         }
 
-        .footer-about img {
-            height: 50px;
-            margin-bottom: 25px;
+        @media (min-width: 768px) {
+            .footer-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 50px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+        }
+
+        .footer-logo img {
+            height: 40px;
             filter: brightness(0) invert(1);
+            margin-bottom: 20px;
         }
 
         .footer-about p {
-            color: #A0AEC0;
+            color: #94A3B8;
             font-size: 14px;
+            line-height: 1.7;
             margin-bottom: 25px;
-            max-width: 300px;
         }
 
-        .social-links {
+        .footer-socials {
             display: flex;
-            gap: 15px;
+            gap: 14px;
         }
 
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 4px;
+        .footer-socials a {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
             background-color: var(--secondary-light);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--white);
-            font-size: 16px;
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .footer-column h3 {
             font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+
+        .footer-socials a:hover {
+            background: var(--primary-grad);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            font-weight: 900;
             text-transform: uppercase;
-            position: relative;
+            margin-bottom: 20px;
+            color: var(--white);
+            letter-spacing: 1px;
         }
 
-        .footer-column h3::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 3px;
-            background-color: var(--primary);
-            margin-top: 10px;
-        }
-
-        .footer-links li {
-            margin-bottom: 15px;
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
         .footer-links a {
-            color: #A0AEC0;
+            color: #94A3B8;
             font-size: 14px;
-            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
         }
 
         .footer-links a:hover {
-            color: var(--white);
+            color: var(--primary);
             padding-left: 5px;
         }
 
-        .footer-contact li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #A0AEC0;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .footer-contact i {
-            color: var(--primary);
-            font-size: 16px;
-        }
-
         .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #718096;
-            font-size: 13px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #64748B;
         }
 
         /* ==========================================================================
-           13. МОДАЛЬНЫЕ ОКНА (MODAL POPUPS SYSTEM)
+           11. ПОПАП ПОДРОБНОСТЕЙ (BOTTOM SHEET ON MOBILE)
            ========================================================================== */
         .modal {
             position: fixed;
@@ -1201,15 +1358,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(30,30,30,0.8);
-            backdrop-filter: blur(5px);
+            background-color: rgba(11, 15, 25, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 2000;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
+        }
+
+        @media (min-width: 576px) {
+            .modal {
+                align-items: center;
+            }
         }
 
         .modal.active {
@@ -1217,147 +1381,74 @@
             visibility: visible;
         }
 
-        .modal-content {
+        .modal-body {
             background-color: var(--white);
-            border-radius: 8px;
             width: 100%;
-            max-width: 650px;
-            padding: 40px;
+            border-radius: 24px 24px 0 0;
+            padding: 40px 24px;
             position: relative;
-            transform: scale(0.9);
-            transition: var(--transition);
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            max-height: 85vh;
+            overflow-y: auto;
             box-shadow: var(--shadow-lg);
-            border-top: 6px solid var(--primary);
         }
 
-        .modal.active .modal-content {
-            transform: scale(1);
+        @media (min-width: 576px) {
+            .modal-body {
+                width: 90%;
+                max-width: 550px;
+                border-radius: 20px;
+                transform: scale(0.9);
+            }
+        }
+
+        .modal.active .modal-body {
+            transform: translateY(0) scale(1);
         }
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
+            top: 24px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-bg);
             border: none;
-            font-size: 24px;
+            font-size: 22px;
             color: var(--text-muted);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: var(--transition);
         }
 
         .modal-close:hover {
+            background-color: var(--primary-light);
             color: var(--primary);
-        }
-
-        /* ==========================================================================
-           14. АДАПТИВНОСТЬ (RESPONSIVE STYLES)
-           ========================================================================== */
-        @media (max-width: 1200px) {
-            .stats-card-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-            .faculty-grid, .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .timeline {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .timeline::before {
-                display: none;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .calc-wrapper {
-                grid-template-columns: 1fr;
-            }
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .nav-menu {
-                position: fixed;
-                top: 85px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 85px);
-                background-color: var(--white);
-                flex-direction: column;
-                align-items: center;
-                padding: 50px 0;
-                box-shadow: var(--shadow-lg);
-                transition: var(--transition);
-            }
-            .nav-menu.active {
-                left: 0;
-            }
-            .burger {
-                display: flex;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .slide-content h1 {
-                font-size: 38px;
-            }
-            .programs-grid {
-                grid-template-columns: 1fr;
-            }
-            .multistep-form-container {
-                border-radius: 0;
-            }
-            .form-progress {
-                padding: 15px 20px;
-            }
-            .progress-step span {
-                display: none;
-            }
-            .form-step-content {
-                padding: 25px;
-            }
-            .grid-2col {
-                grid-template-columns: 1fr;
-            }
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
         }
     </style>
 </head>
 <body>
 
-    <header id="main-header">
+    <header id="header">
         <div class="container">
             <div class="nav-wrapper">
                 <a href="#" class="logo">
-                    <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU Logo">
+                    <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU Academy">
                 </a>
                 
-                <ul class="nav-menu" id="mobile-menu">
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link active">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#programs" class="nav-link">Курсы</a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item"><a href="#programs" onclick="filterCategory('general')">Общий английский</a></li>
-                            <li class="dropdown-item"><a href="#programs" onclick="filterCategory('exam')">Подготовка к экзаменам</a></li>
-                            <li class="dropdown-item"><a href="#programs" onclick="filterCategory('business')">Бизнес английский</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a href="#calculator" class="nav-link">Стоимость</a></li>
-                    <li class="nav-item"><a href="#timeline" class="nav-link">Как записаться</a></li>
-                    <li class="nav-item"><a href="#faculty" class="nav-link">Преподаватели</a></li>
-                    <li class="nav-item"><a href="#apply" class="btn btn-primary" style="padding: 10px 24px; font-size: 13px;">Записаться</a></li>
-                </ul>
+                <nav class="desktop-menu">
+                    <a href="#home" class="desktop-link">Главная</a>
+                    <a href="#programs" class="desktop-link">Программы</a>
+                    <a href="#calc" class="desktop-link">Калькулятор</a>
+                    <a href="#steps" class="desktop-link">Поступление</a>
+                    <a href="#form" class="btn btn-primary" style="min-height: 44px; padding: 0 24px; font-size: 11px;">Поступить</a>
+                </nav>
 
-                <div class="burger" id="burger-trigger">
+                <div class="burger" id="burger">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -1366,56 +1457,73 @@
         </div>
     </header>
 
+    <div class="drawer-overlay" id="overlay"></div>
+    <div class="mobile-drawer" id="drawer">
+        <div class="drawer-nav">
+            <a href="#home" class="drawer-link">Главная <i class="fa fa-chevron-right"></i></a>
+            <a href="#programs" class="drawer-link">Программы <i class="fa fa-chevron-right"></i></a>
+            <a href="#calc" class="drawer-link">Калькулятор <i class="fa fa-chevron-right"></i></a>
+            <a href="#steps" class="drawer-link">Поступление <i class="fa fa-chevron-right"></i></a>
+        </div>
+        <div class="drawer-footer">
+            <a href="#form" class="btn btn-primary" id="drawer-apply-btn">Подать документы</a>
+        </div>
+    </div>
+
     <section class="hero-slider" id="home">
-        <div class="slide active">
-            <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1470&auto=format&fit=crop');"></div>
-            <div class="slide-bg-vector"></div>
-            <div class="container">
-                <div class="slide-content">
-                    <span>Курсы английского языка</span>
-                    <h1>Заговори на английском уверенно с DAMU ACADEMY</h1>
-                    <p>Мы создали современную среду обучения английскому языку, сочетая разговорную практику с носителями языка и проверенную методику подготовки к международным экзаменам.</p>
-                    <a href="#programs" class="btn btn-primary">Выбрать курс</a>
+        <div class="slides-container" id="slides">
+            <div class="slide active">
+                <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1470&auto=format&fit=crop');"></div>
+                <div class="container">
+                    <div class="slide-content">
+                        <span class="slide-tag">Академия Будущего</span>
+                        <h1>Передовое IT-образование</h1>
+                        <p>Поступай в DAMU Academy и учись по современным технологическим стандартам под руководством экспертов-практиков.</p>
+                        <a href="#programs" class="btn btn-primary">Выбрать курс</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="slide">
-            <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1470&auto=format&fit=crop');"></div>
-            <div class="slide-bg-vector"></div>
-            <div class="container">
-                <div class="slide-content">
-                    <span>Гарантия результата</span>
-                    <h1>Подготовим к IELTS и разговорной практике с нуля</h1>
-                    <p>94% наших студентов достигают своей целевой оценки на международных экзаменах уже с первой попытки. Начни свой путь к свободному английскому уже сегодня.</p>
-                    <a href="#apply" class="btn btn-primary">Записаться сейчас</a>
+            <div class="slide">
+                <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1470&auto=format&fit=crop');"></div>
+                <div class="container">
+                    <div class="slide-content">
+                        <span class="slide-tag">Трудоустройство 94%</span>
+                        <h1>Твой билет в BigTech</h1>
+                        <p>Начни строить карьеру разработчика, продуктолога или архитектора ИИ с первого курса обучения.</p>
+                        <a href="#form" class="btn btn-primary">Подать заявление</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="slider-controls" id="slider-nav">
-            <div class="slider-dot active" onclick="setSlide(0)"></div>
-            <div class="slider-dot" onclick="setSlide(1)"></div>
+        <div class="slider-dots">
+            <div class="dot active" onclick="goToSlide(0)"></div>
+            <div class="dot" onclick="goToSlide(1)"></div>
+        </div>
+
+        <div class="swipe-hint">
+            Свайп <i class="fa fa-arrow-right-arrow-left"></i>
         </div>
     </section>
 
     <section class="stats-section">
         <div class="container">
-            <div class="stats-card-container">
+            <div class="stats-wrapper" data-aos="fade-up" data-aos-duration="1000">
                 <div class="stat-card">
-                    <span class="stat-number" data-target="1500">0</span><span class="stat-number">+</span>
-                    <p>Студентов обучено</p>
+                    <span class="stat-number">1.5К+</span>
+                    <p>Студентов</p>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number" data-target="94">0</span><span class="stat-number">%</span>
-                    <p>Достигают цели по IELTS</p>
+                    <span class="stat-number">94%</span>
+                    <p>Работают</p>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number" data-target="45">0</span><span class="stat-number">+</span>
-                    <p>Преподавателей-носителей</p>
+                    <span class="stat-number">45+</span>
+                    <p>Партнеров</p>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number" data-target="100" data-prefix="">0</span><span class="stat-number">%</span>
-                    <p>Разговорной практики на занятиях</p>
+                    <span class="stat-number">10</span>
+                    <p>Лабораторий</p>
                 </div>
             </div>
         </div>
@@ -1423,400 +1531,174 @@
 
     <section class="programs-section" id="programs">
         <div class="container">
-            <div class="section-header">
-                <span>Выберите свой курс</span>
-                <h2>Направления обучения английскому</h2>
+            <div class="section-header" data-aos="fade-up" data-aos-duration="1000">
+                <span>Программы обучения</span>
+                <h2>Выбери свой трек</h2>
             </div>
 
-            <div class="search-bar">
+            <div class="search-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                 <i class="fa fa-search"></i>
-                <input type="text" id="program-search" placeholder="Поиск курса (например: IELTS, Разговорный клуб, Бизнес)...">
+                <input type="text" id="search" placeholder="Поиск курса (например, Java, Дизайн)...">
             </div>
 
-            <div class="filter-controls">
-                <button class="filter-btn active" onclick="filterCategory('all')">Все курсы</button>
-                <button class="filter-btn" onclick="filterCategory('general')">Общий английский</button>
-                <button class="filter-btn" onclick="filterCategory('exam')">Подготовка к экзаменам</button>
-                <button class="filter-btn" onclick="filterCategory('business')">Бизнес английский</button>
+            <div class="filter-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                <button class="filter-btn active" data-category="all">Все направления</button>
+                <button class="filter-btn" data-category="dev">Разработка ПО</button>
+                <button class="filter-btn" data-category="data">Аналитика & ИИ</button>
+                <button class="filter-btn" data-category="manage">Управление</button>
             </div>
 
-            <div class="programs-grid" id="programs-container">
-                <div class="program-item" data-category="general">
-                    <div class="program-header">
-                        <span class="program-category">Общий английский</span>
-                        <h3 class="program-title">General English: с нуля до Advanced</h3>
-                    </div>
-                    <div class="program-body">
-                        Комплексное развитие всех навыков: разговорная речь, грамматика, аудирование и письмо. Группы по уровням от Beginner до Advanced.
-                    </div>
-                    <div class="program-details">
-                        <span><i class="fa fa-clock"></i> 3 месяца</span>
-                        <span><i class="fa fa-award"></i> Все уровни</span>
-                    </div>
-                    <div class="program-actions">
-                        <a href="#apply" class="btn btn-outline" style="padding: 8px 18px; font-size: 11px;">Записаться</a>
-                        <a href="javascript:void(0)" onclick="openProgramModal('general')" class="btn-text-link">О курсе &rarr;</a>
-                    </div>
+            <div class="programs-grid" id="grid" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300">
                 </div>
-
-                <div class="program-item" data-category="exam">
-                    <div class="program-header">
-                        <span class="program-category">Подготовка к экзаменам</span>
-                        <h3 class="program-title">IELTS / TOEFL Preparation</h3>
-                    </div>
-                    <div class="program-body">
-                        Интенсивная подготовка ко всем секциям международного экзамена: Listening, Reading, Writing, Speaking, с разбором реальных тестов.
-                    </div>
-                    <div class="program-details">
-                        <span><i class="fa fa-clock"></i> 2 месяца</span>
-                        <span><i class="fa fa-award"></i> Intermediate+</span>
-                    </div>
-                    <div class="program-actions">
-                        <a href="#apply" class="btn btn-outline" style="padding: 8px 18px; font-size: 11px;">Записаться</a>
-                        <a href="javascript:void(0)" onclick="openProgramModal('exam')" class="btn-text-link">О курсе &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="program-item" data-category="business">
-                    <div class="program-header">
-                        <span class="program-category">Бизнес английский</span>
-                        <h3 class="program-title">Business English для профессионалов</h3>
-                    </div>
-                    <div class="program-body">
-                        Деловая переписка, презентации, переговоры и собеседования на английском языке для сотрудников и руководителей компаний.
-                    </div>
-                    <div class="program-details">
-                        <span><i class="fa fa-clock"></i> 2 месяца</span>
-                        <span><i class="fa fa-award"></i> Intermediate+</span>
-                    </div>
-                    <div class="program-actions">
-                        <a href="#apply" class="btn btn-outline" style="padding: 8px 18px; font-size: 11px;">Записаться</a>
-                        <a href="javascript:void(0)" onclick="openProgramModal('business')" class="btn-text-link">О курсе &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="program-item" data-category="general">
-                    <div class="program-header">
-                        <span class="program-category">Разговорный клуб</span>
-                        <h3 class="program-title">Speaking Club & Conversation Practice</h3>
-                    </div>
-                    <div class="program-body">
-                        Живое общение с носителями языка и преподавателями, снятие языкового барьера и практика свободной речи в мини-группах.
-                    </div>
-                    <div class="program-details">
-                        <span><i class="fa fa-clock"></i> 1 месяц</span>
-                        <span><i class="fa fa-award"></i> Pre-Intermediate+</span>
-                    </div>
-                    <div class="program-actions">
-                        <a href="#apply" class="btn btn-outline" style="padding: 8px 18px; font-size: 11px;">Записаться</a>
-                        <a href="javascript:void(0)" onclick="openProgramModal('club')" class="btn-text-link">О курсе &rarr;</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
-    <section class="calculator-section" id="calculator">
+    <section class="calc-section" id="calc">
         <div class="container">
-            <div class="section-header">
-                <span>Прозрачность финансов</span>
-                <h2>Расчет стоимости курса</h2>
+            <div class="section-header" data-aos="fade-up" data-aos-duration="1000">
+                <span>Стоимость</span>
+                <h2>Калькулятор обучения</h2>
             </div>
 
-            <div class="calc-wrapper">
-                <div class="calc-form">
-                    <div class="form-group">
-                        <label for="calc-degree">Тип курса</label>
-                        <select id="calc-degree" onchange="calculateTuition()">
-                            <option value="bachelor">Общий английский (в месяц)</option>
-                            <option value="master">IELTS / TOEFL Preparation (в месяц)</option>
-                            <option value="short">Разговорный клуб (в месяц)</option>
+            <div class="calc-grid" data-aos="zoom-in-up" data-aos-duration="1000">
+                <div class="calc-inputs">
+                    <div class="calc-group">
+                        <label>Степень обучения</label>
+                        <select id="degree">
+                            <option value="1200000">Бакалавриат (4 года)</option>
+                            <option value="1500000">Магистратура (2 года)</option>
+                            <option value="800000">Интенсивный буткемп (1 год)</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="calc-citizenship">Формат занятий</label>
-                        <select id="calc-citizenship" onchange="calculateTuition()">
-                            <option value="local">Групповые занятия</option>
-                            <option value="international">Индивидуальные занятия</option>
+                    <div class="calc-group">
+                        <label>Скидка / Льгота</label>
+                        <select id="discount">
+                            <option value="0">Нет скидки</option>
+                            <option value="0.25">Скидка 25% за отличные оценки</option>
+                            <option value="0.5">Полугрант (50% скидка)</option>
+                            <option value="1">100% Грант Академии</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="calc-discount">Доступная скидка</label>
-                        <select id="calc-discount" onchange="calculateTuition()">
-                            <option value="0">Нет скидки (100% оплата)</option>
-                            <option value="10">Скидка 10% при оплате за 3 месяца</option>
-                            <option value="20">Скидка 20% для студентов и школьников</option>
-                            <option value="30">Скидка 30% при приведении друга</option>
-                        </select>
-                    </div>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="calc-hostel" onchange="calculateTuition()">
-                        <label for="calc-hostel">Нужен комплект учебных материалов и книг</label>
+                    <div class="calc-group">
+                        <label class="calc-checkbox">
+                            <input type="checkbox" id="hostel">
+                            <span>Необходимо общежитие (+350,000 ₸/год)</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="calc-result">
+                <div class="calc-output">
                     <div>
-                        <h3 style="margin-bottom: 25px; text-transform: uppercase; font-weight: 800;">Результаты расчета</h3>
-                        <div class="result-item">
-                            <span>Базовая стоимость курса (в месяц):</span>
-                            <span id="res-base">60 000 ₸</span>
+                        <div class="output-row">
+                            <span>Базовая цена:</span>
+                            <span id="base-val">0 ₸</span>
                         </div>
-                        <div class="result-item">
-                            <span>Учебные материалы:</span>
-                            <span id="res-hostel">0 ₸</span>
-                        </div>
-                        <div class="result-item">
-                            <span>Размер примененной скидки:</span>
-                            <span id="res-discount" style="color: #38A169;">0%</span>
+                        <div class="output-row">
+                            <span>Скидка:</span>
+                            <span id="disc-val" style="color: var(--success);">0%</span>
                         </div>
                     </div>
-
-                    <div class="result-item total">
-                        <div>
-                            <span>Итоговая цена в месяц:</span>
-                            <div class="result-price" id="res-total">60 000 ₸</div>
-                        </div>
+                    <div class="output-total">
+                        <span>Итого в год:</span>
+                        <div class="total-price" id="total-val">0 ₸</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="admission-section" id="timeline">
+    <section class="steps-section" id="steps">
         <div class="container">
-            <div class="section-header">
-                <span style="color: var(--primary);">Путеводитель для новых студентов</span>
-                <h2 style="color: var(--white);">Как записаться на курс?</h2>
+            <div class="section-header" data-aos="fade-up" data-aos-duration="1000">
+                <span style="color: var(--primary);">4 Простых шага</span>
+                <h2 style="color: var(--white);">Процесс поступления</h2>
             </div>
 
             <div class="timeline">
-                <div class="timeline-step">
-                    <div class="step-number">1</div>
-                    <h3>Онлайн заявка</h3>
-                    <p>Заполните форму на сайте, оставьте контакты и укажите желаемый курс английского.</p>
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
+                    <div class="timeline-badge"></div>
+                    <h3>Шаг 1. Заявка</h3>
+                    <p>Заполни форму на сайте, прикрепив базовый пакет документов.</p>
                 </div>
-                <div class="timeline-step">
-                    <div class="step-number">2</div>
-                    <h3>Тест на уровень</h3>
-                    <p>Пройдите бесплатный placement-тест, чтобы определить ваш текущий уровень английского.</p>
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
+                    <div class="timeline-badge"></div>
+                    <h3>Шаг 2. Интервью</h3>
+                    <p>Пройди онлайн-собеседование для выявления твоей мотивации.</p>
                 </div>
-                <div class="timeline-step">
-                    <div class="step-number">3</div>
-                    <h3>Пробный урок</h3>
-                    <p>Познакомьтесь с преподавателем и группой на бесплатном пробном занятии.</p>
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
+                    <div class="timeline-badge"></div>
+                    <h3>Шаг 3. Тестирование</h3>
+                    <p>Выполни легкий тест на базовую логику и математику.</p>
                 </div>
-                <div class="timeline-step">
-                    <div class="step-number">4</div>
-                    <h3>Старт обучения</h3>
-                    <p>Оплатите курс, получите расписание и приступайте к занятиям в удобной группе!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="faculty-section" id="faculty">
-        <div class="container">
-            <div class="section-header">
-                <span>Экспертное сообщество</span>
-                <h2>Преподаватели мирового класса</h2>
-            </div>
-
-            <div class="faculty-grid">
-                <div class="faculty-card">
-                    <div class="faculty-img">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=687&auto=format&fit=crop" alt="Teacher">
-                        <div class="faculty-overlay">
-                            <div class="faculty-socials">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="faculty-info">
-                        <h3>Арман Сабитов</h3>
-                        <p>CELTA / Преподаватель General English</p>
-                    </div>
-                </div>
-
-                <div class="faculty-card">
-                    <div class="faculty-img">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=688&auto=format&fit=crop" alt="Teacher">
-                        <div class="faculty-overlay">
-                            <div class="faculty-socials">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="faculty-info">
-                        <h3>Динара Кумарова</h3>
-                        <p>IELTS Trainer / Band 8.5</p>
-                    </div>
-                </div>
-
-                <div class="faculty-card">
-                    <div class="faculty-img">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1470&auto=format&fit=crop" alt="Teacher">
-                        <div class="faculty-overlay">
-                            <div class="faculty-socials">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="faculty-info">
-                        <h3>Alex Smith</h3>
-                        <p>Native Speaker (США) / Speaking Club</p>
-                    </div>
-                </div>
-
-                <div class="faculty-card">
-                    <div class="faculty-img">
-                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=761&auto=format&fit=crop" alt="Teacher">
-                        <div class="faculty-overlay">
-                            <div class="faculty-socials">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="faculty-info">
-                        <h3>Алина Рахимова</h3>
-                        <p>TESOL / Преподаватель Business English</p>
-                    </div>
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="800" data-aos-delay="400">
+                    <div class="timeline-badge"></div>
+                    <h3>Шаг 4. Договор</h3>
+                    <p>Подпиши финальные документы и приступай к учебе!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="gallery-section">
+    <section class="form-section" id="form">
         <div class="container">
-            <div class="section-header">
-                <span>Жизнь в нашей Академии</span>
-                <h2>Атмосфера наших занятий</h2>
+            <div class="section-header" data-aos="fade-up" data-aos-duration="1000">
+                <span>Абитуриенту</span>
+                <h2>Стань студентом</h2>
             </div>
 
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1470&auto=format&fit=crop" alt="Class">
-                    <div class="gallery-hover">
-                        <h4>Уютные учебные классы</h4>
-                        <p>Небольшие группы и комфортное пространство для занятий</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=1470&auto=format&fit=crop" alt="Speaking club">
-                    <div class="gallery-hover">
-                        <h4>Разговорный клуб</h4>
-                        <p>Живое общение с носителями языка каждую неделю</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1470&auto=format&fit=crop" alt="Exam prep">
-                    <div class="gallery-hover">
-                        <h4>Центр подготовки к IELTS</h4>
-                        <p>Пробные тестирования в формате, максимально приближенном к экзамену</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1470&auto=format&fit=crop" alt="Events">
-                    <div class="gallery-hover">
-                        <h4>Языковые вечера и мероприятия</h4>
-                        <p>Праздники, квизы и культурный обмен на английском языке</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="apply-section" id="apply">
-        <div class="container">
-            <div class="section-header">
-                <span>Сделай первый шаг</span>
-                <h2>Запись на курс английского</h2>
-            </div>
-
-            <div class="multistep-form-container">
-                <div class="form-progress">
-                    <div class="progress-step active" id="prog-step-1">
-                        <div class="progress-circle">1</div>
+            <div class="step-form-container" data-aos="zoom-in" data-aos-duration="1000">
+                <div class="form-indicator">
+                    <div class="indicator-dot active" id="dot-1">
+                        <div class="indicator-num">1</div>
                         <span>Контакты</span>
                     </div>
-                    <div class="progress-step" id="prog-step-2">
-                        <div class="progress-circle">2</div>
-                        <span>Образование</span>
-                    </div>
-                    <div class="progress-step" id="prog-step-3">
-                        <div class="progress-circle">3</div>
-                        <span>Программа</span>
+                    <div class="indicator-dot" id="dot-2">
+                        <div class="indicator-num">2</div>
+                        <span>Данные</span>
                     </div>
                 </div>
 
-                <form id="admission-form">
-                    <div class="form-step-content active" id="step-1">
-                        <div class="step-title">Контактная информация</div>
-                        <div class="grid-2col">
-                            <div class="form-group">
-                                <label for="form-fio">ФИО полностью *</label>
-                                <input type="text" id="form-fio" placeholder="Иванов Иван Иванович" required>
+                <form id="enrollment-form">
+                    <div class="form-step active" id="step-1">
+                        <h3>Личная информация</h3>
+                        <div class="input-grid">
+                            <div class="form-field">
+                                <label>Имя и фамилия *</label>
+                                <input type="text" id="name" placeholder="Жандос Смагулов" required>
                             </div>
-                            <div class="form-group">
-                                <label for="form-email">Электронная почта *</label>
-                                <input type="text" id="form-email" placeholder="example@gmail.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="form-phone">Номер телефона *</label>
-                                <input type="text" id="form-phone" placeholder="+7 (707) 123-45-67" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="form-birth">Дата рождения *</label>
-                                <input type="text" id="form-birth" placeholder="ДД.ММ.ГГГГ" required>
+                            <div class="form-field">
+                                <label>Номер телефона *</label>
+                                <input type="tel" id="tel" placeholder="+7 (777) 777-77-77" required>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-step-content" id="step-2">
-                        <div class="step-title">Ваш уровень английского</div>
-                        <div class="form-group" style="margin-bottom: 20px;">
-                            <label for="form-school">Текущее место учебы / работы *</label>
-                            <input type="text" id="form-school" placeholder="Например: НИШ №10 г. Астана / ТОО «Компания»" required>
-                        </div>
-                        <div class="grid-2col">
-                            <div class="form-group">
-                                <label for="form-score">Ваш уровень английского *</label>
-                                <input type="text" id="form-score" placeholder="Например: Beginner, Intermediate" required>
+                    <div class="form-step" id="step-2">
+                        <h3>Выбор трека</h3>
+                        <div class="input-grid">
+                            <div class="form-field">
+                                <label>Образовательная программа</label>
+                                <select id="course-select">
+                                    <option value="dev">Разработка программного обеспечения</option>
+                                    <option value="ai">Искусственный интеллект</option>
+                                    <option value="pm">Project & Product Management</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="form-grad-year">Желаемая дата начала *</label>
-                                <input type="text" id="form-grad-year" placeholder="2026" required>
+                            <div class="form-field">
+                                <label>Имеется сертификат ЕНТ?</label>
+                                <select id="ent">
+                                    <option value="yes">Да, имеется</option>
+                                    <option value="no">Нет / Жду результаты</option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-step-content" id="step-3">
-                        <div class="step-title">Выбор курса</div>
-                        <div class="form-group" style="margin-bottom: 20px;">
-                            <label for="form-prog-choice">Выбранный курс *</label>
-                            <select id="form-prog-choice">
-                                <option value="general">General English: с нуля до Advanced</option>
-                                <option value="exam">IELTS / TOEFL Preparation</option>
-                                <option value="business">Business English для профессионалов</option>
-                                <option value="club">Speaking Club & Conversation Practice</option>
-                            </select>
-                        </div>
-                        <div class="checkbox-group" style="margin-bottom: 20px;">
-                            <input type="checkbox" id="form-consent">
-                            <label for="form-consent">Я даю согласие на обработку моих персональных данных и подтверждаю достоверность информации.</label>
-                        </div>
-                    </div>
-
-                    <div class="form-navigation">
-                        <button type="button" class="btn btn-outline" id="btn-prev" style="display: none;" onclick="prevStep()">Назад</button>
-                        <div></div> <button type="button" class="btn btn-primary" id="btn-next" onclick="nextStep()">Далее</button>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="prev-btn" style="display: none;">Назад</button>
+                        <button type="button" class="btn btn-primary" id="next-btn">Далее</button>
                     </div>
                 </form>
             </div>
@@ -1825,56 +1707,32 @@
 
     <section class="faq-section">
         <div class="container">
-            <div class="section-header">
-                <span>Есть вопросы?</span>
-                <h2>Часто задаваемые вопросы</h2>
+            <div class="section-header" data-aos="fade-up" data-aos-duration="1000">
+                <span>Вопросы и ответы</span>
+                <h2>Остались вопросы?</h2>
             </div>
 
-            <div class="faq-accordion">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Нужно ли знать английский, чтобы записаться на курс?</span>
-                        <div class="faq-icon"><i class="fa fa-chevron-down"></i></div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            Нет, мы принимаем студентов с любым уровнем подготовки — от полного нуля (Beginner) до продвинутого (Advanced). Перед зачислением каждый студент проходит бесплатный placement-тест, по результатам которого мы подбираем группу подходящего уровня.
+            <div class="faq-list">
+                <div class="faq-item" data-aos="fade-up" data-aos-duration="800">
+                    <button class="faq-trigger">
+                        <span>Есть ли гранты на обучение?</span>
+                        <div class="faq-icon-box"><i class="fa fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-panel">
+                        <div class="faq-content">
+                            Да, ежегодно мы выделяем внутренние гранты за высокие показатели ЕНТ или за выдающиеся успехи в олимпиадах и хакатонах.
                         </div>
                     </div>
                 </div>
 
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Есть ли гарантия результата на подготовке к IELTS?</span>
-                        <div class="faq-icon"><i class="fa fa-chevron-down"></i></div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            Да, наши преподаватели работают по проверенной методике с регулярными пробными тестированиями (mock tests) в формате настоящего экзамена. При регулярном посещении занятий и выполнении домашних заданий 94% наших студентов достигают своей целевой оценки.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Сколько человек занимается в одной группе?</span>
-                        <div class="faq-icon"><i class="fa fa-chevron-down"></i></div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            Группы небольшие — до 8 человек, что позволяет преподавателю уделить внимание каждому студенту и обеспечить максимум разговорной практики на занятии. Также доступен формат индивидуальных занятий один на один с преподавателем.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Можно ли посетить пробный урок перед оплатой курса?</span>
-                        <div class="faq-icon"><i class="fa fa-chevron-down"></i></div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            Да, для каждого нового студента доступен один бесплатный пробный урок. Вы сможете познакомиться с преподавателем, форматом занятий и группой, прежде чем принять решение об оплате курса.
+                <div class="faq-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <button class="faq-trigger">
+                        <span>Помогаете ли вы с работой?</span>
+                        <div class="faq-icon-box"><i class="fa fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-panel">
+                        <div class="faq-content">
+                            В Академии работает сильный карьерный центр. Мы устраиваем регулярные IT-ярмарки и организуем стажировки во время учебы в ведущих компаниях.
                         </div>
                     </div>
                 </div>
@@ -1886,388 +1744,323 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-about">
-                    <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU Logo Footer">
-                    <p>Формируем кадровый резерв цифровой экономики Казахстана, внедряя продвинутые академические стандарты.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <div class="footer-logo">
+                        <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU Footer">
+                    </div>
+                    <p>Прогрессивная образовательная среда, формирующая лидеров технологического рынка Казахстана.</p>
+                    <div class="footer-socials">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
-
-                <div class="footer-column">
-                    <h3>Поступающим</h3>
+                <div class="footer-col">
+                    <h4>Академия</h4>
                     <ul class="footer-links">
-                        <li><a href="#programs">Бакалавриат</a></li>
-                        <li><a href="#calculator">Калькулятор стоимости</a></li>
-                        <li><a href="#timeline">Правила приема</a></li>
-                        <li><a href="#apply">Подать заявку</a></li>
+                        <li><a href="#programs">Программы</a></li>
+                        <li><a href="#calc">Стоимость</a></li>
+                        <li><a href="#steps">Поступление</a></li>
                     </ul>
                 </div>
-
-                <div class="footer-column">
-                    <h3>Академия</h3>
-                    <ul class="footer-links">
-                        <li><a href="#faculty">О нас</a></li>
-                        <li><a href="#faculty">Преподаватели</a></li>
-                        <li><a href="#">Карьера у нас</a></li>
-                        <li><a href="#">Новости академии</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Контакты</h3>
-                    <ul class="footer-contact">
-                        <li><i class="fa fa-map-marker-alt"></i> пр. Мангилик Ел 55/11, Астана, Казахстан</li>
-                        <li><i class="fa fa-phone-alt"></i> +7 (7172) 77-77-77</li>
-                        <li><i class="fa fa-envelope"></i> info@damu.edu.kz</li>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul class="footer-links" style="color: #94A3B8;">
+                        <li><i class="fa fa-map-marker-alt" style="color: var(--primary); margin-right: 8px;"></i> Астана, Мангилик Ел 55/11</li>
+                        <li><i class="fa fa-phone" style="color: var(--primary); margin-right: 8px;"></i> +7 (7172) 77-77-77</li>
                     </ul>
                 </div>
             </div>
-
             <div class="footer-bottom">
-                <p>&copy; 2026 DAMU Academy. Все права защищены. Разработано в стиле Astana IT University.</p>
-                <p>Политика конфиденциальности</p>
+                &copy; 2026 DAMU Academy. Все права защищены. Разработано в соответствии с концепцией Astana IT.
             </div>
         </div>
     </footer>
 
-    <div class="modal" id="program-modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeProgramModal()">&times;</button>
-            <h2 id="modal-title" style="font-size: 24px; font-weight: 800; color: var(--secondary); margin-bottom: 20px;">Название Программы</h2>
-            <div id="modal-desc" style="font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 25px;">
-                Детальное описание программы будет динамически внедрено с помощью JS.
-            </div>
-            <div style="display: flex; gap: 15px;">
-                <a href="#apply" class="btn btn-primary" onclick="closeProgramModal()">Подать документы</a>
-                <button class="btn btn-outline" onclick="closeProgramModal()">Закрыть</button>
-            </div>
+    <div class="modal" id="modal">
+        <div class="modal-body">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <h3 id="modal-title" style="margin-bottom: 15px; text-transform: uppercase; font-weight: 900;">Название программы</h3>
+            <p id="modal-desc" style="color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 30px;">Детали...</p>
+            <button class="btn btn-primary" id="modal-cta" style="width: 100%;">Записаться</button>
         </div>
     </div>
 
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // --- 1. Мобильная навигация (Бургер) ---
-        const burgerTrigger = document.getElementById('burger-trigger');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        burgerTrigger.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            burgerTrigger.classList.toggle('active');
+        // Инициализация библиотек анимаций при скролле
+        AOS.init({
+            once: true, // Анимация проигрывается только 1 раз при появлении
+            offset: 120, // Расстояние до экрана до запуска
         });
 
-        // --- 2. Слайдер Hero баннера ---
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.slider-dot');
+        // --- 1. Плавный скролл шапки ---
+        const headerElement = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                headerElement.classList.add('scrolled');
+            } else {
+                headerElement.classList.remove('scrolled');
+            }
+        });
 
-        function setSlide(index) {
-            slides[currentSlide].classList.remove('active');
-            dots[currentSlide].classList.remove('active');
-            currentSlide = index;
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-
-        // Автопереключение слайдов каждые 7 секунд
-        setInterval(() => {
-            let next = (currentSlide + 1) % slides.length;
-            setSlide(next);
-        }, 7000);
-
-        // --- 3. Анимированный счетчик статистики на скролле ---
-        const stats = document.querySelectorAll('.stat-number[data-target]');
-        const observerOptions = { threshold: 0.5 };
-
-        const statsObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const maxVal = parseInt(target.getAttribute('data-target'));
-                    let currentVal = 0;
-                    const speed = maxVal / 50;
-
-                    const updateCounter = () => {
-                        currentVal += speed;
-                        if (currentVal < maxVal) {
-                            target.innerText = Math.floor(currentVal);
-                            setTimeout(updateCounter, 20);
-                        } else {
-                            target.innerText = maxVal;
-                        }
-                    };
-                    updateCounter();
-                    observer.unobserve(target);
-                }
-            });
-        }, observerOptions);
-
-        stats.forEach(stat => statsObserver.observe(stat));
-
-        // --- 4. Поиск и Фильтрация образовательных программ ---
+        // --- 2. Контент программ ---
         const programs = [
-            { category: 'dev', title: 'Разработка программных систем на Java/Python', description: 'Проектирование архитектуры корпоративных решений, микросервисы, бэкенд и алгоритмы высокой сложности.', duration: '4 Года', degree: 'Бакалавриат', code: 'java' },
-            { category: 'data', title: 'Искусственный Интеллект и Машинное обучение', description: 'Разработка нейронных сетей, анализ больших данных (Big Data), предиктивное моделирование сложных систем.', duration: '4 Года', degree: 'Бакалавриат', code: 'ai' },
-            { category: 'management', title: 'Product & Project Management в IT-сфере', description: 'Управление жизненным циклом IT-продуктов, гибкие методологии Agile/Scrum, запуск технологических стартапов.', duration: '3 Года', degree: 'Бакалавриат', code: 'management' },
-            { category: 'dev', title: 'Fullstack Web-Разработчик (React, Node.js)', description: 'Создание интерактивных современных веб-интерфейсов и сложных клиент-серверных архитектур.', duration: '1 Год', degree: 'Сертификат', code: 'fullstack' }
+            { id: 1, category: 'dev', title: 'Разработка ПО на Java/Python', desc: 'Узнай всё про бэкенд, базы данных, API и микросервисы.', duration: '4 года', degree: 'Бакалавриат', details: 'Глубокое изучение разработки корпоративных платформ, распределенных сетей, DevOps, СУБД (PostgreSQL, Redis), оркестрации контейнеров Docker/Kubernetes.' },
+            { id: 2, category: 'data', title: 'Искусственный интеллект', desc: 'Проектируй нейросети, работай с Big Data и обучай модели.', duration: '4 года', degree: 'Бакалавриат', details: 'Включает в себя математический анализ, линейную алгебру, глубокие нейронные сети, Computer Vision, обработку текстов NLP на базе PyTorch и TensorFlow.' },
+            { id: 3, category: 'manage', title: 'IT Project & Product Management', desc: 'Научись управлять командами и успешно выводить стартапы на рынок.', duration: '3 года', degree: 'Бакалавриат', details: 'Освоение продуктового анализа, Agile/Scrum методологий, кастдевов, юнит-экономики проектов, запуска MVP и управления бэклогом.' }
         ];
 
-        const searchInput = document.getElementById('program-search');
-        let activeCategory = 'all';
+        // --- 3. Мобильное Меню (Drawer) ---
+        const burger = document.getElementById('burger');
+        const drawer = document.getElementById('drawer');
+        const overlay = document.getElementById('overlay');
 
-        function filterCategory(category) {
-            activeCategory = category;
-            
-            // Смена активных классов кнопок
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if (btn.innerText.toLowerCase().includes(category === 'all' ? 'все' : category === 'dev' ? 'разработка' : category === 'data' ? 'анализ' : 'управление')) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            renderPrograms();
+        function toggleMenu() {
+            burger.classList.toggle('active');
+            drawer.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
         }
 
-        searchInput.addEventListener('input', renderPrograms);
+        burger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+        document.getElementById('drawer-apply-btn').addEventListener('click', toggleMenu);
+
+        document.querySelectorAll('.drawer-link').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // --- 4. Тач-Слайдер ---
+        const slidesContainer = document.getElementById('slides');
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        let startX = 0;
+        let diffX = 0;
+
+        function goToSlide(index) {
+            currentSlide = index;
+            slidesContainer.style.transform = `translateX(-${currentSlide * 50}%)`;
+            
+            // Смена активных классов
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === currentSlide);
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        slidesContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        slidesContainer.addEventListener('touchmove', (e) => {
+            diffX = e.touches[0].clientX - startX;
+        }, { passive: true });
+
+        slidesContainer.addEventListener('touchend', () => {
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0 && currentSlide > 0) {
+                    goToSlide(0);
+                } else if (diffX < 0 && currentSlide < 1) {
+                    goToSlide(1);
+                }
+            }
+            diffX = 0;
+        });
+
+        setInterval(() => {
+            const next = currentSlide === 0 ? 1 : 0;
+            goToSlide(next);
+        }, 8000);
+
+        // --- 5. Фильтр и Живой Поиск по программам ---
+        const grid = document.getElementById('grid');
+        const searchInput = document.getElementById('search');
+        let activeCategory = 'all';
 
         function renderPrograms() {
             const query = searchInput.value.toLowerCase();
-            const container = document.getElementById('programs-container');
-            container.innerHTML = '';
+            grid.innerHTML = '';
 
-            const filtered = programs.filter(prog => {
-                const matchesCategory = activeCategory === 'all' || prog.category === activeCategory;
-                const matchesSearch = prog.title.toLowerCase().includes(query) || prog.description.toLowerCase().includes(query);
-                return matchesCategory && matchesSearch;
+            const filtered = programs.filter(p => {
+                const matchesCat = activeCategory === 'all' || p.category === activeCategory;
+                const matchesSearch = p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query);
+                return matchesCat && matchesSearch;
             });
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted); font-weight: 600;">По вашему запросу программ не найдено. Попробуйте изменить параметры поиска.</div>`;
+                grid.innerHTML = `<div style="text-align: center; color: var(--text-muted); grid-column: 1/-1; padding: 40px 0;">Программ не найдено</div>`;
                 return;
             }
 
-            filtered.forEach(prog => {
-                const item = document.createElement('div');
-                item.className = 'program-item';
-                item.setAttribute('data-category', prog.category);
-                item.innerHTML = `
-                    <div class="program-header">
-                        <span class="program-category">${prog.category === 'dev' ? 'Разработка ПО' : prog.category === 'data' ? 'Анализ данных & ИИ' : 'IT Управление'}</span>
-                        <h3 class="program-title">${prog.title}</h3>
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'program-card';
+                card.innerHTML = `
+                    <div>
+                        <span class="program-cat">${p.category === 'dev' ? 'Разработка ПО' : p.category === 'data' ? 'Аналитика & ИИ' : 'Управление'}</span>
+                        <h3>${p.title}</h3>
+                        <p>${p.desc}</p>
                     </div>
-                    <div class="program-body">${prog.description}</div>
-                    <div class="program-details">
-                        <span><i class="fa fa-clock"></i> ${prog.duration}</span>
-                        <span><i class="fa fa-award"></i> ${prog.degree}</span>
-                    </div>
-                    <div class="program-actions">
-                        <a href="#apply" class="btn btn-outline" style="padding: 8px 18px; font-size: 11px;">Поступить</a>
-                        <a href="javascript:void(0)" onclick="openProgramModal('${prog.code}')" class="btn-text-link">О программе &rarr;</a>
+                    <div>
+                        <div class="program-meta">
+                            <span><i class="fa fa-clock"></i> ${p.duration}</span>
+                            <span><i class="fa fa-graduation-cap"></i> ${p.degree}</span>
+                        </div>
+                        <button class="btn btn-outline" style="width: 100%;" onclick="openDetails(${p.id})">Подробнее</button>
                     </div>
                 `;
-                container.appendChild(item);
+                grid.appendChild(card);
             });
         }
 
-        // --- 5. Модальные окна (Modal Popups) ---
-        const modalData = {
-            java: {
-                title: 'Разработка программных систем на Java/Python',
-                desc: 'Данная программа ориентирована на глубокое освоение бэкенд-разработки на языках Java и Python. Курс включает в себя архитектурное проектирование масштабируемых систем, глубокое изучение фреймворков Spring Boot и Django, работу с реляционными и NoSQL базами данных (PostgreSQL, MongoDB), контейнеризацию приложений с помощью Docker и Kubernetes, а также методологии непрерывной интеграции и доставки (CI/CD).'
-            },
-            ai: {
-                title: 'Искусственный Интеллект и Машинное обучение',
-                desc: 'Программа готовит специалистов нового поколения в области исследования данных и автоматизации. Обучение включает математическую статистику, методы машинного обучения (Supervised, Unsupervised learning), современные архитектуры нейросетей (CNN, RNN, Transformers), компьютерное зрение (Computer Vision) и обработку естественного языка (NLP) на базе современных библиотек PyTorch и TensorFlow.'
-            },
-            management: {
-                title: 'Product & Project Management в IT-сфере',
-                desc: 'Интенсивная междисциплинарная программа, находящаяся на стыке современных технологий и управления бизнесом. Вы научитесь исследовать целевую аудиторию (Customer Development), оцифровывать юнит-экономику продуктов, внедрять гибкие бизнес-процессы (Scrum, Kanban, XP), координировать распределенные кросс-функциональные команды разработчиков и эффективно управлять бэклогом.'
-            },
-            fullstack: {
-                title: 'Fullstack Web-Разработчик (React, Node.js)',
-                desc: 'Практическая программа подготовки универсальных разработчиков. Включает разработку интерактивных пользовательских интерфейсов на React.js, создание надежных бэкенд-интерфейсов REST API на Node.js / Express, работу с сессиями и JWT-авторизацией, адаптивную верстку по стандартам CSS Grid и Flexbox, а также базовое развертывание проектов в облачных сервисах AWS и Heroku.'
-            }
-        };
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                activeCategory = e.target.getAttribute('data-category');
+                renderPrograms();
+            });
+        });
 
-        function openProgramModal(code) {
-            const data = modalData[code];
-            if (data) {
-                document.getElementById('modal-title').innerText = data.title;
-                document.getElementById('modal-desc').innerText = data.desc;
-                document.getElementById('program-modal').classList.add('active');
+        searchInput.addEventListener('input', renderPrograms);
+        renderPrograms(); // Рендер по умолчанию
+
+        // --- 6. Модальное Окно Подробностей ---
+        const modal = document.getElementById('modal');
+        const modalClose = document.getElementById('modal-close');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+
+        function openDetails(id) {
+            const program = programs.find(p => p.id === id);
+            if (program) {
+                modalTitle.innerText = program.title;
+                modalDesc.innerText = program.details;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         }
 
-        function closeProgramModal() {
-            document.getElementById('program-modal').classList.remove('active');
-        }
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
 
-        // Закрытие по клику вне контента модалки
-        document.getElementById('program-modal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('program-modal')) {
-                closeProgramModal();
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
 
-        // --- 6. Калькулятор стоимости обучения (Tuition Calculator) ---
-        function calculateTuition() {
-            const degree = document.getElementById('calc-degree').value;
-            const citizenship = document.getElementById('calc-citizenship').value;
-            const discountPercent = parseInt(document.getElementById('calc-discount').value);
-            const isHostelNeeded = document.getElementById('calc-hostel').checked;
+        document.getElementById('modal-cta').addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            window.location.hash = 'form';
+        });
 
-            let baseCost = 0;
-            if (degree === 'bachelor') baseCost = 1200000;
-            else if (degree === 'master') baseCost = 1500000;
-            else if (degree === 'short') baseCost = 800000;
+        // --- 7. Калькулятор Стоимости Обучения ---
+        const degreeSelect = document.getElementById('degree');
+        const discountSelect = document.getElementById('discount');
+        const hostelCheckbox = document.getElementById('hostel');
 
-            // Иностранным студентам базовая стоимость увеличивается на 30%
-            if (citizenship === 'international') {
-                baseCost = baseCost * 1.3;
-            }
+        const baseVal = document.getElementById('base-val');
+        const discVal = document.getElementById('disc-val');
+        const totalVal = document.getElementById('total-val');
 
-            let hostelCost = 0;
-            if (isHostelNeeded) {
-                hostelCost = 350000; // Фиксированная стоимость проживания в год
-            }
+        function calculate() {
+            const base = parseInt(degreeSelect.value);
+            const discount = parseFloat(discountSelect.value);
+            const hasHostel = hostelCheckbox.checked;
 
-            // Вычисление скидки на обучение
-            const discountAmount = baseCost * (discountPercent / 100);
-            const totalCost = (baseCost - discountAmount) + hostelCost;
+            const finalBase = base * (1 - discount);
+            const hostelPrice = hasHostel ? 350000 : 0;
+            const finalTotal = finalBase + hostelPrice;
 
-            // Вывод данных на интерфейс
-            document.getElementById('res-base').innerText = `${Math.round(baseCost).toLocaleString('ru-RU')} ₸`;
-            document.getElementById('res-hostel').innerText = `${hostelCost.toLocaleString('ru-RU')} ₸`;
-            document.getElementById('res-discount').innerText = `${discountPercent}%`;
-            document.getElementById('res-total').innerText = `${Math.round(totalCost).toLocaleString('ru-RU')} ₸`;
+            baseVal.innerText = `${base.toLocaleString('ru-RU')} ₸`;
+            discVal.innerText = `${(discount * 100)}%`;
+            totalVal.innerText = `${Math.round(finalTotal).toLocaleString('ru-RU')} ₸`;
         }
 
-        // Первичный запуск калькулятора
-        calculateTuition();
+        [degreeSelect, discountSelect, hostelCheckbox].forEach(el => {
+            el.addEventListener('change', calculate);
+        });
 
-        // --- 7. Многошаговая интерактивная форма (Multi-Step Form) ---
-        let currentStep = 1;
-        const totalSteps = 3;
+        calculate(); // Инициализация расчетов
 
-        function updateFormUI() {
-            // Скрыть все шаги, показать активный
-            for (let i = 1; i <= totalSteps; i++) {
-                const stepContent = document.getElementById(`step-${i}`);
-                const progressStep = document.getElementById(`prog-step-${i}`);
-                
-                if (i === currentStep) {
-                    stepContent.classList.add('active');
-                    progressStep.classList.add('active');
-                } else {
-                    stepContent.classList.remove('active');
-                    if (i < currentStep) {
-                        progressStep.classList.add('completed');
-                        progressStep.classList.remove('active');
-                    } else {
-                        progressStep.classList.remove('completed', 'active');
-                    }
-                }
-            }
+        // --- 8. Шаговая Форма (Step Form) ---
+        let step = 1;
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
 
-            // Кнопка Назад
-            const btnPrev = document.getElementById('btn-prev');
-            if (currentStep === 1) {
-                btnPrev.style.display = 'none';
-            } else {
-                btnPrev.style.display = 'block';
-            }
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
 
-            // Кнопка Далее / Отправить
-            const btnNext = document.getElementById('btn-next');
-            if (currentStep === totalSteps) {
-                btnNext.innerText = 'Отправить заявление';
-                btnNext.style.backgroundColor = 'var(--success)';
-                btnNext.style.borderColor = 'var(--success)';
-            } else {
-                btnNext.innerText = 'Далее';
-                btnNext.style.backgroundColor = 'var(--primary)';
-                btnNext.style.borderColor = 'var(--primary)';
-            }
-        }
+        const dot1 = document.getElementById('dot-1');
+        const dot2 = document.getElementById('dot-2');
 
-        function validateStep(step) {
-            let isValid = true;
+        nextBtn.addEventListener('click', () => {
             if (step === 1) {
-                const fio = document.getElementById('form-fio');
-                const email = document.getElementById('form-email');
-                const phone = document.getElementById('form-phone');
-                
-                if (!fio.value || !email.value || !phone.value) isValid = false;
-            } else if (step === 2) {
-                const school = document.getElementById('form-school');
-                const score = document.getElementById('form-score');
-                
-                if (!school.value || !score.value) isValid = false;
-            } else if (step === 3) {
-                const consent = document.getElementById('form-consent');
-                if (!consent.checked) isValid = false;
-            }
-            return isValid;
-        }
+                const name = document.getElementById('name').value;
+                const tel = document.getElementById('tel').value;
 
-        function nextStep() {
-            if (!validateStep(currentStep)) {
-                alert('Пожалуйста, заполните все обязательные поля корректно перед переходом к следующему шагу.');
-                return;
-            }
-
-            if (currentStep < totalSteps) {
-                currentStep++;
-                updateFormUI();
-            } else {
-                // Если это последний шаг
-                alert('Поздравляем! Ваша заявка успешно принята в DAMU Academy. Наш менеджер свяжется с вами по указанному телефону в течение 24 часов.');
-                document.getElementById('admission-form').reset();
-                currentStep = 1;
-                updateFormUI();
-            }
-        }
-
-        function prevStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                updateFormUI();
-            }
-        }
-
-        // --- 8. Интерактивный FAQ Аккордеон ---
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                const answer = item.querySelector('.faq-answer');
-
-                if (item.classList.contains('active')) {
-                    answer.style.maxHeight = null;
-                    item.classList.remove('active');
-                } else {
-                    // Закрыть другие открытые вкладки
-                    document.querySelectorAll('.faq-item.active').forEach(openItem => {
-                        openItem.querySelector('.faq-answer').style.maxHeight = null;
-                        openItem.classList.remove('active');
-                    });
-
-                    item.classList.add('active');
-                    answer.style.maxHeight = answer.scrollHeight + "px";
+                if (!name || !tel) {
+                    alert('Пожалуйста, заполните все обязательные поля!');
+                    return;
                 }
-            });
+
+                step = 2;
+                step1.classList.remove('active');
+                step2.classList.add('active');
+                dot1.classList.add('done');
+                dot2.classList.add('active');
+                prevBtn.style.display = 'block';
+                nextBtn.innerText = 'Отправить';
+            } else if (step === 2) {
+                alert('Заявка успешно отправлена! Мы свяжемся с вами в течение 24 часов.');
+                document.getElementById('enrollment-form').reset();
+                step = 1;
+                step2.classList.remove('active');
+                step1.classList.add('active');
+                dot1.className = 'indicator-dot active';
+                dot2.className = 'indicator-dot';
+                prevBtn.style.display = 'none';
+                nextBtn.innerText = 'Далее';
+            }
         });
 
-        // --- 9. Scroll Effects (Фиксация Хедера) ---
-        const mainHeader = document.getElementById('main-header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                mainHeader.classList.add('scrolled');
-            } else {
-                mainHeader.classList.remove('scrolled');
+        prevBtn.addEventListener('click', () => {
+            if (step === 2) {
+                step = 1;
+                step2.classList.remove('active');
+                step1.classList.add('active');
+                dot1.className = 'indicator-dot active';
+                dot2.className = 'indicator-dot';
+                prevBtn.style.display = 'none';
+                nextBtn.innerText = 'Далее';
             }
+        });
+
+        // --- 9. FAQ Аккордеон ---
+        document.querySelectorAll('.faq-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const item = trigger.parentElement;
+                const panel = item.querySelector('.faq-panel');
+                const isActive = item.classList.contains('active');
+
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-panel').style.maxHeight = null;
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    panel.style.maxHeight = panel.scrollHeight + 'px';
+                }
+            });
         });
     </script>
 </body>
