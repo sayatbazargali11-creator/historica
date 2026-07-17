@@ -3,55 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAMU ACADEMY — Современная академия английского языка</title>
-    <meta name="description" content="Курсы английского языка для школьников, студентов и взрослых в DAMU ACADEMY. Эффективные методики, опытные преподаватели, подготовка к IELTS и TOEFL.">
-    <meta name="keywords" content="английский язык, курсы английского, IELTS, TOEFL, бизнес английский, DAMU ACADEMY">
+    <title>DAMU ACADEMY — Премиальная академия английского языка</title>
+    <meta name="description" content="Изучайте английский язык в DAMU ACADEMY. Профессиональные курсы для детей, подростков и взрослых. Подготовка к IELTS, TOEFL, разговорный английский.">
+    <meta name="keywords" content="DAMU ACADEMY, английский язык, курсы английского, IELTS, TOEFL, английский для детей, разговорный клуб">
     
-    <meta property="og:title" content="DAMU ACADEMY — Изучайте английский язык">
-    <meta property="og:description" content="Современные курсы английского языка для всех уровней с гарантией результата.">
+    <meta property="og:title" content="DAMU ACADEMY — Премиальная академия английского языка">
+    <meta property="og:description" content="Эффективные методики, лучшие преподаватели и гарантированный результат.">
+    <meta property="og:image" content="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp">
     <meta property="og:type" content="website">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
     <style>
-        /* --- CSS VARIABLES & THEMES --- */
+        /* --- CSS ТЕМАТИЧЕСКИЕ ПЕРЕМЕННЫЕ (КРАСНО-БЕЛЫЙ ДИЗАЙН) --- */
         :root {
-            --primary: #22C55E;
-            --primary-dark: #16A34A;
-            --primary-glow: rgba(34, 197, 94, 0.4);
+            --primary: #DC2626; /* Насыщенный красный */
+            --primary-hover: #B91C1C;
+            --primary-glow: rgba(220, 38, 38, 0.35);
             --bg-main: #FFFFFF;
-            --bg-section: #F9FAFB;
-            --text-main: #111827;
+            --bg-section: #FFF5F5; /* Мягкий красновато-белый оттенок */
+            --text-main: #1F2937;
             --text-muted: #4B5563;
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --card-border: rgba(229, 231, 235, 0.5);
-            --nav-bg: rgba(255, 255, 255, 0.8);
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(220, 38, 38, 0.15);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --shadow-sm: 0 2px 8px rgba(220, 38, 38, 0.05);
+            --shadow-md: 0 10px 20px rgba(220, 38, 38, 0.08);
+            --shadow-lg: 0 20px 40px rgba(220, 38, 38, 0.12);
             --radius-lg: 24px;
             --radius-md: 16px;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         [data-theme="dark"] {
-            --bg-main: #0B0F19;
-            --bg-section: #111827;
-            --text-main: #F9FAFB;
+            --bg-main: #0B0303; /* Глубокий темный с бордовым отливом */
+            --bg-section: #140505;
+            --text-main: #F3F4F6;
             --text-muted: #9CA3AF;
-            --card-bg: rgba(17, 24, 39, 0.7);
-            --card-border: rgba(55, 65, 81, 0.5);
-            --nav-bg: rgba(11, 15, 25, 0.8);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            --card-bg: rgba(20, 5, 5, 0.75);
+            --card-border: rgba(220, 38, 38, 0.25);
+            --nav-bg: rgba(11, 3, 3, 0.85);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
         }
 
-        /* --- BASE STYLES --- */
+        /* --- БАЗОВЫЕ СТИЛИ --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -82,13 +85,14 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 50px;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            letter-spacing: -1px;
         }
         .section-title span { color: var(--primary); }
 
-        /* --- PRELOADER --- */
+        /* --- ПРЕЛОАДЕР --- */
         #preloader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -100,15 +104,15 @@
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
         .spinner {
-            width: 50px; height: 50px;
+            width: 60px; height: 60px;
             border: 5px solid var(--card-border);
             border-top-color: var(--primary);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* --- CUSTOM CURSOR --- */
+        /* --- КАСТОМНЫЙ КУРСОР --- */
         .custom-cursor {
             width: 20px; height: 20px;
             border: 2px solid var(--primary);
@@ -122,256 +126,290 @@
         }
         @media (min-width: 1024px) { .custom-cursor { display: block; } }
 
-        /* --- SCROLL INDICATOR --- */
+        /* --- ИНДИКАТОР ПРОКРУТКИ --- */
         .scroll-indicator {
             position: fixed; top: 0; left: 0; height: 4px;
             background: var(--primary); width: 0%; z-index: 1001;
+            box-shadow: 0 0 8px var(--primary);
         }
 
-        /* --- GLASSMORPHISM CARD COMMON --- */
+        /* --- GLASSMORPHISM КАРТОЧКА --- */
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--card-border);
             border-radius: var(--radius-lg);
-            padding: 30px;
+            padding: 35px;
             box-shadow: var(--shadow-md);
             transition: var(--transition);
         }
         .glass-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-lg);
             border-color: var(--primary);
         }
 
-        /* --- HEADER & NAVIGATION --- */
+        /* --- ШАПКА И НАВИГАЦИЯ --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             transition: var(--transition);
-            padding: 20px 0;
+            padding: 24px 0;
         }
         header.scrolled {
             background: var(--nav-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 12px 0;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 14px 0;
             box-shadow: var(--shadow-sm);
             border-bottom: 1px solid var(--card-border);
         }
         .nav-container {
             display: flex; justify-content: space-between; align-items: center;
         }
-        .logo {
-            font-size: 1.5rem; font-weight: 800; color: var(--text-main);
-            display: flex; align-items: center; gap: 8px;
+        .logo img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
         }
-        .logo span { color: var(--primary); }
-        .nav-menu { display: flex; gap: 30px; align-items: center; }
+        .nav-menu { display: flex; gap: 32px; align-items: center; }
         .nav-link {
-            font-weight: 500; color: var(--text-muted); transition: var(--transition);
-            position: relative; padding: 5px 0;
+            font-weight: 600; color: var(--text-muted); transition: var(--transition);
+            position: relative; padding: 6px 0; font-size: 0.95rem;
         }
         .nav-link:hover, .nav-link.active { color: var(--primary); }
         .nav-link::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
-            background: var(--primary); transition: var(--transition);
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px;
+            background: var(--primary); transition: var(--transition); border-radius: 2px;
         }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         
-        .nav-actions { display: flex; align-items: center; gap: 20px; }
+        .nav-actions { display: flex; align-items: center; gap: 24px; }
         .theme-toggle {
             background: none; border: none; color: var(--text-main);
-            font-size: 1.2rem; cursor: pointer; transition: var(--transition);
+            font-size: 1.3rem; cursor: pointer; transition: var(--transition);
         }
         .btn {
-            padding: 12px 28px; border-radius: var(--radius-md); font-weight: 600;
+            padding: 14px 30px; border-radius: var(--radius-md); font-weight: 700;
             cursor: pointer; transition: var(--transition); border: none;
-            display: inline-flex; align-items: center; gap: 8px; position: relative;
-            overflow: hidden;
+            display: inline-flex; align-items: center; gap: 10px; position: relative;
+            overflow: hidden; letter-spacing: 0.3px;
         }
         .btn-primary { background: var(--primary); color: #fff; }
-        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 0 20px var(--primary-glow); }
+        .btn-primary:hover { background: var(--primary-hover); box-shadow: 0 0 25px var(--primary-glow); }
         .btn-secondary { background: transparent; color: var(--text-main); border: 2px solid var(--card-border); }
-        .btn-secondary:hover { border-color: var(--primary); background: rgba(34, 197, 94, 0.05); }
+        .btn-secondary:hover { border-color: var(--primary); background: rgba(220, 38, 38, 0.05); }
 
-        .burger { display: none; cursor: pointer; background: none; border: none; color: var(--text-main); font-size: 1.5rem; }
+        .burger { display: none; cursor: pointer; background: none; border: none; color: var(--text-main); font-size: 1.6rem; }
 
         @media (max-width: 1023px) {
             .burger { display: block; }
             .nav-menu {
-                position: fixed; top: 0; right: -100%; width: 300px; height: 100vh;
+                position: fixed; top: 0; right: -100%; width: 320px; height: 100vh;
                 background: var(--bg-main); box-shadow: var(--shadow-lg);
-                flex-direction: column; padding: 100px 40px; align-items: flex-start;
-                transition: 0.4s ease;
+                flex-direction: column; padding: 120px 40px; align-items: flex-start;
+                transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                border-left: 1px solid var(--card-border);
             }
             .nav-menu.active { right: 0; }
         }
 
-        /* --- HERO SECTION --- */
+        /* --- ГЕРОЙ ЭКРАН --- */
         .hero {
             position: relative; min-height: 100vh; display: flex; align-items: center;
-            padding-top: 120px; overflow: hidden; background: radial-gradient(circle at 90% 10%, rgba(34, 197, 94, 0.05), transparent 40%);
+            padding-top: 140px; overflow: hidden; 
+            background: radial-gradient(circle at 85% 15%, rgba(220, 38, 38, 0.08), transparent 45%);
         }
         #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; pointer-events: none; }
-        .hero .container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-        .hero-content h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 24px; }
-        .hero-content p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; }
-        .hero-btns { display: flex; gap: 16px; }
+        .hero .container { position: relative; z-index: 2; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; }
+        .hero-content h1 { font-size: 3.8rem; font-weight: 900; line-height: 1.15; margin-bottom: 28px; letter-spacing: -1.5px; }
+        .hero-content p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 45px; max-width: 600px; }
+        .hero-btns { display: flex; gap: 20px; }
         
         .hero-visual { position: relative; display: flex; justify-content: center; justify-self: center; }
         .mockup-container {
-            width: 450px; height: 450px; background: linear-gradient(135deg, var(--primary), #3B82F6);
-            border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
-            animation: morph 8s ease-in-out infinite alternate;
-            display: flex; align-items: center; justify-content: center; color: #fff; font-size: 5rem;
-            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
+            width: 420px; height: 420px; background: linear-gradient(135deg, var(--primary), #EF4444);
+            border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+            animation: morphingBlob 10s ease-in-out infinite alternate;
+            display: flex; align-items: center; justify-content: center; color: #fff; font-size: 6rem;
+            box-shadow: 0 25px 50px rgba(220, 38, 38, 0.25);
         }
-        @keyframes morph {
-            0% { border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%; }
-            100% { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; }
+        @keyframes morphingBlob {
+            0% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+            100% { border-radius: 70% 30% 52% 48% / 30% 65% 35% 70%; }
         }
 
         @media (max-width: 991px) {
             .hero .container { grid-template-columns: 1fr; text-align: center; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; }
             .hero-btns { justify-content: center; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .mockup-container { width: 300px; height: 300px; font-size: 3.5rem; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .mockup-container { width: 280px; height: 280px; font-size: 4rem; }
         }
 
-        /* --- FEATURES SECTION --- */
-        .features { padding: 100px 0; background-color: var(--bg-section); }
+        /* --- СЕКЦИЯ ПРЕИМУЩЕСТВ --- */
+        .features { padding: 120px 0; background-color: var(--bg-section); }
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .feature-icon {
-            width: 60px; height: 60px; background: rgba(34, 197, 94, 0.1); color: var(--primary);
+            width: 64px; height: 64px; background: rgba(220, 38, 38, 0.08); color: var(--primary);
             border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; margin-bottom: 20px; transition: var(--transition);
+            font-size: 1.6rem; margin-bottom: 24px; transition: var(--transition);
         }
-        .glass-card:hover .feature-icon { background: var(--primary); color: #fff; transform: rotate(10deg); }
-        .feature-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 12px; }
-        .feature-desc { color: var(--text-muted); font-size: 0.95rem; }
+        .glass-card:hover .feature-icon { background: var(--primary); color: #fff; transform: scale(1.1) rotate(5deg); }
+        .feature-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 14px; }
+        .feature-desc { color: var(--text-muted); font-size: 0.98rem; }
 
-        /* --- COURSES SECTION --- */
-        .courses { padding: 100px 0; }
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        /* --- СЕКЦИЯ КУРСОВ --- */
+        .courses { padding: 120px 0; }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; }
         .course-card { display: flex; flex-direction: column; height: 100%; }
         .course-badge {
-            background: rgba(34, 197, 94, 0.1); color: var(--primary); padding: 6px 14px;
-            border-radius: 50px; font-size: 0.85rem; font-weight: 600; display: inline-block; width: max-content; margin-bottom: 15px;
+            background: rgba(220, 38, 38, 0.08); color: var(--primary); padding: 6px 16px;
+            border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: inline-block; width: max-content; margin-bottom: 20px;
         }
-        .course-price { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 20px 0; display: flex; align-items: baseline; gap: 4px;}
-        .course-price span { font-size: 0.9rem; color: var(--text-muted); font-weight: 400; }
-        .course-meta { display: flex; justify-content: space-between; border-top: 1px solid var(--card-border); padding-top: 15px; margin-top: auto; font-size: 0.9rem; color: var(--text-muted); }
+        .course-price { font-size: 1.7rem; font-weight: 800; color: var(--primary); margin: 24px 0; display: flex; align-items: baseline; gap: 6px;}
+        .course-price span { font-size: 0.95rem; color: var(--text-muted); font-weight: 500; }
+        .course-meta { display: flex; justify-content: space-between; border-top: 1px solid var(--card-border); padding-top: 20px; margin-top: auto; font-size: 0.95rem; color: var(--text-muted); }
 
-        /* --- STATS SECTION --- */
-        .stats { padding: 80px 0; background: var(--primary); color: #fff; position: relative; overflow: hidden; }
+        /* --- СЕКЦИЯ СТАТИСТИКИ --- */
+        .stats { padding: 90px 0; background: var(--primary); color: #fff; position: relative; overflow: hidden; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center; }
-        .stat-number { font-size: 3.5rem; font-weight: 800; margin-bottom: 8px; }
-        .stat-label { font-size: 1.1rem; opacity: 0.9; font-weight: 500; }
+        .stat-number { font-size: 3.8rem; font-weight: 900; margin-bottom: 10px; }
+        .stat-label { font-size: 1.15rem; opacity: 0.9; font-weight: 600; }
 
-        /* --- STEPS PROCESS --- */
-        .steps { padding: 100px 0; background: var(--bg-section); }
+        /* --- ПРОЦЕСС ОБУЧЕНИЯ --- */
+        .steps { padding: 120px 0; background: var(--bg-section); }
         .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; position: relative; }
         .step-card { text-align: center; position: relative; }
         .step-num {
-            width: 70px; height: 70px; background: var(--bg-main); border: 3px solid var(--primary);
+            width: 80px; height: 80px; background: var(--bg-main); border: 4px solid var(--primary);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 0 auto 24px;
-            box-shadow: var(--shadow-md); z-index: 2; position: relative;
+            font-size: 1.8rem; font-weight: 800; color: var(--primary); margin: 0 auto 28px;
+            box-shadow: var(--shadow-md); z-index: 2; position: relative; transition: var(--transition);
         }
-        .step-card h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 12px; }
-        .step-card p { color: var(--text-muted); font-size: 0.95rem; }
+        .step-card:hover .step-num { background: var(--primary); color: #fff; transform: scale(1.1); }
+        .step-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 14px; }
+        .step-card p { color: var(--text-muted); font-size: 0.98rem; }
 
-        /* --- TEAM SECTION --- */
-        .team { padding: 100px 0; }
+        /* --- СЕКЦИЯ ПРЕПОДАВАТЕЛЕЙ (РАСШИРЕННАЯ) --- */
+        .team { padding: 120px 0; }
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .teacher-img-box {
-            width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px;
-            border: 4px solid var(--primary); display: flex; align-items: center; justify-content: center; background: #E5E7EB;
+            width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin: 0 auto 24px;
+            border: 4px solid var(--primary); display: flex; align-items: center; justify-content: center; background: var(--bg-section);
+            transition: var(--transition);
         }
+        .teacher-img-box i { font-size: 3.8rem; color: var(--primary); transition: var(--transition); }
+        .glass-card:hover .teacher-img-box { border-color: var(--primary); transform: scale(1.05); }
+        .glass-card:hover .teacher-img-box i { transform: scale(1.1); }
         .teacher-card { text-align: center; }
-        .teacher-card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; }
-        .teacher-role { color: var(--primary); font-size: 0.9rem; font-weight: 500; margin-bottom: 12px; }
-        .teacher-socials { display: flex; justify-content: center; gap: 14px; margin-top: 15px; }
-        .teacher-socials a { color: var(--text-muted); transition: var(--transition); }
-        .teacher-socials a:hover { color: var(--primary); }
+        .teacher-card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 8px; }
+        .teacher-role { color: var(--primary); font-size: 0.95rem; font-weight: 600; margin-bottom: 14px; }
+        .teacher-socials { display: flex; justify-content: center; gap: 16px; margin-top: 20px; }
+        .teacher-socials a { color: var(--text-muted); transition: var(--transition); font-size: 1.1rem; }
+        .teacher-socials a:hover { color: var(--primary); transform: translateY(-3px); }
 
-        /* --- REVIEWS (SWIPER) --- */
-        .reviews { padding: 100px 0; background: var(--bg-section); overflow: hidden; }
-        .swiper-container { padding: 20px 20px 50px 20px; }
-        .review-card { max-width: 600px; margin: 0 auto; }
-        .review-user { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-        .review-avatar { width: 60px; height: 60px; border-radius: 50%; background: #D1D5DB; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff;}
-        .review-stars { color: #F59E0B; margin-bottom: 15px; }
+        /* --- СЕКЦИЯ ОТЗЫВОВ (SWIPER) --- */
+        .reviews { padding: 120px 0; background: var(--bg-section); overflow: hidden; }
+        .swiper-container { padding: 20px 20px 60px 20px; }
+        .review-card { max-width: 650px; margin: 0 auto; }
+        .review-user { display: flex; align-items: center; gap: 18px; margin-top: 24px; }
+        .review-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 1.2rem; }
+        .review-stars { color: #F59E0B; margin-bottom: 18px; font-size: 1.1rem; }
 
-        /* --- FAQ SECTION (ACCORDION) --- */
-        .faq { padding: 100px 0; }
-        .faq-max { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
-        .faq-item { border: 1px solid var(--card-border); border-radius: var(--radius-md); overflow: hidden; transition: var(--transition); }
+        /* --- СЕКЦИЯ FAQ (ACCORDION - 20 ВОПРОСОВ) --- */
+        .faq { padding: 120px 0; }
+        .faq-max { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+        .faq-item { border: 1px solid var(--card-border); border-radius: var(--radius-md); overflow: hidden; transition: var(--transition); background: var(--card-bg); }
         .faq-btn {
-            width: 100%; text-align: left; padding: 20px 24px; background: var(--card-bg);
-            border: none; font-size: 1.1rem; font-weight: 600; color: var(--text-main);
+            width: 100%; text-align: left; padding: 22px 28px; background: transparent;
+            border: none; font-size: 1.15rem; font-weight: 700; color: var(--text-main);
             display: flex; justify-content: space-between; align-items: center; cursor: pointer;
         }
-        .faq-icon { transition: var(--transition); color: var(--primary); }
-        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0, 1, 0, 1); background: var(--bg-main); }
-        .faq-content p { padding: 0 24px 20px 24px; color: var(--text-muted); }
-        .faq-item.active .faq-content { max-height: 1000px; transition: max-height 1s ease-in-out; }
+        .faq-icon { transition: var(--transition); color: var(--primary); font-size: 1.1rem; }
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .faq-content p { padding: 0 28px 24px 28px; color: var(--text-muted); font-size: 1rem; }
+        .faq-item.active { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+        .faq-item.active .faq-content { max-height: 500px; }
         .faq-item.active .faq-icon { transform: rotate(180deg); }
 
-        /* --- CTA SECTION --- */
-        .cta { padding: 100px 0; text-align: center; background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%); }
-        .cta-box { max-width: 700px; margin: 0 auto; }
-        .cta h2 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; }
-        .cta p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; }
+        /* --- СЕКЦИЯ CTA --- */
+        .cta { padding: 120px 0; text-align: center; background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%); }
+        .cta-box { max-width: 800px; margin: 0 auto; }
+        .cta h2 { font-size: 3.2rem; font-weight: 900; margin-bottom: 24px; letter-spacing: -1px; }
+        .cta p { font-size: 1.3rem; color: var(--text-muted); margin-bottom: 45px; }
 
-        /* --- CONTACTS & FORM --- */
-        .contacts { padding: 100px 0; background: var(--bg-section); }
-        .contacts-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; }
-        .contact-info { display: flex; flex-direction: column; gap: 30px; }
-        .info-item { display: flex; align-items: center; gap: 20px; }
+        /* --- СЕКЦИЯ КОНТАКТОВ --- */
+        .contacts { padding: 120px 0; background: var(--bg-section); }
+        .contacts-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; }
+        .contact-info { display: flex; flex-direction: column; gap: 35px; }
+        .info-item { display: flex; align-items: center; gap: 24px; }
         .info-icon {
-            width: 50px; height: 50px; background: rgba(34, 197, 94, 0.1); color: var(--primary);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+            width: 56px; height: 56px; background: rgba(220, 38, 38, 0.08); color: var(--primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+            transition: var(--transition);
         }
-        .form-group { margin-bottom: 20px; position: relative; }
+        .info-item:hover .info-icon { background: var(--primary); color: #fff; transform: scale(1.05); }
+        .form-group { margin-bottom: 24px; position: relative; }
         .form-control {
-            width: 100%; padding: 16px; background: var(--bg-main); border: 1px solid var(--card-border);
-            border-radius: var(--radius-md); color: var(--text-main); font-size: 1px; outline: none; transition: var(--transition);
-            font-size: 1rem;
+            width: 100%; padding: 18px; background: var(--bg-main); border: 1px solid var(--card-border);
+            border-radius: var(--radius-md); color: var(--text-main); font-size: 1rem; outline: none; transition: var(--transition);
         }
-        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
-        textarea.form-control { min-height: 120px; resize: vertical; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 12px var(--primary-glow); }
+        textarea.form-control { min-height: 140px; resize: vertical; }
         
         .notification {
-            position: fixed; bottom: 30px; right: -400px; background: #22C55E; color: white;
-            padding: 16px 30px; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
-            z-index: 2000; transition: var(--transition); font-weight: 600;
+            position: fixed; bottom: 30px; right: -450px; background: var(--primary); color: white;
+            padding: 18px 32px; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+            z-index: 2000; transition: var(--transition); font-weight: 700; display: flex; align-items: center; gap: 12px;
         }
         .notification.active { right: 30px; }
 
-        /* --- FOOTER --- */
-        footer { background: var(--bg-main); padding: 80px 0 30px; border-top: 1px solid var(--card-border); }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        .footer-col h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 24px; }
-        .footer-links display: flex; flex-direction: column; gap: 12px;
-        .footer-links a { color: var(--text-muted); transition: var(--transition); display: block; margin-bottom: 10px;}
-        .footer-links a:hover { color: var(--primary); padding-left: 5px; }
-        .footer-bottom { border-top: 1px solid var(--card-border); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; color: var(--text-muted); font-size: 0.9rem; }
+        /* --- ПРЕМИАЛЬНЫЙ КРАСНЫЙ ФУТЕР --- */
+        footer { 
+            background: linear-gradient(180deg, var(--bg-main) 0%, #0D0303 100%); 
+            color: #FFFFFF; 
+            padding: 100px 0 40px; 
+            border-top: 1px solid var(--card-border); 
+        }
+        [data-theme="dark"] footer {
+            background: linear-gradient(180deg, #140505 0%, #030000 100%);
+        }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 50px; margin-bottom: 80px; }
+        .footer-col h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 28px; position: relative; color: #FFFFFF; }
+        .footer-col h4::after {
+            content: ''; position: absolute; bottom: -8px; left: 0; width: 40px; height: 3px; background: var(--primary); border-radius: 2px;
+        }
+        .footer-logo img { height: 48px; margin-bottom: 24px; }
+        .footer-desc { color: #9CA3AF; margin-bottom: 24px; font-size: 0.95rem; }
+        .footer-links { display: flex; flex-direction: column; gap: 14px; }
+        .footer-links a { color: #9CA3AF; transition: var(--transition); display: block; font-weight: 500; }
+        .footer-links a:hover { color: var(--primary); padding-left: 8px; }
+        
+        .footer-social-icons { display: flex; gap: 16px; margin-top: 10px; }
+        .footer-social-icons a {
+            width: 44px; height: 44px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #FFFFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition); font-size: 1.1rem;
+        }
+        .footer-social-icons a:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-5px); }
 
-        /* --- BACK TO TOP --- */
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; color: #9CA3AF; font-size: 0.9rem; }
+
+        /* --- КНОПКА "НАВЕРХ" --- */
         .back-to-top {
-            position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px;
+            position: fixed; bottom: 30px; left: 30px; width: 56px; height: 56px;
             background: var(--primary); color: white; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
             opacity: 0; visibility: hidden; transition: var(--transition); z-index: 999; box-shadow: var(--shadow-md);
         }
         .back-to-top.show { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--primary-hover); transform: translateY(-3px); }
 
         @media (max-width: 767px) {
             .contacts-grid { grid-template-columns: 1fr; }
-            .section-title { font-size: 2rem; }
-            .cta h2 { font-size: 2rem; }
+            .section-title { font-size: 2.2rem; }
+            .cta h2 { font-size: 2.2rem; }
+            .footer-bottom { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -384,28 +422,30 @@
     <div class="scroll-indicator" id="scrollIndicator"></div>
     <div class="custom-cursor" id="customCursor"></div>
 
-    <div class="notification" id="toast">Заявка успешно отправлена!</div>
+    <div class="notification" id="toast">
+        <i class="fa-solid fa-circle-check"></i> Заявка успешно отправлена!
+    </div>
 
     <header id="header">
         <div class="container nav-container">
             <a href="#" class="logo">
-                <i class="fa-solid fa-graduation-cap"></i> DAMU<span>ACADEMY</span>
+                <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU ACADEMY Logo">
             </a>
             <nav class="nav-menu" id="navMenu">
                 <a href="#" class="nav-link active">Главная</a>
-                <a href="#about" class="nav-link">О нас</a>
-                <a href="#courses" class="nav-link">Курсы</a>
                 <a href="#advantages" class="nav-link">Преимущества</a>
+                <a href="#courses" class="nav-link">Курсы</a>
+                <a href="#teachers" class="nav-link">Преподаватели</a>
                 <a href="#reviews" class="nav-link">Отзывы</a>
                 <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#contacts" class="nav-link">Контакты</a>
             </nav>
             <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Смена темы">
+                <button class="theme-toggle" id="themeToggle" aria-label="Смена темы оформления">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <a href="#contacts" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Записаться</a>
-                <button class="burger" id="burgerMenu" aria-label="Меню"><i class="fa-solid fa-bars"></i></button>
+
+                <button class="burger" id="burgerMenu" aria-label="Открыть меню"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
     </header>
@@ -415,15 +455,15 @@
         <div class="container">
             <div class="hero-content" data-aos="fade-right">
                 <h1>Изучайте английский язык вместе с <span style="color:var(--primary)">DAMU ACADEMY</span></h1>
-                <p>Современные интерактивные курсы английского языка для школьников, студентов и амбициозных взрослых.</p>
+                <p>Прогрессивное и качественное обучение английскому языку для любого возраста. Поднимите свой уровень владения до максимума.</p>
                 <div class="hero-btns">
                     <a href="#courses" class="btn btn-primary">Начать обучение</a>
-                    <a href="#contacts" class="btn btn-secondary">Консультация</a>
+                    <a href="#contacts" class="btn btn-secondary">Получить консультацию</a>
                 </div>
             </div>
             <div class="hero-visual" data-aos="fade-left">
                 <div class="mockup-container">
-                    <i class="fa-solid fa-language"></i>
+                    <i class="fa-solid fa-globe"></i>
                 </div>
             </div>
         </div>
@@ -433,45 +473,45 @@
         <div class="container">
             <h2 class="section-title">Наши <span>Преимущества</span></h2>
             <div class="features-grid">
-                <div class="glass-card" data-aos="up-out">
-                    <div class="feature-icon"><i class="fa-solid fa-user-tie"></i></div>
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="feature-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
                     <h3 class="feature-title">Опытные преподаватели</h3>
-                    <p class="feature-desc">Сертифицированные специалисты с международным опытом и носители языка.</p>
+                    <p class="feature-desc">Носители языка и дипломированные профессионалы с международными квалификациями.</p>
                 </div>
-                <div class="glass-card" data-aos="up-out">
-                    <div class="feature-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="50">
+                    <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
                     <h3 class="feature-title">Современная методика</h3>
-                    <p class="feature-desc">Коммуникативный подход, фокус на разговорной практике без зубрежки.</p>
+                    <p class="feature-desc">Упор на коммуникативные навыки и преодоление барьеров в легкой игровой форме.</p>
                 </div>
-                <div class="glass-card" data-aos="up-out">
-                    <div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon"><i class="fa-solid fa-display"></i></div>
                     <h3 class="feature-title">Онлайн обучение</h3>
-                    <p class="feature-desc">Удобная интерактивная экосистема и личный кабинет из любой точки мира.</p>
+                    <p class="feature-desc">Интерактивный личный кабинет и современная платформа для обучения из любой точки мира.</p>
                 </div>
-                <div class="glass-card" data-aos="up-out">
-                    <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="feature-icon"><i class="fa-solid fa-hotel"></i></div>
+                    <h3 class="feature-title">Оффлайн занятия</h3>
+                    <p class="feature-desc">Обучение в стильных, полностью укомплектованных технологичных кампусах.</p>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon"><i class="fa-solid fa-people-group"></i></div>
                     <h3 class="feature-title">Мини-группы</h3>
-                    <p class="feature-desc">Группы до 6-8 человек для обеспечения максимального внимания каждому ученику.</p>
+                    <p class="feature-desc">Обучение в небольших группах, где каждый студент получает максимальное внимание.</p>
                 </div>
-                <div class="glass-card" data-aos="up-out">
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="250">
                     <div class="feature-icon"><i class="fa-solid fa-comments"></i></div>
                     <h3 class="feature-title">Разговорный клуб</h3>
-                    <p class="feature-desc">Регулярные сессии Speaking Club с экспатами для разрушения барьеров.</p>
+                    <p class="feature-desc">Регулярная практика живого общения с кураторами и спикерами из Великобритании и США.</p>
                 </div>
-                <div class="glass-card" data-aos="up-out">
-                    <div class="feature-icon"><i class="fa-solid fa-book-open"></i></div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon"><i class="fa-solid fa-square-check"></i></div>
                     <h3 class="feature-title">Домашние задания</h3>
-                    <p class="feature-desc">Геймифицированная проверка домашних заданий с мгновенным фидбеком.</p>
+                    <p class="feature-desc">Интерактивные домашние работы с автоматической и экспертной проверкой.</p>
                 </div>
-                <div class="glass-card" data-aos="up-out">
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="355">
                     <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
-                    <h3 class="feature-title">Поддержка куратора</h3>
-                    <p class="feature-desc">Персональный ментор отслеживает ваш прогресс 7 дней в неделю.</p>
-                </div>
-                <div class="glass-card" data-aos="up-out">
-                    <div class="feature-icon"><i class="fa-solid fa-building"></i></div>
-                    <h3 class="feature-title">Оффлайн занятия</h3>
-                    <p class="feature-desc">Комфортные современные кампусы с технологичным оснащением.</p>
+                    <h3 class="feature-title">Поддержка преподавателя</h3>
+                    <p class="feature-desc">Прямая поддержка от ведущих преподавателей и персональное сопровождение.</p>
                 </div>
             </div>
         </div>
@@ -482,33 +522,93 @@
             <h2 class="section-title">Наши <span>Курсы</span></h2>
             <div class="courses-grid">
                 <div class="glass-card course-card" data-aos="fade-up">
-                    <span class="course-badge">Beginner / Elementary</span>
-                    <h3>Разговорный старт</h3>
-                    <p class="feature-desc">Идеальная база для тех, кто начинает изучение английского языка с абсолютного нуля.</p>
+                    <span class="course-badge">Beginner</span>
+                    <h3>Основы Языка</h3>
+                    <p class="feature-desc">Базовые навыки чтения, понимания на слух и простого бытового общения.</p>
                     <div class="course-price">18 000 ₸ <span>/ месяц</span></div>
                     <div class="course-meta">
-                        <span><i class="fa-solid fa-clock"></i> 4 месяца</span>
-                        <span><i class="fa-solid fa-layer-group"></i> А1-А2</span>
+                        <span><i class="fa-solid fa-calendar"></i> 4 месяца</span>
+                        <span><i class="fa-solid fa-layer-group"></i> Уровень A1</span>
+                    </div>
+                </div>
+                <div class="glass-card course-card" data-aos="fade-up" data-aos-delay="50">
+                    <span class="course-badge">Elementary</span>
+                    <h3>Элементарный Уровень</h3>
+                    <p class="feature-desc">Расширение базового словарного запаса и уверенные диалоги в повседневных ситуациях.</p>
+                    <div class="course-price">19 500 ₸ <span>/ месяц</span></div>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-calendar"></i> 4 месяца</span>
+                        <span><i class="fa-solid fa-layer-group"></i> Уровень A2</span>
                     </div>
                 </div>
                 <div class="glass-card course-card" data-aos="fade-up" data-aos-delay="100">
-                    <span class="course-badge">Intermediate</span>
-                    <h3>Уверенный уровень</h3>
-                    <p class="feature-desc">Развитие беглости речи, углубление грамматики, свободное общение на любые темы.</p>
-                    <div class="course-price">22 000 ₸ <span>/ месяц</span></div>
+                    <span class="course-badge">Pre-Intermediate</span>
+                    <h3>Нижний Средний</h3>
+                    <p class="feature-desc">Понимание структуры речи и выражение своей позиции на английском языке.</p>
+                    <div class="course-price">21 000 ₸ <span>/ месяц</span></div>
                     <div class="course-meta">
-                        <span><i class="fa-solid fa-clock"></i> 5 месяцев</span>
-                        <span><i class="fa-solid fa-layer-group"></i> B1-B2</span>
+                        <span><i class="fa-solid fa-calendar"></i> 5 месяцев</span>
+                        <span><i class="fa-solid fa-layer-group"></i> Уровень A2-B1</span>
                     </div>
                 </div>
-                <div class="glass-card course-card" data-aos="fade-up" data-aos-delay="200">
-                    <span class="course-badge">IELTS / TOEFL</span>
-                    <h3>Подготовка к экзаменам</h3>
-                    <p class="feature-desc">Интенсивная подготовка по всем модулям академических международных экзаменов.</p>
-                    <div class="course-price">30 000 ₸ <span>/ месяц</span></div>
+                <div class="glass-card course-card" data-aos="fade-up">
+                    <span class="course-badge">Intermediate</span>
+                    <h3>Средний Уровень</h3>
+                    <p class="feature-desc">Свободное обсуждение большинства тем, углубленная проработка грамматики.</p>
+                    <div class="course-price">23 000 ₸ <span>/ месяц</span></div>
                     <div class="course-meta">
-                        <span><i class="fa-solid fa-clock"></i> 3 месяца</span>
-                        <span><i class="fa-solid fa-star"></i> High Score</span>
+                        <span><i class="fa-solid fa-calendar"></i> 5 месяцев</span>
+                        <span><i class="fa-solid fa-layer-group"></i> Уровень B1</span>
+                    </div>
+                </div>
+                <div class="glass-card course-card" data-aos="fade-up" data-aos-delay="50">
+                    <span class="course-badge">Upper-Intermediate</span>
+                    <h3>Выше Среднего</h3>
+                    <p class="feature-desc">Свободное беглое общение на любые профессиональные и личные тематики.</p>
+                    <div class="course-price">25 000 ₸ <span>/ месяц</span></div>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-calendar"></i> 6 месяцев</span>
+                        <span><i class="fa-solid fa-layer-group"></i> Уровень B2</span>
+                    </div>
+                </div>
+                <div class="glass-card course-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="course-badge">IELTS Preparation</span>
+                    <h3>Подготовка к IELTS</h3>
+                    <p class="feature-desc">Изучение всех форматов и блоков экзамена для сдачи на высокий целевой балл.</p>
+                    <div class="course-price">32 000 ₸ <span>/ месяц</span></div>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-calendar"></i> 3 месяца</span>
+                        <span><i class="fa-solid fa-layer-group"></i> 6.5 - 8.5 Band</span>
+                    </div>
+                </div>
+                <div class="glass-card course-card" data-aos="fade-up">
+                    <span class="course-badge">TOEFL Prep</span>
+                    <h3>Подготовка к TOEFL</h3>
+                    <p class="feature-desc">Интенсивная комплексная подготовка к академическому американскому экзамену.</p>
+                    <div class="course-price">32 000 ₸ <span>/ месяц</span></div>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-calendar"></i> 3 месяца</span>
+                        <span><i class="fa-solid fa-layer-group"></i> Свидетельство</span>
+                    </div>
+                </div>
+                <div class="glass-card course-card" data-aos="fade-up" data-aos-delay="50">
+                    <span class="course-badge">Business</span>
+                    <h3>Деловой Английский</h3>
+                    <p class="feature-desc">Презентации, ведение деловых переписок, переговоров и развитие карьеры за рубежом.</p>
+                    <div class="course-price">28 000 ₸ <span>/ месяц</span></div>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-calendar"></i> 4 месяца</span>
+                        <span><i class="fa-solid fa-layer-group"></i> Для карьеры</span>
+                    </div>
+                </div>
+                <div class="glass-card course-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="course-badge">Kids</span>
+                    <h3>Английский для Детей</h3>
+                    <p class="feature-desc">Увлекательные интерактивные и игровые уроки для детей от 7 до 12 лет.</p>
+                    <div class="course-price">17 000 ₸ <span>/ месяц</span></div>
+                    <div class="course-meta">
+                        <span><i class="fa-solid fa-calendar"></i> Постоянно</span>
+                        <span><i class="fa-solid fa-layer-group"></i> Игровая база</span>
                     </div>
                 </div>
             </div>
@@ -519,70 +619,130 @@
         <div class="container stats-grid">
             <div>
                 <div class="stat-number" data-target="5000">0</div>
-                <div class="stat-label">Учеников окончили курсы</div>
+                <div class="stat-label">Успешных учеников</div>
             </div>
             <div>
                 <div class="stat-number" data-target="150">0</div>
-                <div class="stat-label">Действующих групп</div>
+                <div class="stat-label">Активных групп</div>
             </div>
             <div>
                 <div class="stat-number" data-target="98">0</div>
-                <div class="stat-label">% Довольных студентов</div>
+                <div class="stat-label">% Положительных отзывов</div>
             </div>
             <div>
                 <div class="stat-number" data-target="7">0</div>
-                <div class="stat-label">Лет успешного опыта</div>
+                <div class="stat-label">Лет успешной работы</div>
             </div>
         </div>
     </section>
 
-    <section class="steps" id="about">
+    <section class="steps">
         <div class="container">
-            <h2 class="section-title">Процесс <span>Обучения</span></h2>
+            <h2 class="section-title">Как устроен <span>Процесс Обучения</span></h2>
             <div class="steps-grid">
-                <div class="step-card" data-aos="zoom-in">
+                <div class="step-card" data-aos="fade-right">
                     <div class="step-num">01</div>
-                    <h3>Заявка</h3>
-                    <p>Оставьте свои контакты на сайте для бронирования места.</p>
+                    <h3>Запись</h3>
+                    <p>Оставляете простую заявку на нашем сайте.</p>
                 </div>
-                <div class="step-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="step-card" data-aos="fade-right" data-aos-delay="100">
                     <div class="step-num">02</div>
-                    <h3>Тестирование</h3>
-                    <p>Проходим бесплатный аудит для точного определения уровня знаний.</p>
+                    <h3>Аудит</h3>
+                    <p>Проходим тестирование и определяем точный текущий уровень.</p>
                 </div>
-                <div class="step-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="step-card" data-aos="fade-right" data-aos-delay="200">
                     <div class="step-num">03</div>
                     <h3>Обучение</h3>
-                    <p>Погружение в языковую среду с адаптивной интерактивной программой.</p>
+                    <p>Посещаете интересные интерактивные групповые занятия.</p>
                 </div>
-                <div class="step-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="step-card" data-aos="fade-right" data-aos-delay="300">
                     <div class="step-num">04</div>
-                    <h3>Сертификат</h3>
-                    <p>Успешная сдача финального теста и защита диплома уровня.</p>
+                    <h3>Результат</h3>
+                    <p>Сдаете финальный экзамен и получаете престижный сертификат.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="team">
+    <section class="team" id="teachers">
         <div class="container">
             <h2 class="section-title">Наши <span>Преподаватели</span></h2>
             <div class="team-grid">
-                <div class="glass-card teacher-card" data-aos="flip-left">
-                    <div class="teacher-img-box"><i class="fa-solid fa-user-astronaut" style="font-size:3rem; color:var(--text-muted)"></i></div>
+                <div class="glass-card teacher-card" data-aos="zoom-in">
+                    <div class="teacher-img-box"><i class="fa-solid fa-user-tie"></i></div>
                     <h3>Алихан Смаилов</h3>
-                    <div class="teacher-role">Senior TOEFL Trainer</div>
-                    <p class="feature-desc">Опыт преподавания — 6 лет. Выпускник КИМЭП, CELTA.</p>
+                    <div class="teacher-role">Senior IELTS Trainer</div>
+                    <p class="feature-desc">Опыт: 7 лет. Специалист по подготовке к академическим экзаменам.</p>
                     <div class="teacher-socials">
                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
                         <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                     </div>
                 </div>
-                <div class="glass-card teacher-card" data-aos="flip-left" data-aos-delay="100">
-                    <div class="teacher-img-box"><i class="fa-solid fa-user-ninja" style="font-size:3rem; color:var(--text-muted)"></i></div>
+                <div class="glass-card teacher-card" data-aos="zoom-in" data-aos-delay="50">
+                    <div class="teacher-img-box"><i class="fa-solid fa-user"></i></div>
                     <h3>Мария Грин</h3>
                     <div class="teacher-role">Native Speaker (UK)</div>
-                    <p class="feature-desc">Эксперт разговорного английского и британского произношения.</p>
+                    <p class="feature-desc">Опыт: 5 лет. Преподает живую британскую речь и произношение.</p>
+                    <div class="teacher-socials">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="glass-card teacher-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="teacher-img-box"><i class="fa-solid fa-user-ninja"></i></div>
+                    <h3>Дэвид Смит</h3>
+                    <div class="teacher-role">Business English Coach</div>
+                    <p class="feature-desc">Опыт: 10 лет. Бизнес-консультант, спикер по корпоративной этике.</p>
+                    <div class="teacher-socials">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="glass-card teacher-card" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="teacher-img-box"><i class="fa-solid fa-user-astronaut"></i></div>
+                    <h3>Екатерина Наумова</h3>
+                    <div class="teacher-role">Kids English Specialist</div>
+                    <p class="feature-desc">Опыт: 6 лет. Создатель уникальной игровой программы для детей.</p>
+                    <div class="teacher-socials">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="glass-card teacher-card" data-aos="zoom-in">
+                    <div class="teacher-img-box"><i class="fa-solid fa-user-doctor"></i></div>
+                    <h3>Джон Дэйвис</h3>
+                    <div class="teacher-role">TOEFL Coordinator</div>
+                    <p class="feature-desc">Опыт: 8 лет. Специализируется на комплексной академической подготовке.</p>
+                    <div class="teacher-socials">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="glass-card teacher-card" data-aos="zoom-in" data-aos-delay="50">
+                    <div class="teacher-img-box"><i class="fa-solid fa-user-nurse"></i></div>
+                    <h3>Жанна Сейлина</h3>
+                    <div class="teacher-role">General English Lead</div>
+                    <p class="feature-desc">Опыт: 5 лет. Легко ставит правильное произношение с нуля.</p>
+                    <div class="teacher-socials">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="glass-card teacher-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="teacher-img-box"><i class="fa-solid fa-user-shield"></i></div>
+                    <h3>Руслан Ильясов</h3>
+                    <div class="teacher-role">Speaking Club Host</div>
+                    <p class="feature-desc">Опыт: 4 года. Модератор интерактивных дискуссий и разговорных сессий.</p>
+                    <div class="teacher-socials">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="glass-card teacher-card" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="teacher-img-box"><i class="fa-solid fa-user-graduate"></i></div>
+                    <h3>Сара Джонс</h3>
+                    <div class="teacher-role">Advanced English Trainer</div>
+                    <p class="feature-desc">Опыт: 9 лет. Помогает довести владение языком до уровня C1/C2.</p>
                     <div class="teacher-socials">
                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
                         <a href="#"><i class="fa-brands fa-linkedin"></i></a>
@@ -594,18 +754,18 @@
 
     <section class="reviews" id="reviews">
         <div class="container">
-            <h2 class="section-title">Отзывы <span>Студентов</span></h2>
+            <h2 class="section-title">Отзывы наших <span>Студентов</span></h2>
             <div class="swiper swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="glass-card review-card">
                             <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="feature-desc">"Прекрасная академия! За 3 месяца подготовки сдал IELTS на 7.5. Очень благодарен преподавателям за индивидуальный подход и за детальный разбор сложных эссе."</p>
+                            <p class="feature-desc">"Академия полностью изменила мое отношение к учебе. Подготовилась к IELTS за пару месяцев и получила заветный балл 7.5!"</p>
                             <div class="review-user">
-                                <div class="review-avatar">Н</div>
+                                <div class="review-avatar">А</div>
                                 <div>
-                                    <h4>Нурлан А.</h4>
-                                    <small style="color:var(--text-muted)">Студент курса IELTS</small>
+                                    <h4>Алия К.</h4>
+                                    <small>Выпускница IELTS Prep</small>
                                 </div>
                             </div>
                         </div>
@@ -613,12 +773,12 @@
                     <div class="swiper-slide">
                         <div class="glass-card review-card">
                             <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="feature-desc">"Раньше боялась разговаривать, а теперь легко общаюсь с зарубежными коллегами по работе. Атмосфера на занятиях невероятно дружелюбная и поддерживающая!"</p>
+                            <p class="feature-desc">"Великолепные преподаватели и очень удобная платформа. Стал свободно общаться с коллегами-иностранцами. Рекомендую всем!"</p>
                             <div class="review-user">
-                                <div class="review-avatar">Д</div>
+                                <div class="review-avatar">М</div>
                                 <div>
-                                    <h4>Диана К.</h4>
-                                    <small style="color:var(--text-muted)">Курс Business English</small>
+                                    <h4>Мурат Б.</h4>
+                                    <small>Студент курса Business English</small>
                                 </div>
                             </div>
                         </div>
@@ -631,19 +791,87 @@
 
     <section class="faq" id="faq">
         <div class="container">
-            <h2 class="section-title">Часто Задаваемые <span>Вопросы</span></h2>
+            <h2 class="section-title">Часто задаваемые <span>Вопросы</span></h2>
             <div class="faq-max">
                 <div class="faq-item">
-                    <button class="faq-btn">Сколько длится один урок? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
-                    <div class="faq-content"><p>Стандартная длительность академического занятия составляет 60 или 90 минут, в зависимости от выбранного формата (интенсив или стандарт).</p></div>
+                    <button class="faq-btn">Какая длительность занятий? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Все стандартные уроки для взрослых и подростков длятся 90 минут, детские сессии проходят в игровом формате 60 минут.</p></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-btn">Предусмотрены ли пропуски и отработки? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
-                    <div class="faq-content"><p>Да, при своевременном предупреждении администратора вы можете отработать занятие в параллельной группе вашего уровня.</p></div>
+                    <button class="faq-btn">Есть ли бесплатный пробный урок? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Да, первое занятие включает в себя комплексное устное и письменное тестирование и консультацию преподавателя совершенно бесплатно.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Где проходят оффлайн занятия? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Наши кампусы располагаются в самом центре города в технологичных современных офисах с комфортабельными классами.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Вы выдаете официальный сертификат? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Да, по окончании каждого курса и успешной сдаче итогового теста студентам вручается двуязычный именной сертификат.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Есть ли заморозка обучения? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Да, мы предоставляем возможность временно заморозить абонемент сроком до 14 дней в случае отпуска или болезни.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Какая квалификация у ваших учителей? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Все преподаватели академии имеют сертификаты CELTA, DELTA, IELTS 8.0+ и высшее профильное лингвистическое образование.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Как часто проходят разговорные клубы? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Разговорные клубы (Speaking Clubs) проходят каждые выходные и доступны бесплатно для всех действующих студентов.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Есть ли рассрочка на обучение? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Да, вы можете оформить беспроцентную рассрочку от Kaspi.kz и других популярных банков.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Могу ли я заниматься индивидуально? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Конечно, мы предлагаем гибкие индивидуальные занятия, которые подстраиваются под ваши личные цели и расписание.</p></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-btn">Как проходит оплата за обучение? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
-                    <div class="faq-content"><p>Оплата производится ежемесячно либо за весь курс сразу со скидкой. Доступна оплата картами, переводом или рассрочкой Kaspi.</p></div>
+                    <div class="faq-content"><p>Оплатить обучение можно онлайн картой в личном кабинете, безналичным расчетом или в кассе любого нашего филиала.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Со скольки лет принимаются дети? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Мы ведем набор в группы детского английского языка для детей в возрасте от 7 лет.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Что делать при пропуске урока? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>При наличии уважительной причины занятие можно отработать в параллельной группе схожего уровня по предварительному согласованию.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Какая платформа используется для онлайна? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Мы используем собственную передовую LMS-платформу со встроенным видеочатом, тестами, тренажерами и домашними заданиями.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Есть ли корпоративный английский? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Да, мы обучаем компании любого масштаба. Программа разрабатывается индивидуально под специфику вашего бизнеса.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Сколько студентов обучается в группе? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Средняя наполняемость групп составляет от 6 до 8 человек для сохранения наилучшего качества.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Как быстро я увижу первый прогресс? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>При регулярном посещении и качественном выполнении домашних заданий видимый результат заметен уже после первого месяца обучения.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Можно ли готовиться к зарубежным вузам? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Да, мы помогаем подготовить документы, написать мотивационные письма и успешно сдать международные академические экзамены.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Предусмотрены ли учебные материалы? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Все необходимые интерактивные пособия, гайды, словари и раздаточный материал уже включены в стоимость курса.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Есть ли подготовка к школе? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Да, для будущих школьников предусмотрена программа адаптации и мягкого вовлечения в языковую англоязычную среду.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-btn">Где почитать реальные отзывы? <i class="fa-solid fa-chevron-down faq-icon"></i></button>
+                    <div class="faq-content"><p>Большое количество текстовых и видеоотзывов с оценками можно увидеть на нашей странице в Instagram, а также в сервисе 2GIS.</p></div>
                 </div>
             </div>
         </div>
@@ -651,78 +879,104 @@
 
     <section class="cta">
         <div class="container cta-box" data-aos="zoom-in">
-            <h2>Начните говорить на английском уже через месяц</h2>
-            <p>Запишитесь на первое пробное тестирование прямо сейчас совершенно бесплатно.</p>
-            <a href="#contacts" class="btn btn-primary btn-lg">Записаться на тест</a>
+            <h2>Начните говорить на английском уже сегодня</h2>
+            <p>Оставьте быструю заявку на пробное бесплатное тестирование прямо сейчас и получите ценный подарок!</p>
+            <a href="#contacts" class="btn btn-primary btn-lg">Записаться бесплатно</a>
         </div>
     </section>
 
     <section class="contacts" id="contacts">
         <div class="container contacts-grid">
             <div class="contact-info" data-aos="fade-right">
-                <h2 class="section-title" style="text-align:left">Связаться <span>с нами</span></h2>
+                <h2 class="section-title" style="text-align:left">Остались вопросы? <br><span>Спросите нас!</span></h2>
                 <div class="info-item">
                     <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
-                    <div><h4>Телефон</h4><p>+7 (777) 123-45-67</p></div>
+                    <div><h4>Номер телефона</h4><p>+7 (777) 123-45-67</p></div>
                 </div>
                 <div class="info-item">
                     <div class="info-icon"><i class="fa-brands fa-whatsapp"></i></div>
-                    <div><h4>WhatsApp</h4><p>+7 (777) 765-43-21</p></div>
+                    <div><h4>Чат в WhatsApp</h4><p>+7 (777) 765-43-21</p></div>
                 </div>
                 <div class="info-item">
                     <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
-                    <div><h4>Адрес</h4><p>г. Алматы, пр. Аль-Фараби 777</p></div>
+                    <div><h4>Наш адрес</h4><p>г. Алматы, пр. Аль-Фараби 777</p></div>
                 </div>
             </div>
             <div class="glass-card" data-aos="fade-left">
                 <form id="contactForm">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" placeholder="Ваше имя" required>
+                        <input type="text" class="form-control" id="name" placeholder="Ваше полное имя" required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" class="form-control" id="phone" placeholder="Ваш телефон" required>
+                        <input type="tel" class="form-control" id="phone" placeholder="Ваш номер телефона" required>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" id="message" placeholder="Ваш комментарий или вопрос"></textarea>
+                        <textarea class="form-control" id="message" placeholder="Какой вопрос или курс вас интересует?"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width:100%">Отправить заявку</button>
+                    <button type="submit" class="btn btn-primary" style="width:100%"><i class="fa-solid fa-paper-plane"></i> Отправить форму</button>
                 </form>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container footer-grid">
-            <div class="footer-col">
-                <a href="#" class="logo" style="margin-bottom:20px"><i class="fa-solid fa-graduation-cap"></i> DAMU<span>ACADEMY</span></a>
-                <p style="color:var(--text-muted)">Премиальное образование мирового уровня.</p>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="https://optim.tildacdn.pro/tild6161-3030-4861-b233-323166663136/-/resize/622x/-/format/webp/damu-logo-h.png.webp" alt="DAMU ACADEMY Logo">
+                    </div>
+                    <p class="footer-desc">Мы помогаем стирать границы общения по всему миру. Получите уверенные знания, востребованные в любой стране.</p>
+                    <div class="footer-social-icons">
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <div class="footer-links">
+                        <a href="#">Главная</a>
+                        <a href="#advantages">Преимущества</a>
+                        <a href="#courses">Наши Курсы</a>
+                        <a href="#teachers">Преподаватели</a>
+                        <a href="#reviews">Отзывы студентов</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Полезные ссылки</h4>
+                    <div class="footer-links">
+                        <a href="#">Политика конфиденциальности</a>
+                        <a href="#">Публичная оферта</a>
+                        <a href="#">Правила школы</a>
+                        <a href="#">Карта сайта</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Наши контакты</h4>
+                    <div class="footer-links">
+                        <p style="color: #9CA3AF; margin-bottom: 8px;"><i class="fa-solid fa-phone" style="color:var(--primary); margin-right: 8px;"></i> +7 (777) 123-45-67</p>
+                        <p style="color: #9CA3AF; margin-bottom: 8px;"><i class="fa-solid fa-envelope" style="color:var(--primary); margin-right: 8px;"></i> info@damu.academy</p>
+                        <p style="color: #9CA3AF;"><i class="fa-solid fa-map-pin" style="color:var(--primary); margin-right: 8px;"></i> г. Алматы, пр. Аль-Фараби 777</p>
+                    </div>
+                </div>
             </div>
-            <div class="footer-col footer-links">
-                <h4>Навигация</h4>
-                <a href="#">Главная</a>
-                <a href="#about">О нас</a>
-                <a href="#courses">Курсы</a>
+            <div class="footer-bottom">
+                <div>&copy; 2026 DAMU ACADEMY. Все права защищены. Разработано в современном красно-белом стиле.</div>
+                <div>Создано с любовью к знаниям <i class="fa-solid fa-heart" style="color: var(--primary)"></i></div>
             </div>
-            <div class="footer-col footer-links">
-                <h4>Правовая информация</h4>
-                <a href="#">Политика конфиденциальности</a>
-                <a href="#">Публичная оферта</a>
-            </div>
-        </div>
-        <div class="container footer-bottom">
-            <div>&copy; 2026 DAMU ACADEMY. Все права защищены.</div>
-            <div>Designed with <i class="fa-solid fa-heart" style="color:red"></i></div>
         </div>
     </footer>
 
-    <div class="back-to-top" id="backToTop"><i class="fa-solid fa-chevron-up"></i></div>
+    <div class="back-to-top" id="backToTop" aria-label="Вернуться наверх"><i class="fa-solid fa-chevron-up"></i></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     <script>
-        // --- PRELOADER REMOVAL ---
+        // --- PRELOADER ---
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             preloader.style.opacity = '0';
@@ -733,15 +987,15 @@
         // --- AOS INITIALIZATION ---
         AOS.init({ duration: 1000, once: true });
 
-        // --- THEME TOGGLE (LIGHT / DARK) ---
+        // --- THEME SWITCHER (DARK / LIGHT) ---
         const themeToggle = document.getElementById('themeToggle');
-        const icon = themeToggle.querySelector('i');
+        const themeIcon = themeToggle.querySelector('i');
         
         themeToggle.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
-            icon.className = newTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            themeIcon.className = newTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         });
 
         // --- CUSTOM CURSOR TRACKING ---
@@ -751,7 +1005,7 @@
             cursor.style.top = e.clientY + 'px';
         });
 
-        // --- SCROLL EFFECTS (HEADER & PROGRESS BAR) ---
+        // --- SCROLL INTERACTION (PROGRESS BAR & HEADER) ---
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             const indicator = document.getElementById('scrollIndicator');
@@ -780,7 +1034,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // --- MOBILE MENU BURGER ---
+        // --- BURGER MENU LOGIC ---
         const burger = document.getElementById('burgerMenu');
         const navMenu = document.getElementById('navMenu');
         
@@ -805,15 +1059,15 @@
             });
         });
 
-        // --- SWIPER SLIDER INITIALIZATION ---
+        // --- SWIPER SLIDER CONFIGURATION ---
         const swiper = new Swiper('.swiper-container', {
             loop: true,
-            autoplay: { delay: 4000, disableOnInteraction: false },
+            autoplay: { delay: 4500, disableOnInteraction: false },
             pagination: { el: '.swiper-pagination', clickable: true },
             spaceBetween: 30
         });
 
-        // --- ANIMATING NUMBERS (COUNTERS) ---
+        // --- STATS ANIMATION (COUNTER) ---
         function animateStats() {
             const counters = document.querySelectorAll('.stat-number');
             counters.forEach(counter => {
@@ -823,7 +1077,7 @@
                     const count = +counter.innerText;
                     if (count < target) {
                         counter.innerText = Math.ceil(count + speed);
-                        setTimeout(updateCount, 20);
+                        setTimeout(updateCount, 25);
                     } else {
                         counter.innerText = target + (counter.parentElement.innerText.includes('%') ? '%' : '+');
                     }
@@ -832,7 +1086,7 @@
             });
         }
 
-        // --- FORM VALIDATION & SUBMIT ---
+        // --- FORM SUBMIT VALIDATION & TOAST ---
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
@@ -846,16 +1100,16 @@
             }
         });
 
-        // --- PARTICLES BACKGROUND CONFIGURATION ---
+        // --- BACKGROUND PARTICLES CONFIGURATION ---
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#22C55E" },
+                "number": { "value": 45, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#DC2626" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.3, "random": false },
+                "opacity": { "value": 0.25, "random": false },
                 "size": { "value": 4, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#22C55E", "opacity": 0.15, "width": 1 },
-                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
+                "line_linked": { "enable": true, "distance": 150, "color": "#DC2626", "opacity": 0.12, "width": 1 },
+                "move": { "enable": true, "speed": 1.8, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
             },
             "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": false } } },
             "retina_detect": true
