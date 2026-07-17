@@ -39,6 +39,15 @@
             --radius-lg: 24px;
             --radius-md: 16px;
             --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+
+            /* Переменные для футера (Светлая тема — контрастный светлый футер) */
+            --footer-bg: linear-gradient(180deg, #FFFFFF 0%, #FFF8F8 100%);
+            --footer-text: #4B5563;
+            --footer-title: #1F2937;
+            --footer-border: rgba(220, 38, 38, 0.15);
+            --footer-social-bg: rgba(220, 38, 38, 0.05);
+            --footer-social-border: rgba(220, 38, 38, 0.15);
+            --footer-social-text: #1F2937;
         }
 
         [data-theme="dark"] {
@@ -52,6 +61,15 @@
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
             --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.6);
             --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
+
+            /* Переменные для футера (Темная тема — премиальный темный футер) */
+            --footer-bg: linear-gradient(180deg, #140505 0%, #030000 100%);
+            --footer-text: #9CA3AF;
+            --footer-title: #FFFFFF;
+            --footer-border: rgba(255, 255, 255, 0.1);
+            --footer-social-bg: rgba(255, 255, 255, 0.05);
+            --footer-social-border: rgba(255, 255, 255, 0.1);
+            --footer-social-text: #FFFFFF;
         }
 
         /* --- БАЗОВЫЕ СТИЛИ --- */
@@ -317,7 +335,7 @@
         .review-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 1.2rem; }
         .review-stars { color: #F59E0B; margin-bottom: 18px; font-size: 1.1rem; }
 
-        /* --- СЕКЦИЯ FAQ (ACCORDION - 20 ВОПРОСОВ) --- */
+        /* --- СЕКЦИЯ FAQ --- */
         .faq { padding: 120px 0; }
         .faq-max { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
         .faq-item { border: 1px solid var(--card-border); border-radius: var(--radius-md); overflow: hidden; transition: var(--transition); background: var(--card-bg); }
@@ -365,35 +383,56 @@
         }
         .notification.active { right: 30px; }
 
-        /* --- ПРЕМИАЛЬНЫЙ КРАСНЫЙ ФУТЕР --- */
+        /* --- КРАСИВЫЙ АДАПТИВНЫЙ ФУТЕР (НАСТРОЕН ПОД СВЕТЛУЮ И ТЕМНУЮ ТЕМЫ) --- */
         footer { 
-            background: linear-gradient(180deg, var(--bg-main) 0%, #0D0303 100%); 
-            color: #FFFFFF; 
+            background: var(--footer-bg); 
+            color: var(--footer-text); 
             padding: 100px 0 40px; 
-            border-top: 1px solid var(--card-border); 
-        }
-        [data-theme="dark"] footer {
-            background: linear-gradient(180deg, #140505 0%, #030000 100%);
+            border-top: 1px solid var(--footer-border); 
+            transition: var(--transition);
         }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 50px; margin-bottom: 80px; }
-        .footer-col h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 28px; position: relative; color: #FFFFFF; }
+        
+        .footer-col h4 { 
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            margin-bottom: 28px; 
+            position: relative; 
+            color: var(--footer-title); 
+            transition: var(--transition);
+        }
         .footer-col h4::after {
             content: ''; position: absolute; bottom: -8px; left: 0; width: 40px; height: 3px; background: var(--primary); border-radius: 2px;
         }
         .footer-logo img { height: 48px; margin-bottom: 24px; }
-        .footer-desc { color: #9CA3AF; margin-bottom: 24px; font-size: 0.95rem; }
+        .footer-desc { color: var(--footer-text); margin-bottom: 24px; font-size: 0.95rem; transition: var(--transition); }
+        
         .footer-links { display: flex; flex-direction: column; gap: 14px; }
-        .footer-links a { color: #9CA3AF; transition: var(--transition); display: block; font-weight: 500; }
+        .footer-links a { color: var(--footer-text); transition: var(--transition); display: block; font-weight: 500; }
         .footer-links a:hover { color: var(--primary); padding-left: 8px; }
         
         .footer-social-icons { display: flex; gap: 16px; margin-top: 10px; }
         .footer-social-icons a {
-            width: 44px; height: 44px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #FFFFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition); font-size: 1.1rem;
+            width: 44px; height: 44px; 
+            background: var(--footer-social-bg); 
+            border: 1px solid var(--footer-social-border);
+            color: var(--footer-social-text); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            transition: var(--transition); 
+            font-size: 1.1rem;
         }
-        .footer-social-icons a:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-5px); }
+        .footer-social-icons a:hover { background: var(--primary); border-color: var(--primary); color: #ffffff; transform: translateY(-5px); }
 
-        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; color: #9CA3AF; font-size: 0.9rem; }
+        .footer-bottom { 
+            border-top: 1px solid var(--footer-border); 
+            padding-top: 40px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            flex-wrap: wrap; gap: 24px; 
+            color: var(--footer-text); 
+            font-size: 0.9rem; 
+            transition: var(--transition);
+        }
 
         /* --- КНОПКА "НАВЕРХ" --- */
         .back-to-top {
@@ -411,6 +450,97 @@
             .cta h2 { font-size: 2.2rem; }
             .footer-bottom { flex-direction: column; text-align: center; }
         }
+
+
+
+        /* Запрет выделения текста во всех браузерах */
+body {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+/Edge */
+  user-select: none;         /* Стандартное свойство */
+}
+
+
+
+/* Контейнер для всей карты */
+.map-wrapper {
+    margin: 40px auto;
+    max-width: 1000px;
+    width: 100%;
+    padding: 15px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    transition: var(--transition);
+}
+
+.map-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+
+/* Адаптивный контейнер для iframe */
+.map-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; /* Соотношение сторон 16:9 */
+    border-radius: var(--radius-md);
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Стильные ссылки под картой */
+.map-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+    padding: 0 5px;
+}
+
+.map-links a {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.map-links a:hover {
+    color: var(--primary);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 576px) {
+    .map-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .map-container {
+        padding-top: 75%; /* На мобильных экранах карта будет чуть более квадратной для удобства */
+    }
+}
     </style>
 </head>
 <body>
@@ -877,13 +1007,24 @@
         </div>
     </section>
 
-    <section class="cta">
-        <div class="container cta-box" data-aos="zoom-in">
-            <h2>Начните говорить на английском уже сегодня</h2>
-            <p>Оставьте быструю заявку на пробное бесплатное тестирование прямо сейчас и получите ценный подарок!</p>
-            <a href="#contacts" class="btn btn-primary btn-lg">Записаться бесплатно</a>
-        </div>
-    </section>
+<div class="map-wrapper" data-aos="fade-up">
+    <div class="map-container">
+        <iframe 
+            src="https://yandex.kz/map-widget/v1/?ll=51.366659%2C51.205928&mode=poi&poi%5Bpoint%5D=51.366407%2C51.206081&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D61885238554&z=19.71" 
+            allowfullscreen="true" 
+            loading="lazy">
+        </iframe>
+    </div>
+    <div class="map-links">
+        <a href="https://yandex.kz/maps/ru/org/damu_academy/61885238554/?lang=ru&utm_medium=mapframe&utm_source=maps" target="_blank">
+            <i class="fa-solid fa-location-dot"></i> Damu Academy на Яндекс.Картах
+        </a>
+        <a href="https://yandex.kz/maps/ru/10305/uralsk/category/foreign_language_courses/184106160/?lang=ru&utm_medium=mapframe&utm_source=maps" target="_blank">
+            Курсы иностранных языков в Уральске
+        </a>
+    </div>
+</div>
+    
 
     <section class="contacts" id="contacts">
         <div class="container contacts-grid">
@@ -918,6 +1059,7 @@
             </div>
         </div>
     </section>
+    
 
     <footer>
         <div class="container">
@@ -956,9 +1098,9 @@
                 <div class="footer-col">
                     <h4>Наши контакты</h4>
                     <div class="footer-links">
-                        <p style="color: #9CA3AF; margin-bottom: 8px;"><i class="fa-solid fa-phone" style="color:var(--primary); margin-right: 8px;"></i> +7 (777) 123-45-67</p>
-                        <p style="color: #9CA3AF; margin-bottom: 8px;"><i class="fa-solid fa-envelope" style="color:var(--primary); margin-right: 8px;"></i> info@damu.academy</p>
-                        <p style="color: #9CA3AF;"><i class="fa-solid fa-map-pin" style="color:var(--primary); margin-right: 8px;"></i> г. Алматы, пр. Аль-Фараби 777</p>
+                        <p style="margin-bottom: 8px;"><i class="fa-solid fa-phone" style="color:var(--primary); margin-right: 8px;"></i> +7 (777) 123-45-67</p>
+                        <p style="margin-bottom: 8px;"><i class="fa-solid fa-envelope" style="color:var(--primary); margin-right: 8px;"></i> info@damu.academy</p>
+                        <p><i class="fa-solid fa-map-pin" style="color:var(--primary); margin-right: 8px;"></i> г. Алматы, пр. Аль-Фараби 777</p>
                     </div>
                 </div>
             </div>
@@ -1114,6 +1256,44 @@
             "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": false } } },
             "retina_detect": true
         });
+
+
+
+
+
+        // Запрет на вызов контекстного меню (правой кнопки мыши)
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
+  // Запрет на копирование (Ctrl+C, меню копирования)
+  document.addEventListener('copy', function (e) {
+    e.preventDefault();
+    alert('Копирование материалов на этом сайте запрещено!');
+  });
+
+  // Запрет на вырезание (Ctrl+X)
+  document.addEventListener('cut', function (e) {
+    e.preventDefault();
+  });
+
+  // Запрет на выделение текста с помощью клавиатурных комбинаций (например, Ctrl+A)
+  document.addEventListener('keydown', function (e) {
+    // Блокируем Ctrl+C, Ctrl+A, Ctrl+U (просмотр кода), Ctrl+S, а также F12 (панель разработчика)
+    if (
+      e.ctrlKey && 
+      (e.key === 'c' || e.key === 'C' || 
+       e.key === 'a' || e.key === 'A' || 
+       e.key === 'u' || e.key === 'U' || 
+       e.key === 's' || e.key === 'S')
+    ) {
+      e.preventDefault();
+    }
+    
+    if (e.key === 'F12') {
+      e.preventDefault();
+    }
+  });
     </script>
 </body>
 </html>
