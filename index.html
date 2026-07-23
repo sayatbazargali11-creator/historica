@@ -2,16 +2,1456 @@
 <html lang="kk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>SAYAT MATH — ҰБТ Математикасынан онлайн дайындық платформасы</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css">
+    <style>
+/* ==========================================================================
+   SAYAT MATH — Fully Responsive Glassmorphism Architecture
+   ========================================================================== */
+
+:root {
+    /* Color Palette */
+    --bg-main: #FFFFFF;
+    --bg-secondary: #F8FAFC;
+    --bg-accent-light: #EEF2FF;
+    
+    --primary: #2563EB;
+    --primary-hover: #1D4ED8;
+    --primary-light: #3B82F6;
+    --accent: #F59E0B;
+    
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
+    --border-light: #E5E7EB;
+    
+    /* Glassmorphism Variables */
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.85);
+    --glass-shadow: 0 20px 40px rgba(37, 99, 235, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+    --glass-blur: blur(16px);
+    
+    /* Typography */
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    /* Transitions */
+    --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Border Radius */
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 32px;
+    --radius-full: 9999px;
+}
+
+/* Reset & Base System */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Container Framework */
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.container-narrow {
+    max-width: 800px;
+}
+
+.section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.grid {
+    display: grid;
+    gap: 28px;
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Custom Cursor Glow */
+.cursor-glow {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    transition: transform 0.05s ease-out;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), #60A5FA);
+    width: 0%;
+    z-index: 10000;
+}
+
+/* Glassmorphism Card Element */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--glass-shadow);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.glass-card:hover {
+    border-color: rgba(37, 99, 235, 0.3);
+}
+
+/* Helpers & Typography */
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary) 0%, #1D4ED8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-title-wrapper {
+    margin-bottom: 56px;
+}
+
+.section-subtitle {
+    display: inline-block;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    background: var(--bg-accent-light);
+    padding: 4px 14px;
+    border-radius: var(--radius-full);
+}
+
+.section-title {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.25;
+    margin-bottom: 16px;
+}
+
+.section-description {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+/* Button System */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #FFFFFF;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.22);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.32);
+}
+
+.btn-glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+}
+
+.btn-glass:hover {
+    background: #FFFFFF;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.btn-secondary {
+    background: var(--bg-accent-light);
+    color: var(--primary);
+}
+
+.btn-secondary:hover {
+    background: #E0E7FF;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: rotate(30deg) translateY(-100%);
+    transition: transform 0.75s ease-in-out;
+}
+
+.btn-shine:hover::after {
+    transform: rotate(30deg) translateY(100%);
+}
+
+/* Preloader */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    background: #FFFFFF;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-glass {
+    padding: 36px 50px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    text-align: center;
+}
+
+.loader-spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid var(--bg-accent-light);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+}
+
+.loader-text {
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--primary);
+    font-size: 18px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Header & Navigation System */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px 0;
+    transition: all var(--transition-fast);
+}
+
+.header.scrolled {
+    padding: 12px 0;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(229, 231, 235, 0.6);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    z-index: 1002;
+}
+
+.logo-accent { color: var(--primary); }
+.logo-dot { color: var(--primary); }
+
+.nav-list {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-link {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Hamburger Button */
+.burger-menu {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    z-index: 1002;
+    padding: 0;
+}
+
+.burger-menu span {
+    width: 100%;
+    height: 2.5px;
+    background-color: var(--text-primary);
+    border-radius: 4px;
+    transition: all var(--transition-fast);
+    transform-origin: left center;
+}
+
+.burger-menu.open span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.burger-menu.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.open span:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
+/* Overlay Menu Backdrop */
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-fast);
+}
+
+.mobile-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Hero Section */
+.hero {
+    padding-top: 170px;
+    padding-bottom: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg-blur {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.hero-blur-1 {
+    width: 450px;
+    height: 450px;
+    background: #E0E7FF;
+    top: -50px;
+    right: -50px;
+}
+
+.hero-blur-2 {
+    width: 350px;
+    height: 350px;
+    background: #DBEAFE;
+    bottom: 0;
+    left: -50px;
+}
+
+.hero-container {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.badge-glass {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: var(--bg-accent-light);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: var(--radius-full);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+}
+
+.hero-description {
+    font-size: 19px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+.hero-stats-mini {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mini-avatar-group {
+    display: flex;
+}
+
+.mini-avatar-group .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-accent-light);
+    border: 2px solid #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--primary);
+    margin-left: -10px;
+}
+
+.mini-avatar-group .avatar:first-child {
+    margin-left: 0;
+}
+
+.hero-stats-mini p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.hero-stats-mini p span {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Dashboard Component Mockup */
+.dashboard-card {
+    padding: 28px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 44px;
+    height: 44px;
+    background: var(--primary);
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.badge-success {
+    background: #DCFCE7;
+    color: #166534;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.dash-metric-card {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.metric-icon {
+    font-size: 18px;
+    color: var(--primary);
+    background: var(--bg-accent-light);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.metric-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: block;
+}
+
+.dash-metric-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.dashboard-chart-box {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.chart-percent { color: #16A34A; }
+
+.fake-line-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100px;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.chart-bar {
+    flex: 1;
+    background: var(--bg-accent-light);
+    height: var(--height);
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    transition: height 1s ease;
+}
+
+.chart-bar.highlight {
+    background: var(--primary);
+}
+
+.chart-bar span {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+/* Feature Cards */
+.feature-card {
+    padding: 32px;
+}
+
+.feature-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--bg-accent-light);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: var(--text-muted);
+    font-size: 14.5px;
+}
+
+.hover-lift {
+    transition: transform var(--transition-normal);
+}
+
+.hover-lift:hover {
+    transform: translateY(-6px);
+}
+
+/* Course Cards */
+.course-card {
+    padding: 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-popular {
+    border: 2px solid var(--primary);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: #FFFFFF;
+    padding: 3px 14px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.course-tag {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.course-tag.accent { color: var(--primary); }
+
+.course-header h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 6px 0;
+}
+
+.course-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.course-price {
+    margin-bottom: 24px;
+}
+
+.course-price .price {
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.course-price .period {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.course-features {
+    margin-bottom: 28px;
+    flex-grow: 1;
+}
+
+.course-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.course-features li i { color: #16A34A; }
+
+.course-features li.disabled {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.course-features li.disabled i { color: #DC2626; }
+
+/* Modules Curriculum Section */
+.modules-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.module-card {
+    padding: 24px;
+}
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.module-title-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.module-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-accent-light);
+    color: var(--primary);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.module-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.module-card.active .module-body {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+}
+
+.module-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.module-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Platform Tabs Section */
+.platform-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-light);
+    background: #FFFFFF;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background: var(--primary);
+    color: #FFFFFF;
+    border-color: var(--primary);
+}
+
+.tab-content { display: none; }
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+.platform-preview-card {
+    padding: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+}
+
+.preview-text h3 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.feature-check-list {
+    margin-top: 20px;
+}
+
+.feature-check-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.feature-check-list i { color: var(--primary); }
+
+.mockup-window {
+    background: #1E293B;
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    color: #FFFFFF;
+}
+
+.window-dots {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.window-dots span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #475569;
+}
+
+.media-placeholder {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0F172A;
+    border-radius: 8px;
+}
+
+.play-icon-large {
+    font-size: 44px;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.quiz-mockup {
+    background: #0F172A;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.quiz-opt {
+    padding: 8px 12px;
+    background: #1E293B;
+    margin-top: 8px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.quiz-opt.correct {
+    background: rgba(22, 163, 74, 0.2);
+    border: 1px solid #16A34A;
+}
+
+.ai-mockup {
+    background: #0F172A;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.ai-message {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13.5px;
+}
+
+.ai-message i {
+    color: var(--primary);
+    font-size: 18px;
+}
+
+.cert-mockup {
+    background: #FFFFFF;
+    color: var(--text-primary);
+    padding: 28px 16px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.cert-badge {
+    font-size: 36px;
+    color: #D97706;
+    margin-bottom: 8px;
+}
+
+/* Laptop Video Section */
+.laptop-container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.laptop-screen {
+    position: relative;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.laptop-screen iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    gap: 14px;
+}
+
+.play-btn-glow {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: none;
+    color: #FFFFFF;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
+    transition: transform var(--transition-fast);
+}
+
+.play-btn-glow:hover { transform: scale(1.08); }
+
+.laptop-base {
+    height: 12px;
+    background: #CBD5E1;
+    border-radius: 0 0 12px 12px;
+    margin-top: 4px;
+}
+
+/* Reviews Slider */
+.reviews-slider-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.reviews-wrapper {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.4s ease;
+}
+
+.review-card {
+    min-width: calc(33.333% - 16px);
+    padding: 28px;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.avatar-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg-accent-light);
+    color: var(--primary);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #16A34A;
+    background: #DCFCE7;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 28px;
+}
+
+.btn-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-light);
+    background: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-icon:hover {
+    background: var(--primary);
+    color: #FFFFFF;
+}
+
+/* Accordion FAQ */
+.accordion-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.accordion-item {
+    padding: 18px 24px;
+}
+
+.accordion-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    cursor: pointer;
+    text-align: left;
+}
+
+.acc-icon { transition: transform var(--transition-fast); }
+
+.accordion-item.active .acc-icon { transform: rotate(180deg); }
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    color: var(--text-muted);
+    font-size: 14.5px;
+}
+
+.accordion-item.active .accordion-content {
+    margin-top: 10px;
+}
+
+/* CTA Section */
+.cta-card {
+    padding: 64px 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-glow {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: rgba(37, 99, 235, 0.15);
+    filter: blur(70px);
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.cta-title {
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.cta-desc {
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-size: 15px;
+}
+
+.cta-form {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+.input-glass {
+    padding: 14px 22px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-light);
+    background: rgba(255, 255, 255, 0.85);
+    outline: none;
+    flex: 1;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.input-glass:focus {
+    border-color: var(--primary);
+}
+
+/* Footer Section */
+.footer {
+    padding: 70px 0 28px;
+    border-top: 1px solid var(--border-light);
+    background: var(--bg-secondary);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-socials a {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.footer-socials a:hover {
+    background: var(--primary);
+    color: #FFFFFF;
+}
+
+.footer-bottom {
+    font-size: 13.5px;
+    color: var(--text-muted);
+}
+
+/* Animations */
+.fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Comprehensive Responsive Breakpoints (Mobile Optimization)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .hero-container { grid-template-columns: 1fr; gap: 40px; }
+    .review-card { min-width: calc(50% - 12px); }
+    .platform-preview-card { grid-template-columns: 1fr; gap: 24px; }
+    .hero-title { font-size: 44px; }
+    .section { padding: 80px 0; }
+}
+
+@media (max-width: 768px) {
+    /* Hide 'Кіру' button on mobile view */
+    .header-actions .btn-secondary {
+        display: none !important;
+    }
+
+    .burger-menu {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        max-width: 360px;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 100px 32px 40px;
+        transition: right var(--transition-normal);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+        z-index: 1001;
+        overflow-y: auto;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-link {
+        font-size: 18px;
+        font-weight: 600;
+        display: block;
+    }
+
+    .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 130px;
+        padding-bottom: 60px;
+    }
+
+    .hero-title {
+        font-size: 34px;
+        letter-spacing: -0.5px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+        margin-bottom: 24px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .section-title-wrapper {
+        margin-bottom: 36px;
+    }
+
+    .dashboard-card {
+        padding: 20px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-form {
+        flex-direction: column;
+    }
+
+    .cta-card {
+        padding: 40px 20px;
+    }
+
+    .review-card {
+        min-width: 100%;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 28px;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .platform-tabs {
+        gap: 8px;
+    }
+
+    .tab-btn {
+        font-size: 13px;
+        padding: 8px 14px;
+        flex: 1 1 calc(50% - 8px);
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .btn {
+        padding: 14px 24px;
+        font-size: 14px;
+    }
+
+    .feature-card, .course-card {
+        padding: 24px;
+    }
+
+    .price {
+        font-size: 28px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+    </style>
 </head>
 <body>
 
@@ -23,8 +1463,8 @@
     </div>
 
     <div class="cursor-glow" id="cursor-glow"></div>
-
     <div class="scroll-progress" id="scroll-progress"></div>
+    <div class="mobile-overlay" id="mobile-overlay"></div>
 
     <header class="header" id="header">
         <div class="container header-container">
@@ -35,8 +1475,9 @@
             <nav class="nav-menu" id="nav-menu">
                 <ul class="nav-list">
                     <li><a href="#hero" class="nav-link active">Басты бет</a></li>
-                    <li><a href="#features" class="nav-link">Тиімділік</a></li>
+                    <li><a href="#features" class="nav-link">Басымдықтар</a></li>
                     <li><a href="#courses" class="nav-link">Курстар</a></li>
+                    <li><a href="#program" class="nav-link">Бағдарлама</a></li>
                     <li><a href="#platform" class="nav-link">Платформа</a></li>
                     <li><a href="#reviews" class="nav-link">Пікірлер</a></li>
                     <li><a href="#faq" class="nav-link">FAQ</a></li>
@@ -45,8 +1486,8 @@
             </nav>
 
             <div class="header-actions">
-                <a href="#contact" class="btn btn-secondary btn-ripple">Кіру</a>
-                <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+                <a href="#contact" class="btn btn-secondary">Кіру</a>
+                <button class="burger-menu" id="burger-menu" aria-label="Мәзірді ашу">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -61,14 +1502,14 @@
         <div class="container hero-container">
             <div class="hero-content fade-up">
                 <div class="badge-glass">
-                    <i class="fa-solid fa-sparkles"></i> 2026 жылғы ҰБТ-ға инновациялық дайындық
+                    <i class="fa-solid fa-sparkles"></i> ҰБТ 2026 Инновациялық дайындық
                 </div>
                 <h1 class="hero-title">
                     ҰБТ Математикасынан <br>
                     <span class="text-gradient dynamic-typing" id="typing-text"></span>
                 </h1>
                 <p class="hero-description">
-                    Авторлық методика, ЖИ-талдау жүйесі және 140+ балл жинауға бағытталған практикалық тапсырмалар базасы.
+                    Авторлық методика, ЖИ-аналитика жүйесі және 140+ балл жинауға бағытталған интерактивті тапсырмалар базасы.
                 </p>
                 <div class="hero-buttons">
                     <a href="#courses" class="btn btn-primary btn-shine magnetic-btn">
@@ -86,18 +1527,18 @@
                         <div class="avatar"><i class="fa-solid fa-user"></i></div>
                         <div class="avatar"><i class="fa-solid fa-user"></i></div>
                     </div>
-                    <p><span>5,000+</span> оқушы сенім білдірді</p>
+                    <p><span>5,000+</span> оқушы жоғары нәтиже көрсетті</p>
                 </div>
             </div>
 
-            <div class="hero-dashboard fade-up" data-delay="200">
+            <div class="hero-dashboard fade-up">
                 <div class="glass-card dashboard-card tilt-card">
                     <div class="dashboard-header">
                         <div class="user-info">
                             <div class="user-avatar">SM</div>
                             <div>
-                                <h4>ҰБТ 2026 Прогресс</h4>
-                                <p class="text-muted">Математика профиль</p>
+                                <h4>ҰБТ Прогресі</h4>
+                                <p class="text-muted">Математика Профиль</p>
                             </div>
                         </div>
                         <div class="badge-success">Белсенді</div>
@@ -107,28 +1548,28 @@
                         <div class="dash-metric-card">
                             <i class="fa-solid fa-trophy metric-icon"></i>
                             <div class="metric-info">
-                                <span class="metric-label">Орташа балл</span>
+                                <span class="metric-label">Ең жоғары балл</span>
                                 <h3 class="counter" data-target="145">0</h3>
                             </div>
                         </div>
                         <div class="dash-metric-card">
                             <i class="fa-solid fa-users metric-icon"></i>
                             <div class="metric-info">
-                                <span class="metric-label">Оқушылар</span>
+                                <span class="metric-label">Студенттер</span>
                                 <h3 class="counter" data-target="5000">0</h3>
                             </div>
                         </div>
                         <div class="dash-metric-card">
-                            <i class="fa-solid fa-circle-play metric-icon"></i>
+                            <i class="fa-solid fa-video metric-icon"></i>
                             <div class="metric-info">
-                                <span class="metric-label">Бейнесабақтар</span>
+                                <span class="metric-label">Видео сабақтар</span>
                                 <h3 class="counter" data-target="350">0</h3>
                             </div>
                         </div>
                         <div class="dash-metric-card">
-                            <i class="fa-solid fa-list-check metric-icon"></i>
+                            <i class="fa-solid fa-file-pen metric-icon"></i>
                             <div class="metric-info">
-                                <span class="metric-label">Тест сұрақтары</span>
+                                <span class="metric-label">Тест базасы</span>
                                 <h3 class="counter" data-target="10000">0</h3>
                             </div>
                         </div>
@@ -136,15 +1577,15 @@
 
                     <div class="dashboard-chart-box">
                         <div class="chart-header">
-                            <span>Балл өсімі динамикасы</span>
-                            <span class="chart-percent">+42% орташа өсім</span>
+                            <span>Балл өсу динамикасы</span>
+                            <span class="chart-percent">+45% орташа өсім</span>
                         </div>
                         <div class="fake-line-chart">
-                            <div class="chart-bar" style="--height: 40%"><span>1-ай</span></div>
-                            <div class="chart-bar" style="--height: 60%"><span>2-ай</span></div>
+                            <div class="chart-bar" style="--height: 35%"><span>1-ай</span></div>
+                            <div class="chart-bar" style="--height: 55%"><span>2-ай</span></div>
                             <div class="chart-bar" style="--height: 75%"><span>3-ай</span></div>
-                            <div class="chart-bar" style="--height: 90%"><span>4-ай</span></div>
-                            <div class="chart-bar highlight" style="--height: 98%"><span>ЕНТ</span></div>
+                            <div class="chart-bar" style="--height: 88%"><span>4-ай</span></div>
+                            <div class="chart-bar highlight" style="--height: 98%"><span>ҰБТ</span></div>
                         </div>
                     </div>
                 </div>
@@ -156,40 +1597,40 @@
         <div class="container">
             <div class="section-title-wrapper text-center fade-up">
                 <span class="section-subtitle">Басымдықтар</span>
-                <h2 class="section-title">Неге дәл SAYAT MATH платформасы?</h2>
-                <p class="section-description">Нәтижеге бағытталған оқыту жүйесі мен заманауи технологиялар синергиясы.</p>
+                <h2 class="section-title">Неге SAYAT MATH таңдайды?</h2>
+                <p class="section-description">Нәтижеге бағытталған заманауи оқыту жүйесі мен эксклюзивті материалдар.</p>
             </div>
 
             <div class="grid grid-3">
                 <div class="glass-card feature-card fade-up hover-lift">
                     <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
                     <h3>Авторлық әдістеме</h3>
-                    <p>Күрделі математикалық формулалар мен есептерді қарапайым логикамен тез шығару жолдары.</p>
+                    <p>Күрделі формулалар мен математикалық алгоритмдерді оңай әрі логикалық жолмен шығару тәсілдері.</p>
                 </div>
-                <div class="glass-card feature-card fade-up hover-lift" data-delay="100">
+                <div class="glass-card feature-card fade-up hover-lift">
                     <div class="feature-icon"><i class="fa-solid fa-bullseye"></i></div>
-                    <h3>Жаңартылған ҰБТ базасы</h3>
-                    <p>Тек 2026 жылғы ҰБТ стандартына сәйкес келетін нақты контексттік және логикалық тапсырмалар.</p>
+                    <h3>Нақты ҰБТ тапсырмалары</h3>
+                    <p>Ұлттық тестілеу орталығының ең соңғы форматына сәйкес келетін контексттік және логикалық сұрақтар.</p>
                 </div>
-                <div class="glass-card feature-card fade-up hover-lift" data-delay="200">
-                    <div class="feature-icon"><i class="fa-solid fa-video"></i></div>
-                    <h3>4K Видео сабақтар</h3>
-                    <p>Кез келген құрылғыдан 24/7 форматында қарауға болатын қысқа, нақты әрі мазмұнды видеоматериалдар.</p>
+                <div class="glass-card feature-card fade-up hover-lift">
+                    <div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3>HD Видео сабақтар</h3>
+                    <p>Әрбір тақырып бойынша қысқа, нақты және түсінікті видеоматериалдарға 24/7 қолжетімділік.</p>
                 </div>
-                <div class="glass-card feature-card fade-up hover-lift" data-delay="300">
-                    <div class="feature-icon"><i class="fa-solid fa-chart-pie"></i></div>
-                    <h3>Қатемен жұмыс анализі</h3>
-                    <p>Платформа сіз жіберген әрбір қатені автоматты түрде тіркеп, әлсіз тақырыптарды қайталауға ұсынады.</p>
+                <div class="glass-card feature-card fade-up hover-lift">
+                    <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>Қатемен жұмыс тетігі</h3>
+                    <p>Платформа сіз жіберген қателерді автоматты түрде сақтап, қайталау қажет тақырыптарды анықтайды.</p>
                 </div>
-                <div class="glass-card feature-card fade-up hover-lift" data-delay="400">
+                <div class="glass-card feature-card fade-up hover-lift">
                     <div class="feature-icon"><i class="fa-solid fa-robot"></i></div>
                     <h3>AI Көмекші 24/7</h3>
-                    <p>Есеп шығару барысында туындаған сұрақтарға лезде бағыт-бағдар беретін жасанды интеллект модулі.</p>
+                    <p>Есеп шығару барысында қиындық туындаса, жасанды интеллект лезде бағыт-бағдар береді.</p>
                 </div>
-                <div class="glass-card feature-card fade-up hover-lift" data-delay="500">
+                <div class="glass-card feature-card fade-up hover-lift">
                     <div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div>
-                    <h3>Апталық пробный тест</h3>
-                    <p>Нақты ҰБТ атмосферасы мен уақыт шектеуі бар апта сайынғы бақылау тестілері.</p>
+                    <h3>Апталық байқау тесті</h3>
+                    <p>Нақты ҰБТ атмосферасында өтетін, уақыт шектеуі бар апталық бақылау тестілеуі.</p>
                 </div>
             </div>
         </div>
@@ -198,9 +1639,9 @@
     <section class="section" id="courses">
         <div class="container">
             <div class="section-title-wrapper text-center fade-up">
-                <span class="section-subtitle">Оқыту бағдарламалары</span>
-                <h2 class="section-title">Мақсатыңызға сай курсты таңдаңыз</h2>
-                <p class="section-description">Базалық деңгейден жоғары баллға дейінгі жүйелі дайындық пакеттері.</p>
+                <span class="section-subtitle">Оқу бағдарламалары</span>
+                <h2 class="section-title">Мақсатыңызға сәйкес курсты таңдаңыз</h2>
+                <p class="section-description">Нөлден бастап жоғары баллға дейін жеткізетін дайындық пакеттері.</p>
             </div>
 
             <div class="grid grid-3">
@@ -208,7 +1649,7 @@
                     <div class="course-header">
                         <span class="course-tag">База</span>
                         <h3>Математика База</h3>
-                        <p class="course-desc">Негізгі концепциялар мен бастапқы деңгейді нығайтуға арналған.</p>
+                        <p class="course-desc">Негізгі тақырыптар мен фундаменталды ережелерді нығайту курсы.</p>
                     </div>
                     <div class="course-price">
                         <span class="price">14,900 ₸</span>
@@ -219,17 +1660,17 @@
                         <li><i class="fa-solid fa-check"></i> 100+ Бейнесабақ</li>
                         <li><i class="fa-solid fa-check"></i> Негізгі тест тапсырмалары</li>
                         <li class="disabled"><i class="fa-solid fa-xmark"></i> Жеке куратор қолдауы</li>
-                        <li class="disabled"><i class="fa-solid fa-xmark"></i> AI Аналитика</li>
+                        <li class="disabled"><i class="fa-solid fa-xmark"></i> AI Аналитика модульдері</li>
                     </ul>
                     <a href="#contact" class="btn btn-glass btn-block">Тіркелу</a>
                 </div>
 
-                <div class="glass-card course-card course-popular fade-up" data-delay="150">
-                    <div class="popular-badge">Ең көп таңдалатын</div>
+                <div class="glass-card course-card course-popular fade-up">
+                    <div class="popular-badge">Ең танымал</div>
                     <div class="course-header">
                         <span class="course-tag accent">Профиль</span>
                         <h3>ҰБТ Интенсив</h3>
-                        <p class="course-desc">Қысқа мерзімде баллды максималды деңгейге көтеру курсы.</p>
+                        <p class="course-desc">Максималды балл жинауға арналған кешенді қарқынды дайындық.</p>
                     </div>
                     <div class="course-price">
                         <span class="price">24,900 ₸</span>
@@ -237,19 +1678,19 @@
                     </div>
                     <ul class="course-features">
                         <li><i class="fa-solid fa-check"></i> Барлық ҰБТ күрделілік деңгейлері</li>
-                        <li><i class="fa-solid fa-check"></i> 250+ HD Бейнесабақ</li>
-                        <li><i class="fa-solid fa-check"></i> Апталық бақылау тестілері</li>
+                        <li><i class="fa-solid fa-check"></i> 250+ HD Бейнесабақтар</li>
+                        <li><i class="fa-solid fa-check"></i> Апталық байқау сынақтары</li>
                         <li><i class="fa-solid fa-check"></i> Жеке кураторлық тексеру</li>
-                        <li><i class="fa-solid fa-check"></i> AI қателермен жұмыс</li>
+                        <li><i class="fa-solid fa-check"></i> AI қателермен жұмыс блогы</li>
                     </ul>
                     <a href="#contact" class="btn btn-primary btn-shine btn-block">Таңдау</a>
                 </div>
 
-                <div class="glass-card course-card fade-up" data-delay="300">
+                <div class="glass-card course-card fade-up">
                     <div class="course-header">
                         <span class="course-tag">VIP</span>
                         <h3>VIP Премиум</h3>
-                        <p class="course-desc">Саят мұғалімнің тікелей бақылауындағы жеке оқыту бағдарламасы.</p>
+                        <p class="course-desc">Саят мұғалімнің тікелей бақылауындағы жеке оқыту форматы.</p>
                     </div>
                     <div class="course-price">
                         <span class="price">49,900 ₸</span>
@@ -257,12 +1698,75 @@
                     </div>
                     <ul class="course-features">
                         <li><i class="fa-solid fa-check"></i> Интенсив курсының барлық мүмкіндігі</li>
-                        <li><i class="fa-solid fa-check"></i> Саят ағаймен тікелей Zoom сабақтар</li>
-                        <li><i class="fa-solid fa-check"></i> Чаттағы 24/7 жеке бағыт-бағдар</li>
-                        <li><i class="fa-solid fa-check"></i> Кепілдендірілген 135+ балл</li>
-                        <li><i class="fa-solid fa-check"></i> Барлық материалдарға өмірлік рұқсат</li>
+                        <li><i class="fa-solid fa-check"></i> Саят ағаймен онлайн Zoom сабақтар</li>
+                        <li><i class="fa-solid fa-check"></i> Жеке кері байланыс 24/7</li>
+                        <li><i class="fa-solid fa-check"></i> Кепілдендірілген 135+ балл нәтижесі</li>
+                        <li><i class="fa-solid fa-check"></i> Материалдарға шексіз рұқсат</li>
                     </ul>
                     <a href="#contact" class="btn btn-glass btn-block">VIP-ке қосылу</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="program">
+        <div class="container container-narrow">
+            <div class="section-title-wrapper text-center fade-up">
+                <span class="section-subtitle">Оқу Жоспары</span>
+                <h2 class="section-title">Курстың модульдік құрылымы</h2>
+                <p class="section-description">Әр модуль ҰБТ талаптарына толықтай сай құрастырылған.</p>
+            </div>
+
+            <div class="modules-wrapper fade-up">
+                <div class="glass-card module-card">
+                    <div class="module-header">
+                        <div class="module-title-box">
+                            <div class="module-num">01</div>
+                            <h4>Алгебра және бастапқы анализ</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-down acc-icon"></i>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-list">
+                            <div class="module-item"><span>1.1 Логарифмдер мен көрсеткіштік теңдеулер</span> <span>4 сабақ</span></div>
+                            <div class="module-item"><span>1.2 Тригонометриялық өрнектерді түрлендіру</span> <span>6 сабақ</span></div>
+                            <div class="module-item"><span>1.3 Туынды және оның қолданылуы</span> <span>5 сабақ</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card module-card">
+                    <div class="module-header">
+                        <div class="module-title-box">
+                            <div class="module-num">02</div>
+                            <h4>Планиметрия және Стереометрия</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-down acc-icon"></i>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-list">
+                            <div class="module-item"><span>2.1 Үшбұрыштар мен төртбұрыштар қасиеттері</span> <span>5 сабақ</span></div>
+                            <div class="module-item"><span>2.2 Көпжақтар: Призма және Пирамида</span> <span>6 сабақ</span></div>
+                            <div class="module-item"><span>2.3 Айналу денелері: Цилиндр, Конус, Шар</span> <span>4 сабақ</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card module-card">
+                    <div class="module-header">
+                        <div class="module-title-box">
+                            <div class="module-num">03</div>
+                            <h4>Контексттік және Логикалық Есептер</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-down acc-icon"></i>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-list">
+                            <div class="module-item"><span>3.1 Экономикалық мазмұнды есептер</span> <span>3 сабақ</span></div>
+                            <div class="module-item"><span>3.2 Комбинаторика мен ықтималдықтар теориясы</span> <span>4 сабақ</span></div>
+                            <div class="module-item"><span>3.3 Графиктер мен диаграммалармен жұмыс</span> <span>3 сабақ</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -271,15 +1775,15 @@
     <section class="section" id="platform">
         <div class="container">
             <div class="section-title-wrapper text-center fade-up">
-                <span class="section-subtitle">Заманауи Экожүйе</span>
+                <span class="section-subtitle">Экожүйе</span>
                 <h2 class="section-title">Платформаның мүмкіндіктері</h2>
-                <p class="section-description">Оқу процесін жеңіл әрі қызықты ететін цифрлық құралдар.</p>
+                <p class="section-description">Оқу сапасын арттыратын цифрлық заманауи құралдар.</p>
             </div>
 
             <div class="platform-tabs fade-up">
                 <button class="tab-btn active" data-tab="tab-video"><i class="fa-solid fa-play"></i> Бейнесабақтар</button>
-                <button class="tab-btn" data-tab="tab-test"><i class="fa-solid fa-vial"></i> Тест жүйесі</button>
-                <button class="tab-btn" data-tab="tab-ai"><i class="fa-solid fa-microchip"></i> AI Анализ</button>
+                <button class="tab-btn" data-tab="tab-test"><i class="fa-solid fa-microchip"></i> Тест жүйесі</button>
+                <button class="tab-btn" data-tab="tab-ai"><i class="fa-solid fa-robot"></i> AI Анализ</button>
                 <button class="tab-btn" data-tab="tab-cert"><i class="fa-solid fa-award"></i> Сертификат</button>
             </div>
 
@@ -287,11 +1791,11 @@
                 <div class="tab-content active" id="tab-video">
                     <div class="glass-card platform-preview-card">
                         <div class="preview-text">
-                            <h3>Интерактивті бейнедәрістер</h3>
-                            <p>Әрбір видеосабақ 10-15 минуттық ықшам форматта дайындалған. Теориядан соң бірден бекіту тапсырмалары беріледі.</p>
+                            <h3>Ыңғайлы видеодәрістер</h3>
+                            <p>Әр сабақ 10-15 минуттық ықшам форматта жасалған. Теорияны меңгерген соң бірден практикалық есептер шығарылады.</p>
                             <ul class="feature-check-list">
-                                <li><i class="fa-solid fa-circle-check"></i> Жылдамдықты реттеу (0.5x - 2.0x)</li>
-                                <li><i class="fa-solid fa-circle-check"></i> Төмен интернетте де жоғары сапа</li>
+                                <li><i class="fa-solid fa-circle-check"></i> Плеер жылдамдығын реттеу (0.5x — 2.0x)</li>
+                                <li><i class="fa-solid fa-circle-check"></i> Мобильді құрылғыларға толық бейімделген</li>
                             </ul>
                         </div>
                         <div class="preview-media">
@@ -308,21 +1812,21 @@
                 <div class="tab-content" id="tab-test">
                     <div class="glass-card platform-preview-card">
                         <div class="preview-text">
-                            <h3>Шынайы ҰБТ симуляторы</h3>
-                            <p>Уақыт шектеуі, таймер, формулалар шпаргалкасы және сұрақтар арасында ыңғайлы навигация жүйесі.</p>
+                            <h3>Шынайы ҰБТ тренажеры</h3>
+                            <p>Таймер, формулалар анықтамалығы және калькулятор интеграцияланған тестілеу модулі.</p>
                             <ul class="feature-check-list">
-                                <li><i class="fa-solid fa-circle-check"></i> Бірнеше дұрыс жауапты тесттер</li>
-                                <li><i class="fa-solid fa-circle-check"></i> Контексттік күрделі есептер</li>
+                                <li><i class="fa-solid fa-circle-check"></i> Көпжауапты және контексттік сұрақтар</li>
+                                <li><i class="fa-solid fa-circle-check"></i> Шешімнің қадамдық талдауы</li>
                             </ul>
                         </div>
                         <div class="preview-media">
                             <div class="mockup-window">
                                 <div class="window-dots"><span></span><span></span><span></span></div>
                                 <div class="quiz-mockup">
-                                    <div class="quiz-q">Сұрақ #14: $f(x) = x^3 - 3x$ функциясының өсу аралығын табыңыз.</div>
-                                    <div class="quiz-opt">A) $(-\infty, -1) \cup (1, +\infty)$</div>
-                                    <div class="quiz-opt correct">B) $(-\infty, -1] \cup [1, +\infty)$</div>
-                                    <div class="quiz-opt">C) $[-1, 1]$</div>
+                                    <div class="quiz-q">Сұрақ #12: f(x) = 2x² - 8x + 5 функциясының минимум нүктесін табыңыз.</div>
+                                    <div class="quiz-opt">A) x = -2</div>
+                                    <div class="quiz-opt correct">B) x = 2</div>
+                                    <div class="quiz-opt">C) x = 4</div>
                                 </div>
                             </div>
                         </div>
@@ -332,11 +1836,11 @@
                 <div class="tab-content" id="tab-ai">
                     <div class="glass-card platform-preview-card">
                         <div class="preview-text">
-                            <h3>AI интеллектуалды аналитика</h3>
-                            <p>Алгоритмдер сіздің әлсіз тұстарыңызды анықтап, дәл қай тақырыпты қайталау керектігін айтып отырады.</p>
+                            <h3>Интеллектуалды AI сараптама</h3>
+                            <p>Сүрінген есептеріңізді зерделеп, сізге арнайы дайындалған жеке қайталау жоспарын құрып береді.</p>
                             <ul class="feature-check-list">
+                                <li><i class="fa-solid fa-circle-check"></i> Әлсіз тақырыптарды автоматикалық анықтау</li>
                                 <li><i class="fa-solid fa-circle-check"></i> Персоналды ұсыныстар</li>
-                                <li><i class="fa-solid fa-circle-check"></i> Қателер банкі</li>
                             </ul>
                         </div>
                         <div class="preview-media">
@@ -345,7 +1849,7 @@
                                 <div class="ai-mockup">
                                     <div class="ai-message">
                                         <i class="fa-solid fa-robot"></i>
-                                        <span>Сізге <strong>Тригонометрия</strong> тақырыбы бойынша қайталау ұсынылады. Тест дәлдігі: 62%.</span>
+                                        <span>Сізге <strong>Тригонометрия</strong> бөлімін қайталау ұсынылады. Соңғы тест дәлдігі: 64%.</span>
                                     </div>
                                 </div>
                             </div>
@@ -357,7 +1861,7 @@
                     <div class="glass-card platform-preview-card">
                         <div class="preview-text">
                             <h3>Ресми аяқтау сертификаты</h3>
-                            <p>Курсты сәтті аяқтаған оқушыларға арнайы QR-коды бар сертификат тапсырылады.</p>
+                            <p>Курсты сәтті аяқтаған оқушыларға жеке QR-коды бар сертификат табысталады.</p>
                         </div>
                         <div class="preview-media">
                             <div class="mockup-window">
@@ -378,18 +1882,18 @@
         <div class="container">
             <div class="section-title-wrapper text-center fade-up">
                 <span class="section-subtitle">Демо Сабақ</span>
-                <h2 class="section-title">Сабақтың сапасын өз көзіңізбен көргіңіз келе ме?</h2>
+                <h2 class="section-title">Оқыту сапасын тегін тексеріңіз</h2>
             </div>
 
             <div class="glass-card laptop-container fade-up">
                 <div class="laptop-screen">
                     <div class="video-overlay" id="video-overlay">
-                        <button class="play-btn-glow" id="play-btn" aria-label="Play Video">
+                        <button class="play-btn-glow" id="play-btn" aria-label="Видеоны ойнату">
                             <i class="fa-solid fa-play"></i>
                         </button>
-                        <span class="video-title">15 минутта Логарифмдерді нөлден түсіну</span>
+                        <span class="video-title">15 минутта Логарифмді тез түсіну жолы</span>
                     </div>
-                    <iframe id="demo-iframe" src="about:blank" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="Demo Lesson" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe id="demo-iframe" src="about:blank" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="Демо сабақ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="laptop-base"></div>
             </div>
@@ -399,8 +1903,8 @@
     <section class="section" id="reviews">
         <div class="container">
             <div class="section-title-wrapper text-center fade-up">
-                <span class="section-subtitle">Оқушыларымыздың пікірі</span>
-                <h2 class="section-title">Жоғары балл жинаған түлектеріміз</h2>
+                <span class="section-subtitle">Пікірлер</span>
+                <h2 class="section-title">Біздің түлектеріміздің нәтижелері</h2>
             </div>
 
             <div class="reviews-slider-container fade-up">
@@ -413,7 +1917,7 @@
                                 <span class="score-badge">ҰБТ: 138 балл</span>
                             </div>
                         </div>
-                        <p class="review-text">"SAYAT MATH арқасында математикаға деген көзқарасым түбегейлі өзгерді. Саят ағайдың әдістемесі өте қарапайым!"</p>
+                        <p class="review-text">"SAYAT MATH арқасында математика маған өте жеңіл болып көріне бастады. Саят ағайдың логикалық әдісі 138 балл жинауға көмектесті!"</p>
                     </div>
 
                     <div class="glass-card review-card">
@@ -424,7 +1928,7 @@
                                 <span class="score-badge">ҰБТ: 140 балл</span>
                             </div>
                         </div>
-                        <p class="review-text">"Ең ұнағаны — AI аналитика. Қай жерден қателескенімді бірден көрсетіп, түзеуге мүмкіндік берді. 140 балл жинадым!"</p>
+                        <p class="review-text">"Ең ұнағаны — AI талдау жүйесі. Жіберген қателерімді бірден көрсетіп, қайталауға мүмкіндік берді. Нәтижем — 140 балл!"</p>
                     </div>
 
                     <div class="glass-card review-card">
@@ -432,16 +1936,16 @@
                             <div class="avatar-circle">ЕН</div>
                             <div>
                                 <h4>Ернұр Нұрланов</h4>
-                                <span class="score-badge">ҰБТ: 135 балл</span>
+                                <span class="score-badge">ҰБТ: 136 балл</span>
                             </div>
                         </div>
-                        <p class="review-text">"Күшті платформа! Онлайн жүйе өте ыңғайлы, тесттер нақты ҰБТ форматында дайындалған."</p>
+                        <p class="review-text">"Тамаша платформа! Барлық сабақтар түсінікті, тесттер нақты ҰБТ стандартында дайындалған."</p>
                     </div>
                 </div>
 
                 <div class="slider-controls">
-                    <button class="btn-icon" id="prev-review" aria-label="Previous Review"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="btn-icon" id="next-review" aria-label="Next Review"><i class="fa-solid fa-chevron-right"></i></button>
+                    <button class="btn-icon" id="prev-review" aria-label="Алдыңғы пікір"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="btn-icon" id="next-review" aria-label="Келесі пікір"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
         </div>
@@ -461,7 +1965,7 @@
                         <i class="fa-solid fa-chevron-down acc-icon"></i>
                     </button>
                     <div class="accordion-content">
-                        <p>Сабақтар алдын ала жазылған жоғары сапалы бейнедәрістер және апталық онлайн кері байланыс вебинарлары түрінде өтеді.</p>
+                        <p>Сабақтар алдын ала жазылған жоғары сапалы HD видеодәрістер және апталық онлайн кері байланыс вебинарлары түрінде өтеді.</p>
                     </div>
                 </div>
 
@@ -471,7 +1975,7 @@
                         <i class="fa-solid fa-chevron-down acc-icon"></i>
                     </button>
                     <div class="accordion-content">
-                        <p>Әрбір оқушыға жеке куратор бекітіледі. Сонымен қатар 24/7 режимінде AI көмекші мен оқушылар чаты жұмыс істейді.</p>
+                        <p>Әрбір оқушыға жеке куратор бекітіледі. Сонымен қатар 24/7 режимінде AI көмекші мен оқушылар қауымдастығы жұмыс істейді.</p>
                     </div>
                 </div>
 
@@ -481,7 +1985,7 @@
                         <i class="fa-solid fa-chevron-down acc-icon"></i>
                     </button>
                     <div class="accordion-content">
-                        <p>Иә, Kaspi Red немесе Kaspi Рассрочка арқылы 3, 6, 12 айға бөліп төлеу мүмкіндігі қарастырылған.</p>
+                        <p>Иә, Kaspi Red немесе Kaspi Рассрочка арқылы 3, 6, 12 айға пайызыз бөліп төлеу мүмкіндігі бар.</p>
                     </div>
                 </div>
             </div>
@@ -495,12 +1999,8 @@
                 <h2 class="cta-title">Дайындықты бүгіннен бастаңыз!</h2>
                 <p class="cta-desc">Тегін консультация алу үшін өтінім қалдырыңыз, біз сізге 15 минут ішінде хабарласамыз.</p>
                 <form class="cta-form" id="cta-form">
-                    <div class="form-group">
-                        <input type="text" placeholder="Сіздің атыңыз" required class="input-glass">
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="+7 (700) 000-00-00" required class="input-glass">
-                    </div>
+                    <input type="text" placeholder="Сіздің атыңыз" required class="input-glass">
+                    <input type="tel" placeholder="+7 (700) 000-00-00" required class="input-glass">
                     <button type="submit" class="btn btn-primary btn-shine">Өтінім жіберу</button>
                 </form>
             </div>
@@ -513,7 +2013,7 @@
                 <a href="#" class="logo">
                     <span class="logo-accent">SAYAT</span> MATH<span class="logo-dot">.</span>
                 </a>
-                <p class="text-muted">ҰБТ Математикасы бойынша N1 онлайн дайындық платформасы.</p>
+                <p class="text-muted" style="margin-top: 8px;">ҰБТ Математикасы бойынша N1 онлайн дайындық платформасы.</p>
             </div>
             <div class="footer-links">
                 <a href="#hero">Басты бет</a>
@@ -533,6 +2033,246 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* 1. Loading Preloader Fade Out */
+    const loadingScreen = document.getElementById('loading-screen');
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            if (loadingScreen) loadingScreen.classList.add('fade-out');
+        }, 300);
+    });
+
+    /* 2. Custom Glow Effect Following Pointer */
+    const cursorGlow = document.getElementById('cursor-glow');
+    if (cursorGlow && window.innerWidth > 768) {
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = `${e.clientX}px`;
+            cursorGlow.style.top = `${e.clientY}px`;
+        });
+    }
+
+    /* 3. Page Scroll Progress Indicator */
+    const scrollProgress = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (window.scrollY / totalHeight) * 100;
+        if (scrollProgress) scrollProgress.style.width = `${progress}%`;
+    });
+
+    /* 4. Sticky Header Blur Toggle */
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        if (header) {
+            if (window.scrollY > 40) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+    });
+
+    /* 5. Mobile Hamburger Navigation Logic */
+    const burgerMenu = document.getElementById('burger-menu');
+    const navMenu = document.getElementById('nav-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function toggleMobileMenu() {
+        burgerMenu.classList.toggle('open');
+        navMenu.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    }
+
+    function closeMobileMenu() {
+        burgerMenu.classList.remove('open');
+        navMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    }
+
+    if (burgerMenu) burgerMenu.addEventListener('click', toggleMobileMenu);
+    if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    /* 6. Dynamic Text Typing Effect */
+    const typingElement = document.getElementById('typing-text');
+    const phrases = ["Жоғары нәтиже", "140+ Балл", "Тез әрі оңай", "Авторлық әдіс"];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeEffect() {
+        if (!typingElement) return;
+        const currentPhrase = phrases[phraseIndex];
+        
+        if (isDeleting) {
+            typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        let speed = isDeleting ? 40 : 80;
+
+        if (!isDeleting && charIndex === currentPhrase.length) {
+            speed = 1800;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            speed = 400;
+        }
+
+        setTimeout(typeEffect, speed);
+    }
+
+    typeEffect();
+
+    /* 7. Numbers Counter Animation */
+    const counters = document.querySelectorAll('.counter');
+    let animatedCounters = false;
+
+    function startCounters() {
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            const duration = 1800;
+            const increment = target / (duration / 16);
+
+            let current = 0;
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    counter.textContent = Math.ceil(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target + "+";
+                }
+            };
+            updateCounter();
+        });
+    }
+
+    /* 8. Intersection Observer for Scroll Animations */
+    const observerOptions = { threshold: 0.15 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+
+                if (entry.target.classList.contains('hero-dashboard') && !animatedCounters) {
+                    startCounters();
+                    animatedCounters = true;
+                }
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-up, .hero-dashboard').forEach(el => observer.observe(el));
+
+    /* 9. Interactive Platform Tabs */
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            btn.classList.add('active');
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+        });
+    });
+
+    /* 10. Demo Video Overlay Logic */
+    const videoOverlay = document.getElementById('video-overlay');
+    const playBtn = document.getElementById('play-btn');
+    const demoIframe = document.getElementById('demo-iframe');
+
+    if (playBtn && demoIframe) {
+        playBtn.addEventListener('click', () => {
+            const src = demoIframe.getAttribute('data-src');
+            demoIframe.setAttribute('src', src);
+            if (videoOverlay) videoOverlay.style.display = 'none';
+        });
+    }
+
+    /* 11. Responsive Reviews Slider */
+    const wrapper = document.getElementById('reviews-wrapper');
+    const prevBtn = document.getElementById('prev-review');
+    const nextBtn = document.getElementById('next-review');
+    let currentIndex = 0;
+
+    function updateSlider() {
+        if (!wrapper || wrapper.children.length === 0) return;
+        const cardWidth = wrapper.children[0].offsetWidth + 24;
+        wrapper.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+
+    if (nextBtn && prevBtn && wrapper) {
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < wrapper.children.length - 1) {
+                currentIndex++;
+                updateSlider();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
+            }
+        });
+
+        window.addEventListener('resize', updateSlider);
+    }
+
+    /* 12. Accordion Component Toggle (FAQ & Modules) */
+    const accordionHeaders = document.querySelectorAll('.accordion-header, .module-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            const content = item.querySelector('.accordion-content, .module-body');
+
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+                if (content) content.style.maxHeight = null;
+            } else {
+                item.classList.add('active');
+                if (content) content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+
+    /* 13. Tilt Effect for Cards on Hover */
+    const tiltCards = document.querySelectorAll('.tilt-card');
+
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            if (window.innerWidth < 768) return;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            card.style.transform = `perspective(1000px) rotateX(${-y / 25}deg) rotateY(${x / 25}deg)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        });
+    });
+
+});
+    </script>
 </body>
 </html>
