@@ -22,8 +22,8 @@
     --glass-shadow: 0 20px 40px rgba(37, 99, 235, 0.06), 0 1px 3px rgba(0, 0, 0, 0.05);
     --glass-blur: blur(16px);
     
-    /* Typography */
-    --font-family: 'Plus Jakarta Sans', sans-serif;
+/* Typography */
+--font-family: 'Inter', 'Montserrat', system-ui, -apple-system, sans-serif;
     
     /* Transitions */
     --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
