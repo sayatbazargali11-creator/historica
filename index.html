@@ -1,3021 +1,538 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Бахит — Премиальный супермаркет автозапчастей, автотоваров и товаров для дома</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAYAT MATH — ҰБТ Математикасынан онлайн дайындық платформасы</title>
     
-    <meta name="description" content="Официальный интернет-магазин Бахит. Широкий ассортимент оригинальных автозапчастей, моторных масел, аккумуляторов, инструментов, хозтоваров и бытовой химии премиального качества с доставкой.">
-    <meta name="keywords" content="Бахит, автозапчасти, моторное масло, автоаксессуары, инструменты, хозяйственные товары, бытовая химия, автопитер, купить запчасти">
-    <meta name="author" content="Bakhit Premium Development">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://autopiter.kz/">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://autopiter.kz/">
-    <meta property="og:title" content="Бахит — Всё для вашего автомобиля и дома">
-    <meta property="og:description" content="Премиальный сервис, оригинальные комплектующие, автохимия, инструменты и товары для уюта в вашем доме с гарантией качества.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&h=630&q=80">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://autopiter.kz/">
-    <meta property="twitter:title" content="Бахит — Всё для вашего автомобиля и дома">
-    <meta property="twitter:description" content="Премиальный сервис, оригинальные комплектующие, автохимия, инструменты и товары для уюта в вашем доме с гарантией качества.">
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&h=630&q=80">
-
-<!-- Schema.org -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "AutoPartsStore",
-  "name": "Бахит",
-  "description": "Магазин автозапчастей, автомасел, автоаксессуаров, инструментов и товаров для дома",
-  "url": "https://bakhit.example.kz/",
-  "telephone": "+7-700-000-00-00",
-  "priceRange": "₸₸",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "KZ"
-  }
-}
-</script>
-
-    <style>
-        /* --- ПРЕМИАЛЬНАЯ АРХИТЕКТУРА СТИЛЕЙ (APPLE + MERCEDES-BENZ STYLE) --- */
-        :root {
-            --bg-main: #ffffff;
-            --bg-sub: #f5f5f7;
-            --bg-card: #ffffff;
-            --text-main: #1d1d1f;
-            --text-sub: #86868b;
-            --text-muted: #a1a1a6;
-            --accent: #E53935;
-            --accent-hover: #b71c1c;
-            --accent-orange: #FF6F00;
-            --border-color: #e8e8ed;
-            --shadow-premium: 0 4px 30px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.08);
-            --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.03);
-            --glass-bg: rgba(255, 255, 255, 0.72);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 22px;
-            --radius-circle: 50%;
-            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        [data-theme="dark"] {
-            --bg-main: #000000;
-            --bg-sub: #121212;
-            --bg-card: #1c1c1e;
-            --text-main: #f5f5f7;
-            --text-sub: #86868b;
-            --text-muted: #6e6e73;
-            --border-color: #2c2c2e;
-            --shadow-premium: 0 4px 30px rgba(0, 0, 0, 0.4);
-            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.6);
-            --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.2);
-            --glass-bg: rgba(28, 28, 30, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Базовые сбросы */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            font-family: var(--font-stack);
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-            overflow-x: hidden;
-        }
-
-        body {
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.5;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-            transition: var(--transition-fast);
-        }
-
-        button, input, textarea, select {
-            font-family: inherit;
-            background: none;
-            border: none;
-            outline: none;
-            color: inherit;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-            height: auto;
-        }
-
-        ul, ol {
-            list-style: none;
-        }
-
-        /* Скроллбар */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-main);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--text-muted);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-sub);
-        }
-
-        /* Утилитарные классы контейнеров */
-        .container {
-            width: 100%;
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
-            }
-        }
-
-        .section-padding {
-            padding: 120px 0;
-        }
-
-        @media (max-width: 768px) {
-            .section-padding {
-                padding: 60px 0;
-            }
-        }
-
-        .glass-effect {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid var(--glass-border);
-        }
-
-        /* Элементы заголовков */
-        .premium-title {
-            font-size: 48px;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .premium-subtitle {
-            font-size: 18px;
-            color: var(--text-sub);
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 60px auto;
-            font-weight: 400;
-        }
-
-        @media (max-width: 768px) {
-            .premium-title {
-                font-size: 32px;
-            }
-            .premium-subtitle {
-                font-size: 15px;
-                margin-bottom: 40px;
-            }
-        }
-
-        /* --- ШАПКА САЙТА (HEADER) --- */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: var(--transition-smooth);
-            border-bottom: 1px solid transparent;
-        }
-
-        .header.scrolled {
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 72px;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 700;
-            font-size: 22px;
-            letter-spacing: -0.02em;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--accent);
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 900;
-            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        .nav-link {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-main);
-            opacity: 0.8;
-            position: relative;
-            padding: 8px 0;
-        }
-
-        .nav-link:hover {
-            opacity: 1;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .nav-link:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .action-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-circle);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-main);
-            transition: var(--transition-fast);
-            position: relative;
-        }
-
-        .action-btn:hover {
-            background: var(--bg-sub);
-            transform: scale(1.05);
-        }
-
-        .badge {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            background: var(--accent);
-            color: #ffffff;
-            font-size: 10px;
-            font-weight: 700;
-            min-width: 16px;
-            height: 16px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 4px;
-            border: 2px solid var(--bg-card);
-        }
-
-        .btn-whatsapp {
-            background: #25D366;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
-            transition: var(--transition-smooth);
-        }
-
-        .btn-whatsapp:hover {
-            background: #128C7E;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            width: 24px;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 100%;
-            height: 2px;
-            background: var(--text-main);
-            transition: var(--transition-fast);
-        }
-
-        @media (max-width: 1024px) {
-            .nav-menu, .btn-whatsapp {
-                display: none;
-            }
-            .menu-toggle {
-                display: flex;
-            }
-        }
-
-        /* --- МОБИЛЬНОЕ МЕНЮ (MOBILE NAVIGATION DRAWER) --- */
-        .mobile-drawer {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 320px;
-            height: 100vh;
-            background: var(--bg-card);
-            z-index: 2000;
-            transition: var(--transition-smooth);
-            padding: 40px 24px;
-            box-shadow: var(--shadow-hover);
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
-
-        .mobile-drawer.active {
-            right: 0;
-        }
-
-        .drawer-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(8px);
-            z-index: 1999;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition-smooth);
-        }
-
-        .drawer-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .drawer-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .drawer-close {
-            font-size: 28px;
-            color: var(--text-main);
-            cursor: pointer;
-        }
-
-        .mobile-nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .mobile-nav-link {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        /* --- ЖИВОЙ ПОИСК (LIVE SEARCH COMPONENT) --- */
-        .search-overlay-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            z-index: 3000;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition-smooth);
-            display: flex;
-            justify-content: center;
-            padding-top: 100px;
-        }
-
-        .search-overlay-modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .search-container-box {
-            width: 100%;
-            max-width: 800px;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .search-input-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
-        .search-input-field {
-            width: 100%;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 18px 28px 18px 60px;
-            border-radius: var(--radius-md);
-            font-size: 18px;
-            color: var(--text-main);
-            box-shadow: var(--shadow-premium);
-            transition: var(--transition-smooth);
-        }
-
-        .search-input-field:focus {
-            box-shadow: 0 0 0 4px rgba(229,57,53,0.15);
-            border-color: var(--accent);
-        }
-
-        .search-icon-inside {
-            position: absolute;
-            left: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-sub);
-            font-size: 20px;
-        }
-
-        .search-close-btn {
-            position: absolute;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-sub);
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .search-results-panel {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-hover);
-            max-height: 450px;
-            overflow-y: auto;
-            display: none;
-            padding: 16px;
-        }
-
-        .search-results-panel.active {
-            display: block;
-        }
-
-        .search-suggestion-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 12px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-
-        .search-suggestion-item:hover {
-            background: var(--bg-sub);
-        }
-
-        .search-history-box {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .search-history-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-sub);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .search-history-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .search-history-tag {
-            background: var(--bg-sub);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-
-        .search-history-tag:hover {
-            background: var(--border-color);
-            color: var(--accent);
-        }
-
-        /* --- ГЕРОЙ БЛОК (HERO BANNER) --- */
-        .hero-section {
-            position: relative;
-            height: 100vh;
-            min-height: 650px;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            background: #000000;
-            color: #ffffff;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.55;
-            transform: scale(1.05);
-            transition: transform 8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-section:hover .hero-bg {
-            transform: scale(1.0);
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.75) 100%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 750px;
-            opacity: 0;
-            transform: translateY(40px);
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.2s;
-        }
-
-        .hero-tagline {
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: var(--accent);
-            margin-bottom: 24px;
-        }
-
-        .hero-title {
-            font-size: 64px;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.08;
-            margin-bottom: 28px;
-        }
-
-        .hero-desc {
-            font-size: 20px;
-            opacity: 0.85;
-            margin-bottom: 40px;
-            font-weight: 400;
-            max-width: 600px;
-            line-height: 1.45;
-        }
-
-        .hero-buttons {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn-premium {
-            padding: 16px 36px;
-            border-radius: 30px;
-            font-size: 15px;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .btn-premium-primary {
-            background: var(--accent);
-            color: #ffffff;
-            box-shadow: 0 8px 24px rgba(229,57,53,0.35);
-        }
-
-        .btn-premium-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(229,57,53,0.5);
-        }
-
-        .btn-premium-secondary {
-            background: rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-        }
-
-        .btn-premium-secondary:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .scroll-down-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            opacity: 0.6;
-            cursor: pointer;
-            z-index: 10;
-            transition: var(--transition-fast);
-        }
-
-        .scroll-down-indicator:hover {
-            opacity: 1;
-        }
-
-        .scroll-mouse {
-            width: 20px;
-            height: 32px;
-            border: 2px solid #ffffff;
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .scroll-wheel {
-            width: 4px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 2px;
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: scrollWheelAnim 1.6s infinite;
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 40px;
-            }
-            .hero-desc {
-                font-size: 16px;
-            }
-            .btn-premium {
-                width: 100%;
-            }
-        }
-
-        /* --- КАТЕГОРИИ (CATEGORIES GRID) --- */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        @media (max-width: 1024px) {
-            .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 580px) {
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .category-card {
-            position: relative;
-            height: 280px;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            background: var(--bg-sub);
-            cursor: pointer;
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition-smooth);
-        }
-
-        .category-card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition-smooth);
-        }
-
-        .category-card-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 24px;
-            box-sizing: border-box;
-            color: #ffffff;
-        }
-
-        .category-card-title {
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            margin-bottom: 4px;
-        }
-
-        .category-card-count {
-            font-size: 13px;
-            opacity: 0.75;
-        }
-
-        .category-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .category-card:hover .category-card-img {
-            transform: scale(1.06);
-        }
-
-        /* --- АКЦИИ С ТАЙМЕРОМ (PROMO FLASH SALE) --- */
-        .promo-section {
-            background: var(--bg-sub);
-        }
-
-        .promo-banner-box {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 60px;
-            box-shadow: var(--shadow-premium);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-
-        @media (max-width: 1024px) {
-            .promo-banner-box {
-                flex-direction: column;
-                padding: 40px 24px;
-                text-align: center;
-            }
-        }
-
-        .promo-details {
-            max-width: 550px;
-        }
-
-        .promo-badge {
-            background: rgba(229,57,53,0.1);
-            color: var(--accent);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .promo-title-text {
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .promo-desc-text {
-            color: var(--text-sub);
-            font-size: 16px;
-            margin-bottom: 32px;
-        }
-
-        .countdown-timer-container {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-
-        @media (max-width: 1024px) {
-            .countdown-timer-container {
-                justify-content: center;
-            }
-        }
-
-        .timer-segment {
-            background: var(--bg-sub);
-            width: 75px;
-            height: 75px;
-            border-radius: var(--radius-md);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .timer-digits {
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .timer-label {
-            font-size: 11px;
-            color: var(--text-sub);
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        .promo-showcase-img {
-            max-width: 450px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-hover);
-        }
-
-        @media (max-width: 580px) {
-            .promo-showcase-img {
-                width: 100%;
-            }
-        }
-
-        /* --- КАТАЛОГ ТОВАРОВ (PRODUCT CATALOG GRID) --- */
-        .catalog-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .filter-tabs-list {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .filter-tab-button {
-            padding: 10px 22px;
-            background: var(--bg-sub);
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: var(--transition-fast);
-        }
-
-        .filter-tab-button.active, .filter-tab-button:hover {
-            background: var(--text-main);
-            color: var(--bg-main);
-        }
-
-        .catalog-sorting-select {
-            padding: 10px 20px;
-            border-radius: 30px;
-            background: var(--bg-sub);
-            font-size: 14px;
-            font-weight: 500;
-            border: 1px solid transparent;
-            cursor: pointer;
-        }
-
-        .products-display-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-        }
-
-        @media (max-width: 1200px) {
-            .products-display-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 900px) {
-            .products-display-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 580px) {
-            .products-display-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .premium-product-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition-smooth);
-        }
-
-        .premium-product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-            border-color: transparent;
-        }
-
-        .card-top-actions {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            right: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 5;
-        }
-
-        .card-discount-tag {
-            background: var(--accent);
-            color: white;
-            padding: 4px 10px;
-            font-size: 11px;
-            font-weight: 700;
-            border-radius: 6px;
-        }
-
-        .card-favorite-toggle {
-            width: 34px;
-            height: 34px;
-            border-radius: var(--radius-circle);
-            background: var(--bg-card);
-            box-shadow: var(--shadow-soft);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-sub);
-            transition: var(--transition-fast);
-        }
-
-        .card-favorite-toggle:hover, .card-favorite-toggle.active {
-            color: var(--accent);
-            transform: scale(1.1);
-        }
-
-        .product-card-image-wrapper {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .product-card-img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            transition: var(--transition-smooth);
-        }
-
-        .premium-product-card:hover .product-card-img {
-            transform: scale(1.05);
-        }
-
-        .product-sku-code {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .product-card-title {
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 1.35;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            height: 44px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .product-rating-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 16px;
-            font-size: 13px;
-        }
-
-        .stars-gold {
-            color: #FFB300;
-        }
-
-        .reviews-count-text {
-            color: var(--text-sub);
-        }
-
-        .product-pricing-row {
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .product-current-price {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .product-old-price {
-            font-size: 14px;
-            color: var(--text-muted);
-            text-decoration: line-through;
-        }
-
-        .card-bottom-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-card-action {
-            flex: 1;
-            padding: 12px 0;
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-            transition: var(--transition-fast);
-        }
-
-        .btn-card-primary {
-            background: var(--text-main);
-            color: var(--bg-main);
-        }
-
-        .btn-card-primary:hover {
-            background: var(--accent);
-            color: #ffffff;
-        }
-
-        .btn-card-secondary {
-            background: var(--bg-sub);
-            color: var(--text-main);
-        }
-
-        .btn-card-secondary:hover {
-            background: var(--border-color);
-        }
-
-        /* --- ПОПУЛЯРНЫЕ ТОВАРЫ КАРУСЕЛЬ (POPULAR PRODUCTS SLIDER) --- */
-        .carousel-outer-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .carousel-track-viewport {
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .carousel-inner-track {
-            display: flex;
-            gap: 32px;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            width: max-content;
-        }
-
-        .carousel-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            border-radius: var(--radius-circle);
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-premium);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            color: var(--text-main);
-            transition: var(--transition-fast);
-        }
-
-        .carousel-nav-btn:hover {
-            background: var(--text-main);
-            color: var(--bg-main);
-        }
-
-        .carousel-nav-prev { left: 10px; }
-        .carousel-nav-next { right: 10px; }
-
-        /* --- НАШИ ПРЕИМУЩЕСТВА (BENEFITS GRID) --- */
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        @media (max-width: 900px) {
-            .advantages-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .advantage-card-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 40px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition-smooth);
-            text-align: center;
-        }
-
-        .advantage-card-box:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .advantage-icon-wrapper {
-            width: 64px;
-            height: 64px;
-            border-radius: var(--radius-md);
-            background: rgba(229,57,53,0.06);
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin: 0 auto 24px auto;
-        }
-
-        .advantage-card-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .advantage-card-desc {
-            font-size: 15px;
-            color: var(--text-sub);
-            line-height: 1.5;
-        }
-
-        /* --- О МАГАЗИНЕ (ABOUT COMPANY SECTION) --- */
-        .about-split-container {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-        }
-
-        @media (max-width: 1024px) {
-            .about-split-container {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        .about-text-content {
-            flex: 1;
-        }
-
-        .about-paragraph {
-            font-size: 16px;
-            color: var(--text-sub);
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .about-metrics-row {
-            display: flex;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 1024px) {
-            .about-metrics-row {
-                justify-content: center;
-            }
-        }
-
-        .metric-item-box {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .metric-number {
-            font-size: 40px;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: -0.02em;
-        }
-
-        .metric-label {
-            font-size: 13px;
-            color: var(--text-sub);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        .about-image-showcase {
-            flex: 1;
-            position: relative;
-        }
-
-        .about-main-img {
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-hover);
-            width: 100%;
-        }
-
-        /* --- ОТЗЫВЫ КЛИЕНТОВ (TESTIMONIALS SLIDER) --- */
-        .testimonials-slider-viewport {
-            max-width: 850px;
-            margin: 0 auto;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .testimonials-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .testimonial-slide-card {
-            width: 100%;
-            flex-shrink: 0;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 48px;
-            box-shadow: var(--shadow-premium);
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .client-avatar-img {
-            width: 80px;
-            height: 80px;
-            border-radius: var(--radius-circle);
-            object-fit: cover;
-            margin: 0 auto 20px auto;
-            border: 3px solid var(--border-color);
-        }
-
-        .testimonial-feedback-text {
-            font-size: 18px;
-            font-style: italic;
-            line-height: 1.6;
-            color: var(--text-main);
-            margin-bottom: 24px;
-        }
-
-        .client-fullname {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .client-position-tag {
-            font-size: 13px;
-            color: var(--text-sub);
-            margin-top: 2px;
-        }
-
-        /* --- ВОПРОСЫ И ОТВЕТЫ (FAQ ACCORDION) --- */
-        .faq-accordion-container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .accordion-item-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            transition: var(--transition-smooth);
-        }
-
-        .accordion-trigger-header {
-            width: 100%;
-            padding: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 16px;
-            font-weight: 600;
-            text-align: left;
-            cursor: pointer;
-            background: none;
-        }
-
-        .accordion-arrow-icon {
-            font-size: 18px;
-            transition: transform 0.3s ease;
-            color: var(--text-sub);
-        }
-
-        .accordion-content-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            background: var(--bg-sub);
-        }
-
-        .accordion-inner-body {
-            padding: 24px;
-            font-size: 15px;
-            color: var(--text-sub);
-            line-height: 1.6;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .accordion-item-box.active .accordion-arrow-icon {
-            transform: rotate(180deg);
-            color: var(--accent);
-        }
-
-        .accordion-item-box.active {
-            border-color: var(--text-main);
-        }
-
-        /* --- КОНТАКТЫ И ФОРМА (CONTACTS & FEEDBACK FORM) --- */
-        .contacts-split-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-        }
-
-        @media (max-width: 1024px) {
-            .contacts-split-layout {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-        }
-
-        .contact-info-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
-
-        .info-block-row {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .info-block-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--bg-sub);
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: var(--accent);
-            flex-shrink: 0;
-        }
-
-        .info-block-details h4 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .info-block-details p {
-            font-size: 15px;
-            color: var(--text-sub);
-            line-height: 1.4;
-        }
-
-        .interactive-map-placeholder {
-            width: 100%;
-            height: 250px;
-            background: var(--bg-sub);
-            border-radius: var(--radius-md);
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 12px;
-            border: 1px dashed var(--text-muted);
-            color: var(--text-sub);
-        }
-
-        .premium-feedback-form {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 40px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-premium);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .form-group-field {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-group-field label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .form-input-control {
-            width: 100%;
-            background: var(--bg-sub);
-            border: 1px solid transparent;
-            padding: 14px 20px;
-            border-radius: var(--radius-sm);
-            font-size: 14px;
-            color: var(--text-main);
-            transition: var(--transition-fast);
-        }
-
-        .form-input-control:focus {
-            border-color: var(--text-main);
-            background: var(--bg-card);
-        }
-
-        .form-input-control.error-state {
-            border-color: var(--accent);
-            background: rgba(229,57,53,0.02);
-        }
-
-        .form-error-msg {
-            font-size: 11px;
-            color: var(--accent);
-            font-weight: 500;
-            display: none;
-        }
-
-        /* --- КОРЗИНА И ИЗБРАННОЕ (CART DRAWER OUTLINE) --- */
-        .cart-sliding-drawer {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 420px;
-            height: 100vh;
-            background: var(--bg-card);
-            z-index: 2500;
-            transition: var(--transition-smooth);
-            box-shadow: var(--shadow-hover);
-            display: flex;
-            flex-direction: column;
-            padding: 32px;
-            box-sizing: border-box;
-        }
-
-        @media (max-width: 480px) {
-            .cart-sliding-drawer {
-                width: 100%;
-            }
-        }
-
-        .cart-sliding-drawer.active {
-            right: 0;
-        }
-
-        .cart-drawer-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-
-        .cart-drawer-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .cart-items-scroll-container {
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding-right: 6px;
-        }
-
-        .cart-item-row {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 16px;
-        }
-
-        .cart-item-thumbnail {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            background: var(--bg-sub);
-            border-radius: var(--radius-sm);
-            padding: 6px;
-        }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .cart-item-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 4px;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .cart-item-price {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .cart-quantity-modifier {
-            display: flex;
-            align-items: center;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
-            width: max-content;
-            margin-top: 8px;
-        }
-
-        .quantity-btn-step {
-            width: 28px;
-            height: 28px;
-            background: var(--bg-sub);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .quantity-value-display {
-            width: 34px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .cart-item-delete-btn {
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: var(--transition-fast);
-            font-size: 18px;
-        }
-
-        .cart-item-delete-btn:hover {
-            color: var(--accent);
-        }
-
-        .cart-summary-footer-panel {
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .cart-total-row-display {
-            display: flex;
-            justify-content: space-between;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .promo-code-input-wrapper {
-            display: flex;
-            gap: 10px;
-        }
-
-        /* --- ТОСТ-УВЕДОМЛЕНИЯ (TOAST NOTIFICATIONS) --- */
-        .toast-notifications-stack {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .toast-notification-banner {
-            background: var(--text-main);
-            color: var(--bg-main);
-            padding: 16px 24px;
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-hover);
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transform: translateY(20px);
-            opacity: 0;
-            animation: toastPopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        /* --- БОЛЬШОЙ ПРЕМИАЛЬНЫЙ ФУТЕР (FOOTER COMPONENT) --- */
-        .premium-footer-component {
-            background: var(--bg-sub);
-            border-top: 1px solid var(--border-color);
-            padding: 80px 0 40px 0;
-            margin-top: auto;
-        }
-
-        .footer-grid-layout {
-            display: grid;
-            grid-template-columns: 2fr repeat(3, 1fr);
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        @media (max-width: 1024px) {
-            .footer-grid-layout {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 580px) {
-            .footer-grid-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .footer-branding-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .footer-brand-desc {
-            font-size: 14px;
-            color: var(--text-sub);
-            line-height: 1.6;
-            max-width: 320px;
-        }
-
-        .footer-socials-row {
-            display: flex;
-            gap: 14px;
-        }
-
-        .social-circle-link {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-circle);
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: var(--transition-fast);
-        }
-
-        .social-circle-link:hover {
-            background: var(--text-main);
-            color: var(--bg-main);
-            transform: scale(1.08);
-        }
-
-        .footer-links-column h5 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .footer-links-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .footer-nav-item-link {
-            font-size: 14px;
-            color: var(--text-sub);
-        }
-
-        .footer-nav-item-link:hover {
-            color: var(--accent);
-            padding-left: 4px;
-        }
-
-        .footer-bottom-copyright-bar {
-            border-top: 1px solid var(--border-color);
-            padding-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: var(--text-muted);
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        /* --- АНИМАЦИИ (KEYFRAMES) --- */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes scrollWheelAnim {
-            0% { top: 6px; opacity: 1; height: 4px; }
-            50% { top: 18px; opacity: 0; height: 8px; }
-            100% { top: 6px; opacity: 1; height: 4px; }
-        }
-
-        @keyframes toastPopIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* --- МОДАЛЬНОЕ ОКНО БЫСТРОГО ПРОСМОТРА --- */
-        .quickview-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            z-index: 4000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition-smooth);
-            padding: 20px;
-        }
-
-        .quickview-modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .quickview-modal-box {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            width: 100%;
-            max-width: 900px;
-            padding: 40px;
-            position: relative;
-            box-shadow: var(--shadow-hover);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            transform: scale(0.9);
-            transition: var(--transition-smooth);
-        }
-
-        .quickview-modal-overlay.active .quickview-modal-box {
-            transform: scale(1);
-        }
-
-        @media (max-width: 768px) {
-            .quickview-modal-box {
-                grid-template-columns: 1fr;
-                padding: 24px;
-                max-height: 90vh;
-                overflow-y: auto;
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="header glass-effect" id="mainHeader">
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader-glass">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">SAYAT MATH</div>
+        </div>
+    </div>
+
+    <div class="cursor-glow" id="cursor-glow"></div>
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <header class="header" id="header">
         <div class="container header-container">
-            <a href="#" class="logo-area">
-                <div class="logo-icon">B</div>
-                <span>Бахит</span>
+            <a href="#" class="logo">
+                <span class="logo-accent">SAYAT</span> MATH<span class="logo-dot">.</span>
             </a>
-            
-            <nav class="nav-menu">
-                <a href="#" class="nav-link">Главная</a>
-                <a href="#catalogSection" class="nav-link">Каталог</a>
-                <a href="#catalogSection" class="nav-link" onclick="setCategoryFilter('parts')">Автозапчасти</a>
-                <a href="#catalogSection" class="nav-link" onclick="setCategoryFilter('oils')">Автомасла</a>
-                <a href="#catalogSection" class="nav-link" onclick="setCategoryFilter('household')">Хозтовары</a>
-                <a href="#promoSection" class="nav-link">Акции</a>
-                <a href="#aboutSection" class="nav-link">О магазине</a>
-                <a href="#contactsSection" class="nav-link">Контакты</a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#hero" class="nav-link active">Басты бет</a></li>
+                    <li><a href="#features" class="nav-link">Тиімділік</a></li>
+                    <li><a href="#courses" class="nav-link">Курстар</a></li>
+                    <li><a href="#platform" class="nav-link">Платформа</a></li>
+                    <li><a href="#reviews" class="nav-link">Пікірлер</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#contact" class="nav-link">Байланыс</a></li>
+                </ul>
             </nav>
 
             <div class="header-actions">
-                <button class="action-btn" id="searchOpenTrigger" aria-label="Открыть поиск">🔍</button>
-                <button class="action-btn" id="favoritesDrawerTrigger" aria-label="Избранное">
-                    ❤️<span class="badge" id="favBadgeCount">0</span>
+                <a href="#contact" class="btn btn-secondary btn-ripple">Кіру</a>
+                <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
-                <button class="action-btn" id="cartDrawerTrigger" aria-label="Корзина">
-                    🛒<span class="badge" id="cartBadgeCount">0</span>
-                </button>
-                
-                <a href="https://wa.me/77777777777" target="_blank" class="btn-whatsapp">
-                    <span>WhatsApp</span>
-                </a>
-                
-                <div class="menu-toggle" id="mobileMenuOpenTrigger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </div>
         </div>
     </header>
 
-    <div class="drawer-overlay" id="drawerOverlay"></div>
-    <div class="mobile-drawer" id="mobileDrawer">
-        <div class="drawer-header">
-            <div class="logo-area">
-                <div class="logo-icon">B</div>
-                <span>Бахит</span>
-            </div>
-            <div class="drawer-close" id="mobileMenuCloseTrigger">&times;</div>
-        </div>
-        <nav class="mobile-nav-links">
-            <a href="#" class="mobile-nav-link" onclick="closeMobileMenu()">Главная</a>
-            <a href="#catalogSection" class="mobile-nav-link" onclick="closeMobileMenu()">Каталог</a>
-            <a href="#catalogSection" class="mobile-nav-link" onclick="closeMobileMenu(); setCategoryFilter('parts')">Автозапчасти</a>
-            <a href="#catalogSection" class="mobile-nav-link" onclick="closeMobileMenu(); setCategoryFilter('oils')">Автомасла</a>
-            <a href="#catalogSection" class="mobile-nav-link" onclick="closeMobileMenu(); setCategoryFilter('household')">Хозтовары</a>
-            <a href="#promoSection" class="mobile-nav-link" onclick="closeMobileMenu()">Акции</a>
-            <a href="#aboutSection" class="mobile-nav-link" onclick="closeMobileMenu()">О магазине</a>
-            <a href="#contactsSection" class="mobile-nav-link" onclick="closeMobileMenu()">Контакты</a>
-        </nav>
-    </div>
-
-    <div class="search-overlay-modal" id="searchModal">
-        <div class="search-container-box">
-            <div class="search-input-wrapper">
-                <span class="search-icon-inside">🔍</span>
-                <input type="text" class="search-input-field" placeholder="Введите название детали, артикул или бренд..." id="liveSearchInputField">
-                <span class="search-close-btn" id="searchModalCloseTrigger">ЗАКРЫТЬ (ESC)</span>
-            </div>
-            
-            <div class="search-results-panel" id="searchResultsContainer"></div>
-
-            <div class="search-history-box">
-                <div class="search-history-title">История поиска</div>
-                <div class="search-history-tags" id="searchHistoryTagsWrapper">
-                    <span class="search-history-tag">Моторное масло 5W-30</span>
-                    <span class="search-history-tag">Тормозные колодки</span>
-                    <span class="search-history-tag">Фильтр масляный</span>
+    <section class="hero" id="hero">
+        <div class="hero-bg-blur hero-blur-1"></div>
+        <div class="hero-bg-blur hero-blur-2"></div>
+        <div class="container hero-container">
+            <div class="hero-content fade-up">
+                <div class="badge-glass">
+                    <i class="fa-solid fa-sparkles"></i> 2026 жылғы ҰБТ-ға инновациялық дайындық
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <section class="hero-section">
-        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1920&q=80" alt="Бахит Автомаркет" class="hero-bg" loading="eager">
-        <div class="hero-overlay"></div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-tagline">Премиальный автомаркет & хоум-центр</div>
-                <h1 class="hero-title">Бахит — всё для вашего автомобиля и дома</h1>
-                <p class="hero-desc">Идеальное сочетание оригинальных автокомпонентов мирового уровня и широкого ассортимента товаров для домашнего уюта.</p>
+                <h1 class="hero-title">
+                    ҰБТ Математикасынан <br>
+                    <span class="text-gradient dynamic-typing" id="typing-text"></span>
+                </h1>
+                <p class="hero-description">
+                    Авторлық методика, ЖИ-талдау жүйесі және 140+ балл жинауға бағытталған практикалық тапсырмалар базасы.
+                </p>
                 <div class="hero-buttons">
-                    <a href="#catalogSection" class="btn-premium btn-premium-primary">Перейти в каталог</a>
-                    <a href="#contactsSection" class="btn-premium btn-premium-secondary">Связаться с нами</a>
+                    <a href="#courses" class="btn btn-primary btn-shine magnetic-btn">
+                        <span>Курсты бастау</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#video-demo" class="btn btn-glass magnetic-btn">
+                        <i class="fa-solid fa-play"></i>
+                        <span>Тегін сабақ</span>
+                    </a>
+                </div>
+                <div class="hero-stats-mini">
+                    <div class="mini-avatar-group">
+                        <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                        <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                        <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    </div>
+                    <p><span>5,000+</span> оқушы сенім білдірді</p>
                 </div>
             </div>
-        </div>
-        <div class="scroll-down-indicator" onclick="document.getElementById('categoriesSection').scrollIntoView()">
-            <span>Листайте вниз</span>
-            <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
-        </div>
-    </section>
 
-    <section class="section-padding" id="categoriesSection">
-        <div class="container">
-            <h2 class="premium-title">Популярные категории</h2>
-            <p class="premium-subtitle">Удобная навигация по нашему многогранному каталогу оригинальной продукции.</p>
-            
-            <div class="categories-grid">
-                <div class="category-card" onclick="setCategoryFilter('parts')">
-                    <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80" alt="Автозапчасти" class="category-card-img" loading="lazy">
-                    <div class="category-card-overlay">
-                        <h3 class="category-card-title">Автозапчасти</h3>
-                        <p class="category-card-count">12 400+ товаров</p>
+            <div class="hero-dashboard fade-up" data-delay="200">
+                <div class="glass-card dashboard-card tilt-card">
+                    <div class="dashboard-header">
+                        <div class="user-info">
+                            <div class="user-avatar">SM</div>
+                            <div>
+                                <h4>ҰБТ 2026 Прогресс</h4>
+                                <p class="text-muted">Математика профиль</p>
+                            </div>
+                        </div>
+                        <div class="badge-success">Белсенді</div>
                     </div>
-                </div>
-                <div class="category-card" onclick="setCategoryFilter('oils')">
-                    <img src="https://images.unsplash.com/photo-1552656967-7a0991a13906?auto=format&fit=crop&w=600&q=80" alt="Моторные масла" class="category-card-img" loading="lazy">
-                    <div class="category-card-overlay">
-                        <h3 class="category-card-title">Моторные масла</h3>
-                        <p class="category-card-count">850+ наименований</p>
-                    </div>
-                </div>
-                <div class="category-card" onclick="setCategoryFilter('tools')">
-                    <img src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=600&q=80" alt="Инструменты" class="category-card-img" loading="lazy">
-                    <div class="category-card-overlay">
-                        <h3 class="category-card-title">Инструменты</h3>
-                        <p class="category-card-count">3 100+ моделей</p>
-                    </div>
-                </div>
-                <div class="category-card" onclick="setCategoryFilter('household')">
-                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=600&q=80" alt="Товары для дома" class="category-card-img" loading="lazy">
-                    <div class="category-card-overlay">
-                        <h3 class="category-card-title">Товары для дома</h3>
-                        <p class="category-card-count">5 600+ товаров</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="section-padding promo-section" id="promoSection">
-        <div class="container">
-            <div class="promo-banner-box">
-                <div class="promo-details">
-                    <span class="promo-badge">Предложение ограничено</span>
-                    <h3 class="promo-title-text">Премиальные моторные масла со скидкой до 25%</h3>
-                    <p class="promo-desc-text">Позаботьтесь о сердце вашего автомобиля. Только на этой неделе оригинальные синтетические масла мировых брендов по специальной стоимости.</p>
-                    
-                    <div class="countdown-timer-container" id="countdownTimer">
-                        <div class="timer-segment">
-                            <span class="timer-digits" id="timerDays">02</span>
-                            <span class="timer-label">Дней</span>
+                    <div class="dashboard-grid">
+                        <div class="dash-metric-card">
+                            <i class="fa-solid fa-trophy metric-icon"></i>
+                            <div class="metric-info">
+                                <span class="metric-label">Орташа балл</span>
+                                <h3 class="counter" data-target="145">0</h3>
+                            </div>
                         </div>
-                        <div class="timer-segment">
-                            <span class="timer-digits" id="timerHours">14</span>
-                            <span class="timer-label">Часов</span>
+                        <div class="dash-metric-card">
+                            <i class="fa-solid fa-users metric-icon"></i>
+                            <div class="metric-info">
+                                <span class="metric-label">Оқушылар</span>
+                                <h3 class="counter" data-target="5000">0</h3>
+                            </div>
                         </div>
-                        <div class="timer-segment">
-                            <span class="timer-digits" id="timerMinutes">35</span>
-                            <span class="timer-label">Мин</span>
+                        <div class="dash-metric-card">
+                            <i class="fa-solid fa-circle-play metric-icon"></i>
+                            <div class="metric-info">
+                                <span class="metric-label">Бейнесабақтар</span>
+                                <h3 class="counter" data-target="350">0</h3>
+                            </div>
                         </div>
-                        <div class="timer-segment">
-                            <span class="timer-digits" id="timerSeconds">59</span>
-                            <span class="timer-label">Сек</span>
+                        <div class="dash-metric-card">
+                            <i class="fa-solid fa-list-check metric-icon"></i>
+                            <div class="metric-info">
+                                <span class="metric-label">Тест сұрақтары</span>
+                                <h3 class="counter" data-target="10000">0</h3>
+                            </div>
                         </div>
                     </div>
 
-                    <a href="#catalogSection" class="btn-premium btn-premium-primary" onclick="setCategoryFilter('oils')">Купить по акции</a>
-                </div>
-                <img src="https://images.unsplash.com/photo-1622445275463-afa2ab738c34?auto=format&fit=crop&w=500&q=80" alt="Скидки на масла" class="promo-showcase-img" loading="lazy">
-            </div>
-        </div>
-    </section>
-
-    <section class="section-padding" id="catalogSection">
-        <div class="container">
-            <h2 class="premium-title">Интеллектуальный каталог</h2>
-            <p class="premium-subtitle">Воспользуйтесь фильтрами для мгновенного подбора необходимых деталей и аксессуаров.</p>
-
-            <div class="catalog-controls">
-                <div class="filter-tabs-list" id="filterTabsContainer">
-                    <button class="filter-tab-button active" onclick="applyCatalogCategoryFilter('all', this)">Все товары</button>
-                    <button class="filter-tab-button" onclick="applyCatalogCategoryFilter('parts', this)">Автозапчасти</button>
-                    <button class="filter-tab-button" onclick="applyCatalogCategoryFilter('oils', this)">Автомасла</button>
-                    <button class="filter-tab-button" onclick="applyCatalogCategoryFilter('tools', this)">Инструменты</button>
-                    <button class="filter-tab-button" onclick="applyCatalogCategoryFilter('household', this)">Товары для дома</button>
-                </div>
-
-                <select class="catalog-sorting-select" id="catalogSorterSelect" onchange="sortCatalogDisplay()">
-                    <option value="default">Сортировка: По умолчанию</option>
-                    <option value="price-asc">Цена: От меньшей к большей</option>
-                    <option value="price-desc">Цена: От большей к меньшей</option>
-                    <option value="rating">По популярности / Рейтингу</option>
-                </select>
-            </div>
-
-            <div class="products-display-grid" id="catalogProductsGrid">
-                </div>
-        </div>
-    </section>
-
-    <section class="section-padding promo-section">
-        <div class="container">
-            <h2 class="premium-title">Лидеры продаж</h2>
-            <p class="premium-subtitle">Товары, получившие наивысшую оценку от наших постоянных покупателей.</p>
-            
-            <div class="carousel-outer-container">
-                <button class="carousel-nav-btn carousel-nav-prev" id="carouselPrevTrigger" aria-label="Назад">←</button>
-                <div class="carousel-track-viewport">
-                    <div class="carousel-inner-track" id="popularCarouselTrack">
+                    <div class="dashboard-chart-box">
+                        <div class="chart-header">
+                            <span>Балл өсімі динамикасы</span>
+                            <span class="chart-percent">+42% орташа өсім</span>
                         </div>
+                        <div class="fake-line-chart">
+                            <div class="chart-bar" style="--height: 40%"><span>1-ай</span></div>
+                            <div class="chart-bar" style="--height: 60%"><span>2-ай</span></div>
+                            <div class="chart-bar" style="--height: 75%"><span>3-ай</span></div>
+                            <div class="chart-bar" style="--height: 90%"><span>4-ай</span></div>
+                            <div class="chart-bar highlight" style="--height: 98%"><span>ЕНТ</span></div>
+                        </div>
+                    </div>
                 </div>
-                <button class="carousel-nav-btn carousel-nav-next" id="carouselNextTrigger" aria-label="Вперед">→</button>
             </div>
         </div>
     </section>
 
-    <section class="section-padding">
+    <section class="section" id="features">
         <div class="container">
-            <h2 class="premium-title">Наши стандарты совершенства</h2>
-            <p class="premium-subtitle">Создаем бескомпромиссные условия для покупок, основываясь на ценностях надежности и качества.</p>
+            <div class="section-title-wrapper text-center fade-up">
+                <span class="section-subtitle">Басымдықтар</span>
+                <h2 class="section-title">Неге дәл SAYAT MATH платформасы?</h2>
+                <p class="section-description">Нәтижеге бағытталған оқыту жүйесі мен заманауи технологиялар синергиясы.</p>
+            </div>
 
-            <div class="advantages-grid">
-                <div class="advantage-card-box">
-                    <div class="advantage-icon-wrapper">🛡️</div>
-                    <h3 class="advantage-card-title">100% Оригинальная продукция</h3>
-                    <p class="advantage-card-desc">Прямые поставки от ведущих мировых концернов автоиндустрии и сертифицированных фабрик товаров домашнего обихода.</p>
+            <div class="grid grid-3">
+                <div class="glass-card feature-card fade-up hover-lift">
+                    <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3>Авторлық әдістеме</h3>
+                    <p>Күрделі математикалық формулалар мен есептерді қарапайым логикамен тез шығару жолдары.</p>
                 </div>
-                <div class="advantage-card-box">
-                    <div class="advantage-icon-wrapper">⚡</div>
-                    <h3 class="advantage-card-title">Экспресс доставка</h3>
-                    <p class="advantage-card-desc">Собственная логистическая экосистема позволяет доставлять заказы в кратчайшие сроки прямо к порогу или в автосервис.</p>
+                <div class="glass-card feature-card fade-up hover-lift" data-delay="100">
+                    <div class="feature-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3>Жаңартылған ҰБТ базасы</h3>
+                    <p>Тек 2026 жылғы ҰБТ стандартына сәйкес келетін нақты контексттік және логикалық тапсырмалар.</p>
                 </div>
-                <div class="advantage-card-box">
-                    <div class="advantage-icon-wrapper">👨‍🔧</div>
-                    <h3 class="advantage-card-title">Экспертная помощь</h3>
-                    <p class="advantage-card-desc">Наши технические консультанты помогут безошибочно подобрать комплектующие именно под ваш автомобиль по VIN-коду.</p>
+                <div class="glass-card feature-card fade-up hover-lift" data-delay="200">
+                    <div class="feature-icon"><i class="fa-solid fa-video"></i></div>
+                    <h3>4K Видео сабақтар</h3>
+                    <p>Кез келген құрылғыдан 24/7 форматында қарауға болатын қысқа, нақты әрі мазмұнды видеоматериалдар.</p>
+                </div>
+                <div class="glass-card feature-card fade-up hover-lift" data-delay="300">
+                    <div class="feature-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                    <h3>Қатемен жұмыс анализі</h3>
+                    <p>Платформа сіз жіберген әрбір қатені автоматты түрде тіркеп, әлсіз тақырыптарды қайталауға ұсынады.</p>
+                </div>
+                <div class="glass-card feature-card fade-up hover-lift" data-delay="400">
+                    <div class="feature-icon"><i class="fa-solid fa-robot"></i></div>
+                    <h3>AI Көмекші 24/7</h3>
+                    <p>Есеп шығару барысында туындаған сұрақтарға лезде бағыт-бағдар беретін жасанды интеллект модулі.</p>
+                </div>
+                <div class="glass-card feature-card fade-up hover-lift" data-delay="500">
+                    <div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>Апталық пробный тест</h3>
+                    <p>Нақты ҰБТ атмосферасы мен уақыт шектеуі бар апта сайынғы бақылау тестілері.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding promo-section" id="aboutSection">
-        <div class="container about-split-container">
-            <div class="about-text-content">
-                <span class="promo-badge">О компании Бахит</span>
-                <h2 class="premium-title" style="text-align: left; margin-left: 0;">Ваш надежный партнер на дорогах и в быту</h2>
-                <p class="about-paragraph">Магазин «Бахит» прошел путь от локальной торговой точки автозапчастей до масштабного многофункционального супермаркета премиального уровня. Мы объединили под одной крышей все, что необходимо современному автовладельцу и ценителю домашнего комфорта.</p>
-                <p class="about-paragraph">Наша миссия — предоставлять жителям Казахстана доступ к эталонному ассортименту деталей, автохимии и хозтоваров, сохраняя философию исключительного сервиса и индивидуального подхода.</p>
-                
-                <div class="about-metrics-row">
-                    <div class="metric-item-box">
-                        <span class="metric-number">12+</span>
-                        <span class="metric-label">Лет опыта</span>
-                    </div>
-                    <div class="metric-item-box">
-                        <span class="metric-number">50к+</span>
-                        <span class="metric-label">Клиентов</span>
-                    </div>
-                    <div class="metric-item-box">
-                        <span class="metric-number">250к+</span>
-                        <span class="metric-label">Запчастей в базе</span>
-                    </div>
-                </div>
-            </div>
-            <div class="about-image-showcase">
-                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80" alt="Интерьер премиум супермаркета Бахит" class="about-main-img" loading="lazy">
-            </div>
-        </div>
-    </section>
-
-    <section class="section-padding">
+    <section class="section" id="courses">
         <div class="container">
-            <h2 class="premium-title">Отзывы наших клиентов</h2>
-            <p class="premium-subtitle">Истории довольных автовладельцев и хозяек, доверяющих качеству «Бахит».</p>
-            
-            <div class="testimonials-slider-viewport">
-                <div class="testimonials-track" id="testimonialsSliderTrack">
-                    <div class="testimonial-slide-card">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Клиент" class="client-avatar-img">
-                        <p class="testimonial-feedback-text">«Заказывала комплект оригинальных фильтров и тормозные диски на свой Mercedes. Порадовала оперативность менеджеров — проверили по VIN-коду, привезли за 2 часа. Состояние упаковки и деталей идеальное.»</p>
-                        <h4 class="client-fullname">Айгерим Нурланова</h4>
-                        <p class="client-position-tag">г. Алматы</p>
+            <div class="section-title-wrapper text-center fade-up">
+                <span class="section-subtitle">Оқыту бағдарламалары</span>
+                <h2 class="section-title">Мақсатыңызға сай курсты таңдаңыз</h2>
+                <p class="section-description">Базалық деңгейден жоғары баллға дейінгі жүйелі дайындық пакеттері.</p>
+            </div>
+
+            <div class="grid grid-3">
+                <div class="glass-card course-card fade-up">
+                    <div class="course-header">
+                        <span class="course-tag">База</span>
+                        <h3>Математика База</h3>
+                        <p class="course-desc">Негізгі концепциялар мен бастапқы деңгейді нығайтуға арналған.</p>
                     </div>
-                    <div class="testimonial-slide-card">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Клиент" class="client-avatar-img">
-                        <p class="testimonial-feedback-text">«Лучший выбор моторных масел в городе. Уверен в оригинальности, так как все сертификаты предоставляют по первому требованию. Заодно взял отличный профессиональный набор ключей в гараж.»</p>
-                        <h4 class="client-fullname">Руслан Ибрагимов</h4>
-                        <p class="client-position-tag">Предприниматель</p>
+                    <div class="course-price">
+                        <span class="price">14,900 ₸</span>
+                        <span class="period">/ айына</span>
+                    </div>
+                    <ul class="course-features">
+                        <li><i class="fa-solid fa-check"></i> Барлық фундаменталды тақырыптар</li>
+                        <li><i class="fa-solid fa-check"></i> 100+ Бейнесабақ</li>
+                        <li><i class="fa-solid fa-check"></i> Негізгі тест тапсырмалары</li>
+                        <li class="disabled"><i class="fa-solid fa-xmark"></i> Жеке куратор қолдауы</li>
+                        <li class="disabled"><i class="fa-solid fa-xmark"></i> AI Аналитика</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-glass btn-block">Тіркелу</a>
+                </div>
+
+                <div class="glass-card course-card course-popular fade-up" data-delay="150">
+                    <div class="popular-badge">Ең көп таңдалатын</div>
+                    <div class="course-header">
+                        <span class="course-tag accent">Профиль</span>
+                        <h3>ҰБТ Интенсив</h3>
+                        <p class="course-desc">Қысқа мерзімде баллды максималды деңгейге көтеру курсы.</p>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">24,900 ₸</span>
+                        <span class="period">/ айына</span>
+                    </div>
+                    <ul class="course-features">
+                        <li><i class="fa-solid fa-check"></i> Барлық ҰБТ күрделілік деңгейлері</li>
+                        <li><i class="fa-solid fa-check"></i> 250+ HD Бейнесабақ</li>
+                        <li><i class="fa-solid fa-check"></i> Апталық бақылау тестілері</li>
+                        <li><i class="fa-solid fa-check"></i> Жеке кураторлық тексеру</li>
+                        <li><i class="fa-solid fa-check"></i> AI қателермен жұмыс</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary btn-shine btn-block">Таңдау</a>
+                </div>
+
+                <div class="glass-card course-card fade-up" data-delay="300">
+                    <div class="course-header">
+                        <span class="course-tag">VIP</span>
+                        <h3>VIP Премиум</h3>
+                        <p class="course-desc">Саят мұғалімнің тікелей бақылауындағы жеке оқыту бағдарламасы.</p>
+                    </div>
+                    <div class="course-price">
+                        <span class="price">49,900 ₸</span>
+                        <span class="period">/ айына</span>
+                    </div>
+                    <ul class="course-features">
+                        <li><i class="fa-solid fa-check"></i> Интенсив курсының барлық мүмкіндігі</li>
+                        <li><i class="fa-solid fa-check"></i> Саят ағаймен тікелей Zoom сабақтар</li>
+                        <li><i class="fa-solid fa-check"></i> Чаттағы 24/7 жеке бағыт-бағдар</li>
+                        <li><i class="fa-solid fa-check"></i> Кепілдендірілген 135+ балл</li>
+                        <li><i class="fa-solid fa-check"></i> Барлық материалдарға өмірлік рұқсат</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-glass btn-block">VIP-ке қосылу</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="platform">
+        <div class="container">
+            <div class="section-title-wrapper text-center fade-up">
+                <span class="section-subtitle">Заманауи Экожүйе</span>
+                <h2 class="section-title">Платформаның мүмкіндіктері</h2>
+                <p class="section-description">Оқу процесін жеңіл әрі қызықты ететін цифрлық құралдар.</p>
+            </div>
+
+            <div class="platform-tabs fade-up">
+                <button class="tab-btn active" data-tab="tab-video"><i class="fa-solid fa-play"></i> Бейнесабақтар</button>
+                <button class="tab-btn" data-tab="tab-test"><i class="fa-solid fa-vial"></i> Тест жүйесі</button>
+                <button class="tab-btn" data-tab="tab-ai"><i class="fa-solid fa-microchip"></i> AI Анализ</button>
+                <button class="tab-btn" data-tab="tab-cert"><i class="fa-solid fa-award"></i> Сертификат</button>
+            </div>
+
+            <div class="tab-content-wrapper fade-up">
+                <div class="tab-content active" id="tab-video">
+                    <div class="glass-card platform-preview-card">
+                        <div class="preview-text">
+                            <h3>Интерактивті бейнедәрістер</h3>
+                            <p>Әрбір видеосабақ 10-15 минуттық ықшам форматта дайындалған. Теориядан соң бірден бекіту тапсырмалары беріледі.</p>
+                            <ul class="feature-check-list">
+                                <li><i class="fa-solid fa-circle-check"></i> Жылдамдықты реттеу (0.5x - 2.0x)</li>
+                                <li><i class="fa-solid fa-circle-check"></i> Төмен интернетте де жоғары сапа</li>
+                            </ul>
+                        </div>
+                        <div class="preview-media">
+                            <div class="mockup-window">
+                                <div class="window-dots"><span></span><span></span><span></span></div>
+                                <div class="media-placeholder">
+                                    <i class="fa-solid fa-circle-play play-icon-large"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-test">
+                    <div class="glass-card platform-preview-card">
+                        <div class="preview-text">
+                            <h3>Шынайы ҰБТ симуляторы</h3>
+                            <p>Уақыт шектеуі, таймер, формулалар шпаргалкасы және сұрақтар арасында ыңғайлы навигация жүйесі.</p>
+                            <ul class="feature-check-list">
+                                <li><i class="fa-solid fa-circle-check"></i> Бірнеше дұрыс жауапты тесттер</li>
+                                <li><i class="fa-solid fa-circle-check"></i> Контексттік күрделі есептер</li>
+                            </ul>
+                        </div>
+                        <div class="preview-media">
+                            <div class="mockup-window">
+                                <div class="window-dots"><span></span><span></span><span></span></div>
+                                <div class="quiz-mockup">
+                                    <div class="quiz-q">Сұрақ #14: $f(x) = x^3 - 3x$ функциясының өсу аралығын табыңыз.</div>
+                                    <div class="quiz-opt">A) $(-\infty, -1) \cup (1, +\infty)$</div>
+                                    <div class="quiz-opt correct">B) $(-\infty, -1] \cup [1, +\infty)$</div>
+                                    <div class="quiz-opt">C) $[-1, 1]$</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-ai">
+                    <div class="glass-card platform-preview-card">
+                        <div class="preview-text">
+                            <h3>AI интеллектуалды аналитика</h3>
+                            <p>Алгоритмдер сіздің әлсіз тұстарыңызды анықтап, дәл қай тақырыпты қайталау керектігін айтып отырады.</p>
+                            <ul class="feature-check-list">
+                                <li><i class="fa-solid fa-circle-check"></i> Персоналды ұсыныстар</li>
+                                <li><i class="fa-solid fa-circle-check"></i> Қателер банкі</li>
+                            </ul>
+                        </div>
+                        <div class="preview-media">
+                            <div class="mockup-window">
+                                <div class="window-dots"><span></span><span></span><span></span></div>
+                                <div class="ai-mockup">
+                                    <div class="ai-message">
+                                        <i class="fa-solid fa-robot"></i>
+                                        <span>Сізге <strong>Тригонометрия</strong> тақырыбы бойынша қайталау ұсынылады. Тест дәлдігі: 62%.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-cert">
+                    <div class="glass-card platform-preview-card">
+                        <div class="preview-text">
+                            <h3>Ресми аяқтау сертификаты</h3>
+                            <p>Курсты сәтті аяқтаған оқушыларға арнайы QR-коды бар сертификат тапсырылады.</p>
+                        </div>
+                        <div class="preview-media">
+                            <div class="mockup-window">
+                                <div class="cert-mockup">
+                                    <i class="fa-solid fa-certificate cert-badge"></i>
+                                    <h4>СЕРТИФИКАТ</h4>
+                                    <p>SAYAT MATH платформасында курсты сәтті аяқтағаны үшін</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding promo-section">
+    <section class="section" id="video-demo">
         <div class="container">
-            <h2 class="premium-title">Часто задаваемые вопросы</h2>
-            <p class="premium-subtitle">Собрали исчерпывающие ответы на ключевые вопросы касательно нашей операционной деятельности.</p>
+            <div class="section-title-wrapper text-center fade-up">
+                <span class="section-subtitle">Демо Сабақ</span>
+                <h2 class="section-title">Сабақтың сапасын өз көзіңізбен көргіңіз келе ме?</h2>
+            </div>
 
-            <div class="faq-accordion-container">
-                <div class="accordion-item-box">
-                    <button class="accordion-trigger-header">
-                        <span>Как проверить, подойдут ли выбранные автозапчасти к моей машине?</span>
-                        <span class="accordion-arrow-icon">▼</span>
+            <div class="glass-card laptop-container fade-up">
+                <div class="laptop-screen">
+                    <div class="video-overlay" id="video-overlay">
+                        <button class="play-btn-glow" id="play-btn" aria-label="Play Video">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <span class="video-title">15 минутта Логарифмдерді нөлден түсіну</span>
+                    </div>
+                    <iframe id="demo-iframe" src="about:blank" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="Demo Lesson" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="laptop-base"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="reviews">
+        <div class="container">
+            <div class="section-title-wrapper text-center fade-up">
+                <span class="section-subtitle">Оқушыларымыздың пікірі</span>
+                <h2 class="section-title">Жоғары балл жинаған түлектеріміз</h2>
+            </div>
+
+            <div class="reviews-slider-container fade-up">
+                <div class="reviews-wrapper" id="reviews-wrapper">
+                    <div class="glass-card review-card">
+                        <div class="review-header">
+                            <div class="avatar-circle">АБ</div>
+                            <div>
+                                <h4>Айбек Болатов</h4>
+                                <span class="score-badge">ҰБТ: 138 балл</span>
+                            </div>
+                        </div>
+                        <p class="review-text">"SAYAT MATH арқасында математикаға деген көзқарасым түбегейлі өзгерді. Саят ағайдың әдістемесі өте қарапайым!"</p>
+                    </div>
+
+                    <div class="glass-card review-card">
+                        <div class="review-header">
+                            <div class="avatar-circle">ДС</div>
+                            <div>
+                                <h4>Динара Серікова</h4>
+                                <span class="score-badge">ҰБТ: 140 балл</span>
+                            </div>
+                        </div>
+                        <p class="review-text">"Ең ұнағаны — AI аналитика. Қай жерден қателескенімді бірден көрсетіп, түзеуге мүмкіндік берді. 140 балл жинадым!"</p>
+                    </div>
+
+                    <div class="glass-card review-card">
+                        <div class="review-header">
+                            <div class="avatar-circle">ЕН</div>
+                            <div>
+                                <h4>Ернұр Нұрланов</h4>
+                                <span class="score-badge">ҰБТ: 135 балл</span>
+                            </div>
+                        </div>
+                        <p class="review-text">"Күшті платформа! Онлайн жүйе өте ыңғайлы, тесттер нақты ҰБТ форматында дайындалған."</p>
+                    </div>
+                </div>
+
+                <div class="slider-controls">
+                    <button class="btn-icon" id="prev-review" aria-label="Previous Review"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="btn-icon" id="next-review" aria-label="Next Review"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="faq">
+        <div class="container container-narrow">
+            <div class="section-title-wrapper text-center fade-up">
+                <span class="section-subtitle">Сұрақтар мен жауаптар</span>
+                <h2 class="section-title">Жиі қойылатын сұрақтар</h2>
+            </div>
+
+            <div class="accordion-wrapper fade-up">
+                <div class="glass-card accordion-item">
+                    <button class="accordion-header">
+                        <span>Сабақтар қай форматта өтеді?</span>
+                        <i class="fa-solid fa-chevron-down acc-icon"></i>
                     </button>
-                    <div class="accordion-content-panel">
-                        <div class="accordion-inner-body">
-                            Наиболее надежный способ — обратиться к нашим менеджерам через форму обратной связи или WhatsApp, предоставив VIN-код (номер кузова) автомобиля. Мы используем дилерское программное обеспечение, гарантирующее стопроцентную совместимость узлов.
-                        </div>
+                    <div class="accordion-content">
+                        <p>Сабақтар алдын ала жазылған жоғары сапалы бейнедәрістер және апталық онлайн кері байланыс вебинарлары түрінде өтеді.</p>
                     </div>
                 </div>
-                <div class="accordion-item-box">
-                    <button class="accordion-trigger-header">
-                        <span>Каковы условия и сроки доставки заказов?</span>
-                        <span class="accordion-arrow-icon">▼</span>
+
+                <div class="glass-card accordion-item">
+                    <button class="accordion-header">
+                        <span>Егер есеп шығара алмасам, кімнен сұраймын?</span>
+                        <i class="fa-solid fa-chevron-down acc-icon"></i>
                     </button>
-                    <div class="accordion-content-panel">
-                        <div class="accordion-inner-body">
-                            Доставка в пределах города осуществляется в день совершения заказа при условии оформления до 16:00. При покупке товаров из категории редких комплектующих под заказ сроки оговариваются отдельно, но обычно не превышают 3-5 рабочих дней.
-                        </div>
+                    <div class="accordion-content">
+                        <p>Әрбір оқушыға жеке куратор бекітіледі. Сонымен қатар 24/7 режимінде AI көмекші мен оқушылар чаты жұмыс істейді.</p>
                     </div>
                 </div>
-                <div class="accordion-item-box">
-                    <button class="accordion-trigger-header">
-                        <span>Какую гарантию вы предоставляете на проданные автотовары?</span>
-                        <span class="accordion-arrow-icon">▼</span>
+
+                <div class="glass-card accordion-item">
+                    <button class="accordion-header">
+                        <span>Төлемді бөліп төлеуге бола ма?</span>
+                        <i class="fa-solid fa-chevron-down acc-icon"></i>
                     </button>
-                    <div class="accordion-content-panel">
-                        <div class="accordion-inner-body">
-                            На все оригинальные автозапчасти действует официальная гарантия завода-изготовителя (от 6 до 24 месяцев) при условии их установки в сертифицированном сервисном центре. На инструменты и технику предоставляется фирменный гарантийный талон нашего магазина.
-                        </div>
+                    <div class="accordion-content">
+                        <p>Иә, Kaspi Red немесе Kaspi Рассрочка арқылы 3, 6, 12 айға бөліп төлеу мүмкіндігі қарастырылған.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding" id="contactsSection">
-        <div class="container contacts-split-layout">
-            <div class="contact-info-panel">
-                <h2 class="premium-title" style="text-align: left; margin-left: 0;">Свяжитесь с нами</h2>
-                <p style="color: var(--text-sub); margin-bottom: 20px;">Наш клиентский отдел работает ежедневно, чтобы обеспечить безупречную обработку ваших заявок.</p>
-
-                <div class="info-block-row">
-                    <div class="info-block-icon">📍</div>
-                    <div class="info-block-details">
-                        <h4>Адрес супермаркета</h4>
-                        <p>Республика Казахстан, г. Алматы, пр. Аль-Фараби, д. 110</p>
+    <section class="section cta-section" id="contact">
+        <div class="container">
+            <div class="glass-card cta-card text-center fade-up">
+                <div class="cta-glow"></div>
+                <h2 class="cta-title">Дайындықты бүгіннен бастаңыз!</h2>
+                <p class="cta-desc">Тегін консультация алу үшін өтінім қалдырыңыз, біз сізге 15 минут ішінде хабарласамыз.</p>
+                <form class="cta-form" id="cta-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Сіздің атыңыз" required class="input-glass">
                     </div>
-                </div>
-                <div class="info-block-row">
-                    <div class="info-block-icon">📞</div>
-                    <div class="info-block-details">
-                        <h4>Телефон горячей линии</h4>
-                        <p>+7 (777) 777-77-77, +7 (707) 123-45-67</p>
+                    <div class="form-group">
+                        <input type="tel" placeholder="+7 (700) 000-00-00" required class="input-glass">
                     </div>
-                </div>
-                <div class="info-block-row">
-                    <div class="info-block-icon">✉️</div>
-                    <div class="info-block-details">
-                        <h4>Электронная почта</h4>
-                        <p>info@autopiter.kz</p>
-                    </div>
-                </div>
-                <div class="info-block-row">
-                    <div class="info-block-icon">🕒</div>
-                    <div class="info-block-details">
-                        <h4>Режим работы</h4>
-                        <p>Понедельник — Воскресенье: с 09:00 до 21:00 без перерывов</p>
-                    </div>
-                </div>
-
-                <div class="interactive-map-placeholder">
-                    <span>🗺️ Интерактивная карта Яндекс / Google</span>
-                    <a href="https://yandex.kz/maps" target="_blank" class="btn-premium btn-premium-secondary" style="padding: 10px 20px; font-size: 13px;">Построить маршрут</a>
-                </div>
-            </div>
-
-            <div>
-                <form class="premium-feedback-form" id="feedbackFormPanel" onsubmit="handleFormSubmission(event)">
-                    <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 10px;">Заказать обратный звонок</h3>
-                    <p style="color: var(--text-sub); font-size: 14px; margin-bottom: 10px;">Заполните форму, и эксперт свяжется с вами в течение 10 минут для подбора деталей.</p>
-                    
-                    <div class="form-group-field">
-                        <label for="formClientName">Ваше имя *</label>
-                        <input type="text" id="formClientName" class="form-input-control" placeholder="Иван Иванов">
-                        <span class="form-error-msg" id="nameError">Пожалуйста, введите корректное имя (не менее 2 символов)</span>
-                    </div>
-
-                    <div class="form-group-field">
-                        <label for="formClientPhone">Номер телефона *</label>
-                        <input type="tel" id="formClientPhone" class="form-input-control" placeholder="+7 (700) 000-00-00">
-                        <span class="form-error-msg" id="phoneError">Неверный формат номера телефона</span>
-                    </div>
-
-                    <div class="form-group-field">
-                        <label for="formClientMessage">Комментарий или VIN-код автомобиля</label>
-                        <textarea id="formClientMessage" class="form-input-control" rows="4" placeholder="Укажите интересующие детали или VIN-код машины для точного подбора..."></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-premium btn-premium-primary" style="width: 100%; border: none; margin-top: 10px;">Отправить запрос</button>
+                    <button type="submit" class="btn btn-primary btn-shine">Өтінім жіберу</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <div class="cart-sliding-drawer" id="cartSlidingDrawer">
-        <div class="cart-drawer-header">
-            <h3 class="cart-drawer-title">Ваша корзина</h3>
-            <div class="drawer-close" id="cartDrawerCloseTrigger">&times;</div>
-        </div>
-        <div class="cart-items-scroll-container" id="cartItemsContainer">
-            </div>
-        <div class="cart-summary-footer-panel">
-            <div class="cart-total-row-display">
-                <span>Итого к оплате:</span>
-                <span id="cartTotalSumValue">0 ₸</span>
-            </div>
-            <div class="promo-code-input-wrapper">
-                <input type="text" class="form-input-control" placeholder="Промокод" id="cartPromoCodeField">
-                <button class="btn-premium btn-premium-secondary" style="padding: 12px 20px;" onclick="applyPromoCode()">Применить</button>
-            </div>
-            <button class="btn-premium btn-premium-primary" style="width: 100%;" onclick="proceedToCheckout()">Оформить премиум-заказ</button>
-            <button class="btn-card-secondary" style="width: 100%; padding: 10px 0; font-size: 13px; border-radius: var(--radius-sm);" onclick="clearEntireCart()">Очистить корзину</button>
-        </div>
-    </div>
-
-    <div class="cart-sliding-drawer" id="favoritesSlidingDrawer">
-        <div class="cart-drawer-header">
-            <h3 class="cart-drawer-title">Избранные товары</h3>
-            <div class="drawer-close" id="favoritesDrawerCloseTrigger">&times;</div>
-        </div>
-        <div class="cart-items-scroll-container" id="favoritesItemsContainer">
-            </div>
-    </div>
-
-    <div class="quickview-modal-overlay" id="quickViewModal">
-        <div class="quickview-modal-box">
-            <div class="drawer-close" id="quickViewCloseTrigger" style="position: absolute; top: 20px; right: 20px; z-index: 10;">&times;</div>
-            <div style="display: flex; align-items: center; justify-content: center; background: var(--bg-sub); border-radius: var(--radius-md); padding: 20px;">
-                <img id="modalProductImage" src="" alt="Товар">
-            </div>
-            <div style="display: flex; flex-direction: column; justify-content: center;">
-                <span id="modalProductSku" class="product-sku-code">АРТИКУЛ: 000000</span>
-                <h3 id="modalProductTitle" class="premium-title" style="text-align: left; margin-left:0; font-size: 28px; margin-bottom: 16px;">Название товара</h3>
-                <div id="modalProductRating" class="product-rating-row"></div>
-                <p id="modalProductDesc" style="color: var(--text-sub); font-size: 15px; margin-bottom: 24px; line-height: 1.6;">Детальное premium-описание технических характеристик автозапчасти или хозяйственного товара.</p>
-                <div class="product-pricing-row">
-                    <span id="modalProductPrice" class="product-current-price">0 ₸</span>
-                </div>
-                <button id="modalAddToCartBtn" class="btn-premium btn-premium-primary" style="width: max-content;">Добавить в корзину</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="toast-notifications-stack" id="toastContainerStack"></div>
-
-    <footer class="premium-footer-component">
-        <div class="container footer-grid-layout">
-            <div class="footer-branding-column">
-                <a href="#" class="logo-area">
-                    <div class="logo-icon">B</div>
-                    <span>Бахит</span>
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-accent">SAYAT</span> MATH<span class="logo-dot">.</span>
                 </a>
-                <p class="footer-brand-desc">Премиум-экосистема автотоваров и решений для комфортной жизни. Высокие стандарты надежности с доставкой по всему Казахстану.</p>
-                <div class="footer-socials-row">
-                    <a href="#" class="social-circle-link">✈️</a>
-                    <a href="#" class="social-circle-link">📷</a>
-                    <a href="#" class="social-circle-link">🎥</a>
-                </div>
+                <p class="text-muted">ҰБТ Математикасы бойынша N1 онлайн дайындық платформасы.</p>
             </div>
-            
-            <div class="footer-links-column">
-                <h5>Каталог</h5>
-                <ul class="footer-links-list">
-                    <li><a href="#catalogSection" class="footer-nav-item-link" onclick="setCategoryFilter('parts')">Автозапчасти</a></li>
-                    <li><a href="#catalogSection" class="footer-nav-item-link" onclick="setCategoryFilter('oils')">Моторные масла</a></li>
-                    <li><a href="#catalogSection" class="footer-nav-item-link" onclick="setCategoryFilter('tools')">Инструменты</a></li>
-                    <li><a href="#catalogSection" class="footer-nav-item-link" onclick="setCategoryFilter('household')">Хозяйственные товары</a></li>
-                </ul>
+            <div class="footer-links">
+                <a href="#hero">Басты бет</a>
+                <a href="#features">Мүмкіндіктер</a>
+                <a href="#courses">Курстар</a>
+                <a href="#faq">FAQ</a>
             </div>
-
-            <div class="footer-links-column">
-                <h5>Компания</h5>
-                <ul class="footer-links-list">
-                    <li><a href="#aboutSection" class="footer-nav-item-link">О магазине</a></li>
-                    <li><a href="#promoSection" class="footer-nav-item-link">Действующие акции</a></li>
-                    <li><a href="#contactsSection" class="footer-nav-item-link">Наши контакты</a></li>
-                    <li><a href="#" class="footer-nav-item-link">Вакансии</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links-column">
-                <h5>Поддержка</h5>
-                <ul class="footer-links-list">
-                    <li><a href="#" class="footer-nav-item-link">Условия доставки</a></li>
-                    <li><a href="#" class="footer-nav-item-link">Политика возврата</a></li>
-                    <li><a href="#" class="footer-nav-item-link">FAQ</a></li>
-                    <li><a href="#" class="footer-nav-item-link">Публичная оферта</a></li>
-                </ul>
+            <div class="footer-socials">
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
-
-        <div class="container footer-bottom-copyright-bar">
-            <span>&copy; 2026 ТОО «Бахит-Автомаркет». Все права защищены. Разработано в соответствии со стандартами Apple & Mercedes-Benz.</span>
-            <a href="https://autopiter.kz/" target="_blank" style="color: var(--text-muted);">autopiter.kz</a>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 SAYAT MATH. Барлық құқықтар қорғалған.</p>
         </div>
     </footer>
 
-    <script>
-        // --- ДАТА-БАЗА ТОВАРОВ (PRODUCT DATABASE) ---
-        const PRODUCTS_DATABASE = [
-            {
-                id: 1,
-                sku: "BP-83920",
-                name: "Моторное масло Liqui Moly Optimal Synth 5W-40, 4л",
-                category: "oils",
-                price: 24500,
-                oldPrice: 29800,
-                discount: 18,
-                rating: 4.9,
-                reviews: 142,
-                image: "https://images.unsplash.com/photo-1622445275463-afa2ab738c34?auto=format&fit=crop&w=400&q=80",
-                description: "Высокотехнологичное моторное масло легкого хода для круглогодичного применения в бензиновых и дизельных двигателях автомобильного транспорта."
-            },
-            {
-                id: 2,
-                sku: "BP-10294",
-                name: "Тормозные колодки Brembo Premium Performance Front",
-                category: "parts",
-                price: 32000,
-                oldPrice: 0,
-                discount: 0,
-                rating: 5.0,
-                reviews: 89,
-                image: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=400&q=80",
-                description: "Инновационные фрикционные материалы обеспечивают максимальную эффективность торможения, минимальный износ и полное отсутствие шумов."
-            },
-            {
-                id: 3,
-                sku: "BP-55612",
-                name: "Набор профессионального инструмента Jonnesway, 94 предмета",
-                category: "tools",
-                price: 68500,
-                oldPrice: 75000,
-                discount: 9,
-                rating: 4.8,
-                reviews: 210,
-                image: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=400&q=80",
-                description: "Универсальный и бескомпромиссный комплект торцевых головок и гаечных ключей из высококачественной хромованадиевой стали."
-            },
-            {
-                id: 4,
-                sku: "BP-77401",
-                name: "Увлажнитель воздуха Xiaomi Smart Humidifier 2 Premium",
-                category: "household",
-                price: 18900,
-                oldPrice: 24000,
-                discount: 21,
-                rating: 4.7,
-                reviews: 64,
-                image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=400&q=80",
-                description: "Создайте идеальный микроклимат в вашем доме с помощью интеллектуальной ультразвуковой технологии и бактерицидной УФ-очистки воды."
-            },
-            {
-                id: 5,
-                sku: "BP-92019",
-                name: "Синтетическое масло Shell Helix Ultra 5W-30, 4л",
-                category: "oils",
-                price: 27900,
-                oldPrice: 34500,
-                discount: 19,
-                rating: 4.9,
-                reviews: 312,
-                image: "https://images.unsplash.com/photo-1552656967-7a0991a13906?auto=format&fit=crop&w=400&q=80",
-                description: "Создано на основе природного газа с использованием фирменной технологии Shell PurePlus для максимальной чистоты и защиты деталей мотора."
-            },
-            {
-                id: 6,
-                sku: "BP-34902",
-                name: "Фильтр масляный MANN-FILTER W 712/94",
-                category: "parts",
-                price: 4200,
-                oldPrice: 5500,
-                discount: 23,
-                rating: 5.0,
-                reviews: 520,
-                image: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=400&q=80",
-                description: "Немецкий эталон фильтрации. Надежно удерживает микрочастицы продуктов износа двигателя, сохраняя стабильное давление в системе смазки."
-            }
-        ];
-
-        // --- ГЛОБАЛЬНОЕ СОСТОЯНИЕ ПРИЛОЖЕНИЯ (STATE MANAGEMENT) ---
-        let currentCart = JSON.parse(localStorage.getItem('bakhit_cart')) || [];
-        let currentFavorites = JSON.parse(localStorage.getItem('bakhit_favorites')) || [];
-        let activeCategoryFilter = 'all';
-        let currentSortingMethod = 'default';
-        let activeDiscountMultiplier = 1.0;
-
-        // --- ИНИЦИАЛИЗАЦИЯ И ПОДКЛЮЧЕНИЕ СЛУШАТЕЛЕЙ ---
-        document.addEventListener("DOMContentLoaded", () => {
-            initializeDynamicUIElements();
-            renderCatalogItems();
-            renderPopularItemsCarousel();
-            updateStateBadges();
-            setupCountdownPromoTimer();
-            initializeAccordionFAQ();
-            registerStickyHeaderScrollEffect();
-        });
-
-        function initializeDynamicUIElements() {
-            // Управление модальным окном поиска
-            document.getElementById('searchOpenTrigger').addEventListener('click', () => toggleModalState('searchModal', true));
-            document.getElementById('searchModalCloseTrigger').addEventListener('click', () => toggleModalState('searchModal', false));
-            document.getElementById('liveSearchInputField').addEventListener('input', executeLiveSearchQuery);
-
-            // Закрытие поиска по клавише ESC
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    toggleModalState('searchModal', false);
-                    toggleModalState('quickViewModal', false);
-                }
-            });
-
-            // Управление корзиной
-            document.getElementById('cartDrawerTrigger').addEventListener('click', () => toggleDrawerState('cartSlidingDrawer', true));
-            document.getElementById('cartDrawerCloseTrigger').addEventListener('click', () => toggleDrawerState('cartSlidingDrawer', false));
-
-            // Управление избранным
-            document.getElementById('favoritesDrawerTrigger').addEventListener('click', () => toggleDrawerState('favoritesSlidingDrawer', true));
-            document.getElementById('favoritesDrawerCloseTrigger').addEventListener('click', () => toggleDrawerState('favoritesDrawerCloseTrigger', false));
-            
-            // Фиксация закрытия оверлея избранного
-            document.getElementById('favoritesDrawerCloseTrigger').addEventListener('click', () => toggleDrawerState('favoritesSlidingDrawer', false));
-
-            // Мобильное меню
-            document.getElementById('mobileMenuOpenTrigger').addEventListener('click', () => {
-                toggleDrawerState('mobileDrawer', true);
-                document.getElementById('drawerOverlay').classList.add('active');
-            });
-            document.getElementById('mobileMenuCloseTrigger').addEventListener('click', closeMobileMenu);
-            document.getElementById('drawerOverlay').addEventListener('click', closeMobileMenu);
-
-            // Кнопка быстрого просмотра закрытие
-            document.getElementById('quickViewCloseTrigger').addEventListener('click', () => toggleModalState('quickViewModal', false));
-        }
-
-        function closeMobileMenu() {
-            toggleDrawerState('mobileDrawer', false);
-            document.getElementById('drawerOverlay').classList.remove('active');
-        }
-
-        function toggleModalState(modalId, show) {
-            const modal = document.getElementById(modalId);
-            if (show) modal.classList.add('active');
-            else modal.classList.remove('active');
-        }
-
-        function toggleDrawerState(drawerId, show) {
-            const drawer = document.getElementById(drawerId);
-            if (show) {
-                drawer.classList.add('active');
-                if(drawerId === 'cartSlidingDrawer') renderCartDrawerItemsList();
-                if(drawerId === 'favoritesSlidingDrawer') renderFavoritesDrawerItemsList();
-            } else {
-                drawer.classList.remove('active');
-            }
-        }
-
-        // --- ЭФФЕКТ ДИНАМИЧЕСКОЙ ШАПКИ ---
-        function registerStickyHeaderScrollEffect() {
-            const header = document.getElementById('mainHeader');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-        }
-
-        // --- ГЕНЕРАЦИЯ КАТАЛОГА ТОВАРОВ (DYNAMIC ARCHITECTURE) ---
-        function renderCatalogItems() {
-            const grid = document.getElementById('catalogProductsGrid');
-            grid.innerHTML = '';
-
-            let filtered = PRODUCTS_DATABASE.filter(p => activeCategoryFilter === 'all' || p.category === activeCategoryFilter);
-
-            if (currentSortingMethod === 'price-asc') filtered.sort((a, b) => a.price - b.price);
-            else if (currentSortingMethod === 'price-desc') filtered.sort((a, b) => b.price - a.price);
-            else if (currentSortingMethod === 'rating') filtered.sort((a, b) => b.rating - a.rating);
-
-            filtered.forEach(product => {
-                const isFav = currentFavorites.includes(product.id) ? 'active' : '';
-                const cardHTML = `
-                    <div class="premium-product-card">
-                        <div class="card-top-actions">
-                            ${product.discount > 0 ? `<span class="card-discount-tag">-${product.discount}%</span>` : '<span></span>'}
-                            <button class="card-favorite-toggle ${isFav}" onclick="toggleProductFavoriteState(${product.id}, this)" aria-label="Добавить в избранное">❤️</button>
-                        </div>
-                        <div class="product-card-image-wrapper">
-                            <img src="${product.image}" alt="${product.name}" class="product-card-img" loading="lazy">
-                        </div>
-                        <div>
-                            <div class="product-sku-code">АРТ: ${product.sku}</div>
-                            <h4 class="product-card-title">${product.name}</h4>
-                            <div class="product-rating-row">
-                                <span class="stars-gold">★ ${product.rating}</span>
-                                <span class="reviews-count-text">(${product.reviews} отзывов)</span>
-                            </div>
-                            <div class="product-pricing-row">
-                                <span class="product-current-price">${(product.price).toLocaleString()} ₸</span>
-                                ${product.oldPrice > 0 ? `<span class="product-old-price">${product.oldPrice.toLocaleString()} ₸</span>` : ''}
-                            </div>
-                            <div class="card-bottom-buttons">
-                                <button class="btn-card-action btn-card-primary" onclick="addProductToCartEngine(${product.id})">В корзину</button>
-                                <button class="btn-card-action btn-card-secondary" onclick="openProductQuickViewModal(${product.id})">Смотреть</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                grid.insertAdjacentHTML('beforeend', cardHTML);
-            });
-        }
-
-        // --- УПРАВЛЕНИЕ ФИЛЬТРАМИ И СОРТИРОВКОЙ ---
-        function applyCatalogCategoryFilter(category, element) {
-            activeCategoryFilter = category;
-            const tabs = document.querySelectorAll('.filter-tab-button');
-            tabs.forEach(t => t.classList.remove('active'));
-            if(element) element.classList.add('active');
-            renderCatalogItems();
-        }
-
-        function setCategoryFilter(category) {
-            activeCategoryFilter = category;
-            const tabs = document.querySelectorAll('.filter-tab-button');
-            tabs.forEach(t => {
-                const clickAttr = t.getAttribute('onclick');
-                if(clickAttr && clickAttr.includes(category)) {
-                    t.classList.add('active');
-                } else {
-                    t.classList.remove('active');
-                }
-            });
-            renderCatalogItems();
-            document.getElementById('catalogSection').scrollIntoView();
-        }
-
-        function sortCatalogDisplay() {
-            currentSortingMethod = document.getElementById('catalogSorterSelect').value;
-            renderCatalogItems();
-        }
-
-        // --- КАРУСЕЛЬ ЛИДЕРОВ ПРОДАЖ ---
-        function renderPopularItemsCarousel() {
-            const track = document.getElementById('popularCarouselTrack');
-            track.innerHTML = '';
-            
-            PRODUCTS_DATABASE.forEach(product => {
-                const itemHTML = `
-                    <div class="premium-product-card" style="width: 280px; flex-shrink: 0;">
-                        <div class="product-card-image-wrapper">
-                            <img src="${product.image}" alt="${product.name}" class="product-card-img" loading="lazy">
-                        </div>
-                        <h4 class="product-card-title">${product.name}</h4>
-                        <div class="product-pricing-row">
-                            <span class="product-current-price">${product.price.toLocaleString()} ₸</span>
-                        </div>
-                        <button class="btn-card-action btn-card-primary" style="width: 100%;" onclick="addProductToCartEngine(${product.id})">Добавить в корзину</button>
-                    </div>
-                `;
-                track.insertAdjacentHTML('beforeend', itemHTML);
-            });
-
-            // Логика перемещения карусели
-            let position = 0;
-            const step = 312; 
-            document.getElementById('carouselNextTrigger').addEventListener('click', () => {
-                const maxScroll = track.offsetWidth - document.querySelector('.carousel-track-viewport').offsetWidth;
-                if (Math.abs(position) < maxScroll) {
-                    position -= step;
-                    track.style.transform = `translateX(${position}px)`;
-                }
-            });
-            document.getElementById('carouselPrevTrigger').addEventListener('click', () => {
-                if (position < 0) {
-                    position += step;
-                    track.style.transform = `translateX(${position}px)`;
-                }
-            });
-        }
-
-        // --- БИЗНЕС-ЛОГИКА КОРЗИНЫ (CART & STORAGE ENGINE) ---
-        function addProductToCartEngine(productId) {
-            const product = PRODUCTS_DATABASE.find(p => p.id === productId);
-            const exist = currentCart.find(item => item.id === productId);
-
-            if (exist) {
-                exist.quantity += 1;
-            } else {
-                currentCart.push({ id: product.id, quantity: 1 });
-            }
-
-            syncCartStorageAndRenderUI();
-            displayToastNotification(`«${product.name}» добавлен в вашу корзину`);
-        }
-
-        function changeCartItemQuantity(productId, amount) {
-            const item = currentCart.find(i => i.id === productId);
-            if(item) {
-                item.quantity += amount;
-                if(item.quantity <= 0) {
-                    currentCart = currentCart.filter(i => i.id !== productId);
-                }
-                syncCartStorageAndRenderUI();
-                renderCartDrawerItemsList();
-            }
-        }
-
-        function deleteCartItemDirectly(productId) {
-            currentCart = currentCart.filter(i => i.id !== productId);
-            syncCartStorageAndRenderUI();
-            renderCartDrawerItemsList();
-        }
-
-        function clearEntireCart() {
-            currentCart = [];
-            syncCartStorageAndRenderUI();
-            renderCartDrawerItemsList();
-            displayToastNotification("Корзина полностью очищена");
-        }
-
-        function syncCartStorageAndRenderUI() {
-            localStorage.setItem('bakhit_cart', JSON.stringify(currentCart));
-            updateStateBadges();
-        }
-
-        function updateStateBadges() {
-            const cartCount = currentCart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartBadgeCount').textContent = cartCount;
-            document.getElementById('favBadgeCount').textContent = currentFavorites.length;
-        }
-
-        function renderCartDrawerItemsList() {
-            const container = document.getElementById('cartItemsContainer');
-            container.innerHTML = '';
-            let totalSum = 0;
-
-            if (currentCart.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-sub); text-align: center; margin-top: 40px;">Ваша корзина пуста</p>';
-                document.getElementById('cartTotalSumValue').textContent = '0 ₸';
-                return;
-            }
-
-            currentCart.forEach(cartItem => {
-                const product = PRODUCTS_DATABASE.find(p => p.id === cartItem.id);
-                if(product) {
-                    const cost = product.price * cartItem.quantity;
-                    totalSum += cost;
-                    const rowHTML = `
-                        <div class="cart-item-row">
-                            <img src="${product.image}" alt="${product.name}" class="cart-item-thumbnail">
-                            <div class="cart-item-details">
-                                <h5 class="cart-item-name">${product.name}</h5>
-                                <div class="cart-item-price">${product.price.toLocaleString()} ₸</div>
-                                <div class="cart-quantity-modifier">
-                                    <button class="quantity-btn-step" onclick="changeCartItemQuantity(${product.id}, -1)">-</button>
-                                    <span class="quantity-value-display">${cartItem.quantity}</span>
-                                    <button class="quantity-btn-step" onclick="changeCartItemQuantity(${product.id}, 1)">+</button>
-                                </div>
-                            </div>
-                            <div class="cart-item-delete-btn" onclick="deleteCartItemDirectly(${product.id})">&times;</div>
-                        </div>
-                    `;
-                    container.insertAdjacentHTML('beforeend', rowHTML);
-                }
-            });
-
-            document.getElementById('cartTotalSumValue').textContent = `${Math.round(totalSum * activeDiscountMultiplier).toLocaleString()} ₸`;
-        }
-
-        // --- БИЗНЕС-ЛОГИКА ИЗБРАННОГО ---
-        function toggleProductFavoriteState(productId, element) {
-            if (currentFavorites.includes(productId)) {
-                currentFavorites = currentFavorites.filter(id => id !== productId);
-                if(element) element.classList.remove('active');
-                displayToastNotification("Удалено из избранного");
-            } else {
-                currentFavorites.push(productId);
-                if(element) element.classList.add('active');
-                displayToastNotification("Добавлено в избранное");
-            }
-            localStorage.setItem('bakhit_favorites', JSON.stringify(currentFavorites));
-            updateStateBadges();
-            renderCatalogItems();
-        }
-
-        function renderFavoritesDrawerItemsList() {
-            const container = document.getElementById('favoritesItemsContainer');
-            container.innerHTML = '';
-
-            if (currentFavorites.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-sub); text-align: center; margin-top: 40px;">Список избранного пуст</p>';
-                return;
-            }
-
-            currentFavorites.forEach(favId => {
-                const product = PRODUCTS_DATABASE.find(p => p.id === favId);
-                if(product) {
-                    const rowHTML = `
-                        <div class="cart-item-row">
-                            <img src="${product.image}" alt="${product.name}" class="cart-item-thumbnail">
-                            <div class="cart-item-details">
-                                <h5 class="cart-item-name">${product.name}</h5>
-                                <div class="cart-item-price">${product.price.toLocaleString()} ₸</div>
-                                <button class="btn-card-action btn-card-primary" style="padding: 6px 12px; font-size: 11px; margin-top: 8px;" onclick="addProductToCartEngine(${product.id})">В корзину</button>
-                            </div>
-                            <div class="cart-item-delete-btn" onclick="toggleProductFavoriteState(${product.id}, null); renderFavoritesDrawerItemsList();">&times;</div>
-                        </div>
-                    `;
-                    container.insertAdjacentHTML('beforeend', rowHTML);
-                }
-            });
-        }
-
-        // --- МОДАЛЬНОЕ ОКНО БЫСТРОГО ПРОСМОТРА ОПИСАНИЯ ---
-        function openProductQuickViewModal(productId) {
-            const product = PRODUCTS_DATABASE.find(p => p.id === productId);
-            if(product) {
-                document.getElementById('modalProductImage').src = product.image;
-                document.getElementById('modalProductSku').textContent = `АРТИКУЛ: ${product.sku}`;
-                document.getElementById('modalProductTitle').textContent = product.name;
-                document.getElementById('modalProductPrice').textContent = `${product.price.toLocaleString()} ₸`;
-                document.getElementById('modalProductDesc').textContent = product.description;
-                document.getElementById('modalProductRating').innerHTML = `
-                    <span class="stars-gold">★ ${product.rating}</span>
-                    <span class="reviews-count-text">(${product.reviews} отзывов покупателей)</span>
-                `;
-                
-                document.getElementById('modalAddToCartBtn').onclick = () => {
-                    addProductToCartEngine(product.id);
-                    toggleModalState('quickViewModal', false);
-                };
-
-                toggleModalState('quickViewModal', true);
-            }
-        }
-
-        // --- ИНТЕЛЛЕКТУАЛЬНЫЙ ЖИВОЙ ПОИСК ---
-        function executeLiveSearchQuery() {
-            const query = document.getElementById('liveSearchInputField').value.toLowerCase().trim();
-            const panel = document.getElementById('searchResultsContainer');
-
-            if (query.length < 2) {
-                panel.innerHTML = '';
-                panel.classList.remove('active');
-                return;
-            }
-
-            const matched = PRODUCTS_DATABASE.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.sku.toLowerCase().includes(query)
-            );
-
-            panel.innerHTML = '';
-            if (matched.length > 0) {
-                panel.classList.add('active');
-                matched.forEach(product => {
-                    const itemHTML = `
-                        <div class="search-suggestion-item" onclick="toggleModalState('searchModal', false); openProductQuickViewModal(${product.id})">
-                            <img src="${product.image}" alt="" style="width: 40px; height: 40px; object-fit: contain;">
-                            <div>
-                                <div style="font-size: 14px; font-weight: 600;">${product.name}</div>
-                                <div style="font-size: 12px; color: var(--text-sub);">${product.price.toLocaleString()} ₸ (Арт: ${product.sku})</div>
-                            </div>
-                        </div>
-                    `;
-                    panel.insertAdjacentHTML('beforeend', itemHTML);
-                });
-            } else {
-                panel.classList.add('active');
-                panel.innerHTML = '<div style="padding: 12px; color: var(--text-sub); font-size: 14px;">Ничего не найдено. Проверьте правильность запроса.</div>';
-            }
-        }
-
-        // --- ОБРАБОТКА ПРОМОКОДОВ ---
-        function applyPromoCode() {
-            const code = document.getElementById('cartPromoCodeField').value.trim().toUpperCase();
-            if (code === 'BAKHIT2026') {
-                activeDiscountMultiplier = 0.90; // Скидка 10%
-                displayToastNotification("Промокод успешно применен! Скидка 10%");
-                renderCartDrawerItemsList();
-            } else {
-                displayToastNotification("Неверный или недействительный промокод");
-            }
-        }
-
-        function proceedToCheckout() {
-            displayToastNotification("Перенаправление на защищенный шлюз оплаты...");
-        }
-
-        // --- ТОСТ-УВЕДОМЛЕНИЯ ENGINE ---
-        function displayToastNotification(message) {
-            const stack = document.getElementById('toastContainerStack');
-            const toast = document.createElement('div');
-            toast.className = 'toast-notification-banner';
-            toast.innerHTML = `<span>🔔</span> <span>${message}</span>`;
-            stack.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(20px)';
-                toast.style.transition = 'all 0.4s ease';
-                setTimeout(() => toast.remove(), 400);
-            }, 3500);
-        }
-
-        // --- ВАЛИДАЦИЯ ФОРМЫ ОБРАТНОЙ СВЯЗИ ---
-        function handleFormSubmission(event) {
-            event.preventDefault();
-            
-            const nameField = document.getElementById('formClientName');
-            const phoneField = document.getElementById('formClientPhone');
-            let isValid = true;
-
-            if (nameField.value.trim().length < 2) {
-                nameField.classList.add('error-state');
-                document.getElementById('nameError').style.display = 'block';
-                isValid = false;
-            } else {
-                nameField.classList.remove('error-state');
-                document.getElementById('nameError').style.display = 'none';
-            }
-
-            if (phoneField.value.trim().length < 7) {
-                phoneField.classList.add('error-state');
-                document.getElementById('phoneError').style.display = 'block';
-                isValid = false;
-            } else {
-                phoneField.classList.remove('error-state');
-                document.getElementById('phoneError').style.display = 'none';
-            }
-
-            if (isValid) {
-                displayToastNotification("Заявка успешно принята! Менеджер свяжется с вами.");
-                document.getElementById('feedbackFormPanel').reset();
-            }
-        }
-
-        // --- ТАЙМЕР АКЦИИ ---
-        function setupCountdownPromoTimer() {
-            let targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 3); // Акция на 3 дня вперед от текущей даты открытия
-
-            function updateTimerValues() {
-                const now = new Date().getTime();
-                const difference = targetDate - now;
-
-                if (difference < 0) {
-                    clearInterval(timerInterval);
-                    return;
-                }
-
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                document.getElementById('timerDays').textContent = days.toString().padStart(2, '0');
-                document.getElementById('timerHours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('timerMinutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('timerSeconds').textContent = seconds.toString().padStart(2, '0');
-            }
-
-            updateTimerValues();
-            const timerInterval = setInterval(updateTimerValues, 1000);
-        }
-
-        // --- АККОРДЕОН FAQ ---
-        function initializeAccordionFAQ() {
-            const triggers = document.querySelectorAll('.accordion-trigger-header');
-            triggers.forEach(trigger => {
-                trigger.addEventListener('click', () => {
-                    const item = trigger.parentElement;
-                    const panel = trigger.nextElementSibling;
-                    const isActive = item.classList.contains('active');
-
-                    // Закрываем все открытые панели
-                    document.querySelectorAll('.accordion-item-box').forEach(el => {
-                        el.classList.remove('active');
-                        el.querySelector('.accordion-content-panel').style.maxHeight = null;
-                    });
-
-                    if (!isActive) {
-                        item.classList.add('active');
-                        panel.style.maxHeight = panel.scrollHeight + "px";
-                    }
-                });
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
