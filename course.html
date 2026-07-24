@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SAYAT MATH — Дайындық Курстары (ҰБТ 2026)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <style>
+/* ==========================================================================
+   SAYAT MATH — Mobile-First Optimized Glassmorphism Design
+   ========================================================================== */
+
+:root {
+    --bg-main: #FFFFFF;
+    --bg-secondary: #F8FAFC;
+    --bg-accent-light: #EEF2FF;
+    
+    --primary: #2563EB;
+    --primary-hover: #1D4ED8;
+    --primary-light: #3B82F6;
+    --accent: #F59E0B;
+    
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
+    --border-light: #E5E7EB;
+    
+    --glass-bg: rgba(255, 255, 255, 0.88);
+    --glass-border: rgba(255, 255, 255, 0.9);
+    --glass-shadow: 0 10px 30px rgba(37, 99, 235, 0.06);
+    --glass-blur: blur(16px);
+    
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    
+    --radius-sm: 12px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.5;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+body.menu-open, body.modal-open {
+    overflow: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul { list-style: none; }
+
+/* Container & Mobile Layout */
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.section {
+    padding: 50px 0;
+    position: relative;
+}
+
+.grid {
+    display: grid;
+    gap: 16px;
+}
+
+.grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), #60A5FA);
+    width: 0%;
+    z-index: 10001;
+}
+
+/* Glass Card */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--glass-shadow);
+}
+
+/* Typography Helpers */
+.text-center { text-align: center; }
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary) 0%, #1D4ED8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-title-wrapper {
+    margin-bottom: 28px;
+}
+
+.section-subtitle {
+    display: inline-block;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    background: var(--bg-accent-light);
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+
+.section-description {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #FFFFFF;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-glass {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+}
+
+.btn-block { width: 100%; }
+
+/* Header & Mobile Navigation */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 12px 0;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.logo-accent { color: var(--primary); }
+.logo-dot { color: var(--primary); }
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.burger-menu {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    z-index: 1002;
+    padding: 0;
+}
+
+.burger-menu span {
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-primary);
+    border-radius: 2px;
+    transition: all var(--transition-fast);
+}
+
+.burger-menu.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.burger-menu.open span:nth-child(2) { opacity: 0; }
+.burger-menu.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+.nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background: #FFFFFF;
+    padding: 80px 24px 30px;
+    transition: right var(--transition-normal);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+}
+
+.nav-menu.active { right: 0; }
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.nav-link {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.nav-link.active { color: var(--primary); }
+
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-fast);
+}
+
+.mobile-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Course Hero Header */
+.courses-hero {
+    padding-top: 90px;
+    padding-bottom: 30px;
+    background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+}
+
+/* Horizontal Scrollable Filter Tabs for Mobile */
+.filter-wrapper {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 4px 15px;
+    margin-top: 18px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.filter-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-light);
+    background: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.filter-btn.active {
+    background: var(--primary);
+    color: #FFFFFF;
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* Course Card V2 (Mobile Optimized) */
+.course-card-v2 {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.course-card-v2.featured {
+    border: 2px solid var(--primary);
+}
+
+.featured-tag {
+    position: absolute;
+    top: 14px;
+    right: -30px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 3px 30px;
+    transform: rotate(45deg);
+    text-transform: uppercase;
+}
+
+.card-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.subject-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-math { background: #EEF2FF; color: #2563EB; }
+.badge-info { background: #E0F2FE; color: #0284C7; }
+.badge-history { background: #FEF3C7; color: #D97706; }
+.badge-stat { background: #F3E8FF; color: #9333EA; }
+
+.subject-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.course-meta-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 16px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.meta-item i { color: var(--primary); }
+
+.card-price-box {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.price-main {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.price-old {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+.card-actions-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Modal Drawer (Mobile Specific Bottom Sheet feel) */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-container {
+    background: #FFFFFF;
+    width: 100%;
+    max-height: 88vh;
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-container {
+    transform: translateY(0);
+}
+
+.modal-header {
+    padding: 20px 20px 16px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.modal-title-area h3 {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.modal-close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border-light);
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--text-muted);
+}
+
+.modal-body-scroll {
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.modal-nav-tabs {
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 18px;
+    overflow-x: auto;
+}
+
+.modal-tab-btn {
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.modal-tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.modal-tab-content { display: none; }
+.modal-tab-content.active { display: block; }
+
+.curriculum-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.curr-item {
+    background: var(--bg-secondary);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.curr-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.curr-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--bg-accent-light);
+    color: var(--primary);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+}
+
+.teacher-card-mini {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.teacher-avatar-lg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-light);
+    background: var(--bg-secondary);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Comparison Table Horizontal Scroll Box */
+.comparison-section {
+    background: var(--bg-secondary);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+}
+
+.compare-table {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+    background: #FFFFFF;
+}
+
+.compare-table th, .compare-table td {
+    padding: 12px 14px;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.compare-table th {
+    background: var(--bg-accent-light);
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.check-icon { color: #16A34A; }
+.cross-icon { color: #DC2626; }
+
+/* FAQ Accordion */
+.accordion-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.accordion-item {
+    padding: 14px 16px;
+}
+
+.accordion-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: left;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.accordion-item.active .accordion-content {
+    margin-top: 10px;
+}
+
+/* Footer Mobile */
+.footer {
+    padding: 40px 0 20px;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-light);
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-socials a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-bottom {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+}
+
+/* Desktop Expansion Styles */
+@media (min-width: 768px) {
+    .container { padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .section-title { font-size: 36px; }
+    .section-subtitle { font-size: 12px; }
+    .btn { width: auto; }
+    
+    .filter-wrapper {
+        justify-content: center;
+        overflow-x: visible;
+    }
+    
+    .nav-menu {
+        position: static;
+        width: auto;
+        height: auto;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+    }
+    .nav-list { flex-direction: row; gap: 28px; }
+    .burger-menu { display: none; }
+    .btn-block { width: 100%; }
+
+    .modal-overlay {
+        align-items: center;
+    }
+
+    .modal-container {
+        max-width: 750px;
+        border-radius: var(--radius-md);
+        transform: scale(0.95);
+    }
+    
+    .modal-overlay.active .modal-container {
+        transform: scale(1);
+    }
+    
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                SAYAT<span class="logo-accent">MATH</span><span class="logo-dot">.</span>
+            </a>
+
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Басты бет</a></li>
+                    <li><a href="course.html" class="nav-link active">Курстар</a></li>
+                    <li><a href="index.html#platform" class="nav-link">Платформа</a></li>
+                    <li><a href="index.html#reviews" class="nav-link">Нәтижелер</a></li>
+                    <li><a href="index.html#faq" class="nav-link">Сұрақтар</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="#cta" class="btn btn-primary" style="padding: 8px 16px; font-size: 12px;">Бастау</a>
+                <button class="burger-menu" id="burgerMenu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="courses-hero">
+        <div class="container text-center">
+            <span class="section-subtitle">ҰБТ 2026 Онлайн Дайындық</span>
+            <h1 class="section-title">Ең жоғары баллға арналған <span class="text-gradient">4 Пән</span></h1>
+            <p class="section-description">
+                Пәнді таңдаңыз және «Подробнее» басып, толық бағдарламаны көріңіз.
+            </p>
+
+            <div class="filter-wrapper">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fa-solid fa-border-all"></i> Барлығы
+                </button>
+                <button class="filter-btn" data-filter="math">
+                    <i class="fa-solid fa-calculator"></i> Математика
+                </button>
+                <button class="filter-btn" data-filter="info">
+                    <i class="fa-solid fa-code"></i> Информатика
+                </button>
+                <button class="filter-btn" data-filter="history">
+                    <i class="fa-solid fa-landmark"></i> Каз. Тарих
+                </button>
+                <button class="filter-btn" data-filter="stat">
+                    <i class="fa-solid fa-chart-pie"></i> Мат. Сауат
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top: 10px;">
+        <div class="container">
+            <div class="grid grid-3" id="coursesGrid">
+
+                <div class="course-card-v2 featured" data-category="math">
+                    <div class="featured-tag">ХИТ</div>
+                    <div>
+                        <div class="card-top-bar">
+                            <span class="subject-badge badge-math">Профильді</span>
+                            <div class="subject-icon-box badge-math">
+                                <i class="fa-solid fa-square-root-variable"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Профильді Математика</h3>
+                        <p class="card-desc">
+                            ҰБТ-да 45+ балл жинауға арналған курс. Элементар математикадан бастап интегралдарға дейін.
+                        </p>
+                        <div class="course-meta-stats">
+                            <div class="meta-item"><i class="fa-regular fa-clock"></i> 6 ай</div>
+                            <div class="meta-item"><i class="fa-solid fa-book-open"></i> 48 сабақ</div>
+                        </div>
+                        <div class="card-price-box">
+                            <span class="price-main">24 900 ₸</span>
+                            <span class="price-old">35 000 ₸</span>
+                        </div>
+                    </div>
+                    <div class="card-actions-wrapper">
+                        <button class="btn btn-primary btn-block open-modal-btn" data-course="math">
+                            Подробнее (Толығырақ)
+                        </button>
+                        <a href="#cta" class="btn btn-glass btn-block">Жазылу</a>
+                    </div>
+                </div>
+
+                <div class="course-card-v2" data-category="info">
+                    <div>
+                        <div class="card-top-bar">
+                            <span class="subject-badge badge-info">Профильді</span>
+                            <div class="subject-icon-box badge-info">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Информатика & Python</h3>
+                        <p class="card-desc">
+                            IT мамандығына түсушілерге. Python бағдарламалау, алгоритмдер, База данных мен Вэб.
+                        </p>
+                        <div class="course-meta-stats">
+                            <div class="meta-item"><i class="fa-regular fa-clock"></i> 5 ай</div>
+                            <div class="meta-item"><i class="fa-solid fa-code"></i> 40 сабақ</div>
+                        </div>
+                        <div class="card-price-box">
+                            <span class="price-main">22 900 ₸</span>
+                            <span class="price-old">32 000 ₸</span>
+                        </div>
+                    </div>
+                    <div class="card-actions-wrapper">
+                        <button class="btn btn-primary btn-block open-modal-btn" data-course="info">
+                            Подробнее (Толығырақ)
+                        </button>
+                        <a href="#cta" class="btn btn-glass btn-block">Жазылу</a>
+                    </div>
+                </div>
+
+                <div class="course-card-v2" data-category="history">
+                    <div>
+                        <div class="card-top-bar">
+                            <span class="subject-badge badge-history">Міндетті Пән</span>
+                            <div class="subject-icon-box badge-history">
+                                <i class="fa-solid fa-monument"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Қазақстан Тарихы</h3>
+                        <p class="card-desc">
+                            Ежелгі дәуірден бүгінгі күнге дейін. Даталар мен хронологияны жаттаусыз есте сақтау.
+                        </p>
+                        <div class="course-meta-stats">
+                            <div class="meta-item"><i class="fa-regular fa-clock"></i> 4 ай</div>
+                            <div class="meta-item"><i class="fa-solid fa-map"></i> 32 сабақ</div>
+                        </div>
+                        <div class="card-price-box">
+                            <span class="price-main">18 900 ₸</span>
+                            <span class="price-old">26 000 ₸</span>
+                        </div>
+                    </div>
+                    <div class="card-actions-wrapper">
+                        <button class="btn btn-primary btn-block open-modal-btn" data-course="history">
+                            Подробнее (Толығырақ)
+                        </button>
+                        <a href="#cta" class="btn btn-glass btn-block">Жазылу</a>
+                    </div>
+                </div>
+
+                <div class="course-card-v2" data-category="stat">
+                    <div>
+                        <div class="card-top-bar">
+                            <span class="subject-badge badge-stat">Міндетті Пән</span>
+                            <div class="subject-icon-box badge-stat">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Математикалық Сауаттылық</h3>
+                        <p class="card-desc">
+                            Логикалық есептерді 1 минутта шығару лайфхактары. Диаграммалар мен логика.
+                        </p>
+                        <div class="course-meta-stats">
+                            <div class="meta-item"><i class="fa-regular fa-clock"></i> 3 ай</div>
+                            <div class="meta-item"><i class="fa-solid fa-lightbulb"></i> 24 сабақ</div>
+                        </div>
+                        <div class="card-price-box">
+                            <span class="price-main">16 900 ₸</span>
+                            <span class="price-old">24 000 ₸</span>
+                        </div>
+                    </div>
+                    <div class="card-actions-wrapper">
+                        <button class="btn btn-primary btn-block open-modal-btn" data-course="stat">
+                            Подробнее (Толығырақ)
+                        </button>
+                        <a href="#cta" class="btn btn-glass btn-block">Жазылу</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section comparison-section">
+        <div class="container">
+            <div class="section-title-wrapper text-center">
+                <span class="section-subtitle">Пакеттер</span>
+                <h2 class="section-title">Тарифтерді Салыстыру</h2>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Мүмкіндіктер</th>
+                            <th>1 Пән</th>
+                            <th>2 Пән</th>
+                            <th>VIP (4 Пән)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Онлайн видео-сабақтар</td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Авто-тесттер</td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Жеке Ментор Көмегі</td>
+                            <td><i class="fa-solid fa-xmark cross-icon"></i></td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Пробный Тесттер</td>
+                            <td><i class="fa-solid fa-xmark cross-icon"></i></td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Қатемен жұмыс (Zoom)</td>
+                            <td><i class="fa-solid fa-xmark cross-icon"></i></td>
+                            <td><i class="fa-solid fa-xmark cross-icon"></i></td>
+                            <td><i class="fa-solid fa-check check-icon"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-title-wrapper text-center">
+                <span class="section-subtitle">Сұрақ-Жауап</span>
+                <h2 class="section-title">Жиі қойылатын сұрақтар</h2>
+            </div>
+
+            <div class="accordion-wrapper">
+                <div class="accordion-item glass-card">
+                    <button class="accordion-header">
+                        Сабақтар қалай өтеді?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        Сабақтар платформада алдын ала жазылған видеолар және апталық онлайн Zoom разборлар түрінде болады.
+                    </div>
+                </div>
+
+                <div class="accordion-item glass-card">
+                    <button class="accordion-header">
+                        Kaspi Red бар ма?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        Иә, Kaspi Red және 3-12 айға бөліп төлеу қарастырылған.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="cta">
+        <div class="container">
+            <div class="glass-card text-center" style="padding: 30px 16px;">
+                <h2 class="section-title">Консультация Алу</h2>
+                <p class="section-description" style="margin-bottom: 20px;">
+                    Нөміріңізді қалдырыңыз, менеджер байланысқа шығады.
+                </p>
+                <form onsubmit="event.preventDefault(); alert('Өтінішіңіз қабылданды!');" style="display: flex; flex-direction: column; gap: 10px; max-width: 400px; margin: 0 auto;">
+                    <input type="tel" placeholder="+7 (700) 000-00-00" style="padding: 14px; border-radius: var(--radius-full); border: 1px solid var(--border-light); outline: none; font-size: 14px; text-align: center;" required>
+                    <button type="submit" class="btn btn-primary">Жіберу</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="courseModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title-area">
+                    <span class="section-subtitle" id="modalSubjectBadge">Профильді Пән</span>
+                    <h3 id="modalTitle">Математика</h3>
+                </div>
+                <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+            </div>
+
+            <div class="modal-body-scroll">
+                <div class="modal-nav-tabs">
+                    <button class="modal-tab-btn active" data-tab="tab-program">Бағдарлама</button>
+                    <button class="modal-tab-btn" data-tab="tab-teacher">Преподаватель</button>
+                    <button class="modal-tab-btn" data-tab="tab-features">Фишкалар</button>
+                </div>
+
+                <div class="modal-tab-content active" id="tab-program">
+                    <div class="curriculum-list" id="modalProgramList"></div>
+                </div>
+
+                <div class="modal-tab-content" id="tab-teacher">
+                    <div class="teacher-card-mini">
+                        <div class="teacher-avatar-lg" id="modalTeacherAvatar">S</div>
+                        <div>
+                            <h4 id="modalTeacherName" style="font-size: 16px; font-weight: 800;">Саят Мұғалім</h4>
+                            <p style="color: var(--primary); font-weight: 600; font-size: 12px;" id="modalTeacherRole">Математика сарапшысы</p>
+                            <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;" id="modalTeacherBio">5000+ оқушыны дайындаған.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-tab-content" id="tab-features">
+                    <ul style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+                        <li><i class="fa-solid fa-check" style="color:#16A34A;"></i> PDF Шпаргалкалар.</li>
+                        <li><i class="fa-solid fa-check" style="color:#16A34A;"></i> Апталық Отчет Ата-анаға.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div style="flex: 1;">
+                    <span style="font-size: 11px; color: var(--text-muted); display: block;">Бағасы:</span>
+                    <strong style="font-size: 18px; color: var(--primary);" id="modalPrice">24 900 ₸</strong>
+                </div>
+                <a href="#cta" class="btn btn-primary" onclick="closeModal()" style="width: auto;">Жазылу</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <a href="index.html" class="logo">SAYAT<span class="logo-accent">MATH</span>.</a>
+                <div class="footer-links">
+                    <a href="index.html">Басты бет</a>
+                    <a href="course.html">Курстар</a>
+                    <a href="index.html#faq">FAQ</a>
+                </div>
+                <div class="footer-socials">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>&copy; 2026 SAYAT MATH.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const courseDetailsData = {
+            math: {
+                title: 'Профильді Математика',
+                badge: 'Профильді Пән',
+                price: '24 900 ₸',
+                teacher: 'Саят Мұғалім',
+                role: 'Математика сарапшысы (8 жыл тәжірибе)',
+                avatar: 'S',
+                bio: '5000+ оқушы дайындаған. Орташа балл — 42/45.',
+                program: [
+                    '1-Модуль: Алгебра негіздері мен теңдеулер',
+                    '2-Модуль: Тригонометриялық формулалар',
+                    '3-Модуль: Логарифмдер мен көрсеткіштік теңдеулер',
+                    '4-Модуль: Туынды мен Интеграл',
+                    '5-Модуль: Стереометрия & Планиметрия'
+                ]
+            },
+            info: {
+                title: 'Информатика & Python',
+                badge: 'Профильді Пән',
+                price: '22 900 ₸',
+                teacher: 'Аслан Төлеуов',
+                role: 'Senior Software Engineer',
+                avatar: 'A',
+                bio: 'IT саласында 6 жыл тәжірибесі бар бағдарламашы.',
+                program: [
+                    '1-Модуль: Ақпарат теориясы мен жүйелер',
+                    '2-Модуль: Python негіздері (Циклдар, Синтаксис)',
+                    '3-Модуль: Массивтер мен Функциялар',
+                    '4-Модуль: База Данных (SQL)',
+                    '5-Модуль: Веб-технологиялар'
+                ]
+            },
+            history: {
+                title: 'Қазақстан Тарихы',
+                badge: 'Міндетті Пән',
+                price: '18 900 ₸',
+                teacher: 'Нұрсұлтан Ұстаз',
+                role: 'Тарих ғылымдарының магистрі',
+                avatar: 'N',
+                bio: 'Тарихты құр жаттаусыз, карталармен түсіндіреді.',
+                program: [
+                     me1 = '1-Модуль: Ежелгі Қазақстан тайпалары',
+                    '2-Модуль: Орта ғасырдағы мемлекеттер',
+                    '3-Модуль: Қазақ Хандығының құрылуы',
+                    '4-Модуль: XIX-XX ғасырдағы Қазақстан',
+                    '5-Модуль: Тәуелсіз Қазақстан'
+                ]
+            },
+            stat: {
+                title: 'Математикалық Сауаттылық',
+                badge: 'Міндетті Пән',
+                price: '16 900 ₸',
+                teacher: 'Данияр Мырза',
+                role: 'Логика тренері',
+                avatar: 'D',
+                bio: 'Логикалық есептердің қысқа шығару жолдарын меңгерткен.',
+                program: [
+                    '1-Модуль: Сандық заңдылықтар',
+                    '2-Модуль: Диаграммалар мен кестелер',
+                    '3-Модуль: Проценттер мен қозғалыс есептері',
+                    '4-Модуль: Геометриялық логика',
+                    '5-Модуль: Логикалық пайымдаулар'
+                ]
+            }
+        };
+
+        // Scroll progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById('scrollProgress').style.width = (winScroll / height) * 100 + '%';
+        });
+
+        // Mobile Burger
+        const burgerMenu = document.getElementById('burgerMenu');
+        const navMenu = document.getElementById('navMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('open');
+            navMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+
+        mobileOverlay.addEventListener('click', () => {
+            burgerMenu.classList.remove('open');
+            navMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
+
+        // Filters
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const courseCards = document.querySelectorAll('.course-card-v2');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+
+                courseCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal Drawer
+        const courseModal = document.getElementById('courseModal');
+        const openModalBtns = document.querySelectorAll('.open-modal-btn');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+        openModalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const subjectKey = btn.getAttribute('data-course');
+                const data = courseDetailsData[subjectKey];
+
+                if (data) {
+                    document.getElementById('modalTitle').textContent = data.title;
+                    document.getElementById('modalSubjectBadge').textContent = data.badge;
+                    document.getElementById('modalPrice').textContent = data.price;
+                    document.getElementById('modalTeacherName').textContent = data.teacher;
+                    document.getElementById('modalTeacherRole').textContent = data.role;
+                    document.getElementById('modalTeacherAvatar').textContent = data.avatar;
+                    document.getElementById('modalTeacherBio').textContent = data.bio;
+
+                    const progList = document.getElementById('modalProgramList');
+                    progList.innerHTML = '';
+                    data.program.forEach((item, index) => {
+                        const div = document.createElement('div');
+                        div.className = 'curr-item';
+                        div.innerHTML = `
+                            <div class="curr-left">
+                                <div class="curr-num">${index + 1}</div>
+                                <span style="font-weight: 600; font-size: 13px;">${item}</span>
+                            </div>
+                        `;
+                        progList.appendChild(div);
+                    });
+
+                    courseModal.classList.add('active');
+                    document.body.classList.add('modal-open');
+                }
+            });
+        });
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        courseModal.addEventListener('click', (e) => {
+            if (e.target === courseModal) closeModal();
+        });
+
+        function closeModal() {
+            courseModal.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Tabs
+        const modalTabBtns = document.querySelectorAll('.modal-tab-btn');
+        const modalTabContents = document.querySelectorAll('.modal-tab-content');
+
+        modalTabBtns.forEach(tab => {
+            tab.addEventListener('click', () => {
+                modalTabBtns.forEach(t => t.classList.remove('active'));
+                modalTabContents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        // FAQ Accordion
+        const accordions = document.querySelectorAll('.accordion-header');
+        accordions.forEach(acc => {
+            acc.addEventListener('click', () => {
+                const item = acc.parentElement;
+                item.classList.toggle('active');
+                const content = item.querySelector('.accordion-content');
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                } else {
+                    content.style.maxHeight = null;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

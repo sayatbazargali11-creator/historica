@@ -1451,6 +1451,267 @@ img, video, iframe {
         gap: 12px;
     }
 }
+
+
+
+
+
+/* Стили для marquee секции */
+.marquee-section {
+    padding: 80px 0;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0) 0%, rgba(238, 242, 255, 0.5) 50%, rgba(248, 250, 252, 0) 100%);
+}
+
+.marquee-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 25px 0;
+}
+
+.marquee-container::-webkit-scrollbar {
+    display: none;
+}
+
+.marquee-track {
+    display: flex;
+    gap: 24px;
+    animation: marqueeScroll 30s linear infinite;
+    white-space: nowrap;
+    will-change: transform;
+}
+
+.marquee-container:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Элитная белая карточка результата */
+.result-card-v2 {
+    min-width: 320px;
+    max-width: 320px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 24px;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 16px 36px rgba(37, 99, 235, 0.07), 0 4px 12px rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.result-card-v2:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 24px 48px rgba(37, 99, 235, 0.14);
+    border-color: rgba(37, 99, 235, 0.3);
+}
+
+/* Градиентный акцент сверху */
+.result-card-v2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #2563EB, #60A5FA, #3B82F6);
+}
+
+/* Шапка карточки с фото */
+.card-header-v2 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.student-photo-wrapper {
+    position: relative;
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+}
+
+.student-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #3B82F6;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.verified-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background: #2563EB;
+    color: #FFFFFF;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    border: 2px solid #FFFFFF;
+}
+
+.student-details {
+    flex-grow: 1;
+}
+
+.student-name-v2 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.25;
+    margin-bottom: 3px;
+}
+
+.grant-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #2563EB;
+    background: #EEF2FF;
+    padding: 3px 8px;
+    border-radius: 20px;
+}
+
+/* Блок результатов */
+.score-hero-box {
+    background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 100%);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    border: 1px solid #E0E7FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ubt-total {
+    display: flex;
+    flex-direction: column;
+}
+
+.ubt-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ubt-score {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1E293B;
+    line-height: 1;
+}
+
+.math-score-pill {
+    background: #2563EB;
+    color: #FFFFFF;
+    padding: 8px 14px;
+    border-radius: 12px;
+    text-align: right;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.math-score-pill .pill-label {
+    font-size: 10px;
+    opacity: 0.9;
+    display: block;
+    text-transform: uppercase;
+}
+
+.math-score-pill .pill-val {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+/* Прогресс балл */
+.progress-bar-wrapper {
+    margin-bottom: 16px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #475569;
+}
+
+.progress-track-bg {
+    width: 100%;
+    height: 8px;
+    background: #E2E8F0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3B82F6, #10B981);
+    border-radius: 10px;
+}
+
+/* Цитата */
+.result-quote-v2 {
+    font-size: 13.5px;
+    color: #334155;
+    line-height: 1.55;
+    position: relative;
+    padding-left: 14px;
+    border-left: 3px solid #3B82F6;
+}
+
+/* Адаптивность для телефонов */
+@media (max-width: 768px) {
+    .marquee-section {
+        padding: 45px 0;
+    }
+    
+    .result-card-v2 {
+        min-width: 285px;
+        max-width: 285px;
+        padding: 18px;
+        border-radius: 20px;
+    }
+    
+    .student-photo-wrapper {
+        width: 50px;
+        height: 50px;
+    }
+
+    .ubt-score {
+        font-size: 19px;
+    }
+
+    .math-score-pill .pill-val {
+        font-size: 13px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1476,7 +1737,7 @@ img, video, iframe {
                 <ul class="nav-list">
                     <li><a href="#hero" class="nav-link active">Басты бет</a></li>
                     <li><a href="#features" class="nav-link">Басымдықтар</a></li>
-                    <li><a href="#courses" class="nav-link">Курстар</a></li>
+                    <li><a href="course.html" class="nav-link">Курстар</a></li>
                     <li><a href="#program" class="nav-link">Бағдарлама</a></li>
                     <li><a href="#platform" class="nav-link">Платформа</a></li>
                     <li><a href="#reviews" class="nav-link">Пікірлер</a></li>
@@ -1635,6 +1896,731 @@ img, video, iframe {
             </div>
         </div>
     </section>
+
+<section class="marquee-section">
+    <div class="container">
+        <div class="section-title-wrapper text-center fade-up">
+            <span class="section-subtitle">Оқушыларымыздың нәтижелері</span>
+            <h2 class="section-title">ҰБТ-да жоғары балл жинаған түлектер</h2>
+        </div>
+    </div>
+
+    <div class="marquee-container">
+        <div class="marquee-track">
+            
+            <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+
+            <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=300" alt="Данияр Сапар" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Данияр Сапар</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> МУИТ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">142 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">45 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 21 балл</span>
+                            <span style="color:#10B981;">+24 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Геометрия мен стереометрия есептерін тез шығарудың лайфхактары өте қатты көмектесті!»</p>
+            </div>
+
+            <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=300" alt="Мадина Серік" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Мадина Серік</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> ЕНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">135 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">42 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 14 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«4 ай ішінде осындай нәтижеге жетемін деп ойламаппын. Кураторларға үлкен рақмет!»</p>
+            </div>
+
+            <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300" alt="Нұрсұлтан Әли" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Нұрсұлтан Әли</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> AUPET Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">139 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 18 балл</span>
+                            <span style="color:#10B981;">+26 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 96%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Тесттер нағыз ҰБТ-да келетін есептерге 100% ұқсас болды, емтиханда еш қобалжымадым.»</p>
+            </div>
+
+            <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+                        <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Айгерім Марат" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Айгерім Марат</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> КазНУ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">138 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">44 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 16 балл</span>
+                            <span style="color:#10B981;">+28 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Sayat Math платформасындағы ЖИ-аналитика маған қай тақырыптардан ақсайтынымды дәл көрсетіп берді!»</p>
+            </div>
+
+            <div class="result-card-v2">
+                <div>
+                    <div class="card-header-v2">
+                        <div class="student-photo-wrapper">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=300" alt="Данияр Сапар" class="student-photo">
+                            <span class="verified-badge"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div class="student-details">
+                            <div class="student-name-v2">Данияр Сапар</div>
+                            <span class="grant-tag"><i class="fa-solid fa-graduation-cap"></i> МУИТ Грант</span>
+                        </div>
+                    </div>
+
+                    <div class="score-hero-box">
+                        <div class="ubt-total">
+                            <span class="ubt-label">Жалпы ҰБТ</span>
+                            <span class="ubt-score">142 балл</span>
+                        </div>
+                        <div class="math-score-pill">
+                            <span class="pill-label">Мат. сауаттылық</span>
+                            <span class="pill-val">45 / 45</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-info">
+                            <span>Бастапқы: 21 балл</span>
+                            <span style="color:#10B981;">+24 балл өсу</span>
+                        </div>
+                        <div class="progress-track-bg">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="result-quote-v2">«Геометрия мен стереометрия есептерін тез шығарудың лайфхактары өте қатты көмектесті!»</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+    
 
     <section class="section" id="courses">
         <div class="container">
@@ -2018,7 +3004,7 @@ img, video, iframe {
             <div class="footer-links">
                 <a href="#hero">Басты бет</a>
                 <a href="#features">Мүмкіндіктер</a>
-                <a href="#courses">Курстар</a>
+                <a href="course.html">Курстар</a>
                 <a href="#faq">FAQ</a>
             </div>
             <div class="footer-socials">
