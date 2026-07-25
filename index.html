@@ -34,12 +34,20 @@
         }
 
         .tab-pane { display: none; }
-        .tab-pane.active { display: grid; }
+        .tab-pane.active { display: block; }
+
+        /* Перспектива для 3D карусели */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
 
         /* Кастомный скроллбар */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 4px; }
+
+
+        
     </style>
 </head>
 <body class="bg-white text-gray-900 antialiased flex flex-col min-h-screen">
@@ -67,14 +75,14 @@
             
             <nav class="hidden lg:flex items-center space-x-8 font-medium text-gray-600 text-sm">
                 <a href="#about" class="hover:text-blue-600 transition-colors">Преимущества</a>
-                <a href="#courses" class="hover:text-blue-600 transition-colors">Курсы</a>
+                <a href="#courses" class="hover:text-blue-600 transition-colors">Программы</a>
                 <a href="#roadmap" class="hover:text-blue-600 transition-colors">Процесс</a>
-                <a href="#quiz" class="hover:text-blue-600 transition-colors">Тестирование</a>
+                <a href="#calculator" class="hover:text-blue-600 transition-colors">Калькулятор</a>
                 <a href="#reviews" class="hover:text-blue-600 transition-colors">Отзывы</a>
             </nav>
 
             <div class="hidden lg:flex items-center space-x-4">
-                <a href="https://wa.me/77000000000" target="_blank" class="text-gray-700 hover:text-green-600 font-bold text-sm flex items-center gap-2">
+                <a href="https://wa.me/77058486656" target="_blank" class="text-gray-700 hover:text-green-600 font-bold text-sm flex items-center gap-2">
                     <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i> +7 705 848 66 56
                 </a>
                 <a href="#lead-form" class="gradient-btn text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md">
@@ -89,13 +97,13 @@
 
         <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-gray-200 px-6 py-6 space-y-4 animate__animated animate__fadeIn">
             <a href="#about" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Преимущества</a>
-            <a href="#courses" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Курсы и Цены</a>
+            <a href="#courses" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Программы</a>
             <a href="#roadmap" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Процесс обучения</a>
-            <a href="#quiz" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Онлайн-тест</a>
+            <a href="#calculator" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Калькулятор</a>
             <a href="#reviews" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Отзывы учеников</a>
-             <a href="https://wa.me/77000000000" target="_blank" class="text-gray-700 hover:text-green-600 font-bold text-sm flex items-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i> +7 705 848 66 56
-                </a>
+            <a href="https://wa.me/77058486656" target="_blank" class="text-gray-700 hover:text-green-600 font-bold text-sm flex items-center gap-2 pt-2">
+                <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i> +7 705 848 66 56
+            </a>
             <hr>
             <a href="#lead-form" onclick="toggleMenu()" class="block w-full text-center gradient-btn text-white font-bold py-3.5 rounded-xl">
                 Пробный урок бесплатно
@@ -135,9 +143,6 @@
                 <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
                     <a href="#lead-form" class="gradient-btn text-white px-8 py-4 rounded-2xl font-bold text-center shadow-lg text-lg">
                         Записаться на пробный урок
-                    </a>
-                    <a href="#quiz" class="bg-white border-2 border-gray-200 hover:border-blue-600 text-gray-800 px-8 py-4 rounded-2xl font-bold text-center transition-all text-lg">
-                        Пройти тест уровня
                     </a>
                 </div>
             </div>
@@ -216,83 +221,55 @@
 
                 <div class="flex justify-center gap-2 mt-8 bg-white p-1.5 rounded-2xl border border-gray-200 max-w-md mx-auto">
                     <button onclick="switchTab('ent')" id="btn-ent" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-blue-600 text-white transition-all">ЕНТ 2026</button>
-                    <button onclick="switchTab('school')" id="btn-school" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-all">5-10 Классы</button>
+                    <button onclick="switchTab('school')" id="btn-school" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-all">5–10 Классы</button>
                     <button onclick="switchTab('nish')" id="btn-nish" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-all">НИШ / КТЛ</button>
                 </div>
             </div>
 
-            <div id="tab-ent" class="tab-pane active grid md:grid-cols-3 gap-8">
-                <div class="bg-white border border-gray-200 rounded-3xl p-8 hover-card flex flex-col justify-between">
-                    <div>
-                        <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase">Базовый</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-2">Мат. грамотность</h3>
-                        <p class="text-sm text-gray-500 mb-6">Решение всех типов текстовых и логических задач ЕНТ.</p>
+            <div id="tab-ent" class="tab-pane active space-y-6 max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Базовый</span>
+                        <h3 class="text-2xl font-bold">Мат. грамотность</h3>
                     </div>
-                    <div>
-                        <div class="text-3xl font-black text-blue-600 mb-6">14 000 ₸ <span class="text-xs text-gray-400 font-normal">/ мес</span></div>
-                        <a href="#lead-form" class="block text-center bg-gray-100 hover:bg-blue-600 hover:text-white font-bold py-3.5 rounded-xl transition-all">Выбрать курс</a>
-                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Разбор и решение всех типов текстовых и логических задач ЕНТ.</p>
                 </div>
 
-                <div class="bg-white border-2 border-blue-600 rounded-3xl p-8 hover-card flex flex-col justify-between relative shadow-xl">
-                    <span class="absolute -top-3 right-6 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Максимум результатов</span>
-                    <div>
-                        <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase">Профильный</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-2">Профильная Математика</h3>
-                        <p class="text-sm text-gray-500 mb-6">Алгебра, геометрия, тригонометрия и стереометрия с нуля до 45 баллов.</p>
+                <div class="bg-white p-8 rounded-3xl border-2 border-blue-600 shadow-md hover-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Профильный — Максимум результатов</span>
+                        <h3 class="text-2xl font-bold">Профильная Математика</h3>
                     </div>
-                    <div>
-                        <div class="text-3xl font-black text-blue-600 mb-6">17 000 ₸ <span class="text-xs text-gray-400 font-normal">/ мес</span></div>
-                        <a href="#lead-form" class="block text-center gradient-btn text-white font-bold py-3.5 rounded-xl shadow-md">Выбрать курс</a>
-                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Подробное изучение алгебры, геометрии, тригонометрии и стереометрии с нуля до 45 баллов.</p>
                 </div>
 
-                <div class="bg-white border border-gray-200 rounded-3xl p-8 hover-card flex flex-col justify-between">
-                    <div>
-                        <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase">Полный пакет</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-2">Комбо ЕНТ</h3>
-                        <p class="text-sm text-gray-500 mb-6">Профильная математика + Математическая грамотность в одной программе.</p>
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Полный пакет</span>
+                        <h3 class="text-2xl font-bold">Комбо ЕНТ</h3>
                     </div>
-                    <div>
-                        <div class="text-3xl font-black text-blue-600 mb-6">24 000 ₸ <span class="text-xs text-gray-400 font-normal">/ мес</span></div>
-                        <a href="#lead-form" class="block text-center bg-gray-100 hover:bg-blue-600 hover:text-white font-bold py-3.5 rounded-xl transition-all">Выбрать курс</a>
-                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Комплексная программа: Профильная математика + Математическая грамотность.</p>
                 </div>
             </div>
 
-            <div id="tab-school" class="tab-pane grid md:grid-cols-2 gap-8">
-                <div class="bg-white border border-gray-200 rounded-3xl p-8 hover-card flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">5-8 классы</h3>
-                        <p class="text-sm text-gray-500 mb-6">Разбор школьных тем, улучшение оценок, подготовка к СОР и СОЧ.</p>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-black text-blue-600 mb-6">12 000 ₸ <span class="text-xs text-gray-400 font-normal">/ мес</span></div>
-                        <a href="#lead-form" class="block text-center bg-gray-100 hover:bg-blue-600 hover:text-white font-bold py-3.5 rounded-xl transition-all">Записаться</a>
-                    </div>
+            <div id="tab-school" class="tab-pane space-y-6 max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card">
+                    <h3 class="text-2xl font-bold mb-2">5–8 классы</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Понятный разбор школьных тем, повышение успеваемости и подготовка к СОР/СОЧ.</p>
                 </div>
 
-                <div class="bg-white border border-gray-200 rounded-3xl p-8 hover-card flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">9-10 классы</h3>
-                        <p class="text-sm text-gray-500 mb-6">Углубленная алгебра и геометрия, закрытие пробелов перед стартом ЕНТ.</p>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-black text-blue-600 mb-6">15 000 ₸ <span class="text-xs text-gray-400 font-normal">/ мес</span></div>
-                        <a href="#lead-form" class="block text-center bg-gray-100 hover:bg-blue-600 hover:text-white font-bold py-3.5 rounded-xl transition-all">Записаться</a>
-                    </div>
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card">
+                    <h3 class="text-2xl font-bold mb-2">9–10 классы</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Углубленное изучение алгебры и геометрии, закрытие пробелов перед стартом подготовки к ЕНТ.</p>
                 </div>
             </div>
 
-            <div id="tab-nish" class="tab-pane grid md:grid-cols-1 max-w-2xl mx-auto gap-8">
-                <div class="bg-white border border-gray-200 rounded-3xl p-8 hover-card text-center">
-                    <h3 class="text-2xl font-bold mb-2">Подготовка в НИШ / КТЛ / РФМШ</h3>
-                    <p class="text-sm text-gray-500 mb-6">Специализированный курс по логике, математике и пространственному мышлению.</p>
-                    <div class="text-3xl font-black text-blue-600 mb-6">19 000 ₸ <span class="text-xs text-gray-400 font-normal">/ мес</span></div>
-                    <a href="#lead-form" class="inline-block px-8 gradient-btn text-white font-bold py-3.5 rounded-xl shadow-md">Записаться на курс</a>
+            <div id="tab-nish" class="tab-pane max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card text-center">
+                    <h3 class="text-2xl font-bold mb-3">Подготовка в НИШ / КТЛ / РФМШ</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed max-w-2xl mx-auto">Специализированная программа по развитию логики, математического и пространственного мышления.</p>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -328,61 +305,77 @@
         </div>
     </section>
 
-    <section id="calculator" class="py-20 bg-slate-50">
-        <div class="max-w-3xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-black mb-3">Калькулятор выгодной цены</h2>
-            <p class="text-gray-500 text-sm mb-10">Оплачивайте за несколько месяцев сразу и получайте скидку до 20%</p>
-            
-            <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
-                <div class="mb-8 text-left">
-                    <div class="flex justify-between font-bold text-sm mb-3">
-                        <span>Период обучения:</span>
-                        <span id="range-months" class="text-blue-600 font-extrabold">1 месяц</span>
-                    </div>
-                    <input type="range" id="price-slider" min="1" max="9" value="1" oninput="updatePrice()" class="w-full accent-blue-600 h-2.5 bg-gray-200 rounded-lg cursor-pointer">
-                    <div class="flex justify-between text-xs text-gray-400 mt-3 font-bold">
-                        <span>1 мес</span>
-                        <span>3 мес (-10%)</span>
-                        <span>6 мес (-15%)</span>
-                        <span>9 мес (-20%)</span>
-                    </div>
-                </div>
-
-                <div class="pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div class="text-center sm:text-left">
-                        <span class="block text-xs text-gray-400 font-medium">Стоимость со скидкой:</span>
-                        <span id="calculated-price" class="text-3xl font-black text-blue-600">15 000 ₸</span>
-                    </div>
-                    <a href="#lead-form" class="w-full sm:w-auto gradient-btn text-white px-8 py-3.5 rounded-xl font-bold text-sm shadow-md">
-                        Зафиксировать цену
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="reviews" class="py-20 bg-white">
+    <section id="reviews" class="py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-black text-center mb-12">Отзывы наших учеников</h2>
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Истории успеха</span>
+                <h2 class="text-3xl sm:text-4xl font-black mt-3">Отзывы наших учеников</h2>
+                <p class="text-gray-500 text-sm mt-2">Листайте карточки, чтобы узнать результаты ребят</p>
+            </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-slate-50 p-6 rounded-3xl border border-gray-100 space-y-4">
-                    <div class="flex text-yellow-400 gap-1 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p class="text-xs text-gray-600 leading-relaxed">«Поднял балл по профильной математике с 18 до 41 всего за 4 месяца! Объяснения Динары очень понятные, без заумных фраз.»</p>
-                    <div class="font-bold text-sm">Айбек Т. <span class="block text-[10px] text-gray-400 font-normal">Поступил в КазНУ на грант</span></div>
+            <div class="relative max-w-4xl mx-auto min-h-[340px] flex items-center justify-center">
+                <button onclick="prevReview()" class="absolute left-0 sm:-left-6 z-30 w-12 h-12 bg-white/90 backdrop-blur border border-gray-200 text-gray-700 hover:text-blue-600 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 active:scale-95 group">
+                    <i class="fa-solid fa-arrow-left text-lg group-hover:-translate-x-0.5 transition-transform"></i>
+                </button>
+
+                <div id="reviews-container" class="w-full relative h-[300px] flex items-center justify-center perspective-1000">
+                    
+                    <div class="review-card absolute w-full max-w-md bg-white p-8 rounded-3xl border border-gray-100 shadow-xl transition-all duration-500 ease-out cursor-pointer" onclick="setActiveReview(0)">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex text-amber-400 gap-1 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-3xl text-blue-100 font-serif font-black">“</span>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed italic mb-6">«Поднял балл по профильной математике с 18 до 41 всего за 4 месяца! Объяснения Динары очень понятные, без заумных фраз.»</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                            <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">А</div>
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-900">Айбек Т.</h4>
+                                <span class="text-[11px] text-blue-600 font-medium">Поступил в КазНУ на грант</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card absolute w-full max-w-md bg-white p-8 rounded-3xl border border-gray-100 shadow-xl transition-all duration-500 ease-out cursor-pointer" onclick="setActiveReview(1)">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex text-amber-400 gap-1 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-3xl text-blue-100 font-serif font-black">“</span>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed italic mb-6">«Дочка раньше боялась уроков геометрии. После занятий в DINARA MATH закрыла четверть на отлично!»</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                            <div class="w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm">М</div>
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-900">Мадина К.</h4>
+                                <span class="text-[11px] text-indigo-600 font-medium">Родитель ученицы 8 класса</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card absolute w-full max-w-md bg-white p-8 rounded-3xl border border-gray-100 shadow-xl transition-all duration-500 ease-out cursor-pointer" onclick="setActiveReview(2)">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex text-amber-400 gap-1 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span class="text-3xl text-blue-100 font-serif font-black">“</span>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed italic mb-6">«Очень крутой формат онлайн-платформы. Все записи под рукой, а тестовый тренажер очень похож на реальный ЕНТ.»</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                            <div class="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">Д</div>
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-900">Данияр С.</h4>
+                                <span class="text-[11px] text-emerald-600 font-medium">Ученик 11 класса</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="bg-slate-50 p-6 rounded-3xl border border-gray-100 space-y-4">
-                    <div class="flex text-yellow-400 gap-1 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p class="text-xs text-gray-600 leading-relaxed">«Дочка раньше боялась уроков геометрии. После занятий в DINARA MATH закрыла четверть на отлично!»</p>
-                    <div class="font-bold text-sm">Мадина К. <span class="block text-[10px] text-gray-400 font-normal">Родитель ученицы 8 класса</span></div>
-                </div>
+                <button onclick="nextReview()" class="absolute right-0 sm:-right-6 z-30 w-12 h-12 bg-white/90 backdrop-blur border border-gray-200 text-gray-700 hover:text-blue-600 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 active:scale-95 group">
+                    <i class="fa-solid fa-arrow-right text-lg group-hover:translate-x-0.5 transition-transform"></i>
+                </button>
+            </div>
 
-                <div class="bg-slate-50 p-6 rounded-3xl border border-gray-100 space-y-4">
-                    <div class="flex text-yellow-400 gap-1 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p class="text-xs text-gray-600 leading-relaxed">«Очень крутой формат онлайн-платформы. Все записи под рукой, а тестовый тренажер очень похож на реальный ЕНТ.»</p>
-                    <div class="font-bold text-sm">Данияр С. <span class="block text-[10px] text-gray-400 font-normal">Ученик 11 класса</span></div>
-                </div>
+            <div class="flex justify-center gap-2 mt-8">
+                <button onclick="setActiveReview(0)" class="review-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-all"></button>
+                <button onclick="setActiveReview(1)" class="review-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-all"></button>
+                <button onclick="setActiveReview(2)" class="review-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-all"></button>
             </div>
         </div>
     </section>
@@ -406,14 +399,14 @@
                 <ul class="space-y-2 text-xs">
                     <li><a href="#about" class="hover:text-white transition-colors">Преимущества</a></li>
                     <li><a href="#courses" class="hover:text-white transition-colors">Курсы и программы</a></li>
-                    <li><a href="#calculator" class="hover:text-white transition-colors">Калькулятор цен</a></li>
+                    <li><a href="#reviews" class="hover:text-white transition-colors">Отзывы учеников</a></li>
                 </ul>
             </div>
 
             <div>
                 <h4 class="text-white font-bold text-sm mb-4">Контакты</h4>
                 <ul class="space-y-2 text-xs">
-                    <li><i class="fa-solid fa-phone text-blue-500 mr-2"></i> +7 (700) 000-00-00</li>
+                    <li><i class="fa-solid fa-phone text-blue-500 mr-2"></i> +7 705 848 66 56</li>
                     <li><i class="fa-solid fa-envelope text-blue-500 mr-2"></i> info@dinaramath.kz</li>
                     <li><i class="fa-solid fa-location-dot text-blue-500 mr-2"></i> Алматы / Астана / Онлайн</li>
                 </ul>
@@ -424,7 +417,7 @@
                 <div class="flex space-x-3 text-lg">
                     <a href="#" class="w-9 h-9 bg-gray-800 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-all"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#" class="w-9 h-9 bg-gray-800 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-all"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#" class="w-9 h-9 bg-gray-800 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://wa.me/77058486656" target="_blank" class="w-9 h-9 bg-gray-800 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-all"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -463,29 +456,70 @@
             activeBtn.classList.remove('text-gray-600');
         }
 
-        // Калькулятор цен
-        function updatePrice() {
-            const rangeVal = parseInt(document.getElementById('price-slider').value);
-            const rangeLabel = document.getElementById('range-months');
-            const priceLabel = document.getElementById('calculated-price');
+        // 3D Карусель Отзывов
+        let currentReviewIndex = 0;
+        const reviews = document.querySelectorAll('.review-card');
+        const dots = document.querySelectorAll('.review-dot');
 
-            const basePrice = 15000;
-            let discount = 0;
+        function updateReviews3D() {
+            reviews.forEach((card, index) => {
+                const total = reviews.length;
+                let diff = index - currentReviewIndex;
 
-            if (rangeVal >= 9) discount = 0.20;
-            else if (rangeVal >= 6) discount = 0.15;
-            else if (rangeVal >= 3) discount = 0.10;
+                if (diff < -1) diff += total;
+                if (diff > 1) diff -= total;
 
-            const finalPrice = Math.round(rangeVal * basePrice * (1 - discount));
+                if (diff === 0) {
+                    card.style.transform = 'translateX(0) scale(1)';
+                    card.style.opacity = '1';
+                    card.style.zIndex = '20';
+                    card.style.pointerEvents = 'auto';
+                    card.classList.add('shadow-2xl', 'ring-2', 'ring-blue-500/20');
+                } else if (diff === 1 || diff === -2) {
+                    card.style.transform = 'translateX(60%) scale(0.85) rotateY(-10deg)';
+                    card.style.opacity = '0.35';
+                    card.style.zIndex = '10';
+                    card.style.pointerEvents = 'none';
+                    card.classList.remove('shadow-2xl', 'ring-2', 'ring-blue-500/20');
+                } else {
+                    card.style.transform = 'translateX(-60%) scale(0.85) rotateY(10deg)';
+                    card.style.opacity = '0.35';
+                    card.style.zIndex = '10';
+                    card.style.pointerEvents = 'none';
+                    card.classList.remove('shadow-2xl', 'ring-2', 'ring-blue-500/20');
+                }
+            });
 
-            rangeLabel.innerText = rangeVal + ' мес.';
-            priceLabel.innerText = finalPrice.toLocaleString('ru-RU') + ' ₸';
+            dots.forEach((dot, index) => {
+                if (index === currentReviewIndex) {
+                    dot.className = 'review-dot w-8 h-2.5 rounded-full bg-blue-600 transition-all';
+                } else {
+                    dot.className = 'review-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-all';
+                }
+            });
         }
 
-        // Обработка отправки формы
+        function nextReview() {
+            currentReviewIndex = (currentReviewIndex + 1) % reviews.length;
+            updateReviews3D();
+        }
+
+        function prevReview() {
+            currentReviewIndex = (currentReviewIndex - 1 + reviews.length) % reviews.length;
+            updateReviews3D();
+        }
+
+        function setActiveReview(index) {
+            currentReviewIndex = index;
+            updateReviews3D();
+        }
+
+        document.addEventListener('DOMContentLoaded', updateReviews3D);
+
+        // Отправка формы
         function handleFormSubmit(e) {
             e.preventDefault();
-            alert('Заявка успешно отправлена! Менеджер DINARA MATH свяжется с вами в течение 15 минут.');
+            alert('Заявка успешно отправлена! Наш менеджер свяжется с вами по WhatsApp в ближайшее время.');
         }
     </script>
 </body>
