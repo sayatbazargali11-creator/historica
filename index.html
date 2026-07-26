@@ -70,6 +70,34 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 4px; }
+
+        @keyframes marquee-light-blue {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes float-gentle-light {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(0.8deg); }
+}
+
+.animate-marquee-light-blue {
+    display: flex;
+    width: max-content;
+    animation: marquee-light-blue 35s linear infinite;
+}
+
+.marquee-container-light-blue:hover .animate-marquee-light-blue {
+    animation-play-state: paused;
+}
+
+.card-float-light:nth-child(even) {
+    animation: float-gentle-light 5s ease-in-out infinite;
+}
+
+.card-float-light:nth-child(odd) {
+    animation: float-gentle-light 6s ease-in-out infinite 1.2s;
+}
     </style>
 </head>
 <body class="bg-white text-gray-900 antialiased flex flex-col min-h-screen">
@@ -296,6 +324,290 @@
             </div>
         </div>
     </section>
+
+    <section class="py-24 bg-white relative overflow-hidden border-y border-slate-100">
+    
+    <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-blue-100/70 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-100/60 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 mb-14 text-center relative z-10">
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 rounded-full text-blue-700 text-xs font-black uppercase tracking-widest mb-4 shadow-sm">
+            <i class="fa-solid fa-trophy text-blue-600"></i> Результаты учеников
+        </span>
+        <h2 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">
+            Гордость нашей <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500">академии</span>
+        </h2>
+        <p class="text-slate-600 text-base sm:text-lg mt-3 max-w-2xl mx-auto font-medium">
+            Сотни наших выпускников уже учатся на гранте в лучших университетах
+        </p>
+    </div>
+
+    <div class="marquee-container-light-blue w-full overflow-hidden relative py-8">
+        
+        <div class="absolute left-0 top-0 bottom-0 w-36 bg-gradient-to-r from-white via-white/90 to-transparent z-20 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-36 bg-gradient-to-l from-white via-white/90 to-transparent z-20 pointer-events-none"></div>
+
+        <div class="animate-marquee-light-blue flex gap-10 items-center">
+
+            <div class="card-float-light relative min-w-[420px] p-[2.5px] bg-gradient-to-br from-blue-600 via-indigo-500 to-cyan-400 rounded-[28px] shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:shadow-[0_25px_60px_rgba(37,99,235,0.25)] transition-all duration-300">
+                <div class="bg-white/95 backdrop-blur-xl p-7 rounded-[26px] h-full flex flex-col justify-between">
+                    <div class="flex items-center justify-between gap-5">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=250&auto=format&fit=crop&q=80" alt="Аружан Касымова" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-100 shadow-md">
+                            <span class="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-md">
+                                ★ 5.0
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[11px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md">ЕНТ Математика</span>
+                            <div class="text-4xl font-black text-slate-900 mt-1">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">49</span> <span class="text-xl text-slate-400 font-bold">/ 50</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-5 border-t border-slate-100">
+                        <h4 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            Аружан Касымова
+                            <i class="fa-solid fa-circle-check text-blue-600 text-base"></i>
+                        </h4>
+                        <p class="text-sm font-bold text-blue-700 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-blue-600"></i>Назарбаев Университет
+                        </p>
+                        <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1 font-medium">
+                            <i class="fa-solid fa-award text-amber-500"></i> Государственный грант
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-float-light relative min-w-[420px] p-[2.5px] bg-gradient-to-br from-blue-600 via-indigo-500 to-cyan-400 rounded-[28px] shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:shadow-[0_25px_60px_rgba(37,99,235,0.25)] transition-all duration-300">
+                <div class="bg-white/95 backdrop-blur-xl p-7 rounded-[26px] h-full flex flex-col justify-between">
+                    <div class="flex items-center justify-between gap-5">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=250&auto=format&fit=crop&q=80" alt="Алихан Болатов" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-100 shadow-md">
+                            <span class="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-md">
+                                ★ 5.0
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[11px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md">ЕНТ Математика</span>
+                            <div class="text-4xl font-black text-slate-900 mt-1">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">50</span> <span class="text-xl text-slate-400 font-bold">/ 50</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-5 border-t border-slate-100">
+                        <h4 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            Алихан Болатов
+                            <i class="fa-solid fa-circle-check text-blue-600 text-base"></i>
+                        </h4>
+                        <p class="text-sm font-bold text-blue-700 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-blue-600"></i>МУИТ (IITU)
+                        </p>
+                        <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1 font-medium">
+                            <i class="fa-solid fa-laptop-code text-indigo-600"></i> Software Engineering
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-float-light relative min-w-[420px] p-[2.5px] bg-gradient-to-br from-blue-600 via-indigo-500 to-cyan-400 rounded-[28px] shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:shadow-[0_25px_60px_rgba(37,99,235,0.25)] transition-all duration-300">
+                <div class="bg-white/95 backdrop-blur-xl p-7 rounded-[26px] h-full flex flex-col justify-between">
+                    <div class="flex items-center justify-between gap-5">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=250&auto=format&fit=crop&q=80" alt="Динара Серикова" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-100 shadow-md">
+                            <span class="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-md">
+                                ★ 5.0
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[11px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md">ЕНТ Математика</span>
+                            <div class="text-4xl font-black text-slate-900 mt-1">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">47</span> <span class="text-xl text-slate-400 font-bold">/ 50</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-5 border-t border-slate-100">
+                        <h4 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            Динара Серикова
+                            <i class="fa-solid fa-circle-check text-blue-600 text-base"></i>
+                        </h4>
+                        <p class="text-sm font-bold text-blue-700 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-blue-600"></i>КБТУ (KBTU)
+                        </p>
+                        <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1 font-medium">
+                            <i class="fa-solid fa-chart-line text-cyan-600"></i> Аналитика данных
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-float-light relative min-w-[420px] p-[2.5px] bg-gradient-to-br from-blue-600 via-indigo-500 to-cyan-400 rounded-[28px] shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:shadow-[0_25px_60px_rgba(37,99,235,0.25)] transition-all duration-300">
+                <div class="bg-white/95 backdrop-blur-xl p-7 rounded-[26px] h-full flex flex-col justify-between">
+                    <div class="flex items-center justify-between gap-5">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=250&auto=format&fit=crop&q=80" alt="Санжар Нурланов" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-100 shadow-md">
+                            <span class="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-md">
+                                ★ 5.0
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[11px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md">ЕНТ Математика</span>
+                            <div class="text-4xl font-black text-slate-900 mt-1">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">48</span> <span class="text-xl text-slate-400 font-bold">/ 50</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-5 border-t border-slate-100">
+                        <h4 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            Санжар Нурланов
+                            <i class="fa-solid fa-circle-check text-blue-600 text-base"></i>
+                        </h4>
+                        <p class="text-sm font-bold text-blue-700 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-blue-600"></i>КазНУ им. аль-Фараби
+                        </p>
+                        <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1 font-medium">
+                            <i class="fa-solid fa-calculator text-blue-600"></i> Механико-математический
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-float-light relative min-w-[420px] p-[2.5px] bg-gradient-to-br from-blue-600 via-indigo-500 to-cyan-400 rounded-[28px] shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:shadow-[0_25px_60px_rgba(37,99,235,0.25)] transition-all duration-300">
+                <div class="bg-white/95 backdrop-blur-xl p-7 rounded-[26px] h-full flex flex-col justify-between">
+                    <div class="flex items-center justify-between gap-5">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=250&auto=format&fit=crop&q=80" alt="Аружан Касымова" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-100 shadow-md">
+                            <span class="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-md">
+                                ★ 5.0
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[11px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md">ЕНТ Математика</span>
+                            <div class="text-4xl font-black text-slate-900 mt-1">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">49</span> <span class="text-xl text-slate-400 font-bold">/ 50</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-5 border-t border-slate-100">
+                        <h4 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            Аружан Касымова
+                            <i class="fa-solid fa-circle-check text-blue-600 text-base"></i>
+                        </h4>
+                        <p class="text-sm font-bold text-blue-700 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-blue-600"></i>Назарбаев Университет
+                        </p>
+                        <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1 font-medium">
+                            <i class="fa-solid fa-award text-amber-500"></i> Государственный грант
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-float-light relative min-w-[420px] p-[2.5px] bg-gradient-to-br from-blue-600 via-indigo-500 to-cyan-400 rounded-[28px] shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:shadow-[0_25px_60px_rgba(37,99,235,0.25)] transition-all duration-300">
+                <div class="bg-white/95 backdrop-blur-xl p-7 rounded-[26px] h-full flex flex-col justify-between">
+                    <div class="flex items-center justify-between gap-5">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=250&auto=format&fit=crop&q=80" alt="Алихан Болатов" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-100 shadow-md">
+                            <span class="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-md">
+                                ★ 5.0
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[11px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md">ЕНТ Математика</span>
+                            <div class="text-4xl font-black text-slate-900 mt-1">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">50</span> <span class="text-xl text-slate-400 font-bold">/ 50</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-5 border-t border-slate-100">
+                        <h4 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            Алихан Болатов
+                            <i class="fa-solid fa-circle-check text-blue-600 text-base"></i>
+                        </h4>
+                        <p class="text-sm font-bold text-blue-700 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-blue-600"></i>МУИТ (IITU)
+                        </p>
+                        <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1 font-medium">
+                            <i class="fa-solid fa-laptop-code text-indigo-600"></i> Software Engineering
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-float-light relative min-w-[420px] p-[2.5px] bg-gradient-to-br from-blue-600 via-indigo-500 to-cyan-400 rounded-[28px] shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:shadow-[0_25px_60px_rgba(37,99,235,0.25)] transition-all duration-300">
+                <div class="bg-white/95 backdrop-blur-xl p-7 rounded-[26px] h-full flex flex-col justify-between">
+                    <div class="flex items-center justify-between gap-5">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=250&auto=format&fit=crop&q=80" alt="Динара Серикова" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-100 shadow-md">
+                            <span class="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-md">
+                                ★ 5.0
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[11px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md">ЕНТ Математика</span>
+                            <div class="text-4xl font-black text-slate-900 mt-1">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">47</span> <span class="text-xl text-slate-400 font-bold">/ 50</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-5 border-t border-slate-100">
+                        <h4 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            Динара Серикова
+                            <i class="fa-solid fa-circle-check text-blue-600 text-base"></i>
+                        </h4>
+                        <p class="text-sm font-bold text-blue-700 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-blue-600"></i>КБТУ (KBTU)
+                        </p>
+                        <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1 font-medium">
+                            <i class="fa-solid fa-chart-line text-cyan-600"></i> Аналитика данных
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-float-light relative min-w-[420px] p-[2.5px] bg-gradient-to-br from-blue-600 via-indigo-500 to-cyan-400 rounded-[28px] shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:shadow-[0_25px_60px_rgba(37,99,235,0.25)] transition-all duration-300">
+                <div class="bg-white/95 backdrop-blur-xl p-7 rounded-[26px] h-full flex flex-col justify-between">
+                    <div class="flex items-center justify-between gap-5">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=250&auto=format&fit=crop&q=80" alt="Санжар Нурланов" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-100 shadow-md">
+                            <span class="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-black px-2 py-0.5 rounded-full shadow-md">
+                                ★ 5.0
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[11px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md">ЕНТ Математика</span>
+                            <div class="text-4xl font-black text-slate-900 mt-1">
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">48</span> <span class="text-xl text-slate-400 font-bold">/ 50</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-5 border-t border-slate-100">
+                        <h4 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            Санжар Нурланов
+                            <i class="fa-solid fa-circle-check text-blue-600 text-base"></i>
+                        </h4>
+                        <p class="text-sm font-bold text-blue-700 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-blue-600"></i>КазНУ им. аль-Фараби
+                        </p>
+                        <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1 font-medium">
+                            <i class="fa-solid fa-calculator text-blue-600"></i> Механико-математический
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
     <section id="courses" class="py-20 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
