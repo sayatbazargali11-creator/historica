@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="kz" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,72 +41,125 @@
             perspective: 1000px;
         }
 
+        /* Навигационные ссылки */
+        .nav-link {
+            position: relative;
+            padding-bottom: 6px;
+            font-weight: 600;
+            color: #334155;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: #2563eb;
+        }
+        .nav-link.active {
+            color: #2563eb;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2.5px;
+            background-color: #2563eb;
+            border-radius: 9999px;
+        }
+
         /* Кастомный скроллбар */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 4px; }
-
-
-        
     </style>
 </head>
 <body class="bg-white text-gray-900 antialiased flex flex-col min-h-screen">
 
     <div class="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 text-white text-xs sm:text-sm py-2.5 px-4 text-center font-medium">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <span class="hidden md:inline"><i class="fa-solid fa-fire text-yellow-300 mr-2"></i> Открыт набор на весенние интенсивы ЕНТ 2026!</span>
-            <span class="mx-auto md:mx-0">Скидка до 20% при раннем бронировании курсов</span>
-            <a href="#calculator" class="underline hover:text-blue-200 font-bold hidden sm:inline">Рассчитать скидку →</a>
+            <span class="hidden md:inline" data-lang-kz="🔥 ҰБТ 2026 көктемгі интенсивтеріне қабылдау ашық!" data-lang-ru="🔥 Открыт набор на весенние интенсивы ЕНТ 2026!">🔥 ҰБТ 2026 көктемгі интенсивтеріне қабылдау ашық!</span>
+            <span class="mx-auto md:mx-0" data-lang-kz="Курстарды эрте брондау кезінде 20%-ға дейін жеңілдік" data-lang-ru="Скидка до 20% при раннем бронировании курсов">Курстарды эрте брондау кезінде 20%-ға дейін жеңілдік</span>
+            <a href="#courses" class="underline hover:text-blue-200 font-bold hidden sm:inline" data-lang-kz="Жеңілдікті есептеу →" data-lang-ru="Рассчитать скидку →">Жеңілдікті есептеу →</a>
         </div>
     </div>
 
     <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            <a href="#" class="flex items-center gap-3">
+            <a href="sa.html" class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-black text-2xl shadow-lg shadow-blue-500/20">
                     <i class="fa-solid fa-square-root-variable"></i>
                 </div>
                 <div>
                     <span class="text-2xl font-black tracking-tight block leading-none">DINARA <span class="text-blue-600">MATH</span></span>
-                    <span class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest">Академия Математики</span>
+                    <span class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest" data-lang-kz="Математика Академиясы" data-lang-ru="Академия Математики">Математика Академиясы</span>
                 </div>
             </a>
             
-            <nav class="hidden lg:flex items-center space-x-8 font-medium text-gray-600 text-sm">
-                <a href="#about" class="hover:text-blue-600 transition-colors">Преимущества</a>
-                <a href="#courses" class="hover:text-blue-600 transition-colors">Программы</a>
-                <a href="#roadmap" class="hover:text-blue-600 transition-colors">Процесс</a>
-                <a href="#calculator" class="hover:text-blue-600 transition-colors">Калькулятор</a>
-                <a href="#reviews" class="hover:text-blue-600 transition-colors">Отзывы</a>
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                <a href="sa.html" class="nav-link active" data-lang-kz="Негізгі" data-lang-ru="Главная">Негізгі</a>
+                
+                <a href="#courses" class="nav-link flex items-center gap-1.5">
+                    <span data-lang-kz="4 таңдау" data-lang-ru="4 выбора">4 таңдау</span>
+                    <span class="bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-tighter shadow-sm animate-pulse">new</span>
+                </a>
+                
+                <a href="course.html" class="nav-link" data-lang-kz="Курстар" data-lang-ru="Курсы">Курстар</a>
+                
+                <a href="javascript:void(0)" onclick="openPageModal('Тест', 'Онлайн тестілеу симуляторы 2026 жылғы сұрақтар базасымен жаңартылуда.')" class="nav-link" data-lang-kz="Тест" data-lang-ru="Тест">Тест</a>
+                
+                <a href="javascript:void(0)" onclick="openPageModal('ЖОО-лар', 'Қазақстан университеттерінің анықтамалығы жақында қолжетімді болады.')" class="nav-link" data-lang-kz="ЖОО-лар" data-lang-ru="ВУЗы">ЖОО-лар</a>
+                
+                <a href="javascript:void(0)" onclick="openPageModal('Мамандықтар', 'Өткен жылдардағы өту балдары бар ҰБТ мамандықтарының каталогы.')" class="nav-link" data-lang-kz="Мамандықтар" data-lang-ru="Специальности">Мамандықтар</a>
+                
+                <a href="javascript:void(0)" onclick="openPageModal('Блог', 'Пайдалы мақалалар, олимпиада тапсырмаларын талдау және кеңестер.')" class="nav-link" data-lang-kz="Блог" data-lang-ru="Блог">Блог</a>
             </nav>
 
             <div class="hidden lg:flex items-center space-x-4">
                 <a href="https://wa.me/77058486656" target="_blank" class="text-gray-700 hover:text-green-600 font-bold text-sm flex items-center gap-2">
                     <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i> +7 705 848 66 56
                 </a>
-                <a href="#lead-form" class="gradient-btn text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md">
-                    Записаться
+
+                <div class="relative">
+                    <select onchange="changeLanguage(this.value)" class="bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-800 text-xs font-bold rounded-xl px-3 py-2 outline-none transition-all cursor-pointer">
+                        <option value="kz" selected>🇰🇿 ҚАЗ</option>
+                        <option value="ru">🇷🇺 РУС</option>
+                    </select>
+                </div>
+
+                <a href="#courses" class="gradient-btn text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md" data-lang-kz="Жазылу" data-lang-ru="Записаться">
+                    Жазылу
                 </a>
             </div>
 
-            <button onclick="toggleMenu()" class="lg:hidden p-2 text-gray-700 focus:outline-none">
-                <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
-            </button>
+            <div class="flex items-center gap-2 lg:hidden">
+                <select onchange="changeLanguage(this.value)" class="bg-gray-100 border border-gray-200 text-gray-800 text-xs font-bold rounded-xl px-2 py-1.5 outline-none">
+                    <option value="kz" selected>🇰🇿 ҚАЗ</option>
+                    <option value="ru">🇷🇺 РУС</option>
+                </select>
+
+                <button onclick="toggleMenu()" class="p-2 text-gray-700 focus:outline-none">
+                    <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
         </div>
 
         <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-gray-200 px-6 py-6 space-y-4 animate__animated animate__fadeIn">
-            <a href="#about" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Преимущества</a>
-            <a href="#courses" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Программы</a>
-            <a href="#roadmap" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Процесс обучения</a>
-            <a href="#calculator" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Калькулятор</a>
-            <a href="#reviews" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600">Отзывы учеников</a>
-            <a href="https://wa.me/77058486656" target="_blank" class="text-gray-700 hover:text-green-600 font-bold text-sm flex items-center gap-2 pt-2">
+            <a href="sa.html" onclick="toggleMenu()" class="block font-bold text-blue-600" data-lang-kz="Негізгі" data-lang-ru="Главная">Негізгі</a>
+            <a href="#courses" onclick="toggleMenu()" class="flex items-center gap-2 font-semibold text-gray-700 hover:text-blue-600">
+                <span data-lang-kz="4 таңдау" data-lang-ru="4 выбора">4 таңдау</span>
+                <span class="bg-gradient-to-r from-orange-500 to-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full uppercase">new</span>
+            </a>
+            <a href="course.html" onclick="toggleMenu()" class="block font-semibold text-gray-700 hover:text-blue-600" data-lang-kz="Курстар" data-lang-ru="Курсы">Курстар</a>
+            <a href="javascript:void(0)" onclick="toggleMenu(); openPageModal('Тест', 'Онлайн симулятор тестирования.')" class="block font-semibold text-gray-700 hover:text-blue-600" data-lang-kz="Тест" data-lang-ru="Тест">Тест</a>
+            <a href="javascript:void(0)" onclick="toggleMenu(); openPageModal('ЖОО-лар', 'Қазақстан университеттері.')" class="block font-semibold text-gray-700 hover:text-blue-600" data-lang-kz="ЖОО-лар" data-lang-ru="ВУЗы">ЖОО-лар</a>
+            <a href="javascript:void(0)" onclick="toggleMenu(); openPageModal('Мамандықтар', 'Мамандықтар каталогы.')" class="block font-semibold text-gray-700 hover:text-blue-600" data-lang-kz="Мамандықтар" data-lang-ru="Специальности">Мамандықтар</a>
+            <a href="javascript:void(0)" onclick="toggleMenu(); openPageModal('Блог', 'Пайдалы мақалалар.')" class="block font-semibold text-gray-700 hover:text-blue-600" data-lang-kz="Блог" data-lang-ru="Блог">Блог</a>
+            <hr class="border-gray-100">
+            <a href="https://wa.me/77058486656" target="_blank" class="text-gray-700 hover:text-green-600 font-bold text-sm flex items-center gap-2">
                 <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i> +7 705 848 66 56
             </a>
-            <hr>
-            <a href="#lead-form" onclick="toggleMenu()" class="block w-full text-center gradient-btn text-white font-bold py-3.5 rounded-xl">
-                Пробный урок бесплатно
+            <a href="#courses" onclick="toggleMenu()" class="block w-full text-center gradient-btn text-white font-bold py-3.5 rounded-xl" data-lang-kz="Тегін сабаққа жазылу" data-lang-ru="Записаться на пробный урок">
+                Тегін сабаққа жазылу
             </a>
         </div>
     </header>
@@ -116,63 +169,94 @@
             
             <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                 <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-800 font-bold px-4 py-1.5 rounded-full text-xs sm:text-sm">
-                    <i class="fa-solid fa-shield-halved text-blue-600"></i> Гарантия повышения баллов на ЕНТ и СОЧ
+                    <i class="fa-solid fa-shield-halved text-blue-600"></i>
+                    <span data-lang-kz="ҰБТ мен БЖБ/ТЖБ баллдарын көтеру кепілдігі" data-lang-ru="Гарантия повышения баллов на ЕНТ и СОЧ">ҰБТ мен БЖБ/ТЖБ баллдарын көтеру кепілдігі</span>
                 </div>
                 <h1 class="text-4xl sm:text-6xl font-black text-gray-900 leading-tight">
-                    Подготовка к математике <span class="text-blue-600">без заучивания</span> и стресса
+                    <span data-lang-kz="Математикаға дайындық" data-lang-ru="Подготовка к математике">Математикаға дайындық</span> 
+                    <span class="text-blue-600" data-lang-kz="жаттаусыз" data-lang-ru="без заучивания">жаттаусыз</span> 
+                    <span data-lang-kz="және стресссіз" data-lang-ru="и стресса">және стресссіз</span>
                 </h1>
-                <p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                    Учим мыслить логически, понимать формулы и решать любые задачи ЕНТ, НИШ и школьной программы с легким подходом.
+                <p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0" data-lang-kz="Логикалық ойлауды, формулаларды түсінуді және ҰБТ, НИШ пен мектеп бағдарламасының кез келген есебін оңай шығаруды үйретеміз." data-lang-ru="Учим мыслить логически, понимать формулы и решать любые задачи ЕНТ, НИШ и школьной программы с легким подходом.">
+                    Логикалық ойлауды, формулаларды түсінуді және ҰБТ, НИШ пен мектеп бағдарламасының кез келген есебін оңай шығаруды үйретеміз.
                 </p>
 
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-left pt-2">
                     <div class="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-3">
                         <i class="fa-solid fa-video text-blue-600 text-xl"></i>
-                        <span class="text-xs font-bold text-gray-700">Записи всех уроков</span>
+                        <span class="text-xs font-bold text-gray-700" data-lang-kz="Барлық сабақ жазбалары" data-lang-ru="Записи всех уроков">Барлық сабақ жазбалары</span>
                     </div>
                     <div class="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-3">
                         <i class="fa-solid fa-user-graduate text-blue-600 text-xl"></i>
-                        <span class="text-xs font-bold text-gray-700">Личный куратор</span>
+                        <span class="text-xs font-bold text-gray-700" data-lang-kz="Жеке куратор" data-lang-ru="Личный куратор">Жеке куратор</span>
                     </div>
                     <div class="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-3 col-span-2 sm:col-span-1">
                         <i class="fa-solid fa-file-signature text-blue-600 text-xl"></i>
-                        <span class="text-xs font-bold text-gray-700">Авторские материалы</span>
+                        <span class="text-xs font-bold text-gray-700" data-lang-kz="Авторлық материалдар" data-lang-ru="Авторские материалы">Авторлық материалдар</span>
                     </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
-                    <a href="#lead-form" class="gradient-btn text-white px-8 py-4 rounded-2xl font-bold text-center shadow-lg text-lg">
-                        Записаться на пробный урок
+                    <a href="#courses" class="gradient-btn text-white px-8 py-4 rounded-2xl font-bold text-center shadow-lg text-lg" data-lang-kz="Тегін сабаққа жазылу" data-lang-ru="Записаться на пробный урок">
+                        Тегін сабаққа жазылу
                     </a>
                 </div>
             </div>
 
-            <div id="lead-form" class="lg:col-span-5 bg-white p-8 rounded-3xl border border-gray-100 shadow-2xl relative">
-                <h3 class="text-2xl font-bold text-gray-900 mb-1">Запись на консультацию</h3>
-                <p class="text-xs text-gray-500 mb-6">Заполните форму, и мы проведем диагностику знаний бесплатным уроком.</p>
+            <div class="lg:col-span-5 relative flex items-center justify-center">
                 
-                <form onsubmit="handleFormSubmit(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Имя ученика</label>
-                        <input type="text" required placeholder="Нурлан" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:outline-none transition-all">
+                <div class="absolute -top-10 -right-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+                <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative w-full max-w-lg">
+                    
+                    <div class="relative p-2.5 rounded-[2.5rem] bg-gradient-to-b from-blue-500/20 via-indigo-500/10 to-transparent backdrop-blur-xl border border-white/60 shadow-2xl">
+                        
+                        <div class="relative rounded-[2rem] overflow-hidden aspect-[4/5] shadow-inner bg-slate-100">
+                            <img src="1.jpeg" 
+                                 alt="Преподаватель и ученики DINARA MATH" 
+                                 class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out">
+                            
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+
+                            <div class="absolute bottom-6 left-6 right-6 text-white space-y-1.5">
+                                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold border border-white/30 text-blue-100">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                    DINARA MATH ACADEMY
+                                </div>
+                                <h3 class="text-xl font-black leading-snug" data-lang-kz="Күрделі есептерді оңай шешуді үйрен" data-lang-ru="Учись побеждать сложные задачи">Күрделі есептерді оңай шешуді үйрен</h3>
+                            </div>
+                        </div>
+
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">WhatsApp телефон</label>
-                        <input type="tel" required placeholder="+7 (777) 000-00-00" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:outline-none transition-all">
+
+                    <div class="absolute -top-6 -left-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-blue-50 flex items-center gap-3.5 hover:-translate-y-1 transition-transform cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-blue-500/30">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-bold tracking-wider text-gray-400 uppercase" data-lang-kz="Ең жоғары балл" data-lang-ru="Максимальный балл">Ең жоғары балл</div>
+                            <div class="text-base font-black text-gray-900">140 / 140 <span class="text-xs text-emerald-500 font-bold ml-1" data-lang-kz="ҰБТ" data-lang-ru="ЕНТ">ҰБТ</span></div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Класс / Цель</label>
-                        <select class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:outline-none bg-white font-medium">
-                            <option>11 класс — ЕНТ Математика</option>
-                            <option>9-10 класс — Закрытие пробелов / Подготовка к ЕНТ</option>
-                            <option>5-8 класс — Школьная программа (СОР/СОЧ)</option>
-                            <option>Поступление в НИШ / КТЛ / РФМШ</option>
-                        </select>
+
+                    <div class="absolute top-1/3 -right-6 bg-slate-900/90 text-white backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-2xl border border-slate-700/50 flex items-center gap-2.5 text-xs font-mono font-bold animate-bounce" style="animation-duration: 3s;">
+                        <span class="text-blue-400">f(x)</span> = <span class="text-yellow-300">lim</span>(x→∞) <span class="text-emerald-400">100%</span>
                     </div>
-                    <button type="submit" class="w-full gradient-btn text-white py-4 rounded-xl font-bold text-base shadow-md">
-                        Забронировать место
-                    </button>
-                </form>
+
+                    <div class="absolute -bottom-6 -right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-gray-100 flex items-center gap-3.5 hover:scale-105 transition-transform">
+                        <div class="flex -space-x-2 overflow-hidden">
+                            <div class="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-blue-500 text-white font-bold text-[10px] flex items-center justify-center">АБ</div>
+                            <div class="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-indigo-500 text-white font-bold text-[10px] flex items-center justify-center">МК</div>
+                            <div class="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-emerald-500 text-white font-bold text-[10px] flex items-center justify-center">+98</div>
+                        </div>
+                        <div>
+                            <div class="text-xs font-black text-gray-900" data-lang-kz="98% Оқушы" data-lang-ru="98% Учеников">98% Оқушы</div>
+                            <div class="text-[10px] text-gray-500 font-semibold" data-lang-kz="Грантқа түсті" data-lang-ru="Поступили на Грант">Грантқа түсті</div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
         </div>
@@ -181,8 +265,8 @@
     <section id="about" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl sm:text-4xl font-black">Почему выбирают DINARA MATH</h2>
-                <p class="text-gray-500 mt-3">Наша методика построена на легкой подаче и практическом закреплении</p>
+                <h2 class="text-3xl sm:text-4xl font-black" data-lang-kz="Неліктен DINARA MATH таңдайды" data-lang-ru="Почему выбирают DINARA MATH">Неліктен DINARA MATH таңдайды</h2>
+                <p class="text-gray-500 mt-3" data-lang-kz="Бiздің әдістеме оңай түсіндіруге және практикалық бекітуге негізделген" data-lang-ru="Наша методика построена на легкой подаче и практическом закреплении">Бiздің әдістеме оңай түсіндіруге және практикалық бекітуге негізделген</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
@@ -190,24 +274,24 @@
                     <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
                         <i class="fa-solid fa-brain"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Без сухой теории</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">Мы объясняем сложные математические формулы через наглядные жизненные примеры и простые ассоциации.</p>
+                    <h3 class="text-xl font-bold mb-3" data-lang-kz="Құрғақ теориясыз" data-lang-ru="Без сухой теории">Құрғақ теориясыз</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed" data-lang-kz="Күрделі математикалық формулаларды өмірлік мысалдар арқылы түсіндіреміз." data-lang-ru="Мы объясняем сложные математические формулы через наглядные жизненные примеры и простые ассоциации.">Күрделі математикалық формулаларды өмірлік мысалдар арқылы түсіндіреміз.</p>
                 </div>
 
                 <div class="bg-slate-50 p-8 rounded-3xl border border-gray-100 hover-card">
                     <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
                         <i class="fa-solid fa-laptop-code"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Современная платформа</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">Доступ к интерактивным домашним заданиям, тренажерам ЕНТ и видеоурокам 24/7 с любого устройства.</p>
+                    <h3 class="text-xl font-bold mb-3" data-lang-kz="Заманауи платформа" data-lang-ru="Современная платформа">Заманауи платформа</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed" data-lang-kz="Интерактивті үй тапсырмаларына, тренажерлерге және видеосабақтарға 24/7 қолжетімділік." data-lang-ru="Доступ к интерактивным домашним заданиям, тренажерам ЕНТ и видеоурокам 24/7 с любого устройства.">Интерактивті үй тапсырмаларына, тренажерлерге және видеосабақтарға 24/7 қолжетімділік.</p>
                 </div>
 
                 <div class="bg-slate-50 p-8 rounded-3xl border border-gray-100 hover-card">
                     <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
                         <i class="fa-solid fa-bullseye"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Контроль прогресса</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">Еженедельное тестирование и детальные отчеты для родителей о динамике успеваемости ученика.</p>
+                    <h3 class="text-xl font-bold mb-3" data-lang-kz="Прогресті бақылау" data-lang-ru="Контроль прогресса">Прогресті бақылау</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed" data-lang-kz="Апта сайынғы тестілеу және ата-аналарға үлгерім динамикасы туралы есеп беру." data-lang-ru="Еженедельное тестирование и детальные отчеты для родителей о динамике успеваемости ученика.">Апта сайынғы тестілеу және ата-аналарға үлгерім динамикасы туралы есеп беру.</p>
                 </div>
             </div>
         </div>
@@ -216,58 +300,58 @@
     <section id="courses" class="py-20 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-3xl sm:text-4xl font-black">Программы и Курсы</h2>
-                <p class="text-gray-500 mt-2">Выберите направление для старта обучения</p>
+                <h2 class="text-3xl sm:text-4xl font-black" data-lang-kz="Бағдарламалар мен Курстар" data-lang-ru="Программы и Курсы">Бағдарламалар мен Курстар</h2>
+                <p class="text-gray-500 mt-2" data-lang-kz="Оқуды бастау үшін бағытты таңдаңыз" data-lang-ru="Выберите направление для старта обучения">Оқуды бастау үшін бағытты таңдаңыз</p>
 
                 <div class="flex justify-center gap-2 mt-8 bg-white p-1.5 rounded-2xl border border-gray-200 max-w-md mx-auto">
-                    <button onclick="switchTab('ent')" id="btn-ent" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-blue-600 text-white transition-all">ЕНТ 2026</button>
-                    <button onclick="switchTab('school')" id="btn-school" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-all">5–10 Классы</button>
-                    <button onclick="switchTab('nish')" id="btn-nish" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-all">НИШ / КТЛ</button>
+                    <button onclick="switchTab('ent')" id="btn-ent" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-blue-600 text-white transition-all" data-lang-kz="ҰБТ 2026" data-lang-ru="ЕНТ 2026">ҰБТ 2026</button>
+                    <button onclick="switchTab('school')" id="btn-school" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-all" data-lang-kz="5–10 Сынып" data-lang-ru="5–10 Классы">5–10 Сынып</button>
+                    <button onclick="switchTab('nish')" id="btn-nish" class="tab-btn w-1/3 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-all" data-lang-kz="НИШ / КТЛ" data-lang-ru="НИШ / КТЛ">НИШ / КТЛ</button>
                 </div>
             </div>
 
             <div id="tab-ent" class="tab-pane active space-y-6 max-w-4xl mx-auto">
                 <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card">
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Базовый</span>
-                        <h3 class="text-2xl font-bold">Мат. грамотность</h3>
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase" data-lang-kz="Базалық" data-lang-ru="Базовый">Базалық</span>
+                        <h3 class="text-2xl font-bold" data-lang-kz="Мат. сауаттылық" data-lang-ru="Мат. грамотность">Мат. сауаттылық</h3>
                     </div>
-                    <p class="text-gray-600 text-sm leading-relaxed">Разбор и решение всех типов текстовых и логических задач ЕНТ.</p>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-lang-kz="ҰБТ-ның барлық мәтіндік және логикалық есептерін талдау және шығару." data-lang-ru="Разбор и решение всех типов текстовых и логических задач ЕНТ.">ҰБТ-ның барлық мәтіндік және логикалық есептерін талдау және шығару.</p>
                 </div>
 
                 <div class="bg-white p-8 rounded-3xl border-2 border-blue-600 shadow-md hover-card">
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Профильный — Максимум результатов</span>
-                        <h3 class="text-2xl font-bold">Профильная Математика</h3>
+                        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase" data-lang-kz="Бейіндік — Максимум нәтиже" data-lang-ru="Профильный — Максимум результатов">Бейіндік — Максимум нәтиже</span>
+                        <h3 class="text-2xl font-bold" data-lang-kz="Бейіндік Математика" data-lang-ru="Профильная Математика">Бейіндік Математика</h3>
                     </div>
-                    <p class="text-gray-600 text-sm leading-relaxed">Подробное изучение алгебры, геометрии, тригонометрии и стереометрии с нуля до 45 баллов.</p>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-lang-kz="Алгебра, геометрия, тригонометрия және стереометрияны нөлден 45 баллға дейін меңгеру." data-lang-ru="Подробное изучение алгебры, геометрии, тригонометрии и стереометрии с нуля до 45 баллов.">Алгебра, геометрия, тригонометрия және стереометрияны нөлден 45 баллға дейін меңгеру.</p>
                 </div>
 
                 <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card">
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Полный пакет</span>
-                        <h3 class="text-2xl font-bold">Комбо ЕНТ</h3>
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase" data-lang-kz="Толық пакет" data-lang-ru="Полный пакет">Толық пакет</span>
+                        <h3 class="text-2xl font-bold" data-lang-kz="Комбо ҰБТ" data-lang-ru="Комбо ЕНТ">Комбо ҰБТ</h3>
                     </div>
-                    <p class="text-gray-600 text-sm leading-relaxed">Комплексная программа: Профильная математика + Математическая грамотность.</p>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-lang-kz="Кешенді бағдарлама: Бейіндік математика + Математикалық сауаттылық." data-lang-ru="Комплексная программа: Профильная математика + Математическая грамотность.">Кешенді бағдарлама: Бейіндік математика + Математикалық сауаттылық.</p>
                 </div>
             </div>
 
             <div id="tab-school" class="tab-pane space-y-6 max-w-4xl mx-auto">
                 <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card">
-                    <h3 class="text-2xl font-bold mb-2">5–8 классы</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">Понятный разбор школьных тем, повышение успеваемости и подготовка к СОР/СОЧ.</p>
+                    <h3 class="text-2xl font-bold mb-2" data-lang-kz="5–8 сыныптар" data-lang-ru="5–8 классы">5–8 сыныптар</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-lang-kz="Мектеп тақырыптарын түсінікті талдау және БЖБ/ТЖБ-ға дайындық." data-lang-ru="Понятный разбор школьных тем, повышение успеваемости и подготовка к СОР/СОЧ.">Мектеп тақырыптарын түсінікті талдау және БЖБ/ТЖБ-ға дайындық.</p>
                 </div>
 
                 <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card">
-                    <h3 class="text-2xl font-bold mb-2">9–10 классы</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">Углубленное изучение алгебры и геометрии, закрытие пробелов перед стартом подготовки к ЕНТ.</p>
+                    <h3 class="text-2xl font-bold mb-2" data-lang-kz="9–10 сыныптар" data-lang-ru="9–10 классы">9–10 сыныптар</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-lang-kz="Алгебра мен геометрияны тереңдетіп оқу, ҰБТ-ға дайындық алдындағы олқылықтарды жою." data-lang-ru="Углубленное изучение алгебры и геометрии, закрытие пробелов перед стартом подготовки к ЕНТ.">Алгебра мен геометрияны тереңдетіп оқу, ҰБТ-ға дайындық алдындағы олқылықтарды жою.</p>
                 </div>
             </div>
 
             <div id="tab-nish" class="tab-pane max-w-4xl mx-auto">
                 <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover-card text-center">
-                    <h3 class="text-2xl font-bold mb-3">Подготовка в НИШ / КТЛ / РФМШ</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed max-w-2xl mx-auto">Специализированная программа по развитию логики, математического и пространственного мышления.</p>
+                    <h3 class="text-2xl font-bold mb-3" data-lang-kz="НИШ / КТЛ / РФМШ мектептеріне дайындық" data-lang-ru="Подготовка в НИШ / КТЛ / РФМШ">НИШ / КТЛ / РФМШ мектептеріне дайындық</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed max-w-2xl mx-auto" data-lang-kz="Логиканы, математикалық және кеңістіктік ойлауды дамытуға арналған арнайы бағдарлама." data-lang-ru="Специализированная программа по развитию логики, математического и пространственного мышления.">Логиканы, математикалық және кеңістіктік ойлауды дамытуға арналған арнайы бағдарлама.</p>
                 </div>
             </div>
         </div>
@@ -276,30 +360,30 @@
     <section id="roadmap" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl sm:text-4xl font-black">Как проходит обучение</h2>
-                <p class="text-gray-500 mt-2">4 простых шага к высокому баллу</p>
+                <h2 class="text-3xl sm:text-4xl font-black" data-lang-kz="Оқыту қалай өтеді" data-lang-ru="Как проходит обучение">Оқыту қалай өтеді</h2>
+                <p class="text-gray-500 mt-2" data-lang-kz="Жоғары баллға апаратын 4 қарапайым қадам" data-lang-ru="4 простых шага к высокому баллу">Жоғары баллға апаратын 4 қарапайым қадам</p>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="relative p-6 bg-slate-50 rounded-2xl border border-gray-100">
                     <span class="text-4xl font-black text-blue-600/20 absolute top-4 right-4">01</span>
-                    <h4 class="text-lg font-bold mb-2">Диагностика</h4>
-                    <p class="text-xs text-gray-500">Проводим бесплатное тестирование для определения текущих пробелов ученика.</p>
+                    <h4 class="text-lg font-bold mb-2" data-lang-kz="Диагностика" data-lang-ru="Диагностика">Диагностика</h4>
+                    <p class="text-xs text-gray-500" data-lang-kz="Оқушының біліміндегі олқылықтарды анықтау үшін тегін тест өткіземіз." data-lang-ru="Проводим бесплатное тестирование для определения текущих пробелов ученика.">Оқушының біліміндегі олқылықтарды анықтау үшін тегін тест өткіземіз.</p>
                 </div>
                 <div class="relative p-6 bg-slate-50 rounded-2xl border border-gray-100">
                     <span class="text-4xl font-black text-blue-600/20 absolute top-4 right-4">02</span>
-                    <h4 class="text-lg font-bold mb-2">Интерактивный урок</h4>
-                    <p class="text-xs text-gray-500">Разбираем теорию простыми словами и закрепляем решениями практических задач.</p>
+                    <h4 class="text-lg font-bold mb-2" data-lang-kz="Интерактивті сабақ" data-lang-ru="Интерактивный урок">Интерактивті сабақ</h4>
+                    <p class="text-xs text-gray-500" data-lang-kz="Теорияны қарапайым тілмен талдап, практикалық есептермен бекітеміз." data-lang-ru="Разбираем теорию простыми словами и закрепляем решениями практических задач.">Теорияны қарапайым тілмен талдап, практикалық есептермен бекітеміз.</p>
                 </div>
                 <div class="relative p-6 bg-slate-50 rounded-2xl border border-gray-100">
                     <span class="text-4xl font-black text-blue-600/20 absolute top-4 right-4">03</span>
-                    <h4 class="text-lg font-bold mb-2">Домашняя работа</h4>
-                    <p class="text-xs text-gray-500">Закрепление материала на интерактивном тренажере с подсказками.</p>
+                    <h4 class="text-lg font-bold mb-2" data-lang-kz="Үй тапсырмасы" data-lang-ru="Домашняя работа">Үй тапсырмасы</h4>
+                    <p class="text-xs text-gray-500" data-lang-kz="Материалды интерактивті тренажерде көмекші сұрақтар арқылы бекіту." data-lang-ru="Закрепление материала на интерактивном тренажере с подсказками.">Материалды интерактивті тренажерде көмекші сұрақтар арқылы бекіту.</p>
                 </div>
                 <div class="relative p-6 bg-slate-50 rounded-2xl border border-gray-100">
                     <span class="text-4xl font-black text-blue-600/20 absolute top-4 right-4">04</span>
-                    <h4 class="text-lg font-bold mb-2">Пробный ЕНТ / Контроль</h4>
-                    <p class="text-xs text-gray-500">Еженедельно сдаем симуляцию реального экзамена для отслеживания роста.</p>
+                    <h4 class="text-lg font-bold mb-2" data-lang-kz="Байқау сынағы / Бақылау" data-lang-ru="Пробный ЕНТ / Контроль">Байқау сынағы / Бақылау</h4>
+                    <p class="text-xs text-gray-500" data-lang-kz="Өсімді бақылау үшін апта сайын шынайы емтихан симуляциясын тапсырамыз." data-lang-ru="Еженедельно сдаем симуляцию реального экзамена для отслеживания роста.">Өсімді бақылау үшін апта сайын шынайы емтихан симуляциясын тапсырамыз.</p>
                 </div>
             </div>
         </div>
@@ -308,9 +392,9 @@
     <section id="reviews" class="py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Истории успеха</span>
-                <h2 class="text-3xl sm:text-4xl font-black mt-3">Отзывы наших учеников</h2>
-                <p class="text-gray-500 text-sm mt-2">Листайте карточки, чтобы узнать результаты ребят</p>
+                <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider" data-lang-kz="Табыс тарихы" data-lang-ru="Истории успеха">Табыс тарихы</span>
+                <h2 class="text-3xl sm:text-4xl font-black mt-3" data-lang-kz="Оқушыларымыздың пікірлері" data-lang-ru="Отзывы наших учеников">Оқушыларымыздың пікірлері</h2>
+                <p class="text-gray-500 text-sm mt-2" data-lang-kz="Нәтижелерді білу үшін карточкаларды парақтаңыз" data-lang-ru="Листайте карточки, чтобы узнать результаты ребят">Нәтижелерді білу үшін карточкаларды парақтаңыз</p>
             </div>
             
             <div class="relative max-w-4xl mx-auto min-h-[340px] flex items-center justify-center">
@@ -380,6 +464,25 @@
         </div>
     </section>
 
+    <div id="info-page-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none flex items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white w-full max-w-md p-8 rounded-3xl shadow-2xl border border-slate-100 text-center relative transform scale-95 transition-all duration-300">
+            <button onclick="closePageModal()" class="absolute top-4 right-4 w-9 h-9 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center hover:bg-slate-200">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4 font-bold">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            
+            <h3 id="info-modal-title" class="text-2xl font-black text-slate-900 mb-2"></h3>
+            <p id="info-modal-text" class="text-slate-600 text-sm leading-relaxed mb-6"></p>
+            
+            <button onclick="closePageModal()" class="w-full gradient-btn text-white font-bold py-3 rounded-xl text-sm shadow-md" data-lang-kz="Түсінікті" data-lang-ru="Понятно">
+                Түсінікті
+            </button>
+        </div>
+    </div>
+
     <footer class="bg-gray-900 text-gray-400 py-12 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-4 gap-8">
             <div class="space-y-4">
@@ -389,22 +492,22 @@
                     </div>
                     <span>DINARA MATH</span>
                 </div>
-                <p class="text-xs text-gray-400 leading-relaxed">
-                    Онлайн-школа математики №1 для школьников и абитуриентов Казахстана.
+                <p class="text-xs text-gray-400 leading-relaxed" data-lang-kz="Қазақстан мектеп оқушылары мен талапкерлеріне арналған №1 онлайн математика мектебі." data-lang-ru="Онлайн-школа математики №1 для школьников и абитуриентов Казахстана.">
+                    Қазақстан мектеп оқушылары мен талапкерлеріне арналған №1 онлайн математика мектебі.
                 </p>
             </div>
 
             <div>
-                <h4 class="text-white font-bold text-sm mb-4">Разделы</h4>
+                <h4 class="text-white font-bold text-sm mb-4" data-lang-kz="Бөлімдер" data-lang-ru="Разделы">Бөлімдер</h4>
                 <ul class="space-y-2 text-xs">
-                    <li><a href="#about" class="hover:text-white transition-colors">Преимущества</a></li>
-                    <li><a href="#courses" class="hover:text-white transition-colors">Курсы и программы</a></li>
-                    <li><a href="#reviews" class="hover:text-white transition-colors">Отзывы учеников</a></li>
+                    <li><a href="sa.html" class="hover:text-white transition-colors" data-lang-kz="Негізгі" data-lang-ru="Главная">Негізгі</a></li>
+                    <li><a href="course.html" class="hover:text-white transition-colors" data-lang-kz="Курстар" data-lang-ru="Курсы">Курстар</a></li>
+                    <li><a href="#reviews" class="hover:text-white transition-colors" data-lang-kz="Оқушылар пікірі" data-lang-ru="Отзывы учеников">Оқушылар пікірі</a></li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="text-white font-bold text-sm mb-4">Контакты</h4>
+                <h4 class="text-white font-bold text-sm mb-4" data-lang-kz="Байланыс" data-lang-ru="Контакты">Байланыс</h4>
                 <ul class="space-y-2 text-xs">
                     <li><i class="fa-solid fa-phone text-blue-500 mr-2"></i> +7 705 848 66 56</li>
                     <li><i class="fa-solid fa-envelope text-blue-500 mr-2"></i> info@dinaramath.kz</li>
@@ -413,7 +516,7 @@
             </div>
 
             <div>
-                <h4 class="text-white font-bold text-sm mb-4">Социальные сети</h4>
+                <h4 class="text-white font-bold text-sm mb-4" data-lang-kz="Әлеуметтік желілер" data-lang-ru="Социальные сети">Әлеуметтік желілер</h4>
                 <div class="flex space-x-3 text-lg">
                     <a href="#" class="w-9 h-9 bg-gray-800 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-all"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#" class="w-9 h-9 bg-gray-800 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-all"><i class="fa-brands fa-tiktok"></i></a>
@@ -423,17 +526,34 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 border-t border-gray-800 mt-12 pt-6 text-center text-[11px] text-gray-500">
-            &copy; 2026 DINARA MATH. Все права защищены.
+            &copy; 2026 DINARA MATH. <span data-lang-kz="Барлық құқықтар қорғалған." data-lang-ru="Все права защищены.">Барлық құқықтар қорғалған.</span>
         </div>
     </footer>
 
     <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 z-40 flex gap-2">
-        <a href="#lead-form" class="w-full gradient-btn text-white text-center py-3 rounded-xl font-bold text-sm shadow-md">
-            Записаться на урок
+        <a href="#courses" class="w-full gradient-btn text-white text-center py-3 rounded-xl font-bold text-sm shadow-md" data-lang-kz="Сабаққа жазылу" data-lang-ru="Записаться на урок">
+            Сабаққа жазылу
         </a>
     </div>
 
     <script>
+        // Функция переключения языков (ҚАЗ / РУС)
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-lang-kz]').forEach(el => {
+                const text = el.getAttribute('data-lang-' + lang);
+                if (text) {
+                    el.innerText = text;
+                }
+            });
+
+            // Синхронизируем выпадающие списки языков
+            document.querySelectorAll('select').forEach(select => {
+                if (select.getAttribute('onchange') && select.getAttribute('onchange').includes('changeLanguage')) {
+                    select.value = lang;
+                }
+            });
+        }
+
         // Мобильное меню
         function toggleMenu() {
             const menu = document.getElementById('mobile-menu');
@@ -516,10 +636,17 @@
 
         document.addEventListener('DOMContentLoaded', updateReviews3D);
 
-        // Отправка формы
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            alert('Заявка успешно отправлена! Наш менеджер свяжется с вами по WhatsApp в ближайшее время.');
+        // Открытие модального окна
+        function openPageModal(title, text) {
+            document.getElementById('info-modal-title').innerText = title;
+            document.getElementById('info-modal-text').innerText = text;
+            const modal = document.getElementById('info-page-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closePageModal() {
+            const modal = document.getElementById('info-page-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
         }
     </script>
 </body>
