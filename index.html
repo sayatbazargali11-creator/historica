@@ -1,1597 +1,1057 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peak — готовься к экзаменам быстрее</title>
-<meta name="description" content="Современная образовательная платформа для подготовки к экзаменам. Курсы, практика, наставники, аналитика прогресса.">
+<title>Sayat — Developer &amp; Designer</title>
+<meta name="description" content="Sayat — developer, designer, student. Building modern digital experiences.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
-  :root{
-    --c-primary:#FF7A00;
-    --c-primary-soft:#FF9E3D;
-    --c-primary-pale:#FFE7D0;
-    --c-primary-dark:#C75E00;
-    --c-bg:#FFFFFF;
-    --c-bg-alt:#FCFCFC;
-    --c-text:#111111;
-    --c-text-soft:#666666;
-    --c-text-faint:#999999;
-    --c-border:#F0F0F0;
-    --c-success:#1FA971;
-    --radius-lg:32px;
-    --radius-md:24px;
-    --radius-sm:16px;
-    --ease:cubic-bezier(.16,1,.3,1);
-    --shadow-sm:0 2px 20px -6px rgba(17,17,17,.06);
-    --shadow-md:0 20px 50px -18px rgba(17,17,17,.22);
-    --shadow-lg:0 40px 80px -30px rgba(17,17,17,.25);
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Inter', sans-serif;
-    color:var(--c-text);
-    background:var(--c-bg);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    overflow-x:hidden;
-  }
-  h1,h2,h3,h4,.display{
-    font-family:'Manrope', sans-serif;
-    font-weight:800;
-    letter-spacing:-0.03em;
-    line-height:1.05;
-  }
-  a{text-decoration:none; color:inherit;}
-  ul{list-style:none;}
-  img{max-width:100%; display:block;}
-  button{font-family:inherit; cursor:pointer; border:none; background:none;}
-  input,textarea,select{font-family:inherit; font-size:inherit; color:inherit;}
-  .wrap{max-width:1280px; margin:0 auto; padding:0 32px;}
-  @media(max-width:640px){.wrap{padding:0 20px;}}
+/* ============ RESET ============ */
+*,*::before,*::after{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+img,svg{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+button{font:inherit; color:inherit; background:none; border:none; cursor:pointer;}
+ul{list-style:none;}
+input,textarea{font:inherit; color:inherit;}
 
-  /* ---------- accessibility ---------- */
-  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-    outline:2.5px solid var(--c-primary); outline-offset:3px; border-radius:6px;
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
-  }
+/* ============ TOKENS ============ */
+:root{
+  --bg:#FFFFFF;
+  --bg-soft:#F7F7F8;
+  --surface:#FFFFFF;
+  --border:#E9E9EC;
+  --border-strong:#D8D8DD;
+  --text:#0A0A0B;
+  --text-soft:#68686F;
+  --text-faint:#9A9AA2;
+  --accent:#4B4EF0;
+  --accent-strong:#3C3FDB;
+  --accent-soft:#EEEEFE;
+  --accent-contrast:#FFFFFF;
+  --shadow-sm: 0 1px 2px rgba(10,10,11,.04);
+  --shadow-md: 0 12px 32px -12px rgba(10,10,11,.12);
+  --shadow-lg: 0 30px 70px -20px rgba(10,10,11,.18);
+  --glass-bg: rgba(255,255,255,.7);
+  --font-display:'Inter Tight', 'Inter', system-ui, sans-serif;
+  --font-body:'Inter', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --radius-sm:12px;
+  --radius-md:20px;
+  --radius-lg:28px;
+  color-scheme: light;
+}
+html[data-theme="dark"]{
+  --bg:#0B0B0D;
+  --bg-soft:#111114;
+  --surface:#151518;
+  --border:#232327;
+  --border-strong:#2E2E33;
+  --text:#F4F4F6;
+  --text-soft:#9C9CA6;
+  --text-faint:#68686F;
+  --accent:#8386FF;
+  --accent-strong:#9799FF;
+  --accent-soft:rgba(131,134,255,.12);
+  --accent-contrast:#0B0B0D;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+  --shadow-md: 0 20px 44px -16px rgba(0,0,0,.55);
+  --shadow-lg: 0 40px 90px -24px rgba(0,0,0,.65);
+  --glass-bg: rgba(21,21,24,.62);
+  color-scheme: dark;
+}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  transition:background .5s var(--ease), color .5s var(--ease);
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+@media(max-width:720px){.wrap{padding:0 22px;}}
 
-  /* ---------- reveal utility ---------- */
-  .reveal{opacity:0; will-change:transform,opacity;}
+h1,h2,h3,h4{font-family:var(--font-display); font-weight:700; letter-spacing:-0.02em; line-height:1.08;}
+.eyebrow{
+  font-family:var(--font-mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--accent); display:flex; align-items:center; gap:10px; margin-bottom:18px; font-weight:500;
+}
+.eyebrow::before{content:''; width:16px; height:1px; background:var(--accent);}
+.section{padding:130px 0;}
+.section-soft{background:var(--bg-soft);}
+@media(max-width:720px){.section{padding:88px 0;}}
+.section-head{max-width:640px; margin-bottom:64px;}
+.section-head h2{font-size:clamp(28px,3.6vw,42px);}
+.section-head p{color:var(--text-soft); font-size:16.5px; margin-top:18px; line-height:1.7;}
 
-  /* ---------- shared bits ---------- */
-  .container-narrow{max-width:760px; margin:0 auto;}
-  .divider{height:1px; background:var(--c-border); border:none;}
-  .pill{
-    display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:100px;
-    font-size:12.5px; font-weight:700; background:var(--c-primary-pale); color:var(--c-primary-dark);
-  }
+/* reveal on scroll */
+.reveal{opacity:0; transform:translateY(28px);}
 
-  /* ---------- buttons ---------- */
-  .btn{
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    padding:16px 32px; border-radius:100px; font-weight:600; font-size:15px;
-    transition:transform .45s var(--ease), box-shadow .45s var(--ease), background .3s ease, color .3s ease, border-color .3s ease;
-    white-space:nowrap;
-  }
-  .btn-primary{
-    background:linear-gradient(135deg,var(--c-primary),var(--c-primary-soft));
-    color:#fff;
-    box-shadow:0 8px 24px -6px rgba(255,122,0,.45);
-  }
-  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 16px 32px -8px rgba(255,122,0,.55);}
-  .btn-ghost{
-    background:#fff; color:var(--c-text); border:1.5px solid #ECECEC;
-  }
-  .btn-ghost:hover{border-color:var(--c-text); transform:translateY(-3px);}
-  .btn-dark{
-    background:#111; color:#fff;
-  }
-  .btn-dark:hover{background:#000; transform:translateY(-3px);}
-  .btn-sm{padding:11px 22px; font-size:13.5px;}
-  .btn-block{width:100%;}
-  .btn[disabled]{opacity:.55; pointer-events:none;}
+/* buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:15px 28px; border-radius:100px; font-size:14.5px; font-weight:600;
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease), background .35s ease, border-color .35s ease, color .35s ease;
+  white-space:nowrap;
+}
+.btn svg{width:16px; height:16px;}
+.btn-primary{background:var(--accent); color:var(--accent-contrast); box-shadow:0 14px 30px -10px rgba(75,78,240,.45);}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 20px 40px -12px rgba(75,78,240,.55); background:var(--accent-strong);}
+.btn-outline{border:1px solid var(--border-strong); color:var(--text);}
+.btn-outline:hover{transform:translateY(-2px); border-color:var(--text-soft); background:var(--surface);}
+.btn-ghost{color:var(--text-soft); padding:15px 8px;}
+.btn-ghost:hover{color:var(--text);}
 
-  /* ---------- header ---------- */
-  header{
-    position:fixed; top:0; left:0; right:0; z-index:100;
-    padding:22px 0;
-    transition:background .5s var(--ease), box-shadow .5s var(--ease), padding .4s var(--ease), backdrop-filter .5s var(--ease);
-  }
-  header.scrolled{
-    padding:14px 0;
-    background:rgba(255,255,255,.68);
-    backdrop-filter:blur(20px) saturate(180%);
-    -webkit-backdrop-filter:blur(20px) saturate(180%);
-    box-shadow:0 1px 0 rgba(17,17,17,.06), 0 12px 30px -18px rgba(17,17,17,.15);
-  }
-  .nav-row{display:flex; align-items:center; justify-content:space-between;}
-  .logo{display:flex; align-items:center; gap:10px; font-family:'Manrope',sans-serif; font-weight:800; font-size:21px;}
-  .logo-mark{
-    width:34px; height:34px; border-radius:11px;
-    background:linear-gradient(135deg,var(--c-primary),var(--c-primary-soft));
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 6px 16px -4px rgba(255,122,0,.5);
-  }
-  .nav-links{display:flex; align-items:center; gap:34px;}
-  .nav-links a{font-size:14.5px; font-weight:500; color:var(--c-text); position:relative; padding:4px 0;}
-  .nav-links a::after{
-    content:''; position:absolute; left:0; bottom:0; width:0; height:2px;
-    background:var(--c-primary); transition:width .35s var(--ease);
-  }
-  .nav-links a:hover::after{width:100%;}
-  .nav-cta-group{display:flex; align-items:center; gap:14px;}
-  .nav-cta-group .btn-ghost{padding:12px 22px; font-size:14px;}
-  .burger{display:none; flex-direction:column; gap:5px; width:26px;}
-  .burger span{height:2px; width:100%; background:var(--c-text); border-radius:2px; transition:transform .3s ease, opacity .3s ease;}
-  .mobile-menu{
-    position:fixed; inset:0; background:#fff; z-index:99; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; gap:26px; transform:translateY(-100%);
-    transition:transform .5s var(--ease);
-  }
-  .mobile-menu.open{transform:translateY(0);}
-  .mobile-menu a{font-size:22px; font-weight:700; font-family:'Manrope',sans-serif;}
-  .mobile-close{position:absolute; top:26px; right:24px; font-size:28px;}
+/* ============ NAV ============ */
+header{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  padding:26px 0; transition:padding .45s var(--ease), background .45s var(--ease), box-shadow .45s var(--ease), backdrop-filter .45s var(--ease);
+}
+header.scrolled{
+  padding:14px 0; background:var(--glass-bg); backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:0 1px 0 var(--border), var(--shadow-sm);
+}
+.nav-row{display:flex; align-items:center; justify-content:space-between; gap:28px;}
+.logo{font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-0.02em; display:flex; align-items:center; gap:3px;}
+.logo .dot{color:var(--accent);}
+.nav-links{display:flex; align-items:center; gap:34px;}
+.nav-links a{font-size:14px; font-weight:500; color:var(--text-soft); position:relative; padding:6px 0; transition:color .3s ease;}
+.nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1.5px; background:var(--accent); transition:width .4s var(--ease);}
+.nav-links a:hover{color:var(--text);}
+.nav-links a:hover::after, .nav-links a.active::after{width:100%;}
+.nav-links a.active{color:var(--text);}
+.nav-tools{display:flex; align-items:center; gap:10px;}
 
-  @media(max-width:900px){
-    .nav-links{display:none;}
-    .burger{display:flex;}
-    header .nav-cta-group .desktop-only{display:none;}
-  }
+.icon-btn{
+  width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--border); color:var(--text-soft); transition:all .35s var(--ease); flex-shrink:0;
+}
+.icon-btn:hover{border-color:var(--text-soft); color:var(--text); transform:translateY(-1px);}
+.icon-btn svg{width:16px; height:16px;}
+.icon-btn .moon{display:none;}
+html[data-theme="dark"] .icon-btn .sun{display:none;}
+html[data-theme="dark"] .icon-btn .moon{display:block;}
 
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative; padding:180px 0 120px; overflow:hidden;
-  }
-  .hero-bg-blob{
-    position:absolute; border-radius:50%; filter:blur(90px); opacity:.5; z-index:0;
-  }
-  .blob1{width:520px; height:520px; background:var(--c-primary-pale); top:-160px; right:-120px;}
-  .blob2{width:380px; height:380px; background:#FFF3E6; bottom:-140px; left:-100px;}
-  .hero-grid{
-    position:relative; z-index:2; display:grid; grid-template-columns:1.05fr .95fr; gap:60px; align-items:center;
-  }
-  .eyebrow{
-    display:inline-flex; align-items:center; gap:8px; padding:8px 18px; border-radius:100px;
-    background:var(--c-primary-pale); color:#B85400; font-size:13px; font-weight:700;
-    margin-bottom:28px;
-  }
-  .eyebrow .dot{width:7px; height:7px; border-radius:50%; background:var(--c-primary);}
-  .eyebrow .dot.live{animation:pulseDot 1.6s ease-in-out infinite;}
-  @keyframes pulseDot{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.4; transform:scale(1.4);}}
-  .hero h1{font-size:clamp(36px,4.6vw,60px); margin-bottom:24px;}
-  .hero h1 .accent{color:var(--c-primary);}
-  .hero p.lead{font-size:18px; color:var(--c-text-soft); max-width:480px; margin-bottom:40px; line-height:1.65;}
-  .hero-actions{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:56px;}
-  .hero-social-proof{display:flex; align-items:center; gap:16px;}
-  .avatars{display:flex;}
-  .avatars .av{
-    width:42px; height:42px; border-radius:50%; border:3px solid #fff; margin-left:-12px;
-    background-size:cover; background-position:center;
-  }
-  .avatars .av:first-child{margin-left:0;}
-  .proof-text{font-size:14px; color:var(--c-text-soft);}
-  .stars{color:var(--c-primary); font-size:14px; letter-spacing:2px;}
-  .proof-count{font-family:'Manrope',sans-serif; font-weight:800; font-size:15px; color:var(--c-text);}
+.lang-switch{position:relative;}
+.lang-btn{
+  display:flex; align-items:center; gap:6px; height:38px; padding:0 14px; border-radius:100px;
+  border:1px solid var(--border); font-family:var(--font-mono); font-size:12.5px; font-weight:500; color:var(--text-soft);
+  transition:all .35s var(--ease);
+}
+.lang-btn:hover{border-color:var(--text-soft); color:var(--text);}
+.lang-menu{
+  position:absolute; top:calc(100% + 10px); right:0; background:var(--surface); border:1px solid var(--border);
+  border-radius:14px; padding:6px; box-shadow:var(--shadow-md); min-width:150px;
+  opacity:0; visibility:hidden; transform:translateY(-6px); transition:all .3s var(--ease);
+}
+.lang-switch.open .lang-menu{opacity:1; visibility:visible; transform:translateY(0);}
+.lang-menu button{
+  width:100%; text-align:left; padding:9px 12px; border-radius:9px; font-size:13.5px; display:flex; align-items:center; gap:10px;
+  transition:background .2s ease;
+}
+.lang-menu button:hover{background:var(--bg-soft);}
+.lang-menu button.active{color:var(--accent); font-weight:600;}
 
-  /* hero mockup */
-  .hero-visual{position:relative; height:560px;}
-  .mock-main{
-    position:absolute; top:20px; left:30px; right:10px; bottom:60px;
-    border-radius:var(--radius-lg); background:linear-gradient(160deg,#fff,#FFF7EF);
-    box-shadow:var(--shadow-lg), 0 0 0 1px rgba(17,17,17,.04);
-    padding:28px; overflow:hidden;
-  }
-  .mock-topbar{display:flex; gap:6px; margin-bottom:22px;}
-  .mock-topbar span{width:10px; height:10px; border-radius:50%; background:#EEE;}
-  .mock-line{height:12px; border-radius:6px; background:#F1F1F1; margin-bottom:10px;}
-  .mock-progress-ring{
-    width:120px; height:120px; border-radius:50%;
-    background:conic-gradient(var(--c-primary) 0deg 265deg, #F2E4D5 265deg 360deg);
-    display:flex; align-items:center; justify-content:center; margin:26px auto 10px;
-    position:relative;
-  }
-  .mock-progress-ring::before{
-    content:''; position:absolute; inset:12px; border-radius:50%; background:#fff;
-  }
-  .mock-progress-ring span{position:relative; font-family:'Manrope'; font-weight:800; font-size:22px;}
-  .glass-card{
-    position:absolute; border-radius:20px; padding:16px 18px;
-    background:rgba(255,255,255,.65); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
-    box-shadow:var(--shadow-md), 0 0 0 1px rgba(255,255,255,.6) inset;
-    display:flex; align-items:center; gap:12px;
-  }
-  .glass-card .ic{
-    width:38px; height:38px; border-radius:12px; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(135deg,var(--c-primary),var(--c-primary-soft)); color:#fff; flex-shrink:0;
-  }
-  .glass-card .lbl{font-size:11px; color:var(--c-text-soft); font-weight:600;}
-  .glass-card .val{font-family:'Manrope'; font-weight:800; font-size:16px;}
-  .gc1{top:10px; right:-10px; width:170px;}
-  .gc2{bottom:30px; left:-20px; width:190px;}
-  @media(max-width:900px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-visual{height:420px; margin-top:20px;}
-    .hero p.lead{max-width:none;}
-  }
+.burger{display:none; flex-direction:column; gap:5px; width:22px;}
+.burger span{height:1.5px; width:100%; background:var(--text); border-radius:2px;}
+@media(max-width:880px){
+  .nav-links{display:none;}
+  .burger{display:flex;}
+}
+.mobile-menu{
+  position:fixed; inset:0; background:var(--bg); z-index:300; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:30px; transform:translateY(-100%); transition:transform .55s var(--ease);
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{font-family:var(--font-display); font-size:26px; font-weight:700;}
+.mobile-close{position:absolute; top:28px; right:26px;}
 
-  /* ---------- trusted-by strip ---------- */
-  .trusted{padding:48px 0; border-top:1px solid var(--c-border); border-bottom:1px solid var(--c-border);}
-  .trusted-inner{display:flex; align-items:center; gap:48px; flex-wrap:wrap; justify-content:space-between;}
-  .trusted-label{font-size:13px; color:var(--c-text-faint); font-weight:600; white-space:nowrap;}
-  .trusted-logos{display:flex; align-items:center; gap:44px; flex-wrap:wrap; opacity:.65;}
-  .trusted-logos span{font-family:'Manrope'; font-weight:800; font-size:18px; color:#B5B5B5; letter-spacing:-.02em;}
-  @media(max-width:760px){.trusted-inner{flex-direction:column; align-items:flex-start; gap:20px;} .trusted-logos{gap:28px;}}
+/* ============ HERO ============ */
+.hero{position:relative; padding:200px 0 130px; overflow:hidden;}
+.hero-glow{
+  position:absolute; width:640px; height:640px; border-radius:50%; top:-260px; right:-200px;
+  background:radial-gradient(circle, var(--accent-soft) 0%, transparent 70%); z-index:0; pointer-events:none;
+}
+.hero-grid{position:relative; z-index:1; display:grid; grid-template-columns:1.15fr .85fr; gap:70px; align-items:center;}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr; gap:56px;}}
+.hero-kicker{
+  display:inline-flex; align-items:center; gap:9px; padding:8px 16px; border-radius:100px; border:1px solid var(--border);
+  font-family:var(--font-mono); font-size:12px; letter-spacing:.04em; color:var(--text-soft); margin-bottom:30px;
+}
+.hero-kicker .pulse{width:6px; height:6px; border-radius:50%; background:var(--accent); position:relative;}
+.hero-kicker .pulse::after{
+  content:''; position:absolute; inset:-4px; border-radius:50%; border:1px solid var(--accent);
+  animation:pulse 2.4s infinite;
+}
+@keyframes pulse{0%{transform:scale(.6); opacity:1;} 100%{transform:scale(1.8); opacity:0;}}
+.hero h1{font-size:clamp(38px,5.4vw,68px); margin-bottom:26px;}
+.hero h1 .soft{color:var(--text-faint); font-weight:600;}
+.hero h1 .accent{color:var(--accent);}
+.hero p.lead{font-size:18px; color:var(--text-soft); max-width:460px; line-height:1.7; margin-bottom:42px;}
+.hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
 
-  /* ---------- section heading ---------- */
-  .section{padding:110px 0;}
-  .section-head{max-width:640px; margin:0 auto 64px; text-align:center;}
-  .section-head.left{margin:0 0 56px; text-align:left;}
-  .section-tag{
-    display:inline-block; font-size:13px; font-weight:700; color:var(--c-primary);
-    letter-spacing:.06em; text-transform:uppercase; margin-bottom:14px;
-  }
-  .section-head h2{font-size:clamp(28px,3.4vw,42px); margin-bottom:16px;}
-  .section-head p{color:var(--c-text-soft); font-size:16.5px; line-height:1.6;}
-  .section-head-row{display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:56px; flex-wrap:wrap;}
-  .section-head-row .section-head{margin:0; text-align:left; max-width:560px;}
-  @media(max-width:640px){.section{padding:80px 0;}}
+.hero-visual{position:relative; height:520px; display:flex; align-items:center; justify-content:center;}
+.portrait-card{
+  position:relative; width:340px; height:420px; border-radius:var(--radius-lg);
+  background:linear-gradient(160deg, var(--accent) 0%, #14142B 100%);
+  box-shadow:var(--shadow-lg); overflow:hidden; display:flex; align-items:flex-end; padding:26px;
+}
+html[data-theme="dark"] .portrait-card{background:linear-gradient(160deg, var(--accent) 0%, #06060A 100%);}
+.portrait-mark{
+  position:absolute; inset:0; opacity:.5;
+  background-image: radial-gradient(circle at 30% 20%, rgba(255,255,255,.25), transparent 45%),
+                     radial-gradient(circle at 80% 80%, rgba(255,255,255,.12), transparent 50%);
+}
+.portrait-initials{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-58%);
+  font-family:var(--font-display); font-weight:800; font-size:150px; color:rgba(255,255,255,.14); letter-spacing:-0.04em;
+}
+.portrait-tag{
+  position:relative; z-index:2; color:#fff; font-family:var(--font-mono); font-size:12.5px; letter-spacing:.03em;
+  background:rgba(255,255,255,.12); backdrop-filter:blur(10px); padding:10px 14px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.18);
+}
+.float-card{
+  position:absolute; border-radius:16px; padding:14px 16px; background:var(--surface); border:1px solid var(--border);
+  box-shadow:var(--shadow-md); display:flex; align-items:center; gap:11px; font-size:13px; font-weight:600;
+}
+.float-card .ic{width:34px; height:34px; border-radius:10px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.float-card .ic svg{width:17px; height:17px;}
+.float-card small{display:block; font-weight:400; color:var(--text-faint); font-size:11px; margin-top:1px;}
+.float-1{top:20px; left:-24px;}
+.float-2{bottom:36px; right:-30px;}
+@media(max-width:520px){.float-1{left:-6px;} .float-2{right:-6px;}}
 
-  /* ---------- advantages ---------- */
-  .adv-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
-  .adv-card{
-    background:#fff; border-radius:var(--radius-md); padding:36px 30px;
-    box-shadow:var(--shadow-sm); border:1px solid #F4F4F4;
-    transition:transform .5s var(--ease), box-shadow .5s var(--ease);
-  }
-  .adv-card:hover{transform:translateY(-8px) scale(1.02); box-shadow:0 30px 50px -20px rgba(255,122,0,.28);}
-  .adv-icon{
-    width:56px; height:56px; border-radius:16px; background:var(--c-primary-pale);
-    display:flex; align-items:center; justify-content:center; color:var(--c-primary); margin-bottom:22px;
-    transition:background .4s ease, color .4s ease;
-  }
-  .adv-card:hover .adv-icon{background:var(--c-primary); color:#fff;}
-  .adv-card h3{font-size:19px; margin-bottom:10px;}
-  .adv-card p{color:var(--c-text-soft); font-size:14.5px; line-height:1.6;}
-  @media(max-width:900px){.adv-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:600px){.adv-grid{grid-template-columns:1fr;}}
+/* ============ ABOUT ============ */
+.about-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:80px;}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr; gap:48px;}}
+.about-lead{font-size:20px; line-height:1.65; color:var(--text); font-family:var(--font-display); font-weight:500;}
+.about-lead .accent{color:var(--accent);}
+.about-list{margin-top:36px; display:flex; flex-direction:column; gap:22px;}
+.about-list li{display:flex; gap:16px; font-size:14.5px; color:var(--text-soft);}
+.about-list b{color:var(--text); font-weight:600; font-family:var(--font-mono); font-size:12px; letter-spacing:.04em; text-transform:uppercase; width:92px; flex-shrink:0; padding-top:2px;}
 
-  /* ---------- process / how it works ---------- */
-  .process-wrap{position:relative;}
-  .process-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:28px; position:relative;}
-  .process-card{position:relative; padding-top:8px;}
-  .process-num{
-    font-family:'Manrope'; font-weight:800; font-size:15px; color:#fff; width:40px; height:40px;
-    border-radius:50%; background:linear-gradient(135deg,var(--c-primary),var(--c-primary-soft));
-    display:flex; align-items:center; justify-content:center; margin-bottom:22px;
-    box-shadow:0 10px 22px -8px rgba(255,122,0,.5);
-  }
-  .process-card h3{font-size:18px; margin-bottom:10px;}
-  .process-card p{color:var(--c-text-soft); font-size:14.5px; line-height:1.6;}
-  .process-connector{
-    position:absolute; top:20px; left:calc(100% + 14px); width:calc(100% - 12px); height:2px;
-    background:repeating-linear-gradient(90deg, var(--c-primary-pale) 0 8px, transparent 8px 16px);
-  }
-  @media(max-width:900px){.process-grid{grid-template-columns:1fr 1fr; row-gap:40px;} .process-connector{display:none;}}
-  @media(max-width:600px){.process-grid{grid-template-columns:1fr;}}
+.value-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+@media(max-width:520px){.value-grid{grid-template-columns:1fr;}}
+.value-card{
+  border:1px solid var(--border); border-radius:var(--radius-md); padding:26px; background:var(--surface);
+  transition:transform .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
+}
+.value-card:hover{transform:translateY(-4px); border-color:var(--border-strong); box-shadow:var(--shadow-md);}
+.value-card .n{font-family:var(--font-mono); font-size:12px; color:var(--text-faint); margin-bottom:14px;}
+.value-card h4{font-size:16.5px; margin-bottom:8px;}
+.value-card p{font-size:13.5px; color:var(--text-soft); line-height:1.6;}
 
-  /* ---------- subjects chips ---------- */
-  .subject-tabs{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:44px;}
-  .subject-tab{
-    padding:11px 22px; border-radius:100px; font-size:14px; font-weight:600; color:var(--c-text-soft);
-    background:#F6F6F6; transition:background .3s ease, color .3s ease, transform .3s ease;
-  }
-  .subject-tab:hover{transform:translateY(-2px);}
-  .subject-tab.active{background:var(--c-text); color:#fff;}
+/* ============ SKILLS ============ */
+.skills-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+@media(max-width:820px){.skills-grid{grid-template-columns:repeat(2, 1fr);}}
+@media(max-width:520px){.skills-grid{grid-template-columns:1fr;}}
+.skill-card{
+  border:1px solid var(--border); border-radius:var(--radius-md); padding:24px; background:var(--surface);
+  display:flex; align-items:center; gap:16px; transition:transform .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
+}
+.skill-card:hover{transform:translateY(-4px) scale(1.01); border-color:var(--accent); box-shadow:var(--shadow-md);}
+.skill-card .ic{width:44px; height:44px; border-radius:12px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.skill-card .ic svg{width:21px; height:21px;}
+.skill-card h4{font-size:15.5px; margin-bottom:3px;}
+.skill-card span{font-size:12.5px; color:var(--text-faint); font-family:var(--font-mono);}
 
-  /* ---------- courses ---------- */
-  .courses-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
-  .course-card{
-    background:#fff; border-radius:var(--radius-md); overflow:hidden; border:1px solid #F2F2F2;
-    box-shadow:0 2px 20px -8px rgba(17,17,17,.07);
-    transition:transform .5s var(--ease), box-shadow .5s var(--ease);
-  }
-  .course-card:hover{transform:translateY(-6px); box-shadow:0 30px 50px -20px rgba(17,17,17,.18);}
-  .course-cover{
-    height:170px; position:relative; display:flex; align-items:flex-end; padding:16px;
-    background:linear-gradient(135deg,var(--c-primary-soft),var(--c-primary));
-  }
-  .course-badge{
-    background:rgba(255,255,255,.9); color:var(--c-text); font-size:12px; font-weight:700;
-    padding:6px 12px; border-radius:100px;
-  }
-  .course-body{padding:24px;}
-  .course-teacher{font-size:13px; color:var(--c-text-soft); margin-bottom:6px; display:flex; align-items:center; gap:6px;}
-  .course-body h3{font-size:18px; margin-bottom:12px; line-height:1.3;}
-  .course-meta{display:flex; align-items:center; gap:14px; font-size:13px; color:var(--c-text-soft); margin-bottom:18px; flex-wrap:wrap;}
-  .course-meta span{display:flex; align-items:center; gap:5px;}
-  .course-foot{display:flex; align-items:center; justify-content:space-between;}
-  .course-price{font-family:'Manrope'; font-weight:800; font-size:19px;}
-  .course-price small{font-size:12px; color:var(--c-text-soft); font-weight:500; text-decoration:line-through; margin-left:6px;}
-  .course-link{
-    font-size:13.5px; font-weight:700; color:var(--c-primary); display:flex; align-items:center; gap:5px;
-    transition:gap .3s ease;
-  }
-  .course-link:hover{gap:9px;}
-  .courses-more{text-align:center; margin-top:48px;}
-  @media(max-width:900px){.courses-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:640px){.courses-grid{grid-template-columns:1fr;}}
+/* ============ PROJECTS ============ */
+.projects-list{display:flex; flex-direction:column; gap:26px;}
+.project-card{
+  display:grid; grid-template-columns:1.1fr 1fr; gap:40px; align-items:center; padding:30px;
+  border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface);
+  transition:border-color .4s var(--ease), box-shadow .4s var(--ease), transform .4s var(--ease);
+}
+.project-card:hover{border-color:var(--border-strong); box-shadow:var(--shadow-lg); transform:translateY(-3px);}
+.project-card:nth-child(even){grid-template-columns:1fr 1.1fr;}
+.project-card:nth-child(even) .project-media{order:2;}
+@media(max-width:860px){
+  .project-card, .project-card:nth-child(even){grid-template-columns:1fr;}
+  .project-card:nth-child(even) .project-media{order:0;}
+}
+.project-media{
+  position:relative; aspect-ratio:16/11; border-radius:var(--radius-md); overflow:hidden;
+  background:linear-gradient(150deg, var(--bg-soft), var(--border)); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+}
+.project-media .mark{font-family:var(--font-display); font-weight:800; font-size:15vw; max-font-size:60px; color:var(--border-strong); user-select:none;}
+.project-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease);}
+.project-card:hover .project-media img{transform:scale(1.05);}
+.project-index{font-family:var(--font-mono); font-size:12.5px; color:var(--text-faint); margin-bottom:14px;}
+.project-body h3{font-size:23px; margin-bottom:12px;}
+.project-body p{color:var(--text-soft); font-size:14.5px; line-height:1.7; margin-bottom:20px;}
+.project-tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;}
+.tag{font-family:var(--font-mono); font-size:11.5px; padding:6px 11px; border-radius:8px; background:var(--bg-soft); color:var(--text-soft); border:1px solid var(--border);}
+.project-links{display:flex; gap:22px;}
+.project-links a{display:flex; align-items:center; gap:7px; font-size:13.5px; font-weight:600; color:var(--text); border-bottom:1px solid transparent; transition:border-color .3s ease, color .3s ease;}
+.project-links a:hover{border-color:var(--accent); color:var(--accent);}
+.project-links svg{width:14px; height:14px;}
 
-  /* ---------- why us ---------- */
-  .why-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:70px; align-items:center;}
-  .why-image{
-    position:relative; border-radius:var(--radius-lg); overflow:hidden; height:520px;
-    background:linear-gradient(150deg,#FFF1E1,#FFE0BF);
-  }
-  .why-image .deco{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  }
-  .why-stat-float{
-    position:absolute; bottom:26px; left:26px; background:#fff; border-radius:20px; padding:18px 22px;
-    box-shadow:0 20px 40px -16px rgba(17,17,17,.25); display:flex; align-items:center; gap:14px;
-  }
-  .why-stat-float .num{font-family:'Manrope'; font-weight:800; font-size:26px; color:var(--c-primary);}
-  .why-stat-float .lbl{font-size:12.5px; color:var(--c-text-soft); max-width:110px; line-height:1.3;}
-  .why-item{display:flex; gap:20px; padding:22px 0; border-bottom:1px solid #F1F1F1;}
-  .why-item:last-child{border-bottom:none;}
-  .why-icon{
-    width:52px; height:52px; border-radius:50%; background:var(--c-primary-pale); color:var(--c-primary);
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .why-item h3{font-size:17.5px; margin-bottom:6px;}
-  .why-item p{color:var(--c-text-soft); font-size:14.5px; line-height:1.6;}
-  @media(max-width:900px){.why-grid{grid-template-columns:1fr;} .why-image{height:340px;}}
+/* ============ ACHIEVEMENTS GALLERY ============ */
+.cert-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
+@media(max-width:900px){.cert-grid{grid-template-columns:repeat(2, 1fr);}}
+@media(max-width:560px){.cert-grid{grid-template-columns:1fr;}}
+.cert-card{
+  border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden; background:var(--surface); cursor:pointer;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
+}
+.cert-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-lg); border-color:var(--border-strong);}
+.cert-thumb{
+  aspect-ratio:4/3; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;
+  background:linear-gradient(155deg, var(--accent-soft), var(--bg-soft));
+}
+html[data-theme="dark"] .cert-thumb{background:linear-gradient(155deg, rgba(131,134,255,.16), var(--bg-soft));}
+.cert-thumb .seal{
+  width:64px; height:64px; border-radius:50%; border:1.5px solid var(--accent); color:var(--accent);
+  display:flex; align-items:center; justify-content:center; opacity:.8;
+}
+.cert-thumb .seal svg{width:28px; height:28px;}
+.cert-body{padding:20px 22px 22px;}
+.cert-org{font-family:var(--font-mono); font-size:11.5px; color:var(--accent); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px;}
+.cert-body h4{font-size:16px; margin-bottom:6px; line-height:1.35;}
+.cert-date{font-size:12.5px; color:var(--text-faint);}
 
-  /* ---------- stats ---------- */
-  .stats-block{
-    border-radius:var(--radius-lg);
-    background:linear-gradient(135deg,#1a1a1a,#0d0d0d);
-    padding:70px 50px; display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
-    position:relative; overflow:hidden;
-  }
-  .stats-block::before{
-    content:''; position:absolute; width:400px; height:400px; border-radius:50%;
-    background:radial-gradient(circle, rgba(255,122,0,.35), transparent 70%);
-    top:-160px; right:-100px; filter:blur(20px);
-  }
-  .stat-item{position:relative; text-align:center; z-index:1;}
-  .stat-num{
-    font-family:'Manrope'; font-weight:800; font-size:clamp(32px,4vw,46px); color:#fff; margin-bottom:8px;
-  }
-  .stat-num span.suffix{color:var(--c-primary-soft);}
-  .stat-lbl{color:#B8B8B8; font-size:14px;}
-  @media(max-width:900px){.stats-block{grid-template-columns:repeat(2,1fr); padding:44px 26px; gap:36px 20px;}}
+/* modal */
+.modal-backdrop{
+  position:fixed; inset:0; background:rgba(6,6,8,.6); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  z-index:400; display:flex; align-items:center; justify-content:center; padding:30px;
+  opacity:0; visibility:hidden; transition:opacity .4s var(--ease), visibility .4s var(--ease);
+}
+.modal-backdrop.open{opacity:1; visibility:visible;}
+.modal-box{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); max-width:880px; width:100%;
+  max-height:88vh; overflow-y:auto; display:grid; grid-template-columns:1.1fr 1fr; box-shadow:var(--shadow-lg);
+  transform:scale(.94) translateY(16px); transition:transform .45s var(--ease);
+}
+.modal-backdrop.open .modal-box{transform:scale(1) translateY(0);}
+@media(max-width:760px){.modal-box{grid-template-columns:1fr;}}
+.modal-visual{
+  background:linear-gradient(155deg, var(--accent-soft), var(--bg-soft)); display:flex; align-items:center; justify-content:center;
+  min-height:260px; position:relative; padding:30px;
+}
+html[data-theme="dark"] .modal-visual{background:linear-gradient(155deg, rgba(131,134,255,.16), var(--bg-soft));}
+.modal-visual .seal{width:90px; height:90px; border-radius:50%; border:1.5px solid var(--accent); color:var(--accent); display:flex; align-items:center; justify-content:center;}
+.modal-visual .seal svg{width:40px; height:40px;}
+.modal-info{padding:38px 36px;}
+.modal-close{position:absolute; top:18px; right:18px; width:34px; height:34px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; z-index:2;}
+.modal-close svg{width:15px; height:15px;}
+.modal-org{font-family:var(--font-mono); font-size:12px; color:var(--accent); text-transform:uppercase; letter-spacing:.04em; margin-bottom:10px;}
+.modal-info h3{font-size:24px; margin-bottom:16px;}
+.modal-info p.desc{font-size:14.5px; color:var(--text-soft); line-height:1.7; margin-bottom:24px;}
+.modal-meta{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; padding:18px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+.modal-meta div b{display:block; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--text-faint); margin-bottom:5px; letter-spacing:.04em;}
+.modal-meta div span{font-size:13.5px; font-weight:500;}
+.modal-skills{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px;}
+.modal-actions{display:flex; gap:12px;}
 
-  /* ---------- pricing ---------- */
-  .pricing-toggle{display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:56px;}
-  .pricing-toggle span{font-size:14.5px; font-weight:600; color:var(--c-text-soft);}
-  .pricing-toggle span.active{color:var(--c-text);}
-  .switch{
-    width:52px; height:30px; border-radius:100px; background:#EDEDED; position:relative; transition:background .3s ease;
-  }
-  .switch::before{
-    content:''; position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%;
-    background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.2); transition:transform .35s var(--ease);
-  }
-  .switch.on{background:var(--c-primary);}
-  .switch.on::before{transform:translateX(22px);}
-  .save-badge{
-    font-size:11.5px; font-weight:700; color:var(--c-success); background:#E4F7EF; padding:3px 10px; border-radius:100px;
-  }
-  .pricing-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; align-items:stretch;}
-  .price-card{
-    background:#fff; border:1.5px solid var(--c-border); border-radius:var(--radius-md); padding:38px 32px;
-    display:flex; flex-direction:column; transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s ease;
-  }
-  .price-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-md);}
-  .price-card.featured{
-    border-color:var(--c-primary); position:relative; background:linear-gradient(180deg,#fff,#FFF9F3);
-    box-shadow:0 30px 60px -24px rgba(255,122,0,.35);
-  }
-  .price-ribbon{
-    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
-    background:linear-gradient(135deg,var(--c-primary),var(--c-primary-soft)); color:#fff; font-size:12px; font-weight:700;
-    padding:7px 18px; border-radius:100px; white-space:nowrap;
-  }
-  .price-plan{font-size:14px; font-weight:700; color:var(--c-text-soft); text-transform:uppercase; letter-spacing:.05em; margin-bottom:14px;}
-  .price-amount{font-family:'Manrope'; font-weight:800; font-size:42px; margin-bottom:6px; display:flex; align-items:baseline; gap:6px;}
-  .price-amount small{font-size:15px; font-weight:600; color:var(--c-text-soft);}
-  .price-desc{color:var(--c-text-soft); font-size:14px; margin-bottom:28px; line-height:1.5;}
-  .price-feats{margin-bottom:32px; flex-grow:1;}
-  .price-feats li{display:flex; align-items:flex-start; gap:10px; font-size:14.5px; margin-bottom:14px; color:#333;}
-  .price-feats li svg{flex-shrink:0; margin-top:2px; color:var(--c-primary);}
-  .price-feats li.muted{color:var(--c-text-faint);}
-  .price-feats li.muted svg{color:#DADADA;}
-  @media(max-width:900px){.pricing-grid{grid-template-columns:1fr; max-width:420px; margin:0 auto;}}
+/* ============ TIMELINE ============ */
+.timeline{position:relative; padding-left:34px; border-left:1px solid var(--border);}
+.timeline-item{position:relative; padding-bottom:52px;}
+.timeline-item:last-child{padding-bottom:0;}
+.timeline-item::before{
+  content:''; position:absolute; left:-39.5px; top:2px; width:9px; height:9px; border-radius:50%;
+  background:var(--bg); border:2px solid var(--accent);
+}
+.timeline-year{font-family:var(--font-mono); font-size:12.5px; color:var(--accent); margin-bottom:8px; letter-spacing:.03em;}
+.timeline-item h4{font-size:18px; margin-bottom:6px;}
+.timeline-item p{color:var(--text-soft); font-size:14px; line-height:1.65; max-width:560px;}
 
-  /* ---------- instructors ---------- */
-  .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
-  .team-card{text-align:center;}
-  .team-photo{
-    width:100%; aspect-ratio:1/1; border-radius:var(--radius-md); background-size:cover; background-position:center;
-    margin-bottom:18px; position:relative; overflow:hidden; box-shadow:var(--shadow-sm);
-  }
-  .team-photo::after{
-    content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.55));
-    opacity:0; transition:opacity .4s ease;
-  }
-  .team-card:hover .team-photo::after{opacity:1;}
-  .team-photo .team-subject{
-    position:absolute; bottom:14px; left:14px; color:#fff; font-size:12.5px; font-weight:700;
-    opacity:0; transform:translateY(8px); transition:all .4s ease;
-  }
-  .team-card:hover .team-subject{opacity:1; transform:translateY(0);}
-  .team-card h3{font-size:16.5px; margin-bottom:4px;}
-  .team-card p{font-size:13.5px; color:var(--c-text-soft);}
-  @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr);}}
+/* ============ STATS ============ */
+.stats-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden;}
+@media(max-width:720px){.stats-grid{grid-template-columns:repeat(2, 1fr);}}
+.stat-cell{background:var(--surface); padding:40px 30px; text-align:center;}
+.stat-num{font-family:var(--font-display); font-weight:800; font-size:clamp(30px,3.6vw,44px); color:var(--text); display:flex; align-items:baseline; justify-content:center; gap:2px;}
+.stat-label{margin-top:10px; font-size:13px; color:var(--text-soft); font-family:var(--font-mono);}
 
-  /* ---------- testimonials ---------- */
-  .test-track-wrap{overflow:hidden; margin:0 -32px; padding:10px 32px;}
-  .test-track{display:flex; gap:24px; transition:transform .6s var(--ease);}
-  .test-card{
-    min-width:360px; max-width:360px; background:#fff; border-radius:var(--radius-md); padding:32px;
-    border:1px solid #F2F2F2; box-shadow:var(--shadow-sm);
-  }
-  .test-stars{color:var(--c-primary); font-size:14px; margin-bottom:16px; letter-spacing:2px;}
-  .test-text{font-size:15px; line-height:1.7; color:#333; margin-bottom:24px; min-height:110px;}
-  .test-person{display:flex; align-items:center; gap:12px;}
-  .test-avatar{
-    width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg,var(--c-primary),var(--c-primary-soft));
-    display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-family:'Manrope';
-  }
-  .test-name{font-weight:700; font-size:14.5px;}
-  .test-role{font-size:12.5px; color:var(--c-text-soft);}
-  .test-nav{display:flex; justify-content:center; gap:10px; margin-top:36px;}
-  .test-dot{width:8px; height:8px; border-radius:50%; background:#E5E5E5; transition:all .4s ease; cursor:pointer;}
-  .test-dot.active{width:26px; border-radius:5px; background:var(--c-primary);}
+/* ============ CONTACT ============ */
+.contact-wrap{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+@media(max-width:860px){.contact-wrap{grid-template-columns:1fr; gap:40px;}}
+.contact-big{font-size:clamp(28px,3.8vw,44px); font-family:var(--font-display); font-weight:700; line-height:1.2; margin-bottom:26px;}
+.contact-big .accent{color:var(--accent);}
+.contact-cards{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+@media(max-width:480px){.contact-cards{grid-template-columns:1fr;}}
+.contact-card{
+  border:1px solid var(--border); border-radius:16px; padding:20px; display:flex; align-items:center; gap:14px;
+  transition:transform .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease); background:var(--surface);
+}
+.contact-card:hover{transform:translateY(-3px); border-color:var(--accent); box-shadow:var(--shadow-md);}
+.contact-card .ic{width:40px; height:40px; border-radius:11px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.contact-card .ic svg{width:18px; height:18px;}
+.contact-card b{font-size:13.5px; display:block;}
+.contact-card span{font-size:12px; color:var(--text-faint);}
 
-  /* ---------- comparison table ---------- */
-  .compare-wrap{overflow-x:auto; border-radius:var(--radius-md); border:1px solid var(--c-border);}
-  table.compare{width:100%; border-collapse:collapse; min-width:640px;}
-  table.compare th, table.compare td{padding:20px 24px; text-align:left; font-size:14.5px;}
-  table.compare thead th{
-    font-family:'Manrope'; font-weight:800; font-size:15px; background:#FAFAFA; border-bottom:1px solid var(--c-border);
-  }
-  table.compare thead th.hl{color:var(--c-primary);}
-  table.compare tbody tr{border-bottom:1px solid var(--c-border);}
-  table.compare tbody tr:last-child{border-bottom:none;}
-  table.compare td.check{color:var(--c-success); font-weight:700;}
-  table.compare td.cross{color:#D9534F;}
-  table.compare td:first-child{color:var(--c-text-soft); font-weight:500;}
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--border); padding:38px 0;}
+.footer-row{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;}
+.footer-social{display:flex; gap:10px;}
+.footer-copy{font-size:12.5px; color:var(--text-faint); font-family:var(--font-mono);}
+.to-top{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-soft);}
+.to-top svg{width:14px; height:14px;}
+.to-top:hover{color:var(--text);}
 
-  /* ---------- blog / articles ---------- */
-  .blog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
-  .blog-card{display:block;}
-  .blog-cover{
-    height:200px; border-radius:var(--radius-md); margin-bottom:20px; position:relative; overflow:hidden;
-    background:linear-gradient(150deg,#FFEFDD,#FFD9AE);
-  }
-  .blog-cover .blog-tag{
-    position:absolute; top:16px; left:16px; background:#fff; font-size:12px; font-weight:700; padding:6px 12px; border-radius:100px;
-  }
-  .blog-date{font-size:13px; color:var(--c-text-faint); margin-bottom:10px;}
-  .blog-card h3{font-size:18px; margin-bottom:10px; line-height:1.35; transition:color .3s ease;}
-  .blog-card:hover h3{color:var(--c-primary);}
-  .blog-card p{font-size:14px; color:var(--c-text-soft); line-height:1.6;}
-  @media(max-width:900px){.blog-grid{grid-template-columns:1fr 1fr;}}
-  @media(max-width:640px){.blog-grid{grid-template-columns:1fr;}}
-
-  /* ---------- faq ---------- */
-  .faq-list{max-width:760px; margin:0 auto;}
-  .faq-item{border-bottom:1px solid #EDEDED;}
-  .faq-q{
-    width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px;
-    padding:26px 4px; text-align:left; font-size:17px; font-weight:600; font-family:'Manrope';
-  }
-  .faq-q .plus{
-    width:30px; height:30px; border-radius:50%; background:var(--c-primary-pale); color:var(--c-primary);
-    display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .4s var(--ease), background .3s ease, color .3s ease;
-    font-size:16px; font-weight:700;
-  }
-  .faq-item.open .faq-q .plus{transform:rotate(135deg); background:var(--c-primary); color:#fff;}
-  .faq-a{max-height:0; overflow:hidden; transition:max-height .5s var(--ease);}
-  .faq-a p{padding:0 4px 26px; color:var(--c-text-soft); font-size:15px; line-height:1.7; max-width:640px;}
-
-  /* ---------- newsletter ---------- */
-  .newsletter-block{
-    border-radius:var(--radius-lg); padding:56px; display:flex; align-items:center; justify-content:space-between;
-    gap:40px; background:#101010; color:#fff; flex-wrap:wrap;
-  }
-  .newsletter-copy h3{font-size:24px; margin-bottom:10px;}
-  .newsletter-copy p{color:#A8A8A8; font-size:14.5px; max-width:380px; line-height:1.6;}
-  .newsletter-form{display:flex; gap:12px; flex-wrap:wrap;}
-  .newsletter-form input{
-    padding:15px 20px; border-radius:100px; border:1.5px solid #333; background:#1a1a1a; color:#fff; min-width:260px; font-size:14.5px;
-  }
-  .newsletter-form input::placeholder{color:#777;}
-  .newsletter-form input:focus{border-color:var(--c-primary); outline:none;}
-  .newsletter-note{font-size:12px; color:#777; margin-top:12px;}
-  @media(max-width:760px){.newsletter-block{padding:36px 28px;} .newsletter-form{width:100%;} .newsletter-form input{flex:1; min-width:0;}}
-
-  /* ---------- CTA ---------- */
-  .cta-block{
-    border-radius:var(--radius-lg); padding:80px 40px; text-align:center; position:relative; overflow:hidden;
-    background:#fff; border:1px solid #F2F2F2; box-shadow:0 4px 40px -16px rgba(17,17,17,.08);
-  }
-  .cta-block::before, .cta-block::after{
-    content:''; position:absolute; border-radius:50%; filter:blur(70px); z-index:0;
-  }
-  .cta-block::before{width:340px; height:340px; background:var(--c-primary-pale); top:-140px; left:-100px; opacity:.8;}
-  .cta-block::after{width:300px; height:300px; background:#FFF3E6; bottom:-130px; right:-90px;}
-  .cta-block h2{font-size:clamp(28px,3.6vw,44px); margin-bottom:18px; position:relative; z-index:1;}
-  .cta-block p{color:var(--c-text-soft); font-size:16.5px; margin-bottom:36px; position:relative; z-index:1;}
-  .cta-block .btn{position:relative; z-index:1;}
-  .cta-actions{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1;}
-
-  /* ---------- footer ---------- */
-  footer{background:#0d0d0d; color:#fff; padding:80px 0 30px;}
-  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:40px; margin-bottom:60px;}
-  .footer-brand p{color:#999; font-size:14.5px; line-height:1.7; margin:18px 0 24px; max-width:280px;}
-  .footer-social{display:flex; gap:12px;}
-  .footer-social a{
-    width:40px; height:40px; border-radius:50%; background:#1a1a1a; display:flex; align-items:center; justify-content:center;
-    transition:background .3s ease, transform .3s ease;
-  }
-  .footer-social a:hover{background:var(--c-primary); transform:translateY(-3px);}
-  .footer-col h4{font-size:14px; margin-bottom:20px; color:#fff;}
-  .footer-col ul li{margin-bottom:12px;}
-  .footer-col a{color:#999; font-size:14.5px; transition:color .3s ease;}
-  .footer-col a:hover{color:var(--c-primary-soft);}
-  .footer-bottom{
-    border-top:1px solid #222; padding-top:26px; display:flex; justify-content:space-between; align-items:center;
-    flex-wrap:wrap; gap:14px; color:#777; font-size:13px;
-  }
-  .footer-bottom-links{display:flex; gap:22px; flex-wrap:wrap;}
-  .footer-bottom-links a{color:#777; transition:color .3s ease;}
-  .footer-bottom-links a:hover{color:#fff;}
-  @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr; gap:40px 20px;}}
-  @media(max-width:560px){.footer-grid{grid-template-columns:1fr;}}
-
-  /* ---------- scroll progress bar ---------- */
-  .scroll-progress{
-    position:fixed; top:0; left:0; height:3px; width:0%; z-index:110;
-    background:linear-gradient(90deg,var(--c-primary),var(--c-primary-soft));
-    transition:width .1s linear;
-  }
-
-  /* ---------- cookie banner ---------- */
-  .cookie-banner{
-    position:fixed; left:24px; right:24px; bottom:24px; max-width:520px;
-    background:#111; color:#fff; border-radius:20px; padding:22px 24px; z-index:90;
-    box-shadow:0 30px 60px -20px rgba(0,0,0,.4);
-    display:flex; flex-direction:column; gap:14px;
-    transform:translateY(140%); transition:transform .6s var(--ease);
-  }
-  .cookie-banner.show{transform:translateY(0);}
-  .cookie-banner p{font-size:13.5px; color:#B8B8B8; line-height:1.6;}
-  .cookie-actions{display:flex; gap:10px;}
-  .cookie-actions .btn{padding:10px 20px; font-size:13px;}
-  @media(max-width:560px){.cookie-banner{left:14px; right:14px; bottom:14px; padding:18px;}}
-
-  /* ---------- enrollment modal ---------- */
-  .modal-overlay{
-    position:fixed; inset:0; background:rgba(10,10,10,.55); backdrop-filter:blur(4px);
-    z-index:200; display:flex; align-items:center; justify-content:center; padding:24px;
-    opacity:0; pointer-events:none; transition:opacity .35s ease;
-  }
-  .modal-overlay.open{opacity:1; pointer-events:auto;}
-  .modal-box{
-    background:#fff; border-radius:var(--radius-md); padding:44px; max-width:460px; width:100%;
-    position:relative; transform:translateY(24px) scale(.97); transition:transform .4s var(--ease);
-    box-shadow:0 60px 100px -30px rgba(0,0,0,.4);
-  }
-  .modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
-  .modal-close{position:absolute; top:20px; right:20px; width:34px; height:34px; border-radius:50%; background:#F5F5F5; display:flex; align-items:center; justify-content:center; font-size:18px; transition:background .3s ease;}
-  .modal-close:hover{background:#EDEDED;}
-  .modal-box h3{font-size:22px; margin-bottom:8px;}
-  .modal-box p.modal-sub{color:var(--c-text-soft); font-size:14.5px; margin-bottom:26px; line-height:1.5;}
-  .field{margin-bottom:16px;}
-  .field label{display:block; font-size:13px; font-weight:600; margin-bottom:8px;}
-  .field input, .field select{
-    width:100%; padding:13px 16px; border-radius:12px; border:1.5px solid #E8E8E8; font-size:14.5px;
-    transition:border-color .3s ease;
-  }
-  .field input:focus, .field select:focus{border-color:var(--c-primary); outline:none;}
-  .modal-success{text-align:center; display:none;}
-  .modal-success.show{display:block;}
-  .modal-success .ic-success{
-    width:64px; height:64px; border-radius:50%; background:#E4F7EF; color:var(--c-success);
-    display:flex; align-items:center; justify-content:center; margin:0 auto 18px;
-  }
-
-  /* ---------- back to top ---------- */
-  .to-top{
-    position:fixed; right:24px; bottom:24px; width:48px; height:48px; border-radius:50%;
-    background:#111; color:#fff; display:flex; align-items:center; justify-content:center; z-index:80;
-    opacity:0; pointer-events:none; transform:translateY(10px);
-    transition:opacity .35s ease, transform .35s ease, background .3s ease;
-  }
-  .to-top.show{opacity:1; pointer-events:auto; transform:translateY(0);}
-  .to-top:hover{background:var(--c-primary);}
-
-  ::selection{background:var(--c-primary-pale); color:var(--c-text);}
+::selection{background:var(--accent); color:#fff;}
+@media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
 </style>
 </head>
 <body>
 
-<div class="scroll-progress" id="scrollProgress"></div>
-
-<!-- ================= HEADER ================= -->
+<!-- ============ NAV ============ -->
 <header id="siteHeader">
   <div class="wrap nav-row">
-    <a href="#hero" class="logo">
-      <span class="logo-mark">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 20H22L12 2Z" fill="white"/></svg>
-      </span>
-      Peak
-    </a>
-    <nav class="nav-links">
-      <a href="#hero">Главная</a>
-      <a href="#courses">Курсы</a>
-      <a href="#advantages">Преимущества</a>
-      <a href="#pricing">Тарифы</a>
-      <a href="#reviews">Отзывы</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contacts">Контакты</a>
+    <a href="#home" class="logo">Sayat<span class="dot">.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#skills" data-i18n="nav.skills">Skills</a>
+      <a href="#projects" data-i18n="nav.projects">Projects</a>
+      <a href="#achievements" data-i18n="nav.achievements">Achievements</a>
+      <a href="#education" data-i18n="nav.education">Education</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
-    <div class="nav-cta-group">
-      <a href="#faq" class="btn btn-ghost desktop-only">Есть вопрос?</a>
-      <a href="#cta" class="btn btn-primary desktop-only">Начать обучение</a>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" id="langBtn"><span id="langLabel">EN</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu">
+          <button data-lang="kz">🇰🇿 Қазақша</button>
+          <button data-lang="ru">🇷🇺 Русский</button>
+          <button data-lang="en" class="active">🇬🇧 English</button>
+        </div>
+      </div>
+      <button class="btn btn-primary desktop-only" style="display:none" data-i18n="nav.hire">Contact Me</button>
+      <button class="burger" id="burgerBtn"><span></span><span></span><span></span></button>
     </div>
-    <button class="burger" id="burgerBtn" aria-label="Открыть меню">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" id="mobileClose" aria-label="Закрыть меню">&times;</button>
-  <a href="#hero">Главная</a>
-  <a href="#courses">Курсы</a>
-  <a href="#advantages">Преимущества</a>
-  <a href="#pricing">Тарифы</a>
-  <a href="#reviews">Отзывы</a>
-  <a href="#faq">FAQ</a>
-  <a href="#contacts">Контакты</a>
-  <a href="#cta" class="btn btn-primary" style="margin-top:10px;">Начать обучение</a>
+  <button class="mobile-close icon-btn" id="mobileClose">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <a href="#about" data-i18n="nav.about">About</a>
+  <a href="#skills" data-i18n="nav.skills">Skills</a>
+  <a href="#projects" data-i18n="nav.projects">Projects</a>
+  <a href="#achievements" data-i18n="nav.achievements">Achievements</a>
+  <a href="#education" data-i18n="nav.education">Education</a>
+  <a href="#contact" data-i18n="nav.contact">Contact</a>
 </div>
 
-<!-- ================= HERO ================= -->
-<section class="hero" id="hero">
-  <div class="hero-bg-blob blob1"></div>
-  <div class="hero-bg-blob blob2"></div>
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
   <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <div class="eyebrow reveal" data-anim="fade-up"><span class="dot live"></span>Новый формат подготовки к экзаменам</div>
-      <h1 class="reveal" data-anim="fade-up">Подготовься к экзаменам <span class="accent">быстрее</span> вместе с современной платформой</h1>
-      <p class="lead reveal" data-anim="fade-up">Структурированные курсы, практические тесты и разбор ошибок с преподавателями — всё, чтобы прийти на экзамен уверенным, а не уставшим от хаотичной подготовки.</p>
-      <div class="hero-actions reveal" data-anim="fade-up">
-        <a href="#cta" class="btn btn-primary">Начать бесплатно</a>
-        <a href="#courses" class="btn btn-ghost">Смотреть курсы</a>
-      </div>
-      <div class="hero-social-proof reveal" data-anim="fade-up">
-        <div class="avatars">
-          <div class="av" style="background-image:url('https://i.pravatar.cc/80?img=32')"></div>
-          <div class="av" style="background-image:url('https://i.pravatar.cc/80?img=47')"></div>
-          <div class="av" style="background-image:url('https://i.pravatar.cc/80?img=15')"></div>
-          <div class="av" style="background-image:url('https://i.pravatar.cc/80?img=5')"></div>
-        </div>
-        <div>
-          <div class="stars">★★★★★</div>
-          <div class="proof-text"><span class="proof-count">10 000+</span> учеников уже с нами</div>
-        </div>
+    <div>
+      <div class="hero-kicker reveal"><span class="pulse"></span><span data-i18n="hero.kicker">Available for new projects</span></div>
+      <h1 class="reveal">
+        <span data-i18n="hero.hello">Hello.</span><br>
+        <span data-i18n="hero.im">I'm Sayat.</span><br>
+        <span class="soft" data-i18n="hero.role1">Developer.</span>
+        <span class="soft" data-i18n="hero.role2">Designer.</span>
+        <span class="accent" data-i18n="hero.role3">Student.</span>
+      </h1>
+      <p class="lead reveal" data-i18n="hero.lead">Building modern digital experiences at the intersection of code and design — with an obsession for clarity and detail.</p>
+      <div class="hero-actions reveal">
+        <a href="#projects" class="btn btn-primary" data-i18n="hero.cta1">View Portfolio</a>
+        <a href="#" class="btn btn-outline" id="downloadCvBtn" data-i18n="hero.cta2">Download CV</a>
+        <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta3">Contact Me →</a>
       </div>
     </div>
-
-    <div class="hero-visual reveal" data-anim="fade-left">
-      <div class="mock-main">
-        <div class="mock-topbar"><span></span><span></span><span></span></div>
-        <div class="mock-line" style="width:60%; height:16px; margin-bottom:20px;"></div>
-        <div class="mock-progress-ring"><span>73%</span></div>
-        <div class="mock-line" style="width:90%;"></div>
-        <div class="mock-line" style="width:75%;"></div>
-        <div class="mock-line" style="width:82%;"></div>
+    <div class="hero-visual reveal">
+      <div class="portrait-card">
+        <div class="portrait-mark"></div>
+        <div class="portrait-initials">S</div>
+        <div class="portrait-tag" data-i18n="hero.tag">Almaty, Kazakhstan</div>
       </div>
-      <div class="glass-card gc1 reveal" data-anim="scale" data-delay=".3">
-        <div class="ic">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-        </div>
-        <div>
-          <div class="lbl">Тест пройден</div>
-          <div class="val">96 баллов</div>
-        </div>
+      <div class="float-card float-1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18l6-6-6-6"/></svg></div>
+        <div><span data-i18n="hero.float1t">Clean code</span><small data-i18n="hero.float1s">Readable &amp; scalable</small></div>
       </div>
-      <div class="glass-card gc2 reveal" data-anim="scale" data-delay=".5">
-        <div class="ic">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
-        </div>
-        <div>
-          <div class="lbl">Прогресс за неделю</div>
-          <div class="val">+18%</div>
-        </div>
+      <div class="float-card float-2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+        <div><span data-i18n="hero.float2t">Design systems</span><small data-i18n="hero.float2s">Consistent UI</small></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= TRUSTED BY ================= -->
-<section class="trusted">
-  <div class="wrap trusted-inner">
-    <span class="trusted-label reveal" data-anim="fade-up">Ученики Peak поступают в:</span>
-    <div class="trusted-logos reveal" data-anim="fade-up" data-delay=".08">
-      <span>КБТУ</span><span>НАЗАРБАЕВ У.</span><span>КазНУ</span><span>AlmaU</span><span>SDU</span><span>МУИТ</span>
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <div class="eyebrow" data-i18n="about.eyebrow">About</div>
+      <p class="about-lead"><span data-i18n="about.lead1">I'm a student developer and designer</span> <span class="accent" data-i18n="about.lead2">based in Kazakhstan</span>, <span data-i18n="about.lead3">focused on building thoughtful, high-quality digital products.</span></p>
+      <ul class="about-list">
+        <li><b data-i18n="about.l1label">Education</b><span data-i18n="about.l1text">Currently studying Computer Science, balancing coursework with independent product work.</span></li>
+        <li><b data-i18n="about.l2label">Experience</b><span data-i18n="about.l2text">Two years building web interfaces, prototypes, and small production apps.</span></li>
+        <li><b data-i18n="about.l3label">Goals</b><span data-i18n="about.l3text">Growing into a product-minded engineer who can design, build, and ship end to end.</span></li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <div class="value-grid">
+        <div class="value-card"><div class="n">01</div><h4 data-i18n="about.v1t">Craft</h4><p data-i18n="about.v1p">Every detail — spacing, motion, copy — is considered on purpose, not left to default.</p></div>
+        <div class="value-card"><div class="n">02</div><h4 data-i18n="about.v2t">Clarity</h4><p data-i18n="about.v2p">Simple solutions over clever ones. If it needs explaining twice, it needs rethinking.</p></div>
+        <div class="value-card"><div class="n">03</div><h4 data-i18n="about.v3t">Curiosity</h4><p data-i18n="about.v3p">Learning new tools and disciplines is part of the work, not a side project.</p></div>
+        <div class="value-card"><div class="n">04</div><h4 data-i18n="about.v4t">Consistency</h4><p data-i18n="about.v4p">Showing up daily and shipping small, steady improvements over time.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ================= ADVANTAGES ================= -->
-<section class="section" id="advantages">
+<!-- ============ SKILLS ============ -->
+<section class="section section-soft" id="skills">
   <div class="wrap">
-    <div class="section-head reveal" data-anim="fade-up">
-      <span class="section-tag">Преимущества</span>
-      <h2>Всё для результата, без лишнего</h2>
-      <p>Мы убрали из подготовки всё, что отвлекает, и оставили только то, что реально поднимает балл.</p>
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="skills.eyebrow">Skills</div>
+      <h2 data-i18n="skills.title">Tools I work with</h2>
+      <p data-i18n="skills.subtitle">A focused toolkit, refined through consistent, hands-on practice.</p>
     </div>
-    <div class="adv-grid">
-      <div class="adv-card reveal" data-anim="fade-up">
-        <div class="adv-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <h3>Персональный план</h3>
-        <p>Программа подстраивается под текущий уровень и темп — без перегрузки и без пробелов.</p>
-      </div>
-      <div class="adv-card reveal" data-anim="fade-up" data-delay=".08">
-        <div class="adv-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20V4a2 2 0 00-2-2H6.5A2.5 2.5 0 004 4.5v15z"/></svg></div>
-        <h3>Понятные курсы</h3>
-        <p>Материал разбит на короткие модули — от теории к практике за 15 минут в день.</p>
-      </div>
-      <div class="adv-card reveal" data-anim="fade-up" data-delay=".16">
-        <div class="adv-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
-        <h3>Реалистичные тесты</h3>
-        <p>Формат заданий полностью повторяет структуру настоящего экзамена.</p>
-      </div>
-      <div class="adv-card reveal" data-anim="fade-up">
-        <div class="adv-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-        <h3>Живые преподаватели</h3>
-        <p>Разбор ошибок и вопросы — с реальным человеком, а не только с алгоритмом.</p>
-      </div>
-      <div class="adv-card reveal" data-anim="fade-up" data-delay=".08">
-        <div class="adv-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-        <h3>Гибкий график</h3>
-        <p>Занимайся когда удобно — прогресс сохраняется на всех устройствах.</p>
-      </div>
-      <div class="adv-card reveal" data-anim="fade-up" data-delay=".16">
-        <div class="adv-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-        <h3>Быстрый прогресс</h3>
-        <p>Наглядная аналитика показывает рост балла после каждого модуля.</p>
-      </div>
-    </div>
+    <div class="skills-grid" id="skillsGrid"></div>
   </div>
 </section>
 
-<!-- ================= HOW IT WORKS ================= -->
-<section class="section" style="background:var(--c-bg-alt);">
-  <div class="wrap process-wrap">
-    <div class="section-head reveal" data-anim="fade-up">
-      <span class="section-tag">Как это работает</span>
-      <h2>От записи до высокого балла — четыре шага</h2>
-      <p>Понятный маршрут без лишней бюрократии: начать можно уже сегодня вечером.</p>
-    </div>
-    <div class="process-grid">
-      <div class="process-card reveal" data-anim="fade-up">
-        <div class="process-num">01</div>
-        <div class="process-connector"></div>
-        <h3>Диагностика</h3>
-        <p>Короткий тест на 15 минут покажет сильные и слабые темы по выбранному предмету.</p>
-      </div>
-      <div class="process-card reveal" data-anim="fade-up" data-delay=".08">
-        <div class="process-num">02</div>
-        <div class="process-connector"></div>
-        <h3>Персональный план</h3>
-        <p>Система собирает маршрут занятий под дату экзамена и твой текущий уровень.</p>
-      </div>
-      <div class="process-card reveal" data-anim="fade-up" data-delay=".16">
-        <div class="process-num">03</div>
-        <div class="process-connector"></div>
-        <h3>Занятия и практика</h3>
-        <p>Короткие видеомодули чередуются с практическими заданиями и мини-тестами.</p>
-      </div>
-      <div class="process-card reveal" data-anim="fade-up" data-delay=".24">
-        <div class="process-num">04</div>
-        <h3>Разбор и рост балла</h3>
-        <p>Преподаватель разбирает ошибки, а аналитика показывает динамику по темам.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= COURSES ================= -->
-<section class="section" id="courses">
+<!-- ============ PROJECTS ============ -->
+<section class="section" id="projects">
   <div class="wrap">
-    <div class="section-head reveal" data-anim="fade-up">
-      <span class="section-tag">Курсы</span>
-      <h2>Выбери курс под свой экзамен</h2>
-      <p>Каждый курс собран методистами и адаптирован под актуальный формат экзамена.</p>
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="projects.eyebrow">Selected Work</div>
+      <h2 data-i18n="projects.title">Featured projects</h2>
+      <p data-i18n="projects.subtitle">A few projects that show how I think, design and build.</p>
     </div>
-    <div class="subject-tabs reveal" data-anim="fade-up" id="subjectTabs"></div>
-    <div class="courses-grid" id="coursesGrid"></div>
-    <div class="courses-more reveal" data-anim="fade-up">
-      <a href="#" class="btn btn-ghost">Показать все курсы</a>
-    </div>
+    <div class="projects-list" id="projectsList"></div>
   </div>
 </section>
 
-<!-- ================= WHY US ================= -->
-<section class="section" style="background:var(--c-bg-alt);">
-  <div class="wrap why-grid">
-    <div class="why-image reveal" data-anim="fade-right">
-      <div class="deco">
-        <svg width="46%" viewBox="0 0 200 200" fill="none">
-          <circle cx="100" cy="100" r="70" stroke="#FF7A00" stroke-width="2" opacity=".35"/>
-          <circle cx="100" cy="100" r="46" fill="#FF7A00" opacity=".18"/>
-          <path d="M70 100l20 20 40-40" stroke="#FF7A00" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
-        </svg>
-      </div>
-      <div class="why-stat-float">
-        <div class="num">98%</div>
-        <div class="lbl">учеников сдают экзамен с первой попытки</div>
-      </div>
-    </div>
-    <div class="why-copy">
-      <div class="section-head left reveal" data-anim="fade-up">
-        <span class="section-tag">Почему выбирают нас</span>
-        <h2>Подготовка, которая действительно работает</h2>
-      </div>
-      <div class="why-item reveal" data-anim="fade-up">
-        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a5 5 0 015 5v3a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v3"/></svg></div>
-        <div>
-          <h3>Опытные преподаватели</h3>
-          <p>Каждый курс ведут эксперты с реальным опытом подготовки учеников к экзаменам.</p>
-        </div>
-      </div>
-      <div class="why-item reveal" data-anim="fade-up" data-delay=".08">
-        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div>
-          <h3>Практика с обратной связью</h3>
-          <p>После каждого теста — разбор ошибок и рекомендации, что подтянуть.</p>
-        </div>
-      </div>
-      <div class="why-item reveal" data-anim="fade-up" data-delay=".16">
-        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
-        <div>
-          <h3>Понятное расписание</h3>
-          <p>План занятий строится автоматически, исходя из даты твоего экзамена.</p>
-        </div>
-      </div>
-      <div class="why-item reveal" data-anim="fade-up" data-delay=".24">
-        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg></div>
-        <div>
-          <h3>Гарантия результата</h3>
-          <p>Если прогресс не растёт — методист бесплатно пересобирает твой план.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= STATS ================= -->
-<section class="section" style="padding-top:0;">
+<!-- ============ ACHIEVEMENTS ============ -->
+<section class="section section-soft" id="achievements">
   <div class="wrap">
-    <div class="stats-block reveal" data-anim="fade-up">
-      <div class="stat-item">
-        <div class="stat-num" data-count="10000" data-suffix="+"><span>0</span><span class="suffix">+</span></div>
-        <div class="stat-lbl">Учеников</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" data-count="500" data-suffix="+"><span>0</span><span class="suffix">+</span></div>
-        <div class="stat-lbl">Видеоуроков</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" data-count="98" data-suffix="%"><span>0</span><span class="suffix">%</span></div>
-        <div class="stat-lbl">Довольных учеников</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" data-count="100" data-suffix="+"><span>0</span><span class="suffix">+</span></div>
-        <div class="stat-lbl">Практических тестов</div>
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="cert.eyebrow">Achievements</div>
+      <h2 data-i18n="cert.title">Certificates &amp; awards</h2>
+      <p data-i18n="cert.subtitle">A small exhibition of courses, competitions, and recognitions.</p>
+    </div>
+    <div class="cert-grid" id="certGrid"></div>
+  </div>
+</section>
+
+<!-- ============ EDUCATION TIMELINE ============ -->
+<section class="section" id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="edu.eyebrow">Journey</div>
+      <h2 data-i18n="edu.title">Education &amp; milestones</h2>
+      <p data-i18n="edu.subtitle">The path so far, from first lines of code to shipped products.</p>
+    </div>
+    <div class="timeline" id="timelineList"></div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="section section-soft">
+  <div class="wrap">
+    <div class="stats-grid" id="statsGrid"></div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact">
+  <div class="wrap contact-wrap">
+    <div class="reveal">
+      <div class="eyebrow" data-i18n="contact.eyebrow">Contact</div>
+      <h2 class="contact-big"><span data-i18n="contact.title1">Let's build</span> <span class="accent" data-i18n="contact.title2">something great</span> <span data-i18n="contact.title3">together.</span></h2>
+      <p style="color:var(--text-soft); font-size:15.5px; line-height:1.7; max-width:440px;" data-i18n="contact.text">Open to internships, freelance projects, and interesting collaborations. Feel free to reach out.</p>
+    </div>
+    <div class="contact-cards reveal">
+      <a href="mailto:hello@sayat.dev" class="contact-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></div>
+        <div><b>Email</b><span>hello@sayat.dev</span></div>
+      </a>
+      <a href="https://t.me/sayat" target="_blank" class="contact-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m21 4-19 8 6 2m13-10-7 15-4-7m11-8-9 8"/></svg></div>
+        <div><b>Telegram</b><span>@sayat</span></div>
+      </a>
+      <a href="https://instagram.com/sayat" target="_blank" class="contact-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.3" cy="6.7" r="1"/></svg></div>
+        <div><b>Instagram</b><span>@sayat</span></div>
+      </a>
+      <a href="https://github.com/sayat" target="_blank" class="contact-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.03a9.6 9.6 0 0 1 5 0c1.9-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.85-2.35 4.7-4.58 4.94.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></div>
+        <div><b>GitHub</b><span>github.com/sayat</span></div>
+      </a>
+      <a href="https://linkedin.com/in/sayat" target="_blank" class="contact-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 10.5v6M7.5 7.5v.01M11.5 16.5v-3.5c0-1.4 1-2.2 2.2-2.2 1.2 0 2 .8 2 2.2v3.5"/></svg></div>
+        <div><b>LinkedIn</b><span>in/sayat</span></div>
+      </a>
+      <div class="contact-card" style="cursor:default;">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg></div>
+        <div><b data-i18n="contact.location">Location</b><span data-i18n="contact.locationval">Almaty, Kazakhstan</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= PRICING ================= -->
-<section class="section" id="pricing" style="background:var(--c-bg-alt);">
-  <div class="wrap">
-    <div class="section-head reveal" data-anim="fade-up">
-      <span class="section-tag">Тарифы</span>
-      <h2>Выбери формат подготовки</h2>
-      <p>Прозрачные тарифы без скрытых платежей — можно сменить план в любой момент.</p>
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap footer-row">
+    <div class="footer-copy">© <span id="year"></span> Sayat. <span data-i18n="footer.rights">All rights reserved.</span></div>
+    <div class="footer-social">
+      <a href="https://github.com/sayat" target="_blank" class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.03a9.6 9.6 0 0 1 5 0c1.9-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.85-2.35 4.7-4.58 4.94.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a>
+      <a href="https://linkedin.com/in/sayat" target="_blank" class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 10.5v6M7.5 7.5v.01M11.5 16.5v-3.5c0-1.4 1-2.2 2.2-2.2 1.2 0 2 .8 2 2.2v3.5"/></svg></a>
+      <a href="https://t.me/sayat" target="_blank" class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m21 4-19 8 6 2m13-10-7 15-4-7m11-8-9 8"/></svg></a>
     </div>
-    <div class="pricing-toggle reveal" data-anim="fade-up">
-      <span class="active" id="pmMonthly">Помесячно</span>
-      <div class="switch" id="pricingSwitch" role="button" aria-label="Переключить период оплаты"></div>
-      <span id="pmYearly">Годовой <span class="save-badge">-20%</span></span>
-    </div>
-    <div class="pricing-grid" id="pricingGrid"></div>
-  </div>
-</section>
-
-<!-- ================= COMPARISON ================= -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head reveal" data-anim="fade-up">
-      <span class="section-tag">Сравнение</span>
-      <h2>Чем Peak отличается от самоподготовки</h2>
-      <p>Смотри честно: что даёт структурированная платформа, а что — разрозненные материалы из интернета.</p>
-    </div>
-    <div class="compare-wrap reveal" data-anim="fade-up">
-      <table class="compare">
-        <thead>
-          <tr>
-            <th>Возможность</th>
-            <th class="hl">Peak</th>
-            <th>Самоподготовка</th>
-          </tr>
-        </thead>
-        <tbody id="compareBody"></tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ================= INSTRUCTORS ================= -->
-<section class="section" style="background:var(--c-bg-alt);">
-  <div class="wrap">
-    <div class="section-head-row reveal" data-anim="fade-up">
-      <div class="section-head">
-        <span class="section-tag">Преподаватели</span>
-        <h2>Люди, которые ведут твой прогресс</h2>
-      </div>
-      <a href="#" class="btn btn-ghost btn-sm">Вся команда →</a>
-    </div>
-    <div class="team-grid" id="teamGrid"></div>
-  </div>
-</section>
-
-<!-- ================= TESTIMONIALS ================= -->
-<section class="section" id="reviews">
-  <div class="wrap">
-    <div class="section-head reveal" data-anim="fade-up">
-      <span class="section-tag">Отзывы</span>
-      <h2>Что говорят ученики</h2>
-      <p>Реальные истории тех, кто уже подготовился и сдал экзамен на высокий балл.</p>
-    </div>
-    <div class="test-track-wrap">
-      <div class="test-track" id="testTrack"></div>
-    </div>
-    <div class="test-nav" id="testNav"></div>
-  </div>
-</section>
-
-<!-- ================= BLOG ================= -->
-<section class="section" style="background:var(--c-bg-alt);">
-  <div class="wrap">
-    <div class="section-head-row reveal" data-anim="fade-up">
-      <div class="section-head">
-        <span class="section-tag">Блог</span>
-        <h2>Советы по подготовке от методистов</h2>
-      </div>
-      <a href="#" class="btn btn-ghost btn-sm">Все статьи →</a>
-    </div>
-    <div class="blog-grid" id="blogGrid"></div>
-  </div>
-</section>
-
-<!-- ================= FAQ ================= -->
-<section class="section" id="faq">
-  <div class="wrap">
-    <div class="section-head reveal" data-anim="fade-up">
-      <span class="section-tag">FAQ</span>
-      <h2>Частые вопросы</h2>
-      <p>Не нашли ответ на свой вопрос? Напишите нам — ответим в течение часа.</p>
-    </div>
-    <div class="faq-list reveal" data-anim="fade-up" id="faqList"></div>
-  </div>
-</section>
-
-<!-- ================= NEWSLETTER ================= -->
-<section class="section" style="padding-top:0;">
-  <div class="wrap">
-    <div class="newsletter-block reveal" data-anim="fade-up">
-      <div class="newsletter-copy">
-        <h3>Разбор одной задачи в неделю на почту</h3>
-        <p>Короткие подборки заданий и лайфхаков от преподавателей Peak — без спама.</p>
-      </div>
-      <div>
-        <form class="newsletter-form" id="newsletterForm">
-          <input type="email" required placeholder="Твой email" aria-label="Email для рассылки">
-          <button type="submit" class="btn btn-primary">Подписаться</button>
-        </form>
-        <div class="newsletter-note">Отписаться можно в любой момент одним кликом.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= CTA ================= -->
-<section class="section" id="cta">
-  <div class="wrap">
-    <div class="cta-block reveal" data-anim="scale">
-      <h2>Готов поднять свой балл?</h2>
-      <p>Присоединяйся к 10 000+ учеников и начни заниматься уже сегодня — первый модуль бесплатно.</p>
-      <div class="cta-actions">
-        <a href="#contacts" class="btn btn-primary">Начать обучение</a>
-        <a href="#pricing" class="btn btn-ghost">Смотреть тарифы</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= FOOTER ================= -->
-<footer id="contacts">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="#" class="logo" style="color:#fff;">
-          <span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 20H22L12 2Z" fill="white"/></svg></span>
-          Peak
-        </a>
-        <p>Современная платформа для подготовки к экзаменам: курсы, практика и живая поддержка преподавателей.</p>
-        <div class="footer-social">
-          <a href="#" aria-label="Telegram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="#" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3V9z" fill="#fff" stroke="none"/></svg></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Навигация</h4>
-        <ul>
-          <li><a href="#hero">Главная</a></li>
-          <li><a href="#courses">Курсы</a></li>
-          <li><a href="#advantages">Преимущества</a></li>
-          <li><a href="#pricing">Тарифы</a></li>
-          <li><a href="#reviews">Отзывы</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Компания</h4>
-        <ul>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#">О нас</a></li>
-          <li><a href="#">Блог</a></li>
-          <li><a href="#">Вакансии</a></li>
-          <li><a href="#">Партнёрам</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Контакты</h4>
-        <ul>
-          <li><a href="mailto:hello@peak.study">hello@peak.study</a></li>
-          <li><a href="tel:+70000000000">+7 (000) 000-00-00</a></li>
-          <li><a href="#">Алматы, Казахстан</a></li>
-        </ul>
-      </div>
-    </div>
-    <hr class="divider" style="background:#222;">
-    <div class="footer-bottom">
-      <span>© 2026 Peak. Все права защищены.</span>
-      <div class="footer-bottom-links">
-        <a href="#">Политика конфиденциальности</a>
-        <a href="#">Условия использования</a>
-        <a href="#">Оферта</a>
-      </div>
-    </div>
+    <a href="#home" class="to-top" data-i18n="footer.top">Back to top <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
   </div>
 </footer>
 
-<button class="to-top" id="toTopBtn" aria-label="Наверх">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-</button>
-
-<!-- ================= ENROLLMENT MODAL ================= -->
-<div class="modal-overlay" id="enrollModal">
+<!-- ============ CERTIFICATE MODAL ============ -->
+<div class="modal-backdrop" id="certModal">
   <div class="modal-box">
-    <button class="modal-close" id="modalClose" aria-label="Закрыть">&times;</button>
-    <div id="modalForm">
-      <h3>Бесплатная консультация</h3>
-      <p class="modal-sub">Оставь контакты — методист подберёт курс и предложит удобное расписание.</p>
-      <form id="enrollForm">
-        <div class="field">
-          <label for="enrollName">Имя</label>
-          <input id="enrollName" type="text" required placeholder="Как к тебе обращаться?">
-        </div>
-        <div class="field">
-          <label for="enrollPhone">Телефон</label>
-          <input id="enrollPhone" type="tel" required placeholder="+7 (___) ___-__-__">
-        </div>
-        <div class="field">
-          <label for="enrollSubject">Предмет</label>
-          <select id="enrollSubject">
-            <option>Математика</option>
-            <option>Физика</option>
-            <option>Английский</option>
-            <option>Химия</option>
-            <option>История</option>
-            <option>Информатика</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Отправить заявку</button>
-      </form>
+    <div class="modal-visual">
+      <button class="modal-close" id="modalCloseBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.3l-4.8 2.6.9-5.4-3.9-3.8 5.4-.8Z"/></svg></div>
     </div>
-    <div class="modal-success" id="modalSuccess">
-      <div class="ic-success">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+    <div class="modal-info">
+      <div class="modal-org" id="modalOrg">Organization</div>
+      <h3 id="modalTitle">Certificate title</h3>
+      <p class="desc" id="modalDesc">Description</p>
+      <div class="modal-meta">
+        <div><b data-i18n="cert.issued">Issued</b><span id="modalDate">—</span></div>
+        <div><b data-i18n="cert.id">Certificate ID</b><span id="modalId">—</span></div>
       </div>
-      <h3>Заявка отправлена</h3>
-      <p class="modal-sub">Методист свяжется с тобой в течение рабочего дня и поможет выбрать курс.</p>
-      <button class="btn btn-ghost btn-block" id="modalDone">Отлично</button>
+      <div class="modal-skills" id="modalSkills"></div>
+      <div class="modal-actions">
+        <a href="#" class="btn btn-primary" id="modalDownload" data-i18n="cert.download">Download</a>
+        <button class="btn btn-outline" id="modalCloseBtn2" data-i18n="cert.close">Close</button>
+      </div>
     </div>
-  </div>
-</div>
-
-<!-- ================= COOKIE BANNER ================= -->
-<div class="cookie-banner" id="cookieBanner">
-  <p>Мы используем файлы cookie, чтобы сайт работал корректно и подборки курсов были точнее. Подробнее — в политике конфиденциальности.</p>
-  <div class="cookie-actions">
-    <button class="btn btn-primary btn-sm" id="cookieAccept">Принять</button>
-    <button class="btn btn-ghost btn-sm" id="cookieDecline">Отклонить</button>
   </div>
 </div>
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
-
-/* =====================================================================
-   HEADER SCROLL STATE + SCROLL PROGRESS BAR
-===================================================================== */
-const header = document.getElementById('siteHeader');
-const toTopBtn = document.getElementById('toTopBtn');
-const scrollProgress = document.getElementById('scrollProgress');
-window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 40);
-  toTopBtn.classList.toggle('show', window.scrollY > 700);
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
-  scrollProgress.style.width = pct + '%';
-});
-toTopBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
-
-/* =====================================================================
-   COOKIE BANNER
-===================================================================== */
-const cookieBanner = document.getElementById('cookieBanner');
-const cookieAccept = document.getElementById('cookieAccept');
-const cookieDecline = document.getElementById('cookieDecline');
-if (!sessionStorage.getItem('peakCookieChoice')) {
-  setTimeout(() => cookieBanner.classList.add('show'), 1200);
+/* ============================================================
+   I18N
+============================================================ */
+const translations = {
+en: {
+  "nav.about":"About","nav.skills":"Skills","nav.projects":"Projects","nav.achievements":"Achievements",
+  "nav.education":"Education","nav.contact":"Contact","nav.hire":"Contact Me",
+  "hero.kicker":"Available for new projects","hero.hello":"Hello.","hero.im":"I'm Sayat.",
+  "hero.role1":"Developer.","hero.role2":"Designer.","hero.role3":"Student.",
+  "hero.lead":"Building modern digital experiences at the intersection of code and design — with an obsession for clarity and detail.",
+  "hero.cta1":"View Portfolio","hero.cta2":"Download CV","hero.cta3":"Contact Me →",
+  "hero.tag":"Almaty, Kazakhstan","hero.float1t":"Clean code","hero.float1s":"Readable & scalable",
+  "hero.float2t":"Design systems","hero.float2s":"Consistent UI",
+  "about.eyebrow":"About","about.lead1":"I'm a student developer and designer","about.lead2":"based in Kazakhstan,",
+  "about.lead3":"focused on building thoughtful, high-quality digital products.",
+  "about.l1label":"Education","about.l1text":"Currently studying Computer Science, balancing coursework with independent product work.",
+  "about.l2label":"Experience","about.l2text":"Two years building web interfaces, prototypes, and small production apps.",
+  "about.l3label":"Goals","about.l3text":"Growing into a product-minded engineer who can design, build, and ship end to end.",
+  "about.v1t":"Craft","about.v1p":"Every detail — spacing, motion, copy — is considered on purpose, not left to default.",
+  "about.v2t":"Clarity","about.v2p":"Simple solutions over clever ones. If it needs explaining twice, it needs rethinking.",
+  "about.v3t":"Curiosity","about.v3p":"Learning new tools and disciplines is part of the work, not a side project.",
+  "about.v4t":"Consistency","about.v4p":"Showing up daily and shipping small, steady improvements over time.",
+  "skills.eyebrow":"Skills","skills.title":"Tools I work with","skills.subtitle":"A focused toolkit, refined through consistent, hands-on practice.",
+  "projects.eyebrow":"Selected Work","projects.title":"Featured projects","projects.subtitle":"A few projects that show how I think, design and build.",
+  "cert.eyebrow":"Achievements","cert.title":"Certificates & awards","cert.subtitle":"A small exhibition of courses, competitions, and recognitions.",
+  "cert.issued":"Issued","cert.id":"Certificate ID","cert.download":"Download","cert.close":"Close",
+  "edu.eyebrow":"Journey","edu.title":"Education & milestones","edu.subtitle":"The path so far, from first lines of code to shipped products.",
+  "contact.eyebrow":"Contact","contact.title1":"Let's build","contact.title2":"something great","contact.title3":"together.",
+  "contact.text":"Open to internships, freelance projects, and interesting collaborations. Feel free to reach out.",
+  "contact.location":"Location","contact.locationval":"Almaty, Kazakhstan",
+  "footer.rights":"All rights reserved.","footer.top":"Back to top"
+},
+ru: {
+  "nav.about":"Обо мне","nav.skills":"Навыки","nav.projects":"Проекты","nav.achievements":"Достижения",
+  "nav.education":"Образование","nav.contact":"Контакты","nav.hire":"Связаться",
+  "hero.kicker":"Открыт для новых проектов","hero.hello":"Привет.","hero.im":"Я Саят.",
+  "hero.role1":"Разработчик.","hero.role2":"Дизайнер.","hero.role3":"Студент.",
+  "hero.lead":"Создаю современные цифровые продукты на стыке кода и дизайна — с вниманием к деталям и ясности.",
+  "hero.cta1":"Смотреть портфолио","hero.cta2":"Скачать резюме","hero.cta3":"Связаться →",
+  "hero.tag":"Алматы, Казахстан","hero.float1t":"Чистый код","hero.float1s":"Читаемо и масштабируемо",
+  "hero.float2t":"Дизайн-системы","hero.float2s":"Единый стиль UI",
+  "about.eyebrow":"Обо мне","about.lead1":"Я студент, разработчик и дизайнер","about.lead2":"из Казахстана,",
+  "about.lead3":"сосредоточен на создании продуманных, качественных цифровых продуктов.",
+  "about.l1label":"Образование","about.l1text":"Изучаю компьютерные науки, совмещая учёбу с самостоятельными проектами.",
+  "about.l2label":"Опыт","about.l2text":"Два года создаю веб-интерфейсы, прототипы и небольшие продакшн-приложения.",
+  "about.l3label":"Цели","about.l3text":"Расти в инженера с продуктовым мышлением, способного проектировать, разрабатывать и запускать продукт целиком.",
+  "about.v1t":"Мастерство","about.v1p":"Каждая деталь — отступы, анимация, текст — продумана осознанно, а не оставлена по умолчанию.",
+  "about.v2t":"Ясность","about.v2p":"Простые решения важнее эффектных. Если нужно объяснять дважды — нужно переосмыслить.",
+  "about.v3t":"Любопытство","about.v3p":"Изучение новых инструментов и дисциплин — часть работы, а не увлечение на стороне.",
+  "about.v4t":"Постоянство","about.v4p":"Ежедневная работа и небольшие, но стабильные улучшения со временем.",
+  "skills.eyebrow":"Навыки","skills.title":"Инструменты, с которыми я работаю","skills.subtitle":"Сфокусированный набор инструментов, отточенный практикой.",
+  "projects.eyebrow":"Избранное","projects.title":"Проекты","projects.subtitle":"Несколько проектов, которые показывают, как я мыслю, проектирую и создаю.",
+  "cert.eyebrow":"Достижения","cert.title":"Сертификаты и награды","cert.subtitle":"Небольшая выставка курсов, конкурсов и наград.",
+  "cert.issued":"Выдан","cert.id":"ID сертификата","cert.download":"Скачать","cert.close":"Закрыть",
+  "edu.eyebrow":"Путь","edu.title":"Образование и вехи","edu.subtitle":"Путь от первых строк кода до реализованных продуктов.",
+  "contact.eyebrow":"Контакты","contact.title1":"Давайте создадим","contact.title2":"что-то великое","contact.title3":"вместе.",
+  "contact.text":"Открыт для стажировок, фриланс-проектов и интересных коллабораций. Пишите смело.",
+  "contact.location":"Локация","contact.locationval":"Алматы, Казахстан",
+  "footer.rights":"Все права защищены.","footer.top":"Наверх"
+},
+kz: {
+  "nav.about":"Мен туралы","nav.skills":"Дағдылар","nav.projects":"Жобалар","nav.achievements":"Жетістіктер",
+  "nav.education":"Білім","nav.contact":"Байланыс","nav.hire":"Хабарласу",
+  "hero.kicker":"Жаңа жобаларға ашықпын","hero.hello":"Сәлем.","hero.im":"Мен Саятпын.",
+  "hero.role1":"Дамытушы.","hero.role2":"Дизайнер.","hero.role3":"Студент.",
+  "hero.lead":"Код пен дизайн тоғысында заманауи цифрлық өнімдер жасаймын — әр деталь мен нақтылыққа мән беремін.",
+  "hero.cta1":"Портфолионы қарау","hero.cta2":"Түйіндемені жүктеу","hero.cta3":"Хабарласу →",
+  "hero.tag":"Алматы, Қазақстан","hero.float1t":"Таза код","hero.float1s":"Оқылымды және кеңейтілетін",
+  "hero.float2t":"Дизайн жүйелері","hero.float2s":"Бірізді UI",
+  "about.eyebrow":"Мен туралы","about.lead1":"Мен студент, дамытушы әрі дизайнермін,","about.lead2":"Қазақстанда тұрамын,",
+  "about.lead3":"ойластырылған, сапалы цифрлық өнімдер жасауға назар аударамын.",
+  "about.l1label":"Білім","about.l1text":"Қазіргі уақытта информатиканы оқимын, оны өз бетімше жобалармен ұштастырамын.",
+  "about.l2label":"Тәжірибе","about.l2text":"Екі жыл бойы веб-интерфейстер, прототиптер және шағын өнімдер жасап келемін.",
+  "about.l3label":"Мақсаттар","about.l3text":"Өнімді толық жобалап, құрып, шығара алатын инженерге айналу.",
+  "about.v1t":"Шеберлік","about.v1p":"Әр деталь — аралық, қозғалыс, мәтін — әдепкі бойынша емес, әдейі ойластырылған.",
+  "about.v2t":"Нақтылық","about.v2p":"Күрделі емес, қарапайым шешімдер маңызды. Екі рет түсіндіру керек болса — қайта ойлау керек.",
+  "about.v3t":"Қызығушылық","about.v3p":"Жаңа құралдар мен бағыттарды үйрену — жұмыстың бір бөлігі, қосымша нәрсе емес.",
+  "about.v4t":"Тұрақтылық","about.v4p":"Күнделікті жұмыс істеп, уақыт өте шағын да тұрақты жетістіктерге жету.",
+  "skills.eyebrow":"Дағдылар","skills.title":"Жұмыс істейтін құралдар","skills.subtitle":"Тәжірибе арқылы шыңдалған нақты құралдар жиынтығы.",
+  "projects.eyebrow":"Таңдаулы жұмыстар","projects.title":"Үздік жобалар","projects.subtitle":"Ойлау, жобалау және құру тәсілімді көрсететін бірнеше жоба.",
+  "cert.eyebrow":"Жетістіктер","cert.title":"Сертификаттар мен марапаттар","cert.subtitle":"Курстар, байқаулар мен марапаттардың шағын көрмесі.",
+  "cert.issued":"Берілген күні","cert.id":"Сертификат ID","cert.download":"Жүктеу","cert.close":"Жабу",
+  "edu.eyebrow":"Жол","edu.title":"Білім және кезеңдер","edu.subtitle":"Кодтың алғашқы жолдарынан бастап дайын өнімдерге дейінгі жол.",
+  "contact.eyebrow":"Байланыс","contact.title1":"Бірге","contact.title2":"тамаша нәрсе","contact.title3":"жасайық.",
+  "contact.text":"Тәжірибеден өтуге, фриланс жобаларға және қызықты бірлескен жұмыстарға ашықпын. Хабарласыңыз.",
+  "contact.location":"Орналасқан жері","contact.locationval":"Алматы, Қазақстан",
+  "footer.rights":"Барлық құқықтар қорғалған.","footer.top":"Жоғарыға"
 }
-function dismissCookieBanner(choice){
-  cookieBanner.classList.remove('show');
-  try { sessionStorage.setItem('peakCookieChoice', choice); } catch(e) {}
-}
-cookieAccept.addEventListener('click', () => dismissCookieBanner('accepted'));
-cookieDecline.addEventListener('click', () => dismissCookieBanner('declined'));
-
-/* =====================================================================
-   ENROLLMENT MODAL
-===================================================================== */
-const enrollModal = document.getElementById('enrollModal');
-const modalClose = document.getElementById('modalClose');
-const modalForm = document.getElementById('modalForm');
-const modalSuccess = document.getElementById('modalSuccess');
-const enrollForm = document.getElementById('enrollForm');
-const modalDone = document.getElementById('modalDone');
-
-function openEnrollModal(){
-  enrollModal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeEnrollModal(){
-  enrollModal.classList.remove('open');
-  document.body.style.overflow = '';
-  setTimeout(() => { modalForm.style.display = 'block'; modalSuccess.classList.remove('show'); enrollForm.reset(); }, 350);
-}
-document.querySelectorAll('a[href="#cta"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    openEnrollModal();
-  });
-});
-modalClose.addEventListener('click', closeEnrollModal);
-enrollModal.addEventListener('click', e => { if (e.target === enrollModal) closeEnrollModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && enrollModal.classList.contains('open')) closeEnrollModal(); });
-enrollForm.addEventListener('submit', e => {
-  e.preventDefault();
-  modalForm.style.display = 'none';
-  modalSuccess.classList.add('show');
-});
-modalDone.addEventListener('click', closeEnrollModal);
-
-/* =====================================================================
-   MOBILE MENU
-===================================================================== */
-const burger = document.getElementById('burgerBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-const mobileClose = document.getElementById('mobileClose');
-burger.addEventListener('click', () => mobileMenu.classList.add('open'));
-mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
-mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
-
-/* =====================================================================
-   GENERIC SCROLL REVEAL ANIMATIONS
-===================================================================== */
-const animMap = {
-  'fade-up':    {y:40, x:0},
-  'fade-left':  {y:0, x:60},
-  'fade-right': {y:0, x:-60},
-  'scale':      {y:0, x:0, scale:.92}
 };
-function bindReveal(el){
-  const type = el.dataset.anim || 'fade-up';
-  const delay = parseFloat(el.dataset.delay || 0);
-  const from = animMap[type];
-  gsap.fromTo(el,
-    {opacity:0, x: from.x||0, y: from.y||0, scale: from.scale||1},
-    {
-      opacity:1, x:0, y:0, scale:1, duration:1, delay, ease:'power3.out',
-      scrollTrigger:{trigger:el, start:'top 88%'}
-    }
-  );
+
+const dynamicData = {
+en:{
+  skills:[
+    {name:"HTML", cat:"Markup"},{name:"CSS", cat:"Styling"},{name:"JavaScript", cat:"Language"},
+    {name:"React", cat:"Library"},{name:"Next.js", cat:"Framework"},{name:"Flutter", cat:"Mobile"},
+    {name:"Python", cat:"Language"},{name:"Figma", cat:"Design"},{name:"UI / UX", cat:"Discipline"}
+  ],
+  projects:[
+    {name:"Peak — Exam Prep Platform", desc:"An education platform helping students prepare for national exams with adaptive practice tests and progress analytics.", tags:["Next.js","React","GSAP"]},
+    {name:"Nomad Finance", desc:"A personal finance tracker with clean data visualisation and budgeting tools built for everyday use.", tags:["React","TypeScript","Recharts"]},
+    {name:"Studio Grid", desc:"A minimal portfolio template system for designers, with theme presets and a component library.", tags:["Figma","Tailwind","Framer Motion"]},
+    {name:"Aqyl — Study Companion", desc:"A mobile app that turns lecture notes into flashcards and spaced-repetition review sessions.", tags:["Flutter","Python","Firebase"]}
+  ],
+  certs:[
+    {org:"Meta", title:"Front-End Developer Professional Certificate", date:"Mar 2025", id:"META-FE-88213", desc:"A comprehensive program covering HTML, CSS, JavaScript and React fundamentals through applied projects.", skills:["HTML","CSS","React"]},
+    {org:"Google", title:"UX Design Professional Certificate", date:"Nov 2024", id:"GUX-2024-4471", desc:"End-to-end UX process training — research, wireframing, prototyping and usability testing in Figma.", skills:["Figma","UX Research","Prototyping"]},
+    {org:"Kazakhstan National Olympiad", title:"2nd Place, Informatics", date:"May 2024", id:"KZNO-INF-0219", desc:"Regional recognition for algorithmic problem solving and competitive programming performance.", skills:["Algorithms","Python","Problem Solving"]},
+    {org:"freeCodeCamp", title:"JavaScript Algorithms & Data Structures", date:"Jan 2024", id:"FCC-JS-77120", desc:"300 hours of coursework covering core JavaScript, algorithmic thinking and data structures.", skills:["JavaScript","Data Structures"]},
+    {org:"Coursera / DeepLearning.AI", title:"Python for Everybody", date:"Sep 2023", id:"DLAI-PY-3390", desc:"Foundational Python course covering data structures, web scraping and working with APIs.", skills:["Python","APIs"]},
+    {org:"Astana Hub", title:"Startup Bootcamp Finalist", date:"Jun 2023", id:"AHUB-BC-1187", desc:"Selected among top teams for a national student startup bootcamp, presenting a working product demo.", skills:["Product","Pitching","Teamwork"]}
+  ],
+  timeline:[
+    {year:"2023 — Present", title:"BSc Computer Science", text:"Undergraduate studies focused on software engineering, algorithms and human-computer interaction."},
+    {year:"2022", title:"First freelance projects", text:"Began building small websites and interfaces for local businesses and student organisations."},
+    {year:"2021", title:"National Informatics Olympiad", text:"Placed among top finalists, sparking a deeper interest in algorithms and competitive programming."},
+    {year:"2020", title:"Started learning to code", text:"Self-taught HTML, CSS and JavaScript through online courses and small personal projects."},
+    {year:"2019", title:"High school, STEM track", text:"Focused on mathematics and physics, laying the foundation for a future in engineering."}
+  ],
+  stats:[ {num:6, suffix:"+", label:"Certificates"}, {num:12, suffix:"+", label:"Projects"}, {num:9, suffix:"", label:"Technologies"}, {num:4, suffix:"+", label:"Years Learning"} ]
+},
+ru:{
+  skills:[
+    {name:"HTML", cat:"Разметка"},{name:"CSS", cat:"Стилизация"},{name:"JavaScript", cat:"Язык"},
+    {name:"React", cat:"Библиотека"},{name:"Next.js", cat:"Фреймворк"},{name:"Flutter", cat:"Мобильная разработка"},
+    {name:"Python", cat:"Язык"},{name:"Figma", cat:"Дизайн"},{name:"UI / UX", cat:"Дисциплина"}
+  ],
+  projects:[
+    {name:"Peak — платформа подготовки к экзаменам", desc:"Образовательная платформа с адаптивными тестами и аналитикой прогресса для подготовки к экзаменам.", tags:["Next.js","React","GSAP"]},
+    {name:"Nomad Finance", desc:"Трекер личных финансов с наглядной визуализацией данных и инструментами бюджетирования.", tags:["React","TypeScript","Recharts"]},
+    {name:"Studio Grid", desc:"Минималистичная система портфолио-шаблонов для дизайнеров с готовыми темами и библиотекой компонентов.", tags:["Figma","Tailwind","Framer Motion"]},
+    {name:"Aqyl — помощник в учёбе", desc:"Мобильное приложение, превращающее конспекты в карточки и сессии интервального повторения.", tags:["Flutter","Python","Firebase"]}
+  ],
+  certs:[
+    {org:"Meta", title:"Профессиональный сертификат Front-End разработчика", date:"март 2025", id:"META-FE-88213", desc:"Комплексная программа по HTML, CSS, JavaScript и React через прикладные проекты.", skills:["HTML","CSS","React"]},
+    {org:"Google", title:"Профессиональный сертификат UX-дизайна", date:"ноя 2024", id:"GUX-2024-4471", desc:"Полный цикл UX-процесса — исследования, вайрфреймы, прототипирование и юзабилити-тестирование в Figma.", skills:["Figma","UX-исследования","Прототипирование"]},
+    {org:"Национальная олимпиада Казахстана", title:"2 место по информатике", date:"май 2024", id:"KZNO-INF-0219", desc:"Региональное признание за алгоритмическое мышление и результаты в спортивном программировании.", skills:["Алгоритмы","Python","Решение задач"]},
+    {org:"freeCodeCamp", title:"Алгоритмы и структуры данных на JavaScript", date:"янв 2024", id:"FCC-JS-77120", desc:"300 часов обучения основам JavaScript, алгоритмическому мышлению и структурам данных.", skills:["JavaScript","Структуры данных"]},
+    {org:"Coursera / DeepLearning.AI", title:"Python для всех", date:"сен 2023", id:"DLAI-PY-3390", desc:"Базовый курс Python: структуры данных, веб-скрапинг и работа с API.", skills:["Python","API"]},
+    {org:"Astana Hub", title:"Финалист стартап-буткемпа", date:"июн 2023", id:"AHUB-BC-1187", desc:"Отобран в число лучших команд национального студенческого буткемпа с рабочей демонстрацией продукта.", skills:["Продукт","Питчинг","Командная работа"]}
+  ],
+  timeline:[
+    {year:"2023 — наст. время", title:"Бакалавриат по информатике", text:"Обучение с фокусом на программную инженерию, алгоритмы и взаимодействие человека с компьютером."},
+    {year:"2022", title:"Первые фриланс-проекты", text:"Начал создавать небольшие сайты и интерфейсы для локального бизнеса и студенческих организаций."},
+    {year:"2021", title:"Национальная олимпиада по информатике", text:"Вошёл в число финалистов, что усилило интерес к алгоритмам и спортивному программированию."},
+    {year:"2020", title:"Начал изучать программирование", text:"Самостоятельно изучил HTML, CSS и JavaScript через онлайн-курсы и небольшие личные проекты."},
+    {year:"2019", title:"Школа, профиль STEM", text:"Фокус на математике и физике, заложивший основу для будущей инженерной карьеры."}
+  ],
+  stats:[ {num:6, suffix:"+", label:"Сертификатов"}, {num:12, suffix:"+", label:"Проектов"}, {num:9, suffix:"", label:"Технологий"}, {num:4, suffix:"+", label:"Года обучения"} ]
+},
+kz:{
+  skills:[
+    {name:"HTML", cat:"Белгілеу"},{name:"CSS", cat:"Стильдеу"},{name:"JavaScript", cat:"Тіл"},
+    {name:"React", cat:"Кітапхана"},{name:"Next.js", cat:"Framework"},{name:"Flutter", cat:"Мобильді"},
+    {name:"Python", cat:"Тіл"},{name:"Figma", cat:"Дизайн"},{name:"UI / UX", cat:"Бағыт"}
+  ],
+  projects:[
+    {name:"Peak — емтиханға дайындық платформасы", desc:"Бейімделгіш тесттер мен прогресс аналитикасы арқылы емтиханға дайындалуға көмектесетін білім беру платформасы.", tags:["Next.js","React","GSAP"]},
+    {name:"Nomad Finance", desc:"Деректерді анық визуализациялайтын және бюджеттеу құралдары бар жеке қаржы трекері.", tags:["React","TypeScript","Recharts"]},
+    {name:"Studio Grid", desc:"Дизайнерлерге арналған минималды портфолио-шаблон жүйесі, дайын тақырыптар мен компонент кітапханасы бар.", tags:["Figma","Tailwind","Framer Motion"]},
+    {name:"Aqyl — оқу серіктесі", desc:"Дәріс конспектілерін карточкаларға және аралық қайталау сессияларына айналдыратын мобильді қолданба.", tags:["Flutter","Python","Firebase"]}
+  ],
+  certs:[
+    {org:"Meta", title:"Front-End әзірлеуші кәсіби сертификаты", date:"нау. 2025", id:"META-FE-88213", desc:"HTML, CSS, JavaScript және React негіздерін қолданбалы жобалар арқылы қамтитын кешенді бағдарлама.", skills:["HTML","CSS","React"]},
+    {org:"Google", title:"UX дизайн кәсіби сертификаты", date:"қар. 2024", id:"GUX-2024-4471", desc:"Figma-да зерттеу, wireframe, прототиптеу және пайдаланушылық тестілеуді қамтитын толық UX процесі.", skills:["Figma","UX зерттеу","Прототиптеу"]},
+    {org:"Қазақстан ұлттық олимпиадасы", title:"Информатикадан 2-орын", date:"мам. 2024", id:"KZNO-INF-0219", desc:"Алгоритмдік ойлау мен спорттық бағдарламалаудағы нәтижелер үшін аймақтық марапат.", skills:["Алгоритмдер","Python","Есеп шығару"]},
+    {org:"freeCodeCamp", title:"JavaScript алгоритмдері мен деректер құрылымы", date:"қаң. 2024", id:"FCC-JS-77120", desc:"JavaScript негіздерін, алгоритмдік ойлауды және деректер құрылымын қамтитын 300 сағаттық курс.", skills:["JavaScript","Деректер құрылымы"]},
+    {org:"Coursera / DeepLearning.AI", title:"Барлығына арналған Python", date:"қыр. 2023", id:"DLAI-PY-3390", desc:"Деректер құрылымын, веб-скрапингті және API-мен жұмысты қамтитын негізгі Python курсы.", skills:["Python","API"]},
+    {org:"Astana Hub", title:"Стартап буткемпінің финалисті", date:"мау. 2023", id:"AHUB-BC-1187", desc:"Жұмыс істейтін өнім демонстрациясымен ұлттық студенттік буткемптің үздік командалары қатарына енді.", skills:["Өнім","Питчинг","Топтық жұмыс"]}
+  ],
+  timeline:[
+    {year:"2023 — қазірге дейін", title:"Информатика бакалавриаты", text:"Бағдарламалық инженерияға, алгоритмдерге және адам-компьютер өзара әрекеттесуіне бағытталған оқу."},
+    {year:"2022", title:"Алғашқы фриланс жобалары", text:"Жергілікті бизнес пен студенттік ұйымдарға шағын сайттар мен интерфейстер жасай бастады."},
+    {year:"2021", title:"Информатикадан ұлттық олимпиада", text:"Финалистер қатарына енді, бұл алгоритмдер мен спорттық бағдарламалауға қызығушылықты арттырды."},
+    {year:"2020", title:"Бағдарламалауды үйрене бастады", text:"Онлайн курстар мен шағын жеке жобалар арқылы HTML, CSS және JavaScript-ті өз бетінше үйренді."},
+    {year:"2019", title:"Мектеп, STEM бағыты", text:"Болашақ инженерлік мансапқа негіз болған математика мен физикаға назар аударды."}
+  ],
+  stats:[ {num:6, suffix:"+", label:"Сертификат"}, {num:12, suffix:"+", label:"Жоба"}, {num:9, suffix:"", label:"Технология"}, {num:4, suffix:"+", label:"Оқу жылы"} ]
 }
-document.querySelectorAll('.reveal').forEach(bindReveal);
+};
 
-/* ---------- hero entrance (immediate) ---------- */
-gsap.timeline().fromTo('.hero .reveal',
-  {opacity:0, y:30}, {opacity:1, y:0, duration:.9, stagger:.12, ease:'power3.out', delay:.1});
+const skillIcons = {
+  "HTML":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 3l1.6 17L12 22l6.4-2L20 3H4Z"/><path d="M7 7h10l-.4 4H8.4L8.7 14l3.3 1 3.3-1 .2-2.5"/></svg>',
+  "CSS":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 3l1.6 17L12 22l6.4-2L20 3H4Z"/><path d="M16.5 7h-9l.3 3.4h8.1L15.6 15 12 16l-3.6-1-.2-2"/></svg>',
+  "JavaScript":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9v7.5a1.8 1.8 0 0 1-3.5.5M13.5 9c-2 0-2.6 1-2.6 2s1 1.7 2.6 2.2c1.7.5 2.5 1 2.5 2.1 0 1-.9 1.8-2.4 1.8-1.2 0-2-.5-2.5-1.3"/></svg>',
+  "React":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/></svg>',
+  "Next.js":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.3"/><path d="M8.5 8v8M8.5 8l7 8M15.5 8v8"/></svg>',
+  "Flutter":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14 14 4h6L8 16l3 3h-6Z"/><path d="M11 17l3 3h6l-4.5-4.5"/></svg>',
+  "Python":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c-3 0-3.3 1.3-3.3 2.7v2h6.6M12 3c3 0 3.3 1.3 3.3 2.7v2m0 0H8.7v3.5H15c1.7 0 3.3.5 3.3 3v2.1c0 1.4-.3 2.7-3.3 2.7-3 0-3.3-1.3-3.3-2.7v-2M12 21c3 0 3.3-1.3 3.3-2.7v-2H8.7"/><circle cx="9.6" cy="6" r=".6" fill="currentColor" stroke="none"/><circle cx="14.4" cy="18" r=".6" fill="currentColor" stroke="none"/></svg>',
+  "Figma":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3h4a3 3 0 0 1 0 6H9V3Z"/><path d="M9 9h4a3 3 0 0 1 0 6H9V9Z"/><path d="M9 15h4a3 3 0 0 1 0 6h-1a3 3 0 0 1-3-3v-3Z"/><circle cx="7" cy="6" r="2.6"/><circle cx="7" cy="18" r="2.6"/></svg>',
+  "UI / UX":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="2.2"/><path d="M8 21h8M12 17v4"/></svg>'
+};
 
-/* =====================================================================
-   ANIMATED COUNTERS
-===================================================================== */
-document.querySelectorAll('.stat-num').forEach(el => {
-  const target = parseInt(el.dataset.count, 10);
-  const numSpan = el.querySelector('span');
-  ScrollTrigger.create({
-    trigger: el,
-    start: 'top 85%',
-    once: true,
-    onEnter: () => {
-      let obj = {val:0};
-      gsap.to(obj, {
-        val: target, duration:1.8, ease:'power2.out',
-        onUpdate: () => { numSpan.textContent = Math.floor(obj.val).toLocaleString('ru-RU'); }
-      });
-    }
-  });
+/* ============================================================
+   STATE + THEME
+============================================================ */
+let currentLang = localStorage.getItem('sayat-lang') || 'en';
+const langNames = {en:'EN', ru:'RU', kz:'KZ'};
+
+function initTheme(){
+  const saved = localStorage.getItem('sayat-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = saved || (prefersDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', theme);
+}
+initTheme();
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('sayat-theme', next);
 });
 
-/* =====================================================================
-   SUBJECT TABS + COURSES DATA / RENDER
-===================================================================== */
-const subjects = ['Все предметы','Математика','Физика','Английский','Химия','История','Информатика'];
-const courses = [
-  {title:'Математика: интенсив перед экзаменом', subject:'Математика', teacher:'Айгерим Сатова', lessons:42, rating:4.9, price:'19 900 ₸', old:'26 900 ₸', badge:'Хит продаж'},
-  {title:'Физика с нуля до профи', subject:'Физика', teacher:'Данияр Ахметов', lessons:38, rating:4.8, price:'17 500 ₸', old:'22 000 ₸', badge:'Новинка'},
-  {title:'Английский язык: подготовка к IELTS', subject:'Английский', teacher:'Мария Ким', lessons:56, rating:5.0, price:'24 900 ₸', old:'31 000 ₸', badge:'Топ рейтинг'},
-  {title:'Химия: базовый курс', subject:'Химия', teacher:'Сергей Ли', lessons:30, rating:4.7, price:'15 900 ₸', old:'19 900 ₸', badge:'Популярный'},
-  {title:'История: подготовка к тесту', subject:'История', teacher:'Асель Нурланова', lessons:34, rating:4.9, price:'16 500 ₸', old:'21 000 ₸', badge:'Хит продаж'},
-  {title:'Информатика и алгоритмическое мышление', subject:'Информатика', teacher:'Тимур Жаксыбеков', lessons:40, rating:4.8, price:'18 900 ₸', old:'23 500 ₸', badge:'Новинка'},
-  {title:'Математика: профильный уровень', subject:'Математика', teacher:'Бекзат Оразов', lessons:48, rating:4.9, price:'21 900 ₸', old:'27 900 ₸', badge:'Продвинутый'},
-  {title:'Английский язык: разговорная практика', subject:'Английский', teacher:'Мария Ким', lessons:26, rating:4.8, price:'14 900 ₸', old:'18 500 ₸', badge:'Популярный'},
-  {title:'Физика: механика и электричество', subject:'Физика', teacher:'Данияр Ахметов', lessons:32, rating:4.7, price:'16 900 ₸', old:'21 000 ₸', badge:'Хит продаж'},
-];
-let activeSubject = 'Все предметы';
-
-const subjectTabsWrap = document.getElementById('subjectTabs');
-subjects.forEach(s => {
-  const tab = document.createElement('button');
-  tab.className = 'subject-tab' + (s === activeSubject ? ' active' : '');
-  tab.textContent = s;
-  tab.addEventListener('click', () => {
-    activeSubject = s;
-    subjectTabsWrap.querySelectorAll('.subject-tab').forEach(t => t.classList.toggle('active', t === tab));
-    renderCourses();
+function applyStaticTranslations(){
+  const dict = translations[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(dict[key] !== undefined) el.textContent = dict[key];
   });
-  subjectTabsWrap.appendChild(tab);
-});
+  document.documentElement.lang = currentLang;
+  document.getElementById('langLabel').textContent = langNames[currentLang];
+  document.querySelectorAll('.lang-menu button').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
+}
 
-const coursesGrid = document.getElementById('coursesGrid');
-function renderCourses(){
-  coursesGrid.innerHTML = '';
-  const filtered = activeSubject === 'Все предметы' ? courses : courses.filter(c => c.subject === activeSubject);
-  filtered.forEach((c, i) => {
-    const card = document.createElement('div');
-    card.className = 'course-card reveal';
-    card.dataset.anim = 'fade-up';
-    card.dataset.delay = (i % 3) * 0.08;
-    card.innerHTML = `
-      <div class="course-cover"><span class="course-badge">${c.badge}</span></div>
-      <div class="course-body">
-        <div class="course-teacher">${c.teacher} · ${c.subject}</div>
-        <h3>${c.title}</h3>
-        <div class="course-meta">
-          <span>📚 ${c.lessons} уроков</span>
-          <span>★ ${c.rating}</span>
-        </div>
-        <div class="course-foot">
-          <div class="course-price">${c.price}<small>${c.old}</small></div>
-          <a href="#" class="course-link">Подробнее →</a>
+/* ============================================================
+   RENDER DYNAMIC SECTIONS
+============================================================ */
+function renderSkills(){
+  const grid = document.getElementById('skillsGrid');
+  grid.innerHTML = '';
+  dynamicData[currentLang].skills.forEach((s,i) => {
+    const el = document.createElement('div');
+    el.className = 'skill-card reveal';
+    el.innerHTML = `<div class="ic">${skillIcons[s.name] || ''}</div><div><h4>${s.name}</h4><span>${s.cat}</span></div>`;
+    grid.appendChild(el);
+  });
+}
+
+function renderProjects(){
+  const list = document.getElementById('projectsList');
+  list.innerHTML = '';
+  dynamicData[currentLang].projects.forEach((p,i) => {
+    const el = document.createElement('div');
+    el.className = 'project-card reveal';
+    el.innerHTML = `
+      <div class="project-media"><div class="mark">0${i+1}</div></div>
+      <div class="project-body">
+        <div class="project-index">0${i+1} / 0${dynamicData[currentLang].projects.length}</div>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="project-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="project-links">
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.1.39-1.99 1.03-2.69-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.03a9.6 9.6 0 0 1 5 0c1.9-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.69 0 3.85-2.35 4.7-4.58 4.94.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>GitHub</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4h6v6M20 4l-8 8M8 6H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3"/></svg>Live Demo</a>
         </div>
       </div>`;
-    coursesGrid.appendChild(card);
-    bindReveal(card);
+    list.appendChild(el);
   });
 }
-renderCourses();
 
-/* =====================================================================
-   PRICING (monthly / yearly toggle)
-===================================================================== */
-const plans = [
-  {
-    name:'Старт', desc:'Чтобы попробовать формат и начать заниматься.',
-    monthly:0, yearly:0, currency:'₸',
-    featured:false,
-    feats:[
-      ['Доступ к 1 курсу', true],
-      ['Практические тесты', true],
-      ['Аналитика прогресса', true],
-      ['Разбор ошибок с преподавателем', false],
-      ['Личный методист', false],
-    ]
-  },
-  {
-    name:'Про', desc:'Для тех, кто готовится к конкретному экзамену.',
-    monthly:19900, yearly:15900, currency:'₸',
-    featured:true, ribbon:'Выбор большинства',
-    feats:[
-      ['Доступ ко всем курсам предмета', true],
-      ['Практические тесты без ограничений', true],
-      ['Аналитика прогресса', true],
-      ['Разбор ошибок с преподавателем', true],
-      ['Личный методист', false],
-    ]
-  },
-  {
-    name:'Максимум', desc:'Полное сопровождение до самого экзамена.',
-    monthly:34900, yearly:27900, currency:'₸',
-    featured:false,
-    feats:[
-      ['Доступ ко всем курсам платформы', true],
-      ['Практические тесты без ограничений', true],
-      ['Аналитика прогресса', true],
-      ['Разбор ошибок с преподавателем', true],
-      ['Личный методист и еженедельные созвоны', true],
-    ]
-  }
-];
-let billingYearly = false;
-const pricingGrid = document.getElementById('pricingGrid');
-function renderPricing(){
-  pricingGrid.innerHTML = '';
-  plans.forEach((p, i) => {
-    const price = billingYearly ? p.yearly : p.monthly;
-    const card = document.createElement('div');
-    card.className = 'price-card reveal' + (p.featured ? ' featured' : '');
-    card.dataset.anim = 'fade-up';
-    card.dataset.delay = i * 0.08;
-    card.innerHTML = `
-      ${p.featured ? `<div class="price-ribbon">${p.ribbon}</div>` : ''}
-      <div class="price-plan">${p.name}</div>
-      <div class="price-amount">${price === 0 ? 'Бесплатно' : price.toLocaleString('ru-RU') + ' ' + p.currency}${price !== 0 ? '<small>/ мес</small>' : ''}</div>
-      <div class="price-desc">${p.desc}</div>
-      <ul class="price-feats">
-        ${p.feats.map(([label, on]) => `
-          <li class="${on ? '' : 'muted'}">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">${on ? '<path d="M20 6L9 17l-5-5"/>' : '<path d="M6 6l12 12M18 6L6 18"/>'}</svg>
-            <span>${label}</span>
-          </li>`).join('')}
-      </ul>
-      <a href="#cta" class="btn ${p.featured ? 'btn-primary' : 'btn-ghost'} btn-block">${price === 0 ? 'Попробовать бесплатно' : 'Выбрать план'}</a>
-    `;
-    pricingGrid.appendChild(card);
-    bindReveal(card);
+function renderCerts(){
+  const grid = document.getElementById('certGrid');
+  grid.innerHTML = '';
+  dynamicData[currentLang].certs.forEach((c,i) => {
+    const el = document.createElement('div');
+    el.className = 'cert-card reveal';
+    el.innerHTML = `
+      <div class="cert-thumb"><div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.3l-4.8 2.6.9-5.4-3.9-3.8 5.4-.8Z"/></svg></div></div>
+      <div class="cert-body">
+        <div class="cert-org">${c.org}</div>
+        <h4>${c.title}</h4>
+        <div class="cert-date">${c.date}</div>
+      </div>`;
+    el.addEventListener('click', () => openCertModal(i));
+    grid.appendChild(el);
   });
 }
-renderPricing();
 
-const pricingSwitch = document.getElementById('pricingSwitch');
-const pmMonthly = document.getElementById('pmMonthly');
-const pmYearly = document.getElementById('pmYearly');
-pricingSwitch.addEventListener('click', () => {
-  billingYearly = !billingYearly;
-  pricingSwitch.classList.toggle('on', billingYearly);
-  pmMonthly.classList.toggle('active', !billingYearly);
-  pmYearly.classList.toggle('active', billingYearly);
-  renderPricing();
-});
-
-/* =====================================================================
-   COMPARISON TABLE
-===================================================================== */
-const compareRows = [
-  ['Структурированная программа под даты экзамена', true, false],
-  ['Практические тесты в формате реального экзамена', true, false],
-  ['Разбор ошибок с преподавателем', true, false],
-  ['Аналитика прогресса по темам', true, false],
-  ['Гарантия возврата средств', true, false],
-  ['Материалы без системы и проверки качества', false, true],
-];
-const compareBody = document.getElementById('compareBody');
-compareRows.forEach(([label, peak, self]) => {
-  const tr = document.createElement('tr');
-  const cell = ok => `<td class="${ok ? 'check' : 'cross'}">${ok ? '✓ Есть' : '✕ Нет'}</td>`;
-  tr.innerHTML = `<td>${label}</td>${cell(peak)}${cell(self)}`;
-  compareBody.appendChild(tr);
-});
-
-/* =====================================================================
-   INSTRUCTORS / TEAM
-===================================================================== */
-const team = [
-  {name:'Айгерим Сатова', subject:'Математика', years:'8 лет опыта', img:'https://i.pravatar.cc/400?img=32'},
-  {name:'Данияр Ахметов', subject:'Физика', years:'6 лет опыта', img:'https://i.pravatar.cc/400?img=13'},
-  {name:'Мария Ким', subject:'Английский язык', years:'9 лет опыта', img:'https://i.pravatar.cc/400?img=47'},
-  {name:'Сергей Ли', subject:'Химия', years:'7 лет опыта', img:'https://i.pravatar.cc/400?img=14'},
-];
-const teamGrid = document.getElementById('teamGrid');
-team.forEach((t, i) => {
-  const card = document.createElement('div');
-  card.className = 'team-card reveal';
-  card.dataset.anim = 'fade-up';
-  card.dataset.delay = i * 0.08;
-  card.innerHTML = `
-    <div class="team-photo" style="background-image:url('${t.img}')">
-      <div class="team-subject">${t.subject}</div>
-    </div>
-    <h3>${t.name}</h3>
-    <p>${t.years}</p>`;
-  teamGrid.appendChild(card);
-  bindReveal(card);
-});
-
-/* =====================================================================
-   TESTIMONIALS SLIDER
-===================================================================== */
-const testimonials = [
-  {name:'Данияр Ахметов', role:'Поступил в КБТУ', text:'За два месяца поднял балл по математике с 60 до 92. Разборы ошибок реально помогают понять, где я теряю баллы.', initials:'ДА'},
-  {name:'Айым Серикова', role:'Сдала IELTS на 7.5', text:'Понравился формат коротких уроков — можно заниматься даже между парами. Преподаватели отвечают быстро и по делу.', initials:'АС'},
-  {name:'Ерлан Бекенов', role:'Поступил на грант', text:'Практические тесты один в один похожи на настоящий экзамен, поэтому на самом тесте не было никакого стресса.', initials:'ЕБ'},
-  {name:'Дана Оспанова', role:'Сдала физику на 96 баллов', text:'Персональный план подстроился под мой темп — не было ощущения, что я что-то пропускаю или спешу.', initials:'ДО'},
-  {name:'Нурлан Тлеубаев', role:'Студент 1 курса', text:'Аналитика прогресса — топ. Видно, какая тема хромает, и куда именно нужно вернуться перед экзаменом.', initials:'НТ'},
-  {name:'Жанель Мұратова', role:'Поступила в Назарбаев Университет', text:'Отдельное спасибо за расписание — план сам подстроился под дату моего экзамена и не пришлось ничего считать вручную.', initials:'ЖМ'},
-];
-const track = document.getElementById('testTrack');
-const navWrap = document.getElementById('testNav');
-testimonials.forEach((t, i) => {
-  const card = document.createElement('div');
-  card.className = 'test-card';
-  card.innerHTML = `
-    <div class="test-stars">★★★★★</div>
-    <p class="test-text">${t.text}</p>
-    <div class="test-person">
-      <div class="test-avatar">${t.initials}</div>
-      <div>
-        <div class="test-name">${t.name}</div>
-        <div class="test-role">${t.role}</div>
-      </div>
-    </div>`;
-  track.appendChild(card);
-  const dot = document.createElement('div');
-  dot.className = 'test-dot' + (i === 0 ? ' active' : '');
-  dot.addEventListener('click', () => goToSlide(i));
-  navWrap.appendChild(dot);
-});
-
-let current = 0;
-function slideWidth(){ return track.children[0].offsetWidth + 24; }
-function goToSlide(i){
-  current = i;
-  track.style.transform = `translateX(-${i * slideWidth()}px)`;
-  navWrap.querySelectorAll('.test-dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
+function renderTimeline(){
+  const list = document.getElementById('timelineList');
+  list.innerHTML = '';
+  dynamicData[currentLang].timeline.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'timeline-item reveal';
+    el.innerHTML = `<div class="timeline-year">${t.year}</div><h4>${t.title}</h4><p>${t.text}</p>`;
+    list.appendChild(el);
+  });
 }
-let autoplay = setInterval(() => {
-  current = (current + 1) % testimonials.length;
-  goToSlide(current);
-}, 4500);
-track.addEventListener('mouseenter', () => clearInterval(autoplay));
-track.addEventListener('mouseleave', () => {
-  autoplay = setInterval(() => { current = (current + 1) % testimonials.length; goToSlide(current); }, 4500);
-});
-window.addEventListener('resize', () => goToSlide(current));
 
-/* =====================================================================
-   BLOG / ARTICLES
-===================================================================== */
-const posts = [
-  {tag:'Стратегия', date:'12 июля 2026', title:'Как составить план подготовки за 8 недель до экзамена', text:'Разбираем, как распределить темы по неделям, чтобы не выгореть и успеть повторить всё важное.'},
-  {tag:'Математика', date:'28 июня 2026', title:'5 типов задач, которые чаще всего теряют баллы', text:'Разбор частых ошибок в задачах на проценты, вероятность и текстовые задачи.'},
-  {tag:'Психология', date:'14 июня 2026', title:'Как справиться с волнением перед экзаменом', text:'Простые техники дыхания и подготовки, которые реально работают в день теста.'},
-];
-const blogGrid = document.getElementById('blogGrid');
-posts.forEach((p, i) => {
-  const card = document.createElement('a');
-  card.href = '#';
-  card.className = 'blog-card reveal';
-  card.dataset.anim = 'fade-up';
-  card.dataset.delay = i * 0.08;
-  card.innerHTML = `
-    <div class="blog-cover"><span class="blog-tag">${p.tag}</span></div>
-    <div class="blog-date">${p.date}</div>
-    <h3>${p.title}</h3>
-    <p>${p.text}</p>`;
-  blogGrid.appendChild(card);
-  bindReveal(card);
-});
+function renderStats(){
+  const grid = document.getElementById('statsGrid');
+  grid.innerHTML = '';
+  dynamicData[currentLang].stats.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'stat-cell';
+    el.innerHTML = `<div class="stat-num" data-count="${s.num}"><span>0</span>${s.suffix}</div><div class="stat-label">${s.label}</div>`;
+    grid.appendChild(el);
+  });
+  animateCounters();
+}
 
-/* =====================================================================
-   FAQ ACCORDION
-===================================================================== */
-const faqs = [
-  {q:'Как быстро я увижу первые результаты?', a:'Большинство учеников замечают рост уверенности и понимания материала уже после первых двух-трёх недель регулярных занятий. Конкретная динамика по баллам видна в личном кабинете.'},
-  {q:'Нужен ли начальный уровень знаний для старта?', a:'Нет, платформа подбирает программу под ваш текущий уровень — от полного нуля до продвинутой подготовки к сложным экзаменам.'},
-  {q:'Можно ли заниматься с телефона?', a:'Да, платформа полностью адаптирована под мобильные устройства — прогресс синхронизируется между телефоном и компьютером.'},
-  {q:'Что если курс не подойдёт?', a:'В течение 7 дней после оплаты вы можете вернуть деньги полностью, если курс окажется не тем, что вам нужно.'},
-  {q:'Как проходит общение с преподавателем?', a:'После каждого теста доступен разбор ошибок, а по сложным темам можно задать вопрос напрямую преподавателю в личном кабинете.'},
-  {q:'Можно ли сменить тариф после оплаты?', a:'Да, перейти на другой тариф можно в любой момент в личном кабинете — разница в стоимости пересчитывается автоматически.'},
-];
-const faqList = document.getElementById('faqList');
-faqs.forEach((f, i) => {
-  const item = document.createElement('div');
-  item.className = 'faq-item';
-  item.innerHTML = `
-    <button class="faq-q">
-      <span>${f.q}</span>
-      <span class="plus">+</span>
-    </button>
-    <div class="faq-a"><p>${f.a}</p></div>`;
-  faqList.appendChild(item);
-  const btn = item.querySelector('.faq-q');
-  const answer = item.querySelector('.faq-a');
-  btn.addEventListener('click', () => {
-    const isOpen = item.classList.contains('open');
-    faqList.querySelectorAll('.faq-item').forEach(other => {
-      other.classList.remove('open');
-      other.querySelector('.faq-a').style.maxHeight = null;
+function animateCounters(){
+  document.querySelectorAll('.stat-num').forEach(el => {
+    const target = parseInt(el.dataset.count, 10);
+    const span = el.querySelector('span');
+    ScrollTrigger.create({
+      trigger: el, start:'top 88%', once:true,
+      onEnter: () => {
+        let obj = {val:0};
+        gsap.to(obj, {val:target, duration:1.6, ease:'power2.out', onUpdate:()=>{ span.textContent = Math.floor(obj.val); } });
+      }
     });
-    if (!isOpen){
-      item.classList.add('open');
-      answer.style.maxHeight = answer.scrollHeight + 'px';
-    }
+  });
+}
+
+/* ============================================================
+   CERT MODAL
+============================================================ */
+const certModal = document.getElementById('certModal');
+function openCertModal(i){
+  const c = dynamicData[currentLang].certs[i];
+  document.getElementById('modalOrg').textContent = c.org;
+  document.getElementById('modalTitle').textContent = c.title;
+  document.getElementById('modalDesc').textContent = c.desc;
+  document.getElementById('modalDate').textContent = c.date;
+  document.getElementById('modalId').textContent = c.id;
+  document.getElementById('modalSkills').innerHTML = c.skills.map(s=>`<span class="tag">${s}</span>`).join('');
+  certModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCertModal(){
+  certModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalCloseBtn').addEventListener('click', closeCertModal);
+document.getElementById('modalCloseBtn2').addEventListener('click', closeCertModal);
+certModal.addEventListener('click', e => { if(e.target === certModal) closeCertModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeCertModal(); });
+document.getElementById('modalDownload').addEventListener('click', e => e.preventDefault());
+
+/* ============================================================
+   LANGUAGE SWITCHING
+============================================================ */
+const langSwitch = document.getElementById('langSwitch');
+document.getElementById('langBtn').addEventListener('click', () => langSwitch.classList.toggle('open'));
+document.addEventListener('click', e => { if(!langSwitch.contains(e.target)) langSwitch.classList.remove('open'); });
+document.querySelectorAll('.lang-menu button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentLang = btn.dataset.lang;
+    localStorage.setItem('sayat-lang', currentLang);
+    langSwitch.classList.remove('open');
+    rerenderAll();
   });
 });
 
-/* =====================================================================
-   NEWSLETTER FORM (client-side only demo)
-===================================================================== */
-const newsletterForm = document.getElementById('newsletterForm');
-newsletterForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const btn = newsletterForm.querySelector('button');
-  const original = btn.textContent;
-  btn.textContent = 'Готово ✓';
-  btn.disabled = true;
-  newsletterForm.querySelector('input').value = '';
-  setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2600);
+function rerenderAll(){
+  applyStaticTranslations();
+  renderSkills();
+  renderProjects();
+  renderCerts();
+  renderTimeline();
+  renderStats();
+  refreshReveal();
+}
+
+/* ============================================================
+   REVEAL ANIMATIONS
+============================================================ */
+function refreshReveal(){
+  ScrollTrigger.getAll().forEach(t => t.kill());
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.fromTo(el, {opacity:0, y:28}, {
+      opacity:1, y:0, duration:.9, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 90%'}
+    });
+  });
+  gsap.timeline().fromTo('.hero .reveal', {opacity:0, y:24}, {opacity:1, y:0, duration:.8, stagger:.1, ease:'power3.out', delay:.05});
+}
+
+/* ============================================================
+   NAV BEHAVIOUR
+============================================================ */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 30));
+
+const burgerBtn = document.getElementById('burgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+burgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+document.getElementById('mobileClose').addEventListener('click', () => mobileMenu.classList.remove('open'));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+const sections = ['home','about','skills','projects','achievements','education','contact'];
+const navAnchors = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let activeId = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && el.getBoundingClientRect().top < window.innerHeight * 0.4) activeId = id;
+  });
+  navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + activeId));
 });
 
-/* =====================================================================
-   SMOOTH ANCHOR SCROLL OFFSET FOR FIXED HEADER
-===================================================================== */
-document.querySelectorAll('a[href^="#"]:not([href="#cta"])').forEach(a => {
-  a.addEventListener('click', e => {
-    const id = a.getAttribute('href');
-    if (id.length > 1 && document.querySelector(id)) {
-      e.preventDefault();
-      const target = document.querySelector(id);
-      const y = target.getBoundingClientRect().top + window.scrollY - 90;
-      window.scrollTo({top:y, behavior:'smooth'});
-    }
-  });
-});
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ============================================================
+   INIT
+============================================================ */
+gsap.registerPlugin(ScrollTrigger);
+applyStaticTranslations();
+renderSkills();
+renderProjects();
+renderCerts();
+renderTimeline();
+renderStats();
+refreshReveal();
 </script>
 </body>
 </html>
