@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Peak — готовься к экзаменам быстрее</title>
-<meta name="description" content="Современная образовательная платформа для подготовки к экзаменам. Курсы, практика, поддержка преподавателей.">
+<meta name="description" content="Современная образовательная платформа для подготовки к экзаменам. Курсы, практика, наставники, аналитика прогресса.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,12 +15,21 @@
     --c-primary:#FF7A00;
     --c-primary-soft:#FF9E3D;
     --c-primary-pale:#FFE7D0;
+    --c-primary-dark:#C75E00;
     --c-bg:#FFFFFF;
+    --c-bg-alt:#FCFCFC;
     --c-text:#111111;
     --c-text-soft:#666666;
+    --c-text-faint:#999999;
+    --c-border:#F0F0F0;
+    --c-success:#1FA971;
     --radius-lg:32px;
     --radius-md:24px;
+    --radius-sm:16px;
     --ease:cubic-bezier(.16,1,.3,1);
+    --shadow-sm:0 2px 20px -6px rgba(17,17,17,.06);
+    --shadow-md:0 20px 50px -18px rgba(17,17,17,.22);
+    --shadow-lg:0 40px 80px -30px rgba(17,17,17,.25);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -29,6 +38,7 @@
     color:var(--c-text);
     background:var(--c-bg);
     -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
     overflow-x:hidden;
   }
   h1,h2,h3,h4,.display{
@@ -41,17 +51,34 @@
   ul{list-style:none;}
   img{max-width:100%; display:block;}
   button{font-family:inherit; cursor:pointer; border:none; background:none;}
+  input,textarea,select{font-family:inherit; font-size:inherit; color:inherit;}
   .wrap{max-width:1280px; margin:0 auto; padding:0 32px;}
   @media(max-width:640px){.wrap{padding:0 20px;}}
 
+  /* ---------- accessibility ---------- */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2.5px solid var(--c-primary); outline-offset:3px; border-radius:6px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+  }
+
   /* ---------- reveal utility ---------- */
   .reveal{opacity:0; will-change:transform,opacity;}
+
+  /* ---------- shared bits ---------- */
+  .container-narrow{max-width:760px; margin:0 auto;}
+  .divider{height:1px; background:var(--c-border); border:none;}
+  .pill{
+    display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:100px;
+    font-size:12.5px; font-weight:700; background:var(--c-primary-pale); color:var(--c-primary-dark);
+  }
 
   /* ---------- buttons ---------- */
   .btn{
     display:inline-flex; align-items:center; justify-content:center; gap:8px;
     padding:16px 32px; border-radius:100px; font-weight:600; font-size:15px;
-    transition:transform .45s var(--ease), box-shadow .45s var(--ease), background .3s ease;
+    transition:transform .45s var(--ease), box-shadow .45s var(--ease), background .3s ease, color .3s ease, border-color .3s ease;
     white-space:nowrap;
   }
   .btn-primary{
@@ -64,6 +91,13 @@
     background:#fff; color:var(--c-text); border:1.5px solid #ECECEC;
   }
   .btn-ghost:hover{border-color:var(--c-text); transform:translateY(-3px);}
+  .btn-dark{
+    background:#111; color:#fff;
+  }
+  .btn-dark:hover{background:#000; transform:translateY(-3px);}
+  .btn-sm{padding:11px 22px; font-size:13.5px;}
+  .btn-block{width:100%;}
+  .btn[disabled]{opacity:.55; pointer-events:none;}
 
   /* ---------- header ---------- */
   header{
@@ -86,18 +120,20 @@
     display:flex; align-items:center; justify-content:center;
     box-shadow:0 6px 16px -4px rgba(255,122,0,.5);
   }
-  .nav-links{display:flex; align-items:center; gap:36px;}
+  .nav-links{display:flex; align-items:center; gap:34px;}
   .nav-links a{font-size:14.5px; font-weight:500; color:var(--c-text); position:relative; padding:4px 0;}
   .nav-links a::after{
     content:''; position:absolute; left:0; bottom:0; width:0; height:2px;
     background:var(--c-primary); transition:width .35s var(--ease);
   }
   .nav-links a:hover::after{width:100%;}
+  .nav-cta-group{display:flex; align-items:center; gap:14px;}
+  .nav-cta-group .btn-ghost{padding:12px 22px; font-size:14px;}
   .burger{display:none; flex-direction:column; gap:5px; width:26px;}
-  .burger span{height:2px; width:100%; background:var(--c-text); border-radius:2px;}
+  .burger span{height:2px; width:100%; background:var(--c-text); border-radius:2px; transition:transform .3s ease, opacity .3s ease;}
   .mobile-menu{
     position:fixed; inset:0; background:#fff; z-index:99; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; gap:28px; transform:translateY(-100%);
+    align-items:center; justify-content:center; gap:26px; transform:translateY(-100%);
     transition:transform .5s var(--ease);
   }
   .mobile-menu.open{transform:translateY(0);}
@@ -107,7 +143,7 @@
   @media(max-width:900px){
     .nav-links{display:none;}
     .burger{display:flex;}
-    header .btn-primary.desktop-only{display:none;}
+    header .nav-cta-group .desktop-only{display:none;}
   }
 
   /* ---------- hero ---------- */
@@ -128,6 +164,8 @@
     margin-bottom:28px;
   }
   .eyebrow .dot{width:7px; height:7px; border-radius:50%; background:var(--c-primary);}
+  .eyebrow .dot.live{animation:pulseDot 1.6s ease-in-out infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.4; transform:scale(1.4);}}
   .hero h1{font-size:clamp(36px,4.6vw,60px); margin-bottom:24px;}
   .hero h1 .accent{color:var(--c-primary);}
   .hero p.lead{font-size:18px; color:var(--c-text-soft); max-width:480px; margin-bottom:40px; line-height:1.65;}
@@ -148,7 +186,7 @@
   .mock-main{
     position:absolute; top:20px; left:30px; right:10px; bottom:60px;
     border-radius:var(--radius-lg); background:linear-gradient(160deg,#fff,#FFF7EF);
-    box-shadow:0 40px 80px -30px rgba(17,17,17,.25), 0 0 0 1px rgba(17,17,17,.04);
+    box-shadow:var(--shadow-lg), 0 0 0 1px rgba(17,17,17,.04);
     padding:28px; overflow:hidden;
   }
   .mock-topbar{display:flex; gap:6px; margin-bottom:22px;}
@@ -167,7 +205,7 @@
   .glass-card{
     position:absolute; border-radius:20px; padding:16px 18px;
     background:rgba(255,255,255,.65); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
-    box-shadow:0 20px 50px -18px rgba(17,17,17,.25), 0 0 0 1px rgba(255,255,255,.6) inset;
+    box-shadow:var(--shadow-md), 0 0 0 1px rgba(255,255,255,.6) inset;
     display:flex; align-items:center; gap:12px;
   }
   .glass-card .ic{
@@ -184,6 +222,14 @@
     .hero p.lead{max-width:none;}
   }
 
+  /* ---------- trusted-by strip ---------- */
+  .trusted{padding:48px 0; border-top:1px solid var(--c-border); border-bottom:1px solid var(--c-border);}
+  .trusted-inner{display:flex; align-items:center; gap:48px; flex-wrap:wrap; justify-content:space-between;}
+  .trusted-label{font-size:13px; color:var(--c-text-faint); font-weight:600; white-space:nowrap;}
+  .trusted-logos{display:flex; align-items:center; gap:44px; flex-wrap:wrap; opacity:.65;}
+  .trusted-logos span{font-family:'Manrope'; font-weight:800; font-size:18px; color:#B5B5B5; letter-spacing:-.02em;}
+  @media(max-width:760px){.trusted-inner{flex-direction:column; align-items:flex-start; gap:20px;} .trusted-logos{gap:28px;}}
+
   /* ---------- section heading ---------- */
   .section{padding:110px 0;}
   .section-head{max-width:640px; margin:0 auto 64px; text-align:center;}
@@ -194,12 +240,15 @@
   }
   .section-head h2{font-size:clamp(28px,3.4vw,42px); margin-bottom:16px;}
   .section-head p{color:var(--c-text-soft); font-size:16.5px; line-height:1.6;}
+  .section-head-row{display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:56px; flex-wrap:wrap;}
+  .section-head-row .section-head{margin:0; text-align:left; max-width:560px;}
+  @media(max-width:640px){.section{padding:80px 0;}}
 
   /* ---------- advantages ---------- */
   .adv-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
   .adv-card{
     background:#fff; border-radius:var(--radius-md); padding:36px 30px;
-    box-shadow:0 2px 20px -6px rgba(17,17,17,.06); border:1px solid #F4F4F4;
+    box-shadow:var(--shadow-sm); border:1px solid #F4F4F4;
     transition:transform .5s var(--ease), box-shadow .5s var(--ease);
   }
   .adv-card:hover{transform:translateY(-8px) scale(1.02); box-shadow:0 30px 50px -20px rgba(255,122,0,.28);}
@@ -213,6 +262,34 @@
   .adv-card p{color:var(--c-text-soft); font-size:14.5px; line-height:1.6;}
   @media(max-width:900px){.adv-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:600px){.adv-grid{grid-template-columns:1fr;}}
+
+  /* ---------- process / how it works ---------- */
+  .process-wrap{position:relative;}
+  .process-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:28px; position:relative;}
+  .process-card{position:relative; padding-top:8px;}
+  .process-num{
+    font-family:'Manrope'; font-weight:800; font-size:15px; color:#fff; width:40px; height:40px;
+    border-radius:50%; background:linear-gradient(135deg,var(--c-primary),var(--c-primary-soft));
+    display:flex; align-items:center; justify-content:center; margin-bottom:22px;
+    box-shadow:0 10px 22px -8px rgba(255,122,0,.5);
+  }
+  .process-card h3{font-size:18px; margin-bottom:10px;}
+  .process-card p{color:var(--c-text-soft); font-size:14.5px; line-height:1.6;}
+  .process-connector{
+    position:absolute; top:20px; left:calc(100% + 14px); width:calc(100% - 12px); height:2px;
+    background:repeating-linear-gradient(90deg, var(--c-primary-pale) 0 8px, transparent 8px 16px);
+  }
+  @media(max-width:900px){.process-grid{grid-template-columns:1fr 1fr; row-gap:40px;} .process-connector{display:none;}}
+  @media(max-width:600px){.process-grid{grid-template-columns:1fr;}}
+
+  /* ---------- subjects chips ---------- */
+  .subject-tabs{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:44px;}
+  .subject-tab{
+    padding:11px 22px; border-radius:100px; font-size:14px; font-weight:600; color:var(--c-text-soft);
+    background:#F6F6F6; transition:background .3s ease, color .3s ease, transform .3s ease;
+  }
+  .subject-tab:hover{transform:translateY(-2px);}
+  .subject-tab.active{background:var(--c-text); color:#fff;}
 
   /* ---------- courses ---------- */
   .courses-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
@@ -231,9 +308,9 @@
     padding:6px 12px; border-radius:100px;
   }
   .course-body{padding:24px;}
-  .course-teacher{font-size:13px; color:var(--c-text-soft); margin-bottom:6px;}
+  .course-teacher{font-size:13px; color:var(--c-text-soft); margin-bottom:6px; display:flex; align-items:center; gap:6px;}
   .course-body h3{font-size:18px; margin-bottom:12px; line-height:1.3;}
-  .course-meta{display:flex; align-items:center; gap:14px; font-size:13px; color:var(--c-text-soft); margin-bottom:18px;}
+  .course-meta{display:flex; align-items:center; gap:14px; font-size:13px; color:var(--c-text-soft); margin-bottom:18px; flex-wrap:wrap;}
   .course-meta span{display:flex; align-items:center; gap:5px;}
   .course-foot{display:flex; align-items:center; justify-content:space-between;}
   .course-price{font-family:'Manrope'; font-weight:800; font-size:19px;}
@@ -243,6 +320,7 @@
     transition:gap .3s ease;
   }
   .course-link:hover{gap:9px;}
+  .courses-more{text-align:center; margin-top:48px;}
   @media(max-width:900px){.courses-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:640px){.courses-grid{grid-template-columns:1fr;}}
 
@@ -291,12 +369,75 @@
   .stat-lbl{color:#B8B8B8; font-size:14px;}
   @media(max-width:900px){.stats-block{grid-template-columns:repeat(2,1fr); padding:44px 26px; gap:36px 20px;}}
 
+  /* ---------- pricing ---------- */
+  .pricing-toggle{display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:56px;}
+  .pricing-toggle span{font-size:14.5px; font-weight:600; color:var(--c-text-soft);}
+  .pricing-toggle span.active{color:var(--c-text);}
+  .switch{
+    width:52px; height:30px; border-radius:100px; background:#EDEDED; position:relative; transition:background .3s ease;
+  }
+  .switch::before{
+    content:''; position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%;
+    background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.2); transition:transform .35s var(--ease);
+  }
+  .switch.on{background:var(--c-primary);}
+  .switch.on::before{transform:translateX(22px);}
+  .save-badge{
+    font-size:11.5px; font-weight:700; color:var(--c-success); background:#E4F7EF; padding:3px 10px; border-radius:100px;
+  }
+  .pricing-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; align-items:stretch;}
+  .price-card{
+    background:#fff; border:1.5px solid var(--c-border); border-radius:var(--radius-md); padding:38px 32px;
+    display:flex; flex-direction:column; transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s ease;
+  }
+  .price-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-md);}
+  .price-card.featured{
+    border-color:var(--c-primary); position:relative; background:linear-gradient(180deg,#fff,#FFF9F3);
+    box-shadow:0 30px 60px -24px rgba(255,122,0,.35);
+  }
+  .price-ribbon{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    background:linear-gradient(135deg,var(--c-primary),var(--c-primary-soft)); color:#fff; font-size:12px; font-weight:700;
+    padding:7px 18px; border-radius:100px; white-space:nowrap;
+  }
+  .price-plan{font-size:14px; font-weight:700; color:var(--c-text-soft); text-transform:uppercase; letter-spacing:.05em; margin-bottom:14px;}
+  .price-amount{font-family:'Manrope'; font-weight:800; font-size:42px; margin-bottom:6px; display:flex; align-items:baseline; gap:6px;}
+  .price-amount small{font-size:15px; font-weight:600; color:var(--c-text-soft);}
+  .price-desc{color:var(--c-text-soft); font-size:14px; margin-bottom:28px; line-height:1.5;}
+  .price-feats{margin-bottom:32px; flex-grow:1;}
+  .price-feats li{display:flex; align-items:flex-start; gap:10px; font-size:14.5px; margin-bottom:14px; color:#333;}
+  .price-feats li svg{flex-shrink:0; margin-top:2px; color:var(--c-primary);}
+  .price-feats li.muted{color:var(--c-text-faint);}
+  .price-feats li.muted svg{color:#DADADA;}
+  @media(max-width:900px){.pricing-grid{grid-template-columns:1fr; max-width:420px; margin:0 auto;}}
+
+  /* ---------- instructors ---------- */
+  .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  .team-card{text-align:center;}
+  .team-photo{
+    width:100%; aspect-ratio:1/1; border-radius:var(--radius-md); background-size:cover; background-position:center;
+    margin-bottom:18px; position:relative; overflow:hidden; box-shadow:var(--shadow-sm);
+  }
+  .team-photo::after{
+    content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.55));
+    opacity:0; transition:opacity .4s ease;
+  }
+  .team-card:hover .team-photo::after{opacity:1;}
+  .team-photo .team-subject{
+    position:absolute; bottom:14px; left:14px; color:#fff; font-size:12.5px; font-weight:700;
+    opacity:0; transform:translateY(8px); transition:all .4s ease;
+  }
+  .team-card:hover .team-subject{opacity:1; transform:translateY(0);}
+  .team-card h3{font-size:16.5px; margin-bottom:4px;}
+  .team-card p{font-size:13.5px; color:var(--c-text-soft);}
+  @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr);}}
+
   /* ---------- testimonials ---------- */
   .test-track-wrap{overflow:hidden; margin:0 -32px; padding:10px 32px;}
   .test-track{display:flex; gap:24px; transition:transform .6s var(--ease);}
   .test-card{
     min-width:360px; max-width:360px; background:#fff; border-radius:var(--radius-md); padding:32px;
-    border:1px solid #F2F2F2; box-shadow:0 2px 20px -8px rgba(17,17,17,.06);
+    border:1px solid #F2F2F2; box-shadow:var(--shadow-sm);
   }
   .test-stars{color:var(--c-primary); font-size:14px; margin-bottom:16px; letter-spacing:2px;}
   .test-text{font-size:15px; line-height:1.7; color:#333; margin-bottom:24px; min-height:110px;}
@@ -310,6 +451,37 @@
   .test-nav{display:flex; justify-content:center; gap:10px; margin-top:36px;}
   .test-dot{width:8px; height:8px; border-radius:50%; background:#E5E5E5; transition:all .4s ease; cursor:pointer;}
   .test-dot.active{width:26px; border-radius:5px; background:var(--c-primary);}
+
+  /* ---------- comparison table ---------- */
+  .compare-wrap{overflow-x:auto; border-radius:var(--radius-md); border:1px solid var(--c-border);}
+  table.compare{width:100%; border-collapse:collapse; min-width:640px;}
+  table.compare th, table.compare td{padding:20px 24px; text-align:left; font-size:14.5px;}
+  table.compare thead th{
+    font-family:'Manrope'; font-weight:800; font-size:15px; background:#FAFAFA; border-bottom:1px solid var(--c-border);
+  }
+  table.compare thead th.hl{color:var(--c-primary);}
+  table.compare tbody tr{border-bottom:1px solid var(--c-border);}
+  table.compare tbody tr:last-child{border-bottom:none;}
+  table.compare td.check{color:var(--c-success); font-weight:700;}
+  table.compare td.cross{color:#D9534F;}
+  table.compare td:first-child{color:var(--c-text-soft); font-weight:500;}
+
+  /* ---------- blog / articles ---------- */
+  .blog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  .blog-card{display:block;}
+  .blog-cover{
+    height:200px; border-radius:var(--radius-md); margin-bottom:20px; position:relative; overflow:hidden;
+    background:linear-gradient(150deg,#FFEFDD,#FFD9AE);
+  }
+  .blog-cover .blog-tag{
+    position:absolute; top:16px; left:16px; background:#fff; font-size:12px; font-weight:700; padding:6px 12px; border-radius:100px;
+  }
+  .blog-date{font-size:13px; color:var(--c-text-faint); margin-bottom:10px;}
+  .blog-card h3{font-size:18px; margin-bottom:10px; line-height:1.35; transition:color .3s ease;}
+  .blog-card:hover h3{color:var(--c-primary);}
+  .blog-card p{font-size:14px; color:var(--c-text-soft); line-height:1.6;}
+  @media(max-width:900px){.blog-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:640px){.blog-grid{grid-template-columns:1fr;}}
 
   /* ---------- faq ---------- */
   .faq-list{max-width:760px; margin:0 auto;}
@@ -327,6 +499,22 @@
   .faq-a{max-height:0; overflow:hidden; transition:max-height .5s var(--ease);}
   .faq-a p{padding:0 4px 26px; color:var(--c-text-soft); font-size:15px; line-height:1.7; max-width:640px;}
 
+  /* ---------- newsletter ---------- */
+  .newsletter-block{
+    border-radius:var(--radius-lg); padding:56px; display:flex; align-items:center; justify-content:space-between;
+    gap:40px; background:#101010; color:#fff; flex-wrap:wrap;
+  }
+  .newsletter-copy h3{font-size:24px; margin-bottom:10px;}
+  .newsletter-copy p{color:#A8A8A8; font-size:14.5px; max-width:380px; line-height:1.6;}
+  .newsletter-form{display:flex; gap:12px; flex-wrap:wrap;}
+  .newsletter-form input{
+    padding:15px 20px; border-radius:100px; border:1.5px solid #333; background:#1a1a1a; color:#fff; min-width:260px; font-size:14.5px;
+  }
+  .newsletter-form input::placeholder{color:#777;}
+  .newsletter-form input:focus{border-color:var(--c-primary); outline:none;}
+  .newsletter-note{font-size:12px; color:#777; margin-top:12px;}
+  @media(max-width:760px){.newsletter-block{padding:36px 28px;} .newsletter-form{width:100%;} .newsletter-form input{flex:1; min-width:0;}}
+
   /* ---------- CTA ---------- */
   .cta-block{
     border-radius:var(--radius-lg); padding:80px 40px; text-align:center; position:relative; overflow:hidden;
@@ -340,6 +528,7 @@
   .cta-block h2{font-size:clamp(28px,3.6vw,44px); margin-bottom:18px; position:relative; z-index:1;}
   .cta-block p{color:var(--c-text-soft); font-size:16.5px; margin-bottom:36px; position:relative; z-index:1;}
   .cta-block .btn{position:relative; z-index:1;}
+  .cta-actions{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1;}
 
   /* ---------- footer ---------- */
   footer{background:#0d0d0d; color:#fff; padding:80px 0 30px;}
@@ -359,18 +548,85 @@
     border-top:1px solid #222; padding-top:26px; display:flex; justify-content:space-between; align-items:center;
     flex-wrap:wrap; gap:14px; color:#777; font-size:13px;
   }
+  .footer-bottom-links{display:flex; gap:22px; flex-wrap:wrap;}
+  .footer-bottom-links a{color:#777; transition:color .3s ease;}
+  .footer-bottom-links a:hover{color:#fff;}
   @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr; gap:40px 20px;}}
   @media(max-width:560px){.footer-grid{grid-template-columns:1fr;}}
+
+  /* ---------- scroll progress bar ---------- */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:3px; width:0%; z-index:110;
+    background:linear-gradient(90deg,var(--c-primary),var(--c-primary-soft));
+    transition:width .1s linear;
+  }
+
+  /* ---------- cookie banner ---------- */
+  .cookie-banner{
+    position:fixed; left:24px; right:24px; bottom:24px; max-width:520px;
+    background:#111; color:#fff; border-radius:20px; padding:22px 24px; z-index:90;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.4);
+    display:flex; flex-direction:column; gap:14px;
+    transform:translateY(140%); transition:transform .6s var(--ease);
+  }
+  .cookie-banner.show{transform:translateY(0);}
+  .cookie-banner p{font-size:13.5px; color:#B8B8B8; line-height:1.6;}
+  .cookie-actions{display:flex; gap:10px;}
+  .cookie-actions .btn{padding:10px 20px; font-size:13px;}
+  @media(max-width:560px){.cookie-banner{left:14px; right:14px; bottom:14px; padding:18px;}}
+
+  /* ---------- enrollment modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(10,10,10,.55); backdrop-filter:blur(4px);
+    z-index:200; display:flex; align-items:center; justify-content:center; padding:24px;
+    opacity:0; pointer-events:none; transition:opacity .35s ease;
+  }
+  .modal-overlay.open{opacity:1; pointer-events:auto;}
+  .modal-box{
+    background:#fff; border-radius:var(--radius-md); padding:44px; max-width:460px; width:100%;
+    position:relative; transform:translateY(24px) scale(.97); transition:transform .4s var(--ease);
+    box-shadow:0 60px 100px -30px rgba(0,0,0,.4);
+  }
+  .modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
+  .modal-close{position:absolute; top:20px; right:20px; width:34px; height:34px; border-radius:50%; background:#F5F5F5; display:flex; align-items:center; justify-content:center; font-size:18px; transition:background .3s ease;}
+  .modal-close:hover{background:#EDEDED;}
+  .modal-box h3{font-size:22px; margin-bottom:8px;}
+  .modal-box p.modal-sub{color:var(--c-text-soft); font-size:14.5px; margin-bottom:26px; line-height:1.5;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:13px; font-weight:600; margin-bottom:8px;}
+  .field input, .field select{
+    width:100%; padding:13px 16px; border-radius:12px; border:1.5px solid #E8E8E8; font-size:14.5px;
+    transition:border-color .3s ease;
+  }
+  .field input:focus, .field select:focus{border-color:var(--c-primary); outline:none;}
+  .modal-success{text-align:center; display:none;}
+  .modal-success.show{display:block;}
+  .modal-success .ic-success{
+    width:64px; height:64px; border-radius:50%; background:#E4F7EF; color:var(--c-success);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 18px;
+  }
+
+  /* ---------- back to top ---------- */
+  .to-top{
+    position:fixed; right:24px; bottom:24px; width:48px; height:48px; border-radius:50%;
+    background:#111; color:#fff; display:flex; align-items:center; justify-content:center; z-index:80;
+    opacity:0; pointer-events:none; transform:translateY(10px);
+    transition:opacity .35s ease, transform .35s ease, background .3s ease;
+  }
+  .to-top.show{opacity:1; pointer-events:auto; transform:translateY(0);}
+  .to-top:hover{background:var(--c-primary);}
 
   ::selection{background:var(--c-primary-pale); color:var(--c-text);}
 </style>
 </head>
 <body>
 
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <!-- ================= HEADER ================= -->
 <header id="siteHeader">
   <div class="wrap nav-row">
-    <a href="#" class="logo">
+    <a href="#hero" class="logo">
       <span class="logo-mark">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 20H22L12 2Z" fill="white"/></svg>
       </span>
@@ -380,11 +636,15 @@
       <a href="#hero">Главная</a>
       <a href="#courses">Курсы</a>
       <a href="#advantages">Преимущества</a>
+      <a href="#pricing">Тарифы</a>
       <a href="#reviews">Отзывы</a>
       <a href="#faq">FAQ</a>
       <a href="#contacts">Контакты</a>
     </nav>
-    <a href="#cta" class="btn btn-primary desktop-only">Начать обучение</a>
+    <div class="nav-cta-group">
+      <a href="#faq" class="btn btn-ghost desktop-only">Есть вопрос?</a>
+      <a href="#cta" class="btn btn-primary desktop-only">Начать обучение</a>
+    </div>
     <button class="burger" id="burgerBtn" aria-label="Открыть меню">
       <span></span><span></span><span></span>
     </button>
@@ -396,6 +656,7 @@
   <a href="#hero">Главная</a>
   <a href="#courses">Курсы</a>
   <a href="#advantages">Преимущества</a>
+  <a href="#pricing">Тарифы</a>
   <a href="#reviews">Отзывы</a>
   <a href="#faq">FAQ</a>
   <a href="#contacts">Контакты</a>
@@ -408,7 +669,7 @@
   <div class="hero-bg-blob blob2"></div>
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="eyebrow reveal" data-anim="fade-up"><span class="dot"></span>Новый формат подготовки к экзаменам</div>
+      <div class="eyebrow reveal" data-anim="fade-up"><span class="dot live"></span>Новый формат подготовки к экзаменам</div>
       <h1 class="reveal" data-anim="fade-up">Подготовься к экзаменам <span class="accent">быстрее</span> вместе с современной платформой</h1>
       <p class="lead reveal" data-anim="fade-up">Структурированные курсы, практические тесты и разбор ошибок с преподавателями — всё, чтобы прийти на экзамен уверенным, а не уставшим от хаотичной подготовки.</p>
       <div class="hero-actions reveal" data-anim="fade-up">
@@ -460,6 +721,16 @@
   </div>
 </section>
 
+<!-- ================= TRUSTED BY ================= -->
+<section class="trusted">
+  <div class="wrap trusted-inner">
+    <span class="trusted-label reveal" data-anim="fade-up">Ученики Peak поступают в:</span>
+    <div class="trusted-logos reveal" data-anim="fade-up" data-delay=".08">
+      <span>КБТУ</span><span>НАЗАРБАЕВ У.</span><span>КазНУ</span><span>AlmaU</span><span>SDU</span><span>МУИТ</span>
+    </div>
+  </div>
+</section>
+
 <!-- ================= ADVANTAGES ================= -->
 <section class="section" id="advantages">
   <div class="wrap">
@@ -503,20 +774,60 @@
   </div>
 </section>
 
+<!-- ================= HOW IT WORKS ================= -->
+<section class="section" style="background:var(--c-bg-alt);">
+  <div class="wrap process-wrap">
+    <div class="section-head reveal" data-anim="fade-up">
+      <span class="section-tag">Как это работает</span>
+      <h2>От записи до высокого балла — четыре шага</h2>
+      <p>Понятный маршрут без лишней бюрократии: начать можно уже сегодня вечером.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-card reveal" data-anim="fade-up">
+        <div class="process-num">01</div>
+        <div class="process-connector"></div>
+        <h3>Диагностика</h3>
+        <p>Короткий тест на 15 минут покажет сильные и слабые темы по выбранному предмету.</p>
+      </div>
+      <div class="process-card reveal" data-anim="fade-up" data-delay=".08">
+        <div class="process-num">02</div>
+        <div class="process-connector"></div>
+        <h3>Персональный план</h3>
+        <p>Система собирает маршрут занятий под дату экзамена и твой текущий уровень.</p>
+      </div>
+      <div class="process-card reveal" data-anim="fade-up" data-delay=".16">
+        <div class="process-num">03</div>
+        <div class="process-connector"></div>
+        <h3>Занятия и практика</h3>
+        <p>Короткие видеомодули чередуются с практическими заданиями и мини-тестами.</p>
+      </div>
+      <div class="process-card reveal" data-anim="fade-up" data-delay=".24">
+        <div class="process-num">04</div>
+        <h3>Разбор и рост балла</h3>
+        <p>Преподаватель разбирает ошибки, а аналитика показывает динамику по темам.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= COURSES ================= -->
-<section class="section" id="courses" style="background:#FCFCFC;">
+<section class="section" id="courses">
   <div class="wrap">
     <div class="section-head reveal" data-anim="fade-up">
       <span class="section-tag">Курсы</span>
       <h2>Выбери курс под свой экзамен</h2>
       <p>Каждый курс собран методистами и адаптирован под актуальный формат экзамена.</p>
     </div>
+    <div class="subject-tabs reveal" data-anim="fade-up" id="subjectTabs"></div>
     <div class="courses-grid" id="coursesGrid"></div>
+    <div class="courses-more reveal" data-anim="fade-up">
+      <a href="#" class="btn btn-ghost">Показать все курсы</a>
+    </div>
   </div>
 </section>
 
 <!-- ================= WHY US ================= -->
-<section class="section">
+<section class="section" style="background:var(--c-bg-alt);">
   <div class="wrap why-grid">
     <div class="why-image reveal" data-anim="fade-right">
       <div class="deco">
@@ -592,8 +903,62 @@
   </div>
 </section>
 
+<!-- ================= PRICING ================= -->
+<section class="section" id="pricing" style="background:var(--c-bg-alt);">
+  <div class="wrap">
+    <div class="section-head reveal" data-anim="fade-up">
+      <span class="section-tag">Тарифы</span>
+      <h2>Выбери формат подготовки</h2>
+      <p>Прозрачные тарифы без скрытых платежей — можно сменить план в любой момент.</p>
+    </div>
+    <div class="pricing-toggle reveal" data-anim="fade-up">
+      <span class="active" id="pmMonthly">Помесячно</span>
+      <div class="switch" id="pricingSwitch" role="button" aria-label="Переключить период оплаты"></div>
+      <span id="pmYearly">Годовой <span class="save-badge">-20%</span></span>
+    </div>
+    <div class="pricing-grid" id="pricingGrid"></div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal" data-anim="fade-up">
+      <span class="section-tag">Сравнение</span>
+      <h2>Чем Peak отличается от самоподготовки</h2>
+      <p>Смотри честно: что даёт структурированная платформа, а что — разрозненные материалы из интернета.</p>
+    </div>
+    <div class="compare-wrap reveal" data-anim="fade-up">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th>Возможность</th>
+            <th class="hl">Peak</th>
+            <th>Самоподготовка</th>
+          </tr>
+        </thead>
+        <tbody id="compareBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INSTRUCTORS ================= -->
+<section class="section" style="background:var(--c-bg-alt);">
+  <div class="wrap">
+    <div class="section-head-row reveal" data-anim="fade-up">
+      <div class="section-head">
+        <span class="section-tag">Преподаватели</span>
+        <h2>Люди, которые ведут твой прогресс</h2>
+      </div>
+      <a href="#" class="btn btn-ghost btn-sm">Вся команда →</a>
+    </div>
+    <div class="team-grid" id="teamGrid"></div>
+  </div>
+</section>
+
 <!-- ================= TESTIMONIALS ================= -->
-<section class="section" id="reviews" style="background:#FCFCFC;">
+<section class="section" id="reviews">
   <div class="wrap">
     <div class="section-head reveal" data-anim="fade-up">
       <span class="section-tag">Отзывы</span>
@@ -604,6 +969,20 @@
       <div class="test-track" id="testTrack"></div>
     </div>
     <div class="test-nav" id="testNav"></div>
+  </div>
+</section>
+
+<!-- ================= BLOG ================= -->
+<section class="section" style="background:var(--c-bg-alt);">
+  <div class="wrap">
+    <div class="section-head-row reveal" data-anim="fade-up">
+      <div class="section-head">
+        <span class="section-tag">Блог</span>
+        <h2>Советы по подготовке от методистов</h2>
+      </div>
+      <a href="#" class="btn btn-ghost btn-sm">Все статьи →</a>
+    </div>
+    <div class="blog-grid" id="blogGrid"></div>
   </div>
 </section>
 
@@ -619,13 +998,35 @@
   </div>
 </section>
 
+<!-- ================= NEWSLETTER ================= -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="newsletter-block reveal" data-anim="fade-up">
+      <div class="newsletter-copy">
+        <h3>Разбор одной задачи в неделю на почту</h3>
+        <p>Короткие подборки заданий и лайфхаков от преподавателей Peak — без спама.</p>
+      </div>
+      <div>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" required placeholder="Твой email" aria-label="Email для рассылки">
+          <button type="submit" class="btn btn-primary">Подписаться</button>
+        </form>
+        <div class="newsletter-note">Отписаться можно в любой момент одним кликом.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CTA ================= -->
 <section class="section" id="cta">
   <div class="wrap">
     <div class="cta-block reveal" data-anim="scale">
       <h2>Готов поднять свой балл?</h2>
       <p>Присоединяйся к 10 000+ учеников и начни заниматься уже сегодня — первый модуль бесплатно.</p>
-      <a href="#contacts" class="btn btn-primary">Начать обучение</a>
+      <div class="cta-actions">
+        <a href="#contacts" class="btn btn-primary">Начать обучение</a>
+        <a href="#pricing" class="btn btn-ghost">Смотреть тарифы</a>
+      </div>
     </div>
   </div>
 </section>
@@ -652,6 +1053,7 @@
           <li><a href="#hero">Главная</a></li>
           <li><a href="#courses">Курсы</a></li>
           <li><a href="#advantages">Преимущества</a></li>
+          <li><a href="#pricing">Тарифы</a></li>
           <li><a href="#reviews">Отзывы</a></li>
         </ul>
       </div>
@@ -662,6 +1064,7 @@
           <li><a href="#">О нас</a></li>
           <li><a href="#">Блог</a></li>
           <li><a href="#">Вакансии</a></li>
+          <li><a href="#">Партнёрам</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -673,23 +1076,144 @@
         </ul>
       </div>
     </div>
+    <hr class="divider" style="background:#222;">
     <div class="footer-bottom">
       <span>© 2026 Peak. Все права защищены.</span>
-      <span>Сделано с заботой об учениках</span>
+      <div class="footer-bottom-links">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Условия использования</a>
+        <a href="#">Оферта</a>
+      </div>
     </div>
   </div>
 </footer>
 
+<button class="to-top" id="toTopBtn" aria-label="Наверх">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<!-- ================= ENROLLMENT MODAL ================= -->
+<div class="modal-overlay" id="enrollModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">&times;</button>
+    <div id="modalForm">
+      <h3>Бесплатная консультация</h3>
+      <p class="modal-sub">Оставь контакты — методист подберёт курс и предложит удобное расписание.</p>
+      <form id="enrollForm">
+        <div class="field">
+          <label for="enrollName">Имя</label>
+          <input id="enrollName" type="text" required placeholder="Как к тебе обращаться?">
+        </div>
+        <div class="field">
+          <label for="enrollPhone">Телефон</label>
+          <input id="enrollPhone" type="tel" required placeholder="+7 (___) ___-__-__">
+        </div>
+        <div class="field">
+          <label for="enrollSubject">Предмет</label>
+          <select id="enrollSubject">
+            <option>Математика</option>
+            <option>Физика</option>
+            <option>Английский</option>
+            <option>Химия</option>
+            <option>История</option>
+            <option>Информатика</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Отправить заявку</button>
+      </form>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <div class="ic-success">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Заявка отправлена</h3>
+      <p class="modal-sub">Методист свяжется с тобой в течение рабочего дня и поможет выбрать курс.</p>
+      <button class="btn btn-ghost btn-block" id="modalDone">Отлично</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= COOKIE BANNER ================= -->
+<div class="cookie-banner" id="cookieBanner">
+  <p>Мы используем файлы cookie, чтобы сайт работал корректно и подборки курсов были точнее. Подробнее — в политике конфиденциальности.</p>
+  <div class="cookie-actions">
+    <button class="btn btn-primary btn-sm" id="cookieAccept">Принять</button>
+    <button class="btn btn-ghost btn-sm" id="cookieDecline">Отклонить</button>
+  </div>
+</div>
+
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-/* ---------- header scroll state ---------- */
+/* =====================================================================
+   HEADER SCROLL STATE + SCROLL PROGRESS BAR
+===================================================================== */
 const header = document.getElementById('siteHeader');
+const toTopBtn = document.getElementById('toTopBtn');
+const scrollProgress = document.getElementById('scrollProgress');
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 40);
+  toTopBtn.classList.toggle('show', window.scrollY > 700);
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+  scrollProgress.style.width = pct + '%';
 });
+toTopBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-/* ---------- mobile menu ---------- */
+/* =====================================================================
+   COOKIE BANNER
+===================================================================== */
+const cookieBanner = document.getElementById('cookieBanner');
+const cookieAccept = document.getElementById('cookieAccept');
+const cookieDecline = document.getElementById('cookieDecline');
+if (!sessionStorage.getItem('peakCookieChoice')) {
+  setTimeout(() => cookieBanner.classList.add('show'), 1200);
+}
+function dismissCookieBanner(choice){
+  cookieBanner.classList.remove('show');
+  try { sessionStorage.setItem('peakCookieChoice', choice); } catch(e) {}
+}
+cookieAccept.addEventListener('click', () => dismissCookieBanner('accepted'));
+cookieDecline.addEventListener('click', () => dismissCookieBanner('declined'));
+
+/* =====================================================================
+   ENROLLMENT MODAL
+===================================================================== */
+const enrollModal = document.getElementById('enrollModal');
+const modalClose = document.getElementById('modalClose');
+const modalForm = document.getElementById('modalForm');
+const modalSuccess = document.getElementById('modalSuccess');
+const enrollForm = document.getElementById('enrollForm');
+const modalDone = document.getElementById('modalDone');
+
+function openEnrollModal(){
+  enrollModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeEnrollModal(){
+  enrollModal.classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => { modalForm.style.display = 'block'; modalSuccess.classList.remove('show'); enrollForm.reset(); }, 350);
+}
+document.querySelectorAll('a[href="#cta"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    openEnrollModal();
+  });
+});
+modalClose.addEventListener('click', closeEnrollModal);
+enrollModal.addEventListener('click', e => { if (e.target === enrollModal) closeEnrollModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && enrollModal.classList.contains('open')) closeEnrollModal(); });
+enrollForm.addEventListener('submit', e => {
+  e.preventDefault();
+  modalForm.style.display = 'none';
+  modalSuccess.classList.add('show');
+});
+modalDone.addEventListener('click', closeEnrollModal);
+
+/* =====================================================================
+   MOBILE MENU
+===================================================================== */
 const burger = document.getElementById('burgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileClose = document.getElementById('mobileClose');
@@ -697,14 +1221,16 @@ burger.addEventListener('click', () => mobileMenu.classList.add('open'));
 mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
 mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
-/* ---------- scroll reveal animations ---------- */
+/* =====================================================================
+   GENERIC SCROLL REVEAL ANIMATIONS
+===================================================================== */
 const animMap = {
   'fade-up':    {y:40, x:0},
   'fade-left':  {y:0, x:60},
   'fade-right': {y:0, x:-60},
   'scale':      {y:0, x:0, scale:.92}
 };
-document.querySelectorAll('.reveal').forEach(el => {
+function bindReveal(el){
   const type = el.dataset.anim || 'fade-up';
   const delay = parseFloat(el.dataset.delay || 0);
   const from = animMap[type];
@@ -715,13 +1241,16 @@ document.querySelectorAll('.reveal').forEach(el => {
       scrollTrigger:{trigger:el, start:'top 88%'}
     }
   );
-});
+}
+document.querySelectorAll('.reveal').forEach(bindReveal);
 
 /* ---------- hero entrance (immediate) ---------- */
 gsap.timeline().fromTo('.hero .reveal',
   {opacity:0, y:30}, {opacity:1, y:0, duration:.9, stagger:.12, ease:'power3.out', delay:.1});
 
-/* ---------- animated counters ---------- */
+/* =====================================================================
+   ANIMATED COUNTERS
+===================================================================== */
 document.querySelectorAll('.stat-num').forEach(el => {
   const target = parseInt(el.dataset.count, 10);
   const numSpan = el.querySelector('span');
@@ -739,53 +1268,201 @@ document.querySelectorAll('.stat-num').forEach(el => {
   });
 });
 
-/* ---------- courses data + render ---------- */
+/* =====================================================================
+   SUBJECT TABS + COURSES DATA / RENDER
+===================================================================== */
+const subjects = ['Все предметы','Математика','Физика','Английский','Химия','История','Информатика'];
 const courses = [
-  {title:'Математика: интенсив', teacher:'Айгерим Сатова', lessons:42, rating:4.9, price:'19 900 ₸', old:'26 900 ₸', badge:'Хит продаж'},
-  {title:'Физика с нуля до профи', teacher:'Данияр Ахметов', lessons:38, rating:4.8, price:'17 500 ₸', old:'22 000 ₸', badge:'Новинка'},
-  {title:'Английский язык: IELTS', teacher:'Мария Ким', lessons:56, rating:5.0, price:'24 900 ₸', old:'31 000 ₸', badge:'Топ рейтинг'},
-  {title:'Химия: базовый курс', teacher:'Сергей Ли', lessons:30, rating:4.7, price:'15 900 ₸', old:'19 900 ₸', badge:'Популярный'},
-  {title:'История: подготовка к тесту', teacher:'Асель Нурланова', lessons:34, rating:4.9, price:'16 500 ₸', old:'21 000 ₸', badge:'Хит продаж'},
-  {title:'Информатика и логика', teacher:'Тимур Жаксыбеков', lessons:40, rating:4.8, price:'18 900 ₸', old:'23 500 ₸', badge:'Новинка'},
+  {title:'Математика: интенсив перед экзаменом', subject:'Математика', teacher:'Айгерим Сатова', lessons:42, rating:4.9, price:'19 900 ₸', old:'26 900 ₸', badge:'Хит продаж'},
+  {title:'Физика с нуля до профи', subject:'Физика', teacher:'Данияр Ахметов', lessons:38, rating:4.8, price:'17 500 ₸', old:'22 000 ₸', badge:'Новинка'},
+  {title:'Английский язык: подготовка к IELTS', subject:'Английский', teacher:'Мария Ким', lessons:56, rating:5.0, price:'24 900 ₸', old:'31 000 ₸', badge:'Топ рейтинг'},
+  {title:'Химия: базовый курс', subject:'Химия', teacher:'Сергей Ли', lessons:30, rating:4.7, price:'15 900 ₸', old:'19 900 ₸', badge:'Популярный'},
+  {title:'История: подготовка к тесту', subject:'История', teacher:'Асель Нурланова', lessons:34, rating:4.9, price:'16 500 ₸', old:'21 000 ₸', badge:'Хит продаж'},
+  {title:'Информатика и алгоритмическое мышление', subject:'Информатика', teacher:'Тимур Жаксыбеков', lessons:40, rating:4.8, price:'18 900 ₸', old:'23 500 ₸', badge:'Новинка'},
+  {title:'Математика: профильный уровень', subject:'Математика', teacher:'Бекзат Оразов', lessons:48, rating:4.9, price:'21 900 ₸', old:'27 900 ₸', badge:'Продвинутый'},
+  {title:'Английский язык: разговорная практика', subject:'Английский', teacher:'Мария Ким', lessons:26, rating:4.8, price:'14 900 ₸', old:'18 500 ₸', badge:'Популярный'},
+  {title:'Физика: механика и электричество', subject:'Физика', teacher:'Данияр Ахметов', lessons:32, rating:4.7, price:'16 900 ₸', old:'21 000 ₸', badge:'Хит продаж'},
 ];
-const coursesGrid = document.getElementById('coursesGrid');
-courses.forEach((c, i) => {
-  const card = document.createElement('div');
-  card.className = 'course-card reveal';
-  card.dataset.anim = 'fade-up';
-  card.dataset.delay = (i % 3) * 0.08;
-  card.innerHTML = `
-    <div class="course-cover"><span class="course-badge">${c.badge}</span></div>
-    <div class="course-body">
-      <div class="course-teacher">${c.teacher}</div>
-      <h3>${c.title}</h3>
-      <div class="course-meta">
-        <span>📚 ${c.lessons} уроков</span>
-        <span>★ ${c.rating}</span>
-      </div>
-      <div class="course-foot">
-        <div class="course-price">${c.price}<small>${c.old}</small></div>
-        <a href="#" class="course-link">Подробнее →</a>
-      </div>
-    </div>`;
-  coursesGrid.appendChild(card);
-});
-// re-run reveal for dynamically added course cards
-coursesGrid.querySelectorAll('.reveal').forEach(el => {
-  const delay = parseFloat(el.dataset.delay || 0);
-  gsap.fromTo(el, {opacity:0, y:40}, {
-    opacity:1, y:0, duration:1, delay, ease:'power3.out',
-    scrollTrigger:{trigger: el, start:'top 88%'}
+let activeSubject = 'Все предметы';
+
+const subjectTabsWrap = document.getElementById('subjectTabs');
+subjects.forEach(s => {
+  const tab = document.createElement('button');
+  tab.className = 'subject-tab' + (s === activeSubject ? ' active' : '');
+  tab.textContent = s;
+  tab.addEventListener('click', () => {
+    activeSubject = s;
+    subjectTabsWrap.querySelectorAll('.subject-tab').forEach(t => t.classList.toggle('active', t === tab));
+    renderCourses();
   });
+  subjectTabsWrap.appendChild(tab);
 });
 
-/* ---------- testimonials ---------- */
+const coursesGrid = document.getElementById('coursesGrid');
+function renderCourses(){
+  coursesGrid.innerHTML = '';
+  const filtered = activeSubject === 'Все предметы' ? courses : courses.filter(c => c.subject === activeSubject);
+  filtered.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'course-card reveal';
+    card.dataset.anim = 'fade-up';
+    card.dataset.delay = (i % 3) * 0.08;
+    card.innerHTML = `
+      <div class="course-cover"><span class="course-badge">${c.badge}</span></div>
+      <div class="course-body">
+        <div class="course-teacher">${c.teacher} · ${c.subject}</div>
+        <h3>${c.title}</h3>
+        <div class="course-meta">
+          <span>📚 ${c.lessons} уроков</span>
+          <span>★ ${c.rating}</span>
+        </div>
+        <div class="course-foot">
+          <div class="course-price">${c.price}<small>${c.old}</small></div>
+          <a href="#" class="course-link">Подробнее →</a>
+        </div>
+      </div>`;
+    coursesGrid.appendChild(card);
+    bindReveal(card);
+  });
+}
+renderCourses();
+
+/* =====================================================================
+   PRICING (monthly / yearly toggle)
+===================================================================== */
+const plans = [
+  {
+    name:'Старт', desc:'Чтобы попробовать формат и начать заниматься.',
+    monthly:0, yearly:0, currency:'₸',
+    featured:false,
+    feats:[
+      ['Доступ к 1 курсу', true],
+      ['Практические тесты', true],
+      ['Аналитика прогресса', true],
+      ['Разбор ошибок с преподавателем', false],
+      ['Личный методист', false],
+    ]
+  },
+  {
+    name:'Про', desc:'Для тех, кто готовится к конкретному экзамену.',
+    monthly:19900, yearly:15900, currency:'₸',
+    featured:true, ribbon:'Выбор большинства',
+    feats:[
+      ['Доступ ко всем курсам предмета', true],
+      ['Практические тесты без ограничений', true],
+      ['Аналитика прогресса', true],
+      ['Разбор ошибок с преподавателем', true],
+      ['Личный методист', false],
+    ]
+  },
+  {
+    name:'Максимум', desc:'Полное сопровождение до самого экзамена.',
+    monthly:34900, yearly:27900, currency:'₸',
+    featured:false,
+    feats:[
+      ['Доступ ко всем курсам платформы', true],
+      ['Практические тесты без ограничений', true],
+      ['Аналитика прогресса', true],
+      ['Разбор ошибок с преподавателем', true],
+      ['Личный методист и еженедельные созвоны', true],
+    ]
+  }
+];
+let billingYearly = false;
+const pricingGrid = document.getElementById('pricingGrid');
+function renderPricing(){
+  pricingGrid.innerHTML = '';
+  plans.forEach((p, i) => {
+    const price = billingYearly ? p.yearly : p.monthly;
+    const card = document.createElement('div');
+    card.className = 'price-card reveal' + (p.featured ? ' featured' : '');
+    card.dataset.anim = 'fade-up';
+    card.dataset.delay = i * 0.08;
+    card.innerHTML = `
+      ${p.featured ? `<div class="price-ribbon">${p.ribbon}</div>` : ''}
+      <div class="price-plan">${p.name}</div>
+      <div class="price-amount">${price === 0 ? 'Бесплатно' : price.toLocaleString('ru-RU') + ' ' + p.currency}${price !== 0 ? '<small>/ мес</small>' : ''}</div>
+      <div class="price-desc">${p.desc}</div>
+      <ul class="price-feats">
+        ${p.feats.map(([label, on]) => `
+          <li class="${on ? '' : 'muted'}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">${on ? '<path d="M20 6L9 17l-5-5"/>' : '<path d="M6 6l12 12M18 6L6 18"/>'}</svg>
+            <span>${label}</span>
+          </li>`).join('')}
+      </ul>
+      <a href="#cta" class="btn ${p.featured ? 'btn-primary' : 'btn-ghost'} btn-block">${price === 0 ? 'Попробовать бесплатно' : 'Выбрать план'}</a>
+    `;
+    pricingGrid.appendChild(card);
+    bindReveal(card);
+  });
+}
+renderPricing();
+
+const pricingSwitch = document.getElementById('pricingSwitch');
+const pmMonthly = document.getElementById('pmMonthly');
+const pmYearly = document.getElementById('pmYearly');
+pricingSwitch.addEventListener('click', () => {
+  billingYearly = !billingYearly;
+  pricingSwitch.classList.toggle('on', billingYearly);
+  pmMonthly.classList.toggle('active', !billingYearly);
+  pmYearly.classList.toggle('active', billingYearly);
+  renderPricing();
+});
+
+/* =====================================================================
+   COMPARISON TABLE
+===================================================================== */
+const compareRows = [
+  ['Структурированная программа под даты экзамена', true, false],
+  ['Практические тесты в формате реального экзамена', true, false],
+  ['Разбор ошибок с преподавателем', true, false],
+  ['Аналитика прогресса по темам', true, false],
+  ['Гарантия возврата средств', true, false],
+  ['Материалы без системы и проверки качества', false, true],
+];
+const compareBody = document.getElementById('compareBody');
+compareRows.forEach(([label, peak, self]) => {
+  const tr = document.createElement('tr');
+  const cell = ok => `<td class="${ok ? 'check' : 'cross'}">${ok ? '✓ Есть' : '✕ Нет'}</td>`;
+  tr.innerHTML = `<td>${label}</td>${cell(peak)}${cell(self)}`;
+  compareBody.appendChild(tr);
+});
+
+/* =====================================================================
+   INSTRUCTORS / TEAM
+===================================================================== */
+const team = [
+  {name:'Айгерим Сатова', subject:'Математика', years:'8 лет опыта', img:'https://i.pravatar.cc/400?img=32'},
+  {name:'Данияр Ахметов', subject:'Физика', years:'6 лет опыта', img:'https://i.pravatar.cc/400?img=13'},
+  {name:'Мария Ким', subject:'Английский язык', years:'9 лет опыта', img:'https://i.pravatar.cc/400?img=47'},
+  {name:'Сергей Ли', subject:'Химия', years:'7 лет опыта', img:'https://i.pravatar.cc/400?img=14'},
+];
+const teamGrid = document.getElementById('teamGrid');
+team.forEach((t, i) => {
+  const card = document.createElement('div');
+  card.className = 'team-card reveal';
+  card.dataset.anim = 'fade-up';
+  card.dataset.delay = i * 0.08;
+  card.innerHTML = `
+    <div class="team-photo" style="background-image:url('${t.img}')">
+      <div class="team-subject">${t.subject}</div>
+    </div>
+    <h3>${t.name}</h3>
+    <p>${t.years}</p>`;
+  teamGrid.appendChild(card);
+  bindReveal(card);
+});
+
+/* =====================================================================
+   TESTIMONIALS SLIDER
+===================================================================== */
 const testimonials = [
-  {name:'Данияр Ахметов', role:'Поступил в КБТУ', text:'За два месяца подняла балл по математике с 60 до 92. Разборы ошибок реально помогают понять, где я теряю баллы.', initials:'ДА'},
+  {name:'Данияр Ахметов', role:'Поступил в КБТУ', text:'За два месяца поднял балл по математике с 60 до 92. Разборы ошибок реально помогают понять, где я теряю баллы.', initials:'ДА'},
   {name:'Айым Серикова', role:'Сдала IELTS на 7.5', text:'Понравился формат коротких уроков — можно заниматься даже между парами. Преподаватели отвечают быстро и по делу.', initials:'АС'},
   {name:'Ерлан Бекенов', role:'Поступил на грант', text:'Практические тесты один в один похожи на настоящий экзамен, поэтому на самом тесте не было никакого стресса.', initials:'ЕБ'},
   {name:'Дана Оспанова', role:'Сдала физику на 96 баллов', text:'Персональный план подстроился под мой темп — не было ощущения, что я что-то пропускаю или спешу.', initials:'ДО'},
   {name:'Нурлан Тлеубаев', role:'Студент 1 курса', text:'Аналитика прогресса — топ. Видно, какая тема хромает, и куда именно нужно вернуться перед экзаменом.', initials:'НТ'},
+  {name:'Жанель Мұратова', role:'Поступила в Назарбаев Университет', text:'Отдельное спасибо за расписание — план сам подстроился под дату моего экзамена и не пришлось ничего считать вручную.', initials:'ЖМ'},
 ];
 const track = document.getElementById('testTrack');
 const navWrap = document.getElementById('testNav');
@@ -826,13 +1503,40 @@ track.addEventListener('mouseleave', () => {
 });
 window.addEventListener('resize', () => goToSlide(current));
 
-/* ---------- FAQ accordion ---------- */
+/* =====================================================================
+   BLOG / ARTICLES
+===================================================================== */
+const posts = [
+  {tag:'Стратегия', date:'12 июля 2026', title:'Как составить план подготовки за 8 недель до экзамена', text:'Разбираем, как распределить темы по неделям, чтобы не выгореть и успеть повторить всё важное.'},
+  {tag:'Математика', date:'28 июня 2026', title:'5 типов задач, которые чаще всего теряют баллы', text:'Разбор частых ошибок в задачах на проценты, вероятность и текстовые задачи.'},
+  {tag:'Психология', date:'14 июня 2026', title:'Как справиться с волнением перед экзаменом', text:'Простые техники дыхания и подготовки, которые реально работают в день теста.'},
+];
+const blogGrid = document.getElementById('blogGrid');
+posts.forEach((p, i) => {
+  const card = document.createElement('a');
+  card.href = '#';
+  card.className = 'blog-card reveal';
+  card.dataset.anim = 'fade-up';
+  card.dataset.delay = i * 0.08;
+  card.innerHTML = `
+    <div class="blog-cover"><span class="blog-tag">${p.tag}</span></div>
+    <div class="blog-date">${p.date}</div>
+    <h3>${p.title}</h3>
+    <p>${p.text}</p>`;
+  blogGrid.appendChild(card);
+  bindReveal(card);
+});
+
+/* =====================================================================
+   FAQ ACCORDION
+===================================================================== */
 const faqs = [
   {q:'Как быстро я увижу первые результаты?', a:'Большинство учеников замечают рост уверенности и понимания материала уже после первых двух-трёх недель регулярных занятий. Конкретная динамика по баллам видна в личном кабинете.'},
   {q:'Нужен ли начальный уровень знаний для старта?', a:'Нет, платформа подбирает программу под ваш текущий уровень — от полного нуля до продвинутой подготовки к сложным экзаменам.'},
   {q:'Можно ли заниматься с телефона?', a:'Да, платформа полностью адаптирована под мобильные устройства — прогресс синхронизируется между телефоном и компьютером.'},
   {q:'Что если курс не подойдёт?', a:'В течение 7 дней после оплаты вы можете вернуть деньги полностью, если курс окажется не тем, что вам нужно.'},
   {q:'Как проходит общение с преподавателем?', a:'После каждого теста доступен разбор ошибок, а по сложным темам можно задать вопрос напрямую преподавателю в личном кабинете.'},
+  {q:'Можно ли сменить тариф после оплаты?', a:'Да, перейти на другой тариф можно в любой момент в личном кабинете — разница в стоимости пересчитывается автоматически.'},
 ];
 const faqList = document.getElementById('faqList');
 faqs.forEach((f, i) => {
@@ -860,8 +1564,24 @@ faqs.forEach((f, i) => {
   });
 });
 
-/* ---------- smooth anchor scroll offset for fixed header ---------- */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
+/* =====================================================================
+   NEWSLETTER FORM (client-side only demo)
+===================================================================== */
+const newsletterForm = document.getElementById('newsletterForm');
+newsletterForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const btn = newsletterForm.querySelector('button');
+  const original = btn.textContent;
+  btn.textContent = 'Готово ✓';
+  btn.disabled = true;
+  newsletterForm.querySelector('input').value = '';
+  setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2600);
+});
+
+/* =====================================================================
+   SMOOTH ANCHOR SCROLL OFFSET FOR FIXED HEADER
+===================================================================== */
+document.querySelectorAll('a[href^="#"]:not([href="#cta"])').forEach(a => {
   a.addEventListener('click', e => {
     const id = a.getAttribute('href');
     if (id.length > 1 && document.querySelector(id)) {
