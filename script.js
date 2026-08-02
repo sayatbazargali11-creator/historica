@@ -1,548 +1,312 @@
-/* ==================================================================
-   PERSONAL PORTFOLIO — SCRIPT.JS
-   All interactivity: loader, custom cursor, navbar, smooth scroll,
-   hero typing, tilt, timeline progress, gallery lightbox, skills bars,
-   counters, testimonial slider, FAQ accordion, contact form, effects.
-   Organized into small, independent modules — each wrapped so one
-   failing module never blocks the others.
-   ================================================================== */
+/* ==========================================================================
+   ONYX PAY — script.js
+   Small, self-contained modules: (1) card mirroring + formatting,
+   (2) 3D tilt + dynamic reflection, (3) flip-on-CVV, (4) validation,
+   (5) pay button lifecycle (idle → loading → success).
+   ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+(function () {
+  "use strict";
 
-  /* ---------------------------------------------------------------
-     0. TOUCH DEVICE DETECTION (disables custom cursor on touch)
-     --------------------------------------------------------------- */
-  const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-  if (isTouchDevice) document.body.classList.add('touch-device');
+  document.body.classList.add("is-ready");
 
-  /* ---------------------------------------------------------------
-     1. LOADING SCREEN
-     --------------------------------------------------------------- */
-  (function loaderModule(){
-    const loader = document.getElementById('loader');
-    const fill = document.getElementById('loaderFill');
-    if (!loader || !fill) return;
+  /* ------------------------------------------------------------------ *
+   *  DOM refs
+   * ------------------------------------------------------------------ */
+  const cardStage = document.getElementById("cardStage");
+  const cardTilt = document.getElementById("cardTilt");
+  const cardFlip = document.getElementById("cardFlip");
 
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += Math.random() * 18;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-        setTimeout(() => {
-          loader.classList.add('is-hidden');
-          document.body.style.overflow = '';
-        }, 300);
+  const numberGroups = document.querySelectorAll("#cardNumberDisplay .grp");
+  const nameDisplay = document.getElementById("cardNameDisplay");
+  const expiryDisplay = document.getElementById("cardExpiryDisplay");
+  const cvvDisplay = document.getElementById("cvvDisplay");
+  const networkFront = document.getElementById("cardNetwork");
+  const networkBack = document.getElementById("cardNetworkBack");
+  const inputNetworkIcon = document.getElementById("inputNetworkIcon");
+
+  const cardNumberInput = document.getElementById("cardNumber");
+  const cardNameInput = document.getElementById("cardName");
+  const cardExpiryInput = document.getElementById("cardExpiry");
+  const cardCvvInput = document.getElementById("cardCvv");
+
+  const form = document.getElementById("paymentForm");
+  const payBtn = document.getElementById("payBtn");
+
+  /* ------------------------------------------------------------------ *
+   *  1. CARD NUMBER — formatting + live mirror
+   * ------------------------------------------------------------------ */
+  cardNumberInput.addEventListener("input", () => {
+    const digits = cardNumberInput.value.replace(/\D/g, "").slice(0, 19);
+    const groups = digits.match(/.{1,4}/g) || [];
+    cardNumberInput.value = groups.join(" ");
+
+    mirrorCardNumber(digits);
+    updateNetwork(digits);
+    clearFieldState("fieldCardNumber");
+  });
+
+  cardNumberInput.addEventListener("blur", () => validateCardNumber(true));
+
+  function mirrorCardNumber(digits) {
+    for (let i = 0; i < 4; i++) {
+      const finalText = buildGroupDisplay(digits, i);
+      if (numberGroups[i].textContent !== finalText) {
+        numberGroups[i].textContent = finalText;
+        pulse(numberGroups[i]);
       }
-      fill.style.width = progress + '%';
-    }, 160);
-
-    document.body.style.overflow = 'hidden';
-    // Safety net: never trap the user behind the loader
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        loader.classList.add('is-hidden');
-        document.body.style.overflow = '';
-      }, 1200);
-    });
-  })();
-
-  /* ---------------------------------------------------------------
-     2. CUSTOM CURSOR + MOUSE TRAIL FEEL
-     --------------------------------------------------------------- */
-  (function cursorModule(){
-    if (isTouchDevice) return;
-    const dot = document.getElementById('cursorDot');
-    const ring = document.getElementById('cursorRing');
-    if (!dot || !ring) return;
-
-    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%)`;
-    });
-
-    function animateRing(){
-      // Ease the ring toward the pointer for a soft trailing feel
-      ringX += (mouseX - ringX) * 0.16;
-      ringY += (mouseY - ringY) * 0.16;
-      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%,-50%)`;
-      requestAnimationFrame(animateRing);
     }
-    animateRing();
+  }
 
-    const interactiveSelectors = 'a, button, .gallery-item, .edu-card, .achieve-card, .project-card, input, textarea';
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest(interactiveSelectors)) ring.classList.add('is-active');
-    });
-    document.addEventListener('mouseout', (e) => {
-      if (e.target.closest(interactiveSelectors)) ring.classList.remove('is-active');
-    });
-  })();
-
-  /* ---------------------------------------------------------------
-     3. SCROLL PROGRESS BAR
-     --------------------------------------------------------------- */
-  (function scrollProgressModule(){
-    const bar = document.getElementById('scrollProgress');
-    if (!bar) return;
-    function update(){
-      const h = document.documentElement;
-      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-      bar.style.width = scrolled + '%';
+  // Builds a 4-character group: real digits where typed, bullets for the rest.
+  function buildGroupDisplay(digits, groupIndex) {
+    let out = "";
+    for (let i = 0; i < 4; i++) {
+      const idx = groupIndex * 4 + i;
+      out += idx < digits.length ? digits[idx] : "\u2022";
     }
-    window.addEventListener('scroll', update, { passive: true });
-    update();
-  })();
+    return out;
+  }
 
-  /* ---------------------------------------------------------------
-     4. AMBIENT PARTICLES (hero background)
-     --------------------------------------------------------------- */
-  (function particlesModule(){
-    if (typeof particlesJS === 'undefined') return;
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 46, density: { enable: true, value_area: 900 } },
-        color: { value: '#4C5FFF' },
-        opacity: { value: 0.18, random: true },
-        size: { value: 2.4, random: true },
-        line_linked: { enable: true, distance: 140, color: '#4C5FFF', opacity: 0.12, width: 1 },
-        move: { enable: true, speed: 0.6, out_mode: 'out' }
-      },
-      interactivity: {
-        events: {
-          onhover: { enable: !isTouchDevice, mode: 'grab' },
-          resize: true
-        },
-        modes: { grab: { distance: 160, line_linked: { opacity: 0.25 } } }
-      },
-      retina_detect: true
-    });
-  })();
+  function pulse(el) {
+    el.classList.remove("is-updated");
+    // Force reflow so the animation can restart on rapid typing
+    void el.offsetWidth;
+    el.classList.add("is-updated");
+  }
 
-  /* ---------------------------------------------------------------
-     5. AOS (scroll reveal) INIT
-     --------------------------------------------------------------- */
-  (function aosModule(){
-    if (typeof AOS === 'undefined') return;
-    AOS.init({
-      duration: 700,
-      easing: 'ease-out-cubic',
-      once: true,
-      offset: 60
-    });
-  })();
+  /* ------------------------------------------------------------------ *
+   *  2. NETWORK DETECTION (fictional, card-scheme inspired marks)
+   * ------------------------------------------------------------------ */
+  function detectNetwork(digits) {
+    if (digits.startsWith("4")) return "velocity";
+    if (/^5[1-5]/.test(digits) || /^2[2-7]/.test(digits)) return "duopay";
+    return "generic";
+  }
 
-  /* ---------------------------------------------------------------
-     6. NAVBAR — shrink on scroll, active link highlight, drawer
-     --------------------------------------------------------------- */
-  (function navbarModule(){
-    const navbar = document.getElementById('navbar');
-    const burger = document.getElementById('navBurger');
-    const drawer = document.getElementById('navDrawer');
-    if (!navbar) return;
+  function updateNetwork(digits) {
+    const network = detectNetwork(digits);
+    networkFront.dataset.network = network;
+    networkBack.dataset.network = network;
 
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('is-scrolled', window.scrollY > 40);
-    }, { passive: true });
+    inputNetworkIcon.innerHTML =
+      network === "velocity"
+        ? `<svg viewBox="0 0 32 20" width="30" height="20"><text x="0" y="15" font-family="Sora, sans-serif" font-style="italic" font-weight="800" font-size="13" fill="#6FC1FF">vel</text></svg>`
+        : network === "duopay"
+        ? `<svg viewBox="0 0 32 20" width="30" height="20"><circle cx="12" cy="10" r="8" fill="#D4AF6A" opacity="0.9"/><circle cx="20" cy="10" r="8" fill="#2F6FED" opacity="0.9" style="mix-blend-mode:screen"/></svg>`
+        : "";
+  }
 
-    if (burger && drawer) {
-      burger.addEventListener('click', () => {
-        const open = drawer.classList.toggle('is-open');
-        burger.classList.toggle('is-open', open);
-        burger.setAttribute('aria-expanded', open);
-      });
-      drawer.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          drawer.classList.remove('is-open');
-          burger.classList.remove('is-open');
-          burger.setAttribute('aria-expanded', 'false');
-        });
-      });
+  /* ------------------------------------------------------------------ *
+   *  3. CARDHOLDER NAME — live mirror
+   * ------------------------------------------------------------------ */
+  cardNameInput.addEventListener("input", () => {
+    // Allow letters, spaces, hyphens and apostrophes only
+    cardNameInput.value = cardNameInput.value.replace(/[^a-zA-Z\s'-]/g, "");
+    nameDisplay.textContent = cardNameInput.value.trim() ? cardNameInput.value : "YOUR NAME";
+    clearFieldState("fieldCardName");
+  });
+  cardNameInput.addEventListener("blur", () => validateName(true));
+
+  /* ------------------------------------------------------------------ *
+   *  4. EXPIRY — auto slash formatting + live mirror
+   * ------------------------------------------------------------------ */
+  cardExpiryInput.addEventListener("input", () => {
+    let digits = cardExpiryInput.value.replace(/\D/g, "").slice(0, 4);
+
+    if (digits.length >= 2) {
+      let mm = digits.slice(0, 2);
+      // Guard against impossible months while typing (e.g. "13" -> "01")
+      if (parseInt(mm, 10) > 12) mm = "12";
+      if (mm === "00") mm = "01";
+      digits = mm + digits.slice(2);
     }
 
-    // Active link tracking via IntersectionObserver
-    const sections = document.querySelectorAll('main section[id]');
-    const navLinks = document.querySelectorAll('.navbar__link, .navbar__drawer-link');
-    if (sections.length){
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting){
-            const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-              link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
-            });
-          }
-        });
-      }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-      sections.forEach(section => observer.observe(section));
+    const formatted = digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
+    cardExpiryInput.value = formatted;
+    expiryDisplay.textContent = formatted || "MM/YY";
+    clearFieldState("fieldExpiry");
+  });
+  cardExpiryInput.addEventListener("blur", () => validateExpiry(true));
+
+  /* ------------------------------------------------------------------ *
+   *  5. CVV — live mirror + flip-to-back on focus
+   * ------------------------------------------------------------------ */
+  cardCvvInput.addEventListener("input", () => {
+    cardCvvInput.value = cardCvvInput.value.replace(/\D/g, "").slice(0, 4);
+    cvvDisplay.textContent = cardCvvInput.value.padEnd(3, "\u2022");
+    clearFieldState("fieldCvv");
+  });
+  cardCvvInput.addEventListener("focus", () => cardFlip.classList.add("is-flipped"));
+  cardCvvInput.addEventListener("blur", () => {
+    cardFlip.classList.remove("is-flipped");
+    validateCvv(true);
+  });
+
+  /* ------------------------------------------------------------------ *
+   *  6. 3D TILT + DYNAMIC REFLECTION
+   * ------------------------------------------------------------------ */
+  const maxTilt = 14;
+  cardStage.addEventListener("mousemove", (e) => {
+    const rect = cardStage.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+
+    const rotateY = (px - 0.5) * maxTilt * 2;
+    const rotateX = (0.5 - py) * maxTilt * 2;
+    cardTilt.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    cardTilt.style.setProperty("--mx", `${px * 100}%`);
+    cardTilt.style.setProperty("--my", `${py * 100}%`);
+  });
+  cardStage.addEventListener("mouseleave", () => {
+    cardTilt.style.transform = "rotateX(0deg) rotateY(0deg)";
+    cardTilt.style.setProperty("--mx", "50%");
+    cardTilt.style.setProperty("--my", "30%");
+  });
+
+  // Gentle parallax on the whole visual panel for extra depth
+  const visualPanel = document.getElementById("visualPanel");
+  visualPanel.addEventListener("mousemove", (e) => {
+    const rect = visualPanel.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    cardStage.style.translate = `${px * 10}px ${py * 6}px`;
+  });
+  visualPanel.addEventListener("mouseleave", () => { cardStage.style.translate = "0 0"; });
+
+  /* ------------------------------------------------------------------ *
+   *  7. VALIDATION
+   * ------------------------------------------------------------------ */
+  function setFieldValid(fieldId) {
+    const field = document.getElementById(fieldId);
+    field.classList.remove("is-error");
+    field.classList.add("is-valid");
+  }
+  function setFieldError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    field.classList.remove("is-valid");
+    field.classList.add("is-error");
+    if (message) field.querySelector(".field-msg").textContent = message;
+  }
+  function clearFieldState(fieldId) {
+    document.getElementById(fieldId).classList.remove("is-error");
+  }
+
+  // Luhn checksum — the same check real card networks use
+  function luhnValid(digits) {
+    let sum = 0, alt = false;
+    for (let i = digits.length - 1; i >= 0; i--) {
+      let n = parseInt(digits[i], 10);
+      if (alt) { n *= 2; if (n > 9) n -= 9; }
+      sum += n; alt = !alt;
     }
-  })();
+    return sum % 10 === 0;
+  }
 
-  /* ---------------------------------------------------------------
-     7. SMOOTH SCROLL for all [data-scroll] anchor links
-     --------------------------------------------------------------- */
-  (function smoothScrollModule(){
-    document.querySelectorAll('[data-scroll]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (!href || !href.startsWith('#')) return;
-        const target = document.querySelector(href);
-        if (!target) return;
-        e.preventDefault();
-        const navOffset = 100;
-        const top = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
-        window.scrollTo({ top, behavior: 'smooth' });
-      });
-    });
-  })();
+  function validateCardNumber(showMsg) {
+    const digits = cardNumberInput.value.replace(/\D/g, "");
+    const ok = digits.length >= 13 && digits.length <= 19 && luhnValid(digits);
+    if (ok) setFieldValid("fieldCardNumber");
+    else if (showMsg) setFieldError("fieldCardNumber", "That card number doesn't look right.");
+    return ok;
+  }
 
-  /* ---------------------------------------------------------------
-     8. HERO TYPED.JS HEADLINE
-     --------------------------------------------------------------- */
-  (function typedModule(){
-    const el = document.getElementById('heroTyped');
-    if (!el || typeof Typed === 'undefined') return;
-    // ✏️ REPLACE: rotating headline phrases
-    new Typed('#heroTyped', {
-      strings: [
-        'a product designer.',
-        'a front-end developer.',
-        'a lifelong learner.',
-        'a builder of calm interfaces.'
-      ],
-      typeSpeed: 45,
-      backSpeed: 25,
-      backDelay: 1600,
-      loop: true,
-      smartBackspace: true
-    });
-  })();
+  function validateName(showMsg) {
+    const value = cardNameInput.value.trim();
+    const ok = value.length >= 3 && /^[a-zA-Z\s'-]+$/.test(value);
+    if (ok) setFieldValid("fieldCardName");
+    else if (showMsg) setFieldError("fieldCardName", "Enter the name as printed on the card.");
+    return ok;
+  }
 
-  /* ---------------------------------------------------------------
-     9. VANILLA TILT (photo card + floating shape)
-     --------------------------------------------------------------- */
-  (function tiltModule(){
-    if (isTouchDevice || typeof VanillaTilt === 'undefined') return;
-    const targets = document.querySelectorAll('[data-tilt]');
-    if (!targets.length) return;
-    VanillaTilt.init(targets, {
-      max: 8,
-      speed: 500,
-      glare: true,
-      'max-glare': 0.2,
-      scale: 1.02
-    });
-  })();
-
-  /* ---------------------------------------------------------------
-     10. TIMELINE SCROLL-FILL PROGRESS
-     --------------------------------------------------------------- */
-  (function timelineModule(){
-    const timeline = document.getElementById('timeline');
-    const fill = document.getElementById('timelineFill');
-    if (!timeline || !fill) return;
-
-    function update(){
-      const rect = timeline.getBoundingClientRect();
-      const viewportH = window.innerHeight;
-      const total = rect.height;
-      const visible = Math.min(Math.max(viewportH * 0.75 - rect.top, 0), total);
-      const percent = total ? (visible / total) * 100 : 0;
-      fill.style.height = percent + '%';
+  function validateExpiry(showMsg) {
+    const value = cardExpiryInput.value;
+    const match = /^(\d{2})\/(\d{2})$/.exec(value);
+    if (!match) {
+      if (showMsg) setFieldError("fieldExpiry", "Use MM/YY format.");
+      return false;
     }
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-  })();
+    const month = parseInt(match[1], 10);
+    const year = 2000 + parseInt(match[2], 10);
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth() + 1;
+    const ok = month >= 1 && month <= 12 && (year > currentYear || (year === currentYear && month >= currentMonth));
+    if (ok) setFieldValid("fieldExpiry");
+    else if (showMsg) setFieldError("fieldExpiry", "This card has expired.");
+    return ok;
+  }
 
-  /* ---------------------------------------------------------------
-     11. EDUCATION "LEARN MORE" MODALS
-     --------------------------------------------------------------- */
-  (function modalModule(){
-    document.querySelectorAll('.edu-more').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const modal = document.getElementById(btn.dataset.target);
-        if (modal) modal.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-    document.querySelectorAll('[data-modal-close]').forEach(el => {
-      el.addEventListener('click', () => {
-        const modal = el.closest('.modal');
-        if (modal) modal.classList.remove('is-open');
-        document.body.style.overflow = '';
-      });
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape'){
-        document.querySelectorAll('.modal.is-open').forEach(m => m.classList.remove('is-open'));
-        document.body.style.overflow = '';
-      }
-    });
-  })();
+  function validateCvv(showMsg) {
+    const ok = /^\d{3,4}$/.test(cardCvvInput.value);
+    if (ok) setFieldValid("fieldCvv");
+    else if (showMsg) setFieldError("fieldCvv", "3 or 4 digits, please.");
+    return ok;
+  }
 
-  /* ---------------------------------------------------------------
-     12. GALLERY LIGHTBOX
-     --------------------------------------------------------------- */
-  (function lightboxModule(){
-    const items = Array.from(document.querySelectorAll('.gallery-item img'));
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const closeBtn = document.getElementById('lightboxClose');
-    const prevBtn = document.getElementById('lightboxPrev');
-    const nextBtn = document.getElementById('lightboxNext');
-    if (!items.length || !lightbox || !lightboxImg) return;
-
-    let currentIndex = 0;
-
-    function open(index){
-      currentIndex = index;
-      lightboxImg.src = items[currentIndex].src;
-      lightboxImg.alt = items[currentIndex].alt;
-      lightbox.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
+  /* ------------------------------------------------------------------ *
+   *  8. RIPPLE EFFECT (buttons)
+   * ------------------------------------------------------------------ */
+  function spawnRipple(container, e) {
+    const rect = container.getBoundingClientRect();
+    const ripple = document.createElement("span");
+    const size = Math.max(rect.width, rect.height) * 1.2;
+    ripple.className = "ripple";
+    ripple.style.width = ripple.style.height = size + "px";
+    ripple.style.left = (e.clientX - rect.left - size / 2) + "px";
+    ripple.style.top = (e.clientY - rect.top - size / 2) + "px";
+    container.appendChild(ripple);
+    ripple.addEventListener("animationend", () => ripple.remove());
+  }
+  payBtn.addEventListener("click", (e) => {
+    if (!payBtn.classList.contains("is-loading") && !payBtn.classList.contains("is-success")) {
+      spawnRipple(payBtn, e);
     }
-    function close(){
-      lightbox.classList.remove('is-open');
-      document.body.style.overflow = '';
-    }
-    function show(delta){
-      currentIndex = (currentIndex + delta + items.length) % items.length;
-      lightboxImg.src = items[currentIndex].src;
-      lightboxImg.alt = items[currentIndex].alt;
+  });
+
+  /* ------------------------------------------------------------------ *
+   *  9. FORM SUBMIT — validate all, then simulate payment lifecycle
+   * ------------------------------------------------------------------ */
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (payBtn.classList.contains("is-loading") || payBtn.classList.contains("is-success")) return;
+
+    const results = [
+      validateCardNumber(true),
+      validateName(true),
+      validateExpiry(true),
+      validateCvv(true)
+    ];
+
+    if (results.includes(false)) {
+      const firstInvalid = form.querySelector(".field.is-error input");
+      if (firstInvalid) firstInvalid.focus();
+      return;
     }
 
-    items.forEach((img, i) => {
-      img.closest('.gallery-item').addEventListener('click', () => open(i));
+    // All good — run the loading → success sequence
+    payBtn.classList.add("is-loading");
+
+    setTimeout(() => {
+      payBtn.classList.remove("is-loading");
+      payBtn.classList.add("is-success");
+
+      setTimeout(resetToIdle, 3200);
+    }, 1700);
+  });
+
+  function resetToIdle() {
+    payBtn.classList.remove("is-success");
+    form.reset();
+    mirrorCardNumber("");
+    updateNetwork("");
+    nameDisplay.textContent = "YOUR NAME";
+    expiryDisplay.textContent = "MM/YY";
+    cvvDisplay.textContent = "\u2022\u2022\u2022";
+    inputNetworkIcon.innerHTML = "";
+    ["fieldCardNumber", "fieldCardName", "fieldExpiry", "fieldCvv"].forEach((id) => {
+      document.getElementById(id).classList.remove("is-valid", "is-error");
     });
-    closeBtn && closeBtn.addEventListener('click', close);
-    prevBtn && prevBtn.addEventListener('click', () => show(-1));
-    nextBtn && nextBtn.addEventListener('click', () => show(1));
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('is-open')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') show(-1);
-      if (e.key === 'ArrowRight') show(1);
-    });
-  })();
+  }
 
-  /* ---------------------------------------------------------------
-     13. SKILLS — ANIMATE PROGRESS BARS ON SCROLL INTO VIEW
-     --------------------------------------------------------------- */
-  (function skillsModule(){
-    const bars = document.querySelectorAll('.skill-bar__fill');
-    if (!bars.length) return;
-
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const fill = entry.target;
-        const value = parseInt(fill.dataset.value, 10) || 0;
-        const percentLabel = fill.closest('.skill-bar').querySelector('.skill-bar__percent');
-        requestAnimationFrame(() => { fill.style.width = value + '%'; });
-
-        // Animate the numeric label alongside the bar
-        let current = 0;
-        const step = Math.max(1, Math.round(value / 40));
-        const tick = setInterval(() => {
-          current = Math.min(current + step, value);
-          if (percentLabel) percentLabel.textContent = current + '%';
-          if (current >= value) clearInterval(tick);
-        }, 20);
-
-        obs.unobserve(fill);
-      });
-    }, { threshold: 0.4 });
-
-    bars.forEach(bar => observer.observe(bar));
-  })();
-
-  /* ---------------------------------------------------------------
-     14. STATISTICS — ANIMATED COUNTERS (CountUp.js with fallback)
-     --------------------------------------------------------------- */
-  (function countersModule(){
-    const counters = document.querySelectorAll('[data-count]');
-    if (!counters.length) return;
-
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const end = parseInt(el.dataset.count, 10) || 0;
-
-        if (typeof countUp !== 'undefined' && countUp.CountUp) {
-          const cu = new countUp.CountUp(el, end, { duration: 2 });
-          if (!cu.error) cu.start(); else el.textContent = end;
-        } else {
-          // Fallback simple counter if CountUp fails to load
-          let current = 0;
-          const step = Math.max(1, Math.round(end / 60));
-          const tick = setInterval(() => {
-            current = Math.min(current + step, end);
-            el.textContent = current;
-            if (current >= end) clearInterval(tick);
-          }, 20);
-        }
-        obs.unobserve(el);
-      });
-    }, { threshold: 0.5 });
-
-    counters.forEach(el => observer.observe(el));
-  })();
-
-  /* ---------------------------------------------------------------
-     15. TESTIMONIAL SLIDER
-     --------------------------------------------------------------- */
-  (function testimonialModule(){
-    const track = document.getElementById('testimonialTrack');
-    const dotsWrap = document.getElementById('testimonialDots');
-    const prevBtn = document.getElementById('testimonialPrev');
-    const nextBtn = document.getElementById('testimonialNext');
-    if (!track || !dotsWrap) return;
-
-    const slides = track.children.length;
-    let index = 0;
-    let autoplay;
-
-    for (let i = 0; i < slides; i++){
-      const dot = document.createElement('button');
-      if (i === 0) dot.classList.add('is-active');
-      dot.setAttribute('aria-label', 'Go to testimonial ' + (i + 1));
-      dot.addEventListener('click', () => goTo(i));
-      dotsWrap.appendChild(dot);
-    }
-    const dots = Array.from(dotsWrap.children);
-
-    function goTo(i){
-      index = (i + slides) % slides;
-      track.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach((d, di) => d.classList.toggle('is-active', di === index));
-    }
-    function next(){ goTo(index + 1); }
-    function prev(){ goTo(index - 1); }
-
-    nextBtn && nextBtn.addEventListener('click', () => { next(); resetAutoplay(); });
-    prevBtn && prevBtn.addEventListener('click', () => { prev(); resetAutoplay(); });
-
-    function resetAutoplay(){
-      clearInterval(autoplay);
-      autoplay = setInterval(next, 6000);
-    }
-    resetAutoplay();
-  })();
-
-  /* ---------------------------------------------------------------
-     16. FAQ ACCORDION
-     --------------------------------------------------------------- */
-  (function accordionModule(){
-    document.querySelectorAll('.accordion__item').forEach(item => {
-      const trigger = item.querySelector('.accordion__trigger');
-      const panel = item.querySelector('.accordion__panel');
-      if (!trigger || !panel) return;
-
-      trigger.addEventListener('click', () => {
-        const isOpen = item.classList.contains('is-open');
-
-        // Close all siblings for a clean single-open accordion
-        item.parentElement.querySelectorAll('.accordion__item.is-open').forEach(openItem => {
-          if (openItem !== item){
-            openItem.classList.remove('is-open');
-            openItem.querySelector('.accordion__panel').style.maxHeight = null;
-          }
-        });
-
-        if (isOpen){
-          item.classList.remove('is-open');
-          panel.style.maxHeight = null;
-        } else {
-          item.classList.add('is-open');
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-        }
-      });
-    });
-  })();
-
-  /* ---------------------------------------------------------------
-     17. CONTACT FORM (front-end only demo submission)
-     --------------------------------------------------------------- */
-  (function contactFormModule(){
-    const form = document.getElementById('contactForm');
-    const note = document.getElementById('contactFormNote');
-    if (!form) return;
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      // ✏️ REPLACE: connect this to your real form backend / email service
-      if (note) {
-        note.textContent = 'Thanks! Your message has been noted — I\'ll get back to you soon.';
-      }
-      form.reset();
-    });
-  })();
-
-  /* ---------------------------------------------------------------
-     18. BACK TO TOP BUTTON
-     --------------------------------------------------------------- */
-  (function toTopModule(){
-    const btn = document.getElementById('toTop');
-    if (!btn) return;
-    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  })();
-
-  /* ---------------------------------------------------------------
-     19. RIPPLE EFFECT ON BUTTONS
-     --------------------------------------------------------------- */
-  (function rippleModule(){
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', function(e){
-        const rect = this.getBoundingClientRect();
-        const ripple = document.createElement('span');
-        const size = Math.max(rect.width, rect.height);
-        ripple.className = 'ripple';
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-        this.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 650);
-      });
-    });
-  })();
-
-  /* ---------------------------------------------------------------
-     20. GSAP SCROLLTRIGGER — SUBTLE PARALLAX ON HERO SHAPES
-     --------------------------------------------------------------- */
-  (function parallaxModule(){
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.utils.toArray('.float-shape, .float-dot').forEach((el, i) => {
-      gsap.to(el, {
-        y: (i % 2 === 0) ? -60 : 60,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.6
-        }
-      });
-    });
-
-    gsap.to('.hero__glow--a', {
-      y: 80, ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }
-    });
-  })();
-
-  /* ---------------------------------------------------------------
-     21. FOOTER YEAR
-     --------------------------------------------------------------- */
-  (function footerYearModule(){
-    const yearEl = document.getElementById('year');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
-  })();
-
-});
+})();
