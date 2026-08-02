@@ -1,311 +1,417 @@
-/* ==========================================================================
-   ONYX PAY — script.js
-   Small, self-contained modules: (1) card mirroring + formatting,
-   (2) 3D tilt + dynamic reflection, (3) flip-on-CVV, (4) validation,
-   (5) pay button lifecycle (idle → loading → success).
-   ========================================================================== */
+/* ==========================================================
+   ADRIAN VOSS PORTFOLIO — main script
+   Vanilla JS. No dependencies.
+   ========================================================== */
+(() => {
+  'use strict';
 
-(function () {
-  "use strict";
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  document.body.classList.add("is-ready");
-
-  /* ------------------------------------------------------------------ *
-   *  DOM refs
-   * ------------------------------------------------------------------ */
-  const cardStage = document.getElementById("cardStage");
-  const cardTilt = document.getElementById("cardTilt");
-  const cardFlip = document.getElementById("cardFlip");
-
-  const numberGroups = document.querySelectorAll("#cardNumberDisplay .grp");
-  const nameDisplay = document.getElementById("cardNameDisplay");
-  const expiryDisplay = document.getElementById("cardExpiryDisplay");
-  const cvvDisplay = document.getElementById("cvvDisplay");
-  const networkFront = document.getElementById("cardNetwork");
-  const networkBack = document.getElementById("cardNetworkBack");
-  const inputNetworkIcon = document.getElementById("inputNetworkIcon");
-
-  const cardNumberInput = document.getElementById("cardNumber");
-  const cardNameInput = document.getElementById("cardName");
-  const cardExpiryInput = document.getElementById("cardExpiry");
-  const cardCvvInput = document.getElementById("cardCvv");
-
-  const form = document.getElementById("paymentForm");
-  const payBtn = document.getElementById("payBtn");
-
-  /* ------------------------------------------------------------------ *
-   *  1. CARD NUMBER — formatting + live mirror
-   * ------------------------------------------------------------------ */
-  cardNumberInput.addEventListener("input", () => {
-    const digits = cardNumberInput.value.replace(/\D/g, "").slice(0, 19);
-    const groups = digits.match(/.{1,4}/g) || [];
-    cardNumberInput.value = groups.join(" ");
-
-    mirrorCardNumber(digits);
-    updateNetwork(digits);
-    clearFieldState("fieldCardNumber");
-  });
-
-  cardNumberInput.addEventListener("blur", () => validateCardNumber(true));
-
-  function mirrorCardNumber(digits) {
-    for (let i = 0; i < 4; i++) {
-      const finalText = buildGroupDisplay(digits, i);
-      if (numberGroups[i].textContent !== finalText) {
-        numberGroups[i].textContent = finalText;
-        pulse(numberGroups[i]);
-      }
-    }
-  }
-
-  // Builds a 4-character group: real digits where typed, bullets for the rest.
-  function buildGroupDisplay(digits, groupIndex) {
-    let out = "";
-    for (let i = 0; i < 4; i++) {
-      const idx = groupIndex * 4 + i;
-      out += idx < digits.length ? digits[idx] : "\u2022";
-    }
-    return out;
-  }
-
-  function pulse(el) {
-    el.classList.remove("is-updated");
-    // Force reflow so the animation can restart on rapid typing
-    void el.offsetWidth;
-    el.classList.add("is-updated");
-  }
-
-  /* ------------------------------------------------------------------ *
-   *  2. NETWORK DETECTION (fictional, card-scheme inspired marks)
-   * ------------------------------------------------------------------ */
-  function detectNetwork(digits) {
-    if (digits.startsWith("4")) return "velocity";
-    if (/^5[1-5]/.test(digits) || /^2[2-7]/.test(digits)) return "duopay";
-    return "generic";
-  }
-
-  function updateNetwork(digits) {
-    const network = detectNetwork(digits);
-    networkFront.dataset.network = network;
-    networkBack.dataset.network = network;
-
-    inputNetworkIcon.innerHTML =
-      network === "velocity"
-        ? `<svg viewBox="0 0 32 20" width="30" height="20"><text x="0" y="15" font-family="Sora, sans-serif" font-style="italic" font-weight="800" font-size="13" fill="#6FC1FF">vel</text></svg>`
-        : network === "duopay"
-        ? `<svg viewBox="0 0 32 20" width="30" height="20"><circle cx="12" cy="10" r="8" fill="#D4AF6A" opacity="0.9"/><circle cx="20" cy="10" r="8" fill="#2F6FED" opacity="0.9" style="mix-blend-mode:screen"/></svg>`
-        : "";
-  }
-
-  /* ------------------------------------------------------------------ *
-   *  3. CARDHOLDER NAME — live mirror
-   * ------------------------------------------------------------------ */
-  cardNameInput.addEventListener("input", () => {
-    // Allow letters, spaces, hyphens and apostrophes only
-    cardNameInput.value = cardNameInput.value.replace(/[^a-zA-Z\s'-]/g, "");
-    nameDisplay.textContent = cardNameInput.value.trim() ? cardNameInput.value : "YOUR NAME";
-    clearFieldState("fieldCardName");
-  });
-  cardNameInput.addEventListener("blur", () => validateName(true));
-
-  /* ------------------------------------------------------------------ *
-   *  4. EXPIRY — auto slash formatting + live mirror
-   * ------------------------------------------------------------------ */
-  cardExpiryInput.addEventListener("input", () => {
-    let digits = cardExpiryInput.value.replace(/\D/g, "").slice(0, 4);
-
-    if (digits.length >= 2) {
-      let mm = digits.slice(0, 2);
-      // Guard against impossible months while typing (e.g. "13" -> "01")
-      if (parseInt(mm, 10) > 12) mm = "12";
-      if (mm === "00") mm = "01";
-      digits = mm + digits.slice(2);
-    }
-
-    const formatted = digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
-    cardExpiryInput.value = formatted;
-    expiryDisplay.textContent = formatted || "MM/YY";
-    clearFieldState("fieldExpiry");
-  });
-  cardExpiryInput.addEventListener("blur", () => validateExpiry(true));
-
-  /* ------------------------------------------------------------------ *
-   *  5. CVV — live mirror + flip-to-back on focus
-   * ------------------------------------------------------------------ */
-  cardCvvInput.addEventListener("input", () => {
-    cardCvvInput.value = cardCvvInput.value.replace(/\D/g, "").slice(0, 4);
-    cvvDisplay.textContent = cardCvvInput.value.padEnd(3, "\u2022");
-    clearFieldState("fieldCvv");
-  });
-  cardCvvInput.addEventListener("focus", () => cardFlip.classList.add("is-flipped"));
-  cardCvvInput.addEventListener("blur", () => {
-    cardFlip.classList.remove("is-flipped");
-    validateCvv(true);
-  });
-
-  /* ------------------------------------------------------------------ *
-   *  6. 3D TILT + DYNAMIC REFLECTION
-   * ------------------------------------------------------------------ */
-  const maxTilt = 14;
-  cardStage.addEventListener("mousemove", (e) => {
-    const rect = cardStage.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
-
-    const rotateY = (px - 0.5) * maxTilt * 2;
-    const rotateX = (0.5 - py) * maxTilt * 2;
-    cardTilt.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    cardTilt.style.setProperty("--mx", `${px * 100}%`);
-    cardTilt.style.setProperty("--my", `${py * 100}%`);
-  });
-  cardStage.addEventListener("mouseleave", () => {
-    cardTilt.style.transform = "rotateX(0deg) rotateY(0deg)";
-    cardTilt.style.setProperty("--mx", "50%");
-    cardTilt.style.setProperty("--my", "30%");
-  });
-
-  // Gentle parallax on the whole visual panel for extra depth
-  const visualPanel = document.getElementById("visualPanel");
-  visualPanel.addEventListener("mousemove", (e) => {
-    const rect = visualPanel.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    cardStage.style.translate = `${px * 10}px ${py * 6}px`;
-  });
-  visualPanel.addEventListener("mouseleave", () => { cardStage.style.translate = "0 0"; });
-
-  /* ------------------------------------------------------------------ *
-   *  7. VALIDATION
-   * ------------------------------------------------------------------ */
-  function setFieldValid(fieldId) {
-    const field = document.getElementById(fieldId);
-    field.classList.remove("is-error");
-    field.classList.add("is-valid");
-  }
-  function setFieldError(fieldId, message) {
-    const field = document.getElementById(fieldId);
-    field.classList.remove("is-valid");
-    field.classList.add("is-error");
-    if (message) field.querySelector(".field-msg").textContent = message;
-  }
-  function clearFieldState(fieldId) {
-    document.getElementById(fieldId).classList.remove("is-error");
-  }
-
-  // Luhn checksum — the same check real card networks use
-  function luhnValid(digits) {
-    let sum = 0, alt = false;
-    for (let i = digits.length - 1; i >= 0; i--) {
-      let n = parseInt(digits[i], 10);
-      if (alt) { n *= 2; if (n > 9) n -= 9; }
-      sum += n; alt = !alt;
-    }
-    return sum % 10 === 0;
-  }
-
-  function validateCardNumber(showMsg) {
-    const digits = cardNumberInput.value.replace(/\D/g, "");
-    const ok = digits.length >= 13 && digits.length <= 19 && luhnValid(digits);
-    if (ok) setFieldValid("fieldCardNumber");
-    else if (showMsg) setFieldError("fieldCardNumber", "That card number doesn't look right.");
-    return ok;
-  }
-
-  function validateName(showMsg) {
-    const value = cardNameInput.value.trim();
-    const ok = value.length >= 3 && /^[a-zA-Z\s'-]+$/.test(value);
-    if (ok) setFieldValid("fieldCardName");
-    else if (showMsg) setFieldError("fieldCardName", "Enter the name as printed on the card.");
-    return ok;
-  }
-
-  function validateExpiry(showMsg) {
-    const value = cardExpiryInput.value;
-    const match = /^(\d{2})\/(\d{2})$/.exec(value);
-    if (!match) {
-      if (showMsg) setFieldError("fieldExpiry", "Use MM/YY format.");
-      return false;
-    }
-    const month = parseInt(match[1], 10);
-    const year = 2000 + parseInt(match[2], 10);
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth() + 1;
-    const ok = month >= 1 && month <= 12 && (year > currentYear || (year === currentYear && month >= currentMonth));
-    if (ok) setFieldValid("fieldExpiry");
-    else if (showMsg) setFieldError("fieldExpiry", "This card has expired.");
-    return ok;
-  }
-
-  function validateCvv(showMsg) {
-    const ok = /^\d{3,4}$/.test(cardCvvInput.value);
-    if (ok) setFieldValid("fieldCvv");
-    else if (showMsg) setFieldError("fieldCvv", "3 or 4 digits, please.");
-    return ok;
-  }
-
-  /* ------------------------------------------------------------------ *
-   *  8. RIPPLE EFFECT (buttons)
-   * ------------------------------------------------------------------ */
-  function spawnRipple(container, e) {
-    const rect = container.getBoundingClientRect();
-    const ripple = document.createElement("span");
-    const size = Math.max(rect.width, rect.height) * 1.2;
-    ripple.className = "ripple";
-    ripple.style.width = ripple.style.height = size + "px";
-    ripple.style.left = (e.clientX - rect.left - size / 2) + "px";
-    ripple.style.top = (e.clientY - rect.top - size / 2) + "px";
-    container.appendChild(ripple);
-    ripple.addEventListener("animationend", () => ripple.remove());
-  }
-  payBtn.addEventListener("click", (e) => {
-    if (!payBtn.classList.contains("is-loading") && !payBtn.classList.contains("is-success")) {
-      spawnRipple(payBtn, e);
-    }
-  });
-
-  /* ------------------------------------------------------------------ *
-   *  9. FORM SUBMIT — validate all, then simulate payment lifecycle
-   * ------------------------------------------------------------------ */
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (payBtn.classList.contains("is-loading") || payBtn.classList.contains("is-success")) return;
-
-    const results = [
-      validateCardNumber(true),
-      validateName(true),
-      validateExpiry(true),
-      validateCvv(true)
-    ];
-
-    if (results.includes(false)) {
-      const firstInvalid = form.querySelector(".field.is-error input");
-      if (firstInvalid) firstInvalid.focus();
-      return;
-    }
-
-    // All good — run the loading → success sequence
-    payBtn.classList.add("is-loading");
-
+  /* ---------------------------------------------------------
+     LOADER
+  --------------------------------------------------------- */
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
     setTimeout(() => {
-      payBtn.classList.remove("is-loading");
-      payBtn.classList.add("is-success");
-
-      setTimeout(resetToIdle, 3200);
-    }, 1700);
+      loader.classList.add('hidden');
+      document.body.classList.add('loaded');
+      revealHero();
+    }, 1200);
   });
 
-  function resetToIdle() {
-    payBtn.classList.remove("is-success");
-    form.reset();
-    mirrorCardNumber("");
-    updateNetwork("");
-    nameDisplay.textContent = "YOUR NAME";
-    expiryDisplay.textContent = "MM/YY";
-    cvvDisplay.textContent = "\u2022\u2022\u2022";
-    inputNetworkIcon.innerHTML = "";
-    ["fieldCardNumber", "fieldCardName", "fieldExpiry", "fieldCvv"].forEach((id) => {
-      document.getElementById(id).classList.remove("is-valid", "is-error");
+  /* ---------------------------------------------------------
+     THEME TOGGLE
+  --------------------------------------------------------- */
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorageGet('theme') || 'dark';
+  if (savedTheme === 'light') root.setAttribute('data-theme', 'light');
+
+  themeToggle.addEventListener('click', () => {
+    const isLight = root.getAttribute('data-theme') === 'light';
+    root.setAttribute('data-theme', isLight ? 'dark' : 'light');
+    localStorageSet('theme', isLight ? 'dark' : 'light');
+    flashTransition();
+  });
+
+  function flashTransition(){
+    const flash = document.createElement('div');
+    flash.style.cssText = 'position:fixed;inset:0;background:var(--bg);z-index:9998;opacity:0;pointer-events:none;transition:opacity .3s ease;';
+    document.body.appendChild(flash);
+    requestAnimationFrame(() => { flash.style.opacity = '0.0'; });
+    setTimeout(() => flash.remove(), 350);
+  }
+
+  // safe localStorage wrappers (works even if storage disabled)
+  function localStorageGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function localStorageSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+  /* ---------------------------------------------------------
+     NAVBAR
+  --------------------------------------------------------- */
+  const navbar = document.getElementById('navbar');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive:true });
+
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+  }));
+
+  /* ---------------------------------------------------------
+     CUSTOM CURSOR
+  --------------------------------------------------------- */
+  if (!reduceMotion && window.matchMedia('(min-width: 901px)').matches) {
+    const glow = document.getElementById('cursorGlow');
+    const dot = document.getElementById('cursorDot');
+    let gx=0, gy=0, dx=0, dy=0;
+    window.addEventListener('mousemove', e => { gx=e.clientX; gy=e.clientY; dx=e.clientX; dy=e.clientY; });
+    function loopCursor(){
+      glow.style.transform = `translate(${gx}px, ${gy}px)`;
+      dot.style.left = dx + 'px';
+      dot.style.top = dy + 'px';
+      requestAnimationFrame(loopCursor);
+    }
+    loopCursor();
+
+    document.querySelectorAll('a, button, .cert-card, .skill-card, .project-card').forEach(el => {
+      el.addEventListener('mouseenter', () => dot.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => dot.classList.remove('hovering'));
+    });
+  }
+
+  /* ---------------------------------------------------------
+     MAGNETIC BUTTONS
+  --------------------------------------------------------- */
+  if (!reduceMotion) {
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width/2;
+        const y = e.clientY - r.top - r.height/2;
+        btn.style.transform = `translate(${x*0.25}px, ${y*0.35}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     RIPPLE EFFECT ON BUTTONS
+  --------------------------------------------------------- */
+  document.querySelectorAll('.btn, .filter-btn').forEach(btn => {
+    btn.style.position = btn.style.position || 'relative';
+    btn.style.overflow = 'hidden';
+    btn.addEventListener('click', function(e){
+      const r = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      const size = Math.max(r.width, r.height);
+      ripple.className = 'ripple';
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - r.left - size/2) + 'px';
+      ripple.style.top = (e.clientY - r.top - size/2) + 'px';
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 650);
+    });
+  });
+
+  /* ---------------------------------------------------------
+     HERO TYPING EFFECT
+  --------------------------------------------------------- */
+  const roles = ['Full-Stack Engineer', 'Product Designer', 'Creative Developer', 'Systems Thinker'];
+  const roleEl = document.getElementById('heroRole');
+  let roleIdx = 0, charIdx = 0, deleting = false;
+
+  function typeLoop(){
+    const current = roles[roleIdx];
+    if (!deleting){
+      charIdx++;
+      roleEl.textContent = current.slice(0, charIdx);
+      if (charIdx === current.length){ deleting = true; setTimeout(typeLoop, 1600); return; }
+    } else {
+      charIdx--;
+      roleEl.textContent = current.slice(0, charIdx);
+      if (charIdx === 0){ deleting = false; roleIdx = (roleIdx+1) % roles.length; }
+    }
+    setTimeout(typeLoop, deleting ? 35 : 70);
+  }
+  typeLoop();
+
+  /* ---------------------------------------------------------
+     HERO ENTRANCE
+  --------------------------------------------------------- */
+  function revealHero(){
+    document.querySelectorAll('.hero-anim').forEach((el,i) => {
+      setTimeout(() => el.classList.add('in'), i*120);
+    });
+  }
+
+  /* ---------------------------------------------------------
+     PARALLAX ON SCROLL (hero visual + bg)
+  --------------------------------------------------------- */
+  if (!reduceMotion) {
+    const heroVisual = document.querySelector('.portrait-frame');
+    const heroBg = document.querySelector('.hero-bg');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        if (heroVisual) heroVisual.style.transform = `translateY(${y*0.18}px)`;
+        if (heroBg) heroBg.style.transform = `translateY(${y*0.1}px)`;
+      }
+    }, { passive:true });
+  }
+
+  /* ---------------------------------------------------------
+     SCROLL REVEAL (IntersectionObserver)
+  --------------------------------------------------------- */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        if (entry.target.classList.contains('counter')) animateCounter(entry.target);
+        if (entry.target.classList.contains('skill-card')) fillSkillBar(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .reveal-scale').forEach(el => io.observe(el));
+
+  // counters may live inside non-.reveal wrappers (e.g. stat cards) — observe them too
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        animateCounter(entry.target);
+        counterIO.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.counter').forEach(el => counterIO.observe(el));
+
+  /* ---------------------------------------------------------
+     ANIMATED COUNTERS
+  --------------------------------------------------------- */
+  function animateCounter(el){
+    const target = parseInt(el.dataset.count, 10);
+    const duration = 1600;
+    const start = performance.now();
+    function step(now){
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + (el.dataset.suffix || '');
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target + (el.dataset.suffix || '');
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------------------------------------------------------
+     SKILL BARS
+  --------------------------------------------------------- */
+  function fillSkillBar(card){
+    const fill = card.querySelector('.skill-bar-fill');
+    if (fill) fill.style.width = fill.dataset.level + '%';
+  }
+
+  /* ---------------------------------------------------------
+     PROJECT FILTERS
+  --------------------------------------------------------- */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.filter;
+      projectCards.forEach(card => {
+        const match = cat === 'all' || card.dataset.category === cat;
+        card.classList.toggle('hide', !match);
+      });
+    });
+  });
+
+  /* ---------------------------------------------------------
+     CERTIFICATES — load from JSON, render, modal
+  --------------------------------------------------------- */
+  const certGrid = document.getElementById('certGrid');
+  const modalOverlay = document.getElementById('certModal');
+  const modalContent = document.getElementById('modalContent');
+
+  const sealIcon = `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M8.5 13.5 6 22l6-3 6 3-2.5-8.5"></path></svg>`;
+
+  async function loadCertificates(){
+    try {
+      const res = await fetch('data/certificates.json');
+      const certs = await res.json();
+      renderCertificates(certs);
+    } catch(err){
+      certGrid.innerHTML = `<p style="color:var(--text-secondary)">Certificates could not be loaded. Check data/certificates.json.</p>`;
+      console.error('Certificate load failed', err);
+    }
+  }
+
+  function renderCertificates(certs){
+    certGrid.innerHTML = certs.map((c, i) => `
+      <article class="cert-card reveal" data-index="${i}" tabindex="0" role="button" aria-label="Open certificate: ${escapeHtml(c.title)}">
+        <div class="cert-media">
+          <img src="${c.image}" alt="${escapeHtml(c.title)}" loading="lazy">
+          <div class="cert-seal">${sealIcon}</div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-org">${escapeHtml(c.organization)}</div>
+          <h3 class="cert-title">${escapeHtml(c.title)}</h3>
+          <div class="cert-date">${escapeHtml(c.date)}</div>
+          <p class="cert-desc">${escapeHtml(c.shortDescription)}</p>
+          <div class="cert-tags">
+            ${c.tags.map(t => `<span class="tech-pill">${escapeHtml(t)}</span>`).join('')}
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    certGrid.querySelectorAll('.cert-card').forEach(card => {
+      io.observe(card);
+      const open = () => openModal(certs[card.dataset.index]);
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    });
+  }
+
+  function openModal(c){
+    modalContent.innerHTML = `
+      <div class="modal-media"><img src="${c.image}" alt="${escapeHtml(c.title)}"></div>
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close certificate">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="modal-content">
+        <div class="modal-org">${escapeHtml(c.organization)}</div>
+        <h2 class="modal-title">${escapeHtml(c.title)}</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">Issued<strong>${escapeHtml(c.date)}</strong></div>
+          <div class="modal-meta-item">Credential ID<strong>${escapeHtml(c.credentialId)}</strong></div>
+        </div>
+        <p class="modal-desc">${escapeHtml(c.fullDescription)}</p>
+        <div class="modal-skills">
+          ${c.skills.map(s => `<span class="tech-pill">${escapeHtml(s)}</span>`).join('')}
+        </div>
+        ${c.verifyUrl ? `<div class="modal-verify"><a class="btn btn-ghost btn-sm" href="${c.verifyUrl}" target="_blank" rel="noopener">Verify Credential</a></div>` : ''}
+      </div>
+    `;
+    modalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+    modalOverlay.dataset.lastFocus = document.activeElement ? 'x' : '';
+  }
+
+  function closeModal(){
+    modalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal(); });
+
+  loadCertificates();
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  /* ---------------------------------------------------------
+     TESTIMONIAL SLIDER
+  --------------------------------------------------------- */
+  const track = document.getElementById('testiTrack');
+  const dotsWrap = document.getElementById('testiDots');
+  const slides = track.children.length;
+  let current = 0;
+
+  for (let i=0; i<slides; i++){
+    const d = document.createElement('button');
+    d.className = 'testi-dot' + (i===0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to testimonial ' + (i+1));
+    d.addEventListener('click', () => goToSlide(i));
+    dotsWrap.appendChild(d);
+  }
+  function goToSlide(i){
+    current = i;
+    track.style.transform = `translateX(-${i*100}%)`;
+    dotsWrap.querySelectorAll('.testi-dot').forEach((d,idx) => d.classList.toggle('active', idx===i));
+  }
+  let testiTimer = setInterval(() => goToSlide((current+1)%slides), 5500);
+  track.parentElement.addEventListener('mouseenter', () => clearInterval(testiTimer));
+  track.parentElement.addEventListener('mouseleave', () => { testiTimer = setInterval(() => goToSlide((current+1)%slides), 5500); });
+
+  /* ---------------------------------------------------------
+     CONTACT FORM (demo — no backend)
+  --------------------------------------------------------- */
+  const form = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    formStatus.textContent = 'Sending…';
+    setTimeout(() => {
+      formStatus.textContent = `Thanks — your message is ready to send. Connect a form backend (e.g. Formspree) to deliver it.`;
+      form.reset();
+    }, 900);
+  });
+
+  /* ---------------------------------------------------------
+     BACK TO TOP
+  --------------------------------------------------------- */
+  document.getElementById('backTop').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  /* ---------------------------------------------------------
+     ACTIVE NAV LINK ON SCROLL
+  --------------------------------------------------------- */
+  const sections = document.querySelectorAll('main section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a');
+  const navIO = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+entry.target.id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  sections.forEach(s => navIO.observe(s));
+
+  /* ---------------------------------------------------------
+     FLOATING PARTICLES (ambient, cheap)
+  --------------------------------------------------------- */
+  if (!reduceMotion) {
+    const pWrap = document.getElementById('particles');
+    const count = window.innerWidth < 700 ? 10 : 22;
+    for (let i=0; i<count; i++){
+      const p = document.createElement('span');
+      p.className = 'particle';
+      p.style.left = Math.random()*100 + 'vw';
+      p.style.animationDuration = (14 + Math.random()*14) + 's';
+      p.style.animationDelay = (Math.random()*14) + 's';
+      p.style.opacity = (0.15 + Math.random()*0.35).toFixed(2);
+      pWrap.appendChild(p);
+    }
+  }
+
+  /* ---------------------------------------------------------
+     CARD TILT (projects + skills)
+  --------------------------------------------------------- */
+  if (!reduceMotion && window.matchMedia('(min-width: 901px)').matches) {
+    document.querySelectorAll('.skill-card, .project-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(700px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
   }
 

@@ -1,0 +1,80 @@
+[
+  {
+    "id": "cert-01",
+    "title": "AWS Certified Solutions Architect — Professional",
+    "organization": "Amazon Web Services",
+    "date": "March 2025",
+    "image": "assets/certificates/placeholder-1.svg",
+    "shortDescription": "Advanced architecture patterns for distributed, fault-tolerant systems at scale.",
+    "fullDescription": "Validated the ability to design and deploy dynamically scalable, highly available, fault-tolerant, and reliable applications on AWS. Covered multi-tier architectures, cost optimization, migration strategy, and disaster recovery planning across hybrid environments.",
+    "skills": ["Cloud Architecture", "AWS Lambda", "VPC Design", "Cost Optimization", "Disaster Recovery"],
+    "tags": ["Cloud", "Infrastructure"],
+    "credentialId": "AWS-PSA-88213-KZ",
+    "verifyUrl": "#"
+  },
+  {
+    "id": "cert-02",
+    "title": "Google UX Design Professional Certificate",
+    "organization": "Google Career Certificates",
+    "date": "November 2024",
+    "image": "assets/certificates/placeholder-2.svg",
+    "shortDescription": "End-to-end product design process, from research through high-fidelity prototyping.",
+    "fullDescription": "Completed a seven-course sequence covering user research, wireframing, prototyping, and usability testing. Delivered three end-to-end case studies including a responsive mobile app and an accessibility-first redesign of a legacy dashboard.",
+    "skills": ["User Research", "Figma", "Prototyping", "Usability Testing", "Accessibility"],
+    "tags": ["Design", "UX"],
+    "credentialId": "GUX-2024-77451",
+    "verifyUrl": "#"
+  },
+  {
+    "id": "cert-03",
+    "title": "Meta Certified React Developer",
+    "organization": "Meta",
+    "date": "July 2024",
+    "image": "assets/certificates/placeholder-3.svg",
+    "shortDescription": "Advanced React patterns, state management, and performance optimization.",
+    "fullDescription": "Demonstrated mastery of component architecture, custom hooks, context and state management strategies, and rendering performance. Built and shipped a production-grade component library used across three internal teams.",
+    "skills": ["React", "TypeScript", "State Management", "Performance Tuning"],
+    "tags": ["Development", "Frontend"],
+    "credentialId": "META-RD-33920",
+    "verifyUrl": "#"
+  },
+  {
+    "id": "cert-04",
+    "title": "Certified Kubernetes Administrator (CKA)",
+    "organization": "The Linux Foundation",
+    "date": "February 2024",
+    "image": "assets/certificates/placeholder-4.svg",
+    "shortDescription": "Cluster administration, networking, and workload scheduling in production Kubernetes.",
+    "fullDescription": "Hands-on performance-based exam covering cluster installation and configuration, application lifecycle management, networking, storage, troubleshooting, and security. Administered live clusters under timed, real-world scenarios.",
+    "skills": ["Kubernetes", "Docker", "CI/CD", "Networking", "Linux"],
+    "tags": ["DevOps", "Infrastructure"],
+    "credentialId": "CKA-2024-15092",
+    "verifyUrl": "#"
+  },
+  {
+    "id": "cert-05",
+    "title": "Stanford Machine Learning Specialization",
+    "organization": "Stanford Online / DeepLearning.AI",
+    "date": "September 2023",
+    "image": "assets/certificates/placeholder-5.svg",
+    "shortDescription": "Supervised, unsupervised, and reinforcement learning fundamentals with applied projects.",
+    "fullDescription": "Three-course specialization covering regression, classification, neural networks, and decision trees, culminating in a recommender-system capstone trained on real e-commerce interaction data.",
+    "skills": ["Python", "TensorFlow", "Neural Networks", "Data Modeling"],
+    "tags": ["Data Science", "AI/ML"],
+    "credentialId": "STAN-ML-90218",
+    "verifyUrl": "#"
+  },
+  {
+    "id": "cert-06",
+    "title": "Awwwards Certified Front-End Excellence",
+    "organization": "Awwwards Academy",
+    "date": "May 2023",
+    "image": "assets/certificates/placeholder-6.svg",
+    "shortDescription": "Motion design, WebGL fundamentals, and award-level interaction craft.",
+    "fullDescription": "Intensive workshop on scroll-driven storytelling, GSAP animation choreography, and shader-based visual effects, judged by a panel of past Site of the Day recipients.",
+    "skills": ["GSAP", "WebGL", "Motion Design", "Interaction Design"],
+    "tags": ["Design", "Creative Development"],
+    "credentialId": "AW-FE-2023-441",
+    "verifyUrl": "#"
+  }
+]
