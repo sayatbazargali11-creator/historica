@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tests — SAYAT MATH</title>
+<meta name="description" content="Take short, focused SAYAT MATH practice tests in algebra, geometry and arithmetic with instant feedback and a scored result.">
+<meta property="og:title" content="Tests — SAYAT MATH">
+<meta property="og:description" content="Short, focused quizzes with instant feedback — see your score in under five minutes.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="brand">
+      <span class="emblem brand-mark">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" stroke="var(--blue)" stroke-width="2" opacity=".35"/>
+          <g class="emblem-spin">
+            <path d="M50 8C65 8 72 20 68 32C65 41 54 44 50 36" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M92 50C92 65 80 72 68 68C59 65 56 54 64 50" stroke="var(--sky)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M50 92C35 92 28 80 32 68C35 59 46 56 50 64" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M8 50C8 35 20 28 32 32C41 35 44 46 36 50" stroke="var(--sky)" stroke-width="4" stroke-linecap="round"/>
+          </g>
+          <circle cx="50" cy="50" r="5" fill="var(--blue)"/>
+        </svg>
+      </span>
+      <span class="brand-word">SAYAT <b>MATH</b></span>
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="courses.html" data-i18n="nav.courses">Courses</a>
+      <a href="tests.html" class="active" data-i18n="nav.tests">Tests</a>
+      <a href="about.html" data-i18n="nav.about">About Us</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <button type="button" data-lang="kk">KZ</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a href="contact.html" class="btn btn-primary btn-sm header-cta" data-i18n="nav.cta">Start free trial</a>
+      <button class="nav-toggle" aria-label="Open menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <div class="mobile-nav-panel">
+    <button class="mobile-nav-close" aria-label="Close menu">✕</button>
+    <a href="index.html" data-i18n="nav.home">Home</a>
+    <a href="courses.html" data-i18n="nav.courses">Courses</a>
+    <a href="tests.html" data-i18n="nav.tests">Tests</a>
+    <a href="about.html" data-i18n="nav.about">About Us</a>
+    <a href="contact.html" data-i18n="nav.contact">Contact</a>
+  </div>
+</div>
+
+<main>
+<section class="page-hero">
+  <div class="grid-field" style="mask-image:radial-gradient(ellipse 60% 80% at 85% 20%, black 10%, transparent 70%);"></div>
+  <div class="wrap page-hero-inner">
+    <div class="crumb"><a href="index.html" data-i18n="nav.home">Home</a><span>/</span><span data-i18n="nav.tests">Tests</span></div>
+    <span class="section-eyebrow" data-i18n="page.tests.eyebrow">Practice & assessment</span>
+    <h1 data-i18n="page.tests.title">Test what you actually know.</h1>
+    <p data-i18n="page.tests.desc">Short, focused quizzes with instant feedback — pick a topic below and see your score in under five minutes.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:20px;">
+  <div class="wrap">
+
+    <div class="test-grid stagger">
+      <div class="test-card reveal" data-bank="algebra" style="--i:0;">
+        <span class="test-tag" style="background:var(--blue-08); color:var(--blue-ink);" data-i18n="test1.tag">Algebra</span>
+        <h3 data-i18n="test1.title">Linear Equations Check</h3>
+        <p data-i18n="test1.desc">8 questions covering one and two-variable linear equations and word problems.</p>
+        <div class="test-meta-row">
+          <span class="test-meta" data-i18n="test.meta.questions">8 questions</span>
+          <span class="test-meta" data-i18n="test.meta.time">~5 min</span>
+        </div>
+      </div>
+      <div class="test-card reveal" data-bank="geometry" style="--i:1;">
+        <span class="test-tag" style="background:var(--sky-10); color:#0369a1;" data-i18n="test2.tag">Geometry</span>
+        <h3 data-i18n="test2.title">Angles & Triangles</h3>
+        <p data-i18n="test2.desc">8 questions on angle relationships, triangle properties and the Pythagorean theorem.</p>
+        <div class="test-meta-row">
+          <span class="test-meta" data-i18n="test.meta.questions">8 questions</span>
+          <span class="test-meta" data-i18n="test.meta.time">~5 min</span>
+        </div>
+      </div>
+      <div class="test-card reveal" data-bank="arithmetic" style="--i:2;">
+        <span class="test-tag" style="background:var(--green-10); color:#0f7a56;" data-i18n="test3.tag">Arithmetic</span>
+        <h3 data-i18n="test3.title">Fractions & Ratios</h3>
+        <p data-i18n="test3.desc">8 questions on operations with fractions, proportion and percentage problems.</p>
+        <div class="test-meta-row">
+          <span class="test-meta" data-i18n="test.meta.questions">8 questions</span>
+          <span class="test-meta" data-i18n="test.meta.time">~5 min</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-panel" hidden>
+      <div class="quiz-body">
+        <div class="quiz-progress-row">
+          <span class="quiz-progress-label">Question 1 of 8</span>
+          <span class="quiz-score-pill">Score: 0/8</span>
+        </div>
+        <div class="quiz-progress-bar"><div class="quiz-progress-fill"></div></div>
+        <div class="quiz-question">—</div>
+        <div class="quiz-options"></div>
+        <div class="quiz-foot">
+          <button class="btn btn-ghost btn-sm quiz-back-btn" data-i18n="quiz.back">Back to tests</button>
+          <button class="btn btn-primary quiz-next-btn" disabled data-i18n="quiz.next">Next question</button>
+        </div>
+      </div>
+      <div class="quiz-result" hidden>
+        <div class="ring-wrap">
+          <svg width="150" height="150" viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="66" fill="none" stroke="var(--line)" stroke-width="10"/>
+            <circle class="ring-fg" cx="75" cy="75" r="66" fill="none" stroke="var(--blue)" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+          <div class="ring-num">0%</div>
+        </div>
+        <h3 data-i18n="quiz.result.title">Nicely done.</h3>
+        <p data-i18n="quiz.result.desc">Here's how you did — review any topic you missed in the course library.</p>
+        <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+          <button class="btn btn-ghost quiz-retake-btn" data-i18n="quiz.retake">Retake test</button>
+          <button class="btn btn-primary quiz-back-btn" data-i18n="quiz.back">Back to tests</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <span class="emblem brand-mark">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="46" stroke="var(--blue)" stroke-width="2" opacity=".35"/>
+              <path d="M50 8C65 8 72 20 68 32C65 41 54 44 50 36" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M92 50C92 65 80 72 68 68C59 65 56 54 64 50" stroke="var(--sky)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M50 92C35 92 28 80 32 68C35 59 46 56 50 64" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M8 50C8 35 20 28 32 32C41 35 44 46 36 50" stroke="var(--sky)" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="50" cy="50" r="5" fill="var(--blue)"/>
+            </svg>
+          </span>
+          <span class="brand-word">SAYAT <b>MATH</b></span>
+        </a>
+        <p data-i18n="footer.desc">An online mathematics academy built in Kazakhstan, teaching mathematical thinking — not just formulas — to students of every level.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="4" stroke="currentColor" stroke-width="1.6"/><path d="M10 9l6 3-6 3V9z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 4L3 11l6 2m12-9l-4 17-8-6m12-11L9 13" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.explore">Explore</h4>
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="courses.html" data-i18n="nav.courses">Courses</a>
+        <a href="tests.html" data-i18n="nav.tests">Tests</a>
+        <a href="about.html" data-i18n="nav.about">About Us</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.company">Academy</h4>
+        <a href="about.html" data-i18n="footer.careers">Careers</a>
+        <a href="about.html" data-i18n="footer.press">Press</a>
+        <a href="about.html" data-i18n="footer.blog">Blog</a>
+        <a href="contact.html" data-i18n="footer.faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.legal">Legal</h4>
+        <a href="#" data-i18n="footer.privacy">Privacy policy</a>
+        <a href="#" data-i18n="footer.terms">Terms of use</a>
+        <a href="#" data-i18n="footer.cookies">Cookie policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SAYAT MATH. <span data-i18n="footer.rights">All rights reserved.</span></span>
+      <div class="footer-bottom-links">
+        <a href="#" data-i18n="footer.privacy">Privacy policy</a>
+        <a href="#" data-i18n="footer.terms">Terms of use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
