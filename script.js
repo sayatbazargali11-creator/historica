@@ -320,3 +320,58 @@
   }
 
 })();
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const openUnivBtn = document.getElementById('openUnivModalBtn');
+  const closeUnivBtn = document.getElementById('closeUnivModalBtn');
+  const univBackdrop = document.getElementById('closeUnivModalBackdrop');
+  const univModal = document.getElementById('univModal');
+
+  if (openUnivBtn && univModal) {
+    openUnivBtn.addEventListener('click', () => {
+      univModal.classList.add('open');
+      univModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeModal = () => {
+      univModal.classList.remove('open');
+      univModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    if (closeUnivBtn) closeUnivBtn.addEventListener('click', closeModal);
+    if (univBackdrop) univBackdrop.addEventListener('click', closeModal);
+  }
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const openVenueBtn = document.getElementById('openQazaqconcertModalBtn');
+  const closeVenueBtn = document.getElementById('closeQazaqconcertModalBtn');
+  const venueBackdrop = document.getElementById('closeQazaqconcertModalBackdrop');
+  const venueModal = document.getElementById('qazaqconcertModal');
+
+  if (openVenueBtn && venueModal) {
+    openVenueBtn.addEventListener('click', () => {
+      venueModal.classList.add('open');
+      venueModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeVenueModal = () => {
+      venueModal.classList.remove('open');
+      venueModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    if (closeVenueBtn) closeVenueBtn.addEventListener('click', closeVenueModal);
+    if (venueBackdrop) venueBackdrop.addEventListener('click', closeVenueModal);
+  }
+});
+
+

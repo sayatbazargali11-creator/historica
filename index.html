@@ -249,9 +249,39 @@
           <span class="gf-text">Жарқын Болашақ</span>
         </div>
       </div>
+
+      <div class="univ-card-preview" id="openUnivModalBtn">
+        <div class="univ-thumb-wrap">
+          <img src="https://static.tildacdn.com/tild6266-6464-4830-b631-306262373565/9b26e61a-e3c4-4893-b.jpg" alt="Университет ғимараты" class="univ-thumb-img">
+          <div class="univ-overlay">
+            <span class="univ-zoom-icon">🔍</span>
+            <span>Толық көру</span>
+          </div>
+        </div>
+        <div class="univ-details">
+          <span class="univ-tag">Білім Ордасы</span>
+          <h4 class="univ-name">Жоғары оқу орны ғимараты</h4>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
+
+
+<div class="modal univ-modal" id="univModal" aria-hidden="true">
+  <div class="modal-backdrop" id="closeUnivModalBackdrop"></div>
+  <div class="modal-panel univ-modal-panel">
+    <button class="modal-close" id="closeUnivModalBtn" aria-label="Жабу">×</button>
+    <div class="univ-modal-body">
+      <img src="https://static.tildacdn.com/tild6266-6464-4830-b631-306262373565/9b26e61a-e3c4-4893-b.jpg" alt="Университет ғимараты" class="univ-full-img">
+      <div class="univ-modal-caption">
+        <h3>Университет кампусы</h3>
+        <p>Мемлекеттік білім гранты бойынша білім алатын оқу орны</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <section class="invite-section" id="invite">
   <p class="section-eyebrow" data-reveal>Естелікке</p>
@@ -270,8 +300,37 @@
     <p class="ic-line"><span>Орны</span>ЦКЗ «Qazaqconcert», Астана</p>
     <div class="ic-rule"></div>
     <p class="ic-footer">Сіздің қатысуыңыз бұл кешті ерекше етеді</p>
+
+    <div class="venue-card-preview" id="openQazaqconcertModalBtn">
+      <div class="venue-thumb-wrap">
+        <img src="https://www.onetwotrip.com/ru/blog/wp-content/uploads/2024/06/7-7.jpg" alt="Qazaqconcert ғимараты" class="venue-thumb-img">
+        <div class="venue-overlay">
+          <span class="venue-zoom-icon">🔍</span>
+          <span>Толық көру</span>
+        </div>
+      </div>
+      <div class="venue-details">
+        <span class="venue-tag">Концерт Залы</span>
+        <h4 class="venue-name">«Qazaqconcert» ғимараты</h4>
+      </div>
+    </div>
   </div>
 </section>
+
+
+<div class="modal venue-modal" id="qazaqconcertModal" aria-hidden="true">
+  <div class="modal-backdrop" id="closeQazaqconcertModalBackdrop"></div>
+  <div class="modal-panel venue-modal-panel">
+    <button class="modal-close" id="closeQazaqconcertModalBtn" aria-label="Жабу">×</button>
+    <div class="venue-modal-body">
+      <img src="https://www.onetwotrip.com/ru/blog/wp-content/uploads/2024/06/7-7.jpg" alt="ЦКЗ Qazaqconcert" class="venue-full-img">
+      <div class="venue-modal-caption">
+        <h3>«Qazaqconcert» Орталық концерт залы</h3>
+        <p>Астана қаласы, Мәңгілік Ел даңғылы, 10/1</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <section class="countdown-section" id="countdown">
   <p class="section-eyebrow" data-reveal>Кешке дейін</p>
@@ -297,6 +356,8 @@
     </div>
   </div>
 </section>
+
+
 
 <section class="ticket-section" id="ticket">
   <p class="section-eyebrow" data-reveal>Сіздің билетіңіз</p>

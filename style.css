@@ -481,3 +481,324 @@ section{ position: relative; padding: 130px 28px; max-width: var(--container); m
 .tm-viewer-frame img{ max-width:100%; max-height:100%; transition: transform .15s ease-out; user-select:none; -webkit-user-drag:none; }
 
 #confettiCanvas{ position: fixed; inset:0; pointer-events:none; z-index: 950; }
+
+
+
+
+
+/* =========================================================
+   UNIVERSITY PREVIEW CARD & MODAL
+   ========================================================= */
+.univ-card-preview {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(243, 234, 217, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 12px 18px 12px 12px;
+  cursor: pointer;
+  transition: all 0.35s var(--ease);
+}
+
+.univ-card-preview:hover {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: var(--gold-light);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.univ-thumb-wrap {
+  position: relative;
+  width: 84px;
+  height: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border-soft);
+}
+
+.univ-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease);
+}
+
+.univ-card-preview:hover .univ-thumb-img {
+  transform: scale(1.1);
+}
+
+.univ-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 9, 8, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 0.65rem;
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.univ-card-preview:hover .univ-overlay {
+  opacity: 1;
+}
+
+.univ-zoom-icon {
+  font-size: 0.9rem;
+}
+
+.univ-details {
+  text-align: left;
+}
+
+.univ-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.univ-name {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--ivory);
+  font-weight: 400;
+}
+
+/* Modal styles for University Image */
+.univ-modal-panel {
+  width: min(780px, 94vw) !important;
+  padding: 24px !important;
+  background: var(--bg-elevated-2) !important;
+}
+
+.univ-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.univ-full-img {
+  width: 100%;
+  max-height: 65vh;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+}
+
+.univ-modal-caption {
+  text-align: center;
+}
+
+.univ-modal-caption h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--gold-light);
+  margin: 0 0 6px;
+}
+
+.univ-modal-caption p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .univ-card-preview {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+  .univ-details {
+    text-align: center;
+  }
+  .univ-thumb-wrap {
+    width: 100%;
+    height: 140px;
+  }
+}
+
+
+
+/* =========================================================
+   QAZAQCONCERT PREVIEW CARD & MODAL
+   ========================================================= */
+.venue-card-preview {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(243, 234, 217, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 12px 18px 12px 12px;
+  cursor: pointer;
+  transition: all 0.35s var(--ease);
+}
+
+.venue-card-preview:hover {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: var(--gold-light);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.venue-thumb-wrap {
+  position: relative;
+  width: 84px;
+  height: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border-soft);
+}
+
+.venue-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease);
+}
+
+.venue-card-preview:hover .venue-thumb-img {
+  transform: scale(1.1);
+}
+
+.venue-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 9, 8, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 0.65rem;
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.venue-card-preview:hover .venue-overlay {
+  opacity: 1;
+}
+
+.venue-zoom-icon {
+  font-size: 0.9rem;
+}
+
+.venue-details {
+  text-align: left;
+}
+
+.venue-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.venue-name {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--ivory);
+  font-weight: 400;
+}
+
+/* Modal styles for Venue Image */
+.venue-modal-panel {
+  width: min(780px, 94vw) !important;
+  padding: 24px !important;
+  background: var(--bg-elevated-2) !important;
+}
+
+.venue-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.venue-full-img {
+  width: 100%;
+  max-height: 65vh;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+}
+
+.venue-modal-caption {
+  text-align: center;
+}
+
+.venue-modal-caption h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--gold-light);
+  margin: 0 0 6px;
+}
+
+.venue-modal-caption p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .venue-card-preview {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+  .venue-details {
+    text-align: center;
+  }
+  .venue-thumb-wrap {
+    width: 100%;
+    height: 140px;
+  }
+}
+
+/* Пример CSS для блика */
+.luxury-grant-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(212, 175, 55, 0.15) 50%,
+    transparent 70%
+  );
+  transform: rotate(30deg) translateX(-100%);
+  transition: transform 0.8s ease;
+}
+
+.luxury-grant-card:hover::after {
+  transform: rotate(30deg) translateX(100%);
+}
+
+
+@keyframes spinVinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.music-fab.playing svg {
+  animation: spinVinyl 4s linear infinite;
+}
+
