@@ -110,6 +110,24 @@
     font-weight: 600;
     letter-spacing: 0.6px;
   }
+
+  /* ---- Mobile fit fixes ---- */
+  @media (max-width: 600px) {
+    .congrats-section { padding: 64px 16px; }
+    .luxury-grant-card { padding: 30px 18px; border-radius: 22px; }
+    .fh-quote-icon { font-size: 2.6rem; margin-bottom: -14px; }
+    .highlight-text { font-size: 1.05rem !important; }
+    .grant-features { gap: 10px; margin-top: 22px; }
+    .gf-item { padding: 8px 14px; gap: 6px; }
+    .gf-icon { font-size: 1rem; }
+    .gf-text { font-size: 0.78rem; letter-spacing: 0.3px; }
+    .grant-badge-floating { padding: 6px 14px; font-size: 0.65rem; letter-spacing: 1.5px; bottom: 8px; }
+  }
+  @media (max-width: 400px) {
+    .congrats-section { padding: 48px 12px; }
+    .luxury-grant-card { padding: 24px 14px; }
+    .grant-features { flex-direction: column; align-items: center; }
+  }
 </style>
 </head>
 <body>

@@ -373,5 +373,3 @@ document.addEventListener('DOMContentLoaded', () => {
     if (venueBackdrop) venueBackdrop.addEventListener('click', closeVenueModal);
   }
 });
-
-

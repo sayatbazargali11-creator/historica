@@ -166,6 +166,12 @@ ul{ margin:0; padding:0; list-style:none; }
    Section scaffolding
    ========================================================= */
 section{ position: relative; padding: 130px 28px; max-width: var(--container); margin: 0 auto; }
+@media (max-width: 600px){
+  section{ padding: 80px 18px; }
+}
+@media (max-width: 400px){
+  section{ padding: 64px 14px; }
+}
 .section-eyebrow{
   text-align:center; font-family: var(--font-mono); font-size:.7rem; letter-spacing:.3em; text-transform:uppercase;
   color: var(--gold-light); margin: 0 0 14px;
@@ -184,6 +190,12 @@ section{ position: relative; padding: 130px 28px; max-width: var(--container); m
 .hero{
   position: relative; min-height: 100svh; display:flex; align-items:center;
   padding: 140px 28px 80px; overflow:hidden;
+}
+@media (max-width: 600px){
+  .hero{ padding: 110px 18px 60px; }
+}
+@media (max-width: 400px){
+  .hero{ padding: 96px 14px 50px; }
 }
 .hero-particles{ position:absolute; inset:0; pointer-events:none; z-index:0; }
 .hero-particles .p{
@@ -311,6 +323,11 @@ section{ position: relative; padding: 130px 28px; max-width: var(--container); m
   .ticket-card{ grid-template-columns: 1fr; }
   .ticket-photo{ height:140px; }
 }
+@media (max-width: 400px){
+  .ticket-body{ padding: 20px 18px 18px; }
+  .ticket-perf{ margin: 6px -18px 16px; }
+  .ticket-grid{ grid-template-columns: repeat(2,1fr); gap: 12px 10px; }
+}
 
 .ticket-open-cta{ text-align:center; }
 .ticket-hint{ margin-top:14px; font-size:.82rem; color: var(--muted); }
@@ -386,6 +403,12 @@ section{ position: relative; padding: 130px 28px; max-width: var(--container); m
   background: linear-gradient(170deg, var(--bg-elevated-2), var(--bg-elevated));
   border: 1px solid var(--border); border-radius: 4px;
   box-shadow: 0 50px 100px -40px rgba(0,0,0,.8);
+}
+@media (max-width: 600px){
+  .invite-card{ padding: 44px 22px; }
+}
+@media (max-width: 400px){
+  .invite-card{ padding: 36px 16px; }
 }
 .ic-corner{ position:absolute; width:26px; height:26px; border: 1px solid var(--gold); }
 .ic-tl{ top:14px; left:14px; border-right:none; border-bottom:none; }
@@ -801,4 +824,3 @@ section{ position: relative; padding: 130px 28px; max-width: var(--container); m
 .music-fab.playing svg {
   animation: spinVinyl 4s linear infinite;
 }
-
