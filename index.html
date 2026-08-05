@@ -1,246 +1,296 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Courses — SAYAT MATH</title>
-<meta name="description" content="Browse every SAYAT MATH course — from arithmetic foundations to olympiad problem solving — filter by level and see the full curriculum map.">
-<meta property="og:title" content="Courses — SAYAT MATH">
-<meta property="og:description" content="Six full tracks, from arithmetic foundations to olympiad problem solving.">
-<meta property="og:type" content="website">
-<link rel="icon" href="data:,">
+<title>Абзал Утешов — Астанада | Жеке шақыру</title>
+<meta name="description" content="Абзал Утешовтың Астанадағы концертіне арналған жеке VIP шақыру.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap header-inner">
-    <a href="index.html" class="brand">
-      <span class="emblem brand-mark">
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="46" stroke="var(--blue)" stroke-width="2" opacity=".35"/>
-          <g class="emblem-spin">
-            <path d="M50 8C65 8 72 20 68 32C65 41 54 44 50 36" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
-            <path d="M92 50C92 65 80 72 68 68C59 65 56 54 64 50" stroke="var(--sky)" stroke-width="4" stroke-linecap="round"/>
-            <path d="M50 92C35 92 28 80 32 68C35 59 46 56 50 64" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
-            <path d="M8 50C8 35 20 28 32 32C41 35 44 46 36 50" stroke="var(--sky)" stroke-width="4" stroke-linecap="round"/>
-          </g>
-          <circle cx="50" cy="50" r="5" fill="var(--blue)"/>
-        </svg>
-      </span>
-      <span class="brand-word">SAYAT <b>MATH</b></span>
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+  <svg class="preloader-shanyrak" viewBox="0 0 200 200" width="120" height="120">
+    <circle cx="100" cy="100" r="86" class="pl-ring pl-ring-1"/>
+    <circle cx="100" cy="100" r="60" class="pl-ring pl-ring-2"/>
+    <g class="pl-spokes">
+      <line x1="100" y1="14" x2="100" y2="186"/>
+      <line x1="14" y1="100" x2="186" y2="100"/>
+      <line x1="38" y1="38" x2="162" y2="162"/>
+      <line x1="162" y1="38" x2="38" y2="162"/>
+    </g>
+  </svg>
+  <p class="preloader-label">Шақыру дайындалуда</p>
+</div>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Cursor glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Aurora background layer (persistent) -->
+<div class="aurora-bg" aria-hidden="true">
+  <div class="aurora-blob a1"></div>
+  <div class="aurora-blob a2"></div>
+  <div class="aurora-blob a3"></div>
+  <div class="grain"></div>
+</div>
+
+<!-- Nav -->
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-emblem" aria-label="Басты бетке оралу">
+      <svg viewBox="0 0 40 40" width="28" height="28"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="20" y1="3" x2="20" y2="37" stroke="currentColor" stroke-width="1.2"/><line x1="3" y1="20" x2="37" y2="20" stroke="currentColor" stroke-width="1.2"/></svg>
+      <span>SAYAT INVITE</span>
     </a>
-    <nav class="main-nav" aria-label="Primary">
-      <a href="index.html" data-i18n="nav.home">Home</a>
-      <a href="courses.html" class="active" data-i18n="nav.courses">Courses</a>
-      <a href="tests.html" data-i18n="nav.tests">Tests</a>
-      <a href="about.html" data-i18n="nav.about">About Us</a>
-      <a href="contact.html" data-i18n="nav.contact">Contact</a>
-    </nav>
-    <div class="header-actions">
-      <div class="lang-switch" role="group" aria-label="Language switch">
-        <button type="button" data-lang="kk">KZ</button>
-        <button type="button" data-lang="en">EN</button>
+    <div class="nav-links">
+      <a href="#ticket">Билет</a>
+
+      <a href="#program">Бағдарлама</a>
+      <a href="#location">Орналасуы</a>
+      <a href="#contact">Байланыс</a>
+    </div>
+    <a href="#ticket" class="nav-cta">Менің билетім</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="hero-inner">
+    <div class="hero-copy" data-reveal>
+      <p class="eyebrow">Жеке шақыру · Астана, 2026</p>
+      <h1 class="hero-title">
+        <span class="hero-title-line">Абзал</span>
+        <span class="hero-title-line hero-title-accent">Үтешов</span>
+      </h1>
+      <p class="hero-subtitle">Бір кеш. Бір дауыс. Бір қала аспанастында жанған көптеген жүрек. Сізді осы ерекше кешке шақырамыз.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="hmi-label">Күні</span>
+          <span class="hmi-value" id="heroDate">25 қыркүйек, жұма</span>
+        </div>
+        <div class="hero-meta-sep"></div>
+        <div class="hero-meta-item">
+          <span class="hmi-label">Уақыты</span>
+          <span class="hmi-value">19:00</span>
+        </div>
+        <div class="hero-meta-sep"></div>
+        <div class="hero-meta-item">
+          <span class="hmi-label">Орны</span>
+          <span class="hmi-value">Qazaqconcert, Астана</span>
+        </div>
       </div>
-      <a href="contact.html" class="btn btn-primary btn-sm header-cta" data-i18n="nav.cta">Start free trial</a>
-      <button class="nav-toggle" aria-label="Open menu"><span></span></button>
+      <div class="hero-actions">
+        <a href="#ticket" class="btn btn-gold"><span>Менің билетім</span></a>
+
+      </div>
+    </div>
+    <div class="hero-portrait" data-reveal>
+      <div class="portrait-frame">
+        <img src="https://avatars.yandex.net/get-music-content/17681324/861a19ce.p.18951650/1000x1000" alt="Абзал Утешов" id="artistPortrait" onerror="this.onerror=null;this.src='assets/images/artist-placeholder.svg';">
+        <div class="portrait-glow"></div>
+        <div class="portrait-ring"></div>
+      </div>
     </div>
   </div>
+  <a class="scroll-hint" href="#countdown" aria-label="Төмен қарай жылжу">
+    <span></span>
+  </a>
 </header>
 
-<div class="mobile-nav">
-  <div class="mobile-nav-panel">
-    <button class="mobile-nav-close" aria-label="Close menu">✕</button>
-    <a href="index.html" data-i18n="nav.home">Home</a>
-    <a href="courses.html" data-i18n="nav.courses">Courses</a>
-    <a href="tests.html" data-i18n="nav.tests">Tests</a>
-    <a href="about.html" data-i18n="nav.about">About Us</a>
-    <a href="contact.html" data-i18n="nav.contact">Contact</a>
+<!-- COUNTDOWN -->
+<section class="countdown-section" id="countdown">
+  <p class="section-eyebrow" data-reveal>Кешке дейін</p>
+  <div class="countdown-grid" data-reveal>
+    <div class="cd-unit">
+      <span class="cd-number" id="cdDays">00</span>
+      <span class="cd-label">күн</span>
+    </div>
+    <div class="cd-divider">:</div>
+    <div class="cd-unit">
+      <span class="cd-number" id="cdHours">00</span>
+      <span class="cd-label">сағат</span>
+    </div>
+    <div class="cd-divider">:</div>
+    <div class="cd-unit">
+      <span class="cd-number" id="cdMinutes">00</span>
+      <span class="cd-label">минут</span>
+    </div>
+    <div class="cd-divider">:</div>
+    <div class="cd-unit">
+      <span class="cd-number" id="cdSeconds">00</span>
+      <span class="cd-label">секунд</span>
+    </div>
+  </div>
+</section>
+
+<!-- TICKET -->
+<section class="ticket-section" id="ticket">
+  <p class="section-eyebrow" data-reveal>Сіздің билетіңіз</p>
+  <h2 class="section-title" data-reveal>Кешке кіру құжаты</h2>
+
+  <div class="ticket-wrap" data-reveal>
+    <div class="ticket-card">
+      <div class="ticket-photo">
+        <img src="https://avatars.yandex.net/get-music-content/17681324/861a19ce.p.18951650/1000x1000" alt="Абзал Утешов" onerror="this.onerror=null;this.src='assets/images/artist-placeholder.svg';">
+      </div>
+      <div class="ticket-body">
+        <div class="ticket-top">
+          <div>
+            <p class="ticket-kicker">VIP шақыру</p>
+            <h3 class="ticket-title">Абзал Үтешов<br>Астанада</h3>
+          </div>
+          <div class="ticket-logo">
+            <svg viewBox="0 0 40 40" width="34" height="34"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="20" y1="3" x2="20" y2="37" stroke="currentColor" stroke-width="1"/><line x1="3" y1="20" x2="37" y2="20" stroke="currentColor" stroke-width="1"/></svg>
+          </div>
+        </div>
+        <div class="ticket-grid">
+          <div><span class="tg-label">Күні</span><span class="tg-value">25.09.2026</span></div>
+          <div><span class="tg-label">Уақыты</span><span class="tg-value">19:00</span></div>
+          <div><span class="tg-label">Орны</span><span class="tg-value">Qazaqconcert</span></div>
+          <div><span class="tg-label">Қатар</span><span class="tg-value">B</span></div>
+          <div><span class="tg-label">Орын</span><span class="tg-value">12</span></div>
+          <div><span class="tg-label">Жас шектеуі</span><span class="tg-value">12+</span></div>
+        </div>
+        <div class="ticket-perf" aria-hidden="true"></div>
+        <div class="ticket-bottom">
+          <div class="barcode" aria-hidden="true">
+            <svg viewBox="0 0 220 46" preserveAspectRatio="none"><g fill="currentColor"><rect x="0" y="0" width="2" height="46"/><rect x="5" y="0" width="1" height="46"/><rect x="9" y="0" width="3" height="46"/><rect x="15" y="0" width="1" height="46"/><rect x="19" y="0" width="2" height="46"/><rect x="24" y="0" width="1" height="46"/><rect x="28" y="0" width="4" height="46"/><rect x="35" y="0" width="1" height="46"/><rect x="39" y="0" width="2" height="46"/><rect x="44" y="0" width="1" height="46"/><rect x="48" y="0" width="3" height="46"/><rect x="54" y="0" width="1" height="46"/><rect x="58" y="0" width="2" height="46"/><rect x="63" y="0" width="1" height="46"/><rect x="67" y="0" width="4" height="46"/><rect x="74" y="0" width="1" height="46"/><rect x="78" y="0" width="2" height="46"/><rect x="83" y="0" width="1" height="46"/><rect x="87" y="0" width="3" height="46"/><rect x="93" y="0" width="2" height="46"/><rect x="98" y="0" width="1" height="46"/><rect x="102" y="0" width="4" height="46"/><rect x="109" y="0" width="1" height="46"/><rect x="113" y="0" width="2" height="46"/><rect x="118" y="0" width="1" height="46"/><rect x="122" y="0" width="3" height="46"/><rect x="128" y="0" width="1" height="46"/><rect x="132" y="0" width="2" height="46"/><rect x="137" y="0" width="1" height="46"/><rect x="141" y="0" width="4" height="46"/><rect x="148" y="0" width="1" height="46"/><rect x="152" y="0" width="2" height="46"/><rect x="157" y="0" width="1" height="46"/><rect x="161" y="0" width="3" height="46"/><rect x="167" y="0" width="1" height="46"/><rect x="171" y="0" width="2" height="46"/><rect x="176" y="0" width="1" height="46"/><rect x="180" y="0" width="4" height="46"/><rect x="187" y="0" width="1" height="46"/><rect x="191" y="0" width="2" height="46"/><rect x="196" y="0" width="1" height="46"/><rect x="200" y="0" width="3" height="46"/><rect x="206" y="0" width="1" height="46"/><rect x="210" y="0" width="2" height="46"/><rect x="215" y="0" width="1" height="46"/><rect x="218" y="0" width="2" height="46"/></g></svg>
+          </div>
+          <div class="qr-placeholder" aria-hidden="true">
+            <svg viewBox="0 0 60 60"><rect width="60" height="60" fill="none"/><g fill="currentColor"><rect x="2" y="2" width="14" height="14"/><rect x="44" y="2" width="14" height="14"/><rect x="2" y="44" width="14" height="14"/><rect x="6" y="6" width="6" height="6" fill="var(--bg)"/><rect x="48" y="6" width="6" height="6" fill="var(--bg)"/><rect x="6" y="48" width="6" height="6" fill="var(--bg)"/><rect x="22" y="2" width="4" height="4"/><rect x="30" y="2" width="4" height="4"/><rect x="22" y="10" width="4" height="4"/><rect x="34" y="10" width="4" height="4"/><rect x="22" y="18" width="4" height="4"/><rect x="30" y="22" width="4" height="4"/><rect x="38" y="22" width="4" height="4"/><rect x="2" y="24" width="4" height="4"/><rect x="10" y="24" width="4" height="4"/><rect x="18" y="30" width="4" height="4"/><rect x="26" y="34" width="4" height="4"/><rect x="34" y="34" width="4" height="4"/><rect x="42" y="30" width="4" height="4"/><rect x="50" y="34" width="4" height="4"/><rect x="22" y="42" width="4" height="4"/><rect x="30" y="46" width="4" height="4"/><rect x="38" y="42" width="4" height="4"/><rect x="46" y="46" width="4" height="4"/><rect x="54" y="42" width="4" height="4"/></g></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticket-open-cta" data-reveal>
+    <button class="btn btn-gold" id="openTicketBtn"><span>Билетті ашу</span></button>
+    <p class="ticket-hint">Билетіңізді толық экранда қараңыз, ұлғайтыңыз және сақтап алыңыз</p>
+  </div>
+</section>
+
+
+
+
+
+<!-- LOCATION -->
+<section class="location-section" id="location">
+  <p class="section-eyebrow" data-reveal>Қалай жетуге болады</p>
+  <h2 class="section-title" data-reveal>Орналасуы</h2>
+  <div class="location-wrap" data-reveal>
+    <div class="location-map">
+      <iframe
+        title="Qazaqconcert, Астана"
+        src="https://www.google.com/maps?q=%D0%9C%D3%99%D2%A3%D0%B3%D1%96%D0%BB%D1%96%D0%BA%20%D0%95%D0%BB%20%D0%B4%D0%B0%D2%A3%D2%93%D1%8B%D0%BB%D1%8B%2010%2F1%2C%20%D0%90%D1%81%D1%82%D0%B0%D0%BD%D0%B0&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    <div class="location-info">
+      <h3>ЦКЗ «Qazaqconcert»</h3>
+      <p>Мәңгілік Ел даңғылы, 10/1, Астана қаласы</p>
+      <p class="location-note">Кіру есіктің Мәңгілік Ел даңғылы жағынан.</p>
+      <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=%D0%9C%D3%99%D2%A3%D0%B3%D1%96%D0%BB%D1%96%D0%BA%20%D0%95%D0%BB%20%D0%B4%D0%B0%D2%A3%D2%93%D1%8B%D0%BB%D1%8B%2010%2F1%2C%20%D0%90%D1%81%D1%82%D0%B0%D0%BD%D0%B0" target="_blank" rel="noopener"><span>Google Maps-та ашу</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- INVITATION CARD -->
+<section class="invite-section" id="invite">
+  <p class="section-eyebrow" data-reveal>Естелікке</p>
+  <h2 class="section-title" data-reveal>Шақыру билеті</h2>
+
+  <div class="invite-card" data-reveal>
+    <div class="ic-corner ic-tl"></div>
+    <div class="ic-corner ic-tr"></div>
+    <div class="ic-corner ic-bl"></div>
+    <div class="ic-corner ic-br"></div>
+    <p class="ic-eyebrow">Сізді құрметпен шақырамыз</p>
+    <h3 class="ic-name">Абзал Үтешовтың<br>концертіне</h3>
+    <div class="ic-rule"></div>
+    <p class="ic-line"><span>Күні</span>25 қыркүйек 2026, жұма</p>
+    <p class="ic-line"><span>Уақыты</span>19:00</p>
+    <p class="ic-line"><span>Орны</span>ЦКЗ «Qazaqconcert», Астана</p>
+    <div class="ic-rule"></div>
+    <p class="ic-footer">Сіздің қатысуыңыз бұл кешті ерекше етеді</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <p class="section-eyebrow" data-reveal>Байланыс</p>
+  <h2 class="section-title" data-reveal>Сұрақтарыңыз болса</h2>
+  <div class="contact-grid" data-reveal>
+    <br>
+    <a class="contact-btn" href="https://wa.me/77058486656" target="_blank" rel="noopener">
+      <span class="cb-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.2c-.2.6-1.3 1.2-1.9 1.3-.5.1-1.1.1-1.7-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.6.7 2 .8 2.1.1.2.1.4 0 .6-.1.2-.2.3-.3.5-.2.2-.3.3-.5.5-.2.2-.3.4-.1.7.2.3.9 1.5 2 2.4 1.3 1.2 2.4 1.6 2.8 1.7.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.3.7-.2.3.1 1.8.9 2.1 1 .3.2.5.2.6.3.1.2.1.7-.1 1.3z"/></svg></span>
+      <span>WhatsApp</span>
+    </a>
+
+    <a class="contact-btn" href="tel:+77058486656">
+      <span class="cb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span>
+      <span>+7 (705) 848 66 56</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-emblem">
+    <svg viewBox="0 0 40 40" width="26" height="26"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="20" y1="3" x2="20" y2="37" stroke="currentColor" stroke-width="1"/><line x1="3" y1="20" x2="37" y2="20" stroke="currentColor" stroke-width="1"/></svg>
+  </div>
+  <p>Абзал Үтешов · Астана · 25 қыркүйек 2026</p>
+  <p class="footer-fine"></p>
+</footer>
+
+<!-- Floating music button -->
+<button class="music-fab" id="musicFab" aria-label="Музыканы қосу/өшіру">
+  <svg class="music-on" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+  <span class="music-bars"><i></i><i></i><i></i></span>
+</button>
+
+<!-- Floating action / back to top -->
+<button class="fab-top" id="fabTop" aria-label="Жоғарыға оралу">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<!-- Background instrumental (silent by default; user can add real audio file) -->
+<audio id="bgMusic" loop preload="none">
+  <source src="assets/music/1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- TICKET MODAL -->
+<div class="modal ticket-modal" id="ticketModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel">
+    <button class="modal-close" data-close aria-label="Жабу">&times;</button>
+
+    <div class="tm-stage" id="tmStage">
+      <div class="tm-viewer" id="tmViewer">
+        <div class="tm-viewer-toolbar">
+          <button id="zoomOutBtn" aria-label="Кішірейту">−</button>
+          <button id="zoomResetBtn" aria-label="Қалпына келтіру">100%</button>
+          <button id="zoomInBtn" aria-label="Үлкейту">+</button>
+          <a id="downloadBtn" class="btn btn-ghost btn-small" href="assets/tickets/ticket.jpg" download="abzal-uteshov-ticket.jpg"><span>Жүктеп алу</span></a>
+        </div>
+        <div class="tm-viewer-frame" id="tmViewerFrame">
+          <img id="tmImage" src="assets/tickets/ticket.jpg" alt="Билет" onerror="this.onerror=null;this.src='assets/tickets/ticket-placeholder.svg';">
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<main>
-<section class="page-hero">
-  <div class="grid-field" style="mask-image:radial-gradient(ellipse 60% 80% at 85% 20%, black 10%, transparent 70%);"></div>
-  <div class="wrap page-hero-inner">
-    <div class="crumb"><a href="index.html" data-i18n="nav.home">Home</a><span>/</span><span data-i18n="nav.courses">Courses</span></div>
-    <span class="section-eyebrow" data-i18n="page.courses.eyebrow">Full curriculum</span>
-    <h1 data-i18n="page.courses.title">Every course, one clear path.</h1>
-    <p data-i18n="page.courses.desc">Filter by level, compare tracks, and see exactly what each course covers before you enroll.</p>
-  </div>
-</section>
-
-<section class="section" style="padding-top:20px;">
-  <div class="wrap">
-    <div class="filter-row reveal">
-      <button class="filter-chip active" data-filter="all" data-i18n="filter.all">All courses</button>
-      <button class="filter-chip" data-filter="beginner" data-i18n="filter.beginner">Beginner</button>
-      <button class="filter-chip" data-filter="intermediate" data-i18n="filter.intermediate">Intermediate</button>
-      <button class="filter-chip" data-filter="advanced" data-i18n="filter.advanced">Advanced</button>
-    </div>
-
-    <div class="course-grid-full stagger">
-
-      <div class="course-card reveal" data-level="beginner" style="--i:0;">
-        <div class="course-icon" style="background:var(--blue-08);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 19V5a2 2 0 012-2h11l3 3v13a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="var(--blue)" stroke-width="1.7"/><path d="M8 9h8M8 13h5" stroke="var(--blue)" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </div>
-        <span class="course-level" style="background:var(--green-10); color:#0f7a56;" data-i18n="courses.level.beginner">Beginner</span>
-        <h3 data-i18n="c1.title">Arithmetic Foundations</h3>
-        <p class="course-desc" data-i18n="c1.desc">Number sense, fractions and ratios built through visual, game-based practice for grades 3–5.</p>
-        <div class="course-foot"><span class="course-price">45,000<span> ₸/mo</span></span>
-          <a href="contact.html" class="course-go" aria-label="Enroll"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-      </div>
-
-      <div class="course-card reveal" data-level="intermediate" style="--i:1;">
-        <div class="course-icon" style="background:var(--sky-10);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 17l6-8 4 5 8-10" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <span class="course-level" style="background:var(--amber-12); color:#a15b06;" data-i18n="courses.level.intermediate">Intermediate</span>
-        <h3 data-i18n="c2.title">Algebra I & II</h3>
-        <p class="course-desc" data-i18n="c2.desc">Equations, functions and graphs — the exact toolkit needed for national exams and beyond.</p>
-        <div class="course-foot"><span class="course-price">55,000<span> ₸/mo</span></span>
-          <a href="contact.html" class="course-go" aria-label="Enroll"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-      </div>
-
-      <div class="course-card reveal" data-level="advanced" style="--i:2;">
-        <div class="course-icon" style="background:var(--amber-12);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="var(--amber)" stroke-width="1.7"/><path d="M12 4v4M12 16v4M4 12h4M16 12h4" stroke="var(--amber)" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </div>
-        <span class="course-level" style="background:rgba(37,99,235,.1); color:var(--blue-ink);" data-i18n="courses.level.advanced">Advanced</span>
-        <h3 data-i18n="c3.title">Geometry & Proof</h3>
-        <p class="course-desc" data-i18n="c3.desc">From compass constructions to formal proof, taught through Kazakh ornamental geometry.</p>
-        <div class="course-foot"><span class="course-price">60,000<span> ₸/mo</span></span>
-          <a href="contact.html" class="course-go" aria-label="Enroll"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-      </div>
-
-      <div class="course-card reveal" data-level="intermediate" style="--i:3;">
-        <div class="course-icon" style="background:var(--green-10);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20v-3" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </div>
-        <span class="course-level" style="background:var(--amber-12); color:#a15b06;" data-i18n="courses.level.intermediate">Intermediate</span>
-        <h3 data-i18n="c4.title">Probability & Statistics</h3>
-        <p class="course-desc" data-i18n="c4.desc">Real-world data literacy: distributions, expectation, and decision-making under uncertainty.</p>
-        <div class="course-foot"><span class="course-price">58,000<span> ₸/mo</span></span>
-          <a href="contact.html" class="course-go" aria-label="Enroll"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-      </div>
-
-      <div class="course-card reveal" data-level="advanced" style="--i:4;">
-        <div class="course-icon" style="background:rgba(37,99,235,.1);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 3l4 12 4-8 3 6 3-4 4 4" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <span class="course-level" style="background:rgba(37,99,235,.1); color:var(--blue-ink);" data-i18n="courses.level.advanced">Advanced</span>
-        <h3 data-i18n="c5.title">Olympiad Problem Solving</h3>
-        <p class="course-desc" data-i18n="c5.desc">Combinatorics, number theory and invariants for students aiming at national competitions.</p>
-        <div class="course-foot"><span class="course-price">70,000<span> ₸/mo</span></span>
-          <a href="contact.html" class="course-go" aria-label="Enroll"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-      </div>
-
-      <div class="course-card reveal" data-level="advanced" style="--i:5;">
-        <div class="course-icon" style="background:var(--sky-10);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 16c4 0 4-8 8-8s4 8 8 8" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </div>
-        <span class="course-level" style="background:rgba(37,99,235,.1); color:var(--blue-ink);" data-i18n="courses.level.advanced">Advanced</span>
-        <h3 data-i18n="c6.title">Calculus Foundations</h3>
-        <p class="course-desc" data-i18n="c6.desc">Limits, derivatives and integrals introduced with intuition first, notation second.</p>
-        <div class="course-foot"><span class="course-price">65,000<span> ₸/mo</span></span>
-          <a href="contact.html" class="course-go" aria-label="Enroll"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="section section-alt syllabus">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="section-eyebrow" data-i18n="syllabus.eyebrow">Curriculum map</span>
-      <h2 data-i18n="syllabus.title">How a track is structured.</h2>
-    </div>
-
-    <div class="reveal">
-      <div class="syl-item open">
-        <button class="syl-head"><span class="syl-num">01</span><span class="syl-title" data-i18n="syl1.title">Diagnostic & goal setting</span><span class="syl-plus"></span></button>
-        <div class="syl-body" style="max-height:200px;"><div class="syl-body-inner" data-i18n="syl1.body">Every learner starts with a 45-minute adaptive diagnostic...</div></div>
-      </div>
-      <div class="syl-item">
-        <button class="syl-head"><span class="syl-num">02</span><span class="syl-title" data-i18n="syl2.title">Guided foundations</span><span class="syl-plus"></span></button>
-        <div class="syl-body"><div class="syl-body-inner" data-i18n="syl2.body">Short video lessons paired with worked examples...</div></div>
-      </div>
-      <div class="syl-item">
-        <button class="syl-head"><span class="syl-num">03</span><span class="syl-title" data-i18n="syl3.title">Live problem-solving sessions</span><span class="syl-plus"></span></button>
-        <div class="syl-body"><div class="syl-body-inner" data-i18n="syl3.body">Twice-weekly live classes with a teacher...</div></div>
-      </div>
-      <div class="syl-item">
-        <button class="syl-head"><span class="syl-num">04</span><span class="syl-title" data-i18n="syl4.title">Weekly mastery checks</span><span class="syl-plus"></span></button>
-        <div class="syl-body"><div class="syl-body-inner" data-i18n="syl4.body">Short, low-stakes quizzes track retention...</div></div>
-      </div>
-      <div class="syl-item">
-        <button class="syl-head"><span class="syl-num">05</span><span class="syl-title" data-i18n="syl5.title">Mock exam & certification</span><span class="syl-plus"></span></button>
-        <div class="syl-body"><div class="syl-body-inner" data-i18n="syl5.body">A full-length timed mock exam under real conditions...</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="index.html" class="brand">
-          <span class="emblem brand-mark">
-            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="46" stroke="var(--blue)" stroke-width="2" opacity=".35"/>
-              <path d="M50 8C65 8 72 20 68 32C65 41 54 44 50 36" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
-              <path d="M92 50C92 65 80 72 68 68C59 65 56 54 64 50" stroke="var(--sky)" stroke-width="4" stroke-linecap="round"/>
-              <path d="M50 92C35 92 28 80 32 68C35 59 46 56 50 64" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
-              <path d="M8 50C8 35 20 28 32 32C41 35 44 46 36 50" stroke="var(--sky)" stroke-width="4" stroke-linecap="round"/>
-              <circle cx="50" cy="50" r="5" fill="var(--blue)"/>
-            </svg>
-          </span>
-          <span class="brand-word">SAYAT <b>MATH</b></span>
-        </a>
-        <p data-i18n="footer.desc">An online mathematics academy built in Kazakhstan, teaching mathematical thinking — not just formulas — to students of every level.</p>
-        <div class="social-row">
-          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-          <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="4" stroke="currentColor" stroke-width="1.6"/><path d="M10 9l6 3-6 3V9z" fill="currentColor"/></svg></a>
-          <a href="#" aria-label="Telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 4L3 11l6 2m12-9l-4 17-8-6m12-11L9 13" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4 data-i18n="footer.explore">Explore</h4>
-        <a href="index.html" data-i18n="nav.home">Home</a>
-        <a href="courses.html" data-i18n="nav.courses">Courses</a>
-        <a href="tests.html" data-i18n="nav.tests">Tests</a>
-        <a href="about.html" data-i18n="nav.about">About Us</a>
-      </div>
-      <div class="footer-col">
-        <h4 data-i18n="footer.company">Academy</h4>
-        <a href="about.html" data-i18n="footer.careers">Careers</a>
-        <a href="about.html" data-i18n="footer.press">Press</a>
-        <a href="about.html" data-i18n="footer.blog">Blog</a>
-        <a href="contact.html" data-i18n="footer.faq">FAQ</a>
-      </div>
-      <div class="footer-col">
-        <h4 data-i18n="footer.legal">Legal</h4>
-        <a href="#" data-i18n="footer.privacy">Privacy policy</a>
-        <a href="#" data-i18n="footer.terms">Terms of use</a>
-        <a href="#" data-i18n="footer.cookies">Cookie policy</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 SAYAT MATH. <span data-i18n="footer.rights">All rights reserved.</span></span>
-      <div class="footer-bottom-links">
-        <a href="#" data-i18n="footer.privacy">Privacy policy</a>
-        <a href="#" data-i18n="footer.terms">Terms of use</a>
-      </div>
-    </div>
-  </div>
-</footer>
+<!-- Confetti canvas -->
+<canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
 <script src="script.js"></script>
 </body>
