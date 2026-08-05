@@ -319,6 +319,65 @@
     loop();
   }
 
+  /* ---------------------------------------------------------
+     Congrats chime — a short cheerful arpeggio built with the
+     Web Audio API (no external mp3 needed, so it always works).
+     --------------------------------------------------------- */
+  function playCongratsChime(){
+    try {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      var actx = new Ctx();
+      var notes = [523.25, 659.25, 783.99, 1046.50]; // C5 E5 G5 C6
+      notes.forEach(function(freq, i){
+        var start = actx.currentTime + i * 0.11;
+        var osc = actx.createOscillator();
+        var gain = actx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.linearRampToValueAtTime(0.16, start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.55);
+        osc.connect(gain).connect(actx.destination);
+        osc.start(start);
+        osc.stop(start + 0.6);
+      });
+    } catch (e) { /* Web Audio not available — fail silently */ }
+  }
+
+  /* ---------------------------------------------------------
+     Congrats section: celebrate button + one-time auto burst
+     --------------------------------------------------------- */
+  var celebrateBtn = document.getElementById("celebrateBtn");
+  if (celebrateBtn){
+    celebrateBtn.addEventListener("click", function(){
+      fireConfetti();
+      playCongratsChime();
+    });
+    celebrateBtn.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        fireConfetti();
+        playCongratsChime();
+      }
+    });
+  }
+
+  var congratsSection = document.getElementById("congrats");
+  if (congratsSection && "IntersectionObserver" in window){
+    var congratsFired = false;
+    var congratsObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting && !congratsFired){
+          congratsFired = true;
+          fireConfetti();
+          congratsObserver.unobserve(congratsSection);
+        }
+      });
+    }, { threshold: 0.5 });
+    congratsObserver.observe(congratsSection);
+  }
+
 })();
 
 
