@@ -229,15 +229,44 @@
      --------------------------------------------------------- */
   var musicFab = document.getElementById("musicFab");
   var bgMusic = document.getElementById("bgMusic");
+  var musicUserStopped = false; // true only if user explicitly paused via the fab
+
   musicFab.addEventListener("click", function(){
     if (bgMusic.paused){
+      musicUserStopped = false;
       bgMusic.play().catch(function(){ /* no audio file provided yet */ });
       musicFab.classList.add("playing");
     } else {
+      musicUserStopped = true;
       bgMusic.pause();
       musicFab.classList.remove("playing");
     }
   });
+
+  /* ---------------------------------------------------------
+     Auto-start music on first scroll down
+     Most browsers block audio-with-sound autoplay until the user
+     interacts with the page. A scroll counts as that interaction
+     in Chrome/Firefox/Edge, so we try to play on the first
+     scroll event and keep retrying (silently) until it succeeds
+     or the user manually pauses it.
+     --------------------------------------------------------- */
+  var lastScrollY = window.scrollY || document.documentElement.scrollTop;
+
+  function tryAutoStartMusic(){
+    if (musicUserStopped || !bgMusic.paused) return;
+    bgMusic.play().then(function(){
+      musicFab.classList.add("playing");
+    }).catch(function(){ /* still blocked by the browser, will retry on next scroll */ });
+  }
+
+  window.addEventListener("scroll", function(){
+    var currentY = window.scrollY || document.documentElement.scrollTop;
+    if (currentY > lastScrollY){ // only trigger on scroll DOWN
+      tryAutoStartMusic();
+    }
+    lastScrollY = currentY;
+  }, { passive:true });
 
   /* ---------------------------------------------------------
      Confetti (canvas, lightweight)
