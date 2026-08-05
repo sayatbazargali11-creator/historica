@@ -302,7 +302,7 @@
       pieces.forEach(function(p){
         p.vy += p.gravity;
         p.x += p.vx; p.y += p.vy; p.rot += p.vr;
-        if (p.y < canvas.height + 30) alive = true;
+        if (p.y < canvas.height + 1) alive = true;
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
