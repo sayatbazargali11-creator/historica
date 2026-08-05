@@ -9,10 +9,111 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<style>
+  .congrats-section {
+    position: relative;
+    padding: 100px 20px;
+    text-align: center;
+  }
+  
+  .congrats-ornament {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+  }
+
+  .luxury-grant-card {
+    position: relative;
+    background: linear-gradient(145deg, rgba(32, 27, 22, 0.9), rgba(12, 10, 8, 0.98));
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 32px;
+    padding: 48px 36px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(212, 175, 55, 0.08);
+    backdrop-filter: blur(16px);
+  }
+
+  .grant-badge-floating {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: #0d0a05;
+    font-family: var(--font-body);
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 2.5px;
+    padding: 7px 20px;
+    border-radius: 24px;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .fh-quote-icon {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--gold-light);
+    opacity: 0.35;
+    margin-bottom: -22px;
+  }
+
+  .highlight-text {
+    font-size: 1.2rem !important;
+    color: var(--ivory) !important;
+  }
+
+  .highlight-text strong {
+    color: var(--gold-light);
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+  }
+
+  .grant-features {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+
+  .gf-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(248, 244, 235, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.35s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .gf-item:hover {
+    border-color: var(--gold-light);
+    background: rgba(212, 175, 55, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.25);
+  }
+
+  .gf-icon {
+    font-size: 1.2rem;
+  }
+
+  .gf-text {
+    font-size: 0.88rem;
+    color: var(--ivory);
+    font-weight: 600;
+    letter-spacing: 0.6px;
+  }
+</style>
 </head>
 <body>
 
-<!-- Preloader -->
 <div class="preloader" id="preloader">
   <svg class="preloader-shanyrak" viewBox="0 0 200 200" width="120" height="120">
     <circle cx="100" cy="100" r="86" class="pl-ring pl-ring-1"/>
@@ -27,13 +128,10 @@
   <p class="preloader-label">Шақыру дайындалуда</p>
 </div>
 
-<!-- Scroll progress -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
-<!-- Cursor glow -->
 <div class="cursor-glow" id="cursorGlow"></div>
 
-<!-- Aurora background layer (persistent) -->
 <div class="aurora-bg" aria-hidden="true">
   <div class="aurora-blob a1"></div>
   <div class="aurora-blob a2"></div>
@@ -41,7 +139,6 @@
   <div class="grain"></div>
 </div>
 
-<!-- Nav -->
 <nav class="site-nav" id="siteNav">
   <div class="nav-inner">
     <a href="#hero" class="nav-emblem" aria-label="Басты бетке оралу">
@@ -49,9 +146,8 @@
       <span>Sayat's invitations</span>
     </a>
     <div class="nav-links">
+      <a href="#congrats">Құттықтау</a>
       <a href="#ticket">Билет</a>
-
-      <a href="#program">Бағдарлама</a>
       <a href="#location">Орналасуы</a>
       <a href="#contact">Байланыс</a>
     </div>
@@ -59,7 +155,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <header class="hero" id="hero">
   <div class="hero-particles" id="heroParticles"></div>
   <div class="hero-inner">
@@ -67,7 +162,7 @@
       <p class="eyebrow">Жеке шақыру · Астана, 2026</p>
       <h1 class="hero-title">
         <span class="hero-title-line">Абзал</span>
-        <span class="hero-title-line hero-title-accent">Үтешов</span>
+        <span class="hero-title-line hero-title-accent">Утешов</span>
       </h1>
       <p class="hero-subtitle">Бір кеш. Бір дауыс. Бір қала аспанастында жанған көптеген жүрек. Сізді осы ерекше кешке шақырамыз.</p>
       <div class="hero-meta">
@@ -88,7 +183,6 @@
       </div>
       <div class="hero-actions">
         <a href="#ticket" class="btn btn-gold"><span>Менің билетім</span></a>
-
       </div>
     </div>
     <div class="hero-portrait" data-reveal>
@@ -99,12 +193,86 @@
       </div>
     </div>
   </div>
-  <a class="scroll-hint" href="#countdown" aria-label="Төмен қарай жылжу">
+  <a class="scroll-hint" href="#congrats" aria-label="Төмен қарай жылжу">
     <span></span>
   </a>
 </header>
 
-<!-- COUNTDOWN -->
+<section class="congrats-section" id="congrats">
+  <div class="congrats-ornament" data-reveal>
+    <svg viewBox="0 0 160 24" width="140" height="24" fill="none">
+      <path d="M0,12 Q40,0 80,12 T160,12" stroke="var(--gold-light)" stroke-width="1.2" opacity="0.6"/>
+      <circle cx="80" cy="12" r="4" fill="var(--gold-light)"/>
+      <circle cx="80" cy="12" r="8" stroke="var(--gold)" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+
+  <p class="section-eyebrow" data-reveal>🎓 Мемлекеттік грант иегеріне</p>
+  <h2 class="section-title" data-reveal>Зор Жеңіс Тұғыры!</h2>
+
+  <div class="for-her-wrap luxury-grant-card" data-reveal>
+    <div class="fh-portrait">
+      <div class="fh-frame">
+        <img src="https://img.magnific.com/free-photo/school-boy-with-book-park_23-2148199240.jpg?semt=ais_hybrid" alt="Студент" id="studentPortrait">
+        <div class="fh-ring"></div>
+        <div class="grant-badge-floating">
+          <span>GRANT 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fh-note">
+      <div class="fh-quote-icon">“</div>
+      <p class="fh-line highlight-text">
+        Жоғары оқу орнына <strong>Мемлекеттік білім грантына</strong> түсуіңмен шын жүректен құттықтаймыз!
+      </p>
+
+      <h3 class="fh-quote">
+        Сенің табандылығың, білімге деген құштарлығың мен төккен терің өз жемісін берді!
+      </h3>
+
+      <p class="fh-line">
+        Бұл — үлкен өмірге жасаған алғашқы нық қадамың. Студенттік шағың қызықты сәттерге, жаңа білім мен жарқын белестерге толы болсын! Алар асуларың мен бағындырар биіктерің көп болғай.
+      </p>
+
+      <div class="grant-features">
+        <div class="gf-item">
+          <span class="gf-icon">🏛️</span>
+          <span class="gf-text">Үздік ЖОО</span>
+        </div>
+        <div class="gf-item">
+          <span class="gf-icon">🌟</span>
+          <span class="gf-text">100% Грант</span>
+        </div>
+        <div class="gf-item">
+          <span class="gf-icon">🚀</span>
+          <span class="gf-text">Жарқын Болашақ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="invite-section" id="invite">
+  <p class="section-eyebrow" data-reveal>Естелікке</p>
+  <h2 class="section-title" data-reveal>Шақыру билеті</h2>
+
+  <div class="invite-card" data-reveal>
+    <div class="ic-corner ic-tl"></div>
+    <div class="ic-corner ic-tr"></div>
+    <div class="ic-corner ic-bl"></div>
+    <div class="ic-corner ic-br"></div>
+    <p class="ic-eyebrow">Сізді құрметпен шақырамыз</p>
+    <h3 class="ic-name">Абзал Үтешовтың<br>концертіне</h3>
+    <div class="ic-rule"></div>
+    <p class="ic-line"><span>Күні</span>25 қыркүйек 2026, жұма</p>
+    <p class="ic-line"><span>Уақыты</span>19:00</p>
+    <p class="ic-line"><span>Орны</span>ЦКЗ «Qazaqconcert», Астана</p>
+    <div class="ic-rule"></div>
+    <p class="ic-footer">Сіздің қатысуыңыз бұл кешті ерекше етеді</p>
+  </div>
+</section>
+
 <section class="countdown-section" id="countdown">
   <p class="section-eyebrow" data-reveal>Кешке дейін</p>
   <div class="countdown-grid" data-reveal>
@@ -130,7 +298,6 @@
   </div>
 </section>
 
-<!-- TICKET -->
 <section class="ticket-section" id="ticket">
   <p class="section-eyebrow" data-reveal>Сіздің билетіңіз</p>
   <h2 class="section-title" data-reveal>Кешке кіру құжаты</h2>
@@ -177,11 +344,6 @@
   </div>
 </section>
 
-
-
-
-
-<!-- LOCATION -->
 <section class="location-section" id="location">
   <p class="section-eyebrow" data-reveal>Қалай жетуге болады</p>
   <h2 class="section-title" data-reveal>Орналасуы</h2>
@@ -203,35 +365,14 @@
   </div>
 </section>
 
-<!-- INVITATION CARD -->
-<section class="invite-section" id="invite">
-  <p class="section-eyebrow" data-reveal>Естелікке</p>
-  <h2 class="section-title" data-reveal>Шақыру билеті</h2>
 
-  <div class="invite-card" data-reveal>
-    <div class="ic-corner ic-tl"></div>
-    <div class="ic-corner ic-tr"></div>
-    <div class="ic-corner ic-bl"></div>
-    <div class="ic-corner ic-br"></div>
-    <p class="ic-eyebrow">Сізді құрметпен шақырамыз</p>
-    <h3 class="ic-name">Абзал Үтешовтың<br>концертіне</h3>
-    <div class="ic-rule"></div>
-    <p class="ic-line"><span>Күні</span>25 қыркүйек 2026, жұма</p>
-    <p class="ic-line"><span>Уақыты</span>19:00</p>
-    <p class="ic-line"><span>Орны</span>ЦКЗ «Qazaqconcert», Астана</p>
-    <div class="ic-rule"></div>
-    <p class="ic-footer">Сіздің қатысуыңыз бұл кешті ерекше етеді</p>
-  </div>
-</section>
 
-<!-- CONTACT -->
 <section class="contact-section" id="contact">
   <p class="section-eyebrow" data-reveal>Байланыс</p>
   <h2 class="section-title" data-reveal>Сұрақтарыңыз болса</h2>
   <div class="contact-grid" data-reveal>
-    <br>
     <a class="contact-btn" href="https://wa.me/77058486656" target="_blank" rel="noopener">
-      <span class="cb-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.2c-.2.6-1.3 1.2-1.9 1.3-.5.1-1.1.1-1.7-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.6.7 2 .8 2.1.1.2.1.4 0 .6-.1.2-.2.3-.3.5-.2.2-.3.3-.5.5-.2.2-.3.4-.1.7.2.3.9 1.5 2 2.4 1.3 1.2 2.4 1.6 2.8 1.7.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.3.7-.2.3.1 1.8.9 2.1 1 .3.2.5.2.6.3.1.2.1.7-.1 1.3z"/></svg></span>
+      <span class="cb-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.2c-.2.6-1.3 1.2-1.9 1.3-.5.1-1.1.1-1.7-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.6.7 2 .8 2.1.1.2.1.4 0 .6-.1.2-.2.3-.3.5-.2.2-.3.4-.1.7.2.3.9 1.5 2 2.4 1.3 1.2 2.4 1.6 2.8 1.7.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.3.7-.2.3.1 1.8.9 2.1 1 .3.2.5.2.6.3.1.2.1.7-.1 1.3z"/></svg></span>
       <span>WhatsApp</span>
     </a>
 
@@ -242,36 +383,30 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-emblem">
     <svg viewBox="0 0 40 40" width="26" height="26"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="20" y1="3" x2="20" y2="37" stroke="currentColor" stroke-width="1"/><line x1="3" y1="20" x2="37" y2="20" stroke="currentColor" stroke-width="1"/></svg>
   </div>
   <p>Абзал Үтешов · Астана · 25 қыркүйек 2026</p>
-  <p class="footer-fine"></p>
 </footer>
 
-<!-- Floating music button -->
 <button class="music-fab" id="musicFab" aria-label="Музыканы қосу/өшіру">
   <svg class="music-on" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
   <span class="music-bars"><i></i><i></i><i></i></span>
 </button>
 
-<!-- Floating action / back to top -->
 <button class="fab-top" id="fabTop" aria-label="Жоғарыға оралу">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<!-- Background instrumental (silent by default; user can add real audio file) -->
 <audio id="bgMusic" loop preload="none">
   <source src="1.mp3" type="audio/mpeg">
 </audio>
 
-<!-- TICKET MODAL -->
 <div class="modal ticket-modal" id="ticketModal" aria-hidden="true">
   <div class="modal-backdrop" data-close></div>
   <div class="modal-panel">
-    <button class="modal-close" data-close aria-label="Жабу">&times;</button>
+    <button class="modal-close" data-close aria-label="Жабу">×</button>
 
     <div class="tm-stage" id="tmStage">
       <div class="tm-viewer" id="tmViewer">
@@ -289,7 +424,6 @@
   </div>
 </div>
 
-<!-- Confetti canvas -->
 <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
 <script src="script.js"></script>
